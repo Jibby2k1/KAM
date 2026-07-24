@@ -1,0 +1,100 @@
+project: kam_phase2
+hardware:
+  device: cuda
+  gpu_class: RTX_4070_SUPER_12GB
+  max_vram_gb: 10.5
+  precision: [fp32, amp]
+  single_gpu: true
+
+primary_hypotheses:
+  - persistent_memory_improves_recurring_nonstationary_prediction
+  - radial_memory_improves_over_dot_memory_at_matched_cost
+  - kam_features_improve_matched_online_adaptation
+  - support_attributions_are_causally_faithful
+
+variants:
+  D0: {context: dot, memory: none}
+  R0: {context: radial, memory: none}
+  DD: {context: dot, memory: dot}
+  DR: {context: dot, memory: radial}
+  RR: {context: radial, memory: radial}
+
+memory_modes: [values, routes, both]
+comparison_modes: [same_width, parameter_matched]
+adapters: [frozen, nlms, sgd, rls]
+
+tasks:
+  mqar:
+    lengths: [64, 128, 256, 512]
+    bindings: [4, 8, 16, 32]
+    queries: [1, 4, 8]
+  variable_copy:
+    train_lengths: [8, 64]
+    test_lengths: [80, 96, 128, 192]
+  dyck2:
+    train_depths: [1, 8]
+    test_depths: [8, 10, 12, 16]
+  switching_grammar:
+    schedules: [ABA, ABACA, gradual_ABA]
+  mackey_glass:
+    regimes:
+      A: {tau: 17, beta: 0.20}
+      B: {tau: 20, beta: 0.20}
+      C: {tau: 17, beta: 0.22}
+    schedules: [ABA, ABACA, gradual_ABA]
+  narma:
+    orders: [10, 20]
+    schedules: [N10A_N10B_N10A, N10_N20_N10, clean_noisy_clean]
+  tinystories:
+    conditional: true
+    token_budgets: [10000000, 50000000]
+
+search:
+  method: optuna
+  storage: sqlite
+  trials_per_family_task: 32
+  families: [D0, DD, DR, RR]
+  pruner: median_or_successive_halving
+  space:
+    d_model: [48, 64, 96, 128]
+    num_layers: [1, 2, 3, 4]
+    num_heads: [2, 4, 8]
+    num_supports: [16, 32, 64, 128, 256]
+    context_window: [16, 32, 64, full]
+    ffn_expansion: [2, 4, 6]
+    learning_rate: {type: log_float, low: 0.0001, high: 0.003}
+    weight_decay: {type: log_float, low: 0.000001, high: 0.01}
+    dropout: [0.0, 0.05, 0.1, 0.2]
+    bandwidth_init: [0.25, 0.5, 1.0, 2.0]
+    bandwidth_learned: [false, true]
+    route_projection_dim: [32, 64, 128]
+    nlms_eta: {type: log_float, low: 0.001, high: 1.0}
+    rls_forgetting: [0.95, 0.98, 0.99, 0.995, 1.0]
+
+statistics:
+  screening_seeds: 5
+  confirmatory_seeds: 10
+  streams_per_checkpoint_schedule: 5
+  paired_evaluation: true
+  confidence_interval: hierarchical_paired_bootstrap_95
+  test: paired_permutation
+  multiple_comparison_correction: holm
+
+primary_comparisons:
+  - {left: DD_nlms, right: D0_nlms, claim: persistent_memory}
+  - {left: DR_nlms, right: DD_nlms, claim: radial_memory}
+  - {left: DR_nlms, right: best_baseline_nlms, claim: adaptation_architecture}
+
+success_gates:
+  stationary_relative_degradation_max: 0.05
+  post_shift_relative_improvement_min: 0.15
+  confidence_interval_excludes_zero: true
+  causal_deletion_beats_random: true
+  support_bank_noncollapsed: true
+  latency_overhead_must_be_justified: true
+
+outputs:
+  metrics: results/phase2/all_metrics.parquet
+  runs: results/phase2/run_manifest.parquet
+  report: reports/phase2/PHASE2_RESULTS.md
+  decision: reports/phase2/PHASE2_DECISION_MEMO.md

@@ -1,0 +1,52 @@
+{
+  "data_metadata": {
+    "beta": 0.2,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "output_dim": 1,
+    "tau": 17.0
+  },
+  "git_commit": null,
+  "git_dirty": null,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "beta": 0.2,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "output_dim": 1,
+    "parameter_match_target": 12000,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression",
+    "tau": 17.0
+  },
+  "precision": "fp32",
+  "run": {
+    "batch_size": 8,
+    "d_model": 24,
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "parameter_match_target": 12000,
+    "run_id": "capacity_DR_s17",
+    "seed": 17,
+    "seq_len": 16,
+    "series_length": 1200,
+    "steps": 8,
+    "task": "mackey_glass",
+    "variant": "DR"
+  }
+}

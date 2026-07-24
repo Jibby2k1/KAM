@@ -1,0 +1,90 @@
+{
+  "best_validation": {
+    "mae": 0.4277742426646383,
+    "mse": 0.3242998099640796
+  },
+  "data_metadata": {
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "order": 10,
+    "output_dim": 1
+  },
+  "device": "cuda",
+  "final_validation": {
+    "mae": 0.4277742426646383,
+    "mse": 0.3242998099640796
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.017866150941699743,
+      "step": 1,
+      "train": {
+        "mae": 1.0287463665008545,
+        "mse": 1.560335397720337
+      },
+      "validation": {
+        "mae": 0.910104164951726,
+        "mse": 1.2600251373491789
+      }
+    },
+    {
+      "elapsed_seconds": 0.6544367210008204,
+      "step": 250,
+      "train": {
+        "mae": 0.43924957513809204,
+        "mse": 0.3240230679512024
+      },
+      "validation": {
+        "mae": 0.46071220542255203,
+        "mse": 0.36641625746300344
+      }
+    },
+    {
+      "elapsed_seconds": 1.2946290411055088,
+      "step": 500,
+      "train": {
+        "mae": 0.4479166865348816,
+        "mse": 0.32750004529953003
+      },
+      "validation": {
+        "mae": 0.4277742426646383,
+        "mse": 0.3242998099640796
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "R0",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "order": 10,
+    "output_dim": 1,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression"
+  },
+  "parameter_count": 32101,
+  "peak_memory_megabytes": 26.6240234375,
+  "precision": "amp",
+  "run_id": "narma_R0_s11",
+  "seed": 11,
+  "status": "complete",
+  "task": "narma",
+  "total_seconds": 1.309215024113655,
+  "trainable_parameter_count": 32101,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "R0"
+}

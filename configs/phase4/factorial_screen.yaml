@@ -1,0 +1,13 @@
+suite_name: phase4_data_regime_factorial_screen
+stage: B_factorial_mechanism_screen
+manifest: results/phase4/manifests/factorial_screen.jsonl
+tasks: [prototype_switch, switching_narma, switching_mackey_glass]
+conditions: [recurring, separated]
+variants: [D0, DD-b, DD-b-staged, RF-b]
+scales: [S, M]
+seeds_per_cell: 2
+base_seed: 7401
+precision: amp
+memory_warmup_fraction: 0.75
+learning_rate: 0.0003
+weight_decay: 0.0001

@@ -1,0 +1,92 @@
+{
+  "best_validation": {
+    "mae": 0.03440211703510661,
+    "mse": 0.0019131223671138287
+  },
+  "data_metadata": {
+    "beta": 0.2,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "output_dim": 1,
+    "tau": 17.0
+  },
+  "device": "cuda",
+  "final_validation": {
+    "mae": 0.03440211703510661,
+    "mse": 0.0019131223671138287
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.031493870075792074,
+      "step": 1,
+      "train": {
+        "mae": 1.0940301418304443,
+        "mse": 1.4234342575073242
+      },
+      "validation": {
+        "mae": 1.062367900421745,
+        "mse": 1.479822952496378
+      }
+    },
+    {
+      "elapsed_seconds": 0.6655467341188341,
+      "step": 250,
+      "train": {
+        "mae": 0.060561273247003555,
+        "mse": 0.0056699481792747974
+      },
+      "validation": {
+        "mae": 0.05002918682600323,
+        "mse": 0.004155752291951917
+      }
+    },
+    {
+      "elapsed_seconds": 1.2963324671145529,
+      "step": 500,
+      "train": {
+        "mae": 0.04163684323430061,
+        "mse": 0.0025691683404147625
+      },
+      "validation": {
+        "mae": 0.03440211703510661,
+        "mse": 0.0019131223671138287
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "beta": 0.2,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "R0",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "output_dim": 1,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression",
+    "tau": 17.0
+  },
+  "parameter_count": 32101,
+  "peak_memory_megabytes": 26.6240234375,
+  "precision": "amp",
+  "run_id": "mg_R0_s31",
+  "seed": 31,
+  "status": "complete",
+  "task": "mackey_glass",
+  "total_seconds": 1.3107089360710233,
+  "trainable_parameter_count": 32101,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "R0"
+}

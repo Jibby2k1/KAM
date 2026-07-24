@@ -1,0 +1,102 @@
+{
+  "best_validation": {
+    "accuracy": 0.08673820551484823,
+    "cross_entropy": 2.8074070513248444,
+    "perplexity": 16.567723274230957
+  },
+  "data_metadata": {
+    "alphabet_size": 17,
+    "max_payload_length": 64,
+    "max_seq_len": 130,
+    "min_payload_length": 8,
+    "vocab_size": 21
+  },
+  "device": "cuda",
+  "final_validation": {
+    "accuracy": 0.08673820551484823,
+    "cross_entropy": 2.8074070513248444,
+    "perplexity": 16.567723274230957
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.353009935002774,
+      "step": 1,
+      "train": {
+        "accuracy": 0.033686235547065735,
+        "cross_entropy": 3.10711932182312,
+        "perplexity": 22.356548309326172
+      },
+      "validation": {
+        "accuracy": 0.04576970962807536,
+        "cross_entropy": 3.101687788963318,
+        "perplexity": 22.235941410064697
+      }
+    },
+    {
+      "elapsed_seconds": 1.3324406370520592,
+      "step": 250,
+      "train": {
+        "accuracy": 0.05882352963089943,
+        "cross_entropy": 2.839247703552246,
+        "perplexity": 17.102893829345703
+      },
+      "validation": {
+        "accuracy": 0.0618574102409184,
+        "cross_entropy": 2.8396981954574585,
+        "perplexity": 17.11061668395996
+      }
+    },
+    {
+      "elapsed_seconds": 2.3203197959810495,
+      "step": 500,
+      "train": {
+        "accuracy": 0.0778748169541359,
+        "cross_entropy": 2.8069961071014404,
+        "perplexity": 16.56009864807129
+      },
+      "validation": {
+        "accuracy": 0.08673820551484823,
+        "cross_entropy": 2.8074070513248444,
+        "perplexity": 16.567723274230957
+      }
+    }
+  ],
+  "model_spec": {
+    "alphabet_size": 17,
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_payload_length": 64,
+    "max_seq_len": 130,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "min_payload_length": 8,
+    "model_name": "DR-b",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "parameter_match_target": null,
+    "position_mode": "sinusoidal",
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "language",
+    "vocab_size": 21
+  },
+  "parameter_count": 42777,
+  "peak_memory_megabytes": 58.16552734375,
+  "precision": "amp",
+  "run_id": "variable_copy_DRb_s37_v2",
+  "seed": 37,
+  "status": "complete",
+  "task": "variable_copy",
+  "total_seconds": 2.3352938720490783,
+  "trainable_parameter_count": 42777,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "DR-b"
+}

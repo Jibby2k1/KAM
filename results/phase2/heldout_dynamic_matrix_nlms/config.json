@@ -1,0 +1,25 @@
+{
+  "checkpoint": [],
+  "checkpoint_root": [
+    "results/phase2/dynamic_matrix_pmatched_v2"
+  ],
+  "output_dir": "results/phase2/heldout_dynamic_matrix_nlms",
+  "device": "cuda",
+  "series_length": 1200,
+  "horizon": 64,
+  "adapters": [
+    "nlms"
+  ],
+  "eta": 0.001,
+  "forgetting": 1.0,
+  "feature_batch_size": 256,
+  "no_trace": true,
+  "schedules": [
+    "A-B-A",
+    "A-B-A-C-A",
+    "A-C-A",
+    "B-A-B",
+    "A-B-C-B-A"
+  ],
+  "stream_seed_stride": 100003
+}

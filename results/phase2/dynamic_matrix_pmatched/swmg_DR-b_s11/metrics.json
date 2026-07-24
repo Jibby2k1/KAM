@@ -1,0 +1,114 @@
+{
+  "best_validation": {
+    "mae": 0.03478566880681013,
+    "mse": 0.0017947105654074174,
+    "nmse": 0.0039033152435220776,
+    "nrmse": 0.05658775806372077
+  },
+  "data_metadata": {
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "output_dim": 1,
+    "regimes": null,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true
+  },
+  "device": "cuda",
+  "final_validation": {
+    "mae": 0.03478566880681013,
+    "mse": 0.0017947105654074174,
+    "nmse": 0.0039033152435220776,
+    "nrmse": 0.05658775806372077
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.02887353114783764,
+      "step": 1,
+      "train": {
+        "mae": 0.9408677816390991,
+        "mse": 1.2180819511413574
+      },
+      "validation": {
+        "mae": 0.8071491310470983,
+        "mse": 0.9212025529459903,
+        "nmse": 1.4035586913423113,
+        "nrmse": 1.1729828089608343
+      }
+    },
+    {
+      "elapsed_seconds": 0.7974644030909985,
+      "step": 250,
+      "train": {
+        "mae": 0.04385745897889137,
+        "mse": 0.0028611025772988796
+      },
+      "validation": {
+        "mae": 0.041878228124819304,
+        "mse": 0.0027732744531117773,
+        "nmse": 0.005705487205028862,
+        "nrmse": 0.069670975075114
+      }
+    },
+    {
+      "elapsed_seconds": 1.584565594093874,
+      "step": 500,
+      "train": {
+        "mae": 0.03703736513853073,
+        "mse": 0.0022007394582033157
+      },
+      "validation": {
+        "mae": 0.03478566880681013,
+        "mse": 0.0017947105654074174,
+        "nmse": 0.0039033152435220776,
+        "nrmse": 0.05658775806372077
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR-b",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "output_dim": 1,
+    "parameter_match_target": 39913,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "regimes": null,
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true,
+    "task_type": "regression"
+  },
+  "parameter_count": 39913,
+  "peak_memory_megabytes": 24.6826171875,
+  "precision": "amp",
+  "run_id": "swmg_DR-b_s11",
+  "seed": 11,
+  "status": "complete",
+  "task": "switching_mackey_glass",
+  "total_seconds": 1.602542245062068,
+  "trainable_parameter_count": 39913,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "DR-b"
+}

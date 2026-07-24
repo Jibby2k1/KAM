@@ -1,0 +1,75 @@
+{
+  "data_metadata": {
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "output_dim": 1,
+    "regimes": null,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true
+  },
+  "git_commit": null,
+  "git_dirty": null,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 2.0,
+    "context_window": 64,
+    "d_model": 64,
+    "dropout": 0.2,
+    "expose_memory_weights": false,
+    "ffn_expansion": 2,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DD",
+    "num_heads": 2,
+    "num_layers": 3,
+    "num_supports": 64,
+    "output_dim": 1,
+    "parameter_match_target": null,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "regimes": null,
+    "route_features": "raw",
+    "route_projection_dim": 128,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true,
+    "task_type": "regression"
+  },
+  "precision": "amp",
+  "run": {
+    "bandwidth": "learned",
+    "bandwidth_init": 2.0,
+    "batch_size": 16,
+    "context_window": 64,
+    "d_model": 64,
+    "dropout": 0.2,
+    "ffn_expansion": 2,
+    "learning_rate": 0.0014515049006498322,
+    "num_heads": 2,
+    "num_layers": 3,
+    "num_supports": 64,
+    "route_projection_dim": 128,
+    "run_id": "trial_DD_switching_mackey_glass_0028",
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "seed": 35,
+    "seq_len": 32,
+    "series_length": 1200,
+    "steps": 30,
+    "task": "switching_mackey_glass",
+    "variant": "DD",
+    "weight_decay": 3.2561430802289264e-05
+  }
+}

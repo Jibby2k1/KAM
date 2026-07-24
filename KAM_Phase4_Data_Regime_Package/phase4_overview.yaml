@@ -1,0 +1,114 @@
+phase: 4
+project: kernel_adaptive_memory
+title: data_regime_mechanism_study
+primary_question: which data properties and training dynamics determine persistent-memory
+  utility
+hypotheses:
+- regime_discreteness
+- continuous_manifold_penalty
+- exogenous_randomness_freeze_regularization
+- observation_noise_vs_process_noise
+- convergence_aware_freezing
+- coordinate_mismatch
+- adaptation_feature_utility
+- support_adequacy_and_optimization
+models:
+- D0
+- DD-J
+- DD-KV75
+- DD-P75
+- DD-K75
+- DD-V75
+- DD-SLOW
+- DD-DRIFT
+- RF-b
+- ORACLE-b
+task_families:
+  prototype:
+    factors:
+    - regime_count
+    - separation
+    - continuous_interpolation
+    - recurrence
+    - dwell_time
+    - observation_noise
+    - process_noise
+    - observability
+    - support_to_regime_ratio
+  symbolic_regime_language:
+    factors:
+    - transition_entropy
+    - regime_recurrence
+    - emission_overlap
+    - explicit_regime_token
+    - abrupt_vs_gradual
+  switching_narma:
+    factors:
+    - order
+    - context_to_order_ratio
+    - input_visibility
+    - input_distribution
+    - observation_noise
+    - process_noise
+    - coefficient_switch
+    - recurrence
+  switching_mackey_glass:
+    factors:
+    - delay
+    - context_to_delay_ratio
+    - chaos_level
+    - observation_noise
+    - process_noise
+    - observability
+    - transition_type
+    - recurrence
+stages:
+  A_existing_audit:
+    new_training: false
+    deliverables:
+    - PHASE3_MECHANISM_AUDIT.md
+  B_factorial_screen:
+    target_runs: 500-900 completed_or_pruned
+    models:
+    - D0
+    - DD-J
+    - DD-KV75
+    - DD-P75
+    - DD-DRIFT
+    - RF-b
+    - ORACLE-b
+    scales:
+    - S
+    - M
+    seeds: 3
+    fidelity:
+    - 0.25
+    - 0.5
+    - 1.0
+  C_freeze_policy_search:
+    target_runs: 250-450 completed_or_pruned
+    freeze_fractions:
+    - 0.25
+    - 0.5
+    - 0.75
+    - 0.9
+    search_seeds: 3
+    promoted_seeds: 5
+  D_long_scaling:
+    scales:
+      S: 250000
+      M: 1000000
+      L: 4000000
+      XL: 16000000
+    development_seeds: 5
+    minimum_eval_points: 100
+  E_confirmation:
+    new_seeds: 10-16
+    heldout_streams_per_seed: 10
+    max_primary_comparisons: 2
+decision_outcomes:
+- PROMOTE_DISCRETE_REGIME_MEMORY
+- PROMOTE_TASK_SPECIFIC_ADAPTIVE_FEATURES
+- RETAIN_AS_DIAGNOSTIC_ONLY
+- SIMPLIFY_TO_GENERIC_ADAPTIVE_READOUT
+- STOP_KAM_SPECIFIC_DIRECTION

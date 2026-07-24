@@ -1,0 +1,25 @@
+suite_name: phase2_variable_copy_smoke
+device: cpu
+precision: fp32
+seed: 11
+output_root: results/phase2/variable_copy_smoke
+study_database: results/phase2/variable_copy_smoke/study.sqlite
+metrics_table: results/phase2/variable_copy_smoke/all_metrics.csv
+fail_fast: true
+runs:
+  - run_id: variable_copy_DR_s11
+    task: variable_copy
+    variant: DR
+    seed: 11
+    min_copy_length: 3
+    max_copy_length: 8
+    alphabet_size: 9
+    train_size: 64
+    val_size: 16
+    batch_size: 8
+    d_model: 24
+    num_heads: 4
+    num_layers: 1
+    num_supports: 8
+    steps: 6
+    eval_every: 3

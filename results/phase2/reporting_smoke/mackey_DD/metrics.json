@@ -1,0 +1,127 @@
+{
+  "best_step": 3,
+  "best_validation": {
+    "mae": 0.739426426589489,
+    "mse": 0.7299570117145777,
+    "nmse": 23.17588300887911,
+    "nrmse": 3.910321633911038
+  },
+  "data_metadata": {
+    "beta": 0.2,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "output_dim": 1,
+    "tau": 17.0
+  },
+  "device": "cpu",
+  "final_generalization_gap": -0.47620436809957023,
+  "final_train_metric": 1.206161379814148,
+  "final_validation": {
+    "mae": 0.739426426589489,
+    "mse": 0.7299570117145777,
+    "nmse": 23.17588300887911,
+    "nrmse": 3.910321633911038
+  },
+  "final_validation_metric": 0.7299570117145777,
+  "history": [
+    {
+      "elapsed_seconds": 0.025161067955195904,
+      "step": 1,
+      "train": {
+        "mae": 0.9766126275062561,
+        "mse": 1.4154638051986694
+      },
+      "validation": {
+        "mae": 0.7593853123486042,
+        "mse": 0.8124057287350297,
+        "nmse": 20.375373506793927,
+        "nrmse": 3.7810811888666933
+      }
+    },
+    {
+      "elapsed_seconds": 0.04969216696918011,
+      "step": 2,
+      "train": {
+        "mae": 0.8347121477127075,
+        "mse": 1.2364463806152344
+      },
+      "validation": {
+        "mae": 0.7497181110084057,
+        "mse": 0.7696770824491977,
+        "nmse": 21.91130094068725,
+        "nrmse": 3.857373960059853
+      }
+    },
+    {
+      "elapsed_seconds": 0.07413869886659086,
+      "step": 3,
+      "train": {
+        "mae": 0.7958389520645142,
+        "mse": 1.206161379814148
+      },
+      "validation": {
+        "mae": 0.739426426589489,
+        "mse": 0.7299570117145777,
+        "nmse": 23.17588300887911,
+        "nrmse": 3.910321633911038
+      }
+    }
+  ],
+  "history_points": 3,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "beta": 0.2,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "memory_mode": "values",
+    "memory_output": "values",
+    "model_name": "DD",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "output_dim": 1,
+    "parameter_match_target": null,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression",
+    "tau": 17.0
+  },
+  "parameter_count": 11289,
+  "peak_memory_megabytes": 0.0,
+  "precision": "fp32",
+  "run_id": "mackey_DD",
+  "seed": 7,
+  "status": "complete",
+  "task": "mackey_glass",
+  "tokens_or_samples_per_second": 196.2772968193138,
+  "total_seconds": 0.12227598601020873,
+  "trainable_parameter_count": 11289,
+  "training_samples": 24,
+  "training_steps": 3,
+  "validation_descriptive_metrics": {
+    "bias": 0.103996142745018,
+    "correlation": 0.8203047513961792,
+    "error_std": 0.8480222821235657,
+    "log10_median_abs_error": -0.17640863358974457,
+    "mae": 0.7394264340400696,
+    "max_abs_error": 1.7777869701385498,
+    "median_abs_error": 0.6661796569824219,
+    "mse": 0.7299569845199585,
+    "n": 160.0,
+    "p90_abs_error": 1.4026703834533691,
+    "p95_abs_error": 1.5356496572494507,
+    "p95_to_median_abs_error": 2.3051583766937256,
+    "r2": 0.17044776678085327,
+    "relative_mae": 0.8636190295219421,
+    "rmse": 0.8543751835823059
+  },
+  "variant": "DD"
+}

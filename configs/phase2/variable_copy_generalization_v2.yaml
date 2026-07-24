@@ -1,0 +1,26 @@
+suite_name: phase2_variable_copy_generalization_v2
+device: cuda
+precision: amp
+seed: 37
+output_root: results/phase2/variable_copy_generalization_v2
+study_database: results/phase2/variable_copy_generalization_v2/study.sqlite
+metrics_table: results/phase2/variable_copy_generalization_v2/all_metrics.csv
+fail_fast: true
+runs:
+  - run_id: variable_copy_DRb_s37_v2
+    task: variable_copy
+    variant: DR-b
+    seed: 37
+    min_copy_length: 8
+    max_copy_length: 64
+    alphabet_size: 17
+    train_size: 2048
+    val_size: 256
+    batch_size: 32
+    d_model: 48
+    num_heads: 4
+    num_layers: 1
+    num_supports: 32
+    position_mode: sinusoidal
+    steps: 500
+    eval_every: 250

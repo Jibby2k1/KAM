@@ -1,0 +1,53 @@
+{
+  "data_metadata": {
+    "beta": 0.2,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "output_dim": 1,
+    "tau": 17.0
+  },
+  "git_commit": null,
+  "git_dirty": null,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "beta": 0.2,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "memory_mode": "values",
+    "memory_output": "values",
+    "model_name": "DD",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "output_dim": 1,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression",
+    "tau": 17.0
+  },
+  "precision": "fp32",
+  "run": {
+    "batch_size": 8,
+    "d_model": 24,
+    "memory_mode": "values",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "run_id": "mackey_DD",
+    "seed": 7,
+    "seq_len": 16,
+    "series_length": 1200,
+    "steps": 3,
+    "task": "mackey_glass",
+    "train_size": 32,
+    "val_size": 16,
+    "variant": "DD"
+  }
+}

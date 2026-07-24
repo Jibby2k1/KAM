@@ -1,0 +1,114 @@
+{
+  "best_validation": {
+    "mae": 0.06946899027874072,
+    "mse": 0.007414161237344767,
+    "nmse": 0.18749209065296982,
+    "nrmse": 0.3028314009734548
+  },
+  "data_metadata": {
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "output_dim": 1,
+    "regimes": null,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true
+  },
+  "device": "cuda",
+  "final_validation": {
+    "mae": 0.06946899027874072,
+    "mse": 0.007414161237344767,
+    "nmse": 0.18749209065296982,
+    "nrmse": 0.3028314009734548
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.030579498037695885,
+      "step": 1,
+      "train": {
+        "mae": 0.931820273399353,
+        "mse": 1.217790961265564
+      },
+      "validation": {
+        "mae": 2.3659464518229165,
+        "mse": 5.717767794926961,
+        "nmse": 355.7679374792643,
+        "nrmse": 10.507616928843111
+      }
+    },
+    {
+      "elapsed_seconds": 0.13327961508184671,
+      "step": 15,
+      "train": {
+        "mae": 0.3217286765575409,
+        "mse": 0.16030728816986084
+      },
+      "validation": {
+        "mae": 0.48390792061885196,
+        "mse": 0.2638305661578973,
+        "nmse": 23.188551199558535,
+        "nrmse": 2.513450842008167
+      }
+    },
+    {
+      "elapsed_seconds": 0.24088078597560525,
+      "step": 30,
+      "train": {
+        "mae": 0.10495534539222717,
+        "mse": 0.016670843586325645
+      },
+      "validation": {
+        "mae": 0.06946899027874072,
+        "mse": 0.007414161237344767,
+        "nmse": 0.18749209065296982,
+        "nrmse": 0.3028314009734548
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "fixed",
+    "bandwidth_init": 0.5,
+    "context_window": 16,
+    "d_model": 128,
+    "dropout": 0.05,
+    "expose_memory_weights": false,
+    "ffn_expansion": 6,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "RR",
+    "num_heads": 2,
+    "num_layers": 2,
+    "num_supports": 64,
+    "output_dim": 1,
+    "parameter_match_target": null,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "regimes": null,
+    "route_features": "raw",
+    "route_projection_dim": 128,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true,
+    "task_type": "regression"
+  },
+  "parameter_count": 631489,
+  "peak_memory_megabytes": 127.099609375,
+  "precision": "amp",
+  "run_id": "trial_RR_switching_mackey_glass_0001",
+  "seed": 8,
+  "status": "complete",
+  "task": "switching_mackey_glass",
+  "total_seconds": 0.2631092010997236,
+  "trainable_parameter_count": 631489,
+  "training_samples": 480,
+  "training_steps": 30,
+  "variant": "RR"
+}

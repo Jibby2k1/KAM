@@ -1,0 +1,102 @@
+{
+  "best_validation": {
+    "accuracy": 0.08528166823089123,
+    "cross_entropy": 2.81196928024292,
+    "perplexity": 16.64379644393921
+  },
+  "data_metadata": {
+    "alphabet_size": 17,
+    "max_payload_length": 64,
+    "max_seq_len": 130,
+    "min_payload_length": 8,
+    "vocab_size": 21
+  },
+  "device": "cuda",
+  "final_validation": {
+    "accuracy": 0.08528166823089123,
+    "cross_entropy": 2.81196928024292,
+    "perplexity": 16.64379644393921
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.011154738022014499,
+      "step": 1,
+      "train": {
+        "accuracy": 0.045933015644550323,
+        "cross_entropy": 3.2353992462158203,
+        "perplexity": 25.41651725769043
+      },
+      "validation": {
+        "accuracy": 0.04389577265828848,
+        "cross_entropy": 3.2386860251426697,
+        "perplexity": 25.501661777496338
+      }
+    },
+    {
+      "elapsed_seconds": 0.7350446269847453,
+      "step": 250,
+      "train": {
+        "accuracy": 0.07967479526996613,
+        "cross_entropy": 2.8305513858795166,
+        "perplexity": 16.95480728149414
+      },
+      "validation": {
+        "accuracy": 0.05750979669392109,
+        "cross_entropy": 2.8432151079177856,
+        "perplexity": 17.17095184326172
+      }
+    },
+    {
+      "elapsed_seconds": 1.4465002319775522,
+      "step": 500,
+      "train": {
+        "accuracy": 0.12305168062448502,
+        "cross_entropy": 2.770111322402954,
+        "perplexity": 15.960411071777344
+      },
+      "validation": {
+        "accuracy": 0.08528166823089123,
+        "cross_entropy": 2.81196928024292,
+        "perplexity": 16.64379644393921
+      }
+    }
+  ],
+  "model_spec": {
+    "alphabet_size": 17,
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_payload_length": 64,
+    "max_seq_len": 130,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "min_payload_length": 8,
+    "model_name": "D0",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "parameter_match_target": null,
+    "position_mode": "sinusoidal",
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "language",
+    "vocab_size": 21
+  },
+  "parameter_count": 32357,
+  "peak_memory_megabytes": 79.30712890625,
+  "precision": "amp",
+  "run_id": "copy_D0_s19",
+  "seed": 19,
+  "status": "complete",
+  "task": "variable_copy",
+  "total_seconds": 1.453084662090987,
+  "trainable_parameter_count": 32357,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "D0"
+}

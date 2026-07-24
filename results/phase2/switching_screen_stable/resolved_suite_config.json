@@ -1,0 +1,207 @@
+{
+  "config": {
+    "device": "cuda",
+    "fail_fast": false,
+    "metrics_table": "results/phase2/switching_screen_stable/all_metrics.csv",
+    "output_root": "results/phase2/switching_screen_stable",
+    "precision": "amp",
+    "runs": [
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swmg_D0_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_mackey_glass",
+        "variant": "D0"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swmg_R0_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_mackey_glass",
+        "variant": "R0"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swmg_DD_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_mackey_glass",
+        "variant": "DD"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swmg_DR_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_mackey_glass",
+        "variant": "DR"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swmg_RR_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_mackey_glass",
+        "variant": "RR"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swnarma_D0_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_narma",
+        "variant": "D0"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swnarma_R0_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_narma",
+        "variant": "R0"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swnarma_DD_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_narma",
+        "variant": "DD"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swnarma_DR_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_narma",
+        "variant": "DR"
+      },
+      {
+        "batch_size": 32,
+        "d_model": 48,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "run_id": "swnarma_RR_s7",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 7,
+        "seq_len": 32,
+        "series_length": 4000,
+        "steps": 500,
+        "task": "switching_narma",
+        "variant": "RR"
+      }
+    ],
+    "seed": 7,
+    "study_database": "results/phase2/switching_screen_stable/study.sqlite",
+    "suite_name": "phase2_switching_screen_stable"
+  },
+  "device": "cuda",
+  "precision": "amp",
+  "run_count": 10
+}

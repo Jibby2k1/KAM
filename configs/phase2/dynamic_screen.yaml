@@ -1,0 +1,19 @@
+suite_name: phase2_dynamic_screen
+device: cuda
+precision: amp
+seed: 7
+output_root: results/phase2/dynamic_screen
+study_database: results/phase2/dynamic_screen/study.sqlite
+metrics_table: results/phase2/dynamic_screen/all_metrics.csv
+fail_fast: false
+runs:
+  - {run_id: mg_D0_s7, task: mackey_glass, variant: D0, seed: 7, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mg_R0_s7, task: mackey_glass, variant: R0, seed: 7, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mg_DD_s7, task: mackey_glass, variant: DD, seed: 7, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mg_DR_s7, task: mackey_glass, variant: DR, seed: 7, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mg_RR_s7, task: mackey_glass, variant: RR, seed: 7, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: narma_D0_s7, task: narma, variant: D0, seed: 7, order: 10, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: narma_R0_s7, task: narma, variant: R0, seed: 7, order: 10, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: narma_DD_s7, task: narma, variant: DD, seed: 7, order: 10, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: narma_DR_s7, task: narma, variant: DR, seed: 7, order: 10, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: narma_RR_s7, task: narma, variant: RR, seed: 7, order: 10, series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}

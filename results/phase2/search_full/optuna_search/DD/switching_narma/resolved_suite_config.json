@@ -1,0 +1,43 @@
+{
+  "config": {
+    "device": "cuda",
+    "fail_fast": true,
+    "metrics_table": "results/phase2/search_full/optuna_search/DD/switching_narma/all_metrics.csv",
+    "output_root": "results/phase2/search_full/optuna_search/DD/switching_narma",
+    "precision": "amp",
+    "runs": [
+      {
+        "bandwidth": "learned",
+        "bandwidth_init": 2.0,
+        "batch_size": 16,
+        "context_window": 32,
+        "d_model": 128,
+        "dropout": 0.1,
+        "ffn_expansion": 4,
+        "learning_rate": 0.0008650955605644334,
+        "num_heads": 8,
+        "num_layers": 3,
+        "num_supports": 256,
+        "route_projection_dim": 128,
+        "run_id": "trial_DD_switching_narma_0031",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 38,
+        "seq_len": 32,
+        "series_length": 1200,
+        "steps": 30,
+        "task": "switching_narma",
+        "variant": "DD",
+        "weight_decay": 5.299412749146255e-06
+      }
+    ],
+    "study_database": "results/phase2/search_full/optuna_search/DD/switching_narma/run_registry.sqlite",
+    "suite_name": "phase2_search_full_optuna_DD_switching_narma"
+  },
+  "device": "cuda",
+  "precision": "amp",
+  "run_count": 1
+}

@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kam-experiments"
+version = "0.1.0"
+description = "Reference experiments for Kernel Adaptive Memory transformers"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "torch>=2.2",
+  "matplotlib>=3.7",
+  "PyYAML>=6.0",
+  "optuna>=4.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+kam-train = "kam.train:main"
+kam-shift = "kam.shift:main"
+kam-benchmark = "kam.benchmark:main"
+kam-eval = "kam.evaluate:main"
+kam-klms = "kam.klms:main"
+kam-run-suite = "kam.run_suite:main"
+kam-search = "kam.search:main"
+kam-phase3 = "kam.phase3.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["kam*"]
+
+[tool.setuptools.package-data]
+kam = ["data/*.txt"]

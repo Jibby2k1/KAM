@@ -1,0 +1,50 @@
+{
+  "data_metadata": {
+    "max_seq_len": 65,
+    "switch_validation": true,
+    "vocab_size": 18
+  },
+  "git_commit": null,
+  "git_dirty": null,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_seq_len": 65,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DD",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "parameter_match_target": null,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "switch_validation": true,
+    "task_type": "language",
+    "vocab_size": 18
+  },
+  "precision": "amp",
+  "run": {
+    "batch_size": 32,
+    "d_model": 48,
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "run_id": "grammar_DD_s11",
+    "seed": 11,
+    "seq_len": 64,
+    "steps": 500,
+    "switch_validation": true,
+    "task": "regime",
+    "train_size": 512,
+    "val_size": 128,
+    "variant": "DD"
+  }
+}

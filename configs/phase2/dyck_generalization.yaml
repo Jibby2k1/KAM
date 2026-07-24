@@ -1,0 +1,24 @@
+suite_name: phase2_dyck_generalization
+device: cuda
+precision: amp
+seed: 41
+output_root: results/phase2/dyck_generalization
+study_database: results/phase2/dyck_generalization/study.sqlite
+metrics_table: results/phase2/dyck_generalization/all_metrics.csv
+fail_fast: true
+runs:
+  - run_id: dyck_DR_s41
+    task: dyck2
+    variant: DR
+    seed: 41
+    max_depth: 8
+    train_size: 2048
+    val_size: 256
+    batch_size: 32
+    d_model: 48
+    num_heads: 4
+    num_layers: 1
+    num_supports: 32
+    position_mode: sinusoidal
+    steps: 1000
+    eval_every: 250

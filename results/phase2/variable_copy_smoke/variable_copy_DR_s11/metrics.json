@@ -1,0 +1,98 @@
+{
+  "best_validation": {
+    "accuracy": 0.11328125,
+    "cross_entropy": 2.5171561241149902,
+    "perplexity": 12.394260883331299
+  },
+  "data_metadata": {
+    "alphabet_size": 9,
+    "max_seq_len": 34,
+    "payload_length": 16,
+    "vocab_size": 12
+  },
+  "device": "cpu",
+  "final_validation": {
+    "accuracy": 0.11328125,
+    "cross_entropy": 2.5171561241149902,
+    "perplexity": 12.394260883331299
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.10149256093427539,
+      "step": 1,
+      "train": {
+        "accuracy": 0.0625,
+        "cross_entropy": 2.5874080657958984,
+        "perplexity": 13.295266151428223
+      },
+      "validation": {
+        "accuracy": 0.109375,
+        "cross_entropy": 2.532875895500183,
+        "perplexity": 12.590763568878174
+      }
+    },
+    {
+      "elapsed_seconds": 0.11062690592370927,
+      "step": 3,
+      "train": {
+        "accuracy": 0.1171875,
+        "cross_entropy": 2.5110995769500732,
+        "perplexity": 12.31846809387207
+      },
+      "validation": {
+        "accuracy": 0.109375,
+        "cross_entropy": 2.5264288187026978,
+        "perplexity": 12.509829044342041
+      }
+    },
+    {
+      "elapsed_seconds": 0.12131828884594142,
+      "step": 6,
+      "train": {
+        "accuracy": 0.0703125,
+        "cross_entropy": 2.559597969055176,
+        "perplexity": 12.930617332458496
+      },
+      "validation": {
+        "accuracy": 0.11328125,
+        "cross_entropy": 2.5171561241149902,
+        "perplexity": 12.394260883331299
+      }
+    }
+  ],
+  "model_spec": {
+    "alphabet_size": 9,
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_seq_len": 34,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "payload_length": 16,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "language",
+    "vocab_size": 12
+  },
+  "parameter_count": 12624,
+  "peak_memory_megabytes": 0.0,
+  "precision": "fp32",
+  "run_id": "variable_copy_DR_s11",
+  "seed": 11,
+  "status": "complete",
+  "task": "variable_copy",
+  "total_seconds": 0.12393051292747259,
+  "trainable_parameter_count": 12624,
+  "training_samples": 48,
+  "training_steps": 6,
+  "variant": "DR"
+}

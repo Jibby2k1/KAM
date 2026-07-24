@@ -1,0 +1,160 @@
+{
+  "device": "cuda",
+  "rows": [
+    {
+      "approximate_flops": 7864320,
+      "backward": false,
+      "iqr_ms": 0.0422236043959856,
+      "median_ms": 0.4653290379792452,
+      "p90_ms": 0.5457367282360792,
+      "parameters": 55576,
+      "peak_memory_megabytes": 10.0693359375,
+      "precision": "amp",
+      "sequence_length": 32,
+      "tokens_per_second_median": 550148.3447319663,
+      "variant": "D0"
+    },
+    {
+      "approximate_flops": 7864320,
+      "backward": false,
+      "iqr_ms": 0.04065514076501131,
+      "median_ms": 0.6594010628759861,
+      "p90_ms": 0.7787430193275213,
+      "parameters": 55576,
+      "peak_memory_megabytes": 10.9951171875,
+      "precision": "amp",
+      "sequence_length": 32,
+      "tokens_per_second_median": 388231.1000280357,
+      "variant": "R0"
+    },
+    {
+      "approximate_flops": 8650752,
+      "backward": false,
+      "iqr_ms": 0.015785975847393274,
+      "median_ms": 0.6403805455192924,
+      "p90_ms": 0.6993547780439258,
+      "parameters": 55576,
+      "peak_memory_megabytes": 11.15283203125,
+      "precision": "amp",
+      "sequence_length": 32,
+      "tokens_per_second_median": 399762.3003871963,
+      "variant": "DD"
+    },
+    {
+      "approximate_flops": 8650752,
+      "backward": false,
+      "iqr_ms": 0.01962477108463645,
+      "median_ms": 0.8336399914696813,
+      "p90_ms": 0.8605404989793897,
+      "parameters": 55576,
+      "peak_memory_megabytes": 11.98486328125,
+      "precision": "amp",
+      "sequence_length": 32,
+      "tokens_per_second_median": 307086.9951292524,
+      "variant": "DR"
+    },
+    {
+      "approximate_flops": 8650752,
+      "backward": false,
+      "iqr_ms": 0.018435646779835224,
+      "median_ms": 1.0244729928672314,
+      "p90_ms": 1.0330897523090243,
+      "parameters": 55576,
+      "peak_memory_megabytes": 12.91015625,
+      "precision": "amp",
+      "sequence_length": 32,
+      "tokens_per_second_median": 249884.5765406886,
+      "variant": "RR"
+    },
+    {
+      "approximate_flops": 17301504,
+      "backward": false,
+      "iqr_ms": 0.00868429196998477,
+      "median_ms": 0.44371304102241993,
+      "p90_ms": 0.4500206559896469,
+      "parameters": 55576,
+      "peak_memory_megabytes": 12.4638671875,
+      "precision": "amp",
+      "sequence_length": 64,
+      "tokens_per_second_median": 1153898.9226465616,
+      "variant": "D0"
+    },
+    {
+      "approximate_flops": 17301504,
+      "backward": false,
+      "iqr_ms": 0.01364992931485176,
+      "median_ms": 0.6504120538011193,
+      "p90_ms": 0.6767053389921784,
+      "parameters": 55576,
+      "peak_memory_megabytes": 14.8115234375,
+      "precision": "amp",
+      "sequence_length": 64,
+      "tokens_per_second_median": 787193.2831007426,
+      "variant": "R0"
+    },
+    {
+      "approximate_flops": 18874368,
+      "backward": false,
+      "iqr_ms": 0.018236576579511166,
+      "median_ms": 0.6286900024861097,
+      "p90_ms": 0.6457212846726179,
+      "parameters": 55576,
+      "peak_memory_megabytes": 14.48876953125,
+      "precision": "amp",
+      "sequence_length": 64,
+      "tokens_per_second_median": 814391.8274114946,
+      "variant": "DD"
+    },
+    {
+      "approximate_flops": 18874368,
+      "backward": false,
+      "iqr_ms": 0.10247400496155024,
+      "median_ms": 0.8582874434068799,
+      "p90_ms": 1.343168714083731,
+      "parameters": 55576,
+      "peak_memory_megabytes": 15.83642578125,
+      "precision": "amp",
+      "sequence_length": 64,
+      "tokens_per_second_median": 596536.7476048245,
+      "variant": "DR"
+    },
+    {
+      "approximate_flops": 18874368,
+      "backward": false,
+      "iqr_ms": 0.016856472939252853,
+      "median_ms": 1.0099865030497313,
+      "p90_ms": 1.0261400137096643,
+      "parameters": 55576,
+      "peak_memory_megabytes": 18.18359375,
+      "precision": "amp",
+      "sequence_length": 64,
+      "tokens_per_second_median": 506937.467435433,
+      "variant": "RR"
+    }
+  ],
+  "settings": {
+    "backward": false,
+    "batch_size": 8,
+    "d_model": 48,
+    "device": "cuda",
+    "iterations": 10,
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "output_dir": "results/phase2/timing",
+    "parameter_match_target": 55576,
+    "precision": "amp",
+    "seq_lens": [
+      32,
+      64
+    ],
+    "variants": [
+      "D0",
+      "R0",
+      "DD",
+      "DR",
+      "RR"
+    ],
+    "warmup": 2
+  }
+}

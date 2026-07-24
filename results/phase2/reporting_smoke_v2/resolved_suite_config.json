@@ -1,0 +1,50 @@
+{
+  "config": {
+    "device": "cpu",
+    "fail_fast": true,
+    "metrics_table": "results/phase2/reporting_smoke_v2/all_metrics.csv",
+    "output_root": "results/phase2/reporting_smoke_v2",
+    "precision": "fp32",
+    "runs": [
+      {
+        "batch_size": 8,
+        "bindings": 4,
+        "d_model": 24,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 8,
+        "queries": 2,
+        "run_id": "mqar_D0",
+        "sequence_length": 32,
+        "steps": 3,
+        "task": "mqar",
+        "train_size": 32,
+        "val_size": 16,
+        "variant": "D0",
+        "vocab_size": 64
+      },
+      {
+        "batch_size": 8,
+        "d_model": 24,
+        "memory_mode": "values",
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 8,
+        "run_id": "mackey_DD",
+        "seq_len": 16,
+        "series_length": 1200,
+        "steps": 3,
+        "task": "mackey_glass",
+        "train_size": 32,
+        "val_size": 16,
+        "variant": "DD"
+      }
+    ],
+    "seed": 7,
+    "study_database": "results/phase2/reporting_smoke_v2/study.sqlite",
+    "suite_name": "phase2_cpu_smoke"
+  },
+  "device": "cpu",
+  "precision": "fp32",
+  "run_count": 2
+}

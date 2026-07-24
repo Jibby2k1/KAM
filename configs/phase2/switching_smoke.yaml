@@ -1,0 +1,37 @@
+suite_name: phase2_switching_smoke
+device: cpu
+precision: fp32
+seed: 13
+output_root: results/phase2/switching_smoke
+study_database: results/phase2/switching_smoke/study.sqlite
+metrics_table: results/phase2/switching_smoke/all_metrics.csv
+fail_fast: true
+runs:
+  - run_id: switching_mg_DR_s13
+    task: switching_mackey_glass
+    variant: DR
+    seed: 13
+    schedule: [A, B, A]
+    series_length: 800
+    seq_len: 16
+    batch_size: 8
+    d_model: 24
+    num_heads: 4
+    num_layers: 1
+    num_supports: 8
+    steps: 8
+    eval_every: 4
+  - run_id: switching_narma_RR_s13
+    task: switching_narma
+    variant: RR
+    seed: 13
+    schedule: [A, B, A]
+    series_length: 800
+    seq_len: 16
+    batch_size: 8
+    d_model: 24
+    num_heads: 4
+    num_layers: 1
+    num_supports: 8
+    steps: 8
+    eval_every: 4

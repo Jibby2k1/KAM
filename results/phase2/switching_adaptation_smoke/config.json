@@ -1,0 +1,18 @@
+{
+  "checkpoint": [
+    "results/phase2/switching_smoke/switching_mg_DR_s13/best_model.pt",
+    "results/phase2/switching_smoke/switching_narma_RR_s13/best_model.pt"
+  ],
+  "output_dir": "results/phase2/switching_adaptation_smoke",
+  "device": "cpu",
+  "series_length": 6000,
+  "horizon": 64,
+  "adapters": [
+    "frozen",
+    "nlms",
+    "sgd",
+    "rls"
+  ],
+  "eta": 0.001,
+  "forgetting": 0.99
+}

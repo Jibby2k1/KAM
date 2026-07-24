@@ -1,0 +1,14 @@
+suite_name: phase3_cluster_development
+stage: development_search
+manifest: results/phase3/manifests/cluster_development.jsonl
+tasks: [switching_mackey_glass, switching_narma, prototype_switch]
+variants: [D0, DD-b, DR-b, RF-b]
+scales: [XS, S, M]
+trials_per_cell: 24
+training_seeds_per_trial: 2
+base_seed: 5101
+schedule: [A, B, A]
+precision: amp
+local_overnight_hours: 10
+online_length: 2400
+deletions_draws: 8

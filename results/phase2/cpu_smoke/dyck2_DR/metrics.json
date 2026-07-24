@@ -1,0 +1,96 @@
+{
+  "best_validation": {
+    "accuracy": 0.38671875,
+    "cross_entropy": 1.4644873142242432,
+    "perplexity": 4.328640937805176
+  },
+  "data_metadata": {
+    "max_depth": 8,
+    "max_seq_len": 16,
+    "vocab_size": 5
+  },
+  "device": "cpu",
+  "final_validation": {
+    "accuracy": 0.38671875,
+    "cross_entropy": 1.4644873142242432,
+    "perplexity": 4.328640937805176
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.01065674889832735,
+      "step": 1,
+      "train": {
+        "accuracy": 0.3984375,
+        "cross_entropy": 1.4760597944259644,
+        "perplexity": 4.375670433044434
+      },
+      "validation": {
+        "accuracy": 0.38671875,
+        "cross_entropy": 1.4777840375900269,
+        "perplexity": 4.386399507522583
+      }
+    },
+    {
+      "elapsed_seconds": 0.02107190596871078,
+      "step": 2,
+      "train": {
+        "accuracy": 0.578125,
+        "cross_entropy": 1.3264894485473633,
+        "perplexity": 3.7677931785583496
+      },
+      "validation": {
+        "accuracy": 0.38671875,
+        "cross_entropy": 1.4712117314338684,
+        "perplexity": 4.3577561378479
+      }
+    },
+    {
+      "elapsed_seconds": 0.03142774477601051,
+      "step": 3,
+      "train": {
+        "accuracy": 0.4609375,
+        "cross_entropy": 1.4235608577728271,
+        "perplexity": 4.151878356933594
+      },
+      "validation": {
+        "accuracy": 0.38671875,
+        "cross_entropy": 1.4644873142242432,
+        "perplexity": 4.328640937805176
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_depth": 8,
+    "max_seq_len": 16,
+    "memory_mode": "routes",
+    "memory_output": "routes",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "language",
+    "vocab_size": 5
+  },
+  "parameter_count": 11625,
+  "peak_memory_megabytes": 0.0,
+  "precision": "fp32",
+  "run_id": "dyck2_DR",
+  "seed": 7,
+  "status": "complete",
+  "task": "dyck2",
+  "total_seconds": 0.03630688483826816,
+  "trainable_parameter_count": 11625,
+  "training_samples": 24,
+  "training_steps": 3,
+  "variant": "DR"
+}

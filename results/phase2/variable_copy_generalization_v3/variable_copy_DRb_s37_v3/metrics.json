@@ -1,0 +1,144 @@
+{
+  "best_validation": {
+    "accuracy": 0.1879270114004612,
+    "cross_entropy": 2.4259727001190186,
+    "perplexity": 11.318427205085754
+  },
+  "data_metadata": {
+    "alphabet_size": 17,
+    "max_payload_length": 64,
+    "max_seq_len": 130,
+    "min_payload_length": 8,
+    "vocab_size": 21
+  },
+  "device": "cuda",
+  "final_validation": {
+    "accuracy": 0.1879270114004612,
+    "cross_entropy": 2.4259727001190186,
+    "perplexity": 11.318427205085754
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.35530587402172387,
+      "step": 1,
+      "train": {
+        "accuracy": 0.033686235547065735,
+        "cross_entropy": 3.10711932182312,
+        "perplexity": 22.356548309326172
+      },
+      "validation": {
+        "accuracy": 0.04576970962807536,
+        "cross_entropy": 3.101687788963318,
+        "perplexity": 22.235941410064697
+      }
+    },
+    {
+      "elapsed_seconds": 4.238550166832283,
+      "step": 1000,
+      "train": {
+        "accuracy": 0.1514403223991394,
+        "cross_entropy": 2.6356496810913086,
+        "perplexity": 13.952374458312988
+      },
+      "validation": {
+        "accuracy": 0.14881301298737526,
+        "cross_entropy": 2.6407083868980408,
+        "perplexity": 14.02644169330597
+      }
+    },
+    {
+      "elapsed_seconds": 8.166414030827582,
+      "step": 2000,
+      "train": {
+        "accuracy": 0.18086040019989014,
+        "cross_entropy": 2.475815773010254,
+        "perplexity": 11.891404151916504
+      },
+      "validation": {
+        "accuracy": 0.18108567968010902,
+        "cross_entropy": 2.485261470079422,
+        "perplexity": 12.00808310508728
+      }
+    },
+    {
+      "elapsed_seconds": 12.092083100927994,
+      "step": 3000,
+      "train": {
+        "accuracy": 0.22033898532390594,
+        "cross_entropy": 2.3544697761535645,
+        "perplexity": 10.532543182373047
+      },
+      "validation": {
+        "accuracy": 0.18646493554115295,
+        "cross_entropy": 2.443275034427643,
+        "perplexity": 11.51473879814148
+      }
+    },
+    {
+      "elapsed_seconds": 15.993610652862117,
+      "step": 4000,
+      "train": {
+        "accuracy": 0.21326300501823425,
+        "cross_entropy": 2.331821918487549,
+        "perplexity": 10.296684265136719
+      },
+      "validation": {
+        "accuracy": 0.18626628071069717,
+        "cross_entropy": 2.4312759339809418,
+        "perplexity": 11.37874698638916
+      }
+    },
+    {
+      "elapsed_seconds": 19.914335681824014,
+      "step": 5000,
+      "train": {
+        "accuracy": 0.21804511547088623,
+        "cross_entropy": 2.251694917678833,
+        "perplexity": 9.503830909729004
+      },
+      "validation": {
+        "accuracy": 0.1879270114004612,
+        "cross_entropy": 2.4259727001190186,
+        "perplexity": 11.318427205085754
+      }
+    }
+  ],
+  "model_spec": {
+    "alphabet_size": 17,
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_payload_length": 64,
+    "max_seq_len": 130,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "min_payload_length": 8,
+    "model_name": "DR-b",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "parameter_match_target": null,
+    "position_mode": "sinusoidal",
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "language",
+    "vocab_size": 21
+  },
+  "parameter_count": 42777,
+  "peak_memory_megabytes": 58.16552734375,
+  "precision": "amp",
+  "run_id": "variable_copy_DRb_s37_v3",
+  "seed": 37,
+  "status": "complete",
+  "task": "variable_copy",
+  "total_seconds": 19.92864736285992,
+  "trainable_parameter_count": 42777,
+  "training_samples": 160000,
+  "training_steps": 5000,
+  "variant": "DR-b"
+}

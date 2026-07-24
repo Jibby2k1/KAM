@@ -1,0 +1,27 @@
+suite_name: phase2_dynamic_matrix_parameter_matched
+device: cuda
+precision: amp
+seed: 7
+output_root: results/phase2/dynamic_matrix_parameter_matched
+study_database: results/phase2/dynamic_matrix_parameter_matched/study.sqlite
+metrics_table: results/phase2/dynamic_matrix_parameter_matched/all_metrics.csv
+fail_fast: false
+runs:
+  - {run_id: swmg_D0_s7, task: switching_mackey_glass, variant: D0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_R0_s7, task: switching_mackey_glass, variant: R0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_DDv_s7, task: switching_mackey_glass, variant: DD-v, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_DDa_s7, task: switching_mackey_glass, variant: DD-a, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_DDb_s7, task: switching_mackey_glass, variant: DD-b, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_DRv_s7, task: switching_mackey_glass, variant: DR-v, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_DR-a_s7, task: switching_mackey_glass, variant: DR-a, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_DR-b_s7, task: switching_mackey_glass, variant: DR-b, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swmg_RR-b_s7, task: switching_mackey_glass, variant: RR-b, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_D0_s7, task: switching_narma, variant: D0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_R0_s7, task: switching_narma, variant: R0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_DDv_s7, task: switching_narma, variant: DD-v, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_DDa_s7, task: switching_narma, variant: DD-a, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_DDb_s7, task: switching_narma, variant: DD-b, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_DRv_s7, task: switching_narma, variant: DR-v, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_DR-a_s7, task: switching_narma, variant: DR-a, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_DR-b_s7, task: switching_narma, variant: DR-b, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}
+  - {run_id: swnarma_RR-b_s7, task: switching_narma, variant: RR-b, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, parameter_match_target: 39961}

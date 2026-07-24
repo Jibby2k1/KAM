@@ -1,0 +1,52 @@
+{
+  "data_metadata": {
+    "alphabet_size": 9,
+    "max_seq_len": 34,
+    "payload_length": 16,
+    "vocab_size": 12
+  },
+  "git_commit": null,
+  "git_dirty": null,
+  "model_spec": {
+    "alphabet_size": 9,
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_seq_len": 34,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "payload_length": 16,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "language",
+    "vocab_size": 12
+  },
+  "precision": "fp32",
+  "run": {
+    "alphabet_size": 9,
+    "batch_size": 8,
+    "d_model": 24,
+    "eval_every": 3,
+    "max_copy_length": 8,
+    "min_copy_length": 3,
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "run_id": "variable_copy_DR_s11",
+    "seed": 11,
+    "steps": 6,
+    "task": "variable_copy",
+    "train_size": 64,
+    "val_size": 16,
+    "variant": "DR"
+  }
+}

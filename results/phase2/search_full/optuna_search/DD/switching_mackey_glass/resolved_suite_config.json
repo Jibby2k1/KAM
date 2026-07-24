@@ -1,0 +1,43 @@
+{
+  "config": {
+    "device": "cuda",
+    "fail_fast": true,
+    "metrics_table": "results/phase2/search_full/optuna_search/DD/switching_mackey_glass/all_metrics.csv",
+    "output_root": "results/phase2/search_full/optuna_search/DD/switching_mackey_glass",
+    "precision": "amp",
+    "runs": [
+      {
+        "bandwidth": "learned",
+        "bandwidth_init": 0.25,
+        "batch_size": 16,
+        "context_window": null,
+        "d_model": 48,
+        "dropout": 0.05,
+        "ffn_expansion": 4,
+        "learning_rate": 0.002062471796548806,
+        "num_heads": 8,
+        "num_layers": 2,
+        "num_supports": 16,
+        "route_projection_dim": 32,
+        "run_id": "trial_DD_switching_mackey_glass_0031",
+        "schedule": [
+          "A",
+          "B",
+          "A"
+        ],
+        "seed": 38,
+        "seq_len": 32,
+        "series_length": 1200,
+        "steps": 30,
+        "task": "switching_mackey_glass",
+        "variant": "DD",
+        "weight_decay": 0.007065524570280497
+      }
+    ],
+    "study_database": "results/phase2/search_full/optuna_search/DD/switching_mackey_glass/run_registry.sqlite",
+    "suite_name": "phase2_search_full_optuna_DD_switching_mackey_glass"
+  },
+  "device": "cuda",
+  "precision": "amp",
+  "run_count": 1
+}

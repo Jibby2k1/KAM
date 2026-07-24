@@ -1,0 +1,98 @@
+{
+  "best_validation": {
+    "accuracy": 0.144221231341362,
+    "cross_entropy": 2.6911122798919678,
+    "perplexity": 14.751595973968506
+  },
+  "data_metadata": {
+    "max_seq_len": 65,
+    "switch_validation": true,
+    "vocab_size": 18
+  },
+  "device": "cuda",
+  "final_validation": {
+    "accuracy": 0.144221231341362,
+    "cross_entropy": 2.6911122798919678,
+    "perplexity": 14.751595973968506
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.01086484082043171,
+      "step": 1,
+      "train": {
+        "accuracy": 0.0535714291036129,
+        "cross_entropy": 3.0252318382263184,
+        "perplexity": 20.598779678344727
+      },
+      "validation": {
+        "accuracy": 0.060515874065458775,
+        "cross_entropy": 3.029986262321472,
+        "perplexity": 20.70447587966919
+      }
+    },
+    {
+      "elapsed_seconds": 0.809851405909285,
+      "step": 250,
+      "train": {
+        "accuracy": 0.1101190447807312,
+        "cross_entropy": 2.749767541885376,
+        "perplexity": 15.638996124267578
+      },
+      "validation": {
+        "accuracy": 0.08519345335662365,
+        "cross_entropy": 2.807932674884796,
+        "perplexity": 16.57799530029297
+      }
+    },
+    {
+      "elapsed_seconds": 1.5979779318440706,
+      "step": 500,
+      "train": {
+        "accuracy": 0.2291666716337204,
+        "cross_entropy": 2.3979220390319824,
+        "perplexity": 11.000293731689453
+      },
+      "validation": {
+        "accuracy": 0.144221231341362,
+        "cross_entropy": 2.6911122798919678,
+        "perplexity": 14.751595973968506
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_seq_len": 65,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "R0",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "parameter_match_target": null,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "switch_validation": true,
+    "task_type": "language",
+    "vocab_size": 18
+  },
+  "parameter_count": 35238,
+  "peak_memory_megabytes": 79.30712890625,
+  "precision": "amp",
+  "run_id": "grammar_R0_s7",
+  "seed": 7,
+  "status": "complete",
+  "task": "regime",
+  "total_seconds": 1.6067499399650842,
+  "trainable_parameter_count": 35238,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "R0"
+}

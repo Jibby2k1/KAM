@@ -1,0 +1,122 @@
+{
+  "config": {
+    "suite_name": "phase2_search_full",
+    "device": "cuda",
+    "precision": "amp",
+    "output_root": "results/phase2/search_full",
+    "search_database": "results/phase2/search_full/optuna.sqlite",
+    "search_tasks": [
+      "switching_mackey_glass",
+      "switching_narma"
+    ],
+    "search_schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "search_series_length": 1200,
+    "search_seq_len": 32,
+    "search_batch_size": 16,
+    "search_steps": 30,
+    "search": {
+      "trials_per_family_task": 32,
+      "families": [
+        "D0",
+        "DD",
+        "DR",
+        "RR"
+      ],
+      "space": {
+        "d_model": [
+          48,
+          64,
+          96,
+          128
+        ],
+        "num_layers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "num_heads": [
+          2,
+          4,
+          8
+        ],
+        "num_supports": [
+          16,
+          32,
+          64,
+          128,
+          256
+        ],
+        "context_window": [
+          16,
+          32,
+          64,
+          "full"
+        ],
+        "ffn_expansion": [
+          2,
+          4,
+          6
+        ],
+        "learning_rate": {
+          "type": "log_float",
+          "low": 0.0001,
+          "high": 0.003
+        },
+        "weight_decay": {
+          "type": "log_float",
+          "low": 1e-06,
+          "high": 0.01
+        },
+        "dropout": [
+          0.0,
+          0.05,
+          0.1,
+          0.2
+        ],
+        "bandwidth_init": [
+          0.25,
+          0.5,
+          1.0,
+          2.0
+        ],
+        "bandwidth_learned": [
+          false,
+          true
+        ],
+        "route_projection_dim": [
+          32,
+          64,
+          128
+        ],
+        "nlms_eta": {
+          "type": "log_float",
+          "low": 0.001,
+          "high": 1.0
+        },
+        "rls_forgetting": [
+          0.95,
+          0.98,
+          0.99,
+          0.995,
+          1.0
+        ]
+      }
+    }
+  },
+  "families": [
+    "D0",
+    "DD",
+    "DR",
+    "RR"
+  ],
+  "tasks": [
+    "switching_mackey_glass",
+    "switching_narma"
+  ],
+  "trials_per_family_task": 32
+}

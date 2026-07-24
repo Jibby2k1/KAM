@@ -1,0 +1,29 @@
+suite_name: phase2_language_matrix
+device: cuda
+precision: amp
+seed: 7
+output_root: results/phase2/language_matrix
+study_database: results/phase2/language_matrix/study.sqlite
+metrics_table: results/phase2/language_matrix/all_metrics.csv
+fail_fast: false
+runs:
+  - {run_id: mqar_D0_s7, task: mqar, variant: D0, seed: 7, sequence_length: 64, bindings: 8, queries: 4, vocab_size: 128, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mqar_R0_s7, task: mqar, variant: R0, seed: 7, sequence_length: 64, bindings: 8, queries: 4, vocab_size: 128, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mqar_DD_s7, task: mqar, variant: DD, seed: 7, sequence_length: 64, bindings: 8, queries: 4, vocab_size: 128, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mqar_DR_s7, task: mqar, variant: DR, seed: 7, sequence_length: 64, bindings: 8, queries: 4, vocab_size: 128, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: mqar_RR_s7, task: mqar, variant: RR, seed: 7, sequence_length: 64, bindings: 8, queries: 4, vocab_size: 128, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: copy_D0_s7, task: variable_copy, variant: D0, seed: 7, min_copy_length: 8, max_copy_length: 64, alphabet_size: 17, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: copy_R0_s7, task: variable_copy, variant: R0, seed: 7, min_copy_length: 8, max_copy_length: 64, alphabet_size: 17, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: copy_DD_s7, task: variable_copy, variant: DD, seed: 7, min_copy_length: 8, max_copy_length: 64, alphabet_size: 17, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: copy_DR_s7, task: variable_copy, variant: DR, seed: 7, min_copy_length: 8, max_copy_length: 64, alphabet_size: 17, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: copy_RR_s7, task: variable_copy, variant: RR, seed: 7, min_copy_length: 8, max_copy_length: 64, alphabet_size: 17, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: dyck_D0_s7, task: dyck2, variant: D0, seed: 7, max_depth: 8, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: dyck_R0_s7, task: dyck2, variant: R0, seed: 7, max_depth: 8, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: dyck_DD_s7, task: dyck2, variant: DD, seed: 7, max_depth: 8, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: dyck_DR_s7, task: dyck2, variant: DR, seed: 7, max_depth: 8, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: dyck_RR_s7, task: dyck2, variant: RR, seed: 7, max_depth: 8, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500, position_mode: sinusoidal}
+  - {run_id: grammar_D0_s7, task: regime, variant: D0, seed: 7, seq_len: 64, switch_validation: true, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: grammar_R0_s7, task: regime, variant: R0, seed: 7, seq_len: 64, switch_validation: true, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: grammar_DD_s7, task: regime, variant: DD, seed: 7, seq_len: 64, switch_validation: true, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: grammar_DR_s7, task: regime, variant: DR, seed: 7, seq_len: 64, switch_validation: true, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: grammar_RR_s7, task: regime, variant: RR, seed: 7, seq_len: 64, switch_validation: true, train_size: 512, val_size: 128, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}

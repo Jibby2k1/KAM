@@ -1,0 +1,90 @@
+{
+  "best_validation": {
+    "mae": 0.3954209528471294,
+    "mse": 0.2834874854276055
+  },
+  "data_metadata": {
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "order": 10,
+    "output_dim": 1
+  },
+  "device": "cuda",
+  "final_validation": {
+    "mae": 0.3954209528471294,
+    "mse": 0.2834874854276055
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.02722608600743115,
+      "step": 1,
+      "train": {
+        "mae": 0.7482908964157104,
+        "mse": 0.8689663410186768
+      },
+      "validation": {
+        "mae": 0.7761346666436446,
+        "mse": 0.94203141488527
+      }
+    },
+    {
+      "elapsed_seconds": 0.7942943261004984,
+      "step": 250,
+      "train": {
+        "mae": 0.5197117328643799,
+        "mse": 0.4146934449672699
+      },
+      "validation": {
+        "mae": 0.4654378953732942,
+        "mse": 0.36462717620949997
+      }
+    },
+    {
+      "elapsed_seconds": 1.5846762349829078,
+      "step": 500,
+      "train": {
+        "mae": 0.33703768253326416,
+        "mse": 0.18148085474967957
+      },
+      "validation": {
+        "mae": 0.3954209528471294,
+        "mse": 0.2834874854276055
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "order": 10,
+    "output_dim": 1,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression"
+  },
+  "parameter_count": 39909,
+  "peak_memory_megabytes": 26.6240234375,
+  "precision": "amp",
+  "run_id": "narma_DR_s11",
+  "seed": 11,
+  "status": "complete",
+  "task": "narma",
+  "total_seconds": 1.60189451999031,
+  "trainable_parameter_count": 39909,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "DR"
+}

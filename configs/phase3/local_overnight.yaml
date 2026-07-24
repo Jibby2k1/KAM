@@ -1,0 +1,14 @@
+suite_name: phase3_local_overnight
+stage: local_overnight
+manifest: results/phase3/manifests/local_overnight.jsonl
+tasks: [switching_mackey_glass, switching_narma, prototype_switch]
+variants: [D0, DD-b, DR-b, RF-b]
+scales: [XS, S]
+trials_per_cell: 2
+training_seeds_per_trial: 1
+base_seed: 3101
+schedule: [A, B, A]
+precision: amp
+local_overnight_hours: 10
+online_length: 1800
+deletions_draws: 8

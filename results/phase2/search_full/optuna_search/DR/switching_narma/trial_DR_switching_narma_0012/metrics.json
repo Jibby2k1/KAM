@@ -1,0 +1,114 @@
+{
+  "best_validation": {
+    "mae": 0.816186452905337,
+    "mse": 1.0206990738709767,
+    "nmse": 1.5309706005869594,
+    "nrmse": 1.1857518915148404
+  },
+  "data_metadata": {
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "output_dim": 1,
+    "regimes": null,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true
+  },
+  "device": "cuda",
+  "final_validation": {
+    "mae": 0.816186452905337,
+    "mse": 1.0206990738709767,
+    "nmse": 1.5309706005869594,
+    "nrmse": 1.1857518915148404
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.033587695099413395,
+      "step": 1,
+      "train": {
+        "mae": 0.5094004273414612,
+        "mse": 0.41188737750053406
+      },
+      "validation": {
+        "mae": 1.5204744239648182,
+        "mse": 3.2492366333802543,
+        "nmse": 4.734825654956456,
+        "nrmse": 2.1084391412732795
+      }
+    },
+    {
+      "elapsed_seconds": 0.1501408990006894,
+      "step": 15,
+      "train": {
+        "mae": 0.6036390662193298,
+        "mse": 0.5993210077285767
+      },
+      "validation": {
+        "mae": 0.7839915653069814,
+        "mse": 1.0557733252644539,
+        "nmse": 1.2943214474133382,
+        "nrmse": 1.129323116221488
+      }
+    },
+    {
+      "elapsed_seconds": 0.27178051811642945,
+      "step": 30,
+      "train": {
+        "mae": 0.6559867858886719,
+        "mse": 0.6302515268325806
+      },
+      "validation": {
+        "mae": 0.816186452905337,
+        "mse": 1.0206990738709767,
+        "nmse": 1.5309706005869594,
+        "nrmse": 1.1857518915148404
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "fixed",
+    "bandwidth_init": 2.0,
+    "context_window": 64,
+    "d_model": 96,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 6,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 3,
+    "num_supports": 128,
+    "output_dim": 1,
+    "parameter_match_target": null,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "regimes": null,
+    "route_features": "raw",
+    "route_projection_dim": 128,
+    "schedule": [
+      "A",
+      "B",
+      "A"
+    ],
+    "switching": true,
+    "task_type": "regression"
+  },
+  "parameter_count": 580353,
+  "peak_memory_megabytes": 97.4130859375,
+  "precision": "amp",
+  "run_id": "trial_DR_switching_narma_0012",
+  "seed": 19,
+  "status": "complete",
+  "task": "switching_narma",
+  "total_seconds": 0.29756429698318243,
+  "trainable_parameter_count": 580353,
+  "training_samples": 480,
+  "training_steps": 30,
+  "variant": "DR"
+}

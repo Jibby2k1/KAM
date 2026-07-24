@@ -1,0 +1,35 @@
+{
+  "config": {
+    "device": "cpu",
+    "fail_fast": true,
+    "metrics_table": "results/phase2/variable_copy_smoke/all_metrics.csv",
+    "output_root": "results/phase2/variable_copy_smoke",
+    "precision": "fp32",
+    "runs": [
+      {
+        "alphabet_size": 9,
+        "batch_size": 8,
+        "d_model": 24,
+        "eval_every": 3,
+        "max_copy_length": 8,
+        "min_copy_length": 3,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 8,
+        "run_id": "variable_copy_DR_s11",
+        "seed": 11,
+        "steps": 6,
+        "task": "variable_copy",
+        "train_size": 64,
+        "val_size": 16,
+        "variant": "DR"
+      }
+    ],
+    "seed": 11,
+    "study_database": "results/phase2/variable_copy_smoke/study.sqlite",
+    "suite_name": "phase2_variable_copy_smoke"
+  },
+  "device": "cpu",
+  "precision": "fp32",
+  "run_count": 1
+}

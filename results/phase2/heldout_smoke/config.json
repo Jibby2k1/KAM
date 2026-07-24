@@ -1,0 +1,26 @@
+{
+  "checkpoint": [
+    "results/phase2/dynamic_matrix_pmatched_v2/swmg_DR-b_s7/best_model.pt"
+  ],
+  "checkpoint_root": [],
+  "output_dir": "results/phase2/heldout_smoke",
+  "device": "cuda",
+  "series_length": 6000,
+  "horizon": 128,
+  "adapters": [
+    "frozen",
+    "nlms",
+    "sgd",
+    "rls"
+  ],
+  "eta": 0.001,
+  "forgetting": 1.0,
+  "schedules": [
+    "A-B-A",
+    "A-B-A-C-A",
+    "A-C-A",
+    "B-A-B",
+    "A-B-C-B-A"
+  ],
+  "stream_seed_stride": 100003
+}

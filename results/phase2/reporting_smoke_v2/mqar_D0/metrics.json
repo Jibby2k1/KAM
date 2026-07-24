@@ -1,0 +1,115 @@
+{
+  "best_step": 3,
+  "best_validation": {
+    "accuracy": 0.09375,
+    "bits_per_token": 6.004058122634888,
+    "cross_entropy": 4.161695957183838,
+    "perplexity": 64.36992263793945
+  },
+  "data_metadata": {
+    "num_bindings": 4,
+    "num_queries": 2,
+    "sequence_length": 32,
+    "vocab_size": 64
+  },
+  "device": "cpu",
+  "final_generalization_gap": -0.2039341926574707,
+  "final_train_metric": 4.365630149841309,
+  "final_validation": {
+    "accuracy": 0.09375,
+    "bits_per_token": 6.004058122634888,
+    "cross_entropy": 4.161695957183838,
+    "perplexity": 64.36992263793945
+  },
+  "final_validation_metric": 4.161695957183838,
+  "history": [
+    {
+      "elapsed_seconds": 0.09721105196513236,
+      "step": 1,
+      "train": {
+        "accuracy": 0.0625,
+        "bits_per_token": 6.0707316398620605,
+        "cross_entropy": 4.207910537719727,
+        "perplexity": 67.21595001220703
+      },
+      "validation": {
+        "accuracy": 0.09375,
+        "bits_per_token": 6.0191590785980225,
+        "cross_entropy": 4.172163009643555,
+        "perplexity": 65.04511833190918
+      }
+    },
+    {
+      "elapsed_seconds": 0.10373404808342457,
+      "step": 2,
+      "train": {
+        "accuracy": 0.0,
+        "bits_per_token": 6.040093898773193,
+        "cross_entropy": 4.186674118041992,
+        "perplexity": 65.80357360839844
+      },
+      "validation": {
+        "accuracy": 0.09375,
+        "bits_per_token": 6.011518716812134,
+        "cross_entropy": 4.166867256164551,
+        "perplexity": 64.70334243774414
+      }
+    },
+    {
+      "elapsed_seconds": 0.11252252897247672,
+      "step": 3,
+      "train": {
+        "accuracy": 0.0625,
+        "bits_per_token": 6.298273086547852,
+        "cross_entropy": 4.365630149841309,
+        "perplexity": 78.698974609375
+      },
+      "validation": {
+        "accuracy": 0.09375,
+        "bits_per_token": 6.004058122634888,
+        "cross_entropy": 4.161695957183838,
+        "perplexity": 64.36992263793945
+      }
+    }
+  ],
+  "history_points": 3,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "D0",
+    "num_bindings": 4,
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_queries": 2,
+    "num_supports": 8,
+    "parameter_match_target": null,
+    "position_mode": "learned",
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "sequence_length": 32,
+    "task_type": "language",
+    "vocab_size": 64
+  },
+  "parameter_count": 13176,
+  "peak_memory_megabytes": 0.0,
+  "precision": "fp32",
+  "run_id": "mqar_D0",
+  "seed": 7,
+  "status": "complete",
+  "task": "mqar",
+  "tokens_or_samples_per_second": 205.2840597068096,
+  "total_seconds": 0.11691117193549871,
+  "trainable_parameter_count": 13176,
+  "training_samples": 24,
+  "training_steps": 3,
+  "variant": "D0"
+}

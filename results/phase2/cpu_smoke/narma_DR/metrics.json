@@ -1,0 +1,90 @@
+{
+  "best_validation": {
+    "mae": 0.8303475588560104,
+    "mse": 0.9150699779391289
+  },
+  "data_metadata": {
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "order": 10,
+    "output_dim": 1
+  },
+  "device": "cpu",
+  "final_validation": {
+    "mae": 0.8303475588560104,
+    "mse": 0.9150699779391289
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.10789994499646127,
+      "step": 1,
+      "train": {
+        "mae": 0.6495218276977539,
+        "mse": 0.7407649755477905
+      },
+      "validation": {
+        "mae": 0.838847017288208,
+        "mse": 0.9376690298318863
+      }
+    },
+    {
+      "elapsed_seconds": 0.12284064199775457,
+      "step": 2,
+      "train": {
+        "mae": 0.9779697060585022,
+        "mse": 1.2742060422897339
+      },
+      "validation": {
+        "mae": 0.8395157247781754,
+        "mse": 0.935283288359642
+      }
+    },
+    {
+      "elapsed_seconds": 0.13732567406259477,
+      "step": 3,
+      "train": {
+        "mae": 0.6639311909675598,
+        "mse": 0.5121139883995056
+      },
+      "validation": {
+        "mae": 0.8303475588560104,
+        "mse": 0.9150699779391289
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "order": 10,
+    "output_dim": 1,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression"
+  },
+  "parameter_count": 11349,
+  "peak_memory_megabytes": 0.0,
+  "precision": "fp32",
+  "run_id": "narma_DR",
+  "seed": 7,
+  "status": "complete",
+  "task": "narma",
+  "total_seconds": 0.1492743738926947,
+  "trainable_parameter_count": 11349,
+  "training_samples": 24,
+  "training_steps": 3,
+  "variant": "DR"
+}

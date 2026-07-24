@@ -1,0 +1,19 @@
+suite_name: phase2_switching_screen
+device: cuda
+precision: amp
+seed: 7
+output_root: results/phase2/switching_screen
+study_database: results/phase2/switching_screen/study.sqlite
+metrics_table: results/phase2/switching_screen/all_metrics.csv
+fail_fast: false
+runs:
+  - {run_id: swmg_D0_s7, task: switching_mackey_glass, variant: D0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swmg_R0_s7, task: switching_mackey_glass, variant: R0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swmg_DD_s7, task: switching_mackey_glass, variant: DD, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swmg_DR_s7, task: switching_mackey_glass, variant: DR, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swmg_RR_s7, task: switching_mackey_glass, variant: RR, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swnarma_D0_s7, task: switching_narma, variant: D0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swnarma_R0_s7, task: switching_narma, variant: R0, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swnarma_DD_s7, task: switching_narma, variant: DD, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swnarma_DR_s7, task: switching_narma, variant: DR, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}
+  - {run_id: swnarma_RR_s7, task: switching_narma, variant: RR, seed: 7, schedule: [A, B, A], series_length: 4000, seq_len: 32, batch_size: 32, d_model: 48, num_heads: 4, num_layers: 1, num_supports: 32, steps: 500}

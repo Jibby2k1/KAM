@@ -1,0 +1,103 @@
+{
+  "best_validation": {
+    "mae": 0.709227380156517,
+    "mse": 0.7816243907436728,
+    "nmse": 8.826247465360652,
+    "nrmse": 2.5676825369135536
+  },
+  "data_metadata": {
+    "beta": 0.2,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "output_dim": 1,
+    "tau": 17.0
+  },
+  "device": "cpu",
+  "final_validation": {
+    "mae": 0.709227380156517,
+    "mse": 0.7816243907436728,
+    "nmse": 8.826247465360652,
+    "nrmse": 2.5676825369135536
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.03133087488822639,
+      "step": 1,
+      "train": {
+        "mae": 1.0714141130447388,
+        "mse": 1.3652020692825317
+      },
+      "validation": {
+        "mae": 0.8427303232252598,
+        "mse": 1.087558796443045,
+        "nmse": 11.638070497652567,
+        "nrmse": 2.9657358716026314
+      }
+    },
+    {
+      "elapsed_seconds": 0.07295927894301713,
+      "step": 4,
+      "train": {
+        "mae": 0.8323883414268494,
+        "mse": 0.8863798379898071
+      },
+      "validation": {
+        "mae": 0.7732440553605556,
+        "mse": 0.9401507651666179,
+        "nmse": 10.161389703021232,
+        "nrmse": 2.7307068507731707
+      }
+    },
+    {
+      "elapsed_seconds": 0.11956186103634536,
+      "step": 8,
+      "train": {
+        "mae": 0.6681681871414185,
+        "mse": 0.7230847477912903
+      },
+      "validation": {
+        "mae": 0.709227380156517,
+        "mse": 0.7816243907436728,
+        "nmse": 8.826247465360652,
+        "nrmse": 2.5676825369135536
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "beta": 0.2,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 16,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "output_dim": 1,
+    "parameter_match_target": 12000,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression",
+    "tau": 17.0
+  },
+  "parameter_count": 12000,
+  "peak_memory_megabytes": 0.0,
+  "precision": "fp32",
+  "run_id": "capacity_DR_s17",
+  "seed": 17,
+  "status": "complete",
+  "task": "mackey_glass",
+  "total_seconds": 0.14519604807719588,
+  "trainable_parameter_count": 12000,
+  "training_samples": 64,
+  "training_steps": 8,
+  "variant": "DR"
+}

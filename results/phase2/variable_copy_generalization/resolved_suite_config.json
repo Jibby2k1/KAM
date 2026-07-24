@@ -1,0 +1,36 @@
+{
+  "config": {
+    "device": "cuda",
+    "fail_fast": true,
+    "metrics_table": "results/phase2/variable_copy_generalization/all_metrics.csv",
+    "output_root": "results/phase2/variable_copy_generalization",
+    "precision": "amp",
+    "runs": [
+      {
+        "alphabet_size": 17,
+        "batch_size": 32,
+        "d_model": 48,
+        "eval_every": 250,
+        "max_copy_length": 64,
+        "min_copy_length": 8,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 32,
+        "position_mode": "sinusoidal",
+        "run_id": "variable_copy_DRb_s37",
+        "seed": 37,
+        "steps": 500,
+        "task": "variable_copy",
+        "train_size": 2048,
+        "val_size": 256,
+        "variant": "DR-b"
+      }
+    ],
+    "seed": 37,
+    "study_database": "results/phase2/variable_copy_generalization/study.sqlite",
+    "suite_name": "phase2_variable_copy_generalization"
+  },
+  "device": "cuda",
+  "precision": "amp",
+  "run_count": 1
+}

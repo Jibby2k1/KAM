@@ -1,0 +1,99 @@
+{
+  "best_validation": {
+    "accuracy": 0.0,
+    "cross_entropy": 4.145995855331421,
+    "perplexity": 63.28873062133789
+  },
+  "data_metadata": {
+    "num_bindings": 4,
+    "num_queries": 2,
+    "sequence_length": 32,
+    "vocab_size": 64
+  },
+  "device": "cpu",
+  "final_validation": {
+    "accuracy": 0.0,
+    "cross_entropy": 4.145995855331421,
+    "perplexity": 63.28873062133789
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.006624007131904364,
+      "step": 1,
+      "train": {
+        "accuracy": 0.0625,
+        "cross_entropy": 4.191470146179199,
+        "perplexity": 66.11992645263672
+      },
+      "validation": {
+        "accuracy": 0.0,
+        "cross_entropy": 4.1610236167907715,
+        "perplexity": 64.24945259094238
+      }
+    },
+    {
+      "elapsed_seconds": 0.012387969065457582,
+      "step": 2,
+      "train": {
+        "accuracy": 0.0,
+        "cross_entropy": 4.33493709564209,
+        "perplexity": 76.32015991210938
+      },
+      "validation": {
+        "accuracy": 0.0,
+        "cross_entropy": 4.153229475021362,
+        "perplexity": 63.74859809875488
+      }
+    },
+    {
+      "elapsed_seconds": 0.018197965109720826,
+      "step": 3,
+      "train": {
+        "accuracy": 0.0,
+        "cross_entropy": 4.193502426147461,
+        "perplexity": 66.25444030761719
+      },
+      "validation": {
+        "accuracy": 0.0,
+        "cross_entropy": 4.145995855331421,
+        "perplexity": 63.28873062133789
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DR",
+    "num_bindings": 4,
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_queries": 2,
+    "num_supports": 8,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "sequence_length": 32,
+    "task_type": "language",
+    "vocab_size": 64
+  },
+  "parameter_count": 16788,
+  "peak_memory_megabytes": 0.0,
+  "precision": "fp32",
+  "run_id": "mqar_DR",
+  "seed": 7,
+  "status": "complete",
+  "task": "mqar",
+  "total_seconds": 0.020974031183868647,
+  "trainable_parameter_count": 16788,
+  "training_samples": 24,
+  "training_steps": 3,
+  "variant": "DR"
+}

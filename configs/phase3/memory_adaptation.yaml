@@ -1,0 +1,22 @@
+suite_name: phase3_memory_adaptation
+stage: memory_adaptation_protocol
+manifest: results/phase3/manifests/memory_adaptation.jsonl
+tasks: [switching_mackey_glass, switching_narma, prototype_switch]
+variants: [D0, DD-b, DD-b-staged, RF-b]
+scales: [S, M]
+trials_per_cell: 2
+training_seeds_per_trial: 2
+base_seed: 6101
+schedule: [A, B, A]
+precision: amp
+memory_trace: true
+memory_warmup_fraction: 0.75
+trace_eval_every: 0
+trace_eval_batches: 24
+evaluate_train: true
+evaluate_test: true
+trace_test: true
+save_test_predictions: false
+use_final_checkpoint_for_diagnostics: true
+online_length: 2400
+deletions_draws: 8

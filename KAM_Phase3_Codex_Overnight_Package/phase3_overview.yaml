@@ -1,0 +1,99 @@
+phase: 3
+project: kernel_adaptive_memory
+primary_hypothesis: persistent_memory_online_adaptation
+primary_comparison:
+  baseline: D0
+  candidate: DD-b
+  adapter: nlms
+secondary_comparisons:
+  - baseline: DD-b
+    candidate: DR-b
+    adapter: nlms
+  - baseline: RF-b
+    candidate: DD-b
+    adapter: nlms
+
+stages:
+  audit:
+    use_existing_checkpoints: true
+    tasks: [switching_mackey_glass, switching_narma]
+    variants: [DD-b, DR-b]
+    deletion_k: [1, 2, 4, 8, 16, "25%", "50%"]
+    random_deletion_draws: 100
+    anchor_contexts_per_task: 10000
+  development_search:
+    gated_by: gate_a
+    tasks: [switching_mackey_glass, switching_narma, prototype_switch]
+    variants: [D0, DD-b, DR-b, RF-b]
+    scales: [XS, S, M]
+    trials_per_cell: 24
+    development_training_seeds_per_trial: 2
+    schedules_per_seed: 3
+    fidelity_fractions: [0.10, 0.30, 0.60, 1.00]
+  long_scale_screen:
+    gated_by: development_search
+    tasks: [switching_mackey_glass, switching_narma, prototype_switch]
+    variants: [D0, DD-b, DR-b, RF-b]
+    scales: [M, L]
+    optional_scales: [XL]
+    top_configs_per_cell: 2
+    training_seeds: 3
+    schedules_per_seed: 5
+  confirmation:
+    gated_by: [gate_a, development_lock]
+    task: switching_mackey_glass
+    variants: [D0, DD-b, DR-b, RF-b]
+    primary_variants: [D0, DD-b]
+    adapter: nlms
+    new_training_seeds: 16
+    max_training_seeds_after_development_power_analysis: 24
+    heldout_schedules_per_seed: 10
+
+scales:
+  XS:
+    target_parameters: 40000
+    context_lengths: [32, 64]
+    support_counts: [16, 32, 64]
+  S:
+    target_parameters: 250000
+    context_lengths: [64, 128]
+    support_counts: [32, 64, 128]
+  M:
+    target_parameters: 1000000
+    context_lengths: [64, 128, 256]
+    support_counts: [64, 128, 256]
+  L:
+    target_parameters: 4000000
+    context_lengths: [128, 256]
+    support_counts: [128, 256]
+  XL:
+    target_parameters: 16000000
+    context_lengths: [256, 512]
+    support_counts: [256, 512]
+
+primary_endpoint:
+  name: relative_late_post_transition_nmse_improvement
+  practical_improvement_threshold: 0.15
+  stationary_degradation_limit: 0.05
+  equivalence_margin: 0.05
+  alpha: 0.05
+
+scientific_gates:
+  causal_top_vs_random_ci_above_zero: true
+  learned_features_better_than_random: true
+  stability_better_than_null: true
+  max_dead_or_duplicate_fraction: 0.25
+  primary_ci_above_zero: true
+  primary_practical_improvement_at_least: 0.15
+
+compute:
+  local_overnight_hours: 10
+  local_max_parallel_gpu_jobs: 1
+  hpg_default_walltime: "12:00:00"
+  hpg_bulk_cpus_per_task: 4
+  hpg_bulk_memory_gb: 32
+  hpg_large_cpus_per_task: 8
+  hpg_large_memory_gb: 96
+  max_array_rows: 3000
+  suggested_cluster_development_gpu_hours: [500, 900]
+  suggested_confirmatory_gpu_hours: [250, 600]

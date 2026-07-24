@@ -1,0 +1,92 @@
+{
+  "best_validation": {
+    "mae": 0.03678648585551664,
+    "mse": 0.002029021414560511
+  },
+  "data_metadata": {
+    "beta": 0.2,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "output_dim": 1,
+    "tau": 17.0
+  },
+  "device": "cuda",
+  "final_validation": {
+    "mae": 0.03678648585551664,
+    "mse": 0.002029021414560511
+  },
+  "history": [
+    {
+      "elapsed_seconds": 0.025856182910501957,
+      "step": 1,
+      "train": {
+        "mae": 0.8959119319915771,
+        "mse": 1.0582754611968994
+      },
+      "validation": {
+        "mae": 0.9069001423685175,
+        "mse": 1.1213807949894352
+      }
+    },
+    {
+      "elapsed_seconds": 0.6160097899846733,
+      "step": 250,
+      "train": {
+        "mae": 0.043226756155490875,
+        "mse": 0.0027314689941704273
+      },
+      "validation": {
+        "mae": 0.049071206074011955,
+        "mse": 0.0036202782127810152
+      }
+    },
+    {
+      "elapsed_seconds": 1.2211946819443256,
+      "step": 500,
+      "train": {
+        "mae": 0.03395403176546097,
+        "mse": 0.0017838096246123314
+      },
+      "validation": {
+        "mae": 0.03678648585551664,
+        "mse": 0.002029021414560511
+      }
+    }
+  ],
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "beta": 0.2,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "DD",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "output_dim": 1,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression",
+    "tau": 17.0
+  },
+  "parameter_count": 39857,
+  "peak_memory_megabytes": 26.6240234375,
+  "precision": "amp",
+  "run_id": "mg_DD_s11",
+  "seed": 11,
+  "status": "complete",
+  "task": "mackey_glass",
+  "total_seconds": 1.2350096870213747,
+  "trainable_parameter_count": 39857,
+  "training_samples": 16000,
+  "training_steps": 500,
+  "variant": "DD"
+}

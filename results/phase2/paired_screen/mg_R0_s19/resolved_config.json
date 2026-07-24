@@ -1,0 +1,50 @@
+{
+  "data_metadata": {
+    "beta": 0.2,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "output_dim": 1,
+    "tau": 17.0
+  },
+  "git_commit": null,
+  "git_dirty": null,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "beta": 0.2,
+    "context_window": null,
+    "d_model": 48,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "input_dim": 2,
+    "max_seq_len": 32,
+    "memory_mode": "both",
+    "memory_output": "both",
+    "model_name": "R0",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "output_dim": 1,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "regression",
+    "tau": 17.0
+  },
+  "precision": "amp",
+  "run": {
+    "batch_size": 32,
+    "d_model": 48,
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 32,
+    "run_id": "mg_R0_s19",
+    "seed": 19,
+    "seq_len": 32,
+    "series_length": 4000,
+    "steps": 500,
+    "task": "mackey_glass",
+    "variant": "R0"
+  }
+}

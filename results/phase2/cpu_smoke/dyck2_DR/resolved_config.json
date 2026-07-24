@@ -1,0 +1,48 @@
+{
+  "data_metadata": {
+    "max_depth": 8,
+    "max_seq_len": 16,
+    "vocab_size": 5
+  },
+  "git_commit": null,
+  "git_dirty": null,
+  "model_spec": {
+    "bandwidth": "learned",
+    "bandwidth_init": 1.0,
+    "context_window": null,
+    "d_model": 24,
+    "dropout": 0.0,
+    "expose_memory_weights": false,
+    "ffn_expansion": 4,
+    "max_depth": 8,
+    "max_seq_len": 16,
+    "memory_mode": "routes",
+    "memory_output": "routes",
+    "model_name": "DR",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "radial_metric": "diagonal",
+    "route_features": "raw",
+    "route_projection_dim": null,
+    "task_type": "language",
+    "vocab_size": 5
+  },
+  "precision": "fp32",
+  "run": {
+    "batch_size": 8,
+    "d_model": 24,
+    "max_depth": 8,
+    "memory_mode": "routes",
+    "num_heads": 4,
+    "num_layers": 1,
+    "num_supports": 8,
+    "run_id": "dyck2_DR",
+    "seed": 7,
+    "steps": 3,
+    "task": "dyck2",
+    "train_size": 32,
+    "val_size": 16,
+    "variant": "DR"
+  }
+}

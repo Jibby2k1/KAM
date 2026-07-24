@@ -1,0 +1,46 @@
+{
+  "config": {
+    "device": "cpu",
+    "fail_fast": true,
+    "metrics_table": "results/phase2/capacity_match_smoke/all_metrics.csv",
+    "output_root": "results/phase2/capacity_match_smoke",
+    "precision": "fp32",
+    "runs": [
+      {
+        "batch_size": 8,
+        "d_model": 24,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 8,
+        "parameter_match_target": 12000,
+        "run_id": "capacity_D0_s17",
+        "seed": 17,
+        "seq_len": 16,
+        "series_length": 1200,
+        "steps": 8,
+        "task": "mackey_glass",
+        "variant": "D0"
+      },
+      {
+        "batch_size": 8,
+        "d_model": 24,
+        "num_heads": 4,
+        "num_layers": 1,
+        "num_supports": 8,
+        "parameter_match_target": 12000,
+        "run_id": "capacity_DR_s17",
+        "seed": 17,
+        "seq_len": 16,
+        "series_length": 1200,
+        "steps": 8,
+        "task": "mackey_glass",
+        "variant": "DR"
+      }
+    ],
+    "study_database": "results/phase2/capacity_match_smoke/study.sqlite",
+    "suite_name": "phase2_capacity_match_smoke"
+  },
+  "device": "cpu",
+  "precision": "fp32",
+  "run_count": 2
+}
