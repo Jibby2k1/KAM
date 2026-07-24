@@ -1,0 +1,42 @@
+{
+  "config": "configs/phase5/pilot.yaml",
+  "format": "jsonl",
+  "path": "results/phase5/manifests/pilot.jsonl",
+  "row_count": 144,
+  "scales": {
+    "P1M": {
+      "bank": {
+        "d_model": 136,
+        "num_heads": 4,
+        "num_layers": 3,
+        "num_supports": 128
+      },
+      "d0": {
+        "d_model": 164,
+        "num_heads": 4,
+        "num_layers": 3,
+        "num_supports": 64
+      },
+      "fourier_features": 7692,
+      "target_active_parameters": 1000000
+    },
+    "P250": {
+      "bank": {
+        "d_model": 72,
+        "num_heads": 4,
+        "num_layers": 3,
+        "num_supports": 16
+      },
+      "d0": {
+        "d_model": 80,
+        "num_heads": 4,
+        "num_layers": 3,
+        "num_supports": 64
+      },
+      "fourier_features": 1923,
+      "target_active_parameters": 250000
+    }
+  },
+  "scientific_scope": "signal and variance profiling; not confirmatory evidence",
+  "stage": "stage1_mechanism_pilot"
+}

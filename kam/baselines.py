@@ -46,6 +46,28 @@ class MLPRegressor(nn.Module):
         return self.network(inputs)
 
 
+class RandomFourierRegressor(nn.Module):
+    """Fixed random Fourier map with a trainable scalar readout."""
+
+    def __init__(self, window: int, input_dim: int, feature_dim: int, output_dim: int = 1) -> None:
+        super().__init__()
+        if feature_dim < 1:
+            raise ValueError("feature_dim must be positive")
+        self.feature_dim = int(feature_dim)
+        self.route_feature_dim = 0
+        self.random_map = nn.Linear(int(window) * int(input_dim), self.feature_dim)
+        self.readout = nn.Linear(self.feature_dim, int(output_dim))
+        nn.init.normal_(self.random_map.weight, mean=0.0, std=1.0)
+        nn.init.uniform_(self.random_map.bias, -torch.pi, torch.pi)
+        for parameter in self.random_map.parameters():
+            parameter.requires_grad_(False)
+
+    def forward(self, inputs: Tensor) -> Tensor:
+        flattened = inputs.reshape(inputs.shape[0], -1)
+        features = torch.cos(self.random_map(flattened)) * (2.0 / self.feature_dim) ** 0.5
+        return self.readout(features)
+
+
 @dataclass
 class BudgetedKLMSRegressor:
     """A small quantized, fixed-budget KLMS baseline for streaming regression."""

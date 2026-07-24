@@ -1,0 +1,25 @@
+suite_name: phase5_mechanism_pilot
+stage: stage1_mechanism_pilot
+manifest: results/phase5/manifests/pilot.jsonl
+tasks:
+- controlled_prototype
+- controlled_symbolic_regime_language
+- switching_mackey_glass_controlled
+- switching_narma_controlled
+variants:
+- D0
+- DD-L
+- RF-KV
+- RF-FULL
+- KC-LV
+- RFF
+scales:
+- P250
+- P1M
+seeds: 3
+steps: 256
+batch_size: 32
+eval_batches: 16
+route_projection_dim: 64
+training_protocol: iid_window_training
+precision: amp

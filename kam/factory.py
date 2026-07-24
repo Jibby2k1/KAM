@@ -4,7 +4,7 @@ from typing import Any
 
 from torch import nn
 
-from .baselines import GRULanguageModel, GRURegressor, MLPRegressor
+from .baselines import GRULanguageModel, GRURegressor, MLPRegressor, RandomFourierRegressor
 from .model import KAMSequenceModel
 
 LEGACY_MODELS = {"kam", "kernel-self", "memory-only", "dot-transformer", "dot-hybrid"}
@@ -45,6 +45,15 @@ def make_model(spec: dict[str, Any]) -> nn.Module:
     """Build a legacy or Phase II model from a JSON/YAML-serializable spec."""
     model_name = str(spec["model_name"])
     task_type = str(spec["task_type"])
+    if model_name == "RFF":
+        if task_type != "regression":
+            raise ValueError("RFF is implemented for regression pilot tasks only")
+        return RandomFourierRegressor(
+            window=int(spec["max_seq_len"]),
+            input_dim=int(spec["input_dim"]),
+            feature_dim=int(spec.get("fourier_features", 64)),
+            output_dim=int(spec.get("output_dim", 1)),
+        )
     if model_name in PHASE5_VARIANTS:
         phase5_spec = dict(spec)
         phase5_spec["model_name"] = PHASE5_BASE_VARIANTS[model_name]

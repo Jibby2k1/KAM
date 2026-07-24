@@ -353,6 +353,47 @@ def _evaluate(model: nn.Module, loader: DataLoader, device: torch.device, task_t
     return {key: value / max(count, 1) for key, value in totals.items()}
 
 
+@torch.no_grad()
+def _initialize_data_centers(model: nn.Module, loader: DataLoader) -> None:
+    """Initialize KC-LV keys from observed training representations, then freeze them."""
+    batch = next(iter(loader))
+    inputs = batch[0]
+    device = next(model.parameters()).device
+    inputs = inputs.to(device)
+    hidden = model.input_layer(inputs)
+    hidden = hidden + model._position_encoding(hidden.shape[1], device, hidden.dtype)
+    for block in getattr(model, "blocks", []):
+        memory = getattr(block, "memory", None)
+        if memory is None:
+            continue
+        head_dim = int(memory.head_dim)
+        reshaped = hidden.reshape(hidden.shape[0] * hidden.shape[1], memory.num_heads, head_dim)
+        indices = torch.linspace(0, reshaped.shape[0] - 1, memory.num_supports, device=device).long()
+        centers = reshaped[indices].permute(1, 0, 2).contiguous()
+        memory.memory_keys.copy_(centers)
+        memory.memory_keys.requires_grad_(False)
+
+
+def _configure_phase5_variant(model: nn.Module, variant: str, train_loader: DataLoader) -> dict[str, Any]:
+    metadata: dict[str, Any] = {"variant_semantics": variant}
+    if variant == "RK-LV":
+        for name, parameter in model.named_parameters():
+            if name.endswith("memory_keys"):
+                parameter.requires_grad_(False)
+        metadata["fixed_component"] = "random_keys"
+    elif variant == "LK-RV":
+        for name, parameter in model.named_parameters():
+            if name.endswith("memory_values"):
+                parameter.requires_grad_(False)
+        metadata["fixed_component"] = "random_values"
+    elif variant == "KC-LV":
+        _initialize_data_centers(model, train_loader)
+        metadata["fixed_component"] = "sampled_training_representation_keys"
+    elif variant == "RFF":
+        metadata["fixed_component"] = "random_fourier_map"
+    return metadata
+
+
 def _evaluation_loader(loader: DataLoader) -> DataLoader:
     """Create a deterministic, non-shuffled view of an existing loader."""
 
@@ -405,8 +446,10 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
         "expose_memory_weights": bool(run.get("expose_memory_weights", False)),
         "parameter_match_target": run.get("parameter_match_target"),
         "position_mode": run.get("position_mode", "learned"),
+        "fourier_features": run.get("fourier_features"),
     }
     model = make_model(spec).to(device)
+    variant_metadata = _configure_phase5_variant(model, str(run.get("variant", spec["model_name"])), train_loader)
     capacity = capacity_summary(model, spec, int(spec["max_seq_len"]))
     steps = int(run.get("steps", 10))
     eval_every = int(run.get("eval_every", max(1, steps // 10)))
@@ -584,7 +627,7 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
         "initial_trainable_parameter_count": initial_memory_trainable_parameter_count,
         "memory_bank_parameter_count": memory_bank_parameter_count,
         "memory_protocol": memory_protocol, "memory_freeze_step": freeze_step,
-        "memory_warmup_fraction": warmup_fraction,
+        "memory_warmup_fraction": warmup_fraction, **variant_metadata,
         "training_steps": steps, "training_samples": steps * int(run.get("batch_size", 32)),
         "total_seconds": time.perf_counter() - start, "peak_memory_megabytes": peak_memory,
         "best_validation": best_validation or final_validation,
