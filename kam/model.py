@@ -254,10 +254,15 @@ class KAMSequenceModel(nn.Module):
             ]
         )
         self.final_norm = nn.LayerNorm(d_model)
+        self.baseline_route_projection = None
+        if not use_memory and route_features == "projected" and route_projection_dim is not None:
+            self.baseline_route_projection = nn.Linear(d_model, int(route_projection_dim), bias=False)
 
         route_dim = 0
         if use_memory and memory_output in {"routes", "both"}:
             route_dim = self.blocks[-1].route_output_dim
+        elif not use_memory and self.baseline_route_projection is not None:
+            route_dim = int(route_projection_dim)
         elif task == "regression" and self.expose_memory_weights:
             # Legacy regression checkpoints expose the final raw route matrix.
             route_dim = num_heads * num_supports
@@ -326,6 +331,8 @@ class KAMSequenceModel(nn.Module):
             else:
                 memory_features = final_memory.mean(dim=2)
             return torch.cat([pooled, memory_features.flatten(start_dim=1)], dim=-1)
+        if self.baseline_route_projection is not None:
+            return torch.cat([pooled, self.baseline_route_projection(pooled)], dim=-1)
         return pooled
 
     def regression_features(

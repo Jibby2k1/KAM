@@ -14,3 +14,10 @@ Start here when reviewing this repository:
 The canonical experiment unit is one manifest row. Outputs live under `results/phase4/` and are keyed by immutable `run_id`; reports and figures live under `reports/phase4/`. Test data is evaluated only after validation-based checkpoint selection. The default Phase IV screen is a development instrument, not confirmatory evidence.
 
 For HiPerGator, inspect `scripts/submit_phase4_hpg.sh --plan-only` before using `--submit`. For local validation, run `pytest -q` and build a small manifest with `python -m kam.phase4.manifest --config configs/phase4/factorial_screen.yaml --output /tmp/kam_phase4_manifest.jsonl`.
+
+Phase V validity gate:
+- Authoritative brief: docs/codex/KAM_PHASE5_CODEX_EXECUTION_BRIEF.md
+- Repository audit: docs/codex/KAM_REPOSITORY_AUDIT_PHASE5.md
+- Supplied campaign specification: configs/phase5/phase5_learned_vs_fixed_features.yaml
+- Gate config and runner: configs/phase5/validity.yaml, kam/phase5/
+- Gate report and ChatGPT handoff: reports/phase5/

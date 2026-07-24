@@ -12,7 +12,13 @@ PHASE2_BASE_VARIANTS = {"D0", "R0", "DD", "DR", "RR"}
 PHASE2_VARIANTS = PHASE2_BASE_VARIANTS | {f"{base}-{suffix}" for base in {"DD", "DR", "RR"} for suffix in ("v", "a", "b")}
 PHASE3_RANDOM_VARIANTS = {"RF-b", "RF-b-readout"}
 PHASE3_STAGED_VARIANTS = {"DD-b-staged", "DR-b-staged"}
-KAM_MODELS = LEGACY_MODELS | PHASE2_VARIANTS | PHASE3_RANDOM_VARIANTS | PHASE3_STAGED_VARIANTS
+PHASE5_VARIANTS = {"DD-L", "RF-KV", "RF-FULL", "RK-LV", "LK-RV", "KC-LV", "RFF", "DD-PF", "DD-DRIFT"}
+PHASE5_BASE_VARIANTS = {
+    "DD-L": "DD-b", "RF-KV": "RF-b", "RF-FULL": "RF-b-readout",
+    "RK-LV": "DD-b", "LK-RV": "DD-b", "KC-LV": "DD-b",
+    "RFF": "RF-b-readout", "DD-PF": "DD-b-staged", "DD-DRIFT": "DD-b",
+}
+KAM_MODELS = LEGACY_MODELS | PHASE2_VARIANTS | PHASE3_RANDOM_VARIANTS | PHASE3_STAGED_VARIANTS | PHASE5_VARIANTS
 
 
 def _phase2_scores(label: str) -> tuple[str, str | None, bool, bool, str]:
@@ -39,6 +45,10 @@ def make_model(spec: dict[str, Any]) -> nn.Module:
     """Build a legacy or Phase II model from a JSON/YAML-serializable spec."""
     model_name = str(spec["model_name"])
     task_type = str(spec["task_type"])
+    if model_name in PHASE5_VARIANTS:
+        phase5_spec = dict(spec)
+        phase5_spec["model_name"] = PHASE5_BASE_VARIANTS[model_name]
+        return make_model(phase5_spec)
     if model_name in PHASE3_STAGED_VARIANTS:
         # The schedule is enforced by the runner; this alias keeps the model
         # architecture and parameter count identical to its joint-training arm.

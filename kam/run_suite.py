@@ -31,6 +31,8 @@ from .data import (
 )
 from .factory import make_model
 from .experiment_registry import ExperimentRegistry
+from .capacity import capacity_summary
+from .data.controlled_regimes import ControlledWindowDataset, make_independent_controlled_streams
 from .utils import atomic_torch_save, choose_device, json_ready, save_json, set_seed
 from .phase3.memory_trace import (
     memory_bank_parameters,
@@ -94,6 +96,9 @@ def _descriptive_regression_metrics(predictions: Tensor, targets: Tensor) -> dic
         "r2": float(1.0 - errors.square().sum() / denominator),
         "correlation": float(correlation),
         "relative_mae": float(absolute.mean() / target_scale),
+        "nmse": float(mse / target_centered.square().mean().clamp_min(1e-12)),
+        "nrmse": float((mse / target_centered.square().mean().clamp_min(1e-12)).sqrt()),
+        "target_variance": float(target_centered.square().mean()),
         "p95_to_median_abs_error": float(p95_abs / median_abs.clamp_min(1e-12)),
         "log10_median_abs_error": float(torch.log10(median_abs.clamp_min(1e-12))),
     }
@@ -129,7 +134,14 @@ def _collect_regression_predictions(model: nn.Module, loader: DataLoader, device
     return torch.cat(predictions), torch.cat(targets), rows
 
 
-REGRESSION_TASKS = {
+PHASE5_CONTROLLED_TASKS = {
+    "controlled_prototype",
+    "controlled_symbolic_regime_language",
+    "switching_mackey_glass_controlled",
+    "switching_narma_controlled",
+}
+
+REGRESSION_TASKS = PHASE5_CONTROLLED_TASKS | {
     "switching_mackey_glass",
     "switching_narma",
     "prototype_switch",
@@ -144,6 +156,42 @@ def _build_regression_data(
     """Build train/validation/test loaders for continuous regression streams."""
 
     batch_size = int(params.get("batch_size", 32))
+    if task in PHASE5_CONTROLLED_TASKS:
+        stream_kwargs = {
+            "regime_count": int(params.get("regime_count", 2)),
+            "regime_separation": params.get("regime_separation", "medium"),
+            "return_probability": float(params.get("return_probability", 0.5)),
+            "dwell_length": int(params.get("dwell_length", max(8, int(params.get("seq_len", 32)) * 2))),
+            "transition_type": str(params.get("transition_type", "abrupt")),
+            "observation_noise": float(params.get("observation_noise", 0.0)),
+            "process_noise": float(params.get("process_noise", 0.0)),
+            "input_noise": float(params.get("input_noise", 0.0)),
+            "observability": str(params.get("observability", "full")),
+        }
+        lengths = {
+            "train": int(params.get("train_length", params.get("series_length", 1200))),
+            "validation": int(params.get("validation_length", max(256, int(params.get("series_length", 1200) // 3)))),
+            "test": int(params.get("test_length", max(256, int(params.get("series_length", 1200) // 3)))),
+            "prequential": int(params.get("prequential_length", max(256, int(params.get("series_length", 1200) // 3)))),
+        }
+        streams = make_independent_controlled_streams(lengths=lengths, seed=seed, **stream_kwargs)
+        window = int(params.get("seq_len", 32))
+        train = ControlledWindowDataset(streams["train"], window)
+        validation = ControlledWindowDataset(streams["validation"], window)
+        test = ControlledWindowDataset(streams["test"], window)
+        metadata = {
+            "input_dim": 2, "output_dim": 1, "max_seq_len": window,
+            "controlled_streams": True, "independent_split_streams": True,
+            "stream_metadata": {name: stream.metadata for name, stream in streams.items()},
+            **stream_kwargs,
+        }
+        return (
+            DataLoader(train, batch_size=batch_size, shuffle=bool(params.get("training_protocol", "iid_window_training") == "iid_window_training")),
+            DataLoader(validation, batch_size=batch_size),
+            DataLoader(test, batch_size=batch_size),
+            "regression",
+            metadata,
+        )
     window = int(params.get("seq_len", 32))
     schedule = params.get("schedule", ["A", "B", "A"])
     if isinstance(schedule, str):
@@ -280,20 +328,25 @@ def _move_batch(batch: Any, device: torch.device, task_type: str) -> tuple[Tenso
 @torch.no_grad()
 def _evaluate(model: nn.Module, loader: DataLoader, device: torch.device, task_type: str, max_batches: int = 50) -> dict[str, float]:
     model.eval()
+    if task_type == "regression":
+        predictions: list[Tensor] = []
+        targets: list[Tensor] = []
+        for index, batch in enumerate(loader):
+            if index >= max_batches:
+                break
+            inputs, batch_targets, _ = _move_batch(batch, device, task_type)
+            predictions.append(model(inputs).detach().float().reshape(-1).cpu())
+            targets.append(batch_targets.detach().float().reshape(-1).cpu())
+        if not predictions:
+            return {}
+        return _descriptive_regression_metrics(torch.cat(predictions), torch.cat(targets))
     totals: dict[str, float] = {}
     count = 0
     for index, batch in enumerate(loader):
         if index >= max_batches:
             break
         inputs, targets, mask = _move_batch(batch, device, task_type)
-        outputs = model(inputs)
-        if task_type == "regression":
-            mse_value = float(nn.functional.mse_loss(outputs, targets))
-            mae_value = float(nn.functional.l1_loss(outputs, targets))
-            variance_value = float(targets.var(unbiased=False).clamp_min(1e-12))
-            metrics = {"mse": mse_value, "mae": mae_value, "nmse": mse_value / variance_value, "nrmse": float((mse_value / variance_value) ** 0.5)}
-        else:
-            _, metrics = _masked_language_loss(outputs, targets, mask)
+        _, metrics = _masked_language_loss(model(inputs), targets, mask)
         for key, value in metrics.items():
             totals[key] = totals.get(key, 0.0) + value
         count += 1
@@ -354,6 +407,7 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
         "position_mode": run.get("position_mode", "learned"),
     }
     model = make_model(spec).to(device)
+    capacity = capacity_summary(model, spec, int(spec["max_seq_len"]))
     steps = int(run.get("steps", 10))
     eval_every = int(run.get("eval_every", max(1, steps // 10)))
     memory_protocol = str(run.get("memory_protocol", "joint"))
@@ -509,9 +563,23 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
         test_descriptive = _descriptive_regression_metrics(prediction_tensor, target_tensor)
     final_checkpoint = output_dir / "final_model.pt"
     atomic_torch_save(final_checkpoint, {"model_state": model.state_dict(), "model_spec": spec, "resolved_config": resolved, "validation": final_validation, "test": final_test, "step": steps, "memory_protocol": memory_protocol, "memory_freeze_step": freeze_step})
+    best_checkpoint_validation = None
+    best_checkpoint_test = None
+    best_checkpoint_test_descriptive = None
+    best_path = output_dir / "best_model.pt"
+    if best_path.exists():
+        best_payload = torch.load(best_path, map_location=device, weights_only=False)
+        model.load_state_dict(best_payload["model_state"])
+        best_checkpoint_validation = _evaluate(model, validation_loader, device, task_type, int(run.get("eval_batches", 20)))
+        best_checkpoint_test = _evaluate(model, test_loader, device, task_type, int(run.get("eval_batches", 20))) if test_loader is not None else None
+        if task_type == "regression" and evaluate_test and test_loader is not None and bool(run.get("save_test_predictions", False)):
+            prediction_tensor, target_tensor, _ = _collect_regression_predictions(model, test_loader, device, int(run.get("eval_batches", 20)))
+            best_checkpoint_test_descriptive = _descriptive_regression_metrics(prediction_tensor, target_tensor)
     metrics = {
         "run_id": run["run_id"], "task": task, "variant": spec["model_name"], "seed": seed,
-        "device": str(device), "precision": precision, "parameter_count": sum(p.numel() for p in model.parameters()),
+        "device": str(device), "precision": precision, **capacity,
+        "route_feature_dim": int(getattr(model, "route_feature_dim", -1)),
+        "parameter_count": sum(p.numel() for p in model.parameters()),
         "trainable_parameter_count": sum(p.numel() for p in model.parameters() if p.requires_grad),
         "initial_trainable_parameter_count": initial_memory_trainable_parameter_count,
         "memory_bank_parameter_count": memory_bank_parameter_count,
@@ -520,6 +588,9 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
         "training_steps": steps, "training_samples": steps * int(run.get("batch_size", 32)),
         "total_seconds": time.perf_counter() - start, "peak_memory_megabytes": peak_memory,
         "best_validation": best_validation or final_validation,
+        "best_checkpoint_validation": best_checkpoint_validation,
+        "best_checkpoint_test": best_checkpoint_test,
+        "best_checkpoint_test_descriptive_metrics": best_checkpoint_test_descriptive,
         "final_validation": final_validation, "final_train_evaluation": final_train_evaluation, "final_test": final_test,
         "history": history, "status": "complete", "model_spec": spec, "data_metadata": data_meta,
         "best_checkpoint": str(output_dir / "best_model.pt"), "final_checkpoint": str(final_checkpoint),

@@ -139,7 +139,12 @@ python -m kam.phase4.manifest --config configs/phase4/factorial_screen.yaml
 scripts/submit_phase4_hpg.sh --plan-only
 ```
 
-After the dependent HPG report job completes, read [`reports/phase4/PHASE4_LLM_HANDOFF.md`](reports/phase4/PHASE4_LLM_HANDOFF.md) for a compact request for next-step feedback and [`reports/phase4/PHASE4_FACTORIAL_REPORT.md`](reports/phase4/PHASE4_FACTORIAL_REPORT.md) for the technical evidence.
+
+## Phase V validity-gated feature campaign
+
+The authoritative Phase V brief is [docs/codex/KAM_PHASE5_CODEX_EXECUTION_BRIEF.md](docs/codex/KAM_PHASE5_CODEX_EXECUTION_BRIEF.md), with the repository audit in [docs/codex/KAM_REPOSITORY_AUDIT_PHASE5.md](docs/codex/KAM_REPOSITORY_AUDIT_PHASE5.md). The first HPG submission is a small validity gate; the full learned-versus-fixed-feature pilot remains blocked until its machine-readable checks pass.
+
+After the dependent HPG report job completes, read [`reports/phase5/PHASE5_VALIDITY_AUDIT.md`](reports/phase5/PHASE5_VALIDITY_AUDIT.md) for the gate result, [`reports/phase5/PHASE5_LLM_HANDOFF.md`](reports/phase5/PHASE5_LLM_HANDOFF.md) for a compact request for next-step feedback, and [`reports/phase5/PHASE5_REPOSITORY_WRITEUP.md`](reports/phase5/PHASE5_REPOSITORY_WRITEUP.md) for the human-facing summary.
 
 ## Recommended first grid
 

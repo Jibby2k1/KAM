@@ -1,0 +1,100 @@
+suite_name: phase5_learned_vs_fixed_feature_campaign
+reference_commit: 311a76505de86fb5a254084389d6331da846fe7c
+primary_question: Does learned support memory beat actively matched fixed nonlinear
+  features?
+validity_gate:
+  require_active_parameter_matching: true
+  max_active_parameter_error_fraction: 0.01
+  allow_padding_parameters_in_primary_rows: false
+  fixed_route_projection_dim: 64
+  require_best_checkpoint_test_reload: true
+  require_global_nmse: true
+  require_independent_split_streams: true
+  require_ordered_protocol_test: true
+tasks:
+- controlled_prototype
+- controlled_symbolic_regime_language
+- switching_mackey_glass_controlled
+- switching_narma_controlled
+primary_variants:
+- D0
+- DD-L
+- RF-KV
+- RF-FULL
+- KC-LV
+- RFF
+secondary_variants:
+- RK-LV
+- LK-RV
+- DD-PF
+- DD-DRIFT
+active_parameter_scales:
+- 250000
+- 1000000
+- 4000000
+support_counts:
+- 16
+- 32
+- 64
+- 128
+- 256
+route_projection_dim: 64
+context_ratios:
+- 0.5
+- 1.0
+- 2.0
+- 4.0
+factors:
+  return_probability:
+  - 0.0
+  - 0.25
+  - 0.5
+  - 0.75
+  - 1.0
+  regime_separation:
+  - low
+  - medium
+  - high
+  transition_type:
+  - abrupt
+  - gradual
+  observation_noise:
+  - none
+  - low
+  - high
+  process_noise:
+  - none
+  - low
+  observability:
+  - full
+  - partial
+  - hidden_driver
+stages:
+  pilot:
+    seeds: 3
+    target_completed_runs: 150-250
+  factorial:
+    seeds: 3
+    target_completed_or_pruned_trials: 400-800
+    fidelities:
+    - 0.2
+    - 0.5
+    - 1.0
+  scaling:
+    seeds: 5
+    heldout_streams_per_seed: 10
+  confirmation:
+    new_seeds: 10-16
+    heldout_streams_per_seed: 10
+    max_primary_claims: 2
+primary_metrics:
+  static: heldout_global_nmse
+  adaptation: late_post_transition_nmse
+  recurrence: reacquisition_time
+final_decisions:
+- PROMOTE_LEARNED_SUPPORT_MEMORY
+- PROMOTE_FIXED_KERNEL_FEATURE_BANK
+- PROMOTE_GENERIC_RANDOM_FEATURE_BANK
+- PROMOTE_ADAPTIVE_READOUT_ONLY
+- RETAIN_AS_DIAGNOSTIC_ONLY
+- STOP_KAM_SPECIFIC_DIRECTION

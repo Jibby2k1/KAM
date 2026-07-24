@@ -1,0 +1,8 @@
+suite_name: phase5_validity_gate
+stage: stage0_validity_gate
+manifest: results/phase5/manifests/validity.jsonl
+tasks: [controlled_prototype, controlled_symbolic_regime_language, switching_mackey_glass_controlled, switching_narma_controlled]
+variants: [D0, DD-L, RF-FULL]
+training_protocols: [iid_window_training, ordered_stream_training]
+scales: [V]
+precision: amp
