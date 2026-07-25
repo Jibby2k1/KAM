@@ -3,9 +3,25 @@ from __future__ import annotations
 from typing import Any
 import numpy as np
 from .controlled_regimes import ControlledRegimeStream
+from .stream_quality import assess_stream_quality, stream_quality_checks
 
 
-def generate_controlled_narma_stream(
+DEFAULT_MAX_STABILITY_ATTEMPTS = 64
+_RETRY_NAMESPACE = 0x4B414D
+
+
+def _retry_seed(requested_seed: int, attempt: int) -> int:
+    """Map a requested seed and retry index to a deterministic NumPy seed."""
+    if attempt == 0:
+        return int(requested_seed)
+    return int(
+        np.random.SeedSequence(
+            [int(requested_seed), int(attempt), _RETRY_NAMESPACE]
+        ).generate_state(1, dtype=np.uint32)[0]
+    )
+
+
+def _generate_controlled_narma_candidate(
     length: int, *, seed: int = 0, regime_count: int = 3, order: int = 10,
     regime_separation: str | float = "medium", return_probability: float = 0.5,
     dwell_length: int = 64, transition_type: str = "abrupt",
@@ -73,4 +89,69 @@ def generate_controlled_narma_stream(
          "process_noise": process_noise, "input_noise": input_noise,
          "observability": observability, "true_memory_horizon": order,
          "clip_boundary": 5.0, "narma_gain_separation": separation},
+    )
+
+
+def generate_controlled_narma_stream(
+    length: int, *, seed: int = 0, regime_count: int = 3, order: int = 10,
+    regime_separation: str | float = "medium", return_probability: float = 0.5,
+    dwell_length: int = 64, transition_type: str = "abrupt",
+    observation_noise: float = 0.0, process_noise: float = 0.0, input_noise: float = 0.0,
+    observability: str = "full",
+    max_stability_attempts: int = DEFAULT_MAX_STABILITY_ATTEMPTS,
+    **kwargs: Any,
+) -> ControlledRegimeStream:
+    """Generate a stable stream while preserving valid requested-seed draws.
+
+    Attempt zero is byte-for-byte the historical requested-seed generator.
+    Only candidates that fail the registered stream-quality contract are
+    retried.  The deterministic realized seed and attempt are recorded so a
+    rejected draw never becomes an invisible change to the experiment.
+    """
+    if max_stability_attempts < 1:
+        raise ValueError("max_stability_attempts must be at least one")
+    last_quality: dict[str, Any] | None = None
+    last_checks: dict[str, bool] | None = None
+    for attempt in range(max_stability_attempts):
+        realized_seed = _retry_seed(seed, attempt)
+        stream = _generate_controlled_narma_candidate(
+            length,
+            seed=realized_seed,
+            regime_count=regime_count,
+            order=order,
+            regime_separation=regime_separation,
+            return_probability=return_probability,
+            dwell_length=dwell_length,
+            transition_type=transition_type,
+            observation_noise=observation_noise,
+            process_noise=process_noise,
+            input_noise=input_noise,
+            observability=observability,
+            **kwargs,
+        )
+        quality = assess_stream_quality(
+            stream.values,
+            clip_boundary=stream.metadata["clip_boundary"],
+        )
+        checks = stream_quality_checks(quality)
+        if all(checks.values()):
+            stream.metadata.update(
+                {
+                    "seed": int(seed),
+                    "requested_seed": int(seed),
+                    "realized_seed": realized_seed,
+                    "seed_attempt": attempt,
+                    "max_stability_attempts": int(max_stability_attempts),
+                    "stream_quality": quality,
+                    "stream_quality_checks": checks,
+                }
+            )
+            return stream
+        last_quality = quality
+        last_checks = checks
+    failed = [name for name, passed in (last_checks or {}).items() if not passed]
+    raise ValueError(
+        "Controlled NARMA stream exhausted deterministic stability retries: "
+        f"requested_seed={seed}, attempts={max_stability_attempts}, "
+        f"failed_checks={failed}, last_quality={last_quality}"
     )

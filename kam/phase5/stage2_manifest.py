@@ -24,8 +24,17 @@ def _seed(stage: str, task: str, cell: str, index: int) -> int:
 
 
 @lru_cache(maxsize=None)
-def resolve_architecture(target: int, variant: str, task_type: str, max_seq_len: int, num_supports: int) -> dict[str, Any]:
-    vocab_size = 20 if task_type == "language" else None
+def resolve_architecture(
+    target: int,
+    variant: str,
+    task_type: str,
+    max_seq_len: int,
+    num_supports: int,
+    vocab_size: int | None = None,
+) -> dict[str, Any]:
+    if task_type == "language" and vocab_size is None:
+        raise ValueError("language architecture resolution requires vocab_size")
+    vocab_size = int(vocab_size) if task_type == "language" else None
     input_dim = None if task_type == "language" else 2
     if variant == "RFF":
         feature_dim = max(1, int((target - 1) / (max_seq_len * 2 + 2)))
@@ -78,6 +87,7 @@ def resolve_paired_architectures(
     task_type: str,
     max_seq_len: int,
     num_supports: int,
+    vocab_size: int | None = None,
 ) -> dict[str, Any]:
     """Resolve one immutable target and verify the whole paired model cell."""
     # Use the learned-bank arm as the anchor because its discrete support-bank
@@ -85,7 +95,7 @@ def resolve_paired_architectures(
     # be resolved around that one shared executable target.
     reference_variant = "DD-L" if "DD-L" in variants else variants[0]
     reference = resolve_architecture(
-        target, reference_variant, task_type, max_seq_len, num_supports
+        target, reference_variant, task_type, max_seq_len, num_supports, vocab_size
     )
     shared_target = int(reference["active_parameter_count"])
     architectures = {
@@ -93,7 +103,12 @@ def resolve_paired_architectures(
             reference
             if variant == reference_variant
             else resolve_architecture(
-                shared_target, variant, task_type, max_seq_len, num_supports
+                shared_target,
+                variant,
+                task_type,
+                max_seq_len,
+                num_supports,
+                vocab_size,
             )
         )
         for variant in variants
@@ -131,6 +146,14 @@ def _base_row(stage: str, task: str, variant: str, target: int, seed_index: int,
               num_supports: int = 64, paired_variants: tuple[str, ...] | None = None,
               **factors: Any) -> dict[str, Any]:
     max_seq_len = int(factors.pop("seq_len", 64))
+    alphabet_size = int(factors.get("alphabet_size", 12))
+    regime_count = int(factors.get("regime_count", 3))
+    explicit_regime_token = bool(factors.get("explicit_regime_token", False))
+    vocab_size = (
+        alphabet_size + 1 + (regime_count if explicit_regime_token else 0)
+        if task_type == "language"
+        else None
+    )
     variants = tuple(paired_variants or (variant,))
     pair = resolve_paired_architectures(
         target,
@@ -138,6 +161,7 @@ def _base_row(stage: str, task: str, variant: str, target: int, seed_index: int,
         task_type,
         max_seq_len + (1 if task_type == "language" else 0),
         num_supports,
+        vocab_size,
     )
     architecture = pair["architectures"][variant]
     row = {
@@ -176,12 +200,14 @@ def _base_row(stage: str, task: str, variant: str, target: int, seed_index: int,
             "center_initialization",
             "sampled_training_points" if variant == "KC-LV" else "random_normal",
         ),
-        "regime_count": 3, "regime_separation": "medium", "return_probability": 0.5,
+        "regime_count": regime_count, "regime_separation": "medium", "return_probability": 0.5,
         "dwell_length": 64, "transition_type": "abrupt", "observation_noise": 0.0,
         "process_noise": 0.0, "input_noise": 0.0, "observability": "full",
         "transition_entropy": 0.5, "emission_overlap": 0.2,
         "explicit_regime_token": False, "order": 10,
     }
+    if task_type == "language":
+        row.update({"alphabet_size": alphabet_size, "vocab_size": vocab_size})
     row.update(factors)
     return row
 

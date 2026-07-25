@@ -17,3 +17,10 @@ Status checked 2026-07-25 for HPG run root `results/phase5/stage2_reassessment_5
 4. **Report dependencies:** rerun the blocked aggregate jobs only after repaired rows have complete `metrics.json`, `heldout_metrics.json`, no failure artifacts, and passing machine-readable gates.
 
 The Stage 2 reassessment should not be used for scientific conclusions until all four sub-study reports pass.
+
+## Repair implementation
+
+The repository repair is implemented on `main`, but the affected experiments
+remain blocked until the HiPerGator reruns complete. The executable next-step
+contract is `docs/codex/KAM_PHASE5_STAGE2_REPAIR_HANDOFF.md`. Do not mark this
+reassessment passed merely because the repository tests pass.

@@ -24,6 +24,7 @@ Phase V validity gate:
 
 Phase V Stage 2 controlled-regime campaign:
 - Authoritative brief: docs/codex/KAM_PHASE5_STAGE2_CODEX_BRIEF.md
+- Current repair/rerun handoff: docs/codex/KAM_PHASE5_STAGE2_REPAIR_HANDOFF.md
 - Manifests: results/phase5/stage2/manifests/
 - Row executor and held-out evaluation: kam/phase5/stage2_run.py
 - Gate, statistics, and aggregation: kam/phase5/stage2_gate.py, kam/phase5/stage2_stats.py, kam/phase5/stage2_aggregate.py

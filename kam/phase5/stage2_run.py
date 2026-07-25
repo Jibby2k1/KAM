@@ -25,7 +25,16 @@ def _heldout(metrics: dict[str, Any], row: dict[str, Any], run_root: Path, devic
         stream_seed = int(row["seed"]) + 7000003 * (stream_index + 1)
         _train, _validation, test, task_type, metadata = _build_data_with_test(str(row["task"]), row, stream_seed)
         result = _evaluate(model, test, device, task_type, int(row.get("heldout_eval_batches", 512)))
-        result.update({"stream_index": stream_index, "stream_seed": stream_seed, "task_generator": metadata.get("task_generator", metadata.get("symbolic_generator", False))})
+        result.update({
+            "stream_index": stream_index,
+            "stream_seed": stream_seed,
+            "task_generator": metadata.get(
+                "task_generator", metadata.get("symbolic_generator", False)
+            ),
+            # Preserve the complete requested/realized seed audit trail for
+            # deterministic NARMA rejection sampling in held-out evaluation.
+            "stream_generation_metadata": metadata.get("stream_metadata", {}),
+        })
         rows.append(result)
     return rows
 
