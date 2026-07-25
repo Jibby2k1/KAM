@@ -29,18 +29,32 @@ class ControlledSymbolicRegimeDataset(Dataset[dict[str, torch.Tensor]]):
     def __getitem__(self, index: int) -> dict[str, torch.Tensor]:
         rng = np.random.default_rng(self.seed + index)
         regime = int(rng.integers(0, self.regime_count))
+        visited = {regime}
         symbols = []
         regimes = []
         previous = int(rng.integers(0, self.alphabet_size))
         current = int(rng.integers(0, self.alphabet_size))
         for position in range(self.sequence_length + 1):
-            if position and rng.random() > self.transition_entropy:
-                next_regime = regime
-            elif rng.random() < self.return_probability:
+            if position and rng.random() >= self.transition_entropy:
                 next_regime = regime
             else:
-                next_regime = int(rng.integers(0, self.regime_count))
+                returning = sorted(visited - {regime})
+                unvisited = sorted(set(range(self.regime_count)) - visited)
+                if returning and rng.random() < self.return_probability:
+                    # A return is a transition to a previously visited,
+                    # different regime—not another dwell in the current one.
+                    next_regime = int(rng.choice(returning))
+                elif unvisited:
+                    next_regime = int(rng.choice(unvisited))
+                else:
+                    different = [
+                        candidate
+                        for candidate in range(self.regime_count)
+                        if candidate != regime
+                    ]
+                    next_regime = int(rng.choice(different))
             regime = next_regime
+            visited.add(regime)
             center = int((regime * self.alphabet_size) / self.regime_count)
             if rng.random() < self.emission_overlap:
                 symbol = int(rng.integers(0, self.alphabet_size))
@@ -55,6 +69,11 @@ class ControlledSymbolicRegimeDataset(Dataset[dict[str, torch.Tensor]]):
         if self.explicit_regime_token:
             inputs = inputs.copy()
             inputs[0] = self.regime_offset + regimes[0]
+            # Reveal the newly active regime at every later transition while
+            # retaining ordinary symbol inputs during regime dwell periods.
+            for position in range(1, len(inputs)):
+                if regimes[position] != regimes[position - 1]:
+                    inputs[position] = self.regime_offset + regimes[position]
         mask = np.ones_like(targets, dtype=np.float32)
         mask[0] = 0.0
         return {"inputs": torch.from_numpy(inputs), "targets": torch.from_numpy(targets), "loss_mask": torch.from_numpy(mask), "metadata": torch.from_numpy(np.asarray(regimes[:-1], dtype=np.int64))}

@@ -32,9 +32,33 @@ def test_regression_features_include_memory_routing() -> None:
         num_supports=10,
         max_seq_len=16,
         expose_memory_weights=True,
+        append_routes_to_readout=True,
     )
     inputs = torch.randn(5, 16, 2)
     features, _ = model.regression_features(inputs)
     assert features.shape == (5, 32 + 4 * 10)
     predictions = model(inputs)
     assert predictions.shape == (5, 1)
+
+
+def test_diagnostics_do_not_append_routes_to_values_only_readout() -> None:
+    model = KAMSequenceModel(
+        task="regression",
+        input_dim=2,
+        output_dim=1,
+        d_model=32,
+        num_heads=4,
+        num_layers=1,
+        num_supports=10,
+        max_seq_len=16,
+        memory_output="residual",
+        return_attention_for_diagnostics=True,
+        append_routes_to_readout=False,
+        apply_memory_residual=True,
+    )
+    features, diagnostics = model.regression_features(
+        torch.randn(5, 16, 2), return_weights=True
+    )
+    assert features.shape == (5, 32)
+    assert diagnostics.memory_weights
+    assert model.route_feature_dim == 0

@@ -30,6 +30,7 @@ def aggregate(run_root: Path, report_root: Path, expected: int, stage_name: str)
             "target_active_parameters": row.get("target_active_parameters"),
             "active_parameter_count": metrics.get("active_parameter_count"),
             "active_capacity_match_error": metrics.get("active_capacity_match_error"),
+            "paired_capacity_match_error": metrics.get("paired_capacity_match_error"),
             "padding_parameter_count": metrics.get("padding_parameter_count"),
             "task_type": row.get("task_type"), "test_nmse": test.get("nmse"), "test_nrmse": test.get("nrmse"),
             "test_cross_entropy": test.get("cross_entropy"),

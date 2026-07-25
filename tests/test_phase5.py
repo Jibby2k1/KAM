@@ -19,7 +19,7 @@ def test_phase5_labels_build():
             "memory_output": "both", "route_features": "projected",
             "route_projection_dim": 64,
         })
-        if label == "RFF":
+        if label in {"RFF", "DD-V"}:
             assert model.route_feature_dim == 0
         else:
             assert model.route_feature_dim == 64
@@ -42,7 +42,7 @@ from kam.phase4.table import read_table
 def test_stage2_manifests_have_authoritative_volumes():
     root = Path("results/phase5/stage2/manifests")
     expected = {"stage2A_component": 450, "stage2B_capacity": 480,
-                "stage2C_factorial": 600, "stage2D_symbolic": 60}
+                "stage2C_factorial": 1080, "stage2D_symbolic": 60}
     for name, count in expected.items():
         rows = read_table(root / f"{name}.jsonl")
         assert len(rows) == count

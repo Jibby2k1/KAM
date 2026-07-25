@@ -473,7 +473,7 @@ Expected volume:
 
 Fit a smooth effect curve versus log active parameters and estimate uncertainty in the zero crossing.
 
-## Stage 2C — Multi-fidelity factorial search
+## Stage 2C — Orthogonal factorial screen
 
 Shortlist no more than:
 
@@ -485,39 +485,37 @@ KC-LV
 best component ablation from Stage 2A
 ```
 
-Use a fractional-factor or low-discrepancy design over:
+Use the checked-in mixed-level Taguchi L18 design over:
 
 ```text
 return probability
 separation
 observability
-noise type
-memory sufficiency
+observation noise
+process noise
 support count
 center initialization
-memory learning rate
-temperature/bandwidth
 ```
 
-Fidelities:
+Training fidelity:
 
 ```text
-20%
-50%
 100%
 ```
+
+Fidelity is fixed rather than assigned from the design index, so training
+budget is not confounded with a scientific factor.
 
 Seeds:
 
 ```text
-3 during search
-5 for promoted configurations
+4 paired seeds
 ```
 
 Expected volume:
 
 ```text
-500–900 completed or pruned trials
+1,080 completed trials
 ```
 
 Pair variants on the same generated streams.

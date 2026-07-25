@@ -266,11 +266,18 @@ class KernelMemoryAttention(nn.Module):
             raise ValueError("support mask must have shape [num_supports].")
         self.support_mask = None if mask is None else mask.detach().to(dtype=torch.bool, device=self.memory_keys.device)
 
+    def project_keys(self, memory_inputs: Tensor) -> Tensor:
+        """Project block-local memory inputs into the support-key coordinates."""
+        if memory_inputs.ndim != 3 or memory_inputs.shape[-1] != self.d_model:
+            raise ValueError("memory_inputs must have shape [B, T, d_model].")
+        batch, length, _ = memory_inputs.shape
+        return self.query(memory_inputs).view(
+            batch, length, self.num_heads, self.head_dim
+        ).transpose(1, 2)
 
     def forward(self, inputs: Tensor, return_weights: bool = False) -> tuple[Tensor, Tensor | None]:
         batch, length, _ = inputs.shape
-        queries = self.query(inputs).view(batch, length, self.num_heads, self.head_dim)
-        queries = queries.transpose(1, 2)
+        queries = self.project_keys(inputs)
         keys = self.memory_keys[None, :, :, :].expand(batch, -1, -1, -1)
         values = self.memory_values[None, :, :, :].expand(batch, -1, -1, -1)
         scores = self.score(queries, keys)

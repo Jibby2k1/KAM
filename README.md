@@ -164,4 +164,4 @@ scripts/submit_phase5_stage2_hpg.sh --profile   # four 3-row HPG pre-profiles
 scripts/submit_phase5_stage2_hpg.sh --submit    # only after profile review
 ```
 
-Manifests are under `results/phase5/stage2/manifests/`; per-stage outputs and reports are written under `results/phase5/stage2/` and `reports/phase5/`. The nominal scale labels remain visible in each row, while `target_active_parameters` records the exact resolved architecture count used by the <=1% gate.
+Manifests are under `results/phase5/stage2/manifests/`; per-stage outputs and reports are written under `results/phase5/stage2/` and `reports/phase5/`. The nominal scale labels remain visible in each row, while `target_active_parameters` records one shared executable target for every paired cell and `paired_capacity_match_error` enforces the <=1% gate.
