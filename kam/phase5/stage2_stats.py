@@ -17,8 +17,17 @@ def paired_effects(rows: list[dict[str, Any]], baseline: str = "D0") -> list[dic
             treatment = index.get((*key, variant))
             if not control or not treatment:
                 continue
-            base = float(control.get("heldout_nmse", control.get("test_nmse", "nan")))
-            value = float(treatment.get("heldout_nmse", treatment.get("test_nmse", "nan")))
+            def metric(row):
+                for name in ("heldout_primary_metric", "heldout_nmse", "test_nmse", "test_cross_entropy"):
+                    value = row.get(name)
+                    if value is not None:
+                        try:
+                            return float(value)
+                        except (TypeError, ValueError):
+                            pass
+                return float("nan")
+            base = metric(control)
+            value = metric(treatment)
             if not math.isfinite(base) or not math.isfinite(value):
                 continue
             output.append({"task": key[0], "cell": key[1], "seed_index": key[2], "baseline": baseline, "variant": variant, "baseline_nmse": base, "variant_nmse": value, "relative_improvement": (base - value) / max(abs(base), 1e-12)})

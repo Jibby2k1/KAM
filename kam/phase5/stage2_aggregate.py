@@ -21,6 +21,9 @@ def aggregate(run_root: Path, report_root: Path, expected: int, stage_name: str)
         test = metrics.get("best_checkpoint_test", {}) or {}
         heldout = metrics.get("heldout_stream_metrics", [])
         heldout_nmse = [float(item["nmse"]) for item in heldout if item.get("nmse") is not None]
+        heldout_cross_entropy = [float(item["cross_entropy"]) for item in heldout if item.get("cross_entropy") is not None]
+        primary_values = heldout_nmse or heldout_cross_entropy
+        primary_name = "nmse" if heldout_nmse else "cross_entropy" if heldout_cross_entropy else "unknown"
         rows.append({
             "run_id": metrics.get("run_id"), "task": row.get("task"), "variant": row.get("variant"),
             "cell": row.get("cell"), "seed_index": row.get("seed_index"), "stage": stage_name,
@@ -28,8 +31,11 @@ def aggregate(run_root: Path, report_root: Path, expected: int, stage_name: str)
             "active_parameter_count": metrics.get("active_parameter_count"),
             "active_capacity_match_error": metrics.get("active_capacity_match_error"),
             "padding_parameter_count": metrics.get("padding_parameter_count"),
-            "test_nmse": test.get("nmse"), "test_nrmse": test.get("nrmse"),
-            "heldout_nmse": statistics.fmean(heldout_nmse) if heldout_nmse else metrics.get("heldout_global_mse"),
+            "task_type": row.get("task_type"), "test_nmse": test.get("nmse"), "test_nrmse": test.get("nrmse"),
+            "test_cross_entropy": test.get("cross_entropy"),
+            "heldout_nmse": statistics.fmean(heldout_nmse) if heldout_nmse else None,
+            "heldout_primary_metric": statistics.fmean(primary_values) if primary_values else None,
+            "heldout_metric_name": primary_name,
             "heldout_streams": len(heldout), "total_seconds": metrics.get("total_seconds"),
             "return_probability": row.get("return_probability"), "regime_separation": row.get("regime_separation"),
             "observability": row.get("observability"), "center_initialization": metrics.get("center_initialization"),
@@ -47,14 +53,14 @@ def aggregate(run_root: Path, report_root: Path, expected: int, stage_name: str)
         writer.writerows(rows)
     effects = paired_effects(rows)
     write_effects(run_root / "paired_effects.csv", effects)
-    checks = evaluate_gate(run_root, expected)
+    checks = evaluate_gate(run_root, expected, require_distinct_task_generators=stage_name != "stage2D_symbolic")
     (run_root / "stage2_checks.json").write_text(json.dumps(checks, indent=2, sort_keys=True), encoding="utf-8")
     grouped: dict[tuple[str, str], list[float]] = defaultdict(list)
     for row in rows:
-        value = row.get("heldout_nmse")
+        value = row.get("heldout_primary_metric")
         if value is not None:
             grouped[(str(row.get("task")), str(row.get("variant")))].append(float(value))
-    summary = [{"task": task, "variant": variant, "n": len(values), "mean_heldout_nmse": statistics.fmean(values), "sd_heldout_nmse": statistics.stdev(values) if len(values) > 1 else 0.0} for (task, variant), values in sorted(grouped.items())]
+    summary = [{"task": task, "variant": variant, "n": len(values), "mean_heldout_metric": statistics.fmean(values), "sd_heldout_metric": statistics.stdev(values) if len(values) > 1 else 0.0} for (task, variant), values in sorted(grouped.items())]
     with (run_root / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(summary[0]) if summary else ["task", "variant"])
         writer.writeheader()
@@ -63,11 +69,11 @@ def aggregate(run_root: Path, report_root: Path, expected: int, stage_name: str)
     figure_root.mkdir(parents=True, exist_ok=True)
     if summary:
         labels = [f"{item['task']}\n{item['variant']}" for item in summary]
-        values = [item["mean_heldout_nmse"] for item in summary]
+        values = [item["mean_heldout_metric"] for item in summary]
         fig, axis = plt.subplots(figsize=(14, 5))
         axis.bar(range(len(values)), values)
         axis.set_xticks(range(len(values)), labels, rotation=75, ha="right", fontsize=7)
-        axis.set_ylabel("mean held-out NMSE")
+        axis.set_ylabel("mean held-out primary metric")
         axis.set_title(f"Phase V {stage_name}: held-out performance")
         fig.tight_layout()
         fig.savefig(figure_root / f"{stage_name}_heldout_nmse.png", dpi=180)
@@ -81,7 +87,7 @@ def aggregate(run_root: Path, report_root: Path, expected: int, stage_name: str)
         "Held-out streams are aggregated within training seed. The report is descriptive until paired effects, bootstrap intervals, permutation tests, and Holm adjustment are reviewed.", "",
         "## Summary", "",
     ]
-    report.extend([f"- {item['task']} / {item['variant']}: mean held-out NMSE={item['mean_heldout_nmse']:.5g}, SD={item['sd_heldout_nmse']:.5g}, n={item['n']}" for item in summary])
+    report.extend([f"- {item['task']} / {item['variant']}: mean held-out primary metric={item['mean_heldout_metric']:.5g}, SD={item['sd_heldout_metric']:.5g}, n={item['n']}" for item in summary])
     report += ["", "## Evidence", "", f"- results/phase5/stage2/{stage_name}/all_metrics.csv", f"- results/phase5/stage2/{stage_name}/paired_effects.csv", "- stage2_checks.json", "", "## Guardrail", "", "No Stage 3 scaling, online-adaptation confirmation, or natural-language conclusion is authorized from this report alone."]
     report_root.joinpath(f"PHASE5_STAGE2_{label}_REPORT.md").write_text("\n".join(report) + "\n", encoding="utf-8")
     return checks

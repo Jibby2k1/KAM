@@ -27,7 +27,8 @@ def generate_controlled_narma_stream(
                 current = int(rng.choice(candidates))
             visited.add(current)
         labels[index] = current
-    separation = {"low": 0.02, "medium": 0.08, "high": 0.16}.get(str(regime_separation), float(regime_separation))
+    separation_map = {"low": 0.02, "medium": 0.08, "high": 0.16}
+    separation = separation_map[str(regime_separation)] if str(regime_separation) in separation_map else float(regime_separation)
     driver = rng.uniform(0.0, 0.5, size=length)
     if input_noise:
         driver += rng.normal(0.0, input_noise, size=length)
@@ -35,14 +36,17 @@ def generate_controlled_narma_stream(
     for index in range(order, length - 1):
         active = int(labels[index])
         gain = 0.3 + separation * (active - (regime_count - 1) / 2.0)
-        history = values[index - order:index]
-        values[index + 1] = (
+        history = np.clip(values[index - order:index], -2.0, 2.0)
+        candidate = (
             0.25 * values[index]
             + gain * values[index] * float(history.sum())
             + 0.08 * driver[index - order + 1]
             + 0.05
         )
-        values[index + 1] += rng.normal(0.0, process_noise)
+        candidate += rng.normal(0.0, process_noise)
+        # Keep the controlled NARMA stream finite under the high-separation
+        # factorial cells; this is a bounded state variable, not padding.
+        values[index + 1] = np.clip(candidate, -5.0, 5.0)
     observed = values + rng.normal(0.0, observation_noise, size=length)
     observed_driver = driver.copy()
     if observability in {"partial", "hidden_driver"}:

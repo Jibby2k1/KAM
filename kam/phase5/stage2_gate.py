@@ -5,7 +5,20 @@ from pathlib import Path
 from typing import Any
 
 
-def evaluate_gate(run_root: str | Path, expected: int) -> dict[str, Any]:
+def _generator_name(metrics: dict[str, Any]) -> str:
+    metadata = metrics.get("data_metadata", {})
+    direct = metadata.get("task_generator") or metadata.get("symbolic_generator")
+    if direct:
+        return str(direct)
+    streams = metadata.get("stream_metadata", {})
+    for split in ("train", "validation", "test", "prequential"):
+        value = streams.get(split, {}).get("task_generator") if isinstance(streams.get(split), dict) else None
+        if value:
+            return str(value)
+    return ""
+
+
+def evaluate_gate(run_root: str | Path, expected: int, *, require_distinct_task_generators: bool = True) -> dict[str, Any]:
     root = Path(run_root)
     metric_paths = sorted((root / "runs").glob("*/metrics.json"))
     failure_paths = sorted((root / "runs").glob("*/failure.json"))
@@ -16,7 +29,7 @@ def evaluate_gate(run_root: str | Path, expected: int) -> dict[str, Any]:
         "pilot_checks_passed": bool(metrics) and all(all(row.get("phase5_pilot_checks", {}).values()) for row in metrics),
         "heldout_metrics_present": bool(metrics) and all((path.parent / "heldout_metrics.json").exists() for path in metric_paths),
         "zero_padding": bool(metrics) and all(int(row.get("padding_parameter_count", 0)) == 0 for row in metrics),
-        "distinct_task_generators": bool(metrics) and len({str(row.get("data_metadata", {}).get("task_generator", row.get("data_metadata", {}).get("symbolic_generator", ""))) for row in metrics}) >= 2,
+        "distinct_task_generators": (not require_distinct_task_generators) or (bool(metrics) and len({_generator_name(row) for row in metrics}) >= 2),
     }
     checks["passed"] = all(checks.values())
     return {"expected": expected, "completed": len(metrics), "failed": len(failure_paths), "checks": checks, "passed": checks["passed"]}

@@ -46,6 +46,9 @@ def main() -> None:
         print(json.dumps(result, indent=2, sort_keys=True), flush=True)
         raise SystemExit(1)
     run_dir = args.run_root / "runs" / str(row["run_id"])
+    # A prior transient failure may have left a marker beside artifacts that
+    # are now complete; the repaired run should clear that stale marker.
+    (run_dir / "failure.json").unlink(missing_ok=True)
     metrics_path = run_dir / "metrics.json"
     metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
     if not (run_dir / "heldout_metrics.json").exists() or not args.resume:

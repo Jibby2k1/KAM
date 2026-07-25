@@ -29,7 +29,8 @@ def generate_controlled_mackey_glass_stream(
             transitions.append(index)
         labels[index] = current
     tau_values = tau_values or [8 + 4 * index for index in range(regime_count)]
-    separation = {"low": 0.05, "medium": 0.12, "high": 0.24}.get(str(regime_separation), float(regime_separation))
+    separation_map = {"low": 0.05, "medium": 0.12, "high": 0.24}
+    separation = separation_map[str(regime_separation)] if str(regime_separation) in separation_map else float(regime_separation)
     driver = rng.uniform(-1.0, 1.0, size=length)
     if input_noise:
         driver += rng.normal(0.0, input_noise, size=length)

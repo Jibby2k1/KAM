@@ -11,4 +11,4 @@ module purge
 module load cuda/12.8.1
 source "${STAGE2_ENV:?STAGE2_ENV is required}/bin/activate"
 cd "${STAGE2_REPO:?STAGE2_REPO is required}"
-python -m kam.phase5.stage2_run --manifest "${STAGE2_MANIFEST:?STAGE2_MANIFEST is required}" --array-index "${SLURM_ARRAY_TASK_ID:?SLURM_ARRAY_TASK_ID is required}" --run-root "${STAGE2_RUN_ROOT:?STAGE2_RUN_ROOT is required}" --device auto --resume
+python -u -m kam.phase5.stage2_run --manifest "${STAGE2_MANIFEST:?STAGE2_MANIFEST is required}" --array-index "${SLURM_ARRAY_TASK_ID:?SLURM_ARRAY_TASK_ID is required}" --run-root "${STAGE2_RUN_ROOT:?STAGE2_RUN_ROOT is required}" --device auto --resume >/dev/null
