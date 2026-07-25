@@ -2,6 +2,11 @@ from .char_text import CharacterDataset, load_text
 from .dyck import BoundedDyck2Dataset
 from .mackey_glass import MackeyGlassDataset, generate_mackey_glass, make_mackey_splits
 from .prototype_switch import generate_prototype_switch, make_prototype_switch_splits
+from .stream_quality import (
+    assess_stream_quality,
+    require_stable_stream,
+    stream_quality_checks,
+)
 from .mqar import MQARDataset
 from .narma import NARMADataset, generate_narma, make_narma_splits
 from .stream_schedules import (
@@ -38,6 +43,9 @@ __all__ = [
     "make_mackey_splits",
     "generate_prototype_switch",
     "make_prototype_switch_splits",
+    "assess_stream_quality",
+    "require_stable_stream",
+    "stream_quality_checks",
     "make_narma_splits",
     "schedule_labels",
     "schedule_segments",

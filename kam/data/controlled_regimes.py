@@ -61,16 +61,24 @@ def generate_controlled_regime_stream(
             visited.add(current)
         labels[index] = current
     separation = _separation_scale(regime_separation)
-    coefficients = np.linspace(-separation, separation, regime_count)
+    raw_ar_coefficients = 0.65 + np.linspace(
+        -separation, separation, regime_count
+    )
+    stability_margin = 0.05
+    ar_coefficients = np.clip(
+        raw_ar_coefficients,
+        -1.0 + stability_margin,
+        1.0 - stability_margin,
+    )
     drivers = rng.normal(0.0, 1.0, size=length)
     if input_noise:
         drivers += rng.normal(0.0, input_noise, size=length)
     latent = np.zeros(length, dtype=np.float64)
     latent[0] = rng.normal(0.0, 0.1)
     for index in range(1, length):
-        target_coeff = 0.65 + coefficients[labels[index]]
+        target_coeff = ar_coefficients[labels[index]]
         if transition_type == "gradual" and index > 0 and labels[index] != labels[index - 1]:
-            target_coeff = 0.5 * target_coeff + 0.5 * (0.65 + coefficients[labels[index - 1]])
+            target_coeff = 0.5 * target_coeff + 0.5 * ar_coefficients[labels[index - 1]]
         latent[index] = target_coeff * latent[index - 1] + 0.25 * np.tanh(drivers[index - 1]) + rng.normal(0.0, process_noise)
     observed = latent + rng.normal(0.0, observation_noise, size=length)
     observed_driver = drivers.copy()
@@ -96,6 +104,12 @@ def generate_controlled_regime_stream(
             "transition_type": transition_type, "observation_noise": observation_noise,
             "process_noise": process_noise, "input_noise": input_noise,
             "observability": observability,
+            "raw_ar_coefficients": raw_ar_coefficients.tolist(),
+            "ar_coefficients": ar_coefficients.tolist(),
+            "stability_margin": stability_margin,
+            "stability_clipped": bool(
+                not np.array_equal(raw_ar_coefficients, ar_coefficients)
+            ),
         },
     )
 

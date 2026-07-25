@@ -27,7 +27,10 @@ def generate_controlled_narma_stream(
                 current = int(rng.choice(candidates))
             visited.add(current)
         labels[index] = current
-    separation_map = {"low": 0.02, "medium": 0.08, "high": 0.16}
+    # Keep every regime inside a stable NARMA-like coefficient family.  The
+    # previous 0.30 +/- 0.16 multiplier on y_t * sum(history) saturated the
+    # safety clip and made NMSE primarily a denominator pathology.
+    separation_map = {"low": 0.001, "medium": 0.003, "high": 0.005}
     separation = separation_map[str(regime_separation)] if str(regime_separation) in separation_map else float(regime_separation)
     driver = rng.uniform(0.0, 0.5, size=length)
     if input_noise:
@@ -35,13 +38,13 @@ def generate_controlled_narma_stream(
     values = rng.uniform(0.0, 0.1, size=length).astype(np.float64)
     for index in range(order, length - 1):
         active = int(labels[index])
-        gain = 0.3 + separation * (active - (regime_count - 1) / 2.0)
+        gain = 0.05 + separation * (active - (regime_count - 1) / 2.0)
         history = np.clip(values[index - order:index], -2.0, 2.0)
         candidate = (
-            0.25 * values[index]
+            0.30 * values[index]
             + gain * values[index] * float(history.sum())
-            + 0.08 * driver[index - order + 1]
-            + 0.05
+            + 1.50 * driver[index - order + 1] * driver[index]
+            + 0.10
         )
         candidate += rng.normal(0.0, process_noise)
         # Keep the controlled NARMA stream finite under the high-separation
@@ -68,5 +71,6 @@ def generate_controlled_narma_stream(
          "return_probability": return_probability, "dwell_length": dwell_length,
          "transition_type": transition_type, "observation_noise": observation_noise,
          "process_noise": process_noise, "input_noise": input_noise,
-         "observability": observability, "true_memory_horizon": order},
+         "observability": observability, "true_memory_horizon": order,
+         "clip_boundary": 5.0, "narma_gain_separation": separation},
     )

@@ -25,6 +25,8 @@ def _seed(stage: str, task: str, cell: str, index: int) -> int:
 
 @lru_cache(maxsize=None)
 def resolve_architecture(target: int, variant: str, task_type: str, max_seq_len: int, num_supports: int) -> dict[str, Any]:
+    vocab_size = 20 if task_type == "language" else None
+    input_dim = None if task_type == "language" else 2
     if variant == "RFF":
         feature_dim = max(1, int((target - 1) / (max_seq_len * 2 + 2)))
         spec = {
@@ -37,21 +39,20 @@ def resolve_architecture(target: int, variant: str, task_type: str, max_seq_len:
         model = make_model(spec)
         count = active_parameter_count(model)
         del model
-        gc.collect()
         return {"d_model": 32, "num_heads": 4, "num_layers": 1, "num_supports": num_supports,
                 "fourier_features": feature_dim, "active_parameter_count": count}
-    vocab_size = 20 if task_type == "language" else None
-    input_dim = None if task_type == "language" else 2
     best: tuple[int, dict[str, Any]] | None = None
-    for d_model in range(64, 321, 8):
+    for d_model in range(64, 321, 4):
         num_heads = 4
         for num_layers in range(1, 7):
+            for ffn_expansion in (range(2, 7) if variant == "D0" else (4,)):
                 spec = {
                     "model_name": variant, "task_type": task_type, "d_model": d_model,
                     "num_heads": num_heads, "num_layers": num_layers, "num_supports": num_supports,
                     "max_seq_len": max_seq_len, "input_dim": input_dim, "vocab_size": vocab_size,
                     "output_dim": 1, "route_features": "projected", "route_projection_dim": 64,
                     "memory_output": "both", "expose_memory_weights": variant not in {"D0"},
+                    "ffn_expansion": ffn_expansion,
                 }
                 try:
                     model = make_model(spec)
@@ -59,36 +60,102 @@ def resolve_architecture(target: int, variant: str, task_type: str, max_seq_len:
                     continue
                 count = active_parameter_count(model)
                 del model
-                gc.collect()
                 error = abs(count - target)
                 if best is None or error < best[0]:
                     best = (error, {"d_model": d_model, "num_heads": num_heads, "num_layers": num_layers,
-                                    "num_supports": num_supports, "active_parameter_count": count})
+                                    "num_supports": num_supports, "ffn_expansion": ffn_expansion,
+                                    "active_parameter_count": count})
     if best is None:
         raise RuntimeError(f"could not resolve architecture for {variant}, {target}, {task_type}")
+    gc.collect()
     return best[1]
+
+
+@lru_cache(maxsize=None)
+def resolve_paired_architectures(
+    target: int,
+    variants: tuple[str, ...],
+    task_type: str,
+    max_seq_len: int,
+    num_supports: int,
+) -> dict[str, Any]:
+    """Resolve one immutable target and verify the whole paired model cell."""
+    # Use the learned-bank arm as the anchor because its discrete support-bank
+    # geometry is the least flexible member of the pair.  Baselines can then
+    # be resolved around that one shared executable target.
+    reference_variant = "DD-L" if "DD-L" in variants else variants[0]
+    reference = resolve_architecture(
+        target, reference_variant, task_type, max_seq_len, num_supports
+    )
+    shared_target = int(reference["active_parameter_count"])
+    architectures = {
+        variant: (
+            reference
+            if variant == reference_variant
+            else resolve_architecture(
+                shared_target, variant, task_type, max_seq_len, num_supports
+            )
+        )
+        for variant in variants
+    }
+    counts = {
+        variant: int(architecture["active_parameter_count"])
+        for variant, architecture in architectures.items()
+    }
+    mean_count = sum(counts.values()) / max(len(counts), 1)
+    pair_error = (
+        (max(counts.values()) - min(counts.values())) / max(mean_count, 1.0)
+    )
+    target_errors = {
+        variant: abs(count - shared_target) / max(shared_target, 1)
+        for variant, count in counts.items()
+    }
+    if pair_error > 0.01 or max(target_errors.values(), default=0.0) > 0.01:
+        raise RuntimeError(
+            "Could not resolve a <=1% paired active-capacity cell: "
+            f"nominal_target={target}, shared_target={shared_target}, "
+            f"counts={counts}, pair_error={pair_error:.6f}, "
+            f"target_errors={target_errors}"
+        )
+    return {
+        "architectures": architectures,
+        "counts": counts,
+        "shared_target": shared_target,
+        "pair_error": pair_error,
+        "target_errors": target_errors,
+    }
 
 
 def _base_row(stage: str, task: str, variant: str, target: int, seed_index: int, *,
               cell: str, heldout_streams: int, steps: int, task_type: str = "regression",
-              num_supports: int = 64, **factors: Any) -> dict[str, Any]:
+              num_supports: int = 64, paired_variants: tuple[str, ...] | None = None,
+              **factors: Any) -> dict[str, Any]:
     max_seq_len = int(factors.pop("seq_len", 64))
-    architecture = resolve_architecture(target, variant, task_type,
-                                         max_seq_len + (1 if task_type == "language" else 0),
-                                         num_supports)
+    variants = tuple(paired_variants or (variant,))
+    pair = resolve_paired_architectures(
+        target,
+        variants,
+        task_type,
+        max_seq_len + (1 if task_type == "language" else 0),
+        num_supports,
+    )
+    architecture = pair["architectures"][variant]
     row = {
         "row_id": -1, "stage": stage, "task": task, "variant": variant, "cell": cell,
         "seed_index": seed_index, "seed": _seed(stage, task, cell, seed_index),
         "run_id": f"p5_{stage}_{task}_{cell}_{variant}_s{seed_index}".replace("-", "m"),
-        # The nominal target is the scientific scale label. The executable
-        # target is the exact capacity of the resolved architecture; this
-        # preserves the <=1% gate without silently accepting a discrete-width mismatch.
+        # One immutable target and one cross-variant error define the paired
+        # scientific cell.  Never replace the target with each row's own count.
         "nominal_target_active_parameters": target,
-        "target_active_parameters": int(architecture["active_parameter_count"]),
+        "target_active_parameters": int(pair["shared_target"]),
+        "resolved_active_parameters": int(architecture["active_parameter_count"]),
+        "paired_active_parameter_counts": pair["counts"],
+        "paired_capacity_match_error": float(pair["pair_error"]),
         "active_match_tolerance": 0.01,
         "task_type": task_type, "training_protocol": "iid_window_training",
         "d_model": architecture["d_model"], "num_heads": architecture["num_heads"],
         "num_layers": architecture["num_layers"], "num_supports": architecture["num_supports"],
+        "ffn_expansion": architecture.get("ffn_expansion", 4),
         "fourier_features": architecture.get("fourier_features"),
         "seq_len": max_seq_len, "series_length": 800, "train_length": 800,
         "validation_length": 320, "test_length": 320, "prequential_length": 320,
@@ -98,11 +165,17 @@ def _base_row(stage: str, task: str, variant: str, target: int, seed_index: int,
         "learning_rate": 3e-4, "weight_decay": 1e-4, "precision": "amp",
         "route_features": "projected", "route_projection_dim": 64,
         "memory_output": {"DD-A": "routes", "DD-V": "residual", "DD-B": "both"}.get(variant, "both"),
-        "expose_memory_weights": variant not in {"D0"},
+        "return_attention_for_diagnostics": variant not in {"D0"},
+        "append_routes_to_readout": variant in {"DD-L", "RF-KV", "RF-FULL", "RK-LV", "LK-RV", "KC-LV", "DD-A", "DD-B"},
+        "apply_memory_residual": variant not in {"D0", "DD-A"},
+        "expose_memory_weights": False,
         "memory_trace": variant not in {"D0"},
         "trace_test": True, "evaluate_train": True, "evaluate_test": True,
         "save_validation_predictions": False, "save_test_predictions": False,
-        "center_initialization": factors.pop("center_initialization", "random_normal"),
+        "center_initialization": factors.pop(
+            "center_initialization",
+            "sampled_training_points" if variant == "KC-LV" else "random_normal",
+        ),
         "regime_count": 3, "regime_separation": "medium", "return_probability": 0.5,
         "dwell_length": 64, "transition_type": "abrupt", "observation_noise": 0.0,
         "process_noise": 0.0, "input_noise": 0.0, "observability": "full",
@@ -119,7 +192,7 @@ def build_component_rows() -> list[dict[str, Any]]:
         for variant in COMPONENT_VARIANTS:
             for target in COMPONENT_TARGETS:
                 for seed_index in range(5):
-                    rows.append(_base_row("stage2A_component", task, variant, target, seed_index, cell=f"P{target}", heldout_streams=5, steps=500, num_supports=64))
+                    rows.append(_base_row("stage2A_component", task, variant, target, seed_index, cell=f"P{target}", heldout_streams=5, steps=500, num_supports=64, paired_variants=COMPONENT_VARIANTS))
     return _number_rows(rows)
 
 
@@ -129,33 +202,60 @@ def build_capacity_rows() -> list[dict[str, Any]]:
         for variant in CROSSOVER_VARIANTS:
             for target in CROSSOVER_TARGETS:
                 for seed_index in range(5):
-                    rows.append(_base_row("stage2B_capacity", task, variant, target, seed_index, cell=f"P{target}", heldout_streams=5, steps=500, num_supports=64))
+                    rows.append(_base_row("stage2B_capacity", task, variant, target, seed_index, cell=f"P{target}", heldout_streams=5, steps=500, num_supports=64, paired_variants=CROSSOVER_VARIANTS))
     return _number_rows(rows)
 
 
-def build_factorial_rows() -> list[dict[str, Any]]:
-    designs = [
-        {"return_probability": 0.0, "regime_separation": "low", "observability": "full", "observation_noise": 0.0, "process_noise": 0.0, "center_initialization": "random_normal", "num_supports": 16},
-        {"return_probability": 0.25, "regime_separation": "medium", "observability": "partial", "observation_noise": 0.01, "process_noise": 0.0, "center_initialization": "sampled_training_points", "num_supports": 32},
-        {"return_probability": 0.5, "regime_separation": "high", "observability": "hidden_driver", "observation_noise": 0.03, "process_noise": 0.01, "center_initialization": "kmeans", "num_supports": 64},
-        {"return_probability": 0.75, "regime_separation": "medium", "observability": "full", "observation_noise": 0.0, "process_noise": 0.01, "center_initialization": "farthest_point", "num_supports": 128},
-        {"return_probability": 1.0, "regime_separation": "high", "observability": "partial", "observation_noise": 0.03, "process_noise": 0.0, "center_initialization": "sampled_training_points", "num_supports": 256},
-        {"return_probability": 0.5, "regime_separation": "low", "observability": "full", "observation_noise": 0.01, "process_noise": 0.01, "center_initialization": "kmeans", "num_supports": 64},
-        {"return_probability": 0.25, "regime_separation": "high", "observability": "hidden_driver", "observation_noise": 0.0, "process_noise": 0.0, "center_initialization": "farthest_point", "num_supports": 32},
-        {"return_probability": 0.75, "regime_separation": "low", "observability": "partial", "observation_noise": 0.03, "process_noise": 0.01, "center_initialization": "random_normal", "num_supports": 128},
-        {"return_probability": 0.0, "regime_separation": "medium", "observability": "hidden_driver", "observation_noise": 0.01, "process_noise": 0.0, "center_initialization": "sampled_training_points", "num_supports": 16},
-        {"return_probability": 1.0, "regime_separation": "low", "observability": "full", "observation_noise": 0.0, "process_noise": 0.01, "center_initialization": "kmeans", "num_supports": 256},
+def factorial_designs() -> list[dict[str, Any]]:
+    # Taguchi L18: one balanced two-level column plus six orthogonal
+    # three-level columns.  Fidelity is held fixed so it cannot be confounded
+    # with the scientific factors.
+    l18 = (
+        (0, 0, 0, 0, 0, 0, 0), (0, 0, 1, 1, 1, 1, 1), (0, 0, 2, 2, 2, 2, 2),
+        (0, 1, 0, 0, 1, 1, 2), (0, 1, 1, 1, 2, 2, 0), (0, 1, 2, 2, 0, 0, 1),
+        (0, 2, 0, 1, 0, 2, 1), (0, 2, 1, 2, 1, 0, 2), (0, 2, 2, 0, 2, 1, 0),
+        (1, 0, 0, 2, 2, 1, 1), (1, 0, 1, 0, 0, 2, 2), (1, 0, 2, 1, 1, 0, 0),
+        (1, 1, 0, 1, 2, 0, 2), (1, 1, 1, 2, 0, 1, 0), (1, 1, 2, 0, 1, 2, 1),
+        (1, 2, 0, 2, 1, 2, 0), (1, 2, 1, 0, 2, 0, 1), (1, 2, 2, 1, 0, 1, 2),
+    )
+    process_noise = (0.0, 0.01)
+    return_probability = (0.25, 0.50, 0.75)
+    regime_separation = ("low", "medium", "high")
+    observability = ("full", "partial", "hidden_driver")
+    observation_noise = (0.0, 0.01, 0.03)
+    center_initialization = ("sampled_training_points", "kmeans", "farthest_point")
+    num_supports = (32, 64, 128)
+    return [
+        {
+            "process_noise": process_noise[row[0]],
+            "return_probability": return_probability[row[1]],
+            "regime_separation": regime_separation[row[2]],
+            "observability": observability[row[3]],
+            "observation_noise": observation_noise[row[4]],
+            "center_initialization": center_initialization[row[5]],
+            "num_supports": num_supports[row[6]],
+        }
+        for row in l18
     ]
+
+
+def build_factorial_rows() -> list[dict[str, Any]]:
+    designs = factorial_designs()
+    factorial_variants = ("D0", "DD-L", "RF-KV", "KC-LV", "DD-A")
     rows = []
     for task in ("controlled_prototype", "switching_mackey_glass_controlled", "switching_narma_controlled"):
         for design_index, design in enumerate(designs):
-            for variant in ("D0", "DD-L", "RF-KV", "KC-LV", "DD-A"):
+            for variant in factorial_variants:
                 for seed_index in range(4):
-                    fidelity = (0.2, 0.5, 1.0)[design_index % 3]
-                    steps = {0.2: 100, 0.5: 250, 1.0: 500}[fidelity]
                     factors = dict(design)
-                    factors.update({"fidelity": fidelity, "design_index": design_index})
-                    rows.append(_base_row("stage2C_factorial", task, variant, 1_000_000, seed_index, cell=f"F{design_index}", heldout_streams=2, steps=steps, **factors))
+                    supports = int(factors.pop("num_supports"))
+                    factors.update({"fidelity": 1.0, "design_index": design_index})
+                    rows.append(_base_row(
+                        "stage2C_factorial", task, variant, 1_000_000,
+                        seed_index, cell=f"F{design_index}", heldout_streams=2,
+                        steps=500, num_supports=supports,
+                        paired_variants=factorial_variants, **factors,
+                    ))
     return _number_rows(rows)
 
 
@@ -168,7 +268,7 @@ def build_symbolic_rows() -> list[dict[str, Any]]:
                 {"transition_entropy": 0.5, "emission_overlap": 0.2, "return_probability": 0.5, "explicit_regime_token": False},
                 {"transition_entropy": 0.9, "emission_overlap": 0.4, "return_probability": 0.75, "explicit_regime_token": True},
             )):
-                rows.append(_base_row("stage2D_symbolic", "controlled_symbolic_regime_language", variant, 1_000_000, seed_index, cell=f"S{factor_index}", heldout_streams=5, steps=500, task_type="language", **factors))
+                rows.append(_base_row("stage2D_symbolic", "controlled_symbolic_regime_language", variant, 1_000_000, seed_index, cell=f"S{factor_index}", heldout_streams=5, steps=500, task_type="language", paired_variants=SYMBOLIC_VARIANTS, **factors))
     return _number_rows(rows)
 
 

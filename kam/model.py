@@ -65,6 +65,8 @@ class KAMBlock(nn.Module):
         bandwidth: BandwidthMode = "learned",
         init_bandwidth: float = 1.0,
         memory_output: MemoryOutput = "residual",
+        append_routes_to_readout: bool | None = None,
+        apply_memory_residual: bool | None = None,
         route_features: RouteFeatures = "raw",
         route_projection_dim: int | None = None,
         ffn_expansion: int = 4,
@@ -77,7 +79,13 @@ class KAMBlock(nn.Module):
         self.use_context = use_context
         self.use_memory = use_memory
         self.memory_output = memory_output
-        self.route_enabled = use_memory and memory_output in {"routes", "both"}
+        if append_routes_to_readout is None:
+            append_routes_to_readout = memory_output in {"routes", "both"}
+        if apply_memory_residual is None:
+            apply_memory_residual = memory_output in {"residual", "both"}
+        self.append_routes_to_readout = use_memory and bool(append_routes_to_readout)
+        self.apply_memory_residual = use_memory and bool(apply_memory_residual)
+        self.route_enabled = self.append_routes_to_readout
         context_score = context_score or score_type
         memory_score = memory_score or score_type
         if context_normalize_qk is None:
@@ -142,7 +150,7 @@ class KAMBlock(nn.Module):
             update, memory_weights = self.memory(
                 self.memory_norm(hidden), need_memory_weights
             )
-            if self.memory_output in {"residual", "both"}:
+            if self.apply_memory_residual:
                 hidden = hidden + update
             if self.route_enabled and memory_weights is not None:
                 routes = memory_weights.permute(0, 2, 1, 3).reshape(
@@ -176,6 +184,9 @@ class KAMSequenceModel(nn.Module):
         use_memory: bool = True,
         regression_pool: PoolingType = "last",
         expose_memory_weights: bool = True,
+        return_attention_for_diagnostics: bool | None = None,
+        append_routes_to_readout: bool | None = None,
+        apply_memory_residual: bool | None = None,
         context_score: ScoreType | None = None,
         memory_score: ScoreType | None = None,
         context_normalize_qk: bool | None = None,
@@ -198,7 +209,15 @@ class KAMSequenceModel(nn.Module):
         self.use_context = use_context
         self.use_memory = use_memory
         self.regression_pool = regression_pool
-        self.expose_memory_weights = expose_memory_weights and use_memory
+        # ``expose_memory_weights`` is retained as a compatibility alias for
+        # diagnostic collection only.  It must never alter the predictive
+        # readout.
+        if return_attention_for_diagnostics is None:
+            return_attention_for_diagnostics = expose_memory_weights
+        self.return_attention_for_diagnostics = (
+            bool(return_attention_for_diagnostics) and use_memory
+        )
+        self.expose_memory_weights = self.return_attention_for_diagnostics
         if position_mode not in {"learned", "sinusoidal"}:
             raise ValueError(f"Unsupported position mode: {position_mode}")
         self.position_mode = position_mode
@@ -206,6 +225,12 @@ class KAMSequenceModel(nn.Module):
         self.context_score = context_score or score_type
         self.memory_score = memory_score or score_type
         self.memory_output = memory_output
+        if append_routes_to_readout is None:
+            append_routes_to_readout = memory_output in {"routes", "both"}
+        if apply_memory_residual is None:
+            apply_memory_residual = memory_output in {"residual", "both"}
+        self.append_routes_to_readout = use_memory and bool(append_routes_to_readout)
+        self.apply_memory_residual = use_memory and bool(apply_memory_residual)
         self.route_features = route_features
         self.route_projection_dim = route_projection_dim
 
@@ -246,6 +271,8 @@ class KAMSequenceModel(nn.Module):
                     use_context=use_context,
                     use_memory=use_memory,
                     memory_output=memory_output,
+                    append_routes_to_readout=self.append_routes_to_readout,
+                    apply_memory_residual=self.apply_memory_residual,
                     route_features=route_features,
                     route_projection_dim=route_projection_dim,
                     ffn_expansion=ffn_expansion,
@@ -259,13 +286,10 @@ class KAMSequenceModel(nn.Module):
             self.baseline_route_projection = nn.Linear(d_model, int(route_projection_dim), bias=False)
 
         route_dim = 0
-        if use_memory and memory_output in {"routes", "both"}:
+        if self.append_routes_to_readout:
             route_dim = self.blocks[-1].route_output_dim
         elif not use_memory and self.baseline_route_projection is not None:
             route_dim = int(route_projection_dim)
-        elif task == "regression" and self.expose_memory_weights:
-            # Legacy regression checkpoints expose the final raw route matrix.
-            route_dim = num_heads * num_supports
         self.route_feature_dim = route_dim
         readout_input_dim = d_model + route_dim
         if task == "language":
@@ -324,13 +348,6 @@ class KAMSequenceModel(nn.Module):
             else:
                 route = route.mean(dim=1)
             return torch.cat([pooled, route], dim=-1)
-        if self.expose_memory_weights and diagnostics.memory_weights:
-            final_memory = diagnostics.memory_weights[-1]
-            if self.regression_pool == "last":
-                memory_features = final_memory[:, :, -1, :]
-            else:
-                memory_features = final_memory.mean(dim=2)
-            return torch.cat([pooled, memory_features.flatten(start_dim=1)], dim=-1)
         if self.baseline_route_projection is not None:
             return torch.cat([pooled, self.baseline_route_projection(pooled)], dim=-1)
         return pooled
@@ -340,7 +357,12 @@ class KAMSequenceModel(nn.Module):
     ) -> tuple[Tensor, ModelDiagnostics]:
         if self.task != "regression":
             raise RuntimeError("regression_features is available only for regression models.")
-        hidden, diagnostics = self.encode(inputs, return_weights=True)
+        hidden, diagnostics = self.encode(
+            inputs,
+            return_weights=return_weights
+            or self.return_attention_for_diagnostics
+            or self.append_routes_to_readout,
+        )
         if self.regression_pool == "last":
             pooled = hidden[:, -1, :]
         elif self.regression_pool == "mean":
@@ -356,7 +378,7 @@ class KAMSequenceModel(nn.Module):
         self, inputs: Tensor, return_weights: bool = False
     ) -> tuple[Tensor, ModelDiagnostics] | Tensor:
         if self.task == "language":
-            need_routes = self.memory_output in {"routes", "both"}
+            need_routes = self.append_routes_to_readout
             hidden, diagnostics = self.encode(
                 inputs, return_weights=return_weights or need_routes
             )

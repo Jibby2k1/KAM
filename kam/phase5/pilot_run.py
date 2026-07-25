@@ -36,14 +36,26 @@ def execute_row(row: dict[str, Any], run_root: str | Path, device_name: str = "a
         active = int(metrics.get("active_parameter_count", 0))
         target = int(row.get("target_active_parameters", 0))
         match_error = abs(active - target) / max(target, 1)
+        pair_match_error = float(
+            row.get("paired_capacity_match_error", match_error)
+        )
+        recorded_count = int(row.get("resolved_active_parameters", active))
         checks = {
             "no_padding_parameters": int(metrics.get("padding_parameter_count", 0)) == 0,
-            "active_capacity_match": match_error <= float(row.get("active_match_tolerance", 0.01)),
+            "active_capacity_match": (
+                match_error <= float(row.get("active_match_tolerance", 0.01))
+                and pair_match_error
+                <= float(row.get("active_match_tolerance", 0.01))
+                and active == recorded_count
+            ),
+            "paired_capacity_match": pair_match_error
+            <= float(row.get("active_match_tolerance", 0.01)),
             "best_checkpoint_test_present": metrics.get("best_checkpoint_test") is not None,
             "independent_split_streams": bool(metrics.get("data_metadata", {}).get("independent_split_streams", False)),
             "variant_semantics_recorded": bool(metrics.get("variant_semantics")),
         }
         metrics["active_capacity_match_error"] = match_error
+        metrics["paired_capacity_match_error"] = pair_match_error
         metrics["phase5_row"] = row
         metrics["phase5_pilot_checks"] = checks
         save_json(run_dir / "metrics.json", metrics)

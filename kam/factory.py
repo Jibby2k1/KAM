@@ -59,7 +59,9 @@ def make_model(spec: dict[str, Any]) -> nn.Module:
         phase5_spec = dict(spec)
         phase5_spec["model_name"] = "DD-b"
         phase5_spec["memory_output"] = {"DD-A": "routes", "DD-V": "residual", "DD-B": "both"}[model_name]
-        phase5_spec["expose_memory_weights"] = True
+        phase5_spec["append_routes_to_readout"] = model_name in {"DD-A", "DD-B"}
+        phase5_spec["apply_memory_residual"] = model_name in {"DD-V", "DD-B"}
+        phase5_spec.setdefault("return_attention_for_diagnostics", True)
         return make_model(phase5_spec)
     if model_name in PHASE5_VARIANTS:
         phase5_spec = dict(spec)
@@ -90,7 +92,10 @@ def make_model(spec: dict[str, Any]) -> nn.Module:
     if model_name in KAM_MODELS:
         if model_name in PHASE2_VARIANTS:
             context_score, memory_score, use_context, use_memory, suffix_output = _phase2_scores(model_name)
-            memory_output = suffix_output if "-" in model_name else str(spec.get("memory_output", spec.get("memory_mode", suffix_output)))
+            # Explicit experiment semantics must survive aliases such as
+            # DD-A -> DD-b.  The suffix is only the default for a direct
+            # Phase II label.
+            memory_output = str(spec.get("memory_output", spec.get("memory_mode", suffix_output)))
             if memory_output == "values":
                 memory_output = "residual"
             expose_memory_weights = bool(spec.get("expose_memory_weights", False))
@@ -130,6 +135,11 @@ def make_model(spec: dict[str, Any]) -> nn.Module:
             regression_pool=pool,
             position_mode=str(spec.get("position_mode", "learned")),
             expose_memory_weights=expose_memory_weights,
+            return_attention_for_diagnostics=bool(
+                spec.get("return_attention_for_diagnostics", expose_memory_weights)
+            ),
+            append_routes_to_readout=spec.get("append_routes_to_readout"),
+            apply_memory_residual=spec.get("apply_memory_residual"),
             memory_output=memory_output,
             route_features=str(spec.get("route_features", "raw")),
             route_projection_dim=spec.get("route_projection_dim"),

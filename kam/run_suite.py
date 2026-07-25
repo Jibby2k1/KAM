@@ -33,6 +33,7 @@ from .factory import make_model
 from .experiment_registry import ExperimentRegistry
 from .capacity import capacity_summary
 from .data.controlled_regimes import ControlledWindowDataset, make_independent_controlled_streams
+from .data.stream_quality import assess_stream_quality, require_stable_stream
 from .data.controlled_prototype import generate_prototype_stream
 from .data.controlled_mackey_glass import generate_controlled_mackey_glass_stream
 from .data.controlled_narma import generate_controlled_narma_stream
@@ -153,10 +154,18 @@ def _make_controlled_task_streams(task: str, lengths: dict[str, int], seed: int,
     }.get(task)
     if generator is None:
         raise ValueError(f"unsupported controlled task: {task}")
-    return {
+    streams = {
         name: generator(int(lengths[name]), seed=seed + index * 1_000_003, **kwargs)
         for index, name in enumerate(("train", "validation", "test", "prequential"))
     }
+    for name, stream in streams.items():
+        quality = assess_stream_quality(
+            stream.values,
+            clip_boundary=stream.metadata.get("clip_boundary"),
+        )
+        stream.metadata["stream_quality"] = quality
+        require_stable_stream(quality, stream_name=f"{task}:{name}")
+    return streams
 
 
 REGRESSION_TASKS = PHASE5_CONTROLLED_TASKS | {
@@ -412,7 +421,20 @@ def _evaluate(model: nn.Module, loader: DataLoader, device: torch.device, task_t
 
 @torch.no_grad()
 def _initialize_data_centers(model: nn.Module, loader: DataLoader, method: str = "sampled_training_points") -> dict[str, Tensor]:
-    """Initialize KC-LV support keys from an exact, recorded training subset."""
+    """Initialize KC-LV keys in each block's actual projected query space."""
+    supported = {"random_normal", "sampled_training_points", "kmeans", "farthest_point"}
+    if method not in supported:
+        raise ValueError(f"Unsupported center initialization: {method}")
+    if method == "random_normal":
+        # A no-op initializer must not advance any sampler state.
+        saved = {}
+        for index, block in enumerate(getattr(model, "blocks", [])):
+            memory = getattr(block, "memory", None)
+            if memory is None:
+                continue
+            memory.memory_keys.requires_grad_(False)
+            saved[f"block_{index}"] = memory.memory_keys.detach().cpu().clone()
+        return saved
     batches = []
     for index, batch in enumerate(loader):
         inputs = batch[0] if isinstance(batch, (tuple, list)) else batch["inputs"]
@@ -427,42 +449,63 @@ def _initialize_data_centers(model: nn.Module, loader: DataLoader, method: str =
     for block_index, block in enumerate(getattr(model, "blocks", [])):
         memory = getattr(block, "memory", None)
         if memory is None:
+            hidden, _, _ = block(hidden, return_weights=False)
             continue
-        head_dim = int(memory.head_dim)
-        pool = hidden.reshape(hidden.shape[0] * hidden.shape[1], memory.num_heads, head_dim)
-        count = min(int(memory.num_supports), int(pool.shape[0]))
-        if method == "random_normal":
-            centers = memory.memory_keys.detach().clone()
-            selected = torch.arange(count, device=device)
+        if block.context is not None:
+            update, _ = block.context(block.context_norm(hidden), return_weights=False)
+            memory_input = hidden + update
         else:
+            memory_input = hidden
+        projected = memory.project_keys(block.memory_norm(memory_input))
+        pool = projected.permute(0, 2, 1, 3).reshape(
+            projected.shape[0] * projected.shape[2],
+            memory.num_heads,
+            memory.head_dim,
+        )
+        count = min(int(memory.num_supports), int(pool.shape[0]))
+        per_head = []
+        for head in range(memory.num_heads):
+            head_pool = pool[:, head, :]
             if method == "farthest_point":
                 selected_indices = [0]
-                distances = torch.cdist(pool[:, 0, :], pool[0, 0, :][None, :]).reshape(-1)
+                distances = torch.cdist(
+                    head_pool, head_pool[0:1]
+                ).reshape(-1)
                 for _ in range(1, count):
                     next_index = int(torch.argmax(distances))
                     selected_indices.append(next_index)
-                    distances = torch.minimum(distances, torch.cdist(pool[:, 0, :], pool[next_index, 0, :][None, :]).reshape(-1))
+                    distances = torch.minimum(
+                        distances,
+                        torch.cdist(head_pool, head_pool[next_index:next_index + 1]).reshape(-1),
+                    )
                 selected = torch.tensor(selected_indices, device=device, dtype=torch.long)
             else:
-                selected = torch.linspace(0, pool.shape[0] - 1, count, device=device).long()
-            centers = pool[selected].permute(1, 0, 2).contiguous()
+                selected = torch.linspace(
+                    0, head_pool.shape[0] - 1, count, device=device
+                ).long()
+            centers = head_pool[selected].contiguous()
             if method == "kmeans":
                 for _ in range(6):
-                    distances = torch.cdist(pool[:, 0, :], centers[0])
+                    distances = torch.cdist(head_pool, centers)
                     assignments = distances.argmin(dim=1)
                     updated = []
                     for support in range(count):
-                        members = pool[assignments == support]
-                        updated.append(members.mean(dim=0) if len(members) else centers[:, support, :])
-                    centers = torch.stack(updated, dim=1)
-                    if centers.ndim == 2:
-                        centers = centers.unsqueeze(0).expand(memory.num_heads, -1, -1).contiguous()
-            if count < memory.num_supports:
-                padding = memory.memory_keys[:, count:, :].detach()
-                centers = torch.cat([centers, padding], dim=1)
+                        members = head_pool[assignments == support]
+                        updated.append(
+                            members.mean(dim=0) if len(members) else centers[support]
+                        )
+                    centers = torch.stack(updated, dim=0)
+            per_head.append(centers)
+        centers = torch.stack(per_head, dim=0)
+        if count < memory.num_supports:
+            padding = memory.memory_keys[:, count:, :].detach()
+            centers = torch.cat([centers, padding], dim=1)
         memory.memory_keys.copy_(centers)
         memory.memory_keys.requires_grad_(False)
         saved[f"block_{block_index}"] = centers.detach().cpu()
+        # Propagate the batch through the now-initialized block so deeper
+        # supports are selected in their own incoming coordinate systems.
+        hidden, _, _ = block(hidden, return_weights=False)
     return saved
 
 
@@ -479,7 +522,10 @@ def _configure_phase5_variant(model: nn.Module, variant: str, train_loader: Data
                 parameter.requires_grad_(False)
         metadata["fixed_component"] = "random_values"
     elif variant == "KC-LV":
-        saved = _initialize_data_centers(model, train_loader, center_initialization)
+        initialization_loader = _evaluation_loader(train_loader)
+        saved = _initialize_data_centers(
+            model, initialization_loader, center_initialization
+        )
         model._phase5_center_state = saved
         metadata["fixed_component"] = "data_initialized_keys"
     elif variant == "RFF":
@@ -546,6 +592,14 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
         "bandwidth_init": float(run.get("bandwidth_init", 1.0)),
         "ffn_expansion": int(run.get("ffn_expansion", 4)),
         "expose_memory_weights": bool(run.get("expose_memory_weights", False)),
+        "return_attention_for_diagnostics": bool(
+            run.get(
+                "return_attention_for_diagnostics",
+                run.get("expose_memory_weights", False),
+            )
+        ),
+        "append_routes_to_readout": run.get("append_routes_to_readout"),
+        "apply_memory_residual": run.get("apply_memory_residual"),
         "parameter_match_target": run.get("parameter_match_target"),
         "position_mode": run.get("position_mode", "learned"),
         "fourier_features": run.get("fourier_features"),

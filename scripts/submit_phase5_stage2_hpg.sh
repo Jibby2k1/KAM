@@ -18,7 +18,7 @@ if [[ ! -f "${MANIFEST_ROOT}/stage2A_component.jsonl" ]]; then
   python -m kam.phase5.stage2_manifest --output-dir "${MANIFEST_ROOT}"
 fi
 
-declare -A EXPECTED=( [stage2A_component]=450 [stage2B_capacity]=480 [stage2C_factorial]=600 [stage2D_symbolic]=60 )
+declare -A EXPECTED=( [stage2A_component]=450 [stage2B_capacity]=480 [stage2C_factorial]=1080 [stage2D_symbolic]=60 )
 declare -A LABEL=( [stage2A_component]=component [stage2B_capacity]=capacity [stage2C_factorial]=factorial [stage2D_symbolic]=symbolic )
 if [[ "${MODE}" == "--plan-only" ]]; then
   echo "Phase V Stage 2 HPG plan"
