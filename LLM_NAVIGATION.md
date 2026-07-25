@@ -21,3 +21,11 @@ Phase V validity gate:
 - Supplied campaign specification: configs/phase5/phase5_learned_vs_fixed_features.yaml
 - Gate config and runner: configs/phase5/validity.yaml, kam/phase5/
 - Gate report and ChatGPT handoff: reports/phase5/
+
+Phase V Stage 2 controlled-regime campaign:
+- Authoritative brief: docs/codex/KAM_PHASE5_STAGE2_CODEX_BRIEF.md
+- Manifests: results/phase5/stage2/manifests/
+- Row executor and held-out evaluation: kam/phase5/stage2_run.py
+- Gate, statistics, and aggregation: kam/phase5/stage2_gate.py, kam/phase5/stage2_stats.py, kam/phase5/stage2_aggregate.py
+- HPG workflow: scripts/submit_phase5_stage2_hpg.sh --plan-only, then --profile, then --submit
+- Do not infer Stage 3 scaling, online adaptation, or natural-language conclusions from Stage 2 until the reports and validity checks pass.

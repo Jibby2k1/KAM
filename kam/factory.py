@@ -12,11 +12,12 @@ PHASE2_BASE_VARIANTS = {"D0", "R0", "DD", "DR", "RR"}
 PHASE2_VARIANTS = PHASE2_BASE_VARIANTS | {f"{base}-{suffix}" for base in {"DD", "DR", "RR"} for suffix in ("v", "a", "b")}
 PHASE3_RANDOM_VARIANTS = {"RF-b", "RF-b-readout"}
 PHASE3_STAGED_VARIANTS = {"DD-b-staged", "DR-b-staged"}
-PHASE5_VARIANTS = {"DD-L", "RF-KV", "RF-FULL", "RK-LV", "LK-RV", "KC-LV", "RFF", "DD-PF", "DD-DRIFT"}
+PHASE5_VARIANTS = {"DD-L", "RF-KV", "RF-FULL", "RK-LV", "LK-RV", "KC-LV", "RFF", "DD-A", "DD-V", "DD-B", "DD-PF", "DD-DRIFT"}
 PHASE5_BASE_VARIANTS = {
     "DD-L": "DD-b", "RF-KV": "RF-b", "RF-FULL": "RF-b-readout",
     "RK-LV": "DD-b", "LK-RV": "DD-b", "KC-LV": "DD-b",
-    "RFF": "RF-b-readout", "DD-PF": "DD-b-staged", "DD-DRIFT": "DD-b",
+    "RFF": "RF-b-readout", "DD-A": "DD-b", "DD-V": "DD-b", "DD-B": "DD-b",
+    "DD-PF": "DD-b-staged", "DD-DRIFT": "DD-b",
 }
 KAM_MODELS = LEGACY_MODELS | PHASE2_VARIANTS | PHASE3_RANDOM_VARIANTS | PHASE3_STAGED_VARIANTS | PHASE5_VARIANTS
 
@@ -54,6 +55,12 @@ def make_model(spec: dict[str, Any]) -> nn.Module:
             feature_dim=int(spec.get("fourier_features", 64)),
             output_dim=int(spec.get("output_dim", 1)),
         )
+    if model_name in {"DD-A", "DD-V", "DD-B"}:
+        phase5_spec = dict(spec)
+        phase5_spec["model_name"] = "DD-b"
+        phase5_spec["memory_output"] = {"DD-A": "routes", "DD-V": "residual", "DD-B": "both"}[model_name]
+        phase5_spec["expose_memory_weights"] = True
+        return make_model(phase5_spec)
     if model_name in PHASE5_VARIANTS:
         phase5_spec = dict(spec)
         phase5_spec["model_name"] = PHASE5_BASE_VARIANTS[model_name]

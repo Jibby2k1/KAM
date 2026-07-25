@@ -153,3 +153,15 @@ Run all five matched attention variants on the copy, regime, and Mackey-Glass ta
 ## Scope of this reference implementation
 
 The code intentionally omits support birth/death, coefficient transport after geometry motion, compactly supported kernels, low-rank full metrics, and PDE data loaders. Those are follow-on experiments after the minimal hybrid demonstrates a measurable advantage.
+
+## Phase V Stage 2 controlled-regime campaign
+
+The Stage 2 specification is [KAM_PHASE5_STAGE2_CODEX_BRIEF.md](docs/codex/KAM_PHASE5_STAGE2_CODEX_BRIEF.md). It defines the component, capacity-crossover, factorial, and symbolic sub-studies, with independent held-out streams and executable validity gates. Inspect the plan before HPG submission:
+
+```bash
+scripts/submit_phase5_stage2_hpg.sh --plan-only
+scripts/submit_phase5_stage2_hpg.sh --profile   # four 3-row HPG pre-profiles
+scripts/submit_phase5_stage2_hpg.sh --submit    # only after profile review
+```
+
+Manifests are under `results/phase5/stage2/manifests/`; per-stage outputs and reports are written under `results/phase5/stage2/` and `reports/phase5/`. The nominal scale labels remain visible in each row, while `target_active_parameters` records the exact resolved architecture count used by the <=1% gate.

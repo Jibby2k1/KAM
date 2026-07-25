@@ -255,7 +255,7 @@ class KAMSequenceModel(nn.Module):
         )
         self.final_norm = nn.LayerNorm(d_model)
         self.baseline_route_projection = None
-        if not use_memory and route_features == "projected" and route_projection_dim is not None:
+        if task == "regression" and not use_memory and route_features == "projected" and route_projection_dim is not None:
             self.baseline_route_projection = nn.Linear(d_model, int(route_projection_dim), bias=False)
 
         route_dim = 0

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import random
+import time
 from dataclasses import asdict, is_dataclass
 from pathlib import Path
 from typing import Any
@@ -59,6 +60,20 @@ def save_json(path: str | Path, payload: dict[str, Any]) -> None:
 def atomic_torch_save(path: str | Path, payload: dict[str, Any]) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    torch.save(payload, temporary)
-    os.replace(temporary, path)
+    # Parallel Lustre checkpoint writes can transiently fail with a short
+    # PytorchStreamWriter record. Retry the same atomic operation a few times;
+    # the experiment remains failed if the filesystem cannot recover.
+    for attempt in range(4):
+        temporary = path.with_name(f"{path.name}.tmp.{os.getpid()}.{attempt}")
+        try:
+            torch.save(payload, temporary)
+            os.replace(temporary, path)
+            return
+        except (OSError, RuntimeError):
+            try:
+                temporary.unlink()
+            except FileNotFoundError:
+                pass
+            if attempt == 3:
+                raise
+            time.sleep(1.5 * (attempt + 1))

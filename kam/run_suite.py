@@ -33,6 +33,10 @@ from .factory import make_model
 from .experiment_registry import ExperimentRegistry
 from .capacity import capacity_summary
 from .data.controlled_regimes import ControlledWindowDataset, make_independent_controlled_streams
+from .data.controlled_prototype import generate_prototype_stream
+from .data.controlled_mackey_glass import generate_controlled_mackey_glass_stream
+from .data.controlled_narma import generate_controlled_narma_stream
+from .data.controlled_symbolic_regime import make_symbolic_splits
 from .utils import atomic_torch_save, choose_device, json_ready, save_json, set_seed
 from .phase3.memory_trace import (
     memory_bank_parameters,
@@ -141,6 +145,20 @@ PHASE5_CONTROLLED_TASKS = {
     "switching_narma_controlled",
 }
 
+def _make_controlled_task_streams(task: str, lengths: dict[str, int], seed: int, kwargs: dict[str, Any]) -> dict[str, Any]:
+    generator = {
+        "controlled_prototype": generate_prototype_stream,
+        "switching_mackey_glass_controlled": generate_controlled_mackey_glass_stream,
+        "switching_narma_controlled": generate_controlled_narma_stream,
+    }.get(task)
+    if generator is None:
+        raise ValueError(f"unsupported controlled task: {task}")
+    return {
+        name: generator(int(lengths[name]), seed=seed + index * 1_000_003, **kwargs)
+        for index, name in enumerate(("train", "validation", "test", "prequential"))
+    }
+
+
 REGRESSION_TASKS = PHASE5_CONTROLLED_TASKS | {
     "switching_mackey_glass",
     "switching_narma",
@@ -174,7 +192,9 @@ def _build_regression_data(
             "test": int(params.get("test_length", max(256, int(params.get("series_length", 1200) // 3)))),
             "prequential": int(params.get("prequential_length", max(256, int(params.get("series_length", 1200) // 3)))),
         }
-        streams = make_independent_controlled_streams(lengths=lengths, seed=seed, **stream_kwargs)
+        if task == "switching_narma_controlled":
+            stream_kwargs["order"] = int(params.get("order", 10))
+        streams = _make_controlled_task_streams(task, lengths, seed, stream_kwargs)
         window = int(params.get("seq_len", 32))
         train = ControlledWindowDataset(streams["train"], window)
         validation = ControlledWindowDataset(streams["validation"], window)
@@ -258,6 +278,41 @@ def _build_regression_data(
     )
 
 
+def _build_symbolic_data(params: dict[str, Any], seed: int) -> tuple[DataLoader, DataLoader, DataLoader, str, dict[str, Any]]:
+    datasets = make_symbolic_splits(
+        seed=seed,
+        train_size=int(params.get("train_size", params.get("series_length", 1000))),
+        validation_size=int(params.get("validation_length", 256)),
+        test_size=int(params.get("test_length", 256)),
+        sequence_length=int(params.get("seq_len", 64)),
+        alphabet_size=int(params.get("alphabet_size", 12)),
+        regime_count=int(params.get("regime_count", 4)),
+        transition_entropy=float(params.get("transition_entropy", 0.5)),
+        emission_overlap=float(params.get("emission_overlap", 0.2)),
+        return_probability=float(params.get("return_probability", 0.5)),
+        explicit_regime_token=bool(params.get("explicit_regime_token", False)),
+    )
+    metadata = {
+        "vocab_size": datasets[0].vocab_size,
+        # The dataset emits BOS + sequence_length + 1 symbols, so the
+        # shifted input contains sequence_length + 1 tokens.
+        "max_seq_len": datasets[0].sequence_length + 1,
+        "symbolic_generator": True,
+        "independent_split_streams": True,
+        "transition_entropy": float(params.get("transition_entropy", 0.5)),
+        "emission_overlap": float(params.get("emission_overlap", 0.2)),
+        "return_probability": float(params.get("return_probability", 0.5)),
+        "explicit_regime_token": bool(params.get("explicit_regime_token", False)),
+    }
+    return (
+        DataLoader(datasets[0], batch_size=int(params.get("batch_size", 32)), shuffle=True),
+        DataLoader(datasets[1], batch_size=int(params.get("batch_size", 32))),
+        DataLoader(datasets[2], batch_size=int(params.get("batch_size", 32))),
+        "language",
+        metadata,
+    )
+
+
 def _build_data(task: str, params: dict[str, Any], seed: int) -> tuple[DataLoader, DataLoader, str, dict[str, Any]]:
     batch_size = int(params.get("batch_size", 32))
     train_size = int(params.get("train_size", 512))
@@ -312,6 +367,8 @@ def _build_data_with_test(
 ) -> tuple[DataLoader, DataLoader, DataLoader | None, str, dict[str, Any]]:
     """Return an optional held-out test loader without changing legacy callers."""
 
+    if task == "controlled_symbolic_regime_language":
+        return _build_symbolic_data(params, seed)
     if task in REGRESSION_TASKS:
         return _build_regression_data(task, params, seed)
     train_loader, validation_loader, task_type, data_meta = _build_data(task, params, seed)
@@ -354,28 +411,63 @@ def _evaluate(model: nn.Module, loader: DataLoader, device: torch.device, task_t
 
 
 @torch.no_grad()
-def _initialize_data_centers(model: nn.Module, loader: DataLoader) -> None:
-    """Initialize KC-LV keys from observed training representations, then freeze them."""
-    batch = next(iter(loader))
-    inputs = batch[0]
+def _initialize_data_centers(model: nn.Module, loader: DataLoader, method: str = "sampled_training_points") -> dict[str, Tensor]:
+    """Initialize KC-LV support keys from an exact, recorded training subset."""
+    batches = []
+    for index, batch in enumerate(loader):
+        inputs = batch[0] if isinstance(batch, (tuple, list)) else batch["inputs"]
+        batches.append(inputs)
+        if index >= 3:
+            break
     device = next(model.parameters()).device
-    inputs = inputs.to(device)
+    inputs = torch.cat(batches, dim=0).to(device)
     hidden = model.input_layer(inputs)
     hidden = hidden + model._position_encoding(hidden.shape[1], device, hidden.dtype)
-    for block in getattr(model, "blocks", []):
+    saved: dict[str, Tensor] = {}
+    for block_index, block in enumerate(getattr(model, "blocks", [])):
         memory = getattr(block, "memory", None)
         if memory is None:
             continue
         head_dim = int(memory.head_dim)
-        reshaped = hidden.reshape(hidden.shape[0] * hidden.shape[1], memory.num_heads, head_dim)
-        indices = torch.linspace(0, reshaped.shape[0] - 1, memory.num_supports, device=device).long()
-        centers = reshaped[indices].permute(1, 0, 2).contiguous()
+        pool = hidden.reshape(hidden.shape[0] * hidden.shape[1], memory.num_heads, head_dim)
+        count = min(int(memory.num_supports), int(pool.shape[0]))
+        if method == "random_normal":
+            centers = memory.memory_keys.detach().clone()
+            selected = torch.arange(count, device=device)
+        else:
+            if method == "farthest_point":
+                selected_indices = [0]
+                distances = torch.cdist(pool[:, 0, :], pool[0, 0, :][None, :]).reshape(-1)
+                for _ in range(1, count):
+                    next_index = int(torch.argmax(distances))
+                    selected_indices.append(next_index)
+                    distances = torch.minimum(distances, torch.cdist(pool[:, 0, :], pool[next_index, 0, :][None, :]).reshape(-1))
+                selected = torch.tensor(selected_indices, device=device, dtype=torch.long)
+            else:
+                selected = torch.linspace(0, pool.shape[0] - 1, count, device=device).long()
+            centers = pool[selected].permute(1, 0, 2).contiguous()
+            if method == "kmeans":
+                for _ in range(6):
+                    distances = torch.cdist(pool[:, 0, :], centers[0])
+                    assignments = distances.argmin(dim=1)
+                    updated = []
+                    for support in range(count):
+                        members = pool[assignments == support]
+                        updated.append(members.mean(dim=0) if len(members) else centers[:, support, :])
+                    centers = torch.stack(updated, dim=1)
+                    if centers.ndim == 2:
+                        centers = centers.unsqueeze(0).expand(memory.num_heads, -1, -1).contiguous()
+            if count < memory.num_supports:
+                padding = memory.memory_keys[:, count:, :].detach()
+                centers = torch.cat([centers, padding], dim=1)
         memory.memory_keys.copy_(centers)
         memory.memory_keys.requires_grad_(False)
+        saved[f"block_{block_index}"] = centers.detach().cpu()
+    return saved
 
 
-def _configure_phase5_variant(model: nn.Module, variant: str, train_loader: DataLoader) -> dict[str, Any]:
-    metadata: dict[str, Any] = {"variant_semantics": variant}
+def _configure_phase5_variant(model: nn.Module, variant: str, train_loader: DataLoader, center_initialization: str = "random_normal") -> dict[str, Any]:
+    metadata: dict[str, Any] = {"variant_semantics": variant, "center_initialization": center_initialization}
     if variant == "RK-LV":
         for name, parameter in model.named_parameters():
             if name.endswith("memory_keys"):
@@ -387,12 +479,22 @@ def _configure_phase5_variant(model: nn.Module, variant: str, train_loader: Data
                 parameter.requires_grad_(False)
         metadata["fixed_component"] = "random_values"
     elif variant == "KC-LV":
-        _initialize_data_centers(model, train_loader)
-        metadata["fixed_component"] = "sampled_training_representation_keys"
+        saved = _initialize_data_centers(model, train_loader, center_initialization)
+        model._phase5_center_state = saved
+        metadata["fixed_component"] = "data_initialized_keys"
     elif variant == "RFF":
         metadata["fixed_component"] = "random_fourier_map"
+    names = list(model.named_parameters())
+    metadata.update({
+        "key_trainable": any(name.endswith("memory_keys") and parameter.requires_grad for name, parameter in names),
+        "value_trainable": any(name.endswith("memory_values") and parameter.requires_grad for name, parameter in names),
+        "query_path_trainable": any(".memory.query." in name and parameter.requires_grad for name, parameter in names),
+        "score_path_trainable": any(".memory.score." in name and parameter.requires_grad for name, parameter in names),
+        "memory_output_trainable": any(".memory.output." in name and parameter.requires_grad for name, parameter in names),
+        "backbone_trainable": any(parameter.requires_grad and ".readout." not in name and ".memory." not in name for name, parameter in names),
+        "route_mode": "projected" if getattr(model, "route_feature_dim", 0) else "none",
+    })
     return metadata
-
 
 def _evaluation_loader(loader: DataLoader) -> DataLoader:
     """Create a deterministic, non-shuffled view of an existing loader."""
@@ -449,7 +551,7 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
         "fourier_features": run.get("fourier_features"),
     }
     model = make_model(spec).to(device)
-    variant_metadata = _configure_phase5_variant(model, str(run.get("variant", spec["model_name"])), train_loader)
+    variant_metadata = _configure_phase5_variant(model, str(run.get("variant", spec["model_name"])), train_loader, str(run.get("center_initialization", "random_normal")))
     capacity = capacity_summary(model, spec, int(spec["max_seq_len"]))
     steps = int(run.get("steps", 10))
     eval_every = int(run.get("eval_every", max(1, steps // 10)))
@@ -485,6 +587,10 @@ def _run_one(run: dict[str, Any], root: Path, device: torch.device, precision: s
     autocast_dtype = torch.bfloat16 if precision in {"amp", "bf16"} else torch.float16
     output_dir = root / str(run["run_id"])
     output_dir.mkdir(parents=True, exist_ok=True)
+    center_state = getattr(model, "_phase5_center_state", None)
+    if center_state is not None:
+        torch.save({"method": run.get("center_initialization", "random_normal"), "centers": center_state}, output_dir / "center_initialization.pt")
+        delattr(model, "_phase5_center_state")
     resolved = {"run": run, "model_spec": spec, "data_metadata": data_meta, "precision": precision, **_git_metadata()}
     save_json(output_dir / "resolved_config.json", resolved)
     best_metric = float("inf")
