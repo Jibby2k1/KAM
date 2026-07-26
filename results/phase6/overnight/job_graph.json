@@ -1,0 +1,33 @@
+{
+  "array_throttle": 4,
+  "campaign": "phase6_overnight_4xl4_quality_campaign",
+  "dependencies": {
+    "final_aggregate_report": "afterany:wave3_array",
+    "preflight_gate": "afterany:preflight_array",
+    "stage1_frontier_cpu": "afterok:preflight_gate",
+    "wave1_aggregate_gate": "afterany:wave1_array",
+    "wave1_array": "afterok:stage1_frontier_cpu",
+    "wave2_aggregate_gate": "afterany:wave2_array",
+    "wave2_array": "afterok:wave2_controller",
+    "wave2_controller": "afterok:wave1_aggregate_gate",
+    "wave3_array": "afterok:wave3_controller",
+    "wave3_controller": "afterok:wave2_aggregate_gate"
+  },
+  "gpu_type": "NVIDIA L4",
+  "jobs": {
+    "final_aggregate_report": "38052362",
+    "preflight_array": "38052352",
+    "preflight_gate": "38052353",
+    "stage1_frontier_cpu": "38052354",
+    "wave1_aggregate_gate": "38052356",
+    "wave1_array": "38052355",
+    "wave2_aggregate_gate": "38052359",
+    "wave2_array": "38052358",
+    "wave2_controller": "38052357",
+    "wave3_array": "38052361",
+    "wave3_controller": "38052360"
+  },
+  "registered_gpu_hours": 45.73,
+  "submission_status": "submitted",
+  "submitted_utc": "2026-07-26T03:56:19.727619+00:00"
+}

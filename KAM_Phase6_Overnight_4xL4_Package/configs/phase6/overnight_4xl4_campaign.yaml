@@ -1,0 +1,79 @@
+suite_name: phase6_overnight_4xl4_quality_campaign
+repository: Jibby2k1/KAM
+hardware:
+  gpu_type: NVIDIA L4
+  concurrent_gpus: 4
+  minimum_wall_hours: 10
+  target_wall_hours: 10.5-12
+  target_gpu_hours: 42-46
+  array_throttle: 4
+waves:
+  preflight:
+    gpu_hours: 1-2
+  wave1_screen:
+    gpu_hours: 12-14
+    target_wall_hours: 3.0-3.5
+    language_min_tokens: 50000000
+    paired_seeds: 2
+  wave2_promoted:
+    gpu_hours: 16-18
+    target_wall_hours: 4.0-4.5
+    language_10m_min_tokens: 150000000
+    language_30m_min_tokens: 250000000
+    language_10m_seeds: 3
+    language_30m_seeds: 2
+    dynamics_seeds: 5
+  wave3_replication_adaptation:
+    gpu_hours: 13-15
+    target_wall_hours: 3.5-4.0
+    adaptation_seeds: 5
+    heldout_schedules_per_seed: 10
+language_architectures:
+  - T0
+  - T-WIDE
+  - T-MEMTOK
+  - T-MOE
+  - T-PKM
+  - T-KAM-F
+  - T-KAM-L
+  - T-KAM-ALT
+  - T-KAM-VP
+dynamics_tasks:
+  - switching_mackey_glass
+  - stable_switching_narma
+  - controlled_prototype
+  - lorenz63_or_validated_third_fixture
+retrieval_tasks:
+  - mqar
+  - associative_recall_distractors
+  - variable_copy
+optimization_modes:
+  - joint_sgd
+  - alt_8_1
+  - alt_32_1
+  - alt_128_1
+  - vp_stop_gradient
+  - vp_implicit
+  - dictionary_update
+memory_search:
+  language_slots: [1024, 4096, 16384]
+  dynamics_slots: [64, 256, 1024, 4096]
+  top_k: [1, 2, 4, 8, 16]
+  geometry:
+    - fixed_random
+    - sampled_data
+    - kmeans
+    - farthest_point
+    - learned_full
+    - learned_low_rank_delta
+  experts: [vector, low_rank_affine]
+  expert_rank: [4, 8, 16, 32]
+  routers: [exact, chunked, product_key]
+final_outcomes:
+  - PROMOTE_SPARSE_KAM_MEMORY
+  - PROMOTE_FIXED_KEY_FAST_ALGEBRA
+  - PROMOTE_KAM_FOR_ONLINE_ADAPTATION_ONLY
+  - PROMOTE_CONVENTIONAL_MEMORY_BASELINE
+  - PROMOTE_WIDENED_TRANSFORMER
+  - RETAIN_AS_DIAGNOSTIC_ONLY
+  - STOP_KAM_SPECIFIC_DIRECTION

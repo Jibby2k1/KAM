@@ -1,0 +1,52 @@
+{
+  "stage_pass": true,
+  "manifest_rows": 3000,
+  "output_rows": 3000,
+  "task_counts": {
+    "prototype": 750,
+    "switching_narma": 750,
+    "switching_mackey_glass": 750,
+    "mqar": 750
+  },
+  "architecture_counts": {
+    "T0": 600,
+    "T-KAM-F": 600,
+    "T-WIDE": 600,
+    "T-MEMTOK": 600,
+    "T-KAM-L": 600
+  },
+  "optimizer_counts": {
+    "dictionary_update": 375,
+    "joint_sgd": 375,
+    "alternating_8_1": 375,
+    "alternating_128_1": 375,
+    "variable_projection_stopgrad": 375,
+    "alternating_32_1": 375,
+    "ridge_resolve": 375,
+    "variable_projection_implicit": 375
+  },
+  "geometry_counts": {
+    "learned_full": 500,
+    "fixed_random": 500,
+    "fixed_farthest_point": 500,
+    "fixed_data_sample": 500,
+    "fixed_kmeans": 500,
+    "learned_low_rank_delta": 500
+  },
+  "expert_counts": {
+    "vector": 1000,
+    "routes_only": 1000,
+    "low_rank_affine_expert": 1000
+  },
+  "alternating_rows": 1125,
+  "learned_geometry_kam_rows": 150,
+  "learned_geometry_zero_update_row_ids": [],
+  "fixed_geometry_kam_rows": 304,
+  "fixed_geometry_nonzero_update_row_ids": [],
+  "missing_schedule_field_row_ids": [],
+  "declared_schedule_mismatch_row_ids": [],
+  "alternating_geometry_step_counts": {
+    "0.0": 975,
+    "1.0": 150
+  }
+}

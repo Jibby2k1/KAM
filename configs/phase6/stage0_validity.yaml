@@ -1,0 +1,32 @@
+stage: stage0_validity
+reference_commit: 2541e09d5dfd37ad162756cf54429f1913b27e0f
+immutable_config: configs/phase6/stage0_validity.yaml
+manifest: results/phase6/stage0/manifests/validity.jsonl
+stage0:
+  target_jobs: 128
+  d_model: 16
+  num_supports: 32
+  top_k: 4
+  tokens: 12
+  router_chunk_size: 7
+  tasks:
+    - route_exact_reference
+    - route_chunked_reference
+    - gradient_finite
+    - zero_gate_equivalence
+    - resource_accounting
+    - ridge_solver
+    - geometry_rollback
+    - causal_mask
+  routers:
+    - exact
+    - chunked
+  experts:
+    - vector
+    - affine
+  geometries:
+    - fixed_random
+    - learned_full
+  seeds:
+    - 11
+    - 23

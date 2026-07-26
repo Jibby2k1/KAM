@@ -1,0 +1,81 @@
+phase: 6
+title: Sparse Separable Memory
+reference_commit: 2541e09d5dfd37ad162756cf54429f1913b27e0f
+primary_hypothesis: Sparse support memory with fast algebra and slow geometry can
+  improve quality-compute or adaptation tradeoffs.
+architectures:
+- T0
+- T-WIDE
+- T-MEMTOK
+- T-MOE
+- T-PKM
+- T-KAM-F
+- T-KAM-L
+- T-KAM-ALT
+- T-KAM-VP
+- T-KAM-ONLINE
+- T-KAM-DUAL
+optimization_modes:
+- joint_sgd
+- alternating_8_1
+- alternating_32_1
+- alternating_128_1
+- ridge_resolve
+- variable_projection_stopgrad
+- variable_projection_implicit
+- dictionary_update
+geometry_modes:
+- fixed_random
+- fixed_data_sample
+- fixed_kmeans
+- fixed_farthest_point
+- learned_full
+- learned_low_rank_delta
+- product_key
+- episodic_observed
+expert_modes:
+- vector_value
+- affine_expert
+- low_rank_affine_expert
+- shared_basis_affine
+- routes_only
+stages:
+  stage0_validity:
+    target_jobs: 100-250
+  stage1_mechanism:
+    target_jobs: 3000-6000
+    fidelities:
+    - 0.05
+    - 0.2
+    - 0.5
+    - 1.0
+  stage2_transformer_comparison:
+    target_jobs: 1500-3000
+    model_scales:
+    - 2M
+    - 10M
+    - 30M
+    - 100M
+  stage3_router_scaling:
+    target_jobs: 500-1000
+    memory_slots:
+    - 1000
+    - 4000
+    - 16000
+    - 64000
+    - 262000
+    - 1000000
+  stage4_online_adaptation:
+    target_jobs: 1000-2000
+  stage5_long_training:
+    target_jobs: 100-300
+  stage6_confirmation:
+    new_seeds: 10-16 dynamics; >=3 language pretraining
+final_outcomes:
+- PROMOTE_SPARSE_KAM_MEMORY
+- PROMOTE_FIXED_KEY_FAST_ALGEBRA
+- PROMOTE_KAM_FOR_ONLINE_ADAPTATION_ONLY
+- PROMOTE_CONVENTIONAL_MEMORY_BASELINE
+- PROMOTE_WIDENED_TRANSFORMER
+- RETAIN_AS_DIAGNOSTIC_ONLY
+- STOP_KAM_SPECIFIC_DIRECTION

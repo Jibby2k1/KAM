@@ -1,0 +1,8 @@
+stage: stage2_transformer_comparison
+reference_commit: 2541e09d5dfd37ad162756cf54429f1913b27e0f
+immutable_config: configs/phase6/stage2_transformer_comparison.yaml
+seed: 6202
+profile_jobs: 48
+target_jobs: 1500
+profile_scales: [2M, 10M, 30M]
+manifest: results/phase6/stage2_transformer_comparison/manifests/profile.jsonl
