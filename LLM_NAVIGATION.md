@@ -34,7 +34,7 @@ Phase V Stage 2 controlled-regime campaign:
 Phase VI sparse separable memory:
 - Current quality-scale campaign: `docs/codex/KAM_PHASE6_OVERNIGHT_IMPLEMENTATION_GUIDE.md` (start here for the queued four-L4 graph, memory adaptation/freeze semantics, final metrics/figures, and morning commands).
 - Authoritative overnight contract/config: `docs/codex/KAM_PHASE6_OVERNIGHT_4XL4_CAMPAIGN.md`, `configs/phase6/overnight_4xl4_campaign.yaml`.
-- Queued graph: preflight `38052352` through final report `38052362`; immutable local record `results/phase6/overnight/job_graph.json`; report index `reports/phase6/overnight/README.md`. Status is queued, not a result.
+- Timeout repair: the initial Wave 1 gate retained 20/32 valid rows and blocked downstream work after 12 infrastructure timeouts. Read `docs/codex/KAM_PHASE6_OVERNIGHT_TIMEOUT_REPAIR.md`. The replacement graph runs from `38087856` through final report `38087863`; immutable records are `results/phase6/overnight/{job_graph,timeout_repair_job_graph}.json`. Status is queued, not a result.
 - Overnight execution/analysis: `kam/phase6/overnight_{manifest,runner,analysis}.py`; controllers `scripts/phase6_overnight_controller.py`, `scripts/build_phase6_overnight_report.py`, and `scripts/submit_phase6_overnight_4xl4.sh`.
 - Overnight evidence boundary: do not advise promotion until `results/phase6/overnight/final_summary.json` and all seven `reports/phase6/overnight/OVERNIGHT_*.md` reports exist.
 - Authoritative brief: docs/codex/KAM_PHASE6_SPARSE_SEPARABLE_MEMORY_BRIEF.md

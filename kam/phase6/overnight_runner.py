@@ -580,7 +580,7 @@ def _run_retrieval(
         if steps == 1 or steps % max(1, int(steps / 25 + 1)) == 0:
             mask = targets.ne(-100)
             accuracy = float((logits.argmax(-1)[mask] == targets[mask]).float().mean()) if mask.any() else 0.0
-            history.append({"step": float(steps), "loss": float(loss), "query_accuracy": accuracy})
+            history.append({"step": float(steps), "loss": float(loss.detach()), "query_accuracy": accuracy})
     if device.type == "cuda":
         torch.cuda.synchronize(device)
     elapsed = time.perf_counter() - started

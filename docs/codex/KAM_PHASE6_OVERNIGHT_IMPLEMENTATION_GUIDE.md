@@ -4,28 +4,27 @@ This is the implementation map for the quality-scale four-L4 campaign specified 
 
 ## Current campaign
 
-- Submission state: queued on UF HiPerGator on 2026-07-25 at 23:56 EDT.
+- Submission state: timeout repair queued on UF HiPerGator on 2026-07-26 at 5:31 PM EDT.
 - HPG checkout: `/blue/uf-dsi/rvalle1/KAM_repair_2541e09`
 - Run root: `/blue/uf-dsi/rvalle1/KAM_repair_2541e09/results/phase6/overnight`
 - Report root: `/blue/uf-dsi/rvalle1/KAM_repair_2541e09/reports/phase6/overnight`
 - Four-way throttle: exactly one NVIDIA L4 per eligible array row, `%4`.
 - Registered work: 60 GPU rows and 45.73 L4 GPU-hours.
-- Expected completion: approximately 11:30 AM–1:00 PM EDT on 2026-07-26, plus scheduler delay.
-- Immutable graph: `results/phase6/overnight/job_graph.json`
+- Initial Wave 1 state: 20/32 valid; 12 infrastructure timeouts; no Wave 2/3 scientific rows started.
+- Immutable graphs: `results/phase6/overnight/job_graph.json` and `results/phase6/overnight/timeout_repair_job_graph.json`.
+- Repair details: `docs/codex/KAM_PHASE6_OVERNIGHT_TIMEOUT_REPAIR.md`.
 
 | Node | Slurm ID | Dependency |
 |---|---:|---|
-| Preflight array | 38052352 | root |
-| Preflight gate | 38052353 | after any preflight row state |
-| Stage 1 frontier CPU reanalysis | 38052354 | after successful preflight gate |
-| Wave 1 array | 38052355 | after Stage 1 frontier |
-| Wave 1 aggregate/gate | 38052356 | after any Wave 1 row state |
-| Wave 2 manifest controller | 38052357 | after successful Wave 1 gate |
-| Wave 2 array | 38052358 | after Wave 2 controller |
-| Wave 2 aggregate/gate | 38052359 | after any Wave 2 row state |
-| Wave 3 manifest controller | 38052360 | after successful Wave 2 gate |
-| Wave 3 array | 38052361 | after Wave 3 controller |
-| Final aggregate/report | 38052362 | after any Wave 3 row state |
+| Preserved initial evidence | 20 Wave 1 rows | already complete |
+| Twelve-row Wave 1 repair | 38087856 | root of replacement graph |
+| Exact Wave 1 repair gate | 38087857 | after any repair row state |
+| Wave 2 manifest controller | 38087858 | after successful repair gate |
+| Wave 2 array | 38087859 | after Wave 2 controller |
+| Wave 2 aggregate/gate | 38087860 | after any Wave 2 row state |
+| Wave 3 manifest controller | 38087861 | after successful Wave 2 gate |
+| Wave 3 array | 38087862 | after Wave 3 controller |
+| Final aggregate/report | 38087863 | after any Wave 3 row state |
 
 `afterany` is used only so a gate/report records scientific or infrastructure failures. Every downstream scientific wave depends on successful completion of the preceding gate.
 
@@ -96,7 +95,7 @@ Wave 3 also runs reversible memory-branch deletion, KAM top/random/bottom suppor
 One status command:
 
 ```bash
-ssh hpg 'squeue -j 38052352,38052353,38052354,38052355,38052356,38052357,38052358,38052359,38052360,38052361,38052362 -o "%.18i %.32j %.10T %.10M %R"'
+ssh hpg 'squeue -j 38087856,38087857,38087858,38087859,38087860,38087861,38087862,38087863 -o "%.18i %.32j %.10T %.10M %R"'
 ```
 
 One report-rebuild command:

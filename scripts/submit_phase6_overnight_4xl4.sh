@@ -85,6 +85,7 @@ cpu_script="${HPG_REPO}/slurm/phase6_overnight_controller.sbatch"
 final_script="${HPG_REPO}/slurm/phase6_overnight_final.sbatch"
 
 preflight="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
+  --time="01:00:00" \
   --array="0-3%4" --export="${common},PHASE6_MANIFEST=${RUN_ROOT}/manifests/preflight.jsonl" \
   --output="${LOG_ROOT}/preflight_%A_%a.out" --error="${LOG_ROOT}/preflight_%A_%a.err" "${gpu_script}")"
 preflight_gate="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
@@ -94,7 +95,7 @@ stage1="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --part
   --dependency="afterok:${preflight_gate}" --export="${common},PHASE6_ACTION=stage1-frontier" \
   --output="${LOG_ROOT}/stage1_frontier_%j.out" --error="${LOG_ROOT}/stage1_frontier_%j.err" "${cpu_script}")"
 wave1="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
-  --dependency="afterok:${stage1}" --array="0-31%4" --export="${common},PHASE6_MANIFEST=${RUN_ROOT}/manifests/wave1.jsonl" \
+  --time="06:00:00" --dependency="afterok:${stage1}" --array="0-31%4" --export="${common},PHASE6_MANIFEST=${RUN_ROOT}/manifests/wave1.jsonl" \
   --output="${LOG_ROOT}/wave1_%A_%a.out" --error="${LOG_ROOT}/wave1_%A_%a.err" "${gpu_script}")"
 wave1_gate="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
   --dependency="afterany:${wave1}" --export="${common},PHASE6_ACTION=wave1-gate" \
@@ -103,7 +104,7 @@ wave2_controller="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QO
   --dependency="afterok:${wave1_gate}" --export="${common},PHASE6_ACTION=wave2-controller" \
   --output="${LOG_ROOT}/wave2_controller_%j.out" --error="${LOG_ROOT}/wave2_controller_%j.err" "${cpu_script}")"
 wave2="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
-  --dependency="afterok:${wave2_controller}" --array="0-15%4" --export="${common},PHASE6_MANIFEST=${RUN_ROOT}/manifests/wave2.jsonl" \
+  --time="08:00:00" --dependency="afterok:${wave2_controller}" --array="0-15%4" --export="${common},PHASE6_MANIFEST=${RUN_ROOT}/manifests/wave2.jsonl" \
   --output="${LOG_ROOT}/wave2_%A_%a.out" --error="${LOG_ROOT}/wave2_%A_%a.err" "${gpu_script}")"
 wave2_gate="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
   --dependency="afterany:${wave2}" --export="${common},PHASE6_ACTION=wave2-gate" \
@@ -112,7 +113,7 @@ wave3_controller="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QO
   --dependency="afterok:${wave2_gate}" --export="${common},PHASE6_ACTION=wave3-controller" \
   --output="${LOG_ROOT}/wave3_controller_%j.out" --error="${LOG_ROOT}/wave3_controller_%j.err" "${cpu_script}")"
 wave3="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
-  --dependency="afterok:${wave3_controller}" --array="0-7%4" --export="${common},PHASE6_MANIFEST=${RUN_ROOT}/manifests/wave3.jsonl" \
+  --time="08:00:00" --dependency="afterok:${wave3_controller}" --array="0-7%4" --export="${common},PHASE6_MANIFEST=${RUN_ROOT}/manifests/wave3.jsonl" \
   --output="${LOG_ROOT}/wave3_%A_%a.out" --error="${LOG_ROOT}/wave3_%A_%a.err" "${gpu_script}")"
 final="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
   --dependency="afterany:${wave3}" --export="${common}" \

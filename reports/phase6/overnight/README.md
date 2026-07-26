@@ -1,8 +1,8 @@
 # Phase 6 overnight report index
 
-Status: queued; no scientific conclusion is available yet.
+Status: timeout repair queued; no scientific conclusion is available yet.
 
-The four-L4 campaign was submitted on 2026-07-25 at 23:56 EDT. Its root array is `38052352` and its final report job is `38052362`. Expected completion is approximately 11:30 AM–1:00 PM EDT on 2026-07-26, plus scheduler delay.
+The initial four-L4 campaign passed preflight and Stage 1 reanalysis, then produced 20/32 valid Wave 1 rows before 12 infrastructure timeouts. The selective repair preserves those 20 rows and runs from array `38087856` to final report job `38087863`. See `docs/codex/KAM_PHASE6_OVERNIGHT_TIMEOUT_REPAIR.md`.
 
 Read after completion:
 

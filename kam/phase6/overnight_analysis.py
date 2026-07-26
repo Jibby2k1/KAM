@@ -98,21 +98,32 @@ def _metric(row: dict[str, Any], name: str, default: float = math.inf) -> float:
     return result if math.isfinite(result) else default
 
 
-def _gate(rows: list[dict[str, Any]], expected: int, *, wave: str) -> dict[str, Any]:
+def _gate(
+    rows: list[dict[str, Any]],
+    expected: int,
+    *,
+    wave: str,
+    expected_ids: set[str] | None = None,
+) -> dict[str, Any]:
     ids = [str(row.get("row_id")) for row in rows]
     failures = [str(row.get("row_id")) for row in rows if row.get("status") != "pass"]
     nonfinite = [str(row.get("row_id")) for row in rows if not _finite(row.get("metrics", {}))]
     duplicates = sorted({row_id for row_id in ids if ids.count(row_id) > 1})
     smoke = [str(row.get("row_id")) for row in rows if bool(row.get("metrics", {}).get("smoke_override"))]
+    observed_ids = set(ids)
+    missing_ids = sorted((expected_ids or set()) - observed_ids)
+    unexpected_ids = sorted(observed_ids - (expected_ids or observed_ids))
     result = {
         "wave": wave,
-        "pass": len(rows) == expected and not failures and not nonfinite and not duplicates and not smoke,
+        "pass": len(rows) == expected and not failures and not nonfinite and not duplicates and not smoke and not missing_ids and not unexpected_ids,
         "expected_rows": expected,
         "observed_rows": len(rows),
         "failure_row_ids": failures,
         "nonfinite_row_ids": nonfinite,
         "duplicate_row_ids": duplicates,
         "smoke_row_ids": smoke,
+        "missing_manifest_row_ids": missing_ids,
+        "unexpected_output_row_ids": unexpected_ids,
         "status_counts": dict(Counter(str(row.get("status", "missing")) for row in rows)),
     }
     return result
@@ -120,7 +131,8 @@ def _gate(rows: list[dict[str, Any]], expected: int, *, wave: str) -> dict[str, 
 
 def preflight_gate(run_root: Path) -> dict[str, Any]:
     rows = _json_rows(run_root, "preflight")
-    result = _gate(rows, PREFLIGHT_ROWS, wave="preflight")
+    manifest = read_jsonl(run_root / "manifests" / "preflight.jsonl")
+    result = _gate(rows, PREFLIGHT_ROWS, wave="preflight", expected_ids={str(row["row_id"]) for row in manifest})
     wrong_gpu = [
         str(row.get("row_id"))
         for row in rows
@@ -245,7 +257,8 @@ def stage1_frontier(source: Path, run_root: Path, report_root: Path) -> dict[str
 def aggregate_wave(run_root: Path, wave: str, *, report_root: Path) -> dict[str, Any]:
     expected = {"wave1": WAVE1_ROWS, "wave2": WAVE2_ROWS}[wave]
     rows = _json_rows(run_root, wave)
-    gate = _gate(rows, expected, wave=wave)
+    manifest = read_jsonl(run_root / "manifests" / f"{wave}.jsonl")
+    gate = _gate(rows, expected, wave=wave, expected_ids={str(row["row_id"]) for row in manifest})
     pareto = _pareto(rows)
     _write_parquet(run_root / f"{wave}_metrics.parquet", rows)
     _write_parquet(run_root / f"{wave}_pareto.parquet", pareto)
@@ -503,7 +516,8 @@ def _build_figures(rows: list[dict[str, Any]], report_root: Path) -> list[str]:
 
 def final_aggregate(run_root: Path, report_root: Path) -> dict[str, Any]:
     wave3 = _json_rows(run_root, "wave3")
-    gate = _gate(wave3, WAVE3_ROWS, wave="wave3")
+    manifest = read_jsonl(run_root / "manifests" / "wave3.jsonl")
+    gate = _gate(wave3, WAVE3_ROWS, wave="wave3", expected_ids={str(row["row_id"]) for row in manifest})
     (run_root / "wave3_gate.json").write_text(json.dumps(gate, indent=2, sort_keys=True) + "\n")
     if not gate["pass"]:
         raise RuntimeError("wave3 gate failed")

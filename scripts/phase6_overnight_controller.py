@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from pathlib import Path
 
 from kam.phase6.overnight_analysis import (
@@ -13,14 +14,20 @@ from kam.phase6.overnight_analysis import (
     stage1_frontier,
     validate_manifest,
 )
-from kam.phase6.overnight_manifest import build_preflight_rows, build_wave1_rows, write_manifest
+from kam.phase6.overnight_manifest import (
+    amend_wave1_timeout_rows,
+    build_preflight_rows,
+    build_wave1_rows,
+    read_jsonl,
+    write_manifest,
+)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "action",
-        choices=("init", "preflight-gate", "stage1-frontier", "wave1-gate", "wave2-controller", "wave2-gate", "wave3-controller"),
+        choices=("init", "repair-wave1", "preflight-gate", "stage1-frontier", "wave1-gate", "wave2-controller", "wave2-gate", "wave3-controller"),
     )
     parser.add_argument("--run-root", default="results/phase6/overnight")
     parser.add_argument("--report-root", default="reports/phase6/overnight")
@@ -33,6 +40,20 @@ def main() -> None:
         result = {
             "preflight": write_manifest(build_preflight_rows(), manifests / "preflight.jsonl"),
             "wave1": write_manifest(build_wave1_rows(), manifests / "wave1.jsonl"),
+        }
+    elif args.action == "repair-wave1":
+        wave1_path = manifests / "wave1.jsonl"
+        backup = manifests / "wave1_pre_timeout_repair.jsonl"
+        if not backup.exists():
+            shutil.copy2(wave1_path, backup)
+        completed_ids = {path.stem for path in (run_root / "rows" / "wave1").glob("*.json")}
+        amended, repair = amend_wave1_timeout_rows(read_jsonl(wave1_path), completed_ids)
+        result = {
+            "completed_rows_preserved": len(completed_ids),
+            "full_manifest": write_manifest(amended, wave1_path),
+            "repair_manifest": write_manifest(repair, manifests / "wave1_timeout_repair.jsonl"),
+            "superseded_manifest": str(backup),
+            "repair_row_ids": [row["row_id"] for row in repair],
         }
     elif args.action == "preflight-gate":
         result = preflight_gate(run_root)

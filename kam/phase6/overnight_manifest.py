@@ -19,6 +19,8 @@ WAVE1_ROWS = 32
 WAVE2_ROWS = 16
 WAVE3_ROWS = 8
 TARGET_SECONDS = {"preflight": 20 * 60, "wave1": 25 * 60, "wave2": 64 * 60, "wave3": 105 * 60}
+WAVE1_TIMEOUT_REPAIR_INDICES = frozenset({4, 5, 12, 13, 14, 15, 16, 17, 19, 22, 23, 24})
+RETRIEVAL_MINIMUM_TOKENS = 5_000_000
 
 
 def _row_id(row: dict[str, Any]) -> str:
@@ -42,6 +44,31 @@ def _finalize(rows: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
     if len({row["row_id"] for row in result}) != len(result):
         raise ValueError("overnight manifest contains duplicate row IDs")
     return result
+
+
+def _language_supports(architecture: str) -> int:
+    if architecture == "T-MEMTOK":
+        return 32
+    if architecture in {"T-KAM-L", "T-KAM-ALT", "T-KAM-VP"}:
+        return 1024
+    if architecture in {"T-PKM", "T-KAM-F"}:
+        return 4096
+    return 1024
+
+
+def _retrieval_supports(architecture: str, sequence_length: int) -> int:
+    if architecture == "T-MEMTOK":
+        return 32
+    if architecture == "T-KAM-L" or (architecture == "T-KAM-F" and sequence_length >= 512):
+        return 1024
+    if architecture in {"T-PKM", "T-KAM-F"}:
+        return 4096
+    return 1024
+
+
+def _retrieval_minimum_samples(sequence_length: int) -> int:
+    """Keep retrieval floors comparable in processed tokens, not examples."""
+    return max(4096, (RETRIEVAL_MINIMUM_TOKENS + sequence_length - 1) // sequence_length)
 
 
 def build_preflight_rows() -> list[dict[str, Any]]:
@@ -110,7 +137,7 @@ def build_wave1_rows() -> list[dict[str, Any]]:
                     "data_seed": 21_000 + seed,
                     "sequence_length": 128,
                     "batch_size": 16,
-                    "num_supports": 4096 if architecture in {"T-PKM", "T-KAM-F", "T-KAM-L", "T-KAM-ALT", "T-KAM-VP"} else 1024,
+                    "num_supports": _language_supports(architecture),
                     "top_k": 4,
                     "minimum_tokens": 50_000_000,
                     "target_seconds": TARGET_SECONDS["wave1"],
@@ -142,9 +169,9 @@ def build_wave1_rows() -> list[dict[str, Any]]:
                 "bindings": bindings,
                 "queries": queries,
                 "distractor_density": density,
-                "num_supports": 4096 if architecture in {"T-PKM", "T-KAM-F", "T-KAM-L"} else 1024,
+                "num_supports": _retrieval_supports(architecture, sequence_length),
                 "top_k": 4,
-                "minimum_samples": 200_000,
+                "minimum_samples": _retrieval_minimum_samples(sequence_length),
                 "target_seconds": TARGET_SECONDS["wave1"],
             }
         )
@@ -223,7 +250,7 @@ def build_wave2_rows(wave1_metrics: list[dict[str, Any]]) -> list[dict[str, Any]
                     "data_seed": 31_000 + seed,
                     "sequence_length": 128,
                     "batch_size": 16,
-                    "num_supports": 4096 if architecture in {"T-PKM", "T-KAM-F", "T-KAM-L", "T-KAM-ALT", "T-KAM-VP"} else 1024,
+                    "num_supports": _language_supports(architecture),
                     "top_k": 4,
                     "minimum_tokens": 150_000_000,
                     "target_seconds": TARGET_SECONDS["wave2"],
@@ -279,7 +306,7 @@ def build_wave3_rows(wave2_metrics: list[dict[str, Any]]) -> list[dict[str, Any]
                 "data_seed": 43_101 + index,
                 "sequence_length": 128,
                 "batch_size": 16,
-                "num_supports": 4096 if architecture in {"T-PKM", "T-KAM-F", "T-KAM-L", "T-KAM-ALT", "T-KAM-VP"} else 1024,
+                "num_supports": _language_supports(architecture),
                 "top_k": 4,
                 "minimum_tokens_per_seed": 50_000_000,
                 "target_seconds": TARGET_SECONDS["wave3"],
@@ -308,6 +335,55 @@ def build_wave3_rows(wave2_metrics: list[dict[str, Any]]) -> list[dict[str, Any]
     return result
 
 
+def amend_wave1_timeout_rows(
+    rows: list[dict[str, Any]], completed_row_ids: set[str]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Amend only missing rows from the first Wave 1 timeout.
+
+    Completed rows remain byte-for-byte identical. Missing rows receive a new
+    content-addressed ID, an explicit provenance link to the superseded ID,
+    registered memory sizes, and token-equivalent retrieval floors.
+    """
+    if len(rows) != WAVE1_ROWS:
+        raise ValueError(f"Wave 1 repair requires {WAVE1_ROWS} rows, found {len(rows)}")
+    amended: list[dict[str, Any]] = []
+    repair: list[dict[str, Any]] = []
+    for source in rows:
+        row = dict(source)
+        row_id = str(row["row_id"])
+        index = int(row["design_index"])
+        if row_id in completed_row_ids:
+            amended.append(row)
+            continue
+        if row.get("repair_revision") == 1:
+            amended.append(row)
+            repair.append(row)
+            continue
+        if index not in WAVE1_TIMEOUT_REPAIR_INDICES:
+            raise ValueError(f"unexpected missing Wave 1 row at design_index={index}: {row_id}")
+        row["supersedes_row_id"] = row_id
+        row["repair_revision"] = 1
+        row["repair_reason"] = "three_hour_timeout_from_unscaled_memory_or_example_budget"
+        if row["lane"] == "language":
+            row["num_supports"] = _language_supports(str(row["architecture"]))
+        elif row["lane"] == "retrieval":
+            sequence_length = int(row["sequence_length"])
+            row["num_supports"] = _retrieval_supports(str(row["architecture"]), sequence_length)
+            row["minimum_samples"] = _retrieval_minimum_samples(sequence_length)
+            row["minimum_retrieval_tokens"] = RETRIEVAL_MINIMUM_TOKENS
+        else:
+            raise ValueError(f"timeout repair does not permit lane={row['lane']}")
+        row.pop("row_id")
+        row["row_id"] = _row_id(row)
+        amended.append(row)
+        repair.append(row)
+    if len(repair) != len(WAVE1_TIMEOUT_REPAIR_INDICES):
+        raise ValueError(f"expected {len(WAVE1_TIMEOUT_REPAIR_INDICES)} repair rows, found {len(repair)}")
+    if len({row["row_id"] for row in amended}) != WAVE1_ROWS:
+        raise ValueError("Wave 1 repair produced duplicate row IDs")
+    return amended, repair
+
+
 def write_manifest(rows: list[dict[str, Any]], path: str | Path) -> dict[str, Any]:
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -331,6 +407,8 @@ __all__ = [
     "WAVE1_ROWS",
     "WAVE2_ROWS",
     "WAVE3_ROWS",
+    "WAVE1_TIMEOUT_REPAIR_INDICES",
+    "amend_wave1_timeout_rows",
     "build_preflight_rows",
     "build_wave1_rows",
     "build_wave2_rows",

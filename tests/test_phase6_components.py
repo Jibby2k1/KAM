@@ -8,12 +8,15 @@ from kam.optimization import GeometryTrustRegion, algebra_transport, dictionary_
 from kam.phase6.manifest import build_stage_manifest, build_stage_rows, load_config
 from kam.phase6.gates import evaluate_stage_results
 from kam.phase6.overnight_manifest import (
+    WAVE1_TIMEOUT_REPAIR_INDICES,
+    amend_wave1_timeout_rows,
     build_preflight_rows,
     build_wave1_rows,
     build_wave2_rows,
     build_wave3_rows,
     write_manifest,
 )
+from kam.phase6.overnight_analysis import _gate
 from kam.phase6.overnight_runner import _optimization_groups, run_row as run_overnight_row
 from kam.phase6.run_array import run_row
 from kam.phase6.stats import bootstrap_ci, equivalence_test, holm_adjust, paired_effect
@@ -58,6 +61,38 @@ def test_phase6_overnight_manifests_have_fixed_graph_sizes(tmp_path) -> None:
         assert metadata["rows"] == expected
         assert len(metadata["sha256"]) == 64
     assert sum(row["target_seconds"] for rows, _, _ in groups for row in rows) / 3600 == 45.733333333333334
+    wave1 = groups[1][0]
+    assert {row["num_supports"] for row in wave1 if row["architecture"] == "T-MEMTOK"} == {32}
+    assert {row["num_supports"] for row in wave1 if row["architecture"] in {"T-KAM-L", "T-KAM-ALT", "T-KAM-VP"}} <= {256, 1024}
+    for row in (row for row in wave1 if row["lane"] == "retrieval"):
+        assert row["minimum_samples"] * row["sequence_length"] >= 5_000_000
+
+
+def test_phase6_wave1_timeout_repair_preserves_completed_identity() -> None:
+    original = build_wave1_rows()
+    completed = {row["row_id"] for row in original if row["design_index"] not in WAVE1_TIMEOUT_REPAIR_INDICES}
+    amended, repair = amend_wave1_timeout_rows(original, completed)
+    assert len(amended) == 32 and len(repair) == 12
+    by_index = {row["design_index"]: row for row in amended}
+    original_by_index = {row["design_index"]: row for row in original}
+    for index in range(32):
+        if index in WAVE1_TIMEOUT_REPAIR_INDICES:
+            assert by_index[index]["row_id"] != original_by_index[index]["row_id"]
+            assert by_index[index]["supersedes_row_id"] == original_by_index[index]["row_id"]
+            assert by_index[index]["repair_revision"] == 1
+        else:
+            assert by_index[index] == original_by_index[index]
+
+
+def test_phase6_overnight_gate_requires_exact_manifest_identity() -> None:
+    rows = [
+        {"row_id": "a", "status": "pass", "metrics": {"loss": 1.0}},
+        {"row_id": "unexpected", "status": "pass", "metrics": {"loss": 2.0}},
+    ]
+    result = _gate(rows, 2, wave="test", expected_ids={"a", "b"})
+    assert not result["pass"]
+    assert result["missing_manifest_row_ids"] == ["b"]
+    assert result["unexpected_output_row_ids"] == ["unexpected"]
 
 
 def test_phase6_learned_geometry_is_optimized_before_final_freeze() -> None:
