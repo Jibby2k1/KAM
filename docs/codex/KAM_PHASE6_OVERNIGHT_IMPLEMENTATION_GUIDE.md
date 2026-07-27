@@ -4,27 +4,27 @@ This is the implementation map for the quality-scale four-L4 campaign specified 
 
 ## Current campaign
 
-- Submission state: timeout repair queued on UF HiPerGator on 2026-07-26 at 5:31 PM EDT.
-- HPG checkout: `/blue/uf-dsi/rvalle1/KAM_repair_2541e09`
+- Submission state: architecture-calibration repair queued on UF HiPerGator on 2026-07-27 at 8:56 AM EDT.
+- Clean code checkout: `/blue/uf-dsi/rvalle1/KAM_calibration_repair_e777ddc` at commit `e777ddcfe90171e03c7511e4ca7e49c1b4a13e51`.
 - Run root: `/blue/uf-dsi/rvalle1/KAM_repair_2541e09/results/phase6/overnight`
 - Report root: `/blue/uf-dsi/rvalle1/KAM_repair_2541e09/reports/phase6/overnight`
 - Four-way throttle: exactly one NVIDIA L4 per eligible array row, `%4`.
 - Registered work: 60 GPU rows and 45.73 L4 GPU-hours.
-- Initial Wave 1 state: 20/32 valid; 12 infrastructure timeouts; no Wave 2/3 scientific rows started.
-- Immutable graphs: `results/phase6/overnight/job_graph.json` and `results/phase6/overnight/timeout_repair_job_graph.json`.
-- Repair details: `docs/codex/KAM_PHASE6_OVERNIGHT_TIMEOUT_REPAIR.md`.
+- Current Wave 1 state: 22/32 valid; 10 revision-2 rows queued/running; no Wave 2/3 scientific rows started.
+- Immutable graphs: `results/phase6/overnight/{job_graph,timeout_repair_job_graph,calibration_fallback_repair_job_graph}.json`.
+- Current repair details: `docs/codex/KAM_PHASE6_OVERNIGHT_CALIBRATION_REPAIR.md`.
 
 | Node | Slurm ID | Dependency |
 |---|---:|---|
-| Preserved initial evidence | 20 Wave 1 rows | already complete |
-| Twelve-row Wave 1 repair | 38087856 | root of replacement graph |
-| Exact Wave 1 repair gate | 38087857 | after any repair row state |
-| Wave 2 manifest controller | 38087858 | after successful repair gate |
-| Wave 2 array | 38087859 | after Wave 2 controller |
-| Wave 2 aggregate/gate | 38087860 | after any Wave 2 row state |
-| Wave 3 manifest controller | 38087861 | after successful Wave 2 gate |
-| Wave 3 array | 38087862 | after Wave 3 controller |
-| Final aggregate/report | 38087863 | after any Wave 3 row state |
+| Preserved evidence | 22 Wave 1 rows | already complete |
+| Ten-row Wave 1 repair | 38121449 | root of current graph |
+| Exact Wave 1 repair gate | 38121450 | after any repair row state |
+| Wave 2 manifest controller | 38121451 | after successful repair gate |
+| Wave 2 array | 38121452 | after Wave 2 controller |
+| Wave 2 aggregate/gate | 38121453 | after any Wave 2 row state |
+| Wave 3 manifest controller | 38121454 | after successful Wave 2 gate |
+| Wave 3 array | 38121455 | after Wave 3 controller |
+| Final aggregate/report | 38121456 | after any Wave 3 row state |
 
 `afterany` is used only so a gate/report records scientific or infrastructure failures. Every downstream scientific wave depends on successful completion of the preceding gate.
 
@@ -49,7 +49,7 @@ The graph is fixed before submission so all Slurm IDs are known:
 - Wave 3: 8 rows × 105 minutes = 14.00 GPU-hours.
 - Total: 45.73 GPU-hours; ideal four-way occupancy is 11.43 hours before CPU-gate overhead.
 
-Each production row must meet both its minimum token/sample budget and its wall target. Calibration can raise a budget from observed throughput but cannot lower a registered minimum. `PHASE6_OVERNIGHT_SMOKE_SECONDS` is development-only, is recorded in results, and causes a production gate failure.
+Each production row must meet both its minimum token/sample budget and its wall target. Calibration from the same architecture and compatible lane can raise a budget from observed throughput but cannot lower a registered minimum; cross-architecture generic fallback is prohibited. `PHASE6_OVERNIGHT_SMOKE_SECONDS` is development-only, is recorded in results, and causes a production gate failure.
 
 ## Persistent-memory lifecycle
 
@@ -95,13 +95,13 @@ Wave 3 also runs reversible memory-branch deletion, KAM top/random/bottom suppor
 One status command:
 
 ```bash
-ssh hpg 'squeue -j 38087856,38087857,38087858,38087859,38087860,38087861,38087862,38087863 -o "%.18i %.32j %.10T %.10M %R"'
+ssh hpg 'squeue -j 38121449,38121450,38121451,38121452,38121453,38121454,38121455,38121456 -o "%.18i %.32j %.10T %.10M %R"'
 ```
 
 One report-rebuild command:
 
 ```bash
-ssh hpg 'cd /blue/uf-dsi/rvalle1/KAM_repair_2541e09 && source /blue/uf-dsi/rvalle1/venvs/kam/bin/activate && PYTHONPATH=$PWD python scripts/build_phase6_overnight_report.py --run-root results/phase6/overnight --report-root reports/phase6/overnight'
+ssh hpg 'cd /blue/uf-dsi/rvalle1/KAM_calibration_repair_e777ddc && source /blue/uf-dsi/rvalle1/venvs/kam/bin/activate && PYTHONPATH=$PWD python scripts/build_phase6_overnight_report.py --run-root /blue/uf-dsi/rvalle1/KAM_repair_2541e09/results/phase6/overnight --report-root /blue/uf-dsi/rvalle1/KAM_repair_2541e09/reports/phase6/overnight'
 ```
 
 Do not interpret queued or running jobs as results. Begin scientific review only when `results/phase6/overnight/final_summary.json` and all seven final reports exist.

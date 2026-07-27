@@ -1,8 +1,8 @@
 # Phase 6 overnight report index
 
-Status: timeout repair queued; no scientific conclusion is available yet.
+Status: architecture-calibration repair queued; no scientific conclusion is available yet.
 
-The initial four-L4 campaign passed preflight and Stage 1 reanalysis, then produced 20/32 valid Wave 1 rows before 12 infrastructure timeouts. The selective repair preserves those 20 rows and runs from array `38087856` to final report job `38087863`. See `docs/codex/KAM_PHASE6_OVERNIGHT_TIMEOUT_REPAIR.md`.
+The four-L4 campaign passed preflight and Stage 1 reanalysis and now preserves 22/32 valid Wave 1 rows. The current selective repair reruns only 10 missing rows with corrected calibration semantics, from array `38121449` to final report job `38121456`. See `docs/codex/KAM_PHASE6_OVERNIGHT_CALIBRATION_REPAIR.md`.
 
 Read after completion:
 

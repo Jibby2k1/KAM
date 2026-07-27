@@ -1,5 +1,7 @@
 # Phase 6 overnight timeout repair handoff
 
+> Historical repair record: this graph was superseded on 2026-07-27 after architecture-agnostic calibration fallback caused additional excess work. The current graph and correction are documented in `KAM_PHASE6_OVERNIGHT_CALIBRATION_REPAIR.md`.
+
 ## Status
 
 The initial campaign passed preflight and the 3,000-row Stage 1 frontier reanalysis. Wave 1 produced 20 valid rows, but 12 rows reached the original three-hour Slurm limit before satisfying their registered work floors. Gate `38052356` correctly failed with 20/32 outputs, so Wave 2 and Wave 3 did not run.
