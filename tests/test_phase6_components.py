@@ -9,6 +9,7 @@ from kam.phase6.manifest import build_stage_manifest, build_stage_rows, load_con
 from kam.phase6.gates import evaluate_stage_results
 from kam.phase6.overnight_manifest import (
     WAVE1_TIMEOUT_REPAIR_INDICES,
+    amend_wave1_calibration_fallback_rows,
     amend_wave1_timeout_rows,
     build_preflight_rows,
     build_wave1_rows,
@@ -17,7 +18,7 @@ from kam.phase6.overnight_manifest import (
     write_manifest,
 )
 from kam.phase6.overnight_analysis import _gate
-from kam.phase6.overnight_runner import _optimization_groups, run_row as run_overnight_row
+from kam.phase6.overnight_runner import _optimization_groups, _resolve_budget, run_row as run_overnight_row
 from kam.phase6.run_array import run_row
 from kam.phase6.stats import bootstrap_ci, equivalence_test, holm_adjust, paired_effect
 from kam.transformer import build_baseline
@@ -82,6 +83,43 @@ def test_phase6_wave1_timeout_repair_preserves_completed_identity() -> None:
             assert by_index[index]["repair_revision"] == 1
         else:
             assert by_index[index] == original_by_index[index]
+
+
+def test_phase6_calibration_repair_versions_only_still_missing_rows() -> None:
+    original = build_wave1_rows()
+    completed_original = {row["row_id"] for row in original if row["design_index"] not in WAVE1_TIMEOUT_REPAIR_INDICES}
+    revision1, _ = amend_wave1_timeout_rows(original, completed_original)
+    missing_indices = {12, 13, 19}
+    completed_revision1 = {row["row_id"] for row in revision1 if row["design_index"] not in missing_indices}
+    revision2, repair = amend_wave1_calibration_fallback_rows(revision1, completed_revision1)
+    assert len(revision2) == 32
+    assert len(repair) == len(missing_indices)
+    by_index = {row["design_index"]: row for row in revision2}
+    revision1_by_index = {row["design_index"]: row for row in revision1}
+    for index in range(32):
+        if index in missing_indices:
+            assert by_index[index]["row_id"] != revision1_by_index[index]["row_id"]
+            assert by_index[index]["supersedes_row_id"] == revision1_by_index[index]["row_id"]
+            assert by_index[index]["original_row_id"] == revision1_by_index[index]["supersedes_row_id"]
+            assert by_index[index]["repair_revision"] == 2
+        else:
+            assert by_index[index] == revision1_by_index[index]
+
+
+def test_phase6_budget_calibration_never_crosses_architectures_or_lanes() -> None:
+    calibration = {
+        "rates": {
+            "language:T-MOE": 100.0,
+            "tokens:default": 1_000_000.0,
+            "samples:default": 1_000_000.0,
+        }
+    }
+    unknown_language = {"lane": "language", "architecture": "T-KAM-L", "minimum_tokens": 50}
+    retrieval = {"lane": "retrieval", "architecture": "T-MEMTOK", "minimum_samples": 20}
+    known_replication = {"lane": "language_replication", "architecture": "T-MOE", "minimum_tokens": 50}
+    assert _resolve_budget(unknown_language, 10, calibration, unit="tokens") == 50
+    assert _resolve_budget(retrieval, 10, calibration, unit="samples") == 20
+    assert _resolve_budget(known_replication, 10, calibration, unit="tokens") == 900
 
 
 def test_phase6_overnight_gate_requires_exact_manifest_identity() -> None:

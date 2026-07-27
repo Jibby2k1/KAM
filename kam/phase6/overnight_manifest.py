@@ -384,6 +384,47 @@ def amend_wave1_timeout_rows(
     return amended, repair
 
 
+def amend_wave1_calibration_fallback_rows(
+    rows: list[dict[str, Any]], completed_row_ids: set[str]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Version only rows still missing after the first timeout repair.
+
+    Revision 2 records that these rows run with architecture-specific
+    calibration only. Completed revision-0/1 rows retain their exact identity,
+    while every missing revision-1 row receives a new content-addressed ID and
+    an explicit two-step provenance chain.
+    """
+    if len(rows) != WAVE1_ROWS:
+        raise ValueError(f"Wave 1 calibration repair requires {WAVE1_ROWS} rows, found {len(rows)}")
+    amended: list[dict[str, Any]] = []
+    repair: list[dict[str, Any]] = []
+    for source in rows:
+        row = dict(source)
+        row_id = str(row["row_id"])
+        if row_id in completed_row_ids:
+            amended.append(row)
+            continue
+        if int(row.get("repair_revision", 0)) != 1:
+            raise ValueError(
+                "calibration fallback repair only permits missing revision-1 rows: "
+                f"design_index={row.get('design_index')} row_id={row_id}"
+            )
+        original_row_id = str(row.get("supersedes_row_id", ""))
+        row["original_row_id"] = original_row_id
+        row["supersedes_row_id"] = row_id
+        row["repair_revision"] = 2
+        row["repair_reason"] = "unsupported_architecture_inherited_unrelated_generic_calibration_rate"
+        row.pop("row_id")
+        row["row_id"] = _row_id(row)
+        amended.append(row)
+        repair.append(row)
+    if not repair:
+        raise ValueError("Wave 1 calibration repair found no missing rows")
+    if len({row["row_id"] for row in amended}) != WAVE1_ROWS:
+        raise ValueError("Wave 1 calibration repair produced duplicate row IDs")
+    return amended, repair
+
+
 def write_manifest(rows: list[dict[str, Any]], path: str | Path) -> dict[str, Any]:
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -408,6 +449,7 @@ __all__ = [
     "WAVE2_ROWS",
     "WAVE3_ROWS",
     "WAVE1_TIMEOUT_REPAIR_INDICES",
+    "amend_wave1_calibration_fallback_rows",
     "amend_wave1_timeout_rows",
     "build_preflight_rows",
     "build_wave1_rows",

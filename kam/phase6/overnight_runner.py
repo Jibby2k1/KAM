@@ -215,8 +215,15 @@ def _resolve_budget(row: dict[str, Any], seconds: float, calibration: dict[str, 
         return max(1, min(minimum, int(row.get("batch_size", 2)) * int(row.get("sequence_length", 8))))
     architecture = str(row.get("architecture"))
     lane = str(row.get("lane"))
+    # Calibration rates are architecture-specific. Falling back from an
+    # uncalibrated KAM/retrieval row to a generic rate measured on a different
+    # architecture can inflate the registered floor by orders of magnitude.
+    # Language replications may reuse the same architecture's language rate;
+    # every other uncalibrated row runs its explicit registered minimum and
+    # target duration.
+    calibration_lane = "language" if lane in {"language", "language_replication"} else lane
     rates = calibration.get("rates", {})
-    rate = float(rates.get(f"{lane}:{architecture}", rates.get(f"{unit}:default", 0.0)))
+    rate = float(rates.get(f"{calibration_lane}:{architecture}", 0.0))
     calibrated = int(rate * seconds * 0.90) if rate > 0 else 0
     return max(minimum, calibrated)
 
