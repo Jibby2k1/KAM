@@ -63,7 +63,7 @@ array_script="${HPG_REPO}/slurm/phase6_overnight_array.sbatch"
 final_script="${HPG_REPO}/slurm/phase6_confirmation_final.sbatch"
 
 array_job="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
-  --time="04:00:00" --array="0-155%4" --export="${common}" \
+  --time="08:00:00" --array="0-155%4" --export="${common}" \
   --output="${LOG_ROOT}/row_%A_%a.out" --error="${LOG_ROOT}/row_%A_%a.err" "${array_script}")"
 final_job="$(sbatch --parsable --account="${HPG_ACCOUNT}" --qos="${HPG_QOS}" --partition="${HPG_PARTITION}" \
   --dependency="afterany:${array_job}" --export="${common}" \
@@ -85,6 +85,7 @@ payload = {
     "dependencies": {"final_report": "afterany:confirmation_array"},
     "array_throttle": 4,
     "gpu_type": "NVIDIA L4",
+    "wall_limit": "08:00:00",
 }
 pathlib.Path(graph).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 print(json.dumps(payload, indent=2, sort_keys=True))

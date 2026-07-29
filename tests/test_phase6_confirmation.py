@@ -12,6 +12,7 @@ from kam.phase6.confirmation_manifest import (
     build_confirmation_rows,
 )
 from kam.phase6.overnight_runner import _language_corpus
+from kam.phase6.confirmation_repair import exact_subset
 
 
 def test_confirmation_manifest_is_fixed_paired_and_fresh() -> None:
@@ -142,6 +143,19 @@ def test_mechanism_seed_count_is_prespecified() -> None:
     rows = build_confirmation_rows()
     learned = [row for row in rows if row["cohort"] == "mechanism" and row["architecture"] in {"T-KAM-L", "T-KAM-ALT"}]
     assert len(learned) == 2 * len(MECHANISM_SEEDS) == 16
+
+
+def test_timeout_repair_is_an_exact_manifest_subset(tmp_path) -> None:
+    manifest = tmp_path / "manifest.jsonl"
+    rows = build_confirmation_rows()
+    manifest.write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+    selected, audit = exact_subset(manifest, [133, 134, 136, 137])
+    assert selected == [rows[index] for index in [133, 134, 136, 137]]
+    assert audit["scientific_fields_modified"] is False
+    assert audit["source_indices"] == [133, 134, 136, 137]
 
 
 def test_confirmation_report_builds_all_artifacts(tmp_path) -> None:
