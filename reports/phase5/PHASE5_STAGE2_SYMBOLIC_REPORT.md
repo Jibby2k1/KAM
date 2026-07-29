@@ -6,10 +6,10 @@ Held-out streams are aggregated within training seed. The report is descriptive 
 
 ## Summary
 
-- controlled_symbolic_regime_language / D0: mean held-out primary metric=1.9437, SD=0.35375, n=15
-- controlled_symbolic_regime_language / DD-L: mean held-out primary metric=2.2729, SD=0.16221, n=15
-- controlled_symbolic_regime_language / KC-LV: mean held-out primary metric=2.2732, SD=0.16053, n=15
-- controlled_symbolic_regime_language / RF-KV: mean held-out primary metric=2.2729, SD=0.1622, n=15
+- controlled_symbolic_regime_language / D0: mean held-out primary metric=1.86, SD=0.50492, n=15
+- controlled_symbolic_regime_language / DD-L: mean held-out primary metric=1.8948, SD=0.47662, n=15
+- controlled_symbolic_regime_language / KC-LV: mean held-out primary metric=1.8939, SD=0.47577, n=15
+- controlled_symbolic_regime_language / RF-KV: mean held-out primary metric=1.8921, SD=0.47957, n=15
 
 ## Evidence
 

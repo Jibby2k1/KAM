@@ -140,6 +140,7 @@ def build_wave1_rows() -> list[dict[str, Any]]:
                     "num_supports": _language_supports(architecture),
                     "top_k": 4,
                     "minimum_tokens": 50_000_000,
+                    "budget_mode": "matched_tokens",
                     "target_seconds": TARGET_SECONDS["wave1"],
                 }
             )
@@ -219,14 +220,37 @@ def _metric(row: dict[str, Any], name: str, default: float = float("inf")) -> fl
         return default
 
 
-def _best_architecture(rows: list[dict[str, Any]], candidates: set[str], fallback: str) -> str:
-    valid = [row for row in rows if row.get("status") == "pass" and str(row.get("architecture")) in candidates]
+def _best_architecture(
+    rows: list[dict[str, Any]],
+    candidates: set[str],
+    fallback: str,
+    *,
+    lanes: frozenset[str] = frozenset({"language", "language_replication"}),
+    task: str = "small_language",
+) -> str:
+    """Select an architecture within one comparable language stratum.
+
+    The language promotion gate must not average retrieval or dynamics losses
+    with language validation loss.
+    """
+    valid = [
+        row
+        for row in rows
+        if row.get("status") == "pass"
+        and str(row.get("architecture")) in candidates
+        and str(row.get("lane")) in lanes
+        and str(row.get("task")) == task
+    ]
     if not valid:
         return fallback
     grouped: dict[str, list[float]] = {}
     for row in valid:
-        grouped.setdefault(str(row["architecture"]), []).append(_metric(row, "validation_loss"))
-    return min(grouped, key=lambda name: sum(grouped[name]) / len(grouped[name]))
+        value = _metric(row, "best_validation_loss", _metric(row, "validation_loss"))
+        if value != float("inf"):
+            grouped.setdefault(str(row["architecture"]), []).append(value)
+    if not grouped:
+        return fallback
+    return min(sorted(grouped), key=lambda name: sum(grouped[name]) / len(grouped[name]))
 
 
 def build_wave2_rows(wave1_metrics: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -253,6 +277,7 @@ def build_wave2_rows(wave1_metrics: list[dict[str, Any]]) -> list[dict[str, Any]
                     "num_supports": _language_supports(architecture),
                     "top_k": 4,
                     "minimum_tokens": 150_000_000,
+                    "budget_mode": "matched_tokens",
                     "target_seconds": TARGET_SECONDS["wave2"],
                     "promoted_from_wave1": True,
                 }
@@ -309,6 +334,7 @@ def build_wave3_rows(wave2_metrics: list[dict[str, Any]]) -> list[dict[str, Any]
                 "num_supports": _language_supports(architecture),
                 "top_k": 4,
                 "minimum_tokens_per_seed": 50_000_000,
+                "budget_mode": "matched_tokens",
                 "target_seconds": TARGET_SECONDS["wave3"],
             }
         )
@@ -319,7 +345,8 @@ def build_wave3_rows(wave2_metrics: list[dict[str, Any]]) -> list[dict[str, Any]
                 "lane": "adaptation",
                 "task": "online_adaptation_bundle",
                 "architecture": architecture,
-                "adapter": "value_only" if architecture.startswith("T-KAM") else "rls",
+                "adapter": "joint_sgd_full_model",
+                "adapter_registered": False,
                 "seed": 3201 + index,
                 "seed_bundle": [3401, 3402, 3403, 3404, 3405],
                 "heldout_schedules_per_seed": 10,

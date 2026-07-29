@@ -32,11 +32,13 @@ Phase V Stage 2 controlled-regime campaign:
 - Do not infer Stage 3 scaling, online adaptation, or natural-language conclusions from Stage 2 until the reports and validity checks pass.
 
 Phase VI sparse separable memory:
-- Current quality-scale campaign: `docs/codex/KAM_PHASE6_OVERNIGHT_IMPLEMENTATION_GUIDE.md` (start here for the queued four-L4 graph, memory adaptation/freeze semantics, final metrics/figures, and morning commands).
+- Current quality-scale campaign: `docs/codex/KAM_PHASE6_OVERNIGHT_IMPLEMENTATION_GUIDE.md` (start here for completed execution, memory adaptation/freeze semantics, corrected metrics/figures, and HPG artifact paths).
+- Corrected analysis and shortest LLM handoff: `docs/codex/KAM_PHASE6_ANALYSIS_V2_CORRECTION.md`. Analysis-v2 job `38201254` completed successfully; its decision is `RETAIN_AS_DIAGNOSTIC_ONLY`.
+- Decision-grade next campaign: `docs/codex/KAM_PHASE6_CONFIRMATION_V2_PREREGISTRATION.md`; fixed 156-row, 30-pair primary plus 24-pair independent replication, held-out test loss, lifecycle invariants, and no optional stopping. Production array `38203848` and dependent report `38203849` were submitted on 2026-07-28.
 - Authoritative overnight contract/config: `docs/codex/KAM_PHASE6_OVERNIGHT_4XL4_CAMPAIGN.md`, `configs/phase6/overnight_4xl4_campaign.yaml`.
-- Current overnight repair: 22/32 Wave 1 rows are preserved; 10 missing rows use architecture-specific calibration or their registered minimum. Read `docs/codex/KAM_PHASE6_OVERNIGHT_CALIBRATION_REPAIR.md` first, then the historical `KAM_PHASE6_OVERNIGHT_TIMEOUT_REPAIR.md`. The active graph runs from `38121449` through final report `38121456`; its immutable record is `results/phase6/overnight/calibration_fallback_repair_job_graph.json`. Status is queued, not a result.
+- Historical overnight repair: the graph from `38121449` through final report `38121456` is complete. Its immutable record is `results/phase6/overnight/calibration_fallback_repair_job_graph.json`; repair narratives remain useful for execution audit only.
 - Overnight execution/analysis: `kam/phase6/overnight_{manifest,runner,analysis}.py`; controllers `scripts/phase6_overnight_controller.py`, `scripts/build_phase6_overnight_report.py`, and `scripts/submit_phase6_overnight_4xl4.sh`.
-- Overnight evidence boundary: do not advise promotion until `results/phase6/overnight/final_summary.json` and all seven `reports/phase6/overnight/OVERNIGHT_*.md` reports exist.
+- Overnight evidence boundary: use only the corrected HPG analysis view `results/phase6/overnight_analysis_v2` and report root `reports/phase6/overnight_analysis_v2`. The pooled-wave decision, positional seed pairing, and declared legacy adaptation labels in the original report are superseded.
 - Authoritative brief: docs/codex/KAM_PHASE6_SPARSE_SEPARABLE_MEMORY_BRIEF.md
 - Campaign summary: configs/phase6/phase6_campaign_overview.yaml
 - Stage 0 immutable config/manifest builder: configs/phase6/stage0_validity.yaml, kam/phase6/manifest.py

@@ -1,0 +1,82 @@
+campaign: phase6_confirmation_v2
+status: preregistered_before_submission
+decision: confirm_or_reject_fixed_key_kam_acceleration
+hardware:
+  gpu_type: NVIDIA_L4
+  concurrent_gpus: 4
+  gpus_per_row: 1
+  array_throttle: 4
+design:
+  fixed_sample_no_optional_stopping: true
+  primary:
+    corpus: tinystories_v2_128mib
+    candidate: T-KAM-F
+    comparator: T-WIDE
+    paired_seeds: 30
+    fresh_seed_range: [71001, 71030]
+    target_power: 0.90
+    planning_standardized_effect_dz: 0.65
+  independent_replication:
+    corpus: tinyshakespeare
+    candidate: T-KAM-F
+    comparator: T-WIDE
+    paired_seeds: 24
+    fresh_seed_range: [72001, 72024]
+    target_power: 0.80
+    planning_standardized_effect_dz: 0.65
+  secondary_controls:
+    corpus: tinystories_v2_128mib
+    comparators: [T0, T-PKM]
+    paired_seeds: 12
+    multiplicity: holm_within_secondary_family
+  learned_memory_mechanism:
+    architectures: [T-KAM-F, T-KAM-L, T-KAM-ALT]
+    seeds_per_architecture: 8
+    fresh_seed_range: [73001, 73008]
+estimands:
+  primary:
+    metric: heldout_test_cross_entropy_at_50m_tokens
+    transform: paired_log_loss_ratio
+    practical_superiority_margin_relative: -0.02
+    confidence_interval: paired_bootstrap_95_percent
+    test: paired_sign_flip_randomization_two_sided
+    alpha: 0.05
+  replication:
+    metric: heldout_test_cross_entropy_at_50m_tokens
+    required_ci_direction: upper_bound_below_zero
+    required_p_value: 0.05
+  secondary:
+    metrics: [test_loss, validation_loss, generalization_gap, win_rate, standardized_effect_dz]
+  systems:
+    metrics: [wall_seconds, tokens_per_second, estimated_training_flops, active_parameters_per_token, peak_vram_bytes]
+training:
+  token_budget: 50000000
+  budget_mode: matched_tokens
+  validation_token_checkpoints: [1000000, 2000000, 5000000, 10000000, 20000000, 30000000, 40000000, 50000000]
+  final_tuning_freeze_fraction: 0.20
+  parameter_target: 10000000
+  parameter_tolerance_fraction: 0.05
+success_gate:
+  require_all:
+    - all_rows_complete_and_finite
+    - paired_data_order_identical
+    - parameter_budget_within_tolerance
+    - primary_ci_entirely_beyond_2_percent_margin
+    - primary_randomization_p_le_0_05
+    - replication_ci_favorable
+    - replication_randomization_p_le_0_05
+  learned_memory_claim_requires_all:
+    - geometry_steps_positive_before_freeze
+    - key_gradient_observed_before_freeze
+    - freeze_fraction_between_0_79_and_0_81
+    - zero_postfreeze_geometry_drift
+    - frozen_checkpoint_observed
+failure_policy:
+  infrastructure_failure: rerun_exact_same_manifest_row_only
+  scientific_failure: no_seed_replacement
+  inconclusive_result: no_posthoc_extension
+  test_set: evaluate_once_after_locked_training
+row_count: 156
+expected_runtime:
+  estimated_gpu_hours: 105-120
+  estimated_four_l4_wall_hours: 27-32

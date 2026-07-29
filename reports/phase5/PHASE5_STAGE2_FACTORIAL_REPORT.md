@@ -1,26 +1,26 @@
 # Phase V Stage 2 FACTORIAL report
 
-Status: PASSED. Completed 600/600 rows with 0 failure artifacts.
+Status: PASSED. Completed 1080/1080 rows with 0 failure artifacts.
 
 Held-out streams are aggregated within training seed. The report is descriptive until paired effects, bootstrap intervals, permutation tests, and Holm adjustment are reviewed.
 
 ## Summary
 
-- controlled_prototype / D0: mean held-out primary metric=547.29, SD=3459.2, n=40
-- controlled_prototype / DD-A: mean held-out primary metric=2.0151, SD=10.54, n=40
-- controlled_prototype / DD-L: mean held-out primary metric=2.0151, SD=10.54, n=40
-- controlled_prototype / KC-LV: mean held-out primary metric=9.4074, SD=57.294, n=40
-- controlled_prototype / RF-KV: mean held-out primary metric=0.82047, SD=3.0142, n=40
-- switching_mackey_glass_controlled / D0: mean held-out primary metric=0.20956, SD=0.18868, n=40
-- switching_mackey_glass_controlled / DD-A: mean held-out primary metric=0.21208, SD=0.19885, n=40
-- switching_mackey_glass_controlled / DD-L: mean held-out primary metric=0.21208, SD=0.19885, n=40
-- switching_mackey_glass_controlled / KC-LV: mean held-out primary metric=0.20526, SD=0.19033, n=40
-- switching_mackey_glass_controlled / RF-KV: mean held-out primary metric=0.21744, SD=0.2032, n=40
-- switching_narma_controlled / D0: mean held-out primary metric=2.1588e+06, SD=5.9896e+06, n=40
-- switching_narma_controlled / DD-A: mean held-out primary metric=3.5469e+06, SD=1.4161e+07, n=40
-- switching_narma_controlled / DD-L: mean held-out primary metric=3.5469e+06, SD=1.4161e+07, n=40
-- switching_narma_controlled / KC-LV: mean held-out primary metric=6.4681e+06, SD=2.9951e+07, n=40
-- switching_narma_controlled / RF-KV: mean held-out primary metric=5.6626e+06, SD=2.8135e+07, n=40
+- controlled_prototype / D0: mean held-out primary metric=0.22921, SD=0.24584, n=72
+- controlled_prototype / DD-A: mean held-out primary metric=0.23239, SD=0.25502, n=72
+- controlled_prototype / DD-L: mean held-out primary metric=0.23101, SD=0.24509, n=72
+- controlled_prototype / KC-LV: mean held-out primary metric=0.22899, SD=0.24039, n=72
+- controlled_prototype / RF-KV: mean held-out primary metric=0.23355, SD=0.25506, n=72
+- switching_mackey_glass_controlled / D0: mean held-out primary metric=0.25065, SD=0.22259, n=72
+- switching_mackey_glass_controlled / DD-A: mean held-out primary metric=0.25058, SD=0.22163, n=72
+- switching_mackey_glass_controlled / DD-L: mean held-out primary metric=0.25051, SD=0.22091, n=72
+- switching_mackey_glass_controlled / KC-LV: mean held-out primary metric=0.24972, SD=0.22154, n=72
+- switching_mackey_glass_controlled / RF-KV: mean held-out primary metric=0.24983, SD=0.22162, n=72
+- switching_narma_controlled / D0: mean held-out primary metric=0.26947, SD=0.26994, n=72
+- switching_narma_controlled / DD-A: mean held-out primary metric=0.28044, SD=0.26515, n=72
+- switching_narma_controlled / DD-L: mean held-out primary metric=0.2784, SD=0.26595, n=72
+- switching_narma_controlled / KC-LV: mean held-out primary metric=0.27922, SD=0.26533, n=72
+- switching_narma_controlled / RF-KV: mean held-out primary metric=0.27838, SD=0.26568, n=72
 
 ## Evidence
 

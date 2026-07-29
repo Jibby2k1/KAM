@@ -98,17 +98,59 @@ def _candidate_corpora() -> list[Path]:
     return candidates
 
 
-def _language_corpus() -> tuple[Tensor, dict[str, Any]]:
-    available = [path for path in _candidate_corpora() if path.is_file() and path.stat().st_size > 4096]
-    if not available:
-        raise FileNotFoundError(
-            "No production language corpus found. Set PHASE6_TINYSTORIES_PATH "
-            "or provide data/tinyshakespeare.txt; one-sentence fallback is prohibited."
-        )
-    source = max(available, key=lambda path: path.stat().st_size)
-    payload = source.read_bytes()
-    # Byte tokenization is immutable, auditable, and common to every architecture.
-    tokens = torch.tensor(list(payload), dtype=torch.long)
+def _language_corpus(row: dict[str, Any] | None = None) -> tuple[Tensor, dict[str, Any]]:
+    """Load an explicit registered corpus, preserving disjoint split identity."""
+    row = row or {}
+    configured_train = row.get("corpus_train_path")
+    configured_validation = row.get("corpus_validation_path")
+    configured_test = row.get("corpus_test_path")
+    if configured_train:
+        train_path = Path(str(configured_train))
+        validation_path = Path(str(configured_validation)) if configured_validation else None
+        test_path = Path(str(configured_test)) if configured_test else None
+        paths = [path for path in (train_path, validation_path, test_path) if path is not None]
+        missing = [str(path) for path in paths if not path.is_file() or path.stat().st_size <= 4096]
+        if missing:
+            raise FileNotFoundError(f"Missing or undersized registered corpus files: {missing}")
+        train_payload = train_path.read_bytes()
+        if validation_path is not None and test_path is not None:
+            validation_payload = validation_path.read_bytes()
+            test_payload = test_path.read_bytes()
+            payload = train_payload + validation_payload + test_payload
+            train_end = len(train_payload)
+            validation_end = train_end + len(validation_payload)
+            metadata = {
+                "dataset_name": str(row.get("corpus_id", train_path.stem)),
+                "dataset_path": str(train_path.resolve()),
+                "dataset_substitution": False,
+                "dataset_sha256": _sha256_bytes(
+                    b"train:" + train_payload + b"|validation:" + validation_payload + b"|test:" + test_payload
+                ),
+                "train_sha256": _sha256_bytes(train_payload),
+                "validation_sha256": _sha256_bytes(validation_payload),
+                "test_sha256": _sha256_bytes(test_payload),
+                "tokenizer": "immutable_byte_256",
+                "tokenizer_sha256": _sha256_bytes(b"immutable_byte_256:v1"),
+                "train_range": [0, train_end],
+                "validation_range": [train_end, validation_end],
+                "test_range": [validation_end, len(payload)],
+                "split_overlap": False,
+                "separate_split_files": True,
+            }
+            tokens = torch.from_numpy(np.frombuffer(payload, dtype=np.uint8).copy()).to(dtype=torch.long)
+            return tokens, metadata
+        payload = train_payload
+        source = train_path
+    else:
+        available = [path for path in _candidate_corpora() if path.is_file() and path.stat().st_size > 4096]
+        if not available:
+            raise FileNotFoundError(
+                "No production language corpus found. Set PHASE6_TINYSTORIES_PATH "
+                "or provide data/tinyshakespeare.txt; one-sentence fallback is prohibited."
+            )
+        source = max(available, key=lambda path: path.stat().st_size)
+        payload = source.read_bytes()
+    tokens = torch.from_numpy(np.frombuffer(payload, dtype=np.uint8).copy()).to(dtype=torch.long)
     train_end = int(tokens.numel() * 0.90)
     validation_end = int(tokens.numel() * 0.95)
     metadata = {
@@ -122,6 +164,7 @@ def _language_corpus() -> tuple[Tensor, dict[str, Any]]:
         "validation_range": [train_end, validation_end],
         "test_range": [validation_end, int(tokens.numel())],
         "split_overlap": False,
+        "separate_split_files": False,
     }
     return tokens, metadata
 
@@ -221,7 +264,7 @@ def _resolve_budget(row: dict[str, Any], seconds: float, calibration: dict[str, 
     # Language replications may reuse the same architecture's language rate;
     # every other uncalibrated row runs its explicit registered minimum and
     # target duration.
-    calibration_lane = "language" if lane in {"language", "language_replication"} else lane
+    calibration_lane = "language" if lane in {"language", "language_replication", "confirmation_language"} else lane
     rates = calibration.get("rates", {})
     rate = float(rates.get(f"{calibration_lane}:{architecture}", 0.0))
     calibrated = int(rate * seconds * 0.90) if rate > 0 else 0
@@ -349,9 +392,10 @@ def _train_language_once(
     minimum_tokens: int,
 ) -> dict[str, Any]:
     _seed_everything(seed)
-    tokens, dataset = _language_corpus()
+    tokens, dataset = _language_corpus(row)
     train_end = int(dataset["train_range"][1])
     validation_range = tuple(int(value) for value in dataset["validation_range"])
+    test_range = tuple(int(value) for value in dataset["test_range"])
     sequence_length = int(row.get("sequence_length", 128))
     batch_size = int(row.get("batch_size", 16))
     model, spec = build_baseline(
@@ -370,8 +414,12 @@ def _train_language_once(
     algebra_optimizer = torch.optim.AdamW(algebra, lr=3e-4, weight_decay=0.1)
     geometry_optimizer = torch.optim.AdamW(geometry, lr=3e-5, weight_decay=0.0) if geometry else None
     generator = torch.Generator().manual_seed(int(row.get("data_seed", seed)))
-    target_tokens = _resolve_budget(
-        {**row, "minimum_tokens": minimum_tokens}, target_seconds, calibration, unit="tokens"
+    calibration_row = bool(row.get("calibration"))
+    budget_mode = str(row.get("budget_mode", "matched_tokens"))
+    target_tokens = (
+        _resolve_budget({**row, "minimum_tokens": minimum_tokens}, target_seconds, calibration, unit="tokens")
+        if calibration_row or budget_mode == "calibrated_wall_time" or os.environ.get("PHASE6_OVERNIGHT_SMOKE_SECONDS") is not None
+        else int(minimum_tokens)
     )
     tokens_seen = 0
     step = 0
@@ -380,7 +428,8 @@ def _train_language_once(
     geometry_frozen = False
     frozen_geometry: list[Tensor] = []
     geometry_freeze_step: int | None = None
-    loss_history: list[dict[str, float]] = []
+    geometry_freeze_tokens: int | None = None
+    loss_history: list[dict[str, Any]] = []
     best_loss = math.inf
     best_path = output_root / "checkpoints" / f"{row['row_id']}_seed{seed}_best.pt"
     final_path = output_root / "checkpoints" / f"{row['row_id']}_seed{seed}_final.pt"
@@ -388,16 +437,28 @@ def _train_language_once(
         torch.cuda.reset_peak_memory_stats(device)
     started = time.perf_counter()
     next_validation = started
+    validation_schedule = str(row.get("validation_schedule", "timed"))
+    checkpoint_targets = sorted(
+        {
+            int(value)
+            for value in row.get("validation_token_checkpoints", [])
+            if isinstance(value, (int, float)) and 0 < int(value) <= target_tokens
+        }
+    )
+    if validation_schedule == "registered_tokens" and target_tokens not in checkpoint_targets:
+        checkpoint_targets.append(target_tokens)
+    checkpoint_index = 0
     model.train()
-    while tokens_seen < target_tokens or time.perf_counter() - started < target_seconds:
+    while tokens_seen < target_tokens or (
+        (calibration_row or budget_mode == "calibrated_wall_time")
+        and time.perf_counter() - started < target_seconds
+    ):
         starts = torch.randint(0, train_end - sequence_length - 1, (batch_size,), generator=generator)
         inputs, targets = _sample_windows(tokens, starts, sequence_length)
         inputs, targets = inputs.to(device, non_blocking=True), targets.to(device, non_blocking=True)
-        elapsed_before_step = time.perf_counter() - started
         if (
             geometry
             and not geometry_frozen
-            and elapsed_before_step >= 0.8 * target_seconds
             and tokens_seen >= int(0.8 * target_tokens)
         ):
             frozen_geometry = [parameter.detach().clone() for parameter in geometry]
@@ -405,6 +466,7 @@ def _train_language_once(
                 parameter.requires_grad_(False)
             geometry_frozen = True
             geometry_freeze_step = step
+            geometry_freeze_tokens = tokens_seen
         is_geometry = bool(geometry_optimizer) and mode.startswith("alt_") and (step + 1) % (
             129 if "128" in mode else 33 if "32" in mode else 9
         ) == 0 and not geometry_frozen
@@ -423,7 +485,10 @@ def _train_language_once(
         step += 1
         tokens_seen += int(inputs.numel())
         elapsed = time.perf_counter() - started
-        if elapsed >= next_validation or step == 1:
+        due_registered = checkpoint_index < len(checkpoint_targets) and tokens_seen >= checkpoint_targets[checkpoint_index]
+        due_timed = validation_schedule != "registered_tokens" and (elapsed >= next_validation or step == 1)
+        if due_registered or due_timed:
+            checkpoint_target = checkpoint_targets[checkpoint_index] if due_registered else None
             validation_loss = _validation_language(
                 model,
                 tokens,
@@ -444,12 +509,15 @@ def _train_language_once(
                     "memory_key_grad_norm": checkpoint_diagnostics["memory_key_grad_norm"],
                     "memory_value_grad_norm": checkpoint_diagnostics["memory_value_grad_norm"],
                     "geometry_frozen": float(geometry_frozen),
+                    "checkpoint_target_tokens": checkpoint_target,
                 }
             )
             if validation_loss < best_loss:
                 best_loss = validation_loss
                 _checkpoint(model, best_path, row, {"validation_loss": validation_loss, "tokens": tokens_seen})
             next_validation = elapsed + max(5.0, target_seconds / 25.0)
+            while checkpoint_index < len(checkpoint_targets) and tokens_seen >= checkpoint_targets[checkpoint_index]:
+                checkpoint_index += 1
             model.train()
     if device.type == "cuda":
         torch.cuda.synchronize(device)
@@ -458,6 +526,15 @@ def _train_language_once(
         model,
         tokens,
         validation_range,
+        sequence_length=sequence_length,
+        batch_size=batch_size,
+        device=device,
+        precision=str(row.get("precision", "bf16")),
+    )
+    test_loss = _validation_language(
+        model,
+        tokens,
+        test_range,
         sequence_length=sequence_length,
         batch_size=batch_size,
         device=device,
@@ -475,7 +552,7 @@ def _train_language_once(
             baseline_loss=final_loss,
             seed=seed,
         )
-        if row.get("lane") == "language_replication"
+        if row.get("lane") == "language_replication" or bool(row.get("run_deletion_diagnostics"))
         else []
     )
     _checkpoint(model, final_path, row, {"validation_loss": final_loss, "tokens": tokens_seen})
@@ -492,15 +569,20 @@ def _train_language_once(
         "tokens": tokens_seen,
         "steps": step,
         "target_tokens_resolved": target_tokens,
+        "budget_mode": budget_mode,
         "target_seconds_resolved": target_seconds,
         "wall_seconds": elapsed,
         "tokens_per_second": tokens_seen / max(elapsed, 1e-9),
         "validation_loss": final_loss,
+        "test_loss": test_loss,
+        "test_perplexity": math.exp(min(test_loss, 20.0)),
+        "generalization_gap": test_loss - final_loss,
         "best_validation_loss": best_loss,
         "perplexity": math.exp(min(final_loss, 20.0)),
         "algebra_steps": algebra_steps,
         "geometry_steps": geometry_steps,
         "geometry_freeze_step": geometry_freeze_step,
+        "geometry_freeze_tokens": geometry_freeze_tokens,
         "geometry_frozen_for_final_tuning": bool(geometry_frozen or not geometry),
         "post_freeze_geometry_drift": float(
             sum((parameter.detach() - frozen).norm().item() for parameter, frozen in zip(geometry, frozen_geometry))
@@ -889,6 +971,11 @@ def _run_adaptation(
     # summarized across held-out schedules rather than treating timesteps as
     # independent inferential units.
     seconds, smoke = _resolve_seconds(row)
+    declared_adapter = str(row.get("adapter", "joint_sgd_full_model"))
+    # This implementation performs full-model AdamW updates. Preserve legacy
+    # declarations as provenance, but do not represent them as implemented RLS
+    # or value-only adapters.
+    effective_adapter = "joint_sgd_full_model"
     seeds = list(row.get("seed_bundle", [int(row["seed"])]))
     tasks = list(row.get("tasks", ["mackey_glass_schedule"]))
     schedules = int(row.get("heldout_schedules_per_seed", 10))
@@ -924,7 +1011,9 @@ def _run_adaptation(
         )
         runs.append(run)
     aggregate = _aggregate_numeric(runs)
-    aggregate["adapter"] = str(row.get("adapter", "none"))
+    aggregate["adapter_declared"] = declared_adapter
+    aggregate["adapter_effective"] = effective_adapter
+    aggregate["adapter_registered"] = bool(row.get("adapter_registered", False)) and declared_adapter == effective_adapter
     aggregate["heldout_schedule_count"] = len(combinations)
     aggregate["smoke_override"] = smoke
     return aggregate
@@ -973,7 +1062,7 @@ def run_row(
     }
     try:
         lane = str(row["lane"])
-        if lane in {"language", "language_replication"}:
+        if lane in {"language", "language_replication", "confirmation_language"}:
             metrics = _run_language(row, device=target, output_root=root, calibration=calibration)
         elif lane == "retrieval":
             metrics = _run_retrieval(row, device=target, output_root=root, calibration=calibration)

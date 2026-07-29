@@ -298,77 +298,408 @@ def _group_metric(rows: list[dict[str, Any]], metric: str) -> dict[str, list[flo
     return groups
 
 
-def _paired_statistics(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    output: list[dict[str, Any]] = []
-    for metric in ("validation_loss", "heldout_nmse", "late_post_transition_loss"):
-        groups = _group_metric(rows, metric)
-        if not groups:
+LANGUAGE_LANES = frozenset({"language", "language_replication"})
+CONVENTIONAL_MEMORY = frozenset({"T-MEMTOK", "T-MOE", "T-PKM"})
+MIN_CONFIRMATORY_SEEDS = 6
+ADAPTATION_METRICS = (
+    "heldout_nmse",
+    "early_post_transition_loss",
+    "late_post_transition_loss",
+    "cumulative_excess_loss",
+    "recovery_time_steps",
+    "reacquisition_time_steps",
+    "update_flops",
+    "adapter_state_bytes",
+)
+
+
+def _registered_token_target(row: dict[str, Any], subrun: dict[str, Any]) -> int | None:
+    for source, key in (
+        (row, "minimum_tokens_per_seed"),
+        (row, "minimum_tokens"),
+        (subrun, "target_tokens_resolved"),
+    ):
+        value = source.get(key)
+        if isinstance(value, (int, float)) and math.isfinite(float(value)) and float(value) > 0:
+            return int(value)
+    return None
+
+
+def _matched_token_point(row: dict[str, Any], subrun: dict[str, Any]) -> tuple[float, float, int | None]:
+    target = _registered_token_target(row, subrun)
+    history = [
+        point
+        for point in subrun.get("loss_history", [])
+        if isinstance(point.get("tokens"), (int, float))
+        and isinstance(point.get("validation_loss"), (int, float))
+        and math.isfinite(float(point["tokens"]))
+        and math.isfinite(float(point["validation_loss"]))
+    ]
+    if not history:
+        return _metric(subrun, "validation_loss"), _metric(subrun, "tokens", math.nan), target
+    history = sorted(history, key=lambda point: float(point["tokens"]))
+    if target is None:
+        point = history[-1]
+        return float(point["validation_loss"]), float(point["tokens"]), target
+    before = [point for point in history if float(point["tokens"]) <= target]
+    after = [point for point in history if float(point["tokens"]) >= target]
+    left = before[-1] if before else history[0]
+    right = after[0] if after else history[-1]
+    left_tokens, right_tokens = float(left["tokens"]), float(right["tokens"])
+    if right_tokens <= left_tokens:
+        return float(left["validation_loss"]), left_tokens, target
+    fraction = min(1.0, max(0.0, (target - left_tokens) / (right_tokens - left_tokens)))
+    interpolated = float(left["validation_loss"]) + fraction * (
+        float(right["validation_loss"]) - float(left["validation_loss"])
+    )
+    return interpolated, float(target), target
+
+
+def _language_seed_observations(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    observations: list[dict[str, Any]] = []
+    for row in rows:
+        if row.get("status") != "pass" or str(row.get("lane")) not in LANGUAGE_LANES:
             continue
-        comparator = "T-WIDE" if "T-WIDE" in groups else "T0"
-        for architecture, values in groups.items():
-            if architecture == comparator:
+        subruns = row.get("metrics", {}).get("subruns", []) or [row.get("metrics", {})]
+        for subrun in subruns:
+            seed = subrun.get("training_seed", row.get("seed"))
+            if not isinstance(seed, (int, float)):
                 continue
-            baseline = groups.get(comparator, [])
-            count = min(len(values), len(baseline))
-            if count < 2:
+            matched_loss, matched_tokens, target_tokens = _matched_token_point(row, subrun)
+            observation = {
+                "status": "pass",
+                "wave": str(row.get("wave")),
+                "lane": str(row.get("lane")),
+                "task": str(row.get("task")),
+                "scale": str(row.get("scale")),
+                "architecture": str(row.get("architecture")),
+                "training_seed": int(seed),
+                "target_tokens": target_tokens,
+                "matched_tokens": matched_tokens,
+                "matched_token_validation_loss": matched_loss,
+                "best_validation_loss": _metric(subrun, "best_validation_loss"),
+                "final_validation_loss": _metric(subrun, "validation_loss"),
+                "tokens": _metric(subrun, "tokens", math.nan),
+                "wall_seconds": _metric(subrun, "wall_seconds", math.nan),
+                "estimated_active_flops_per_token": _metric(subrun, "estimated_active_flops_per_token", math.nan),
+                "active_parameters_per_token": _metric(subrun, "active_parameters_per_token", math.nan),
+                "git_commit": row.get("metadata", {}).get("git_commit"),
+                "git_dirty": bool(row.get("metadata", {}).get("git_dirty", False)),
+                "row_id": row.get("row_id"),
+                "history": subrun.get("loss_history", []),
+            }
+            if math.isfinite(matched_loss):
+                observations.append(observation)
+    return observations
+
+
+def _dynamics_seed_observations(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    observations: list[dict[str, Any]] = []
+    for row in rows:
+        lane = str(row.get("lane"))
+        if row.get("status") != "pass" or "dynamics" not in lane:
+            continue
+        subruns = row.get("metrics", {}).get("subruns", []) or [row.get("metrics", {})]
+        for subrun in subruns:
+            seed = subrun.get("training_seed", row.get("seed"))
+            value = _metric(subrun, "heldout_nmse")
+            if not isinstance(seed, (int, float)) or not math.isfinite(value):
                 continue
-            left, right = values[:count], baseline[:count]
-            differences = [a - b for a, b in zip(left, right)]
-            effect = paired_effect(right, left)
-            ci = bootstrap_ci(differences)
-            permutation = exact_permutation_test(right, left)
-            output.append(
+            observations.append(
                 {
-                    "metric": metric,
-                    "architecture": architecture,
-                    "comparator": comparator,
-                    "paired_seeds": count,
-                    "mean_difference": statistics.mean(differences),
-                    "relative_difference": statistics.mean(differences) / max(abs(statistics.mean(right)), 1e-12),
-                    "bootstrap_ci_low": ci[0],
-                    "bootstrap_ci_high": ci[1],
-                    "standardized_paired_effect": effect["effect_size_dz"],
-                    "exact_paired_permutation_p": permutation["p_value"],
-                    "holm_adjusted_p": permutation["p_value"],
-                    "equivalent": equivalence_test(
-                        right,
-                        left,
-                        margin=(0.02 if metric == "validation_loss" else 0.05) * max(abs(statistics.mean(right)), 1e-12),
-                    ).get("equivalent"),
+                    "wave": str(row.get("wave")),
+                    "lane": lane,
+                    "task": str(subrun.get("task", row.get("task"))),
+                    "scale": str(row.get("scale")),
+                    "architecture": str(row.get("architecture")),
+                    "training_seed": int(seed),
+                    "heldout_nmse": value,
+                    "row_id": row.get("row_id"),
                 }
             )
-    for metric in {str(row["metric"]) for row in output}:
-        family = {str(index): float(row["exact_paired_permutation_p"]) for index, row in enumerate(output) if row["metric"] == metric}
-        adjusted = holm_adjust(family)
-        for index, row in enumerate(output):
-            if row["metric"] == metric:
-                row["holm_adjusted_p"] = adjusted[str(index)]
+    return observations
+
+
+def _adaptation_base_seed(row: dict[str, Any], subrun: dict[str, Any]) -> int | None:
+    seed = subrun.get("training_seed")
+    if not isinstance(seed, (int, float)):
+        return None
+    schedule = subrun.get("schedule_index", 0)
+    if isinstance(schedule, (int, float)):
+        candidate = int(seed) - 10_000 * int(schedule)
+        registered = {int(value) for value in row.get("seed_bundle", []) if isinstance(value, (int, float))}
+        if not registered or candidate in registered:
+            return candidate
+    return int(seed) % 10_000
+
+
+def _adaptation_seed_observations(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[tuple[str, str, str, int], list[dict[str, Any]]] = defaultdict(list)
+    provenance: dict[tuple[str, str, str, int], dict[str, Any]] = {}
+    for row in rows:
+        if row.get("status") != "pass" or row.get("lane") != "adaptation":
+            continue
+        metrics = row.get("metrics", {})
+        effective = str(metrics.get("adapter_effective", "joint_sgd_full_model"))
+        declared = str(metrics.get("adapter_declared", row.get("adapter", "unknown")))
+        registered = bool(metrics.get("adapter_registered", row.get("adapter_registered", False)))
+        for subrun in metrics.get("subruns", []):
+            base_seed = _adaptation_base_seed(row, subrun)
+            if base_seed is None:
+                continue
+            key = (str(row.get("wave")), str(row.get("architecture")), effective, base_seed)
+            grouped[key].append(subrun)
+            provenance[key] = {
+                "adapter_declared": declared,
+                "adapter_registered": registered,
+                "row_id": row.get("row_id"),
+            }
+    output: list[dict[str, Any]] = []
+    for (wave, architecture, adapter, seed), subruns in sorted(grouped.items()):
+        record: dict[str, Any] = {
+            "wave": wave,
+            "lane": "adaptation",
+            "task": "registered_schedule_bundle",
+            "architecture": architecture,
+            "adapter_effective": adapter,
+            "training_seed": seed,
+            "subrun_count": len(subruns),
+            "task_count": len({str(run.get("task")) for run in subruns}),
+            "schedule_count": len({int(run.get("schedule_index", 0)) for run in subruns}),
+            **provenance[(wave, architecture, adapter, seed)],
+        }
+        for metric in ADAPTATION_METRICS:
+            values = [_metric(run, metric) for run in subruns]
+            finite = [value for value in values if math.isfinite(value)]
+            if finite:
+                record[metric] = statistics.mean(finite)
+        output.append(record)
     return output
 
 
-def _decision(rows: list[dict[str, Any]]) -> tuple[str, str]:
-    language = _group_metric([row for row in rows if "language" in str(row.get("lane"))], "validation_loss")
-    adaptation = _group_metric([row for row in rows if row.get("lane") == "adaptation"], "late_post_transition_loss")
-    means = {name: statistics.mean(values) for name, values in language.items() if values}
-    kam = {name: value for name, value in means.items() if name.startswith("T-KAM")}
-    conventional = {name: value for name, value in means.items() if name in {"T-MEMTOK", "T-MOE", "T-PKM"}}
+def _candidate_pairs(observations: list[dict[str, Any]], metric: str) -> list[tuple[str, str, str]]:
+    grouped: dict[str, list[float]] = defaultdict(list)
+    for row in observations:
+        value = _metric(row, metric)
+        if math.isfinite(value):
+            grouped[str(row.get("architecture"))].append(value)
+    means = {name: statistics.mean(values) for name, values in grouped.items() if values}
+    kam = sorted((name for name in means if name.startswith("T-KAM")), key=lambda name: means[name])
+    conventional = sorted((name for name in means if name in CONVENTIONAL_MEMORY), key=lambda name: means[name])
+    pairs: list[tuple[str, str, str]] = []
+    if kam:
+        best_kam = kam[0]
+        for comparator in ("T0", "T-WIDE", conventional[0] if conventional else None):
+            if comparator and comparator in means and comparator != best_kam:
+                pairs.append((best_kam, comparator, "best_kam_primary"))
+        joint = next((name for name in ("T-KAM-F", "T-KAM-L") if name in means), None)
+        if joint:
+            for architecture in ("T-KAM-ALT", "T-KAM-VP"):
+                if architecture in means:
+                    pairs.append((architecture, joint, "optimization_primary"))
+    if "T-WIDE" in means and "T0" in means:
+        pairs.append(("T-WIDE", "T0", "control_primary"))
+    if conventional and "T0" in means:
+        pairs.append((conventional[0], "T0", "conventional_primary"))
+    unique: list[tuple[str, str, str]] = []
+    for pair in pairs:
+        if pair not in unique:
+            unique.append(pair)
+    return unique
+
+
+def _paired_record(
+    observations: list[dict[str, Any]],
+    *,
+    metric: str,
+    architecture: str,
+    comparator: str,
+    comparison_family: str,
+    context: dict[str, Any],
+) -> dict[str, Any] | None:
+    candidate = {
+        int(row["training_seed"]): float(row[metric])
+        for row in observations
+        if row.get("architecture") == architecture and math.isfinite(_metric(row, metric))
+    }
+    baseline = {
+        int(row["training_seed"]): float(row[metric])
+        for row in observations
+        if row.get("architecture") == comparator and math.isfinite(_metric(row, metric))
+    }
+    seeds = sorted(candidate.keys() & baseline.keys())
+    if len(seeds) < 2:
+        return None
+    left = [candidate[seed] for seed in seeds]
+    right = [baseline[seed] for seed in seeds]
+    differences = [value - reference for value, reference in zip(left, right)]
+    effect = paired_effect(right, left)
+    ci = bootstrap_ci(differences)
+    permutation = exact_permutation_test(right, left)
+    margin_fraction = 0.02 if "validation_loss" in metric else 0.05
+    return {
+        **context,
+        "metric": metric,
+        "architecture": architecture,
+        "comparator": comparator,
+        "comparison_family": comparison_family,
+        "paired_seeds": len(seeds),
+        "seed_ids": seeds,
+        "architecture_mean": statistics.mean(left),
+        "comparator_mean": statistics.mean(right),
+        "mean_difference": statistics.mean(differences),
+        "relative_difference": statistics.mean(differences) / max(abs(statistics.mean(right)), 1e-12),
+        "bootstrap_ci_low": ci[0],
+        "bootstrap_ci_high": ci[1],
+        "standardized_paired_effect": effect["effect_size_dz"],
+        "exact_paired_permutation_p": permutation["p_value"],
+        "holm_adjusted_p": permutation["p_value"],
+        "equivalent": equivalence_test(
+            right,
+            left,
+            margin=margin_fraction * max(abs(statistics.mean(right)), 1e-12),
+        ).get("equivalent"),
+    }
+
+
+def _paired_statistics(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    language_groups: dict[tuple[Any, ...], list[dict[str, Any]]] = defaultdict(list)
+    for row in _language_seed_observations(rows):
+        language_groups[(row["wave"], row["lane"], row["task"], row["scale"], row["target_tokens"])].append(row)
+    for (wave, lane, task, scale, target_tokens), group in language_groups.items():
+        context = {"wave": wave, "lane": lane, "task": task, "scale": scale, "target_tokens": target_tokens}
+        for metric in ("matched_token_validation_loss", "best_validation_loss", "final_validation_loss"):
+            for architecture, comparator, family in _candidate_pairs(group, metric):
+                record = _paired_record(
+                    group,
+                    metric=metric,
+                    architecture=architecture,
+                    comparator=comparator,
+                    comparison_family=family,
+                    context=context,
+                )
+                if record:
+                    output.append(record)
+
+    dynamics_groups: dict[tuple[Any, ...], list[dict[str, Any]]] = defaultdict(list)
+    for row in _dynamics_seed_observations(rows):
+        dynamics_groups[(row["wave"], row["lane"], row["task"], row["scale"])].append(row)
+    for (wave, lane, task, scale), group in dynamics_groups.items():
+        context = {"wave": wave, "lane": lane, "task": task, "scale": scale, "target_tokens": None}
+        for architecture, comparator, family in _candidate_pairs(group, "heldout_nmse"):
+            record = _paired_record(
+                group,
+                metric="heldout_nmse",
+                architecture=architecture,
+                comparator=comparator,
+                comparison_family=family,
+                context=context,
+            )
+            if record:
+                output.append(record)
+
+    adaptation_groups: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    for row in _adaptation_seed_observations(rows):
+        adaptation_groups[(str(row["wave"]), str(row["adapter_effective"]))].append(row)
+    for (wave, adapter), group in adaptation_groups.items():
+        registered = all(bool(row.get("adapter_registered")) for row in group)
+        context = {
+            "wave": wave,
+            "lane": "adaptation",
+            "task": "registered_schedule_bundle",
+            "scale": "2M",
+            "target_tokens": None,
+            "adapter_effective": adapter,
+            "adapter_registered": registered,
+        }
+        for metric in ADAPTATION_METRICS:
+            for architecture, comparator, family in _candidate_pairs(group, metric):
+                record = _paired_record(
+                    group,
+                    metric=metric,
+                    architecture=architecture,
+                    comparator=comparator,
+                    comparison_family=(family if registered else "exploratory_unregistered_full_model"),
+                    context=context,
+                )
+                if record:
+                    output.append(record)
+
+    families: dict[tuple[Any, ...], list[int]] = defaultdict(list)
+    for index, row in enumerate(output):
+        family = (row.get("wave"), row.get("lane"), row.get("task"), row.get("metric"), row.get("comparison_family"))
+        families[family].append(index)
+    for indices in families.values():
+        adjusted = holm_adjust({str(index): float(output[index]["exact_paired_permutation_p"]) for index in indices})
+        for index in indices:
+            output[index]["holm_adjusted_p"] = adjusted[str(index)]
+    return output
+
+
+def _decision(rows: list[dict[str, Any]], paired: list[dict[str, Any]] | None = None) -> tuple[str, str]:
+    paired = paired if paired is not None else _paired_statistics(rows)
+    replication = [row for row in _language_seed_observations(rows) if row["wave"] == "wave3"]
+    means = {
+        name: statistics.mean(values)
+        for name, values in _group_metric(replication, "matched_token_validation_loss").items()
+        if values
+    }
+    kam = sorted((name for name in means if name.startswith("T-KAM")), key=lambda name: means[name])
+
+    def comparison(architecture: str, comparator: str) -> dict[str, Any] | None:
+        return next(
+            (
+                row
+                for row in paired
+                if row.get("wave") == "wave3"
+                and row.get("lane") == "language_replication"
+                and row.get("metric") == "matched_token_validation_loss"
+                and row.get("architecture") == architecture
+                and row.get("comparator") == comparator
+            ),
+            None,
+        )
+
+    def confirmatory(record: dict[str, Any] | None) -> bool:
+        return bool(
+            record
+            and int(record["paired_seeds"]) >= MIN_CONFIRMATORY_SEEDS
+            and float(record["holm_adjusted_p"]) <= 0.05
+            and float(record["bootstrap_ci_high"]) < 0.0
+        )
+
     if kam and "T-WIDE" in means:
-        best_kam = min(kam, key=kam.get)
-        if kam[best_kam] <= 0.98 * means["T-WIDE"]:
+        best_kam = kam[0]
+        versus_wide = comparison(best_kam, "T-WIDE")
+        if versus_wide and float(versus_wide["relative_difference"]) <= -0.02 and confirmatory(versus_wide):
             outcome = "PROMOTE_FIXED_KEY_FAST_ALGEBRA" if best_kam == "T-KAM-F" else "PROMOTE_SPARSE_KAM_MEMORY"
-            return outcome, f"{best_kam} beat T-WIDE by at least the registered 2% language threshold."
-    adaptation_means = {name: statistics.mean(values) for name, values in adaptation.items() if values}
-    kam_adaptation = {name: value for name, value in adaptation_means.items() if name.startswith("T-KAM")}
-    controls = {name: value for name, value in adaptation_means.items() if not name.startswith("T-KAM")}
-    if kam_adaptation and controls and min(kam_adaptation.values()) <= 0.95 * min(controls.values()):
-        return "PROMOTE_KAM_FOR_ONLINE_ADAPTATION_ONLY", "KAM improved late post-transition loss by at least 5%."
-    if conventional and means and min(conventional.values()) == min(means.values()):
-        return "PROMOTE_CONVENTIONAL_MEMORY_BASELINE", "A conventional memory baseline had the lowest replicated language loss."
-    if "T-WIDE" in means and "T0" in means and means["T-WIDE"] <= 0.98 * means["T0"]:
-        return "PROMOTE_WIDENED_TRANSFORMER", "T-WIDE beat T0 while no KAM cleared its promotion gate."
-    if kam and "T-WIDE" in means and min(kam.values()) > 1.05 * means["T-WIDE"]:
-        return "STOP_KAM_SPECIFIC_DIRECTION", "KAM remained more than 5% worse than T-WIDE without a compensating adaptation result."
-    return "RETAIN_AS_DIAGNOSTIC_ONLY", "No architecture cleared a preregistered promotion or stop threshold."
+            return outcome, (
+                f"{best_kam} cleared the 2% Wave 3 matched-token threshold with "
+                f"{versus_wide['paired_seeds']} paired seeds and Holm-adjusted p={versus_wide['holm_adjusted_p']:.4g}."
+            )
+        if versus_wide:
+            direction = "better" if float(versus_wide["relative_difference"]) < 0 else "worse"
+            return "RETAIN_AS_DIAGNOSTIC_ONLY", (
+                f"{best_kam} was {abs(100 * float(versus_wide['relative_difference'])):.1f}% {direction} than T-WIDE "
+                f"at the registered Wave 3 token checkpoint, but only {versus_wide['paired_seeds']} paired seeds were available "
+                f"(exact p={versus_wide['exact_paired_permutation_p']:.4g}, Holm p={versus_wide['holm_adjusted_p']:.4g}); "
+                "the confirmatory gate is underpowered."
+            )
+
+    registered_adaptation = [
+        row
+        for row in paired
+        if row.get("lane") == "adaptation"
+        and row.get("metric") == "late_post_transition_loss"
+        and row.get("adapter_registered") is True
+    ]
+    if any(float(row["relative_difference"]) <= -0.05 and confirmatory(row) for row in registered_adaptation):
+        return "PROMOTE_KAM_FOR_ONLINE_ADAPTATION_ONLY", "A KAM cleared the registered matched-adapter confirmation gate."
+    return "RETAIN_AS_DIAGNOSTIC_ONLY", (
+        "No Wave 3 architecture cleared a seed-level, Holm-corrected confirmation gate. "
+        "The adaptation lane used unregistered full-model updates and cannot support an adapter promotion."
+    )
 
 
 def _report_header(title: str, rows: list[dict[str, Any]]) -> str:
@@ -384,134 +715,282 @@ def _build_figures(rows: list[dict[str, Any]], report_root: Path) -> list[str]:
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    import numpy as np
 
     figure_root = report_root / "figures"
     figure_root.mkdir(parents=True, exist_ok=True)
     created: list[str] = []
+    colors = {
+        "T0": "#64748b",
+        "T-WIDE": "#2563eb",
+        "T-MEMTOK": "#c2410c",
+        "T-MOE": "#a16207",
+        "T-PKM": "#7c3aed",
+        "T-KAM-F": "#be123c",
+        "T-KAM-L": "#9f1239",
+        "T-KAM-ALT": "#db2777",
+        "T-KAM-VP": "#475569",
+    }
 
     def finish(figure, name: str) -> None:
         path = figure_root / name
         figure.tight_layout()
-        figure.savefig(path, dpi=180, bbox_inches="tight")
+        figure.savefig(path, dpi=180, bbox_inches="tight", facecolor="white")
         plt.close(figure)
         created.append(str(path))
 
+    language = _language_seed_observations(rows)
+    waves = [wave for wave in ("wave1", "wave2", "wave3") if any(row["wave"] == wave for row in language)]
+    figure, axes = plt.subplots(len(waves) or 1, 1, figsize=(10, 3.8 * max(len(waves), 1)), squeeze=False)
+    for axis, wave in zip(axes[:, 0], waves):
+        selected = [row for row in language if row["wave"] == wave]
+        target = min((int(row["target_tokens"]) for row in selected if row.get("target_tokens")), default=None)
+        for architecture in sorted({row["architecture"] for row in selected}):
+            architecture_rows = [row for row in selected if row["architecture"] == architecture]
+            interpolated = []
+            start_tokens = max((float(row["history"][0].get("tokens", 0.0)) for row in architecture_rows if row["history"]), default=0.0)
+            grid = np.linspace(start_tokens, float(target), 60) if target and start_tokens < target else None
+            for row in architecture_rows:
+                points = [
+                    point
+                    for point in row["history"]
+                    if isinstance(point.get("tokens"), (int, float))
+                    and isinstance(point.get("validation_loss"), (int, float))
+                    and (target is None or float(point["tokens"]) <= 1.05 * target)
+                ]
+                if len(points) < 2:
+                    continue
+                x = np.asarray([float(point["tokens"]) / 1e6 for point in points])
+                y = np.asarray([float(point["validation_loss"]) for point in points])
+                axis.plot(x, y, color=colors.get(architecture, "#334155"), alpha=0.13, linewidth=0.8)
+                if grid is not None:
+                    clipped = grid[(grid >= float(points[0]["tokens"])) & (grid <= float(points[-1]["tokens"]))]
+                    if clipped.size == grid.size:
+                        interpolated.append(np.interp(grid, np.asarray([float(point["tokens"]) for point in points]), y))
+            if interpolated and grid is not None:
+                values = np.asarray(interpolated)
+                mean = values.mean(axis=0)
+                standard_error = values.std(axis=0, ddof=1) / np.sqrt(values.shape[0]) if values.shape[0] > 1 else np.zeros_like(mean)
+                axis.plot(grid / 1e6, mean, color=colors.get(architecture, "#334155"), linewidth=2.0, label=f"{architecture} (n={values.shape[0]})")
+                axis.fill_between(grid / 1e6, mean - 1.96 * standard_error, mean + 1.96 * standard_error, color=colors.get(architecture, "#334155"), alpha=0.10)
+        axis.set_title(f"{wave.capitalize()} language validation learning curves")
+        axis.set_xlabel("Training tokens (millions)")
+        axis.set_ylabel("Validation cross-entropy")
+        axis.grid(axis="y", color="#e2e8f0", linewidth=0.7)
+        if axis.get_legend_handles_labels()[1]:
+            axis.legend(fontsize=7, ncol=3)
+    if not waves:
+        axes[0, 0].text(0.5, 0.5, "No completed language trajectories", ha="center", va="center")
+    finish(figure, "language_learning_curves_by_wave.png")
+
+    wave3 = [row for row in language if row["wave"] == "wave3"]
     figure, axis = plt.subplots(figsize=(9, 5))
-    plotted = 0
+    architectures = sorted({row["architecture"] for row in wave3})
+    positions = np.arange(len(architectures))
+    width = 0.24
+    for offset, (metric, label) in enumerate(
+        (
+            ("best_validation_loss", "best checkpoint"),
+            ("matched_token_validation_loss", "registered token checkpoint"),
+            ("final_validation_loss", "wall-time final"),
+        )
+    ):
+        means = [statistics.mean(float(row[metric]) for row in wave3 if row["architecture"] == architecture) for architecture in architectures]
+        axis.bar(positions + (offset - 1) * width, means, width=width, label=label, alpha=0.88)
+    if architectures:
+        axis.set_xticks(positions, architectures, rotation=20, ha="right")
+        axis.legend(fontsize=8)
+    else:
+        axis.text(0.5, 0.5, "No completed Wave 3 language rows", ha="center", va="center")
+    axis.set_title("Wave 3 language loss by checkpoint policy")
+    axis.set_ylabel("Validation cross-entropy")
+    axis.set_ylim(bottom=0)
+    axis.grid(axis="y", color="#e2e8f0", linewidth=0.7)
+    finish(figure, "language_checkpoint_policy_comparison.png")
+
+    trace_groups: dict[tuple[str, int], list[tuple[str, dict[str, Any]]]] = defaultdict(list)
     for row in rows:
-        if "language" not in str(row.get("lane")):
+        if row.get("wave") != "wave2" or row.get("lane") != "dynamics_bundle":
             continue
+        for subrun in row.get("metrics", {}).get("subruns", []):
+            seed = subrun.get("training_seed")
+            if isinstance(seed, (int, float)) and subrun.get("prediction_trace") and subrun.get("truth_trace"):
+                trace_groups[(str(subrun.get("task")), int(seed))].append((str(row.get("architecture")), subrun))
+    representative = max(sorted(trace_groups), key=lambda key: len(trace_groups[key])) if trace_groups else None
+    traces = sorted(trace_groups.get(representative, []))
+    figure, axes = plt.subplots(max(len(traces), 1), 2, figsize=(12, 2.8 * max(len(traces), 1)), squeeze=False)
+    for row_index, (architecture, subrun) in enumerate(traces):
+        truth = np.asarray(subrun["truth_trace"], dtype=float)
+        prediction = np.asarray(subrun["prediction_trace"], dtype=float)
+        count = min(truth.size, prediction.size, 256)
+        error = np.abs(prediction[:count] - truth[:count])
+        axes[row_index, 0].plot(truth[:count], color="#334155", linewidth=1.2, label="true")
+        axes[row_index, 0].plot(prediction[:count], color=colors.get(architecture, "#be123c"), linewidth=1.0, alpha=0.85, label="prediction")
+        axes[row_index, 0].set_ylabel(architecture)
+        axes[row_index, 0].legend(fontsize=7, ncol=2)
+        axes[row_index, 1].semilogy(np.maximum(error, 1e-8), color=colors.get(architecture, "#be123c"), linewidth=1.0)
+        axes[row_index, 1].set_ylabel("absolute error")
+    if representative:
+        axes[0, 0].set_title(f"Prediction and truth: {representative[0]}, seed {representative[1]}")
+        axes[0, 1].set_title("Absolute error (log scale)")
+        axes[-1, 0].set_xlabel("Held-out timestep")
+        axes[-1, 1].set_xlabel("Held-out timestep")
+    else:
+        axes[0, 0].text(0.5, 0.5, "No comparable dynamics traces", ha="center", va="center")
+    finish(figure, "dynamics_prediction_true_error_comparable.png")
+
+    figure, axes = plt.subplots(2, 1, figsize=(10, 7), sharex=True)
+    memory_rows = [
+        row
+        for row in rows
+        if row.get("wave") == "wave1"
+        and row.get("lane") == "language"
+        and row.get("architecture") in {"T-KAM-L", "T-KAM-ALT", "T-KAM-VP"}
+    ]
+    seen_labels: set[str] = set()
+    for row in memory_rows:
+        architecture = str(row.get("architecture"))
         for subrun in row.get("metrics", {}).get("subruns", []):
             history = subrun.get("loss_history", [])
             if not history:
                 continue
-            axis.plot(
-                [point.get("tokens", point.get("step", index)) for index, point in enumerate(history)],
-                [point.get("validation_loss", math.nan) for point in history],
-                alpha=0.55,
-                label=str(row.get("architecture")) if plotted < 12 else None,
-            )
-            plotted += 1
-    axis.set(title="Language validation learning curves", xlabel="Training tokens", ylabel="Validation cross-entropy")
-    if plotted:
-        axis.legend(fontsize=7, ncol=3)
-    else:
-        axis.text(0.5, 0.5, "No completed language trajectories", ha="center", va="center")
-    finish(figure, "language_learning_curves.png")
-
-    figure, axes = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
-    trace_count = 0
-    for row in rows:
-        if "dynamics" not in str(row.get("lane")):
-            continue
-        for subrun in row.get("metrics", {}).get("subruns", []):
-            prediction = subrun.get("prediction_trace", [])
-            truth = subrun.get("truth_trace", [])
-            error = subrun.get("absolute_error_trace", [])
-            if prediction and truth and trace_count < 4:
-                label = f"{row.get('architecture')}:{subrun.get('task')}"
-                axes[0].plot(truth, alpha=0.65, label=f"true {label}")
-                axes[1].plot(prediction, alpha=0.65, label=f"pred {label}")
-                axes[2].semilogy([max(float(value), 1e-8) for value in error], alpha=0.7, label=label)
-                trace_count += 1
-    axes[0].set_ylabel("True (normalized)")
-    axes[1].set_ylabel("Prediction")
-    axes[2].set_ylabel("|error| (log)")
-    axes[2].set_xlabel("Held-out timestep")
-    axes[0].set_title("Dynamics prediction, truth, and absolute error")
-    if trace_count:
-        for axis in axes:
-            axis.legend(fontsize=6, ncol=2)
-    else:
-        axes[1].text(0.5, 0.5, "No completed dynamics traces", ha="center", va="center")
-    finish(figure, "dynamics_prediction_true_error.png")
-
-    figure, axes = plt.subplots(2, 1, figsize=(9, 7), sharex=False)
-    memory_count = 0
-    for row in rows:
-        if not str(row.get("architecture", "")).startswith("T-KAM"):
-            continue
-        for subrun in row.get("metrics", {}).get("subruns", []):
-            history = subrun.get("loss_history", [])
-            if not history:
-                continue
-            steps = [point.get("step", index) for index, point in enumerate(history)]
-            label = f"{row.get('architecture')}:{row.get('wave')}"
-            axes[0].plot(steps, [point.get("memory_gate_mean", math.nan) for point in history], alpha=0.65, label=label)
-            axes[1].semilogy(
-                steps,
-                [max(float(point.get("memory_key_grad_norm", 0.0)), 1e-12) for point in history],
-                alpha=0.65,
-                label=label,
-            )
+            steps = [float(point.get("step", index)) for index, point in enumerate(history)]
+            label = architecture if architecture not in seen_labels else None
+            axes[0].plot(steps, [float(point.get("memory_gate_mean", 0.0)) for point in history], color=colors.get(architecture), alpha=0.75, label=label)
+            axes[1].semilogy(steps, [max(float(point.get("memory_key_grad_norm", 0.0)), 1e-12) for point in history], color=colors.get(architecture), alpha=0.75, label=label)
             freeze = subrun.get("geometry_freeze_step")
             if isinstance(freeze, (int, float)):
-                axes[0].axvline(freeze, color="black", alpha=0.1)
-                axes[1].axvline(freeze, color="black", alpha=0.1)
-            memory_count += 1
-    axes[0].set(title="Memory adaptation then final-tuning freeze", ylabel="Memory gate scale")
-    axes[1].set(xlabel="Optimizer step", ylabel="Key-gradient norm (log)")
-    if memory_count:
-        axes[0].legend(fontsize=6, ncol=3)
+                for axis in axes:
+                    axis.axvline(float(freeze), color=colors.get(architecture), linestyle="--", alpha=0.25)
+            seen_labels.add(architecture)
+    axes[0].set_title("Learned-memory adaptation and final-tuning freeze (Wave 1)")
+    axes[0].set_ylabel("Memory gate scale")
+    axes[1].set_ylabel("Key-gradient norm (log)")
+    axes[1].set_xlabel("Optimizer step")
+    if memory_rows:
+        axes[0].legend(fontsize=8, ncol=3)
     else:
-        axes[0].text(0.5, 0.5, "No completed KAM trajectories", ha="center", va="center")
-    finish(figure, "memory_adaptation_freeze.png")
+        axes[0].text(0.5, 0.5, "No learned-memory language trajectories", ha="center", va="center")
+    finish(figure, "memory_adaptation_freeze_learned_variants.png")
 
     figure, axis = plt.subplots(figsize=(8, 5))
-    for architecture in sorted({str(row.get("architecture")) for row in rows}):
-        selected = [row for row in rows if str(row.get("architecture")) == architecture and math.isfinite(_metric(row, "validation_loss"))]
-        if selected:
-            axis.scatter(
-                [_metric(row, "active_parameters_per_token") for row in selected],
-                [_metric(row, "validation_loss") for row in selected],
-                s=28,
-                alpha=0.7,
-                label=architecture,
-            )
-    axis.set(title="Quality versus active parameters per token", xlabel="Active parameters/token", ylabel="Validation loss")
-    if axis.collections:
-        axis.legend(fontsize=6, ncol=3)
+    for architecture in architectures:
+        selected = [row for row in wave3 if row["architecture"] == architecture]
+        x = statistics.mean(float(row["active_parameters_per_token"]) for row in selected)
+        y = statistics.mean(float(row["matched_token_validation_loss"]) for row in selected)
+        axis.scatter(x, y, s=65, color=colors.get(architecture, "#334155"), edgecolor="white", linewidth=0.7)
+        axis.annotate(architecture, (x, y), xytext=(5, 5), textcoords="offset points", fontsize=8)
+    axis.set_title("Wave 3 matched-token quality and active parameters")
+    axis.set_xlabel("Active parameters per token (log scale)")
+    axis.set_ylabel("Validation cross-entropy at registered token checkpoint")
+    if architectures:
         axis.set_xscale("log")
-    else:
-        axis.text(0.5, 0.5, "No completed resource-quality rows", ha="center", va="center")
-    finish(figure, "resource_quality_pareto.png")
+    axis.grid(color="#e2e8f0", linewidth=0.7)
+    finish(figure, "resource_quality_wave3_matched.png")
 
-    figure, axis = plt.subplots(figsize=(8, 5))
-    adaptation = [row for row in rows if row.get("lane") == "adaptation"]
-    labels = [str(row.get("architecture")) for row in adaptation]
-    early = [_metric(row, "early_post_transition_loss", 0.0) for row in adaptation]
-    late = [_metric(row, "late_post_transition_loss", 0.0) for row in adaptation]
-    positions = list(range(len(labels)))
-    if labels:
-        axis.bar([value - 0.2 for value in positions], early, width=0.4, label="early")
-        axis.bar([value + 0.2 for value in positions], late, width=0.4, label="late")
-        axis.set_xticks(positions, labels, rotation=25, ha="right")
-        axis.legend()
-    else:
-        axis.text(0.5, 0.5, "No completed adaptation rows", ha="center", va="center")
-    axis.set(title="Online adaptation recovery", ylabel="Post-transition loss")
-    finish(figure, "adaptation_recovery.png")
+    adaptation = _adaptation_seed_observations(rows)
+    figure, axes = plt.subplots(2, 2, figsize=(11, 8))
+    metrics = (
+        ("late_post_transition_loss", "Late post-transition loss", False),
+        ("cumulative_excess_loss", "Cumulative excess loss", False),
+        ("recovery_time_steps", "Recovery time (steps)", False),
+        ("update_flops", "Update FLOPs", True),
+    )
+    for axis, (metric, title, log_scale) in zip(axes.flat, metrics):
+        available = [architecture for architecture in sorted({row["architecture"] for row in adaptation}) if any(math.isfinite(_metric(row, metric)) for row in adaptation if row["architecture"] == architecture)]
+        for index, architecture in enumerate(available):
+            values = [float(row[metric]) for row in adaptation if row["architecture"] == architecture and metric in row]
+            axis.scatter([index] * len(values), values, color=colors.get(architecture, "#334155"), alpha=0.55, s=25)
+            if values:
+                axis.scatter(index, statistics.mean(values), color=colors.get(architecture, "#334155"), edgecolor="black", linewidth=0.6, s=80, marker="D")
+        axis.set_xticks(range(len(available)), available, rotation=20, ha="right")
+        axis.set_title(title)
+        if log_scale and available:
+            axis.set_yscale("log")
+        axis.grid(axis="y", color="#e2e8f0", linewidth=0.7)
+    figure.suptitle("Online adaptation by base seed — effective method: full-model joint SGD (unregistered)")
+    if not adaptation:
+        axes[0, 0].text(0.5, 0.5, "No completed adaptation seed metrics", ha="center", va="center")
+    finish(figure, "adaptation_seed_metrics.png")
     return created
+
+
+def _language_report_detail(language: list[dict[str, Any]], paired: list[dict[str, Any]]) -> str:
+    wave3 = [row for row in language if row["wave"] == "wave3"]
+    lines = [
+        "## Wave 3 checkpoint comparison",
+        "",
+        "| Architecture | Seeds | Best checkpoint | Registered-token checkpoint | Final checkpoint | Mean tokens |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
+    for architecture in sorted({row["architecture"] for row in wave3}):
+        selected = [row for row in wave3 if row["architecture"] == architecture]
+        lines.append(
+            f"| {architecture} | {len(selected)} | "
+            f"{statistics.mean(row['best_validation_loss'] for row in selected):.4f} | "
+            f"{statistics.mean(row['matched_token_validation_loss'] for row in selected):.4f} | "
+            f"{statistics.mean(row['final_validation_loss'] for row in selected):.4f} | "
+            f"{statistics.mean(row['tokens'] for row in selected) / 1e6:.1f}M |"
+        )
+    lines.extend(
+        [
+            "",
+            "The registered-token checkpoint is the primary quality basis. Best and final checkpoints are descriptive diagnostics; final checkpoints contain unequal token exposure from the completed legacy runs.",
+            "",
+            "## Registered Wave 3 paired comparisons",
+            "",
+            "| Candidate | Comparator | Seeds | Relative difference | Bootstrap 95% CI | Exact p | Holm p |",
+            "|---|---|---:|---:|---:|---:|---:|",
+        ]
+    )
+    selected_pairs = [
+        row
+        for row in paired
+        if row.get("wave") == "wave3"
+        and row.get("lane") == "language_replication"
+        and row.get("metric") == "matched_token_validation_loss"
+    ]
+    for row in selected_pairs:
+        lines.append(
+            f"| {row['architecture']} | {row['comparator']} | {row['paired_seeds']} | "
+            f"{100 * row['relative_difference']:.1f}% | "
+            f"[{row['bootstrap_ci_low']:.4f}, {row['bootstrap_ci_high']:.4f}] | "
+            f"{row['exact_paired_permutation_p']:.4g} | {row['holm_adjusted_p']:.4g} |"
+        )
+    lines.extend(
+        [
+            "",
+            f"Confirmatory promotion requires at least {MIN_CONFIRMATORY_SEEDS} paired seeds, a favorable bootstrap interval, and Holm-adjusted p ≤ 0.05.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def _adaptation_report_detail(adaptation: list[dict[str, Any]]) -> str:
+    lines = [
+        "## Seed-level descriptive metrics",
+        "",
+        "| Architecture | Seeds | Held-out NMSE | Late transition loss | Recovery steps | Update FLOPs |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
+    for architecture in sorted({row["architecture"] for row in adaptation}):
+        selected = [row for row in adaptation if row["architecture"] == architecture]
+        mean = lambda metric: statistics.mean(float(row[metric]) for row in selected if metric in row)
+        lines.append(
+            f"| {architecture} | {len(selected)} | {mean('heldout_nmse'):.4g} | "
+            f"{mean('late_post_transition_loss'):.4g} | {mean('recovery_time_steps'):.3g} | {mean('update_flops'):.4g} |"
+        )
+    lines.extend(
+        [
+            "",
+            "Each row is one base training seed after averaging its registered tasks and held-out schedules.",
+            "",
+            "Important: the completed overnight runner used full-model joint-SGD updates for every architecture. The manifest labels `rls` and `value_only` were declarations, not implemented adapter dispatch. These results are therefore exploratory architecture-adaptation diagnostics, not registered matched-adapter evidence.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def final_aggregate(run_root: Path, report_root: Path) -> dict[str, Any]:
@@ -527,7 +1006,10 @@ def final_aggregate(run_root: Path, report_root: Path) -> dict[str, Any]:
         [],
     )
     paired = _paired_statistics(rows)
-    adaptation = [row for row in rows if row.get("lane") == "adaptation"]
+    language_seed_metrics = _language_seed_observations(rows)
+    dynamics_seed_metrics = _dynamics_seed_observations(rows)
+    adaptation_raw = [row for row in rows if row.get("lane") == "adaptation"]
+    adaptation = _adaptation_seed_observations(rows)
     deletion: list[dict[str, Any]] = []
     for row in rows:
         for subrun in row.get("metrics", {}).get("subruns", []):
@@ -550,13 +1032,16 @@ def final_aggregate(run_root: Path, report_root: Path) -> dict[str, Any]:
     exports = {
         "run_manifest": _write_parquet(run_root / "run_manifest.parquet", manifests),
         "all_metrics": _write_parquet(run_root / "all_metrics.parquet", rows),
+        "language_seed_metrics": _write_parquet(run_root / "language_seed_metrics.parquet", language_seed_metrics),
+        "dynamics_seed_metrics": _write_parquet(run_root / "dynamics_seed_metrics.parquet", dynamics_seed_metrics),
         "paired_seed_metrics": _write_parquet(run_root / "paired_seed_metrics.parquet", paired),
         "adaptation_metrics": _write_parquet(run_root / "adaptation_metrics.parquet", adaptation),
+        "adaptation_row_metrics": _write_parquet(run_root / "adaptation_row_metrics.parquet", adaptation_raw),
         "deletion_metrics": _write_parquet(run_root / "deletion_metrics.parquet", deletion),
         "resource_metrics": _write_parquet(run_root / "resource_metrics.parquet", resources),
         "failures": _write_parquet(run_root / "failures.parquet", failures),
     }
-    outcome, rationale = _decision(rows)
+    outcome, rationale = _decision(rows, paired)
     if outcome not in FINAL_OUTCOMES:
         raise AssertionError("decision outside registered outcome set")
     report_root.mkdir(parents=True, exist_ok=True)
@@ -567,19 +1052,17 @@ def final_aggregate(run_root: Path, report_root: Path) -> dict[str, Any]:
         "OVERNIGHT_EXECUTION_REPORT.md": _report_header("Phase 6 Overnight Execution Report", rows)
         + f"Final outcome: `{outcome}`.\n\n{rationale}\n\nMachine-readable exports: `{json.dumps(exports, sort_keys=True)}`.\n",
         "OVERNIGHT_LANGUAGE_REPORT.md": _report_header("Phase 6 Overnight Language Report", language_rows)
-        + "Primary metrics are held-out cross-entropy, perplexity, throughput, active compute, VRAM, and quality/GPU-hour. "
-        "Use `all_metrics.parquet` and `paired_seed_metrics.parquet` for inferential detail.\n",
+        + _language_report_detail(language_seed_metrics, paired),
         "OVERNIGHT_DYNAMICS_REPORT.md": _report_header("Phase 6 Overnight Dynamics Report", dynamics_rows)
         + "Dynamics rows report held-out NMSE, validation trajectories, optimizer phase counts, conditioning, and data-quality checks.\n",
         "OVERNIGHT_OPTIMIZATION_REPORT.md": _report_header("Phase 6 Overnight Optimization Report", rows)
         + "ALT rows expose algebra/geometry step counts; VP rows freeze geometry under stop-gradient. "
         "Stage 1 Pareto selection is documented in `STAGE1_FRONTIER_REANALYSIS.md`.\n",
-        "OVERNIGHT_ADAPTATION_REPORT.md": _report_header("Phase 6 Overnight Adaptation Report", adaptation)
-        + "The inferential unit is the seed. Held-out schedules are aggregated within seed; early/late loss, excess loss, "
-        "recovery/reacquisition time, update FLOPs, and state bytes are retained in the Parquet export.\n",
+        "OVERNIGHT_ADAPTATION_REPORT.md": _report_header("Phase 6 Overnight Adaptation Report", adaptation_raw)
+        + _adaptation_report_detail(adaptation),
         "OVERNIGHT_DECISION_MEMO.md": "# Phase 6 Overnight Decision Memo\n\n"
         + f"## Decision\n\n`{outcome}`\n\n## Rationale\n\n{rationale}\n\n"
-        + "This is the only registered final outcome emitted by the automated gate. A completed run is not itself evidence for KAM.\n",
+        + "The corrected gate uses only Wave 3, exact seed identity, the registered token checkpoint, bootstrap uncertainty, exact paired permutation tests, and within-family Holm correction. A completed run is not itself evidence for KAM.\n",
         "OVERNIGHT_REPRODUCIBILITY.md": "# Phase 6 Overnight Reproducibility\n\n"
         + "Each row records commit/dirty state, manifest hash, architecture, dataset/tokenizer checksums, seeds, precision, "
         "GPU and framework versions, parameter/resource accounting, budgets, throughput, checkpoints, and failure category. "
@@ -588,6 +1071,8 @@ def final_aggregate(run_root: Path, report_root: Path) -> dict[str, Any]:
     for name, body in reports.items():
         (report_root / name).write_text(body, encoding="utf-8")
     summary = {
+        "analysis_version": "phase6_overnight_v2_seed_stratified",
+        "decision_basis": "wave3_registered_token_checkpoint",
         "gate": gate,
         "row_count": len(rows),
         "decision": outcome,

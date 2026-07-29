@@ -1,0 +1,13 @@
+{
+  "name": "kam-phase6-presentations",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reproducible presentation builds for KAM Phase VI",
+  "scripts": {
+    "build:svg": "node build_kam_phase6_professor_deck_v2.js --svg",
+    "build:pptx": "node build_kam_phase6_professor_deck_v2.js --pptx"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

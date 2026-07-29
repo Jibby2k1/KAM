@@ -9,6 +9,7 @@ from kam.phase6.manifest import build_stage_manifest, build_stage_rows, load_con
 from kam.phase6.gates import evaluate_stage_results
 from kam.phase6.overnight_manifest import (
     WAVE1_TIMEOUT_REPAIR_INDICES,
+    _best_architecture,
     amend_wave1_calibration_fallback_rows,
     amend_wave1_timeout_rows,
     build_preflight_rows,
@@ -17,7 +18,13 @@ from kam.phase6.overnight_manifest import (
     build_wave3_rows,
     write_manifest,
 )
-from kam.phase6.overnight_analysis import _gate
+from kam.phase6.overnight_analysis import (
+    _adaptation_seed_observations,
+    _decision,
+    _gate,
+    _matched_token_point,
+    _paired_statistics,
+)
 from kam.phase6.overnight_runner import _optimization_groups, _resolve_budget, run_row as run_overnight_row
 from kam.phase6.run_array import run_row
 from kam.phase6.stats import bootstrap_ci, equivalence_test, holm_adjust, paired_effect
@@ -149,11 +156,12 @@ def test_phase6_learned_geometry_is_optimized_before_final_freeze() -> None:
 def test_phase6_overnight_language_smoke(tmp_path, monkeypatch) -> None:
     monkeypatch.setenv("PHASE6_OVERNIGHT_SMOKE_SECONDS", "0.05")
     row = dict(build_preflight_rows()[0])
-    row.update(scale="tiny", target_parameter_budget=100_000, batch_size=1, sequence_length=8, num_supports=8, minimum_tokens=8)
+    row.update(scale="tiny", target_parameter_budget=100_000, batch_size=1, sequence_length=8, num_supports=8, minimum_tokens=50_000_000, calibration=False, budget_mode="matched_tokens")
     result = run_overnight_row(row, device="cpu", output_root=tmp_path)
     assert result["status"] == "pass"
     assert result["metrics"]["smoke_override"]
-    assert result["metrics"]["tokens"] >= 8
+    assert result["metrics"]["target_tokens_resolved"] == 8
+    assert 8 <= result["metrics"]["tokens"] < 16
 
 
 def test_phase6_approximate_router_and_initializers() -> None:
@@ -388,3 +396,148 @@ def test_phase6_runner_respects_task_and_optimizer_factors() -> None:
     assert online_memory_result["status"] == "pass"
     assert online_memory_result["metrics"]["memory_used"] == 1
     assert online_memory_result["metrics"]["episodic_active"] == 1
+
+
+def _synthetic_language_row(architecture: str, losses: dict[int, float], *, wave: str = "wave3") -> dict:
+    subruns = []
+    for seed, loss in losses.items():
+        subruns.append(
+            {
+                "training_seed": seed,
+                "validation_loss": loss + 0.2,
+                "best_validation_loss": loss - 0.1,
+                "tokens": 200,
+                "target_tokens_resolved": 100,
+                "loss_history": [
+                    {"tokens": 50, "validation_loss": loss + 0.5},
+                    {"tokens": 100, "validation_loss": loss},
+                    {"tokens": 200, "validation_loss": loss + 0.2},
+                ],
+            }
+        )
+    return {
+        "wave": wave,
+        "lane": "language_replication" if wave == "wave3" else "language",
+        "task": "small_language",
+        "scale": "10M",
+        "architecture": architecture,
+        "status": "pass",
+        "minimum_tokens_per_seed": 100,
+        "metrics": {"subruns": subruns},
+        "metadata": {"git_commit": "clean", "git_dirty": False},
+    }
+
+
+def test_phase6_promotion_ignores_nonlanguage_losses() -> None:
+    rows = [
+        {
+            "status": "pass",
+            "lane": "language",
+            "task": "small_language",
+            "architecture": "T-KAM-ALT",
+            "metrics": {"best_validation_loss": 1.0},
+        },
+        {
+            "status": "pass",
+            "lane": "language",
+            "task": "small_language",
+            "architecture": "T-KAM-F",
+            "metrics": {"best_validation_loss": 2.0},
+        },
+        {
+            "status": "pass",
+            "lane": "dynamics",
+            "task": "controlled_prototype",
+            "architecture": "T-KAM-F",
+            "metrics": {"best_validation_loss": 0.01},
+        },
+    ]
+    assert _best_architecture(rows, {"T-KAM-F", "T-KAM-ALT"}, "T-KAM-F") == "T-KAM-ALT"
+    promoted = build_wave2_rows(rows)
+    assert {row["architecture"] for row in promoted if row["lane"] == "language"} >= {"T-KAM-ALT"}
+
+
+def test_phase6_statistics_pair_exact_seed_identity_and_wave() -> None:
+    rows = [
+        _synthetic_language_row("T-KAM-F", {3: 3.0, 1: 1.0, 2: 2.0}),
+        _synthetic_language_row("T-WIDE", {1: 2.0, 2: 3.0, 3: 4.0}),
+        _synthetic_language_row("T0", {1: 1.8, 2: 2.8, 3: 3.8}),
+        _synthetic_language_row("T-PKM", {1: 1.9, 2: 2.9, 3: 3.9}),
+        _synthetic_language_row("T-KAM-ALT", {1: 0.001}, wave="wave1"),
+    ]
+    paired = _paired_statistics(rows)
+    result = next(
+        row
+        for row in paired
+        if row["wave"] == "wave3"
+        and row["metric"] == "matched_token_validation_loss"
+        and row["architecture"] == "T-KAM-F"
+        and row["comparator"] == "T-WIDE"
+    )
+    assert result["seed_ids"] == [1, 2, 3]
+    assert result["paired_seeds"] == 3
+    assert result["mean_difference"] == -1.0
+    assert result["architecture_mean"] == 2.0
+    assert _decision(rows, paired)[0] == "RETAIN_AS_DIAGNOSTIC_ONLY"
+
+
+def test_phase6_decision_requires_confirmatory_seed_count_and_holm() -> None:
+    seeds = range(1, 9)
+    rows = [
+        _synthetic_language_row("T-KAM-F", {seed: 1.0 + seed * 0.001 for seed in seeds}),
+        _synthetic_language_row("T-WIDE", {seed: 2.2 + seed * 0.001 for seed in seeds}),
+        _synthetic_language_row("T0", {seed: 2.0 + seed * 0.001 for seed in seeds}),
+        _synthetic_language_row("T-PKM", {seed: 2.1 + seed * 0.001 for seed in seeds}),
+    ]
+    paired = _paired_statistics(rows)
+    outcome, rationale = _decision(rows, paired)
+    assert outcome == "PROMOTE_FIXED_KEY_FAST_ALGEBRA"
+    assert "8 paired seeds" in rationale
+
+
+def test_phase6_adaptation_aggregates_schedules_within_base_seed() -> None:
+    subruns = []
+    for base_seed in (3401, 3402):
+        for schedule in (0, 1):
+            for task_index, task in enumerate(("mackey_glass_schedule", "narma_schedule")):
+                subruns.append(
+                    {
+                        "training_seed": base_seed + schedule * 10_000,
+                        "schedule_index": schedule,
+                        "task": task,
+                        "heldout_nmse": float(base_seed + schedule + task_index),
+                        "late_post_transition_loss": float(schedule + task_index),
+                    }
+                )
+    rows = [
+        {
+            "wave": "wave3",
+            "lane": "adaptation",
+            "architecture": "T-KAM-F",
+            "adapter": "value_only",
+            "seed_bundle": [3401, 3402],
+            "status": "pass",
+            "metrics": {"subruns": subruns},
+        }
+    ]
+    aggregated = _adaptation_seed_observations(rows)
+    assert [row["training_seed"] for row in aggregated] == [3401, 3402]
+    assert {row["subrun_count"] for row in aggregated} == {4}
+    assert {row["schedule_count"] for row in aggregated} == {2}
+    assert {row["task_count"] for row in aggregated} == {2}
+    assert {row["adapter_effective"] for row in aggregated} == {"joint_sgd_full_model"}
+    assert not any(row["adapter_registered"] for row in aggregated)
+
+
+def test_phase6_registered_token_metric_interpolates_exact_budget() -> None:
+    row = {"minimum_tokens": 100}
+    subrun = {
+        "loss_history": [
+            {"tokens": 150, "validation_loss": 3.0},
+            {"tokens": 50, "validation_loss": 1.0},
+        ]
+    }
+    loss, tokens, target = _matched_token_point(row, subrun)
+    assert loss == 2.0
+    assert tokens == 100.0
+    assert target == 100

@@ -6,18 +6,18 @@ Held-out streams are aggregated within training seed. The report is descriptive 
 
 ## Summary
 
-- controlled_prototype / D0: mean held-out primary metric=0.043509, SD=0.014786, n=40
-- controlled_prototype / DD-L: mean held-out primary metric=0.044207, SD=0.013634, n=40
-- controlled_prototype / KC-LV: mean held-out primary metric=0.044454, SD=0.014837, n=40
-- controlled_prototype / RF-KV: mean held-out primary metric=0.046492, SD=0.018699, n=40
-- switching_mackey_glass_controlled / D0: mean held-out primary metric=0.044813, SD=0.0065842, n=40
-- switching_mackey_glass_controlled / DD-L: mean held-out primary metric=0.042928, SD=0.0045332, n=40
-- switching_mackey_glass_controlled / KC-LV: mean held-out primary metric=0.044054, SD=0.0065225, n=40
-- switching_mackey_glass_controlled / RF-KV: mean held-out primary metric=0.043272, SD=0.0053972, n=40
-- switching_narma_controlled / D0: mean held-out primary metric=1.6219e+05, SD=1.0258e+06, n=40
-- switching_narma_controlled / DD-L: mean held-out primary metric=4.1355e+05, SD=2.6155e+06, n=40
-- switching_narma_controlled / KC-LV: mean held-out primary metric=27549, SD=1.7423e+05, n=40
-- switching_narma_controlled / RF-KV: mean held-out primary metric=7.8799e+05, SD=4.9837e+06, n=40
+- controlled_prototype / D0: mean held-out primary metric=0.051212, SD=0.021469, n=40
+- controlled_prototype / DD-L: mean held-out primary metric=0.052099, SD=0.019646, n=40
+- controlled_prototype / KC-LV: mean held-out primary metric=0.055876, SD=0.02967, n=40
+- controlled_prototype / RF-KV: mean held-out primary metric=0.053769, SD=0.020383, n=40
+- switching_mackey_glass_controlled / D0: mean held-out primary metric=0.044002, SD=0.0053217, n=40
+- switching_mackey_glass_controlled / DD-L: mean held-out primary metric=0.043459, SD=0.0054893, n=40
+- switching_mackey_glass_controlled / KC-LV: mean held-out primary metric=0.044336, SD=0.0057276, n=40
+- switching_mackey_glass_controlled / RF-KV: mean held-out primary metric=0.043825, SD=0.005077, n=40
+- switching_narma_controlled / D0: mean held-out primary metric=0.022857, SD=0.015356, n=40
+- switching_narma_controlled / DD-L: mean held-out primary metric=0.033992, SD=0.028807, n=40
+- switching_narma_controlled / KC-LV: mean held-out primary metric=0.030498, SD=0.024775, n=40
+- switching_narma_controlled / RF-KV: mean held-out primary metric=0.03235, SD=0.028976, n=40
 
 ## Evidence
 
