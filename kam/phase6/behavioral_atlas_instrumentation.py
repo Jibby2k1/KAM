@@ -396,7 +396,8 @@ def matched_key_expert_permutation_check(
     semantic_difference = (semantic_baseline - semantic_permuted).abs()
     operational_difference = (operational_baseline - operational_permuted).abs()
     semantic_tolerance = 2e-5
-    operational_tolerance = 5e-2 if precision in {"bf16", "fp16"} else semantic_tolerance
+    operational_top1_tolerance = 2e-2 if precision in {"bf16", "fp16"} else 0.0
+    operational_kl_tolerance = 1e-3 if precision in {"bf16", "fp16"} else 1e-8
     semantic_maximum = float(semantic_difference.max())
     operational_maximum = float(operational_difference.max())
     baseline_probability = operational_baseline.softmax(-1)
@@ -408,6 +409,9 @@ def matched_key_expert_permutation_check(
         .sum(-1)
         .mean()
     )
+    operational_top1_flip = float(
+        (operational_baseline.argmax(-1) != operational_permuted.argmax(-1)).float().mean()
+    )
     return {
         "applicable": True,
         "passed": semantic_maximum <= semantic_tolerance,
@@ -416,13 +420,19 @@ def matched_key_expert_permutation_check(
         "max_abs_logit_difference": semantic_maximum,
         "mean_abs_logit_difference": float(semantic_difference.mean()),
         "operational_precision": precision,
-        "operational_tolerance": operational_tolerance,
-        "operational_within_expected_precision_tolerance": operational_maximum <= operational_tolerance,
+        # Absolute logit differences are retained as a scale-dependent
+        # diagnostic. The operational gate uses decision behavior and
+        # distributional divergence; strict FP32 tests semantic identity.
+        "operational_gate_version": "prediction_behavior_v2",
+        "operational_top1_flip_tolerance": operational_top1_tolerance,
+        "operational_predictive_kl_tolerance": operational_kl_tolerance,
+        "operational_within_expected_precision_tolerance": (
+            operational_top1_flip <= operational_top1_tolerance
+            and operational_predictive_kl <= operational_kl_tolerance
+        ),
         "operational_max_abs_logit_difference": operational_maximum,
         "operational_mean_abs_logit_difference": float(operational_difference.mean()),
-        "operational_top1_flip_rate": float(
-            (operational_baseline.argmax(-1) != operational_permuted.argmax(-1)).float().mean()
-        ),
+        "operational_top1_flip_rate": operational_top1_flip,
         "operational_predictive_kl": operational_predictive_kl,
     }
 

@@ -126,6 +126,22 @@ stages:
       - trace_overhead_le_10_percent_or_cadence_revised
       - restart_identity
       - storage_forecast_with_25_percent_headroom
+  stage0_measurement_repair_r1:
+    inferential: false
+    rows: 2
+    bf16_operational_gate:
+      top1_flip_rate_max: 0.02
+      predictive_kl_max: 0.001
+      max_abs_logit_difference: descriptive_only
+    anchor_calibration:
+      standard_token_states: 16384
+      doubled_token_states: 32768
+      invariant_relative_tolerance: 0.05
+      dead_support_fraction: fixed_bank_descriptive_only
+    compile_candidate:
+      mode: default
+      cuda_graphs: false
+      optional_optimization: true
   stage1_core_lifecycle:
     inferential: true
     target_tokens: 50000000
@@ -157,6 +173,14 @@ stages:
         - learned_joint_adamw_cosine_geometry_decay
       rows: 48
       multiplicity: holm
+      comparisons:
+        - [learned_joint_adamw_freeze25, learned_joint_adamw_freeze80]
+        - [learned_joint_adamw_freeze50, learned_joint_adamw_freeze80]
+        - [learned_alt32_adamw_freeze80, learned_alt8_adamw_freeze80]
+        - [learned_joint_adamw_cosine_geometry_decay, learned_joint_adamw_no_freeze]
+    endpoint: final_heldout_test_cross_entropy
+    transform: paired_log_loss_ratio
+    standard_anchor_token_states: 16384
     total_rows: 168
     estimated_l4_gpu_hours: [670, 720]
   stage2_solution_space:

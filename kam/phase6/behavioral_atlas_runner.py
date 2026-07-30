@@ -109,10 +109,15 @@ def _optimizer_provenance(
                 "weight_decay": float(group["weight_decay"]),
                 "parameter_count": int(sum(parameter.numel() for parameter in group["params"])),
             })
+    geometry_lr_schedule = str(row.get("geometry_lr_schedule", "constant"))
+    effective_schedule = str(row["optimization"])
+    if geometry_lr_schedule != "constant":
+        effective_schedule = f"{effective_schedule}+geometry_lr_{geometry_lr_schedule}"
     return {
         "declared_label": str(row["optimization"]),
         "effective_optimizer_class": "AdamW",
-        "effective_schedule": str(row["optimization"]),
+        "effective_schedule": effective_schedule,
+        "geometry_lr_schedule": geometry_lr_schedule,
         "alternating_ratio": row.get("alternating_ratio"),
         "compiled_training_forward": bool(compiled),
         "parameter_groups": groups,
@@ -138,13 +143,26 @@ def _training_start_schedule(
     return starts, digest.hexdigest()
 
 
-def _compile_training_forward(model: nn.Module, enabled: bool, device: torch.device) -> tuple[nn.Module, bool, str | None]:
+def _compile_training_forward(
+    model: nn.Module,
+    enabled: bool,
+    device: torch.device,
+    *,
+    mode: str = "default",
+    cudagraphs: bool = False,
+) -> tuple[nn.Module, bool, str | None]:
     if not enabled:
         return model, False, None
     if device.type != "cuda" or not hasattr(torch, "compile"):
         return model, False, "compile_unavailable"
     try:
-        return torch.compile(model, mode="reduce-overhead"), True, None
+        # reduce-overhead enables CUDA graphs and triggered an allocator
+        # checkpoint invariant in PyTorch 2.8 on the L4 profile. Keep graphs
+        # opt-in and benchmark the stable default compiler path first.
+        import torch._inductor.config as inductor_config
+
+        inductor_config.triton.cudagraphs = bool(cudagraphs)
+        return torch.compile(model, mode=mode), True, None
     except Exception as exc:  # pragma: no cover - hardware/runtime dependent
         return model, False, f"compile_setup_failed:{type(exc).__name__}:{exc}"
 
@@ -191,8 +209,22 @@ def run_behavioral_atlas_row(row: dict[str, Any], *, device: str | torch.device,
         joint_optimizer = _joint_optimizer(algebra, geometry if geometry_trainable else [], row, device)
         algebra_optimizer = geometry_optimizer = None
     optimizers = [joint_optimizer, algebra_optimizer, geometry_optimizer]
-    training_model, compile_applied, compile_error = _compile_training_forward(model, bool(row.get("compile_training", False)), device)
-    execution.update({"compile_requested": bool(row.get("compile_training", False)), "compile_applied": compile_applied, "compile_error": compile_error})
+    compile_mode = str(row.get("compile_mode", "default"))
+    compile_cudagraphs = bool(row.get("compile_cudagraphs", False))
+    training_model, compile_applied, compile_error = _compile_training_forward(
+        model,
+        bool(row.get("compile_training", False)),
+        device,
+        mode=compile_mode,
+        cudagraphs=compile_cudagraphs,
+    )
+    execution.update({
+        "compile_requested": bool(row.get("compile_training", False)),
+        "compile_applied": compile_applied,
+        "compile_error": compile_error,
+        "compile_mode": compile_mode if row.get("compile_training", False) else None,
+        "compile_cudagraphs": compile_cudagraphs if row.get("compile_training", False) else None,
+    })
     optimizer_provenance = _optimizer_provenance(row, optimizers, compiled=compile_applied)
 
     smoke_tokens = os.environ.get("PHASE6_BEHAVIORAL_ATLAS_SMOKE_TOKENS")
@@ -262,6 +294,12 @@ def run_behavioral_atlas_row(row: dict[str, Any], *, device: str | torch.device,
         point["behavior"] = behavior
         point["window_dynamics"] = window.summarize(reset=True)
         point["optimizer_state_l2_norm"] = optimizer_state_norms(model, optimizers)
+        point["learning_rates"] = {
+            str(group.get("group_name", f"group_{group_index}")): float(group["lr"])
+            for optimizer in optimizers
+            if optimizer is not None
+            for group_index, group in enumerate(optimizer.param_groups)
+        }
         traces.append(point)
 
     record_point(tokens_seen=0, step=0, phase="dense_control" if not geometry else "fixed" if fixed else "pre_freeze", train_loss=None, checkpoint_target=0)
@@ -285,6 +323,8 @@ def run_behavioral_atlas_row(row: dict[str, Any], *, device: str | torch.device,
     model.train()
     stride = max(int(row.get("window_sample_stride", 64)), 1)
     alternating_ratio = int(row.get("alternating_ratio") or 1)
+    geometry_lr_schedule = str(row.get("geometry_lr_schedule", "constant"))
+    initial_geometry_lr = float(row["geometry_lr"])
     while tokens_seen < target_tokens:
         if geometry and not fixed and freeze_fraction < 1.0 and not frozen and tokens_seen >= freeze_target:
             _set_trainable(algebra, geometry, algebra_active=True, geometry_active=False)
@@ -306,6 +346,12 @@ def run_behavioral_atlas_row(row: dict[str, Any], *, device: str | torch.device,
         if optimizer is None:
             raise AssertionError("registered optimizer has no parameters")
         optimizer.zero_grad(set_to_none=True)
+        if geometry_lr_schedule == "cosine" and joint_optimizer is not None:
+            progress = min(max(tokens_seen / max(target_tokens, 1), 0.0), 1.0)
+            geometry_lr = initial_geometry_lr * 0.5 * (1.0 + math.cos(math.pi * progress))
+            for group in joint_optimizer.param_groups:
+                if group.get("group_name") == "geometry":
+                    group["lr"] = geometry_lr
         starts = starts_schedule[step]
         inputs, targets = _sample_windows(tokens, starts, sequence_length)
         inputs = inputs.to(device, non_blocking=True)
@@ -419,6 +465,17 @@ def run_behavioral_atlas_row(row: dict[str, Any], *, device: str | torch.device,
         "model_snapshots": model_snapshots,
         "peak_vram_bytes": peak_vram,
         "execution": execution,
+        "geometry_lr_schedule": geometry_lr_schedule,
+        "final_geometry_learning_rate": next(
+            (
+                float(group["lr"])
+                for optimizer in optimizers
+                if optimizer is not None
+                for group in optimizer.param_groups
+                if group.get("group_name") == "geometry"
+            ),
+            None,
+        ),
     }
     row_root = output_root / "rows" / "behavioral_atlas_v2"
     row_root.mkdir(parents=True, exist_ok=True)

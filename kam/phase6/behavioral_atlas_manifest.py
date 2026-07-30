@@ -11,6 +11,10 @@ CAMPAIGN = "phase6_behavioral_atlas_v2"
 STAGE0_SEEDS = (76_001, 76_002, 76_003)
 STAGE0_TARGET_TOKENS = 2_000_000
 STAGE0_CHECKPOINTS = (0, 250_000, 500_000, 750_000, 1_000_000, 1_250_000, 1_500_000, 1_600_000, 1_800_000, 2_000_000)
+STAGE1_PRIMARY_SEEDS = tuple(range(76_101, 76_131))
+STAGE1_SECONDARY_SEEDS = tuple(range(76_101, 76_113))
+STAGE1_TARGET_TOKENS = 50_000_000
+STAGE1_CHECKPOINTS = (0, 1_000_000, 2_000_000, 5_000_000, 10_000_000, 20_000_000, 30_000_000, 40_000_000, 50_000_000)
 
 ARMS: dict[str, dict[str, Any]] = {
     "T0": {
@@ -63,6 +67,33 @@ ARMS: dict[str, dict[str, Any]] = {
     },
 }
 
+STAGE1_ARMS: dict[str, dict[str, Any]] = {
+    "fixed_keys": ARMS["fixed_keys"],
+    "learned_joint_adamw_freeze80": ARMS["learned_joint_freeze80"],
+    "learned_joint_adamw_no_freeze": ARMS["learned_joint_adamw"],
+    "learned_alt8_adamw_freeze80": ARMS["learned_alt8_freeze80"],
+    "learned_joint_adamw_freeze25": {**ARMS["learned_joint_freeze80"], "freeze_fraction": 0.25},
+    "learned_joint_adamw_freeze50": {**ARMS["learned_joint_freeze80"], "freeze_fraction": 0.50},
+    "learned_alt32_adamw_freeze80": ARMS["learned_alt32_freeze80"],
+    "learned_joint_adamw_cosine_geometry_decay": {
+        **ARMS["learned_joint_adamw"],
+        "geometry_lr_schedule": "cosine",
+    },
+}
+
+STAGE1_PRIMARY_ARMS = (
+    "fixed_keys",
+    "learned_joint_adamw_freeze80",
+    "learned_joint_adamw_no_freeze",
+    "learned_alt8_adamw_freeze80",
+)
+STAGE1_SECONDARY_ARMS = (
+    "learned_joint_adamw_freeze25",
+    "learned_joint_adamw_freeze50",
+    "learned_alt32_adamw_freeze80",
+    "learned_joint_adamw_cosine_geometry_decay",
+)
+
 PROFILE_KINDS: tuple[dict[str, Any], ...] = (
     {"profile_kind": "trace_off", "trace_level": "off", "anchor_token_states": 0, "compile_training": False},
     {"profile_kind": "standard_trace", "trace_level": "standard", "anchor_token_states": 8192, "compile_training": False},
@@ -89,16 +120,18 @@ def _base_row(
     anchor_token_states: int = 8192,
     compile_training: bool = False,
 ) -> dict[str, Any]:
-    spec = ARMS[arm]
+    spec = (STAGE1_ARMS if stage == "stage1_core_lifecycle" else ARMS)[arm]
     if stage == "stage0":
         checkpoints = [value for value in STAGE0_CHECKPOINTS if value <= target_tokens]
+    elif stage == "stage1_core_lifecycle":
+        checkpoints = [value for value in STAGE1_CHECKPOINTS if value <= target_tokens]
     else:
         checkpoints = [0, target_tokens // 2, target_tokens]
     checkpoints = sorted(set(checkpoints + [0, target_tokens]))
     row: dict[str, Any] = {
         "campaign": CAMPAIGN,
         "stage": stage,
-        "inferential": False,
+        "inferential": stage == "stage1_core_lifecycle",
         "arm": arm,
         "profile_kind": profile_kind,
         **spec,
@@ -139,10 +172,16 @@ def _base_row(
         "anchor_token_states": int(anchor_token_states),
         "anchor_batch_size": 16,
         "window_sample_stride": 64,
-        "save_snapshots": stage == "stage0" and profile_kind is None,
+        "save_snapshots": (stage == "stage0" and profile_kind is None) or stage == "stage1_core_lifecycle",
         "compile_training": bool(compile_training),
+        "compile_mode": "default",
+        "compile_cudagraphs": False,
         "preregistered": True,
-        "scientific_role": "noninferential_stage0_instrumentation",
+        "scientific_role": (
+            "inferential_stage1_core_lifecycle"
+            if stage == "stage1_core_lifecycle"
+            else "noninferential_stage0_instrumentation"
+        ),
     }
     row["row_id"] = _row_id(row)
     return row
@@ -177,8 +216,25 @@ def build_behavioral_atlas_rows(stage: str) -> list[dict[str, Any]]:
             )
             for profile in PROFILE_KINDS
         )
+    elif stage == "stage1_core_lifecycle":
+        rows = [
+            _base_row(
+                stage=stage, arm=arm, seed=seed, target_tokens=STAGE1_TARGET_TOKENS,
+                anchor_token_states=16_384,
+            )
+            for seed in STAGE1_PRIMARY_SEEDS
+            for arm in STAGE1_PRIMARY_ARMS
+        ]
+        rows.extend(
+            _base_row(
+                stage=stage, arm=arm, seed=seed, target_tokens=STAGE1_TARGET_TOKENS,
+                anchor_token_states=16_384,
+            )
+            for seed in STAGE1_SECONDARY_SEEDS
+            for arm in STAGE1_SECONDARY_ARMS
+        )
     else:
-        raise ValueError("stage must be l4_profile, l4_profile_r2, l4_profile_r3, or stage0")
+        raise ValueError("stage must be l4_profile, l4_profile_r2, l4_profile_r3, stage0, or stage1_core_lifecycle")
     if len({row["row_id"] for row in rows}) != len(rows):
         raise AssertionError("behavioral-atlas manifest contains duplicate row IDs")
     return rows
@@ -196,8 +252,8 @@ def write_manifest(path: str | Path, stage: str, rows: Iterable[dict[str, Any]] 
         "path": str(destination),
         "rows": len(materialized),
         "sha256": hashlib.sha256(payload).hexdigest(),
-        "arms": list(ARMS),
-        "inferential": False,
+        "arms": sorted({str(row["arm"]) for row in materialized}),
+        "inferential": bool(materialized and materialized[0].get("inferential")),
     }
 
 
@@ -207,6 +263,12 @@ __all__ = [
     "PROFILE_KINDS",
     "STAGE0_CHECKPOINTS",
     "STAGE0_SEEDS",
+    "STAGE1_ARMS",
+    "STAGE1_CHECKPOINTS",
+    "STAGE1_PRIMARY_ARMS",
+    "STAGE1_PRIMARY_SEEDS",
+    "STAGE1_SECONDARY_ARMS",
+    "STAGE1_SECONDARY_SEEDS",
     "build_behavioral_atlas_rows",
     "write_manifest",
 ]

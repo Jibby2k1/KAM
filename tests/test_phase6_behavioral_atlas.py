@@ -34,6 +34,25 @@ def test_behavioral_atlas_manifest_counts_and_executable_labels() -> None:
     assert all("sgd" not in row["optimization"] for row in stage0)
 
 
+def test_stage1_manifest_matches_preregistered_paired_design() -> None:
+    rows = build_behavioral_atlas_rows("stage1_core_lifecycle")
+    assert len(rows) == 168
+    assert len({row["row_id"] for row in rows}) == 168
+    assert all(row["inferential"] and row["target_tokens"] == 50_000_000 for row in rows)
+    assert all(row["anchor_token_states"] == 16_384 for row in rows)
+    primary_only = [row for row in rows if row["seed"] >= 76_113]
+    assert len(primary_only) == 18 * 4
+    assert all(row["arm"] in {
+        "fixed_keys",
+        "learned_joint_adamw_freeze80",
+        "learned_joint_adamw_no_freeze",
+        "learned_alt8_adamw_freeze80",
+    } for row in primary_only)
+    decay = [row for row in rows if row["arm"] == "learned_joint_adamw_cosine_geometry_decay"]
+    assert len(decay) == 12
+    assert all(row["geometry_lr_schedule"] == "cosine" and row["freeze_fraction"] == 1.0 for row in decay)
+
+
 def test_canonical_kam_arms_share_initial_state_within_seed() -> None:
     rows = [row for row in build_behavioral_atlas_rows("stage0") if row["seed"] == 76_001 and row["profile_kind"] is None and row["architecture"] == "canonical_kam"]
     hashes = set()
@@ -100,7 +119,9 @@ def test_matched_key_expert_permutation_is_function_symmetry(tmp_path: Path) -> 
     assert result["applicable"]
     assert result["semantic_precision"] == "fp32"
     assert result["passed"]
-    assert result["operational_max_abs_logit_difference"] <= result["operational_tolerance"]
+    assert result["operational_within_expected_precision_tolerance"]
+    assert result["operational_top1_flip_rate"] <= result["operational_top1_flip_tolerance"]
+    assert result["operational_predictive_kl"] <= result["operational_predictive_kl_tolerance"]
     assert result["max_abs_logit_difference"] <= result["tolerance"]
 
 
@@ -129,6 +150,17 @@ def test_tiny_end_to_end_stage0_records_provenance_behavior_and_freeze(tmp_path:
     assert result["postfreeze_relative_l2_drift"] == 0.0
     assert any(point["behavior"] is not None for point in result["traces"])
     assert any(point["window_dynamics"]["memory_keys"] for point in result["traces"][1:])
+
+
+def test_cosine_geometry_schedule_decays_without_freezing(tmp_path: Path) -> None:
+    row = _tiny_row(tmp_path, "learned_joint_adamw")
+    row["geometry_lr_schedule"] = "cosine"
+    result = run_behavioral_atlas_row(row, device="cpu", output_root=tmp_path / "run_cosine")
+    learning_rates = [point["learning_rates"]["geometry"] for point in result["traces"]]
+    assert learning_rates[0] > learning_rates[-1]
+    assert result["freeze_tokens"] is None
+    assert result["final_geometry_learning_rate"] < row["geometry_lr"]
+    assert result["optimizer_provenance"]["effective_schedule"].endswith("geometry_lr_cosine")
 
 
 def test_t0_control_runs_without_memory(tmp_path: Path) -> None:

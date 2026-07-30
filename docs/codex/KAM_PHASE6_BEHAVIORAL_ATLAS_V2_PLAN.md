@@ -490,7 +490,7 @@ validated stage at a time, not as one monolithic queue.
 
 ## Stage 0 implementation and L4 profile gate (2026-07-30)
 
-Status: `STAGE0_RUNNING`; the 24-row noninferential Stage 0 array was submitted from clean commit `f7d69ec10d77a4bca0d81eee5750ac81043d6d16` on 2026-07-30. Array `38373854` runs at most four L4 rows concurrently; report job `38373855` is dependency-gated.
+Status: original Stage 0 finished with 23/24 rows and preserved decision `STAGE0_BLOCKED`. Array `38373854` completed except compile index 23; report job `38373855` completed and recorded the blocked gate. The repair and Stage 1 dependency graph is documented in `KAM_PHASE6_BEHAVIORAL_ATLAS_STAGE0_REPAIR_STAGE1_HANDOFF.md`.
 
 ### Implemented contracts
 
@@ -522,4 +522,4 @@ Final anchor support entropy was 0.713, dead-support fraction 0.467, effective s
 
 The [locked 24-row manifest](../../configs/phase6/behavioral_atlas_v2_stage0_manifest.jsonl) SHA-256 is `9514749acc0c5ac3432569d48c6157bd8d4c1a617cfa7b06b170c3cd005bf78a`; forecast is 4.224 L4 GPU-hours, about 1.06 hours at four-way occupancy, and 1.82 GiB storage including 25% headroom. The signed query/key interaction value is an inclusion-exclusion residual: negative values mean combined churn is less than the sum of isolated query and key churn, not negative route change.
 
-Next: wait for all 24 Stage 0 rows and report job `38373855`, copy the audited results locally, and review the measurement-quality gates before designing Stage 1. Do not begin the 168-row Stage 1 or draw comparative conclusions until the Stage 0 report passes.
+Original Stage 0 completed 23/24 rows and remains preserved as `STAGE0_BLOCKED`; the compile candidate failed in the PyTorch 2.8 CUDA Graph allocator. The revisioned noninferential repair uses prediction-behavior BF16 tolerances, fixed-bank anchor invariants, a 16,384-to-32,768 anchor reevaluation from a saved checkpoint, and a no-CUDA-graph compile candidate. Stage 1 is now fully implemented as the locked 168-row paired design and is dependency-gated on `STAGE0_REPAIRED_PASS`. See `KAM_PHASE6_BEHAVIORAL_ATLAS_STAGE0_REPAIR_STAGE1_HANDOFF.md`.
