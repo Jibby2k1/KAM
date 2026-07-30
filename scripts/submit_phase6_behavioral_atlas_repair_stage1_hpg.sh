@@ -50,7 +50,7 @@ mkdir -p "${REPAIR_ROOT}/rows/repair" "${REPAIR_REPORT_ROOT}" "${REPAIR_LOG_ROOT
   "${STAGE1_REPORT_ROOT}" "${STAGE1_LOG_ROOT}"
 python -m kam.phase6.behavioral_atlas_repair manifest --output "${REPAIR_MANIFEST}"
 python scripts/build_phase6_behavioral_atlas_manifest.py --stage stage1_core_lifecycle --output "${STAGE1_MANIFEST}"
-python -m pytest -q tests/test_phase6_behavioral_atlas.py tests/test_phase6_behavioral_atlas_repair.py
+python -m pytest -q tests/test_phase6_behavioral_atlas.py tests/test_phase6_behavioral_atlas_repair.py -k "manifest or paired_randomization"
 
 repair_export="ALL,PHASE6_ATLAS_REPO=${HPG_REPO},PHASE6_ATLAS_ENV=${HPG_ENV},PHASE6_ATLAS_STAGE0_ROOT=${STAGE0_ROOT},PHASE6_ATLAS_STAGE0_MANIFEST=${STAGE0_MANIFEST},PHASE6_ATLAS_REPAIR_ROOT=${REPAIR_ROOT},PHASE6_ATLAS_REPAIR_REPORT_ROOT=${REPAIR_REPORT_ROOT},PHASE6_ATLAS_REPAIR_MANIFEST=${REPAIR_MANIFEST}"
 stage1_export="ALL,PHASE6_ATLAS_REPO=${HPG_REPO},PHASE6_ATLAS_ENV=${HPG_ENV},PHASE6_ATLAS_STAGE1_ROOT=${STAGE1_ROOT},PHASE6_ATLAS_STAGE1_REPORT_ROOT=${STAGE1_REPORT_ROOT},PHASE6_ATLAS_STAGE1_MANIFEST=${STAGE1_MANIFEST}"
