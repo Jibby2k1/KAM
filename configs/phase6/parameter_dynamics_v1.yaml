@@ -1,0 +1,193 @@
+campaign: phase6_parameter_dynamics_v1
+status: instrumentation_pilot_submitted
+decision: characterize_and_test_learned_memory_parameter_dynamics
+scientific_scope:
+  primary_corpus: tinystories_v2_128mib
+  interpretation: mechanism_only
+  does_not_reopen_confirmation_v2: true
+  fixed_sample_no_optional_stopping: true
+prerequisite_correction:
+  issue: equal-token freeze-boundary checkpoint was misclassified as post-freeze
+  observed_existing_rows:
+    mechanism_rows: 16
+    geometry_updated: 16
+    prefreeze_gradient_observed: 16
+    freeze_fraction_valid: 16
+    frozen_final_tuning: 16
+    zero_postfreeze_drift: 16
+    postfreeze_checkpoint_observed_under_old_boundary: 0
+  required_rule:
+    postfreeze_membership: explicit_event_phase_or_tokens_strictly_greater_than_freeze_tokens
+    checkpoint_immediately_after_freeze: true
+hardware:
+  gpu_type: NVIDIA_L4
+  concurrent_gpus: 4
+  gpus_per_row: 1
+  array_throttle: 4
+  wall_limit: "08:00:00"
+architecture_lock:
+  d_model: 104
+  n_heads: 8
+  n_layers: 8
+  d_ff: 416
+  num_supports: 1024
+  top_k: 4
+  expert_mode: low_rank
+  expert_rank: 4
+  vocab_size: 256
+  sequence_length: 128
+  batch_size: 16
+  target_parameter_budget: 10000000
+  parameter_tolerance_fraction: 0.01
+  require_identical_initial_state_hash_within_seed: true
+  allow_padding_only_for_exact_parameter_match: true
+stages:
+  instrumentation_pilot:
+    inferential: false
+    seeds: [74001, 74002]
+    token_budget: 5000000
+    purpose: validate_trace_correctness_storage_runtime_and_event_order
+    required_before_main:
+      - all_parameter_groups_found
+      - identical_initial_state_hashes_within_seed
+      - finite_trace_metrics
+      - freeze_event_checkpoint_order_valid
+      - fixed_arm_key_hash_unchanged
+      - report_and_all_required_figures_build
+  fixed_sample_main:
+    inferential: true
+    paired_seeds: 12
+    fresh_seed_range: [74101, 74112]
+    token_budget: 50000000
+    validation_token_checkpoints: [0, 1000000, 2000000, 5000000, 10000000, 20000000, 30000000, 40000000, 50000000]
+    test_evaluation: once_at_final_checkpoint
+arms:
+  fixed_keys:
+    geometry_trainable_fraction: 0.0
+    optimization: joint_algebra_only
+    role: exact_structural_control
+  learned_joint_freeze50:
+    geometry_trainable_fraction: 0.5
+    optimization: joint_sgd
+    role: freeze_timing_diagnostic
+  learned_joint_freeze80:
+    geometry_trainable_fraction: 0.8
+    optimization: joint_sgd
+    role: primary_learned_arm
+  learned_alt8_freeze80:
+    geometry_trainable_fraction: 0.8
+    optimization: alternating_8_algebra_1_geometry
+    role: optimizer_separation_arm
+  learned_joint_no_freeze:
+    geometry_trainable_fraction: 1.0
+    optimization: joint_sgd
+    role: final_tuning_counterfactual
+trace:
+  capture_before_optimizer_step: true
+  capture_after_optimizer_step: true
+  capture_immediately_after_freeze: true
+  parameter_groups: [memory_keys, memory_experts, memory_gates, attention, feedforward, embeddings, output_head]
+  aggregate_metrics:
+    - parameter_l2_norm
+    - cumulative_l2_delta_from_initial
+    - cumulative_relative_l2_delta_from_initial
+    - cosine_similarity_to_initial
+    - incremental_l2_delta_from_previous_checkpoint
+    - incremental_relative_delta_per_million_tokens
+    - raw_gradient_l2_norm
+    - clipped_gradient_l2_norm
+    - update_to_weight_ratio
+    - fraction_elements_changed_above_tolerance
+  memory_metrics:
+    - key_angular_displacement_median
+    - key_angular_displacement_q90
+    - key_effective_rank
+    - key_spectral_entropy
+    - nearest_neighbor_identity_retention
+    - routing_topk_jaccard_to_initial
+    - support_usage_entropy
+    - dead_support_fraction
+    - memory_gate_mean
+  snapshots:
+    full_model: [0, 40000000, 50000000]
+    memory_keys: [0, 1000000, 2000000, 5000000, 10000000, 20000000, 30000000, 40000000, 50000000]
+    snapshot_dtype: float16
+  identity:
+    record_parameter_names_shapes_dtypes: true
+    hash_initial_state_by_group: true
+    hash_keys_at_every_registered_checkpoint: true
+estimands:
+  natural_stabilization:
+    metric: late_to_early_key_update_rate_ratio
+    early_window_tokens: [1000000, 10000000]
+    late_prefreeze_window_tokens: [30000000, 40000000]
+    practical_threshold: 0.25
+    pass: upper_paired_bootstrap_95_bound_below_threshold
+  learned_geometry_value:
+    metric: paired_log_validation_loss_ratio_at_40000000_tokens
+    comparisons:
+      - [learned_joint_freeze80, fixed_keys]
+      - [learned_alt8_freeze80, fixed_keys]
+    multiplicity: holm
+  final_tuning_freeze_effect:
+    metric: paired_log_test_loss_ratio_at_50000000_tokens
+    comparison: [learned_joint_freeze80, learned_joint_no_freeze]
+  freeze_integrity:
+    requirements: [postfreeze_key_hash_unchanged, postfreeze_relative_l2_drift_le_1e-12, no_key_gradient_tensor_after_freeze]
+  parameter_performance_coupling:
+    status: secondary_descriptive
+    metric: association_between_key_drift_and_validation_improvement
+    interval: seed_cluster_bootstrap_95_percent
+statistics:
+  pairing: same_training_data_and_initialization_seed_across_arms
+  interval: paired_bootstrap_95_percent_20000_replicates
+  test: exact_paired_sign_flip_when_feasible
+  alpha: 0.05
+  multiplicity: holm_within_primary_mechanism_family
+  report_effect_sizes: [paired_log_ratio, geometric_relative_change, median_change, win_rate, standardized_effect_dz]
+  no_layer_or_support_pseudoreplication: true
+required_figures:
+  - parameter_group_relative_drift
+  - key_update_rate_and_freeze
+  - layer_checkpoint_drift_heatmap
+  - key_angular_displacement
+  - routing_stability_and_usage
+  - stabilization_ratio_intervals
+  - parameter_change_vs_validation_change
+  - final_tuning_freeze_effect
+row_counts:
+  pilot: 10
+  main: 60
+  total: 70
+estimated_runtime:
+  learned_row_l4_hours_at_50m: "4.0-4.3"
+  pilot_gpu_hours: "4-6"
+  main_gpu_hours: "240-258"
+  main_four_l4_wall_hours: "60-65"
+failure_policy:
+  instrumentation_failure: repair_before_main_and_repeat_entire_pilot
+  infrastructure_failure: rerun_exact_same_manifest_row_only
+  scientific_failure: no_seed_replacement_or_extension
+  missing_trace_with_valid_loss: row_invalid_for_parameter_dynamics
+implementation:
+  manifest: kam/phase6/parameter_dynamics_manifest.py
+  runner: kam/phase6/parameter_dynamics_runner.py
+  trace: kam/phase6/parameter_trace.py
+  statistics: kam/phase6/parameter_dynamics_statistics.py
+  analysis: kam/phase6/parameter_dynamics_analysis.py
+  submission: scripts/submit_phase6_parameter_dynamics_hpg.sh
+gpu_execution:
+  bf16_autocast: true
+  tf32_matmul: true
+  fused_adamw: true
+  inactive_alt_parameter_gradients_disabled: true
+  zero_grad_set_to_none: true
+  checkpoint_only_expensive_tracing: true
+  expandable_cuda_segments: true
+deployed_pilot:
+  submitted_utc: "2026-07-30T08:16:08.979332+00:00"
+  checkout: /blue/uf-dsi/rvalle1/KAM_parameter_dynamics_v1_20260730
+  manifest_sha256: 0abd9dcb4bd318c9e56abb63179131e8e702ce120feb904fdbe0c2a438d0807c
+  array_job: 38356889
+  final_report_job: 38356890
+  main_submitted: false

@@ -1,0 +1,384 @@
+campaign: phase6_behavioral_atlas_v2
+status: stage0_implemented_l4_profile_pass_full_stage0_not_submitted
+purpose: characterize_optimization_function_expressivity_generalization_adaptation_and_limitations
+replaces_parameter_dynamics_v1_main_if_approved: true
+principles:
+  fixed_sample_within_inferential_stage: true
+  no_optional_stopping: true
+  no_seed_replacement: true
+  exact_infrastructure_rerun_only: true
+  test_evaluate_once_after_locked_training: true
+  inferential_unit: paired_training_seed
+  no_token_layer_support_or_checkpoint_pseudoreplication: true
+comparison_lenses:
+  component_causal:
+    lock:
+      - executable_decoder_shape
+      - active_computation
+      - support_count
+      - expert_form
+      - initialized_tensor_values
+      - data_bytes
+      - data_order
+      - token_budget
+      - precision
+      - checkpoint_schedule
+    allow_difference: one_declared_mechanism
+  end_to_end_utility:
+    lock: [registered_parameter_scale, token_budget_within_task_cell]
+    measured_outcomes:
+      - total_parameters
+      - trainable_parameters
+      - active_parameters_per_token
+      - estimated_flops
+      - wall_seconds
+      - tokens_per_second
+      - peak_vram_bytes
+      - sampled_gpu_energy_joules
+data:
+  language_primary:
+    id: tinystories_v2_128mib
+    train: data/phase6_confirmation/TinyStoriesV2-GPT4-train.128MiB.txt
+    validation: data/phase6_confirmation/TinyStories-valid.validation.txt
+    test: data/phase6_confirmation/TinyStories-valid.test.txt
+  language_replication:
+    id: tinyshakespeare
+    caveat: small_repeated_low_diversity_corpus
+  controlled_tasks:
+    - variable_copy_length_extrapolation
+    - associative_recall_with_distractors
+    - hidden_regime_transitions
+    - switching_mackey_glass
+    - stable_switching_narma
+  require:
+    - dataset_or_generator_hash
+    - tokenizer_hash
+    - split_identity_and_nonoverlap
+    - sample_order_hash
+anchors:
+  immutable: true
+  minimum_token_states_per_layer_per_domain: 8192
+  store_inputs_targets_condition_labels_and_hashes: true
+  compare_standard_to_doubled_bank_in_stage0: true
+  sufficiency_tolerance_relative:
+    utilization_metrics: 0.05
+    functional_rank_metrics: 0.05
+    intervention_effects: 0.05
+  routing_states: [Q0_K0, Qt_K0, Q0_Kt, Qt_Kt]
+architecture:
+  canonical:
+    d_model: 104
+    n_heads: 8
+    n_layers: 8
+    d_ff: 416
+    num_supports: 1024
+    top_k: 4
+    expert_mode: low_rank
+    expert_rank: 4
+    sequence_length: 128
+    batch_size: 16
+    target_parameters: 10000000
+  utility_families:
+    - T0
+    - T-WIDE
+    - T-MEMTOK
+    - T-MOE
+    - T-PKM
+    - T-KAM-F
+    - T-KAM-L
+    - promoted_KAM
+optimizer_semantics:
+  executable_labels_required: true
+  canonical_algebra_lr: 0.0003
+  canonical_geometry_lr: 0.00003
+  optimizer: AdamW
+  reject_aliases: [joint_sgd]
+  record:
+    - optimizer_class
+    - parameter_group_names
+    - learning_rate_by_group
+    - weight_decay_by_group
+    - scheduler_state
+    - effective_adapter
+stages:
+  stage0_instrumentation_profile:
+    inferential: false
+    seeds: [76001, 76002, 76003]
+    target_tokens: 2000000
+    canonical_arms:
+      - T0
+      - fixed_keys
+      - learned_joint_adamw
+      - learned_joint_freeze80
+      - learned_alt8_freeze80
+      - learned_alt32_freeze80
+    functional_rows: 18
+    profile_repeatability_rows: 6
+    total_rows: 24
+    excluded_from_inference: true
+    gates:
+      - manifest_and_initial_state_identity
+      - finite_complete_trace
+      - executable_optimizer_and_adapter_provenance
+      - freeze_event_order_and_integrity
+      - joint_key_expert_permutation_symmetry
+      - standard_anchor_bank_sufficient
+      - trace_overhead_le_10_percent_or_cadence_revised
+      - restart_identity
+      - storage_forecast_with_25_percent_headroom
+  stage1_core_lifecycle:
+    inferential: true
+    target_tokens: 50000000
+    checkpoints: [0, 1000000, 2000000, 5000000, 10000000, 20000000, 30000000, 40000000, 50000000]
+    primary:
+      paired_seeds: 30
+      fresh_seed_range: [76101, 76130]
+      arms:
+        - fixed_keys
+        - learned_joint_adamw_freeze80
+        - learned_joint_adamw_no_freeze
+        - learned_alt8_adamw_freeze80
+      rows: 120
+      multiplicity: holm
+      target_power: 0.90
+      planning_standardized_effect_dz: 0.65
+      comparisons:
+        - [learned_joint_adamw_no_freeze, fixed_keys]
+        - [learned_joint_adamw_freeze80, fixed_keys]
+        - [learned_joint_adamw_freeze80, learned_joint_adamw_no_freeze]
+        - [learned_alt8_adamw_freeze80, learned_joint_adamw_freeze80]
+    secondary:
+      paired_seeds: 12
+      seed_subset: [76101, 76112]
+      arms:
+        - learned_joint_adamw_freeze25
+        - learned_joint_adamw_freeze50
+        - learned_alt32_adamw_freeze80
+        - learned_joint_adamw_cosine_geometry_decay
+      rows: 48
+      multiplicity: holm
+    total_rows: 168
+    estimated_l4_gpu_hours: [670, 720]
+  stage2_solution_space:
+    screen:
+      design: deterministic_constrained_d_optimal_space_filling
+      cells: 72
+      seeds_per_cell: 3
+      target_tokens: 10000000
+      rows: 216
+      level_minimum_occurrences: 12
+      estimable_interactions: [schedule_x_geometry_lr, supports_x_top_k, expert_x_supports, initialization_x_router_metric, regularizer_x_supports, trust_region_x_geometry_lr]
+      validation_only_selection: true
+      factors:
+        geometry_lr: [0.000003, 0.00001, 0.00003, 0.0001]
+        schedule: [joint, alt2, alt8, alt32]
+        initialization: [random, data_sample, kmeans, farthest_point]
+        router_metric: [dot, cosine, negative_l2]
+        temperature: [0.5, 1.0, 2.0]
+        supports: [256, 1024, 4096]
+        top_k: [1, 4, 16]
+        expert: [vector, low_rank_4, low_rank_16, shared_basis]
+        regularizer: [none, coverage_repulsion_load_balance]
+        trust_region: [off, on]
+      selection: constrained_pareto_quality_function_use_support_health_stability_and_l4_cost
+    confirmation:
+      maximum_promoted_configs: 6
+      fresh_paired_seeds: 12
+      target_tokens: 50000000
+      maximum_rows: 72
+      fixed_sample_after_promotion_freeze: true
+  stage3_expressivity_generalization:
+    architectures: [T0, T-WIDE, T-MEMTOK, T-MOE, T-PKM, T-KAM-F, canonical_T-KAM-L, promoted_KAM]
+    parameter_scales: [2000000, 10000000, 30000000]
+    tasks:
+      - tinystories_language
+      - variable_copy_length_extrapolation
+      - associative_recall_distractors
+      - hidden_regime_transitions
+      - switching_dynamics
+    screening_seeds: 4
+    maximum_screen_rows: 480
+    promotion_stratified_by_task: true
+    maximum_architectures_per_task_for_confirmation: 4
+    fresh_confirmation_seeds: 12
+    equal_tokens_within_task_scale_cell: true
+  stage4_causal_behavioral_atlas:
+    retraining: false
+    reuse_stage1_and_stage3_checkpoints: true
+    lightweight_interventions_all_primary_seeds: true
+    deep_diagnostic_seed_subset: 6
+    deep_checkpoint_fractions: [0.0, 0.2, 0.5, 0.8, 1.0]
+    interventions:
+      - memory_branch_off
+      - keys_restore_initial
+      - experts_restore_initial
+      - keys_shuffle
+      - experts_shuffle
+      - matched_key_expert_permutation
+      - uniform_routing
+      - support_deletion_top_random_bottom
+      - layerwise_memory_deletion
+      - evaluation_topk_sweep
+      - evaluation_temperature_sweep
+      - checkpoint_key_value_swap
+    support_deletion_fractions: [0.01, 0.05, 0.10, 0.25, 0.50]
+  stage5_shift_adaptation:
+    screen_seeds: 3
+    confirmation_seeds: 12
+    shifts: [corpus_domain, sequence_length, hidden_regime, delayed_dynamics]
+    adapters:
+      - no_update
+      - full_model_adamw
+      - value_expert_only_adamw
+      - geometry_only_adamw
+      - gate_only_adamw
+      - rls_readout
+      - nlms_readout
+      - trust_region_geometry_with_algebra_transport
+    protocol: predict_then_update_prequential
+    declared_adapter_must_equal_effective_adapter: true
+  stage6_evidence_triggered_solutions:
+    automatic_submission: false
+    requires_new_preregistration_and_fresh_seeds: true
+metrics:
+  performance:
+    - train_loss
+    - validation_loss
+    - heldout_test_loss
+    - perplexity
+    - area_under_validation_learning_curve
+    - tokens_and_gpu_seconds_to_threshold
+    - generalization_gap
+    - calibration_error
+    - brier_score
+    - rare_condition_performance
+    - prediction_true_signed_absolute_and_log_error
+  parameter_dynamics:
+    - parameter_l2_norm
+    - cumulative_relative_l2_drift
+    - incremental_relative_l2_drift_per_million_tokens
+    - cosine_and_angular_displacement
+    - fraction_elements_changed
+    - raw_and_clipped_gradient_norm
+    - optimizer_update_norm
+    - update_to_weight_ratio
+    - effective_learning_rate
+    - optimizer_state_norm
+    - gradient_and_update_window_mean_median_p90_variance_snr
+  routing_geometry:
+    - weighted_and_unweighted_topk_overlap
+    - route_margin_distribution
+    - route_entropy
+    - global_effective_support_count
+    - support_frequency_gini
+    - dead_support_fraction_with_seed_interval_and_anchor_sufficiency
+    - load_balance_error
+    - support_specialization_mutual_information
+    - angular_displacement
+    - nearest_neighbor_retention
+    - stable_rank
+    - participation_ratio
+    - normalized_spectral_entropy
+    - minimum_support_separation
+    - query_key_routing_decomposition
+  function_expressivity:
+    - memory_contribution_ratio
+    - memory_residual_and_loss_gradient_alignment
+    - anchor_logit_drift
+    - predictive_kl
+    - top1_flip_rate
+    - function_drift
+    - hidden_and_memory_output_linear_cka
+    - memory_output_stable_rank_and_singular_entropy
+    - randomized_jacobian_singular_spectrum
+    - hutchinson_jacobian_norm
+    - gradient_covariance_trace
+    - unique_routing_signatures
+    - scaling_slope_by_tokens_stored_and_active_parameters
+  interventions:
+    - delta_loss
+    - predictive_kl
+    - top1_flip_rate
+    - logit_l2_change
+    - delta_calibration
+    - delta_branch_norm
+  adaptation:
+    - early_and_late_error
+    - cumulative_regret
+    - area_under_postshift_error
+    - recovery_half_life
+    - adaptation_gain
+    - preshift_retention
+    - catastrophic_forgetting
+    - parameter_and_function_drift
+    - trust_region_rejection_reasons
+statistics:
+  primary_transform: paired_log_loss_ratio
+  interval: paired_seed_bootstrap_95_percent_20000_replicates
+  test: exact_or_deterministic_monte_carlo_paired_sign_flip
+  report:
+    - geometric_relative_change
+    - median_paired_change
+    - win_rate
+    - standardized_effect_dz
+  multiplicity: holm_within_declared_family
+  equivalence:
+    component_relative_loss_margin: 0.01
+    end_to_end_relative_loss_margin: 0.02
+  stabilization_practical_threshold: 0.25
+  longitudinal_seed_summaries:
+    - area_under_learning_curve
+    - time_to_threshold
+    - preregistered_early_late_window_ratio
+  cross_task_model: secondary_hierarchical_only
+figures:
+  - train_validation_learning_curves
+  - prediction_truth_and_log_error
+  - generalization_and_calibration
+  - parameter_group_drift
+  - gradient_update_dynamics
+  - layer_checkpoint_drift_heatmap
+  - angular_and_spectral_geometry
+  - stabilization_intervals
+  - query_key_routing_decomposition
+  - support_usage_lorenz_entropy_gini_dead
+  - route_margin_and_churn
+  - branch_contribution_and_function_drift
+  - cka_and_functional_rank
+  - causal_intervention_forest_and_deletion_curve
+  - capacity_and_scaling_curves
+  - resource_quality_pareto
+  - adaptation_recovery_and_forgetting
+hardware:
+  target_gpu: NVIDIA_L4
+  concurrent_gpus: 4
+  gpus_per_row: 1
+  array_throttle: 4
+gpu_optimization:
+  bf16_autocast: true
+  tf32: true
+  fused_adamw: true
+  zero_grad_set_to_none: true
+  nonblocking_transfers: true
+  disable_inactive_group_gradients: true
+  pre_generated_hashed_sample_indices: true
+  cheap_online_metric_accumulators: true
+  deep_diagnostics_separate_checkpoint_reuse_jobs: true
+  batch_interventions_per_checkpoint_load: true
+  exact_router_for_scientific_comparisons: true
+  compile_gate:
+    benchmark: eager_vs_torch_compile_on_L4
+    minimum_steady_state_speedup: 0.10
+    require_numerical_agreement: true
+  slurm_bucketing: [predicted_runtime, parameter_scale, peak_vram]
+  content_addressed_atomic_resumable_rows: true
+storage:
+  key_snapshots_dtype: float16
+  full_state_only_at_registered_restart_and_deep_checkpoints: true
+  require_forecast_and_25_percent_headroom: true
+  seed_grain_parquet_and_jsonl_fallback: true
+estimated_compute:
+  phase6_1_observed_50m_10m_parameter_row_l4_hours: approximately_4
+  stage1_l4_gpu_hours: [670, 720]
+  complete_campaign_l4_gpu_hours_lower_bound: 2000
+  execution_policy: validate_and_deploy_one_stage_at_a_time
