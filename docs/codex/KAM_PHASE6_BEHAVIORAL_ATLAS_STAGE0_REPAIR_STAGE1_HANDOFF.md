@@ -73,3 +73,25 @@ The graph, manifest hashes, clean git commit, wall limits, and job IDs are writt
 6. After completion, the Stage 1 human report, LLM handoff, paired-comparison table, and figures.
 
 Do not infer model superiority from Stage 0 or its repair. Do not extend Stage 1 seeds or stop it early based on interim outcomes.
+
+## Live HPG deployment status — 2026-07-30
+
+Execution is pinned to clean tracked source commit `60dc8d0dc1bed4e4393b6b29f37dac50eb4825e5`; corpus symlinks are the only external checkout mount and are recorded separately in the job graph.
+
+Repair revision 2:
+
+- repair array `38385302`: completed 2/2;
+- repair audit `38385303`: completed with `STAGE0_REPAIRED_PASS`;
+- repair manifest SHA-256: `23fc1c0a67dc4fc455031e46fc9c5b463edf4e91c43260fc4616e66c5492410b`;
+- all original and revised gates passed;
+- anchor invariant changes ranged from 0.066% to 3.60%, below 5%;
+- no-CUDA-graph compilation completed but was rejected in favor of eager execution because speedup was `0.9194×` and validation agreement was insufficient.
+
+Stage 1:
+
+- cosine L4 preflight `38385304_123`: completed in 1:33 with status `pass`, 3,291 tokens/s, 16,384 anchor states, restart identity, no hard freeze, and geometry LR decay from `3e-5` to `2.46e-11`;
+- full 168-row array `38385305`: running with `%4` L4 occupancy and eight-hour row limit;
+- final report `38385306`: dependency-held until the array ends;
+- Stage 1 manifest SHA-256: `5db31ee4f7b31ac5761358079b66411c1019013d49cc89d934778840a3f8de5c`.
+
+A useful first progress check is 2026-07-31 around 10:00 EDT. Full completion remains projected at roughly seven to eight days under uninterrupted four-L4 occupancy.
