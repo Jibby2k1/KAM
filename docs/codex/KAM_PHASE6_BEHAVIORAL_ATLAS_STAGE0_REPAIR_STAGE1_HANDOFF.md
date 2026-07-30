@@ -6,6 +6,10 @@ The original noninferential Stage 0 evidence is preserved and remains `STAGE0_BL
 
 This revision implements a two-row measurement repair and a dependency-gated 168-row Stage 1 deployment. Stage 1 may start only if the revisioned repair report returns `STAGE0_REPAIRED_PASS`.
 
+### Deployment repair ledger
+
+Repair revision 1 jobs `38384977`–`38384981` exposed two infrastructure assumptions before Stage 1 began: regenerated Stage 0 IDs did not match the original immutable manifest, and the clean checkout did not contain git-ignored corpus files. Both repair rows recorded explicit failures and the dependency gate held Stage 1. Revision 2 reads row IDs directly from the original manifest SHA and links the checksum-validated corpora from the prior Stage 0 checkout. Revision-1 artifacts remain preserved; only its never-runnable downstream jobs are cancelled.
+
 ## Why the measurement rules changed
 
 These changes are confined to noninferential Stage 0 calibration; they do not alter or reinterpret a scientific outcome.
@@ -22,8 +26,8 @@ These changes are confined to noninferential Stage 0 calibration; they do not al
 - Compile reevaluation reruns only the failed profile row using the stable no-CUDA-graph path.
 - Original Stage 0 manifest SHA-256: `9514749acc0c5ac3432569d48c6157bd8d4c1a617cfa7b06b170c3cd005bf78a`.
 - Repair implementation: `kam/phase6/behavioral_atlas_repair.py`.
-- Repair outputs: `results/phase6/behavioral_atlas_v2/stage0_measurement_repair_r1/` on the configured HPG result root.
-- Repair report: `reports/phase6/behavioral_atlas_v2/stage0_measurement_repair_r1/BEHAVIORAL_ATLAS_STAGE0_REPAIR_REPORT.md`.
+- Repair outputs: `results/phase6/behavioral_atlas_v2/stage0_measurement_repair_r2/` on the configured HPG result root.
+- Repair report: `reports/phase6/behavioral_atlas_v2/stage0_measurement_repair_r2/BEHAVIORAL_ATLAS_STAGE0_REPAIR_REPORT.md`.
 
 ## Registered Stage 1
 

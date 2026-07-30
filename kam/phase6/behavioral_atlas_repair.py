@@ -23,7 +23,7 @@ from kam.phase6.behavioral_atlas_manifest import build_behavioral_atlas_rows
 from kam.phase6.behavioral_atlas_runner import build_behavioral_atlas_model, run_behavioral_atlas_row
 from kam.phase6.overnight_runner import _language_corpus
 
-REPAIR_VERSION = "stage0_measurement_repair_r1"
+REPAIR_VERSION = "stage0_measurement_repair_r2"
 BF16_TOP1_TOLERANCE = 0.02
 BF16_PREDICTIVE_KL_TOLERANCE = 1e-3
 ANCHOR_RELATIVE_TOLERANCE = 0.05
@@ -43,8 +43,15 @@ def _repair_id(payload: dict[str, Any]) -> str:
     return "p6atlas_repair_" + hashlib.sha256(data).hexdigest()[:16]
 
 
-def build_repair_rows() -> list[dict[str, Any]]:
-    stage0 = build_behavioral_atlas_rows("stage0")
+def build_repair_rows(stage0_manifest: str | Path | None = None) -> list[dict[str, Any]]:
+    if stage0_manifest is None:
+        stage0 = build_behavioral_atlas_rows("stage0")
+    else:
+        stage0 = [
+            json.loads(line)
+            for line in Path(stage0_manifest).read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
     source = next(
         row for row in stage0
         if row["profile_kind"] is None
@@ -81,8 +88,8 @@ def build_repair_rows() -> list[dict[str, Any]]:
     return [anchor, compile_row]
 
 
-def write_repair_manifest(path: str | Path) -> dict[str, Any]:
-    rows = build_repair_rows()
+def write_repair_manifest(path: str | Path, stage0_manifest: str | Path | None = None) -> dict[str, Any]:
+    rows = build_repair_rows(stage0_manifest)
     payload = "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows).encode()
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -365,6 +372,7 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="command", required=True)
     manifest_parser = subparsers.add_parser("manifest")
     manifest_parser.add_argument("--output", required=True)
+    manifest_parser.add_argument("--stage0-manifest")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--manifest", required=True)
     run_parser.add_argument("--index", type=int, required=True)
@@ -378,7 +386,7 @@ def main() -> None:
     audit_parser.add_argument("--report-root", required=True)
     args = parser.parse_args()
     if args.command == "manifest":
-        result = write_repair_manifest(args.output)
+        result = write_repair_manifest(args.output, args.stage0_manifest)
     elif args.command == "run":
         result = run_repair_manifest_row(
             args.manifest,

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from kam.phase6.behavioral_atlas_repair import build_repair_rows
 from kam.phase6.behavioral_atlas_stage1_analysis import PRIMARY_COMPARISONS, paired_comparisons
 
@@ -16,6 +18,15 @@ def test_repair_manifest_is_bounded_and_revisioned() -> None:
     assert compiled["compile_mode"] == "default"
     assert compiled["compile_cudagraphs"] is False
     assert compiled["supersedes_row_id"]
+
+
+def test_repair_manifest_can_resolve_original_immutable_stage0_ids() -> None:
+    manifest = Path("configs/phase6/behavioral_atlas_v2_stage0_manifest.jsonl")
+    rows = build_repair_rows(manifest)
+    anchor = next(row for row in rows if row["repair_kind"] == "anchor_checkpoint_reevaluation")
+    compiled = next(row for row in rows if row["repair_kind"] == "compile_candidate_no_cudagraph")
+    assert anchor["source_row_id"] == "p6atlas_493d613d96cdefa3"
+    assert compiled["supersedes_row_id"] == "p6atlas_30ed78b738bcf849"
 
 
 def test_paired_randomization_and_holm_are_seed_paired() -> None:
