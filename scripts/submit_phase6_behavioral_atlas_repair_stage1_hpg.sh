@@ -42,6 +42,8 @@ if [[ ! -f "${STAGE0_MANIFEST}" ]]; then
   echo "Deployment blocked: original Stage 0 manifest is missing: ${STAGE0_MANIFEST}" >&2
   exit 1
 fi
+exclude_path="$(git rev-parse --git-path info/exclude)"
+grep -qxF "/data/phase6_confirmation/" "${exclude_path}" || printf "%s\n" "/data/phase6_confirmation/" >> "${exclude_path}"
 mkdir -p "${HPG_REPO}/data/phase6_confirmation"
 for corpus_file in TinyStoriesV2-GPT4-train.128MiB.txt TinyStories-valid.validation.txt TinyStories-valid.test.txt; do
   source_path="${CORPUS_SOURCE_REPO}/data/phase6_confirmation/${corpus_file}"
@@ -82,6 +84,7 @@ payload = {
     "submitted_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
     "git_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
     "git_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"], text=True).strip()),
+    "tracked_source_dirty": bool(subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=no"], text=True).strip()),
     "gpu_type": "NVIDIA L4",
     "repair": {
         "manifest": repair_manifest,

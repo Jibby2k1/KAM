@@ -8,7 +8,7 @@ This revision implements a two-row measurement repair and a dependency-gated 168
 
 ### Deployment repair ledger
 
-Repair revision 1 jobs `38384977`–`38384981` exposed two infrastructure assumptions before Stage 1 began: regenerated Stage 0 IDs did not match the original immutable manifest, and the clean checkout did not contain git-ignored corpus files. Both repair rows recorded explicit failures and the dependency gate held Stage 1. Revision 2 reads row IDs directly from the original manifest SHA and links the checksum-validated corpora from the prior Stage 0 checkout. Revision-1 artifacts remain preserved; only its never-runnable downstream jobs are cancelled.
+Repair revision 1 jobs `38384977`–`38384981` exposed two infrastructure assumptions before Stage 1 began: regenerated Stage 0 IDs did not match the original immutable manifest, and the clean checkout did not contain git-ignored corpus files. Both repair rows recorded explicit failures and the dependency gate held Stage 1. Revision 2 reads row IDs directly from the original manifest SHA and links the checksum-validated corpora from the prior Stage 0 checkout. Revision-1 artifacts remain preserved; only its never-runnable downstream jobs are cancelled. Corpus files are mounted as checkout-local symlinks and explicitly excluded in `.git/info/exclude`; the job graph records tracked-source cleanliness separately from data mounts.
 
 ## Why the measurement rules changed
 
