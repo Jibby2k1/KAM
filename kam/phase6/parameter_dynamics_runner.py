@@ -7,7 +7,10 @@ import json
 import math
 import os
 import random
+import shutil
+import tempfile
 import time
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -93,14 +96,50 @@ def _save_key_snapshot(model: nn.Module, path: Path, metadata: dict[str, Any]) -
     path.parent.mkdir(parents=True, exist_ok=True)
     keys = {f"layer{index}": layer.keys.detach().to(device="cpu", dtype=torch.float16)
             for index, layer in enumerate(getattr(model, "memory_layers", []))}
-    torch.save({"keys": keys, "metadata": metadata}, path)
+    _stage_and_publish_torch_save({"keys": keys, "metadata": metadata}, path)
     return str(path)
 
 
 def _save_model_snapshot(model: nn.Module, path: Path, row: dict[str, Any], metadata: dict[str, Any]) -> str:
     path.parent.mkdir(parents=True, exist_ok=True)
-    torch.save({"model": {key: value.detach().cpu() for key, value in model.state_dict().items()}, "row": row, "metadata": metadata}, path)
+    _stage_and_publish_torch_save(
+        {"model": {key: value.detach().cpu() for key, value in model.state_dict().items()}, "row": row, "metadata": metadata},
+        path,
+    )
     return str(path)
+
+
+def _stage_and_publish_torch_save(payload: Any, path: Path) -> None:
+    """Stage a checkpoint locally, then atomically publish it with retries."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    attempts = max(int(os.environ.get("PHASE6_SNAPSHOT_WRITE_ATTEMPTS", "8")), 1)
+    initial_delay = max(float(os.environ.get("PHASE6_SNAPSHOT_WRITE_RETRY_SECONDS", "2")), 0.0)
+    staging_root = Path(os.environ.get("SLURM_TMPDIR") or tempfile.gettempdir())
+    staging_root.mkdir(parents=True, exist_ok=True)
+    local_path = staging_root / f"kam_snapshot_{os.getpid()}_{uuid.uuid4().hex}.pt"
+    remote_temp = path.with_name(f".{path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
+    try:
+        torch.save(payload, local_path)
+        expected_size = local_path.stat().st_size
+        last_error: OSError | None = None
+        for attempt in range(attempts):
+            try:
+                shutil.copyfile(local_path, remote_temp)
+                actual_size = remote_temp.stat().st_size
+                if actual_size != expected_size:
+                    raise OSError(f"snapshot size mismatch: expected {expected_size}, wrote {actual_size}")
+                os.replace(remote_temp, path)
+                return
+            except OSError as error:
+                last_error = error
+                remote_temp.unlink(missing_ok=True)
+                if attempt + 1 < attempts:
+                    time.sleep(min(initial_delay * (2 ** attempt), 30.0))
+        raise OSError(f"failed to publish snapshot {path} after {attempts} attempts") from last_error
+    finally:
+        local_path.unlink(missing_ok=True)
+        remote_temp.unlink(missing_ok=True)
 
 
 def _set_trainable(algebra: list[nn.Parameter], geometry: list[nn.Parameter], *, algebra_active: bool, geometry_active: bool) -> None:
