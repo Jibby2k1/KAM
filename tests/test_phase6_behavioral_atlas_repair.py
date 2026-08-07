@@ -48,3 +48,17 @@ def test_paired_randomization_and_holm_are_seed_paired() -> None:
     assert all(row["mean_log_loss_ratio"] < 0 for row in comparisons)
     assert all(row["geometric_relative_change"] < 0 for row in comparisons)
     assert all(row["win_rate_first_lower_loss"] == 1.0 for row in comparisons)
+    assert not comparisons[0]["equivalence_supported"]
+
+
+def test_paired_bootstrap_tost_supports_equivalence_inside_one_percent() -> None:
+    rows = []
+    for seed in range(30):
+        baseline = 2.0 + seed * 1e-4
+        rows.extend([
+            {"arm": "candidate", "seed": seed, "test_loss": baseline * (1.0 + (seed % 3 - 1) * 0.0002)},
+            {"arm": "reference", "seed": seed, "test_loss": baseline},
+        ])
+    comparison = paired_comparisons(rows, (("candidate", "reference"),), "primary")[0]
+    assert comparison["equivalence_method"] == "paired bootstrap TOST via 90% CI at alpha=0.05"
+    assert comparison["equivalence_supported"]

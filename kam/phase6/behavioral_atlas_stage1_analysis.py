@@ -81,11 +81,14 @@ def seed_grain_row(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _bootstrap_mean_ci(values: list[float], *, seed: int, draws: int = 20_000) -> tuple[float, float]:
+def _bootstrap_mean_ci(
+    values: list[float], *, seed: int, draws: int = 20_000, confidence: float = 0.95
+) -> tuple[float, float]:
     generator = np.random.default_rng(seed)
     array = np.asarray(values, dtype=np.float64)
     samples = generator.choice(array, size=(draws, len(array)), replace=True).mean(axis=1)
-    low, high = np.quantile(samples, (0.025, 0.975))
+    alpha = (1.0 - confidence) / 2.0
+    low, high = np.quantile(samples, (alpha, 1.0 - alpha))
     return float(low), float(high)
 
 
@@ -135,6 +138,13 @@ def paired_comparisons(seed_rows: list[dict[str, Any]], comparisons: tuple[tuple
         mean = statistics.mean(differences)
         standard_deviation = statistics.stdev(differences) if len(differences) > 1 else 0.0
         low, high = _bootstrap_mean_ci(differences, seed=61_000 + index + (0 if family == "primary" else 100))
+        equivalence_low, equivalence_high = _bootstrap_mean_ci(
+            differences,
+            seed=63_000 + index + (0 if family == "primary" else 100),
+            confidence=0.90,
+        )
+        equivalence_lower_margin = math.log(0.99)
+        equivalence_upper_margin = math.log(1.01)
         p_value, method, draws = _paired_randomization_p(differences, seed=62_000 + index + (0 if family == "primary" else 100))
         output.append({
             "family": family,
@@ -153,6 +163,11 @@ def paired_comparisons(seed_rows: list[dict[str, Any]], comparisons: tuple[tuple
             "bootstrap_95_ci_relative_change": [math.exp(low) - 1.0, math.exp(high) - 1.0],
             "equivalence_margin_relative": 0.01,
             "equivalence_supported_by_95_ci": low > math.log(0.99) and high < math.log(1.01),
+            "equivalence_method": "paired bootstrap TOST via 90% CI at alpha=0.05",
+            "equivalence_bootstrap_90_ci_log_ratio": [equivalence_low, equivalence_high],
+            "equivalence_bootstrap_90_ci_relative_change": [math.exp(equivalence_low) - 1.0, math.exp(equivalence_high) - 1.0],
+            "equivalence_log_ratio_margins": [equivalence_lower_margin, equivalence_upper_margin],
+            "equivalence_supported": equivalence_low > equivalence_lower_margin and equivalence_high < equivalence_upper_margin,
             "standardized_effect_dz": mean / standard_deviation if standard_deviation > 0 else None,
             "p_value_two_sided": p_value,
             "test": method,
@@ -322,11 +337,11 @@ def analyze_stage1(run_root: str | Path, report_root: str | Path, manifest: str 
         "## Validity checks", "",
     ]
     lines.extend(f"- {key}: `{value}`" for key, value in checks.items())
-    lines.extend(["", "## Registered paired comparisons", "", "| Family | First ÷ second | n | Geometric relative Δ | Bootstrap 95% CI | Win rate | dz | raw p | Holm p | Reject |", "|---|---|---:|---:|---:|---:|---:|---:|---:|---|"])
+    lines.extend(["", "## Registered paired comparisons", "", "| Family | First ÷ second | n | Geometric relative Δ | Bootstrap 95% CI | Win rate | dz | raw p | Holm p | Reject | Equivalent within ±1% |", "|---|---|---:|---:|---:|---:|---:|---:|---:|---|---|"])
     for row in comparison_rows:
         ci = row["bootstrap_95_ci_relative_change"]
         dz = "—" if row["standardized_effect_dz"] is None else f"{row['standardized_effect_dz']:.3g}"
-        lines.append(f"| {row['family']} | {row['first_arm']} ÷ {row['second_arm']} | {row['n']} | {100 * row['geometric_relative_change']:.3g}% | [{100 * ci[0]:.3g}%, {100 * ci[1]:.3g}%] | {row['win_rate_first_lower_loss']:.3g} | {dz} | {row['p_value_two_sided']:.4g} | {row['holm_adjusted_p']:.4g} | {row['reject_holm_0_05']} |")
+        lines.append(f"| {row['family']} | {row['first_arm']} ÷ {row['second_arm']} | {row['n']} | {100 * row['geometric_relative_change']:.3g}% | [{100 * ci[0]:.3g}%, {100 * ci[1]:.3g}%] | {row['win_rate_first_lower_loss']:.3g} | {dz} | {row['p_value_two_sided']:.4g} | {row['holm_adjusted_p']:.4g} | {row['reject_holm_0_05']} | {row['equivalence_supported']} |")
     lines.extend([
         "", "## What the figures show", "",
         "Learning curves show when arms separate; key-drift curves show geometry motion and freezing; the cosine-LR panel verifies smooth stabilization; paired-effect intervals show uncertainty; held-out distributions show seed variability.", "",
