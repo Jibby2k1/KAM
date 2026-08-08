@@ -1,0 +1,54 @@
+{
+  "audit": {
+    "checks": {
+      "actual_nvidia_l4": true,
+      "all_rows_passed": true,
+      "all_rows_present": true,
+      "anchors_identical_within_seed_and_size": true,
+      "bf16_tf32_fused_adamw": true,
+      "bounded_profile_budget": true,
+      "executable_optimizer_provenance": true,
+      "finite_metrics": true,
+      "freeze_integrity": true,
+      "initial_states_identical_within_seed_and_identity_group": true,
+      "permutation_symmetry": false,
+      "restart_identity_when_registered": true,
+      "sample_order_identical_within_seed_and_budget": true,
+      "standard_trace_complete": true
+    },
+    "expected_rows": 1,
+    "missing_row_ids": [],
+    "observed_rows": 1,
+    "passed": false
+  },
+  "campaign": "phase6_behavioral_atlas_v2",
+  "decision": "L4_PROFILE_BLOCKED",
+  "figures": [
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_runtime_throughput.png",
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_runtime_throughput.svg",
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_routing_decomposition.png",
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_routing_decomposition.svg",
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_functional_behavior.png",
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_functional_behavior.svg",
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_key_drift.png",
+    "/blue/uf-dsi/rvalle1/KAM_behavioral_atlas_v2_results/reports/phase6/behavioral_atlas_v2/l4_profile/figures/stage0_key_drift.svg"
+  ],
+  "forecast": {
+    "estimated_four_l4_wall_hours": 0.0055000000000000005,
+    "estimated_l4_gpu_hours": 0.022000000000000002,
+    "forecast_bytes": 900000,
+    "forecast_gib": 0.0008381903171539307,
+    "required_with_25_percent_headroom_gib": 0.0010477378964424133,
+    "row_forecasts": [
+      {
+        "forecast_bytes": 900000,
+        "parameter_count": 9984112,
+        "row_id": "p6atlas_2edc4c7738657ba1"
+      }
+    ],
+    "rows": 1
+  },
+  "profile_metrics": {},
+  "rows": 1,
+  "stage": "l4_profile"
+}
