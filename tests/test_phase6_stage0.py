@@ -82,3 +82,29 @@ def test_phase6_forward_measurement_is_finite() -> None:
     metrics = measure_forward(memory, batch_size=1, sequence_length=4, d_model=8, repeats=2, warmup=1)
     assert metrics["forward_median_ms"] > 0
     assert metrics["throughput_tokens_per_sec"] > 0
+
+
+def test_support_id_tie_breaking_is_matched_permutation_invariant() -> None:
+    memory = SparseSeparableMemory(SparseMemoryConfig(
+        d_model=4,
+        num_supports=6,
+        top_k=2,
+        expert_mode="vector",
+        router_tie_breaking="support_id",
+        gate_init=1.0,
+    ), seed=13)
+    with torch.no_grad():
+        memory.keys.fill_(0.5)
+        memory.experts.values.copy_(torch.arange(24, dtype=torch.float32).reshape(6, 4))
+    query = torch.ones(3, 4)
+    baseline = memory(query)
+    selected_ids = memory.support_ids[memory.route(query).indices]
+    permutation = torch.tensor([5, 2, 4, 1, 3, 0])
+    with torch.no_grad():
+        memory.keys.copy_(memory.keys.detach()[permutation])
+        memory.experts.values.copy_(memory.experts.values.detach()[permutation])
+        memory.support_ids.copy_(memory.support_ids.detach()[permutation])
+    permuted = memory(query)
+    permuted_ids = memory.support_ids[memory.route(query).indices]
+    assert torch.equal(selected_ids, permuted_ids)
+    assert torch.equal(baseline, permuted)

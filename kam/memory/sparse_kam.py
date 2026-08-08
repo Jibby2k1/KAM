@@ -24,6 +24,7 @@ class SparseMemoryConfig:
     metric: str = "dot"
     temperature: float = 1.0
     router_chunk_size: int | None = None
+    router_tie_breaking: str = "legacy"
     include_global: bool = True
     gate_init: float = 0.0
 
@@ -42,6 +43,10 @@ class SparseSeparableMemory(MemoryLayer):
             raise ValueError("expert_mode must be vector, affine, low_rank, shared_basis, or routes_only")
         if self.config.geometry_mode not in self.FIXED_GEOMETRIES | {"learned_full", "learned_low_rank_delta", "product_key", "episodic_observed"}:
             raise ValueError("unknown geometry_mode")
+        if self.config.router_tie_breaking not in {"legacy", "support_id"}:
+            raise ValueError("router_tie_breaking must be legacy or support_id")
+        if self.config.router_chunk_size and self.config.router_tie_breaking != "legacy":
+            raise ValueError("support_id tie breaking is not implemented for chunked routing")
         generator = torch.Generator(device="cpu").manual_seed(int(seed))
         if key_data is not None and self.config.geometry_mode in {"fixed_data_sample", "fixed_kmeans", "fixed_farthest_point"}:
             keys = initialize_keys(key_data, self.config.num_supports, self.config.geometry_mode, seed=seed).to(dtype=torch.float32)
@@ -51,6 +56,7 @@ class SparseSeparableMemory(MemoryLayer):
             raise ValueError("key_data must have feature dimension d_model")
         keys = keys / keys.norm(dim=-1, keepdim=True).clamp_min(1e-8)
         self.keys = nn.Parameter(keys, requires_grad=self.config.geometry_mode not in self.FIXED_GEOMETRIES)
+        self.register_buffer("support_ids", torch.arange(self.config.num_supports), persistent=False)
         if self.config.router_chunk_size:
             self.router = ChunkedExactTopKRouter(
                 top_k=self.config.top_k,
@@ -63,6 +69,7 @@ class SparseSeparableMemory(MemoryLayer):
                 top_k=self.config.top_k,
                 metric=self.config.metric,
                 temperature=self.config.temperature,
+                tie_breaking=self.config.router_tie_breaking,
             )
         if self.config.expert_mode == "vector":
             self.experts: nn.Module = VectorExperts(self.config.num_supports, self.config.d_model)
@@ -80,7 +87,7 @@ class SparseSeparableMemory(MemoryLayer):
     def route(self, query: Tensor, *, return_diagnostics: bool = False) -> RouteResult:
         del return_diagnostics
         flat = query.reshape(-1, query.shape[-1])
-        route = self.router(flat, self.keys)
+        route = self.router(flat, self.keys, self.support_ids) if self.config.router_tie_breaking == "support_id" else self.router(flat, self.keys)
         route.diagnostics.update(routing_diagnostics(route, self.config.num_supports))
         return route
 

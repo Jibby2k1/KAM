@@ -62,6 +62,7 @@ def build_behavioral_atlas_model(row: dict[str, Any]) -> ModernDecoder:
                 geometry_mode="fixed_random" if fixed else "learned_full",
                 metric=str(row.get("router_metric", "dot")),
                 temperature=float(row.get("router_temperature", 1.0)),
+                router_tie_breaking=str(row.get("router_tie_breaking", "legacy")),
             ),
             seed=int(row["seed"]) + index,
         )

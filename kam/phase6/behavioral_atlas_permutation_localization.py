@@ -161,7 +161,9 @@ def localize_checkpoint(
     if not snapshot_path.is_file():
         snapshot_path = stage1_root / "snapshots" / spec["source_row_id"] / "model_50000000.pt"
     checkpoint = torch.load(snapshot_path, map_location="cpu", weights_only=False)
-    row = checkpoint["row"]
+    row = checkpoint["row"].copy()
+    if spec.get("router_tie_breaking") is not None:
+        row["router_tie_breaking"] = str(spec["router_tie_breaking"])
     device = torch.device(device_name)
     model = build_behavioral_atlas_model(row).to(device)
     model.load_state_dict(checkpoint["model"])

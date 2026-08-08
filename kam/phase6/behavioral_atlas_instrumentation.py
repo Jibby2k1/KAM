@@ -375,6 +375,8 @@ def matched_key_expert_permutation_check(
             permutation = torch.randperm(support_count, generator=generator, device="cpu").to(layer.keys.device)
             layer_snapshots: list[tuple[Tensor, Tensor]] = []
             tensors: list[Tensor] = [layer.keys]
+            if hasattr(layer, "support_ids"):
+                tensors.append(layer.support_ids)
             tensors.extend(parameter for parameter in layer.experts.parameters() if parameter.ndim > 0 and parameter.shape[0] == support_count)
             for tensor in tensors:
                 original = tensor.detach().clone()

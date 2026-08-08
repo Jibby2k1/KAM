@@ -42,15 +42,59 @@ def _make_route(scores: Tensor, top_k: int, temperature: float, num_supports: in
     return route
 
 
+def _make_support_id_route(
+    scores: Tensor, support_ids: Tensor, top_k: int, temperature: float, num_supports: int
+) -> RouteResult:
+    """Select exact top-k with permutation-invariant boundary ties and output order."""
+    if scores.ndim != 2 or support_ids.shape != (scores.shape[-1],):
+        raise ValueError("support_ids must have shape [supports]")
+    if support_ids.dtype not in (torch.int64, torch.long):
+        raise ValueError("support_ids must be int64")
+    k = min(int(top_k), scores.shape[-1])
+    if k < 1:
+        raise ValueError("top_k must be positive")
+    boundary = torch.topk(scores, k=k, dim=-1).values[:, -1:]
+    above = scores > boundary
+    needed = k - above.sum(dim=-1)
+    identifiers = support_ids.to(device=scores.device)
+    invalid_priority = torch.iinfo(torch.long).min
+    tie_priority = torch.where(
+        scores == boundary, -identifiers.unsqueeze(0),
+        torch.full_like(scores, invalid_priority, dtype=torch.long),
+    )
+    tie_order = torch.topk(tie_priority, k=k, dim=-1).indices
+    take = torch.arange(k, device=scores.device).unsqueeze(0) < needed.unsqueeze(1)
+    tie_selected = torch.zeros_like(scores, dtype=torch.bool)
+    tie_selected.scatter_(1, tie_order, take)
+    selected = above | tie_selected
+    canonical_priority = torch.where(
+        selected, -identifiers.unsqueeze(0),
+        torch.full_like(scores, invalid_priority, dtype=torch.long),
+    )
+    indices = torch.topk(canonical_priority, k=k, dim=-1).indices
+    values = scores.gather(-1, indices)
+    weights = torch.softmax(values / max(float(temperature), 1e-8), dim=-1)
+    route = RouteResult(indices.long(), weights, values, num_supports)
+    route.validate(tokens=scores.shape[0], top_k=k)
+    return route
+
+
 class ExactTopKRouter(nn.Module):
-    def __init__(self, top_k: int = 4, metric: Metric = "dot", temperature: float = 1.0) -> None:
+    def __init__(self, top_k: int = 4, metric: Metric = "dot", temperature: float = 1.0, tie_breaking: str = "legacy") -> None:
         super().__init__()
+        if tie_breaking not in {"legacy", "support_id"}:
+            raise ValueError("tie_breaking must be legacy or support_id")
         self.top_k = top_k
         self.metric = metric
         self.temperature = temperature
+        self.tie_breaking = tie_breaking
 
-    def forward(self, query: Tensor, keys: Tensor) -> RouteResult:
+    def forward(self, query: Tensor, keys: Tensor, support_ids: Tensor | None = None) -> RouteResult:
         scores = pairwise_scores(query, keys, self.metric)
+        if self.tie_breaking == "support_id":
+            if support_ids is None:
+                raise ValueError("support_ids are required for support_id tie breaking")
+            return _make_support_id_route(scores, support_ids, self.top_k, self.temperature, keys.shape[0])
         return _make_route(scores, self.top_k, self.temperature, keys.shape[0])
 
     route = forward

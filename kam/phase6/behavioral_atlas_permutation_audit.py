@@ -143,6 +143,8 @@ def _difference_metrics(baseline: Tensor, candidate: Tensor) -> dict[str, float 
 def _permutable_tensors(layer: nn.Module) -> list[Tensor]:
     support_count = int(layer.keys.shape[0])
     tensors: list[Tensor] = [layer.keys]
+    if hasattr(layer, "support_ids"):
+        tensors.append(layer.support_ids)
     tensors.extend(
         parameter
         for parameter in layer.experts.parameters()
