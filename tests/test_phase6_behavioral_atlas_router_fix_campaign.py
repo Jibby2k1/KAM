@@ -4,7 +4,11 @@ import json
 from pathlib import Path
 
 from kam.phase6.behavioral_atlas_manifest import build_behavioral_atlas_rows
-from kam.phase6.behavioral_atlas_router_fix_campaign import write_pilot_manifest, write_replay_manifest
+from kam.phase6.behavioral_atlas_router_fix_campaign import (
+    write_inferential_manifest,
+    write_pilot_manifest,
+    write_replay_manifest,
+)
 
 
 def test_router_fix_replay_manifest_keeps_locked_26_rows(tmp_path: Path) -> None:
@@ -30,3 +34,18 @@ def test_router_fix_pilot_is_eight_arms_by_three_shared_seeds(tmp_path: Path) ->
     assert len(summary["seeds"]) == 3
     assert all(row["target_tokens"] == 10_000_000 for row in rows)
     assert all(row["router_tie_breaking"] == "support_id" and not row["inferential"] for row in rows)
+
+
+def test_router_fix_inferential_manifest_preserves_registered_design(tmp_path: Path) -> None:
+    source = tmp_path / "stage1.jsonl"
+    source.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in build_behavioral_atlas_rows("stage1_core_lifecycle")))
+    output = tmp_path / "inferential.jsonl"
+    summary = write_inferential_manifest(source, output)
+    rows = [json.loads(line) for line in output.read_text().splitlines()]
+    assert summary["rows"] == 168
+    assert len(summary["arms"]) == 8
+    assert len({row["row_id"] for row in rows}) == 168
+    assert all(row["target_tokens"] == 50_000_000 for row in rows)
+    assert all(row["inferential"] and row["preregistered"] for row in rows)
+    assert all(row["router_tie_breaking"] == "support_id" for row in rows)
+    assert all(row["supersedes_row_id"].startswith("p6atlas_") for row in rows)

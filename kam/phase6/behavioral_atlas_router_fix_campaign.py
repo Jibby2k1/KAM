@@ -202,6 +202,45 @@ def aggregate_pilot(
     return summary
 
 
+def write_inferential_manifest(stage1_manifest: str | Path, output: str | Path) -> dict[str, Any]:
+    source = [json.loads(line) for line in Path(stage1_manifest).read_text().splitlines() if line.strip()]
+    if len(source) != 168:
+        raise ValueError(f"inferential rerun requires the immutable 168-row Stage 1 design, found {len(source)}")
+    rows = []
+    for original in source:
+        row = original.copy()
+        source_id = str(row["row_id"])
+        row.update({
+            "stage": "stage1_support_id_router_inferential_r1",
+            "inferential": True,
+            "preregistered": True,
+            "scientific_role": "prospective_inferential_router_fixed_stage1",
+            "router_tie_breaking": "support_id",
+            "supersedes_row_id": source_id,
+            "save_snapshots": True,
+        })
+        row["row_id"] = _id("support_inferential", source_id)
+        rows.append(row)
+    arms = sorted({str(row["arm"]) for row in rows})
+    primary = {"fixed_keys", "learned_joint_adamw_freeze80", "learned_joint_adamw_no_freeze", "learned_alt8_adamw_freeze80"}
+    if len(arms) != 8:
+        raise ValueError(f"inferential rerun requires 8 arms, found {len(arms)}")
+    if any(len({int(row["seed"]) for row in rows if row["arm"] == arm}) != (30 if arm in primary else 12) for arm in arms):
+        raise ValueError("inferential rerun seed counts do not match the registered 30/12 design")
+    summary = _write_jsonl(rows, output)
+    return {
+        **summary,
+        "version": CAMPAIGN_VERSION,
+        "stage": "stage1_support_id_router_inferential_r1",
+        "arms": arms,
+        "primary_seeds_per_arm": 30,
+        "secondary_seeds_per_arm": 12,
+        "target_tokens_per_row": 50_000_000,
+        "inferential": True,
+        "router_tie_breaking": "support_id",
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -215,6 +254,9 @@ def main() -> None:
     pilot_manifest = commands.add_parser("pilot-manifest")
     pilot_manifest.add_argument("--stage1-manifest", required=True)
     pilot_manifest.add_argument("--output", required=True)
+    inferential_manifest = commands.add_parser("inferential-manifest")
+    inferential_manifest.add_argument("--stage1-manifest", required=True)
+    inferential_manifest.add_argument("--output", required=True)
     pilot_final = commands.add_parser("pilot-aggregate")
     pilot_final.add_argument("--manifest", required=True)
     pilot_final.add_argument("--output-root", required=True)
@@ -227,6 +269,8 @@ def main() -> None:
         result = aggregate_replay(args.manifest, args.output_root, args.report_root)
     elif args.command == "pilot-manifest":
         result = write_pilot_manifest(args.stage1_manifest, args.output)
+    elif args.command == "inferential-manifest":
+        result = write_inferential_manifest(args.stage1_manifest, args.output)
     else:
         result = aggregate_pilot(args.manifest, args.output_root, args.original_root, args.report_root)
     print(json.dumps(result, indent=2, sort_keys=True))
