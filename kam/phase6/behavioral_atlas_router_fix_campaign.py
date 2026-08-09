@@ -164,19 +164,17 @@ def aggregate_pilot(
         float(row["tokens_per_second"]) / float(originals[row["supersedes_row_id"]]["tokens_per_second"])
         for row in passed if row["supersedes_row_id"] in originals
     ]
-    original_validation_at_pilot = {
-        source_id: next(
-            (float(point["validation_loss"]) for point in source["traces"] if int(point["tokens"]) == PILOT_TOKENS),
-            math.nan,
+    loss_changes = []
+    for row in passed:
+        source = originals.get(row["supersedes_row_id"])
+        if source is None:
+            continue
+        matched = next(
+            (point for point in source["traces"] if int(point["tokens"]) == int(row["tokens"])),
+            None,
         )
-        for source_id, source in originals.items()
-    }
-    loss_changes = [
-        float(row["validation_loss"]) / original_validation_at_pilot[row["supersedes_row_id"]] - 1.0
-        for row in passed
-        if row["supersedes_row_id"] in original_validation_at_pilot
-        and math.isfinite(original_validation_at_pilot[row["supersedes_row_id"]])
-    ]
+        if matched is not None:
+            loss_changes.append(float(row["validation_loss"]) / float(matched["validation_loss"]) - 1.0)
     checks = {
         "all_24_rows_complete": len(specs) == 24 and {row["row_id"] for row in passed} == expected,
         "strict_semantic_identity_24_of_24": len(passed) == 24 and all(row["matched_key_expert_permutation"]["passed"] for row in passed),
