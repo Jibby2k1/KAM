@@ -182,3 +182,18 @@ def test_confirmation_report_builds_all_artifacts(tmp_path) -> None:
     assert (report_root / "CONFIRMATION_REPORT.md").is_file()
     assert len(summary["figures"]) == 6
     assert all(__import__("pathlib").Path(path).is_file() for path in summary["figures"])
+
+
+def test_lifecycle_audit_treats_equal_token_checkpoint_as_prefreeze() -> None:
+    rows, manifest = _synthetic_completed_rows()
+    for row in rows:
+        if row["architecture"] not in {"T-KAM-L", "T-KAM-ALT"}:
+            continue
+        subrun = row["metrics"]["subruns"][0]
+        subrun["loss_history"] = [
+            {"tokens": 20_000_000, "memory_key_grad_norm": 1.0, "geometry_frozen": 0.0},
+            {"tokens": 40_000_000, "memory_key_grad_norm": 1.0, "geometry_frozen": 0.0},
+            {"tokens": 50_000_000, "memory_key_grad_norm": 0.0, "geometry_frozen": 1.0},
+        ]
+    result = evaluate_confirmation(rows, manifest)
+    assert result["learned_memory_lifecycle_pass"]

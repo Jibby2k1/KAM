@@ -178,7 +178,11 @@ def _mechanism_audit(observations: list[dict[str, Any]]) -> dict[str, Any]:
             for point in history
             if float(point.get("tokens", 0.0)) < freeze_tokens
         ]
-        postfreeze_points = [point for point in history if float(point.get("tokens", 0.0)) >= freeze_tokens]
+        # Equality can still be pre-freeze: the registered checkpoint is emitted at the end of
+        # the update reaching the boundary, while freeze occurs at the next loop start with
+        # the same tokens_seen value. New traces use explicit event phases; strict > is the
+        # compatibility rule for this locked legacy schema.
+        postfreeze_points = [point for point in history if float(point.get("tokens", 0.0)) > freeze_tokens]
         checks = {
             "geometry_updated": float(observation.get("geometry_steps") or 0.0) > 0,
             "prefreeze_gradient_observed": max(prefreeze_gradients, default=0.0) > 0.0,
