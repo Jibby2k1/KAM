@@ -311,7 +311,13 @@ def analyze_stage1(run_root: str | Path, report_root: str | Path, manifest: str 
     secondary = paired_comparisons(seed_rows, SECONDARY_COMPARISONS, "secondary") if checks["secondary_pairing_12_seeds"] and checks["primary_pairing_30_seeds"] else []
     comparison_rows = primary + secondary
     figures = build_stage1_figures(results, comparison_rows, report_root) if results and comparison_rows else []
-    decision = "STAGE1_COMPLETE" if all(checks.values()) else "STAGE1_INCOMPLETE"
+    decision = (
+        "STAGE1_COMPLETE"
+        if all(checks.values())
+        else "VALIDITY_REPAIR_REQUIRED"
+        if stage == "stage1_support_id_router_inferential_r1"
+        else "STAGE1_INCOMPLETE"
+    )
     summary = {
         "campaign": "phase6_behavioral_atlas_v2",
         "stage": stage,
