@@ -178,6 +178,17 @@ def localize_checkpoint(
     )
     sample = bank.inputs[:4].to(device)
     precision = str(row.get("precision", "bf16")) if device.type == "cuda" else "fp32"
+    legacy_semantic = legacy_operational = None
+    if spec.get("compare_legacy_router", False):
+        legacy_row = checkpoint["row"].copy()
+        legacy_row["router_tie_breaking"] = "legacy"
+        legacy_model = build_behavioral_atlas_model(legacy_row).to(device)
+        legacy_model.load_state_dict(checkpoint["model"])
+        legacy_model.eval()
+        with torch.inference_mode():
+            legacy_semantic = _strict_fp32_logits(legacy_model, sample, device)
+            legacy_operational = _operational_logits(legacy_model, sample, device, precision)
+        del legacy_model
     with torch.inference_mode():
         semantic_baseline = _strict_fp32_logits(model, sample, device)
         operational_baseline = _operational_logits(model, sample, device, precision)
@@ -185,6 +196,12 @@ def localize_checkpoint(
             _difference_metrics(semantic_baseline, _strict_fp32_logits(model, sample, device))
             for _ in range(3)
         ]
+    legacy_drift = None
+    if legacy_semantic is not None and legacy_operational is not None:
+        legacy_drift = {
+            "semantic_fp32": _difference_metrics(legacy_semantic, semantic_baseline),
+            "operational": _difference_metrics(legacy_operational, operational_baseline),
+        }
     layer_count = len(getattr(model, "memory_layers", []))
     seed = int(row["seed"]) + 99
     permutations = _fixed_permutations(model, seed)
@@ -200,7 +217,7 @@ def localize_checkpoint(
         operational_baseline=operational_baseline,
     )
     localization: dict[str, list[dict[str, Any]]] = {"single_layers": [], "layer_pairs": [], "prefixes": []}
-    if device.type == "cuda":
+    if device.type == "cuda" and not spec.get("full_only", False):
         localization["single_layers"] = [
             _subset_measurement(
                 model, sample, device=device, precision=precision, permutations=permutations,
@@ -240,6 +257,7 @@ def localize_checkpoint(
         "precision": precision,
         "environment": _environment(device),
         "baseline_repeatability": baseline_repeats,
+        "legacy_router_drift": legacy_drift,
         "full_matched_permutation": full,
         "localization": localization,
     }
