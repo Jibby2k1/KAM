@@ -303,8 +303,8 @@ def analyze_stage1(run_root: str | Path, report_root: str | Path, manifest: str 
         "secondary_pairing_12_seeds": all(len({row["seed"] for row in seed_rows if row["arm"] == arm}) == 12 for arm in ARM_ORDER[4:]),
         "freeze_integrity": bool(execution_audit["checks"].get("freeze_integrity")),
         "cosine_schedule_recorded": all(row.get("geometry_lr_schedule") == "cosine" and float(row.get("final_geometry_learning_rate", math.inf)) < 1e-8 for row in results if row.get("arm") == "learned_joint_adamw_cosine_geometry_decay"),
-        "semantic_permutation_identity": all(row.get("matched_key_expert_permutation", {}).get("passed", True) for row in results),
-        "bf16_operational_gate": all(row.get("matched_key_expert_permutation", {}).get("operational_within_expected_precision_tolerance", True) for row in results),
+        "semantic_permutation_identity": bool(execution_audit["checks"].get("permutation_symmetry")),
+        "bf16_operational_gate": bool(execution_audit["checks"].get("permutation_operational_stability")),
     }
     primary = paired_comparisons(seed_rows, PRIMARY_COMPARISONS, "primary") if checks["primary_pairing_30_seeds"] else []
     secondary = paired_comparisons(seed_rows, SECONDARY_COMPARISONS, "secondary") if checks["secondary_pairing_12_seeds"] and checks["primary_pairing_30_seeds"] else []

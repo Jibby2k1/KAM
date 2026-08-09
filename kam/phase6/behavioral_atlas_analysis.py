@@ -93,7 +93,7 @@ def audit_results(results: list[dict[str, Any]], manifest_rows: list[dict[str, A
         "freeze_integrity": all(_freeze_integrity(row) for row in results),
         "permutation_symmetry": all(row.get("matched_key_expert_permutation", {}).get("passed") for row in results),
         "permutation_operational_stability": all(
-            row.get("matched_key_expert_permutation", {}).get("operational_within_expected_precision_tolerance", True)
+            row.get("matched_key_expert_permutation", {}).get("operational_within_expected_precision_tolerance") is True
             for row in results
         ),
         "restart_identity_when_registered": all(row.get("restart_state_hash_match") is True for row in results if row.get("save_snapshots")),
