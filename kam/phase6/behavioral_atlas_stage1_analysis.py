@@ -282,6 +282,7 @@ def build_stage1_figures(results: list[dict[str, Any]], comparisons: list[dict[s
 def analyze_stage1(run_root: str | Path, report_root: str | Path, manifest: str | Path) -> dict[str, Any]:
     run_root = Path(run_root); report_root = Path(report_root); report_root.mkdir(parents=True, exist_ok=True)
     manifest_rows = [json.loads(line) for line in Path(manifest).read_text(encoding="utf-8").splitlines() if line.strip()]
+    stage = str(manifest_rows[0].get("stage", "unknown")) if manifest_rows else "unknown"
     results = load_results(run_root)
     execution_audit = audit_results(results, manifest_rows)
     expected = {str(row["row_id"]) for row in manifest_rows}
@@ -313,7 +314,7 @@ def analyze_stage1(run_root: str | Path, report_root: str | Path, manifest: str 
     decision = "STAGE1_COMPLETE" if all(checks.values()) else "STAGE1_INCOMPLETE"
     summary = {
         "campaign": "phase6_behavioral_atlas_v2",
-        "stage": "stage1_core_lifecycle",
+        "stage": stage,
         "decision": decision,
         "checks": checks,
         "expected_rows": len(manifest_rows),
@@ -346,6 +347,7 @@ def analyze_stage1(run_root: str | Path, report_root: str | Path, manifest: str 
         "", "## What the figures show", "",
         "Learning curves show when arms separate; key-drift curves show geometry motion and freezing; the cosine-LR panel verifies smooth stabilization; paired-effect intervals show uncertainty; held-out distributions show seed variability.", "",
         "## Interpretation boundary", "",
+        *(["This prospective support-identity campaign does not pool with, replace, or rehabilitate the failed original Stage 1 campaign.", ""] if stage == "stage1_support_id_router_inferential_r1" else []),
         "Only the registered paired comparisons support confirmatory claims. Secondary comparisons are Holm-corrected as a separate family. Stage 1 does not select the broad Stage 2 solution space without a documented gate review.",
     ])
     (report_root / "BEHAVIORAL_ATLAS_STAGE1_REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
