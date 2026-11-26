@@ -10,7 +10,7 @@ module purge
 module load pytorch/2.8.0
 root="${1:?runtime directory required}"
 mode="${2:?freeze or score required}"
-work="$root/sequential_fallback_v1/$mode"
+work="${KAM_FALLBACK_WORK:-$root/sequential_fallback_v1/$mode}"
 index="$root/fullwiki_native_v1"
 support="$index/support_link_v1"
 export PYTHONPATH="$work:$root/coverage_gate_v1:$index/python" HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=6 TOKENIZERS_PARALLELISM=false

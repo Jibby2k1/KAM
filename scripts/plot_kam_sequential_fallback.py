@@ -31,14 +31,19 @@ def main():
                                             (vetoed, visible - wins, "#4e86be", "Below threshold"),
                                             (potential - wins, wins, "#127069", "Recovered")):
             axes[0].barh(y, width, left=left, color=color, height=.45, label=legend if y == 0 else None)
-            axes[0].text(left + width / 2, y, str(width), color="white", ha="center", va="center",
-                         fontsize=9, weight="bold")
+            if width:
+                axes[0].text(left + width / 2, y, str(width), color="white", ha="center", va="center",
+                             fontsize=9, weight="bold")
         axes[1].barh(y, wins, color="#127069", height=.45, label="Wins" if y == 0 else None)
         axes[1].barh(y, -losses, color="#bc5142", height=.45, label="Losses" if y == 0 else None)
-        axes[1].text(wins + .13, y, f"+{wins}", ha="left", va="center")
-        axes[1].text(-losses - .13, y, f"−{losses}", ha="right", va="center")
-    axes[0].set(title="Where the sequential rescues went", xlabel="Questions", xlim=(0, 29))
-    axes[1].set(title="Effect of the diagnostic switches", xlabel="Questions relative to broad", xlim=(-5, 5))
+        if wins:
+            axes[1].text(wins + .13, y, f"+{wins}", ha="left", va="center")
+        if losses:
+            axes[1].text(-losses - .13, y, f"−{losses}", ha="right", va="center")
+    headroom = max(test["sequential"]["vs_broad"][metric]["wins"] for metric in ("support", "joint_exact"))
+    extent = max(max(d["wins"], d["losses"]) for d in test["five_percent_diagnostic"]["vs_broad"].values()) + 1
+    axes[0].set(title="Where the sequential rescues went", xlabel="Questions", xlim=(0, headroom + 2))
+    axes[1].set(title="Effect of the diagnostic switches", xlabel="Questions relative to broad", xlim=(-extent, extent))
     axes[1].axvline(0, color="#748199", linewidth=.75, zorder=0)
     for ax in axes:
         ax.set_yticks([0, 1], names)

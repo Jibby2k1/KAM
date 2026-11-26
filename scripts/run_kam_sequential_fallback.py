@@ -43,7 +43,7 @@ def broad_choice(pair_features, stage, model, affinity, links):
     linked = x[:, 4].astype(bool)
     cross = scores[linked].max() - scores[~linked].max() if linked.any() and (~linked).any() else 0.
     features = [
-        x[winner, 4], int(links.sum()) / (64 * 63), int(top_links.sum()) / (8 * 7),
+        x[winner, 4], int(links.triu(1).sum()) / 2016, int(top_links.triu(1).sum()) / 28,
         scores[winner] - np.partition(scores, -2)[-2], cross, x[winner, 3], x[winner, 2],
         x[winner, 11], x[winner, 15], top[0] in chosen, affinity[top[0]] - affinity[top[1]], len(stage[2]),
     ]

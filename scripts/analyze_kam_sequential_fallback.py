@@ -123,7 +123,7 @@ def verify_rows(shards, fixture_path, pool_path, fitted_path):
     assert {r["id"] for r in rows} == cases.keys() == sealed["rows"].keys()
     assert Counter(r["split"] for r in rows) == {"training": 3072, "test": 1024}
     assert len({title for _, q in cases.values() for title in q["gold_titles"]}) == 2 * len(cases)
-    assert metadata["features"][0] == "broad_pair_link"
+    assert metadata["features"][:3] == ["broad_pair_link", "pool_link_fraction", "top8_link_fraction"]
     for r in rows:
         split, case = cases[r["id"]]
         ranked = sealed["rows"][r["id"]]
@@ -133,6 +133,9 @@ def verify_rows(shards, fixture_path, pool_path, fitted_path):
         assert (r["gold_linked"] is None) == (r["gold_in_pool"] < 2)
         assert len(r["features"]) == len(metadata["features"]) and np.isfinite(r["features"]).all()
         assert r["features"][0] in (0, 1) and set(r["arms"]) == {"broad", "sequential"}
+        assert r["features"][1] == round(r["pool_link_count"] / 2016, 7)
+        top8_links = round(r["features"][2] * 28)
+        assert 0 <= top8_links <= 28 and r["features"][2] == round(top8_links / 28, 7)
         for arm in r["arms"].values():
             pair = arm["pair"]
             assert len(pair) == len(set(pair)) == 2 and all(0 <= p < 64 for p in pair)
