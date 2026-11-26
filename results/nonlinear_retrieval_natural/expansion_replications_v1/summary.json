@@ -1,0 +1,1443 @@
+{
+  "provenance": {
+    "conditioned_union_v1": {
+      "frozen": {
+        "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+        "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+        "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+        "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+        "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+        "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+        "models": {
+          "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+          "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+        },
+        "indexed_documents": 5201800
+      },
+      "fixture_sha256": "478ae353bca7357592e72e88c1574db4f27e56ff77a648371e88b78a5c4bae6f",
+      "pools_sha256": "cec8e5b60c0382a7d415d178c2d093a1856bcd57c09028f7f8e56f6303a1c531",
+      "replay_sha256": "f809bb4a447995f3964eec1f486f4b254985a3377bc9830ce8d556f49b1e5daf"
+    },
+    "expansion_guard_v1": {
+      "frozen": {
+        "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+        "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+        "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+        "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+        "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+        "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+        "models": {
+          "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+          "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+        },
+        "indexed_documents": 5201800
+      },
+      "fixture_sha256": "8eb805c9c2b151d5ac38d23cf9ba2534c0b3ed4aae71e8b77975ea43fd961476",
+      "pools_sha256": "6a030bc87e994ba7f10d69a2ab242de13580820312759e59f792869dc5eba9a4",
+      "replay_sha256": "1891aaba4cee96183247fa68204d7460ac57bc8d7e16dc801e3a6db68a3ca74b"
+    },
+    "broad_anchor_v1": {
+      "frozen": {
+        "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+        "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+        "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+        "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+        "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+        "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+        "models": {
+          "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+          "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+        },
+        "indexed_documents": 5201800
+      },
+      "fixture_sha256": "c85a7a36f881bb3259c20d64699f214c76817df2e3d1f1f6a8733bb1d7d44e6c",
+      "pools_sha256": "93de6e902ea79dae8c0eda947e097bac260377877478ae21cdd975715822c9bc",
+      "replay_sha256": "0c756111e7774dc508e83e2c4dccb4faca5828ecc46636f5ba02c00ae2637b3e"
+    }
+  },
+  "unique_query_ids": 3072,
+  "unique_gold_titles": 6144,
+  "unique_normalized_questions": 3072,
+  "per_cohort": {
+    "conditioned_union_v1": {
+      "all": {
+        "n": 1024,
+        "metrics": {
+          "coverage": {
+            "broad": 640,
+            "conditioned_union": 717,
+            "wins": 77,
+            "losses": 0,
+            "delta": 0.07519531,
+            "bootstrap95": [
+              0.06054688,
+              0.09179688
+            ]
+          },
+          "shortlist": {
+            "broad": 605,
+            "conditioned_union": 660,
+            "wins": 71,
+            "losses": 16,
+            "delta": 0.05371094,
+            "bootstrap95": [
+              0.03710938,
+              0.07128906
+            ]
+          },
+          "support": {
+            "broad": 481,
+            "conditioned_union": 511,
+            "wins": 48,
+            "losses": 18,
+            "delta": 0.02929688,
+            "bootstrap95": [
+              0.01367188,
+              0.04492188
+            ]
+          },
+          "joint_em": {
+            "broad": 308,
+            "conditioned_union": 333,
+            "wins": 36,
+            "losses": 11,
+            "delta": 0.02441406,
+            "bootstrap95": [
+              0.01171875,
+              0.03710938
+            ]
+          }
+        }
+      },
+      "complete": {
+        "n": 640,
+        "metrics": {
+          "coverage": {
+            "broad": 640,
+            "conditioned_union": 640,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "shortlist": {
+            "broad": 605,
+            "conditioned_union": 589,
+            "wins": 0,
+            "losses": 16,
+            "delta": -0.025,
+            "bootstrap95": [
+              -0.0375,
+              -0.0140625
+            ]
+          },
+          "support": {
+            "broad": 481,
+            "conditioned_union": 465,
+            "wins": 2,
+            "losses": 18,
+            "delta": -0.025,
+            "bootstrap95": [
+              -0.0390625,
+              -0.0125
+            ]
+          },
+          "joint_em": {
+            "broad": 308,
+            "conditioned_union": 298,
+            "wins": 1,
+            "losses": 11,
+            "delta": -0.015625,
+            "bootstrap95": [
+              -0.0265625,
+              -0.00625
+            ]
+          }
+        }
+      },
+      "incomplete": {
+        "n": 384,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 77,
+            "wins": 77,
+            "losses": 0,
+            "delta": 0.20052083,
+            "bootstrap95": [
+              0.1640625,
+              0.2421875
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 71,
+            "wins": 71,
+            "losses": 0,
+            "delta": 0.18489583,
+            "bootstrap95": [
+              0.1484375,
+              0.22395833
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 46,
+            "wins": 46,
+            "losses": 0,
+            "delta": 0.11979167,
+            "bootstrap95": [
+              0.08854167,
+              0.15364583
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 35,
+            "wins": 35,
+            "losses": 0,
+            "delta": 0.09114583,
+            "bootstrap95": [
+              0.0625,
+              0.11979167
+            ]
+          }
+        }
+      },
+      "one_missing": {
+        "n": 347,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 77,
+            "wins": 77,
+            "losses": 0,
+            "delta": 0.22190202,
+            "bootstrap95": [
+              0.1815562,
+              0.26512968
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 71,
+            "wins": 71,
+            "losses": 0,
+            "delta": 0.20461095,
+            "bootstrap95": [
+              0.16426513,
+              0.24783862
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 46,
+            "wins": 46,
+            "losses": 0,
+            "delta": 0.13256484,
+            "bootstrap95": [
+              0.09798271,
+              0.16721902
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 35,
+            "wins": 35,
+            "losses": 0,
+            "delta": 0.10086455,
+            "bootstrap95": [
+              0.06916427,
+              0.13256484
+            ]
+          }
+        }
+      },
+      "two_missing": {
+        "n": 37,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "incomplete_anchor_gold": {
+        "n": 138,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 63,
+            "wins": 63,
+            "losses": 0,
+            "delta": 0.45652174,
+            "bootstrap95": [
+              0.37681159,
+              0.54347826
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 58,
+            "wins": 58,
+            "losses": 0,
+            "delta": 0.42028986,
+            "bootstrap95": [
+              0.34057971,
+              0.5
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 38,
+            "wins": 38,
+            "losses": 0,
+            "delta": 0.27536232,
+            "bootstrap95": [
+              0.20289855,
+              0.35507246
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 29,
+            "wins": 29,
+            "losses": 0,
+            "delta": 0.21014493,
+            "bootstrap95": [
+              0.14492754,
+              0.2826087
+            ]
+          }
+        }
+      },
+      "incomplete_anchor_wrong": {
+        "n": 246,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 14,
+            "wins": 14,
+            "losses": 0,
+            "delta": 0.05691057,
+            "bootstrap95": [
+              0.02845528,
+              0.08943089
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 13,
+            "wins": 13,
+            "losses": 0,
+            "delta": 0.05284553,
+            "bootstrap95": [
+              0.02439024,
+              0.08130081
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 8,
+            "wins": 8,
+            "losses": 0,
+            "delta": 0.03252033,
+            "bootstrap95": [
+              0.01219512,
+              0.05691057
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 6,
+            "wins": 6,
+            "losses": 0,
+            "delta": 0.02439024,
+            "bootstrap95": [
+              0.00813008,
+              0.04471545
+            ]
+          }
+        }
+      }
+    },
+    "expansion_guard_v1": {
+      "all": {
+        "n": 1024,
+        "metrics": {
+          "coverage": {
+            "broad": 606,
+            "conditioned_union": 704,
+            "wins": 98,
+            "losses": 0,
+            "delta": 0.09570312,
+            "bootstrap95": [
+              0.078125,
+              0.11425781
+            ]
+          },
+          "shortlist": {
+            "broad": 583,
+            "conditioned_union": 657,
+            "wins": 84,
+            "losses": 10,
+            "delta": 0.07226562,
+            "bootstrap95": [
+              0.0546875,
+              0.09082031
+            ]
+          },
+          "support": {
+            "broad": 464,
+            "conditioned_union": 512,
+            "wins": 60,
+            "losses": 12,
+            "delta": 0.046875,
+            "bootstrap95": [
+              0.03125,
+              0.06347656
+            ]
+          },
+          "joint_em": {
+            "broad": 297,
+            "conditioned_union": 341,
+            "wins": 49,
+            "losses": 5,
+            "delta": 0.04296875,
+            "bootstrap95": [
+              0.02929688,
+              0.05664062
+            ]
+          }
+        }
+      },
+      "complete": {
+        "n": 606,
+        "metrics": {
+          "coverage": {
+            "broad": 606,
+            "conditioned_union": 606,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "shortlist": {
+            "broad": 583,
+            "conditioned_union": 573,
+            "wins": 0,
+            "losses": 10,
+            "delta": -0.01650165,
+            "bootstrap95": [
+              -0.02805281,
+              -0.00660066
+            ]
+          },
+          "support": {
+            "broad": 464,
+            "conditioned_union": 456,
+            "wins": 4,
+            "losses": 12,
+            "delta": -0.01320132,
+            "bootstrap95": [
+              -0.02640264,
+              0.0
+            ]
+          },
+          "joint_em": {
+            "broad": 297,
+            "conditioned_union": 295,
+            "wins": 3,
+            "losses": 5,
+            "delta": -0.00330033,
+            "bootstrap95": [
+              -0.01320132,
+              0.0049505
+            ]
+          }
+        }
+      },
+      "incomplete": {
+        "n": 418,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 98,
+            "wins": 98,
+            "losses": 0,
+            "delta": 0.23444976,
+            "bootstrap95": [
+              0.19617225,
+              0.27511962
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 84,
+            "wins": 84,
+            "losses": 0,
+            "delta": 0.20095694,
+            "bootstrap95": [
+              0.16507177,
+              0.23923445
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 56,
+            "wins": 56,
+            "losses": 0,
+            "delta": 0.13397129,
+            "bootstrap95": [
+              0.10287081,
+              0.16746411
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 46,
+            "wins": 46,
+            "losses": 0,
+            "delta": 0.11004785,
+            "bootstrap95": [
+              0.08133971,
+              0.14114833
+            ]
+          }
+        }
+      },
+      "one_missing": {
+        "n": 384,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 98,
+            "wins": 98,
+            "losses": 0,
+            "delta": 0.25520833,
+            "bootstrap95": [
+              0.21354167,
+              0.29947917
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 84,
+            "wins": 84,
+            "losses": 0,
+            "delta": 0.21875,
+            "bootstrap95": [
+              0.1796875,
+              0.26041667
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 56,
+            "wins": 56,
+            "losses": 0,
+            "delta": 0.14583333,
+            "bootstrap95": [
+              0.11197917,
+              0.18229167
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 46,
+            "wins": 46,
+            "losses": 0,
+            "delta": 0.11979167,
+            "bootstrap95": [
+              0.08854167,
+              0.15364583
+            ]
+          }
+        }
+      },
+      "two_missing": {
+        "n": 34,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "incomplete_anchor_gold": {
+        "n": 153,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 77,
+            "wins": 77,
+            "losses": 0,
+            "delta": 0.50326797,
+            "bootstrap95": [
+              0.4248366,
+              0.58169935
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 66,
+            "wins": 66,
+            "losses": 0,
+            "delta": 0.43137255,
+            "bootstrap95": [
+              0.35294118,
+              0.50980392
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 41,
+            "wins": 41,
+            "losses": 0,
+            "delta": 0.26797386,
+            "bootstrap95": [
+              0.20261438,
+              0.33986928
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 34,
+            "wins": 34,
+            "losses": 0,
+            "delta": 0.22222222,
+            "bootstrap95": [
+              0.15686275,
+              0.2875817
+            ]
+          }
+        }
+      },
+      "incomplete_anchor_wrong": {
+        "n": 265,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 21,
+            "wins": 21,
+            "losses": 0,
+            "delta": 0.07924528,
+            "bootstrap95": [
+              0.0490566,
+              0.11320755
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 18,
+            "wins": 18,
+            "losses": 0,
+            "delta": 0.06792453,
+            "bootstrap95": [
+              0.03773585,
+              0.09811321
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 15,
+            "wins": 15,
+            "losses": 0,
+            "delta": 0.05660377,
+            "bootstrap95": [
+              0.03018868,
+              0.08679245
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 12,
+            "wins": 12,
+            "losses": 0,
+            "delta": 0.04528302,
+            "bootstrap95": [
+              0.02264151,
+              0.07169811
+            ]
+          }
+        }
+      }
+    },
+    "broad_anchor_v1": {
+      "all": {
+        "n": 1024,
+        "metrics": {
+          "coverage": {
+            "broad": 604,
+            "conditioned_union": 709,
+            "wins": 105,
+            "losses": 0,
+            "delta": 0.10253906,
+            "bootstrap95": [
+              0.08496094,
+              0.12207031
+            ]
+          },
+          "shortlist": {
+            "broad": 585,
+            "conditioned_union": 665,
+            "wins": 90,
+            "losses": 10,
+            "delta": 0.078125,
+            "bootstrap95": [
+              0.05957031,
+              0.09667969
+            ]
+          },
+          "support": {
+            "broad": 487,
+            "conditioned_union": 541,
+            "wins": 71,
+            "losses": 17,
+            "delta": 0.05273438,
+            "bootstrap95": [
+              0.03613281,
+              0.07128906
+            ]
+          },
+          "joint_em": {
+            "broad": 321,
+            "conditioned_union": 356,
+            "wins": 45,
+            "losses": 10,
+            "delta": 0.03417969,
+            "bootstrap95": [
+              0.02050781,
+              0.04882812
+            ]
+          }
+        }
+      },
+      "complete": {
+        "n": 604,
+        "metrics": {
+          "coverage": {
+            "broad": 604,
+            "conditioned_union": 604,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "shortlist": {
+            "broad": 585,
+            "conditioned_union": 575,
+            "wins": 0,
+            "losses": 10,
+            "delta": -0.01655629,
+            "bootstrap95": [
+              -0.0281457,
+              -0.00662252
+            ]
+          },
+          "support": {
+            "broad": 487,
+            "conditioned_union": 470,
+            "wins": 0,
+            "losses": 17,
+            "delta": -0.0281457,
+            "bootstrap95": [
+              -0.04139073,
+              -0.01490066
+            ]
+          },
+          "joint_em": {
+            "broad": 321,
+            "conditioned_union": 311,
+            "wins": 0,
+            "losses": 10,
+            "delta": -0.01655629,
+            "bootstrap95": [
+              -0.0281457,
+              -0.00662252
+            ]
+          }
+        }
+      },
+      "incomplete": {
+        "n": 420,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 105,
+            "wins": 105,
+            "losses": 0,
+            "delta": 0.25,
+            "bootstrap95": [
+              0.20952381,
+              0.29285714
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 90,
+            "wins": 90,
+            "losses": 0,
+            "delta": 0.21428571,
+            "bootstrap95": [
+              0.17619048,
+              0.2547619
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 71,
+            "wins": 71,
+            "losses": 0,
+            "delta": 0.16904762,
+            "bootstrap95": [
+              0.13571429,
+              0.2047619
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 45,
+            "wins": 45,
+            "losses": 0,
+            "delta": 0.10714286,
+            "bootstrap95": [
+              0.07857143,
+              0.13809524
+            ]
+          }
+        }
+      },
+      "one_missing": {
+        "n": 383,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 105,
+            "wins": 105,
+            "losses": 0,
+            "delta": 0.27415144,
+            "bootstrap95": [
+              0.22976501,
+              0.31853786
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 90,
+            "wins": 90,
+            "losses": 0,
+            "delta": 0.23498695,
+            "bootstrap95": [
+              0.19321149,
+              0.2767624
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 71,
+            "wins": 71,
+            "losses": 0,
+            "delta": 0.18537859,
+            "bootstrap95": [
+              0.14882507,
+              0.22454308
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 45,
+            "wins": 45,
+            "losses": 0,
+            "delta": 0.11749347,
+            "bootstrap95": [
+              0.08616188,
+              0.14889034
+            ]
+          }
+        }
+      },
+      "two_missing": {
+        "n": 37,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 0,
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "incomplete_anchor_gold": {
+        "n": 158,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 80,
+            "wins": 80,
+            "losses": 0,
+            "delta": 0.50632911,
+            "bootstrap95": [
+              0.43037975,
+              0.58227848
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 71,
+            "wins": 71,
+            "losses": 0,
+            "delta": 0.44936709,
+            "bootstrap95": [
+              0.37341772,
+              0.52531646
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 57,
+            "wins": 57,
+            "losses": 0,
+            "delta": 0.36075949,
+            "bootstrap95": [
+              0.28481013,
+              0.43670886
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 38,
+            "wins": 38,
+            "losses": 0,
+            "delta": 0.24050633,
+            "bootstrap95": [
+              0.17721519,
+              0.31012658
+            ]
+          }
+        }
+      },
+      "incomplete_anchor_wrong": {
+        "n": 262,
+        "metrics": {
+          "coverage": {
+            "broad": 0,
+            "conditioned_union": 25,
+            "wins": 25,
+            "losses": 0,
+            "delta": 0.09541985,
+            "bootstrap95": [
+              0.0610687,
+              0.13358779
+            ]
+          },
+          "shortlist": {
+            "broad": 0,
+            "conditioned_union": 19,
+            "wins": 19,
+            "losses": 0,
+            "delta": 0.07251908,
+            "bootstrap95": [
+              0.04198473,
+              0.10687023
+            ]
+          },
+          "support": {
+            "broad": 0,
+            "conditioned_union": 14,
+            "wins": 14,
+            "losses": 0,
+            "delta": 0.05343511,
+            "bootstrap95": [
+              0.02671756,
+              0.08396947
+            ]
+          },
+          "joint_em": {
+            "broad": 0,
+            "conditioned_union": 7,
+            "wins": 7,
+            "losses": 0,
+            "delta": 0.02671756,
+            "bootstrap95": [
+              0.00763359,
+              0.04961832
+            ]
+          }
+        }
+      }
+    }
+  },
+  "combined": {
+    "all": {
+      "n": 3072,
+      "metrics": {
+        "coverage": {
+          "broad": 1850,
+          "conditioned_union": 2130,
+          "wins": 280,
+          "losses": 0,
+          "delta": 0.09114583,
+          "bootstrap95": [
+            0.08105469,
+            0.1009196
+          ]
+        },
+        "shortlist": {
+          "broad": 1773,
+          "conditioned_union": 1982,
+          "wins": 245,
+          "losses": 36,
+          "delta": 0.06803385,
+          "bootstrap95": [
+            0.05761719,
+            0.07877604
+          ]
+        },
+        "support": {
+          "broad": 1432,
+          "conditioned_union": 1564,
+          "wins": 179,
+          "losses": 47,
+          "delta": 0.04296875,
+          "bootstrap95": [
+            0.03352865,
+            0.05240885
+          ]
+        },
+        "joint_em": {
+          "broad": 926,
+          "conditioned_union": 1030,
+          "wins": 130,
+          "losses": 26,
+          "delta": 0.03385417,
+          "bootstrap95": [
+            0.02604167,
+            0.04166667
+          ]
+        }
+      }
+    },
+    "complete": {
+      "n": 1850,
+      "metrics": {
+        "coverage": {
+          "broad": 1850,
+          "conditioned_union": 1850,
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "shortlist": {
+          "broad": 1773,
+          "conditioned_union": 1737,
+          "wins": 0,
+          "losses": 36,
+          "delta": -0.01945946,
+          "bootstrap95": [
+            -0.02594595,
+            -0.01297297
+          ]
+        },
+        "support": {
+          "broad": 1432,
+          "conditioned_union": 1391,
+          "wins": 6,
+          "losses": 47,
+          "delta": -0.02216216,
+          "bootstrap95": [
+            -0.02972973,
+            -0.01459459
+          ]
+        },
+        "joint_em": {
+          "broad": 926,
+          "conditioned_union": 904,
+          "wins": 4,
+          "losses": 26,
+          "delta": -0.01189189,
+          "bootstrap95": [
+            -0.01783784,
+            -0.00648649
+          ]
+        }
+      }
+    },
+    "incomplete": {
+      "n": 1222,
+      "metrics": {
+        "coverage": {
+          "broad": 0,
+          "conditioned_union": 280,
+          "wins": 280,
+          "losses": 0,
+          "delta": 0.22913257,
+          "bootstrap95": [
+            0.20621931,
+            0.25204583
+          ]
+        },
+        "shortlist": {
+          "broad": 0,
+          "conditioned_union": 245,
+          "wins": 245,
+          "losses": 0,
+          "delta": 0.200491,
+          "bootstrap95": [
+            0.17839607,
+            0.22258592
+          ]
+        },
+        "support": {
+          "broad": 0,
+          "conditioned_union": 173,
+          "wins": 173,
+          "losses": 0,
+          "delta": 0.14157119,
+          "bootstrap95": [
+            0.12274959,
+            0.16202946
+          ]
+        },
+        "joint_em": {
+          "broad": 0,
+          "conditioned_union": 126,
+          "wins": 126,
+          "losses": 0,
+          "delta": 0.10310966,
+          "bootstrap95": [
+            0.08674304,
+            0.1202946
+          ]
+        }
+      }
+    },
+    "one_missing": {
+      "n": 1114,
+      "metrics": {
+        "coverage": {
+          "broad": 0,
+          "conditioned_union": 280,
+          "wins": 280,
+          "losses": 0,
+          "delta": 0.2513465,
+          "bootstrap95": [
+            0.22621185,
+            0.27737882
+          ]
+        },
+        "shortlist": {
+          "broad": 0,
+          "conditioned_union": 245,
+          "wins": 245,
+          "losses": 0,
+          "delta": 0.21992819,
+          "bootstrap95": [
+            0.19479354,
+            0.24416517
+          ]
+        },
+        "support": {
+          "broad": 0,
+          "conditioned_union": 173,
+          "wins": 173,
+          "losses": 0,
+          "delta": 0.15529623,
+          "bootstrap95": [
+            0.13464991,
+            0.17773788
+          ]
+        },
+        "joint_em": {
+          "broad": 0,
+          "conditioned_union": 126,
+          "wins": 126,
+          "losses": 0,
+          "delta": 0.11310592,
+          "bootstrap95": [
+            0.0951526,
+            0.13195691
+          ]
+        }
+      }
+    },
+    "two_missing": {
+      "n": 108,
+      "metrics": {
+        "coverage": {
+          "broad": 0,
+          "conditioned_union": 0,
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "shortlist": {
+          "broad": 0,
+          "conditioned_union": 0,
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "support": {
+          "broad": 0,
+          "conditioned_union": 0,
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "joint_em": {
+          "broad": 0,
+          "conditioned_union": 0,
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "incomplete_anchor_gold": {
+      "n": 449,
+      "metrics": {
+        "coverage": {
+          "broad": 0,
+          "conditioned_union": 220,
+          "wins": 220,
+          "losses": 0,
+          "delta": 0.48997773,
+          "bootstrap95": [
+            0.44320713,
+            0.53452116
+          ]
+        },
+        "shortlist": {
+          "broad": 0,
+          "conditioned_union": 195,
+          "wins": 195,
+          "losses": 0,
+          "delta": 0.43429844,
+          "bootstrap95": [
+            0.38975501,
+            0.48106904
+          ]
+        },
+        "support": {
+          "broad": 0,
+          "conditioned_union": 136,
+          "wins": 136,
+          "losses": 0,
+          "delta": 0.30289532,
+          "bootstrap95": [
+            0.26057906,
+            0.34743875
+          ]
+        },
+        "joint_em": {
+          "broad": 0,
+          "conditioned_union": 101,
+          "wins": 101,
+          "losses": 0,
+          "delta": 0.22494432,
+          "bootstrap95": [
+            0.18708241,
+            0.26503341
+          ]
+        }
+      }
+    },
+    "incomplete_anchor_wrong": {
+      "n": 773,
+      "metrics": {
+        "coverage": {
+          "broad": 0,
+          "conditioned_union": 60,
+          "wins": 60,
+          "losses": 0,
+          "delta": 0.07761966,
+          "bootstrap95": [
+            0.05821475,
+            0.09702458
+          ]
+        },
+        "shortlist": {
+          "broad": 0,
+          "conditioned_union": 50,
+          "wins": 50,
+          "losses": 0,
+          "delta": 0.06468305,
+          "bootstrap95": [
+            0.04786546,
+            0.08279431
+          ]
+        },
+        "support": {
+          "broad": 0,
+          "conditioned_union": 37,
+          "wins": 37,
+          "losses": 0,
+          "delta": 0.04786546,
+          "bootstrap95": [
+            0.03234153,
+            0.06338939
+          ]
+        },
+        "joint_em": {
+          "broad": 0,
+          "conditioned_union": 25,
+          "wins": 25,
+          "losses": 0,
+          "delta": 0.03234153,
+          "bootstrap95": [
+            0.02069858,
+            0.04527814
+          ]
+        }
+      }
+    }
+  }
+}

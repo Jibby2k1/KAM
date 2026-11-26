@@ -20,6 +20,8 @@ The [conservative sequential fallback](../../reports/nonlinear_retrieval_natural
 
 [Reranking the conditioned union](../../reports/nonlinear_retrieval_natural/CONDITIONED_UNION.md) raised support recovery from 481 to 511 and joint exact match from 308 to 333 on 1,024 fresh HotpotQA pools. The union recovered 46 support pairs and 35 joint answers from 384 incomplete pools.
 
+[Three-cohort replication](../../reports/nonlinear_retrieval_natural/EXPANSION_REPLICATIONS.md) found 104 net joint exact matches from affinity-anchored expansion on 3,072 disjoint HotpotQA bridge questions. The union gained 126 joint matches on incomplete pools and lost 22 net on complete pools. It completed none of the 108 pools missing both supports.
+
 [Fixed-budget multi-anchor expansion](../../reports/nonlinear_retrieval_natural/MULTI_ANCHOR_EXPANSION.md) completed 105 of 407 incomplete pools with one anchor, 109 with two, and 113 with four. Alternate anchors improved coverage when the first was wrong and reduced it when the first was correct.
 
 The [expansion replacement guard](../../reports/nonlinear_retrieval_natural/EXPANSION_REPLACEMENT_GUARD.md) preserved more complete-pool support pairs but gave up 16 joint matches overall versus always using the conditioned union. The [exact bitset benchmark](../../reports/nonlinear_retrieval_natural/UNION_RELATION_FEATURES.md) matched all 2,048 feature inputs and accelerated the CPU feature step by about 1.3×.
