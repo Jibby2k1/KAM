@@ -677,7 +677,44 @@ def archive_projection(directory, study="baseline"):
                     detail[key] = {"n": len(panel), "seed_range_joint": [min(joint), max(joint)],
                                    **{metric: mean(r[metric] for r in panel) for metric in
                                       ("joint", "numeric_exact", "record", "entity", "unbound_payload")}}
-    return {"seeds": seeds, "tokens": 13_516_800, "panels": panels}
+    result = {"seeds": seeds, "tokens": 13_516_800, "panels": panels}
+    if study == "topology":
+        result["paired_release_cluster_effects"] = archive_topology_effects(runs_by_condition, seeds)
+    return result
+
+
+def archive_topology_effects(runs_by_condition, seeds):
+    output = {}
+    for arm in ("dot_without_absolute", "radial_without_absolute"):
+        for depth in (16, 48):
+            for reference in ("procedural_dual_boundary", "archive"):
+                matched = defaultdict(list)
+                for seed in seeds:
+                    panels = []
+                    for method in ("procedural_archive_topology", reference):
+                        panels.append({(r["id"], r["period"], r["recode"]): int(r["joint"])
+                                       for r in runs_by_condition[arm, method][seed] if r["depth"] == depth})
+                    proposed, baseline = panels
+                    assert proposed.keys() == baseline.keys() and len(proposed) == 128
+                    for key, value in proposed.items():
+                        quarter = int(key[0].rsplit("-", 1)[1])
+                        matched[seed, quarter].append(value - baseline[key])
+                quarters = sorted({quarter for _, quarter in matched})
+                assert len(quarters) == 8 and len(matched) == len(seeds) * len(quarters)
+                assert {len(v) for v in matched.values()} == {16}
+                averages = {key: mean(v) for key, v in matched.items()}
+                rng = Random(2744601)
+                bootstrap = []
+                for _ in range(5000):
+                    draw_q = rng.choices(quarters, k=len(quarters))
+                    draw_s = rng.choices(seeds, k=len(seeds))
+                    bootstrap.append(mean(averages[s, q] for s in draw_s for q in draw_q))
+                bootstrap.sort()
+                output[f"{arm}:{depth}:vs_{reference}"] = {
+                    "delta": mean(averages.values()), "bootstrap95": [bootstrap[125], bootstrap[4874]],
+                    "quarter_clusters": len(quarters), "paired_seeds": len(seeds),
+                }
+    return output
 
 
 def archive_factors(directory):
