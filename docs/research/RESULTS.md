@@ -36,6 +36,8 @@ The [gold-evidence reader diagnostic](../../reports/nonlinear_retrieval_natural/
 
 [Automatic sentence selection](../../reports/nonlinear_retrieval_natural/READER_SENTENCE_SELECTION.md) tied the full reader prefix at 369 joint exact matches with a companion-title selector. The fixed lead-two baseline reached 336, and query-only selection reached 367.
 
+[Document-order replay](../../reports/nonlinear_retrieval_natural/READER_DOCUMENT_ORDER.md) changed 76 joint outcomes on the same fixed pairs. Reversal gained 40 and lost 36, with an aggregate interval spanning zero.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving

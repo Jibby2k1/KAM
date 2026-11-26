@@ -1,0 +1,99 @@
+{
+  "fixture_sha256": "a5654cdb64b6531840aa58f0f71cf991fbaa853d0364bd7b204471662c8d725b",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "reference_sha256": "d0e6eb54d353702d0c198ed700fbcdb0714481794c28a45e8c22c6ada62b8ac2",
+  "archived_em_parity": 1024,
+  "gpus": {
+    "NVIDIA L4": 4
+  },
+  "cohorts": {
+    "all": {
+      "questions": 1024,
+      "support_pairs": 560,
+      "exact": {
+        "reference": 445,
+        "reversed": 455,
+        "either_order_oracle": 500,
+        "delta": 0.00976562,
+        "bootstrap95": [
+          -0.00976562,
+          0.02832031
+        ],
+        "wins": 55,
+        "losses": 45
+      },
+      "joint_em": {
+        "reference": 369,
+        "reversed": 373,
+        "either_order_oracle": 409,
+        "delta": 0.00390625,
+        "bootstrap95": [
+          -0.01269531,
+          0.02148438
+        ],
+        "wins": 40,
+        "losses": 36
+      }
+    },
+    "both_supports": {
+      "questions": 560,
+      "support_pairs": 560,
+      "exact": {
+        "reference": 369,
+        "reversed": 373,
+        "either_order_oracle": 409,
+        "delta": 0.00714286,
+        "bootstrap95": [
+          -0.02321429,
+          0.0375
+        ],
+        "wins": 40,
+        "losses": 36
+      },
+      "joint_em": {
+        "reference": 369,
+        "reversed": 373,
+        "either_order_oracle": 409,
+        "delta": 0.00714286,
+        "bootstrap95": [
+          -0.02321429,
+          0.0375
+        ],
+        "wins": 40,
+        "losses": 36
+      }
+    },
+    "missing_support": {
+      "questions": 464,
+      "support_pairs": 0,
+      "exact": {
+        "reference": 76,
+        "reversed": 82,
+        "either_order_oracle": 91,
+        "delta": 0.01293103,
+        "bootstrap95": [
+          -0.0065194,
+          0.03448276
+        ],
+        "wins": 15,
+        "losses": 9
+      },
+      "joint_em": {
+        "reference": 0,
+        "reversed": 0,
+        "either_order_oracle": 0,
+        "delta": 0.0,
+        "bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  }
+}
