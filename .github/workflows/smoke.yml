@@ -1,0 +1,28 @@
+name: CPU smoke tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m pytest -q tests/test_attention.py tests/test_data.py tests/test_model.py
+      - name: Recompute HotpotQA results
+        run: |
+          study=results/nonlinear_retrieval_natural/support_link_v1
+          python scripts/analyze_kam_fullwiki_support_links.py "$study" --output /tmp/kam-summary.json
+          diff -u "$study/summary.json" /tmp/kam-summary.json
