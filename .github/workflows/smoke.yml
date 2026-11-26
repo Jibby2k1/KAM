@@ -155,3 +155,26 @@ jobs:
           options=(--fixture "$study/fixture.json.gz" --pools "$study/pools.json.gz" --output "$output")
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_multi_anchor_expansion.py "$study/replay.json.gz" "${options[@]}"
           diff -u "$study/summary.json" "$output"
+      - name: Replay conditioned expansion guard
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/expansion_guard_v1"
+          train="$base/sequential_fallback_v1"
+          fitted="$base/native_sentence_refit_v1/fitted.json"
+          policy=$(mktemp)
+          output=$(mktemp)
+          options=(--fixture "$train/fixture.json.gz" --pools "$train/pools.json.gz" --fitted "$fitted")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_expansion_guard.py lock "$study/training-replay.json.gz" "${options[@]}" --output "$policy"
+          diff -u "$study/policy.json" "$policy"
+          options=(--fixture "$study/fixture.json.gz" --pools "$study/pools.json.gz" --fitted "$fitted")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_expansion_guard.py evaluate "$study/replay.json.gz" "${options[@]}" --policy "$study/policy.json" --output "$output"
+          diff -u "$study/summary.json" "$output"
+      - name: Audit exact union relation feature timings
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/union_relation_features_v1"
+          union="$base/conditioned_union_v1"
+          output=$(mktemp)
+          options=(--fixture "$union/fixture.json.gz" --pools "$union/pools.json.gz" --replay "$union/replay.json.gz")
+          python scripts/analyze_kam_union_relation_features.py "$study"/profile-?.json "${options[@]}" --output "$output"
+          diff -u "$study/summary.json" "$output"

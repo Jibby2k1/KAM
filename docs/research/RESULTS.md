@@ -22,6 +22,8 @@ The [conservative sequential fallback](../../reports/nonlinear_retrieval_natural
 
 [Fixed-budget multi-anchor expansion](../../reports/nonlinear_retrieval_natural/MULTI_ANCHOR_EXPANSION.md) completed 105 of 407 incomplete pools with one anchor, 109 with two, and 113 with four. Alternate anchors improved coverage when the first was wrong and reduced it when the first was correct.
 
+The [expansion replacement guard](../../reports/nonlinear_retrieval_natural/EXPANSION_REPLACEMENT_GUARD.md) preserved more complete-pool support pairs but gave up 16 joint matches overall versus always using the conditioned union. The [exact bitset benchmark](../../reports/nonlinear_retrieval_natural/UNION_RELATION_FEATURES.md) matched all 2,048 feature inputs and accelerated the CPU feature step by about 1.3×.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving

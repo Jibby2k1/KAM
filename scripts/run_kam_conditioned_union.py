@@ -26,6 +26,28 @@ from run_kam_sentence_verifier_fullwiki import pool_text, SENTENCE_BREAK
 
 EXPANDED = ("unconditioned_union", "conditioned_union")
 BATCH = 12
+GUARD_COLUMNS = ("shared_document", "added_document_count", "added_document_rank", "union_has_anchor",
+                 "broad_margin", "union_margin", "union_original_pair_margin", "original_pair_in_shortlist",
+                 "broad_pair_link", "union_pair_link", "weak_semantic_shift", "mean_affinity_shift",
+                 "mention_margin_shift", "union_size")
+
+
+def guard_vector(arms, winners, first, original_size, hits, union_size):
+    """Return decision-time information before either answer has been generated."""
+    broad_pair, union_pair = (set(arms[key]["pair"]) for key in ("broad", "conditioned_union"))
+    _, _, broad_scores, broad_x = winners["broad"]
+    slots, pairs, union_scores, union_x = winners["conditioned_union"]
+    additions = {doc for doc, slot in zip(arms["conditioned_union"]["pair"], slots, strict=True)
+                 if slot >= original_size}
+    count = len(additions)
+    original_only = [v for pair, v in zip(pairs, union_scores, strict=True) if max(pair) < original_size]
+    gap = max(union_scores) - max(original_only) if original_only else 0.
+    margins = [max(x) - np.partition(x, -2)[-2] for x in (broad_scores, union_scores)]
+    return [round(float(value), 7) for value in (
+        len(broad_pair & union_pair), count, min((hits.index(d) + 1 for d in additions), default=0) / 64,
+        first in union_pair, *margins, gap, bool(original_only), broad_x[4], union_x[4],
+        union_x[11] - broad_x[11], union_x[3] - broad_x[3], union_x[15] - broad_x[15], union_size,
+    )]
 
 
 def union_example(index, example, original, top):
@@ -44,8 +66,10 @@ def run(a):
     index_sha = digest(a.inputs / "lexical" / "completed.json")
     assert sealed["fixture_sha256"] == digest(a.fixture) and sealed["index_sha256"] == index_sha
     assert fixture["source_sha256"] == manifest["source_sha256"]
-    cases = fixture["rows"]["test"]
-    assert len(sealed["rows"]) == len(cases) == 1024 and set(sealed["rows"]) == {q["id"] for q in cases}
+    split = a.guard_split or "test"
+    cases = fixture["rows"][split]
+    assert set(sealed["rows"]) == {q["id"] for group in fixture["rows"].values() for q in group}
+    assert len(cases) == (3072 if split == "training" else 1024)
     cases = cases[a.shard::a.shards]
     revisions = read(a.assets / "revisions.json")
     state = torch.load(a.heads, weights_only=True, map_location="cpu")
@@ -77,7 +101,9 @@ def run(a):
         augmented = [f"{c['question']} First retrieved document: {candidate_texts(c)[slot]}"
                      for c, slot in zip(examples, first_slots.flatten().tolist(), strict=True)]
         second = adapter(encoder(augmented, "query"))
-        candidates, _ = top_corpus(index, torch.cat((adapted, (adapted + second) * .5)), first_ids * 2)
+        conditioned = (adapted + second) * .5
+        queries = conditioned if a.guard_split else torch.cat((adapted, conditioned))
+        candidates, _ = top_corpus(index, queries, first_ids if a.guard_split else first_ids * 2)
 
         plans, details = [], []
         for i, (case, example, base) in enumerate(zip(chunk, examples, original, strict=True)):
@@ -85,7 +111,8 @@ def run(a):
             assert ({base[j] for j, (title, _) in enumerate(example["context"])
                      if title_key(title) in case["gold_titles"]} == gold.intersection(base))
             id_ = case["id"]
-            hits = dict(zip(EXPANDED, (candidates[i], candidates[i + len(chunk)]), strict=True))
+            hits = ({"conditioned_union": candidates[i]} if a.guard_split else
+                    dict(zip(EXPANDED, (candidates[i], candidates[i + len(chunk)]), strict=True)))
             variants = {"broad": (base, example)} | {
                 arm: union_example(index, example, base, top) for arm, top in hits.items()
             }
@@ -102,14 +129,14 @@ def run(a):
                 stage = rank_variant(arm, variant, graph, lexical, bank, adapted[i:i+1], terms, heads, gpu_pairs,
                                      contexts)
                 prepared.append(stage)
-            plans.append((id_, "test", (), query[i], prepared))
+            plans.append((id_, split, (), query[i], prepared))
             details.append((case, base, variants, contexts, hits, first_ids[i]))
 
         scored = flush(plans, encoder)
         for item, plan, detail in zip(scored, plans, details, strict=True):
             case, base, variants, contexts, hits, first = detail
             gold = set(case["gold_ids"])
-            arms = {}
+            arms, winners = {}, {}
             for stage in plan[4]:
                 arm = stage[0]
                 ranked, example = variants[arm]
@@ -117,12 +144,18 @@ def run(a):
                 x = np.asarray(item["variants"][arm]["features"], dtype=np.float64)
                 scores = ((x - model["mean"]) / model["scale"]) @ model["coefficients"]
                 order = contexts[arm][1]
-                chosen = sorted(pairs[int(scores.argmax())], key=lambda j: (-order[j], j))
+                winner = int(scores.argmax())
+                chosen = sorted(pairs[winner], key=lambda j: (-order[j], j))
                 shortlisted = any({ranked[j], ranked[k]} == gold for j, k in pairs)
                 arms[arm] = {"pair": [ranked[j] for j in chosen], "gold_pair_in_shortlist": shortlisted}
                 prompts.setdefault(reader.prompt(example, chosen), []).append((arms[arm], case["answer"]))
-            output.append({"id": case["id"], "first": first, "corpus_hits": hits, "arms": arms,
-                           "pool_hash": sha256(json.dumps(base, separators=(",", ":")).encode()).hexdigest()})
+                winners[arm] = (chosen, pairs, scores, x[winner])
+            row = {"id": case["id"], "first": first, "corpus_hits": hits, "arms": arms,
+                   "pool_hash": sha256(json.dumps(base, separators=(",", ":")).encode()).hexdigest()}
+            if a.guard_split:
+                row["features"] = guard_vector(arms, winners, first, len(base), hits["conditioned_union"],
+                                               len(variants["conditioned_union"][0]))
+            output.append(row)
 
     for predicted, requests in zip(reader.answers(list(prompts)), prompts.values(), strict=True):
         for arm, truth in requests:
@@ -131,7 +164,8 @@ def run(a):
             "index_sha256": index_sha, "fitted_sha256": digest(a.fitted), "heads_sha256": digest(a.heads),
             "ablations_sha256": digest(a.ablations), "baseline_sha256": a.baseline_sha256, "models": revisions,
             "indexed_documents": index.meta["indexed"], "shard": a.shard, "shards": a.shards,
-            "gpu": torch.cuda.get_device_name(), "seconds": perf_counter() - started, "rows": output}
+            "gpu": torch.cuda.get_device_name(), "seconds": perf_counter() - started, "rows": output} | (
+                {"guard_columns": GUARD_COLUMNS, "split": split} if a.guard_split else {})
 
 
 def main():
@@ -139,6 +173,7 @@ def main():
     for name in ("assets", "inputs", "config", "fixture", "pools", "fitted", "baseline", "heads", "ablations", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--baseline-sha256", required=True)
+    parser.add_argument("--guard-split", choices=("training", "test"))
     parser.add_argument("--shard", type=int, required=True)
     parser.add_argument("--shards", type=int, required=True)
     a = parser.parse_args()

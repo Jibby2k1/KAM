@@ -1,0 +1,440 @@
+{
+  "provenance": {
+    "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+    "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+    "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+    "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+    "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+    "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+    "models": {
+      "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+      "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    },
+    "indexed_documents": 5201800,
+    "guard_columns": [
+      "shared_document",
+      "added_document_count",
+      "added_document_rank",
+      "union_has_anchor",
+      "broad_margin",
+      "union_margin",
+      "union_original_pair_margin",
+      "original_pair_in_shortlist",
+      "broad_pair_link",
+      "union_pair_link",
+      "weak_semantic_shift",
+      "mean_affinity_shift",
+      "mention_margin_shift",
+      "union_size"
+    ],
+    "fixture_sha256": "a2c2a5e358bdf9009431758eeaa51172123fc9e149c9d5d4bfdd33c4ae2f6e91",
+    "pools_sha256": "6a030bc87e994ba7f10d69a2ab242de13580820312759e59f792869dc5eba9a4",
+    "split": "test",
+    "shards": 4
+  },
+  "policy_sha256": "fe1962b555cb606557814fb916b431e36577286637d7e3e7e9aadecff11ee983",
+  "gpus": {
+    "NVIDIA B200": 4
+  },
+  "cohorts": {
+    "all": {
+      "n": 1024,
+      "switches": {
+        "broad": 0,
+        "conditioned_union": 1024,
+        "added_only": 177,
+        "guard": 74
+      },
+      "correct": {
+        "broad": {
+          "support": 464,
+          "joint_exact": 297
+        },
+        "conditioned_union": {
+          "support": 512,
+          "joint_exact": 341
+        },
+        "added_only": {
+          "support": 511,
+          "joint_exact": 340
+        },
+        "guard": {
+          "support": 500,
+          "joint_exact": 325
+        }
+      },
+      "oracle": {
+        "support": 524,
+        "joint_exact": 346
+      },
+      "paired": {
+        "guard_vs_broad": {
+          "support": {
+            "delta": 0.03515625,
+            "bootstrap95": [
+              0.0234375,
+              0.046875
+            ],
+            "wins": 39,
+            "losses": 3
+          },
+          "joint_exact": {
+            "delta": 0.02734375,
+            "bootstrap95": [
+              0.01757812,
+              0.03808594
+            ],
+            "wins": 29,
+            "losses": 1
+          }
+        },
+        "guard_vs_conditioned_union": {
+          "support": {
+            "delta": -0.01171875,
+            "bootstrap95": [
+              -0.02246094,
+              -0.00195312
+            ],
+            "wins": 9,
+            "losses": 21
+          },
+          "joint_exact": {
+            "delta": -0.015625,
+            "bootstrap95": [
+              -0.02539062,
+              -0.00683594
+            ],
+            "wins": 4,
+            "losses": 20
+          }
+        },
+        "guard_vs_added_only": {
+          "support": {
+            "delta": -0.01074219,
+            "bootstrap95": [
+              -0.02050781,
+              -0.00195312
+            ],
+            "wins": 6,
+            "losses": 17
+          },
+          "joint_exact": {
+            "delta": -0.01464844,
+            "bootstrap95": [
+              -0.0234375,
+              -0.00683594
+            ],
+            "wins": 2,
+            "losses": 17
+          }
+        },
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.046875,
+            "bootstrap95": [
+              0.03220215,
+              0.06347656
+            ],
+            "wins": 60,
+            "losses": 12
+          },
+          "joint_exact": {
+            "delta": 0.04296875,
+            "bootstrap95": [
+              0.03027344,
+              0.05761719
+            ],
+            "wins": 49,
+            "losses": 5
+          }
+        },
+        "added_only_vs_broad": {
+          "support": {
+            "delta": 0.04589844,
+            "bootstrap95": [
+              0.03125,
+              0.06152344
+            ],
+            "wins": 56,
+            "losses": 9
+          },
+          "joint_exact": {
+            "delta": 0.04199219,
+            "bootstrap95": [
+              0.02929688,
+              0.05566406
+            ],
+            "wins": 46,
+            "losses": 3
+          }
+        }
+      }
+    },
+    "complete": {
+      "n": 606,
+      "switches": {
+        "broad": 0,
+        "conditioned_union": 606,
+        "added_only": 23,
+        "guard": 8
+      },
+      "correct": {
+        "broad": {
+          "support": 464,
+          "joint_exact": 297
+        },
+        "conditioned_union": {
+          "support": 456,
+          "joint_exact": 295
+        },
+        "added_only": {
+          "support": 455,
+          "joint_exact": 294
+        },
+        "guard": {
+          "support": 461,
+          "joint_exact": 296
+        }
+      },
+      "oracle": {
+        "support": 468,
+        "joint_exact": 300
+      },
+      "paired": {
+        "guard_vs_broad": {
+          "support": {
+            "delta": -0.0049505,
+            "bootstrap95": [
+              -0.01155116,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 3
+          },
+          "joint_exact": {
+            "delta": -0.00165017,
+            "bootstrap95": [
+              -0.0049505,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 1
+          }
+        },
+        "guard_vs_conditioned_union": {
+          "support": {
+            "delta": 0.00825083,
+            "bootstrap95": [
+              -0.00330033,
+              0.01980198
+            ],
+            "wins": 9,
+            "losses": 4
+          },
+          "joint_exact": {
+            "delta": 0.00165017,
+            "bootstrap95": [
+              -0.00660066,
+              0.00990099
+            ],
+            "wins": 4,
+            "losses": 3
+          }
+        },
+        "guard_vs_added_only": {
+          "support": {
+            "delta": 0.00990099,
+            "bootstrap95": [
+              0.00330033,
+              0.01815182
+            ],
+            "wins": 6,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.00330033,
+            "bootstrap95": [
+              0.0,
+              0.00825083
+            ],
+            "wins": 2,
+            "losses": 0
+          }
+        },
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": -0.01320132,
+            "bootstrap95": [
+              -0.02640264,
+              -0.00165017
+            ],
+            "wins": 4,
+            "losses": 12
+          },
+          "joint_exact": {
+            "delta": -0.00330033,
+            "bootstrap95": [
+              -0.01320132,
+              0.0049505
+            ],
+            "wins": 3,
+            "losses": 5
+          }
+        },
+        "added_only_vs_broad": {
+          "support": {
+            "delta": -0.01485149,
+            "bootstrap95": [
+              -0.02475248,
+              -0.00660066
+            ],
+            "wins": 0,
+            "losses": 9
+          },
+          "joint_exact": {
+            "delta": -0.0049505,
+            "bootstrap95": [
+              -0.01155116,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 3
+          }
+        }
+      }
+    },
+    "incomplete": {
+      "n": 418,
+      "switches": {
+        "broad": 0,
+        "conditioned_union": 418,
+        "added_only": 154,
+        "guard": 66
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "conditioned_union": {
+          "support": 56,
+          "joint_exact": 46
+        },
+        "added_only": {
+          "support": 56,
+          "joint_exact": 46
+        },
+        "guard": {
+          "support": 39,
+          "joint_exact": 29
+        }
+      },
+      "oracle": {
+        "support": 56,
+        "joint_exact": 46
+      },
+      "paired": {
+        "guard_vs_broad": {
+          "support": {
+            "delta": 0.09330144,
+            "bootstrap95": [
+              0.06698565,
+              0.12200957
+            ],
+            "wins": 39,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.06937799,
+            "bootstrap95": [
+              0.04545455,
+              0.09569378
+            ],
+            "wins": 29,
+            "losses": 0
+          }
+        },
+        "guard_vs_conditioned_union": {
+          "support": {
+            "delta": -0.04066986,
+            "bootstrap95": [
+              -0.05980861,
+              -0.02392344
+            ],
+            "wins": 0,
+            "losses": 17
+          },
+          "joint_exact": {
+            "delta": -0.04066986,
+            "bootstrap95": [
+              -0.05980861,
+              -0.02392344
+            ],
+            "wins": 0,
+            "losses": 17
+          }
+        },
+        "guard_vs_added_only": {
+          "support": {
+            "delta": -0.04066986,
+            "bootstrap95": [
+              -0.05980861,
+              -0.02392344
+            ],
+            "wins": 0,
+            "losses": 17
+          },
+          "joint_exact": {
+            "delta": -0.04066986,
+            "bootstrap95": [
+              -0.05980861,
+              -0.02392344
+            ],
+            "wins": 0,
+            "losses": 17
+          }
+        },
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.13397129,
+            "bootstrap95": [
+              0.10287081,
+              0.16746411
+            ],
+            "wins": 56,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.11004785,
+            "bootstrap95": [
+              0.08133971,
+              0.14114833
+            ],
+            "wins": 46,
+            "losses": 0
+          }
+        },
+        "added_only_vs_broad": {
+          "support": {
+            "delta": 0.13397129,
+            "bootstrap95": [
+              0.10287081,
+              0.16746411
+            ],
+            "wins": 56,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.11004785,
+            "bootstrap95": [
+              0.08133971,
+              0.14114833
+            ],
+            "wins": 46,
+            "losses": 0
+          }
+        }
+      }
+    }
+  }
+}
