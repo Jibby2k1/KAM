@@ -150,7 +150,24 @@ def run(a):
         chosen = sorted(pairs[winner], key=lambda j: (-order[j], j))
         return chosen, pairs, scores, x[winner]
 
-    def score_cases(chunk, offset, prompts, output, use_shared=False, *, live_anchor=False, phase=None):
+    def score_cases(chunk, offset, prompts, output, use_shared=False, *, live_anchor=False, phase=None,
+                    reuse_sentences=False, sentence_counts=None):
+        encode_sentences = encoder
+        if sentence_counts is not None:
+            cache = {}
+
+            def encode_sentences(texts, prefix, max_length):
+                sentence_counts["requested"] += len(texts)
+                if not reuse_sentences:
+                    sentence_counts["encoded"] += len(texts)
+                    return encoder(texts, prefix, max_length=max_length)
+                missing = [text for text in texts if text not in cache]
+                sentence_counts["encoded"] += len(missing)
+                if missing:
+                    vectors = encoder(missing, prefix, max_length=max_length)
+                    cache.update(zip(missing, vectors, strict=True))
+                return torch.stack([cache[text] for text in texts])
+
         original = [sealed["rows"][c["id"]] for c in chunk]
         examples = [pool_text(index.db, q["question"], ids) for q, ids in zip(chunk, original, strict=True)]
         query = encoder([c["question"] for c in chunk], "query")
@@ -166,7 +183,7 @@ def run(a):
             terms = set(words(case["question"])) - STOP
             relation = bitset_relation_features(example, pairs_for(len(base))[0])
             stage = plan_variant("broad", base, example, adapted, terms, early_context, relation)
-            item, = flush([(case["id"], split, (), query[0], [stage])], encoder)
+            item, = flush([(case["id"], split, (), query[0], [stage])], encode_sentences)
             early = select(stage, item, early_context)
             first_slots = early[0][:1]
             first_ids = [base[first_slots[0]]]
@@ -225,7 +242,7 @@ def run(a):
             plans.append((id_, split, (), query[i], prepared))
             details.append((case, base, variants, contexts, hits, first_ids[i], elapsed))
 
-        scored = flush(plans, encoder)
+        scored = flush(plans, encode_sentences)
         for item, plan, detail in zip(scored, plans, details, strict=True):
             case, base, variants, contexts, hits, first, elapsed = detail
             gold = set(case["gold_ids"])
@@ -257,17 +274,21 @@ def run(a):
                 arm["exact"] = bool(measure_answer(predicted, truth)["em"])
 
     output = []
-    def request(case, i, use_shared, *, live_anchor=False, phase=None):
+    def request(case, i, use_shared, *, live_anchor=False, phase=None, reuse_sentences=False):
         prompts, rows = {}, []
+        sentence_counts = dict(requested=0, encoded=0) if a.sentence_reuse_profile else None
         torch.cuda.synchronize()
         before = perf_counter()
-        score_cases([case], i, prompts, rows, use_shared=use_shared, live_anchor=live_anchor, phase=phase)
+        score_cases([case], i, prompts, rows, use_shared=use_shared, live_anchor=live_anchor, phase=phase,
+                    reuse_sentences=reuse_sentences, sentence_counts=sentence_counts)
         before_reader = perf_counter()
         read_answers(prompts)
         torch.cuda.synchronize()
         done = perf_counter()
         if phase is not None:
             phase["reader_ms"] = (done - before_reader) * 1000
+        if sentence_counts is not None:
+            rows[0]["sentence_counts"] = sentence_counts
         return rows[0], (done - before) * 1000
 
     index_profile = {}
@@ -302,18 +323,19 @@ def run(a):
         from benchmark_kam_article_prewarm import read_index
 
         database_bytes, seconds = read_index(a.inputs / "lexical" / "articles.sqlite")
+        policies = ["live_broad", "live_reuse"] if a.sentence_reuse_profile else ["affinity", "live_broad"]
         for i, case in enumerate(cases[:4]):
-            request(case, i, True)
-            request(case, i, True, live_anchor=True)
+            for arm in policies:
+                request(case, i, True, live_anchor=arm != "affinity", reuse_sentences=arm == "live_reuse")
         rng = Random(23847 + a.shard)
         for i, case in enumerate(cases[4:132:4]):
-            arms = ["affinity", "live_broad"]
+            arms = policies.copy()
             rng.shuffle(arms)
             timings, records, phases = {}, {}, {}
             for arm in arms:
                 phases[arm] = {}
-                records[arm], timings[arm] = request(case, i, True, live_anchor=arm == "live_broad",
-                                                       phase=phases[arm])
+                records[arm], timings[arm] = request(case, i, True, live_anchor=arm != "affinity",
+                                                     phase=phases[arm], reuse_sentences=arm == "live_reuse")
             output.append({"id": case["id"], "order": arms, "timing_ms": timings,
                            "phase_ms": phases, "records": records})
         index_profile = {"prewarm_seconds": seconds, "database_bytes": database_bytes}
@@ -357,6 +379,7 @@ def main():
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
     parser.add_argument("--live-anchor-profile", action="store_true")
+    parser.add_argument("--sentence-reuse-profile", action="store_true")
     parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
     parser.add_argument("--index-prewarm-jobdir", type=Path)
     parser.add_argument("--shard", type=int, required=True)
@@ -378,6 +401,8 @@ def main():
         or a.shards != 1 or not a.index_prewarm_jobdir
     ):
         parser.error("the shared-index crossover needs two independent full-cohort affinity workers")
+    if a.sentence_reuse_profile and not a.live_anchor_profile:
+        parser.error("sentence reuse timing requires the live anchor profile")
     if a.live_anchor_profile and (
         a.guard_split != "test" or a.anchor_reference or a.serving_profile or a.index_prewarm_rank is not None
         or a.verify_shared_relation or a.shards != 4

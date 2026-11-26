@@ -73,3 +73,5 @@ At equal depth 64 and with the same B200 broad-ranked expansion, [hybrid initial
 The [live B200 anchor profile](../../reports/nonlinear_retrieval_natural/LIVE_ANCHOR_LATENCY.md) measured an 11.29 ms paired median overhead for broad-ranked anchoring versus affinity across 128 prewarmed requests. Both policies reproduced their archived anchors, candidate membership, evidence selections, and exactness.
 
 On 153 [IIRC questions with two linked gold sources](../../reports/nonlinear_retrieval_natural/IIRC_PAIR_TRANSFER.md), sequential recovered 40 pairs, independent top-two 32, and frozen pair scoring 22. Masking between-candidate title mentions recovered 30. Title features helped the small between-gold mention slice and hurt the larger remaining slice.
+
+[Within-request sentence reuse](../../reports/nonlinear_retrieval_natural/LIVE_ANCHOR_SENTENCE_REUSE.md) removed 33.1% of sentence encodings and saved 6.36 ms at the paired median on B200. All 128 requests preserved retrieval and reader decisions. The sample p95 rose from 120.96 to 137.76 ms.

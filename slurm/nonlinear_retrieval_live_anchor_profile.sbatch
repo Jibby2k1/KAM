@@ -9,7 +9,8 @@ set -euo pipefail
 module purge
 module load pytorch/2.8.0
 root="${1:?runtime directory required}"
-work="$root/live_anchor_profile_v1"
+work="${2:-$root/live_anchor_profile_v1}"
+extra=("${@:3}")
 index="$root/fullwiki_native_v1"
 support="$index/support_link_v1"
 export PYTHONPATH="$work:$root/coverage_gate_v1:$index/python" HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=6 OPENBLAS_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false
@@ -20,4 +21,4 @@ python -u "$work/run_kam_conditioned_union.py" --inputs "$index" --assets "$root
     --heads "$support/heads.pt" --ablations "$root/link_feature_ablation_v1/weights.pt" \
     --fixture "$work/fixture.json" --pools "$work/pools.json.gz" --fitted "$work/fitted.json" \
     --guard-split test --shard "$SLURM_ARRAY_TASK_ID" --shards "$SLURM_ARRAY_TASK_COUNT" \
-    --live-anchor-profile --output "$work/profile-$SLURM_ARRAY_JOB_ID-$SLURM_ARRAY_TASK_ID.json.gz"
+    --live-anchor-profile "${extra[@]}" --output "$work/profile-$SLURM_ARRAY_JOB_ID-$SLURM_ARRAY_TASK_ID.json.gz"

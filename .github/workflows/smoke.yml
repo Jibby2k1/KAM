@@ -269,3 +269,11 @@ jobs:
           output=$(mktemp)
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_iirc_pair.py "$study/replay.json.gz" --manifest "$study/manifest.json" --source-audit "$study/source-audit.json" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit live B200 sentence reuse
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/live_anchor_sentence_reuse_v1"
+          anchor="$base/broad_anchor_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_live_anchor_profile.py "$study"/profile-52954950-*.json.gz --fixture "$anchor/fixture.json.gz" --broad "$anchor/replay.json.gz" --sentence-reuse --output "$output"
+          diff -u "$study/summary.json" "$output"
