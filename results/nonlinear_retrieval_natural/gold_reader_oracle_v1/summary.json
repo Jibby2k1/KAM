@@ -1,0 +1,241 @@
+{
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "fixture_sha256": "b48adefb28f4e544abd874753df1262617f14894e59ce0815c362833ab212b97",
+  "evidence_sha256": "7aa111c771cca1281ba77389c6bddd1343cc3f3bd4ae3d9f844d53ea9232f54b",
+  "gpus": {
+    "NVIDIA L4": 4
+  },
+  "annotation_counts": {
+    "annotated_valid": 2456,
+    "in_article": 2455,
+    "in_reader_prefix": 2276,
+    "invalid_annotations": 1
+  },
+  "questions_with_invalid_annotation": 1,
+  "cohorts": {
+    "all": {
+      "questions": 1024,
+      "scores": {
+        "indexed_gold_articles": {
+          "count": 1024,
+          "exact": 611
+        },
+        "dataset_gold_passages": {
+          "count": 1024,
+          "exact": 610
+        },
+        "annotated_gold_sentences": {
+          "count": 1023,
+          "exact": 660
+        }
+      },
+      "contrasts": {
+        "dataset_gold_passages_vs_indexed_gold_articles": {
+          "count": 1024,
+          "first_exact": 610,
+          "second_exact": 611,
+          "delta": -0.00097656,
+          "bootstrap95": [
+            -0.00292969,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 1
+        },
+        "annotated_gold_sentences_vs_dataset_gold_passages": {
+          "count": 1023,
+          "first_exact": 660,
+          "second_exact": 610,
+          "delta": 0.04887586,
+          "bootstrap95": [
+            0.02639296,
+            0.07135875
+          ],
+          "wins": 95,
+          "losses": 45
+        },
+        "annotated_gold_sentences_vs_indexed_gold_articles": {
+          "count": 1023,
+          "first_exact": 660,
+          "second_exact": 611,
+          "delta": 0.04789834,
+          "bootstrap95": [
+            0.02541544,
+            0.07038123
+          ],
+          "wins": 95,
+          "losses": 46
+        }
+      }
+    },
+    "valid_annotations": {
+      "questions": 1023,
+      "scores": {
+        "indexed_gold_articles": {
+          "count": 1023,
+          "exact": 611
+        },
+        "dataset_gold_passages": {
+          "count": 1023,
+          "exact": 610
+        },
+        "annotated_gold_sentences": {
+          "count": 1023,
+          "exact": 660
+        }
+      },
+      "contrasts": {
+        "dataset_gold_passages_vs_indexed_gold_articles": {
+          "count": 1023,
+          "first_exact": 610,
+          "second_exact": 611,
+          "delta": -0.00097752,
+          "bootstrap95": [
+            -0.00293255,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 1
+        },
+        "annotated_gold_sentences_vs_dataset_gold_passages": {
+          "count": 1023,
+          "first_exact": 660,
+          "second_exact": 610,
+          "delta": 0.04887586,
+          "bootstrap95": [
+            0.02639296,
+            0.07135875
+          ],
+          "wins": 95,
+          "losses": 45
+        },
+        "annotated_gold_sentences_vs_indexed_gold_articles": {
+          "count": 1023,
+          "first_exact": 660,
+          "second_exact": 611,
+          "delta": 0.04789834,
+          "bootstrap95": [
+            0.02541544,
+            0.07038123
+          ],
+          "wins": 95,
+          "losses": 46
+        }
+      }
+    },
+    "all_support_visible_in_reader_prefix": {
+      "questions": 868,
+      "scores": {
+        "indexed_gold_articles": {
+          "count": 868,
+          "exact": 532
+        },
+        "dataset_gold_passages": {
+          "count": 868,
+          "exact": 531
+        },
+        "annotated_gold_sentences": {
+          "count": 868,
+          "exact": 567
+        }
+      },
+      "contrasts": {
+        "dataset_gold_passages_vs_indexed_gold_articles": {
+          "count": 868,
+          "first_exact": 531,
+          "second_exact": 532,
+          "delta": -0.00115207,
+          "bootstrap95": [
+            -0.00345622,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 1
+        },
+        "annotated_gold_sentences_vs_dataset_gold_passages": {
+          "count": 868,
+          "first_exact": 567,
+          "second_exact": 531,
+          "delta": 0.04147465,
+          "bootstrap95": [
+            0.01728111,
+            0.0656682
+          ],
+          "wins": 74,
+          "losses": 38
+        },
+        "annotated_gold_sentences_vs_indexed_gold_articles": {
+          "count": 868,
+          "first_exact": 567,
+          "second_exact": 532,
+          "delta": 0.04032258,
+          "bootstrap95": [
+            0.01612903,
+            0.06451613
+          ],
+          "wins": 74,
+          "losses": 39
+        }
+      }
+    },
+    "some_support_missing_in_reader_prefix": {
+      "questions": 155,
+      "scores": {
+        "indexed_gold_articles": {
+          "count": 155,
+          "exact": 79
+        },
+        "dataset_gold_passages": {
+          "count": 155,
+          "exact": 79
+        },
+        "annotated_gold_sentences": {
+          "count": 155,
+          "exact": 93
+        }
+      },
+      "contrasts": {
+        "dataset_gold_passages_vs_indexed_gold_articles": {
+          "count": 155,
+          "first_exact": 79,
+          "second_exact": 79,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "annotated_gold_sentences_vs_dataset_gold_passages": {
+          "count": 155,
+          "first_exact": 93,
+          "second_exact": 79,
+          "delta": 0.09032258,
+          "bootstrap95": [
+            0.02580645,
+            0.15483871
+          ],
+          "wins": 21,
+          "losses": 7
+        },
+        "annotated_gold_sentences_vs_indexed_gold_articles": {
+          "count": 155,
+          "first_exact": 93,
+          "second_exact": 79,
+          "delta": 0.09032258,
+          "bootstrap95": [
+            0.02580645,
+            0.15483871
+          ],
+          "wins": 21,
+          "losses": 7
+        }
+      }
+    }
+  }
+}

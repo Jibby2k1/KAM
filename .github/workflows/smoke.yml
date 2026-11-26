@@ -213,3 +213,9 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_article_prewarm.py "$study"/prewarm-[01].json --pools "$guard/pools.json.gz" --reference "$guard/replay.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit the gold-evidence reader replay
+        run: |
+          study=results/nonlinear_retrieval_natural/gold_reader_oracle_v1
+          output=$(mktemp)
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_gold_reader_oracle.py "$study/replay.json.gz" --fixture "$study/fixture.json.gz" --evidence "$study/gold-evidence.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
