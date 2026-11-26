@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learning a distance · Kernel Adaptive Memory. Worked derivations, interactive labs, and research results.">
+  <title>Learning a distance · Kernel Adaptive Memory</title>
+  <link rel="stylesheet" href="course.css">
+  <script src="labs.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to course</a>
+<div class="book">
+  <aside class="sidebar" aria-label="Course navigation">
+    <div class="sidebar-heading">
+      <div><a class="brand" href="./">Kernel Adaptive Memory</a><p>Raul Valle</p></div>
+      <button id="course-menu" type="button" aria-controls="course-navigation" aria-expanded="false" hidden>Contents</button>
+    </div>
+    <div id="course-navigation">
+      <nav aria-label="Chapters">
+        <strong>Course contents</strong>
+        <ol>
+          <li><a href="./">Start here</a></li>
+          <li><a href="attention.html">1. Attention as a weighted average</a></li>
+          <li><a href="radial.html" aria-current="page">2. Learning a distance</a></li>
+          <li><a href="supports.html">3. Reading a persistent memory</a></li>
+          <li><a href="revision.html">4. Looking up a revision</a></li>
+          <li><a href="evidence.html">5. Reading the experiments</a></li>
+        </ol>
+      </nav>
+      <div class="sidebar-links">
+        <a href="https://www.raulv.dev/projects/kernel-adaptive-memory.html">Research project</a>
+        <a href="https://github.com/Jibby2k1/KAM">Source on GitHub</a>
+        <a href="https://www.raulv.dev/">Raul Valle’s home page</a>
+      </div>
+      <label class="theme">Theme
+        <select id="theme">
+          <option value="auto">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <main id="main" tabindex="-1">
+    <header id="radial">
+      <p class="chapter-number">Chapter 2</p>
+      <h1>Learning a distance</h1>
+      <p class="lead">Use distance as a score, then learn which directions should count most.</p>
+    </header>
+    <section id="derive">
+      <h2>Derive the shape of an equal-score contour</h2>
+      <p>A radial head scores a key by its squared distance from the query. The head learns positive coordinate weights <var>m</var><sub>i</sub> and bandwidth <var>σ</var>.</p>
+      <div class="equation">
+        <span><var>s</var>(<var>q</var>, <var>k</var>) = −∑<sub>i</sub> <var>m</var><sub>i</sub>(<var>q</var><sub>i</sub> − <var>k</var><sub>i</sub>)<sup>2</sup> / (2<var>σ</var><sup>2</sup>)</span>
+      </div>
+      <p>Set the score to −½ and put the query at the origin. In two dimensions the contour satisfies <var>m</var><sub>x</sub><var>x</var><sup>2</sup> + <var>m</var><sub>y</sub><var>y</var><sup>2</sup> = <var>σ</var><sup>2</sup>. On the horizontal axis, <var>y</var> = 0, so the radius there is <var>σ</var>/√<var>m</var><sub>x</sub>. The vertical radius is <var>σ</var>/√<var>m</var><sub>y</sub>. Quadrupling the horizontal weight halves the horizontal radius.</p>
+      <p>With unit weights, keys at (1, 0) and (0, 2) have squared distances 1 and 4. Raise the horizontal weight to 9 and the distances become 9 and 4, so the second key gets more weight. Changing the bandwidth preserves that ordering because it multiplies both scores by the same positive factor.</p>
+    </section>
+    <section id="experiment">
+      <h2>Predict, then change the geometry</h2>
+      <div class="lab" id="geometry-lab">
+        <h3>Interactive lab · Shape the attention read</h3>
+        <p>Drag the query <var>q</var> or use the sliders to move it. Each ring marks an equal score. Try raising the horizontal metric weight while keeping the query still. Which keys lose weight?</p>
+        <div class="geometry-layout">
+          <canvas id="geometry" width="720" height="490" aria-label="Four keys and equal-score contours around the query. Use the query sliders to move the query.">Use the query sliders and read the resulting weights below.</canvas>
+          <div class="controls">
+            <label class="control" for="qx">Query x <output id="qx-value" for="qx"></output><input id="qx" type="range" min="-2.5" max="2.5" step=".01" value="0"></label>
+            <label class="control" for="qy">Query y <output id="qy-value" for="qy"></output><input id="qy" type="range" min="-1.7" max="1.7" step=".01" value=".05"></label>
+            <label class="control" for="sigma">Bandwidth σ <output id="sigma-value" for="sigma"></output><input id="sigma" type="range" min=".22" max="1.8" step=".01" value=".8"></label>
+            <label class="control" for="metric">Horizontal weight <output id="metric-value" for="metric"></output><input id="metric" type="range" min=".35" max="4" step=".05" value="1"></label>
+            <div class="weights" id="weights" aria-label="Weight per key"></div>
+            <button id="reset" type="button">Reset geometry</button>
+          </div>
+        </div>
+        <noscript><p>Enable JavaScript to use the sliders. The worked example above uses the same equation.</p></noscript>
+      </div>
+      <details><summary>Check your understanding · What happens as bandwidth grows?</summary>
+        <p>Each score approaches zero and the weights approach a uniform distribution. At small bandwidth, the nearest key takes most of the weight if it is uniquely closest.</p>
+      </details>
+      <div id="explainer" class="video-lesson">
+        <h3>Watch · From distance to memory</h3>
+        <video controls playsinline preload="metadata" poster="media/kam-cover.png" aria-label="KAM radial attention explainer">
+          <source src="media/radial-attention.mp4" type="video/mp4">
+          <track kind="captions" src="media/radial-attention.vtt" srclang="en" label="English">
+          <a href="media/radial-attention.mp4">Download the 30-second explainer</a>
+        </video>
+      </div>
+    </section>
+    <footer>
+      <nav class="pagination" aria-label="Adjacent chapters"><a rel="prev" href="attention.html">← Attention as a weighted average</a><a rel="next" href="supports.html">Reading a persistent memory →</a></nav>
+    </footer>
+  </main>
+  <aside class="on-page">
+    <nav aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#derive">Equal-score contours</a>
+      <a href="#geometry-lab">Attention geometry lab</a>
+      <a href="#explainer">30-second explainer</a>
+    </nav>
+  </aside>
+</div>
+</body>
+</html>

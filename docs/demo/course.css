@@ -128,3 +128,30 @@ footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line);
   main { padding-inline: 1rem; }
   th, td { font-size: .85rem; padding-inline: .2rem; }
 }
+
+.sidebar a[aria-current="page"] { color: var(--link); font-weight: 700; }
+.chapter-number { color: var(--muted); font-size: .875rem; font-weight: 650; margin-top: 0; }
+.outline { padding-left: 1.5rem; }
+.outline li { padding: .45rem 0; }
+.outline p { color: var(--muted); margin: .15rem 0; }
+.pagination { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.25rem; }
+.pagination [rel="next"] { margin-left: auto; }
+.blend { display: flex; height: .75rem; border-radius: .35rem; overflow: hidden; margin-block: .8rem .3rem; }
+.blend span:first-child { width: 50%; background: var(--link); }
+.blend span:last-child { flex: 1; background: #a45725; }
+.axis-labels { display: flex; justify-content: space-between; gap: .5rem; font-size: .86rem; }
+.number-line { position: relative; height: 3px; margin: 1rem .45rem; background: var(--muted); }
+.number-line span { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: .9rem; height: .9rem; border-radius: 50%; background: var(--link); border: 2px solid var(--panel); }
+#support-marker { left: 75%; }
+#support-first { width: 1.8%; }
+.timeline { padding: .3rem 1rem; margin: 1.2rem 0; }
+.timeline-track { position: relative; height: 3px; margin: .8rem 0; background: var(--line); }
+#day-line { position: absolute; left: 48.5714%; top: -18px; height: 36px; width: 2px; background: var(--link); }
+.release-mark { position: absolute; top: 50%; left: var(--position); transform: translate(-50%, -50%); display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border: 1px solid var(--line); border-radius: 50%; font-size: .7rem; color: var(--ink); background: var(--page); }
+.release-mark.future { color: var(--muted); border-style: dashed; }
+.release-mark.winner { background: var(--success); color: var(--page); border-color: var(--success); }
+#cohort { display: block; max-width: 100%; margin: .3rem 0 1rem; font: inherit; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: .3rem; padding: .25rem .4rem; }
+.cohort-row { margin: .6rem 0; }
+.cohort-row p { font-size: .88rem; margin: .2rem 0; }
+.cohort-row .track { background: var(--line); }
+.cohort-row .fill { background: var(--link); }

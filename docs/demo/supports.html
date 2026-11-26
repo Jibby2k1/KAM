@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Reading a persistent memory · Kernel Adaptive Memory. Worked derivations, interactive labs, and research results.">
+  <title>Reading a persistent memory · Kernel Adaptive Memory</title>
+  <link rel="stylesheet" href="course.css">
+  <script src="labs.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to course</a>
+<div class="book">
+  <aside class="sidebar" aria-label="Course navigation">
+    <div class="sidebar-heading">
+      <div><a class="brand" href="./">Kernel Adaptive Memory</a><p>Raul Valle</p></div>
+      <button id="course-menu" type="button" aria-controls="course-navigation" aria-expanded="false" hidden>Contents</button>
+    </div>
+    <div id="course-navigation">
+      <nav aria-label="Chapters">
+        <strong>Course contents</strong>
+        <ol>
+          <li><a href="./">Start here</a></li>
+          <li><a href="attention.html">1. Attention as a weighted average</a></li>
+          <li><a href="radial.html">2. Learning a distance</a></li>
+          <li><a href="supports.html" aria-current="page">3. Reading a persistent memory</a></li>
+          <li><a href="revision.html">4. Looking up a revision</a></li>
+          <li><a href="evidence.html">5. Reading the experiments</a></li>
+        </ol>
+      </nav>
+      <div class="sidebar-links">
+        <a href="https://www.raulv.dev/projects/kernel-adaptive-memory.html">Research project</a>
+        <a href="https://github.com/Jibby2k1/KAM">Source on GitHub</a>
+        <a href="https://www.raulv.dev/">Raul Valle’s home page</a>
+      </div>
+      <label class="theme">Theme
+        <select id="theme">
+          <option value="auto">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <main id="main" tabindex="-1">
+    <header id="supports">
+      <p class="chapter-number">Chapter 3</p>
+      <h1>Reading a persistent memory</h1>
+      <p class="lead">A combined KAM block reads the current sequence, then queries its learned support bank.</p>
+    </header>
+    <section id="derive">
+      <h2>Follow one token through the two reads</h2>
+      <p>Context keys and values are projections of the current and earlier tokens. Supports are learned key–value pairs shared across sequences. In a combined block, the support query is computed after the context update.</p>
+      <div class="equation">
+        <span><var>z</var> = <var>x</var> + context(<var>x</var>)</span>
+        <span><var>y</var> = <var>z</var> + support(<var>z</var>)</span>
+      </div>
+      <p>Take a scalar token <var>x</var> = 1. Let its causal context read average values 0 and 4 with equal weights, so <var>z</var> = 1 + 2 = 3. For this example, use <var>z</var> directly as the support query, with unit bandwidth and support keys 0 and 4. Their scores are −9/2 and −1/2. The second key leads by 4, so its weight is 1/(1 + exp(−4)) ≈ 0.982.</p>
+      <p>Give the supports values −1 and +1. Their weighted read is 2 × 0.982 − 1 ≈ 0.964, so the second residual produces <var>y</var> ≈ 3.964. This scalar example isolates the order of the two reads. The block code includes normalization and learned projections. <a href="https://github.com/Jibby2k1/KAM/blob/main/kam/model.py">Model implementation</a>.</p>
+      <figure>
+        <img src="media/memory-paths.png" width="1280" height="720" loading="lazy" alt="The KAM block reads context keys and values first, adds a residual update, then reads the learned support bank and adds a second residual update.">
+        <figcaption>In the combined block, the context read updates the token before the support read. A residual update adds the result of a read to the token representation.</figcaption>
+      </figure>
+    </section>
+    <section id="support-lab">
+      <h2>Interactive lab · Route after the context update</h2>
+      <div class="lab">
+        <p>Vary the context update and see when the second support becomes more influential. The support keys stay at 0 and 4.</p>
+        <label class="control cutoff" for="context-delta">Context update <output id="context-value" for="context-delta">2.00</output>
+          <input id="context-delta" type="range" min="-1" max="3" step=".05" value="2"></label>
+        <div class="number-line" aria-hidden="true"><span id="support-marker"></span></div>
+        <div class="axis-labels"><span>Key 1 · 0</span><span>Key 2 · 4</span></div>
+        <div class="blend" aria-hidden="true"><span id="support-first"></span><span></span></div>
+        <p class="choice" id="support-result" aria-live="polite">Query 3.00. Weights 1.8% and 98.2%. Output 3.964.</p>
+      </div>
+      <details><summary>Check your understanding · When do the weights tie?</summary>
+        <p>The keys are equally far away when <var>z</var> = 2, which requires a context update of +1. Their values cancel at equal weight, leaving the output at 2.</p>
+      </details>
+    </section>
+    <footer>
+      <nav class="pagination" aria-label="Adjacent chapters"><a rel="prev" href="radial.html">← Learning a distance</a><a rel="next" href="revision.html">Looking up a revision →</a></nav>
+    </footer>
+  </main>
+  <aside class="on-page">
+    <nav aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#derive">Two residual reads</a>
+      <a href="#support-lab">Support routing lab</a>
+    </nav>
+  </aside>
+</div>
+</body>
+</html>

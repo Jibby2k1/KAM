@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Reading the experiments · Kernel Adaptive Memory. Worked derivations, interactive labs, and research results.">
+  <title>Reading the experiments · Kernel Adaptive Memory</title>
+  <link rel="stylesheet" href="course.css">
+  <script src="labs.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to course</a>
+<div class="book">
+  <aside class="sidebar" aria-label="Course navigation">
+    <div class="sidebar-heading">
+      <div><a class="brand" href="./">Kernel Adaptive Memory</a><p>Raul Valle</p></div>
+      <button id="course-menu" type="button" aria-controls="course-navigation" aria-expanded="false" hidden>Contents</button>
+    </div>
+    <div id="course-navigation">
+      <nav aria-label="Chapters">
+        <strong>Course contents</strong>
+        <ol>
+          <li><a href="./">Start here</a></li>
+          <li><a href="attention.html">1. Attention as a weighted average</a></li>
+          <li><a href="radial.html">2. Learning a distance</a></li>
+          <li><a href="supports.html">3. Reading a persistent memory</a></li>
+          <li><a href="revision.html">4. Looking up a revision</a></li>
+          <li><a href="evidence.html" aria-current="page">5. Reading the experiments</a></li>
+        </ol>
+      </nav>
+      <div class="sidebar-links">
+        <a href="https://www.raulv.dev/projects/kernel-adaptive-memory.html">Research project</a>
+        <a href="https://github.com/Jibby2k1/KAM">Source on GitHub</a>
+        <a href="https://www.raulv.dev/">Raul Valle’s home page</a>
+      </div>
+      <label class="theme">Theme
+        <select id="theme">
+          <option value="auto">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <main id="main" tabindex="-1">
+    <header id="evidence">
+      <p class="chapter-number">Chapter 5</p>
+      <h1>Reading the experiments</h1>
+      <p class="lead">A retrieval method can only select evidence that made it into its candidate pool.</p>
+    </header>
+    <section id="derive">
+      <h2>Derive the coverage bound</h2>
+      <p>Let <var>C</var> mean that the candidate pool contains both gold documents, and <var>R</var> mean that the selector returns both. Every success in <var>R</var> must come from <var>C</var>. Multiplying candidate coverage by success among eligible pools gives the overall rate.</p>
+      <div class="equation"><span>P(<var>R</var>) = P(<var>C</var>) × P(<var>R</var> | <var>C</var>) ≤ P(<var>C</var>)</span></div>
+      <p>On 768 held-out HotpotQA questions, 468 pools contained both documents. The context-aware pair scorer succeeded on 323 linked and 23 unlinked questions, so it succeeded on 346 of the 468 eligible pools. Multiply (468/768) × (346/468) = 346/768 ≈ <strong>45.1%</strong>. The coverage ceiling is 468/768 ≈ 60.9%.</p>
+    </section>
+    <section id="cohort-lab">
+      <h2>Interactive lab · Compare the same selectors by cohort</h2>
+      <div class="lab">
+        <p>Change the cohort to see how the denominator and the ranking change. Success means both gold documents were selected.</p>
+        <label for="cohort">Question cohort</label>
+        <select id="cohort">
+          <option value="all">All held-out questions</option>
+          <option value="linked">Both supports present · linked</option>
+          <option value="unlinked">Both supports present · unlinked</option>
+          <option value="missing">At least one support missing</option>
+        </select>
+        <div id="cohort-bars">
+          <p>Context-aware pair scorer: 346 / 768 (45.1%)</p>
+          <p>Learned sequential: 136 / 768 (17.7%)</p>
+          <p>Learned single-shot top two: 117 / 768 (15.2%)</p>
+        </div>
+        <p id="cohort-note" aria-live="polite">468 of 768 pools contain both supports, giving a 60.9% coverage ceiling.</p>
+      </div>
+      <details><summary>Check your understanding · Can a better selector recover missing evidence?</summary>
+        <p>With the same pool it cannot. Increasing coverage requires changing the candidate retrieval step. Better coverage then gives the selector more opportunities, while conditional selection accuracy can still change.</p>
+      </details>
+    </section>
+    <section id="research">
+      <h2>Read the studies</h2>
+      <dl class="terms evidence">
+        <div><dt>Can the model recover the correct revision?</dt><dd>At 48 candidates in the Dallas Fed archive, radial recovery rose from 3.8% to 57.6% after training on synthetic histories that model clusters of releases. The evaluation supplied typed identities and used answerable questions. <a href="https://github.com/Jibby2k1/KAM/blob/main/reports/nonlinear_retrieval_natural/OECD_REVISIONS.md">Archive experiment and plot</a>.</dd></div>
+        <div><dt>Can a pair scorer recover two pieces of evidence?</dt><dd>In a held-out HotpotQA study, the pair scorer led when the two supporting documents linked to each other. Sequential retrieval led on unlinked evidence. These results use separate retrieval heads with shared candidate pools. <a href="https://github.com/Jibby2k1/KAM/blob/main/reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md">Supporting-link study</a>.</dd></div>
+        <div><dt>Can the radial read run on a fast attention kernel?</dt><dd>In the tested full-context variant, expanding the squared distance produces a dot product plus a key-dependent term. The query-only term cancels in softmax. That lets the scorer use an optimized attention kernel. <a href="https://github.com/Jibby2k1/KAM/blob/main/reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md">Derivation and GPU timings</a>.</dd></div>
+      </dl>
+      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/RESULTS.md">Browse all results and reproduction instructions</a>.</p>
+    </section>
+    <footer>
+      <nav class="pagination" aria-label="Adjacent chapters"><a rel="prev" href="revision.html">← Looking up a revision</a></nav>
+    </footer>
+  </main>
+  <aside class="on-page">
+    <nav aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#derive">Derive the coverage bound</a>
+      <a href="#cohort-lab">Compare by cohort</a>
+      <a href="#research">Read the studies</a>
+    </nav>
+  </aside>
+</div>
+</body>
+</html>

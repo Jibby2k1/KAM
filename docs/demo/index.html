@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A first-principles course on Kernel Adaptive Memory, with worked examples, interactive labs, and research results.">
+  <meta name="description" content="Kernel Adaptive Memory from first principles. Worked derivations, interactive labs, and research results.">
   <title>Kernel Adaptive Memory from first principles</title>
   <link rel="stylesheet" href="course.css">
   <script src="labs.js" defer></script>
@@ -13,19 +13,19 @@
 <div class="book">
   <aside class="sidebar" aria-label="Course navigation">
     <div class="sidebar-heading">
-      <div><a class="brand" href="#start">Kernel Adaptive Memory</a><p>Raul Valle</p></div>
+      <div><a class="brand" href="./">Kernel Adaptive Memory</a><p>Raul Valle</p></div>
       <button id="course-menu" type="button" aria-controls="course-navigation" aria-expanded="false" hidden>Contents</button>
     </div>
     <div id="course-navigation">
       <nav aria-label="Chapters">
         <strong>Course contents</strong>
         <ol>
-          <li><a href="#start">Start here</a></li>
-          <li><a href="#attention">1. Attention as a weighted average</a></li>
-          <li><a href="#radial">2. Learning a distance</a></li>
-          <li><a href="#supports">3. Reading a persistent memory</a></li>
-          <li><a href="#revision">4. Looking up a revision</a></li>
-          <li><a href="#evidence">5. Reading the experiments</a></li>
+          <li><a href="./" aria-current="page">Start here</a></li>
+          <li><a href="attention.html">1. Attention as a weighted average</a></li>
+          <li><a href="radial.html">2. Learning a distance</a></li>
+          <li><a href="supports.html">3. Reading a persistent memory</a></li>
+          <li><a href="revision.html">4. Looking up a revision</a></li>
+          <li><a href="evidence.html">5. Reading the experiments</a></li>
         </ol>
       </nav>
       <div class="sidebar-links">
@@ -42,8 +42,7 @@
       </label>
     </div>
   </aside>
-
-  <main id="main">
+  <main id="main" tabindex="-1">
     <header id="start">
       <h1>Kernel Adaptive Memory<br class="desktop"> from first principles</h1>
       <p class="lead">How does a sequence model decide what to read? Start with a weighted average, choose what counts as nearby, and then ask what a model can retrieve from memory beyond the current sequence.</p>
@@ -57,126 +56,28 @@
       </div>
       <p>Prerequisites are vectors, squared distance, and averages. For a longer refresher, see the companion course’s <a href="https://www.raulv.dev/e3nn-course/part5_beyond/05b_attention_from_scratch.html">attention from scratch</a> chapter.</p>
     </header>
-
-    <section id="attention" aria-labelledby="attention-title">
-      <h2 id="attention-title">1. Attention as a weighted average</h2>
-      <p>Suppose two nearby sensors report 10 and 20 degrees. If the first reading deserves three times as much weight as the second, use weights 0.75 and 0.25. The estimate is 0.75 × 10 + 0.25 × 20 = 12.5 degrees. Attention computes this kind of average with weights that depend on the question being asked.</p>
-      <dl class="terms">
-        <div><dt>Query <var>q</var></dt><dd>What you want to find. Here, the location where you want a temperature estimate.</dd></div>
-        <div><dt>Key <var>k</var></dt><dd>What you compare with the query. Here, a sensor’s location.</dd></div>
-        <div><dt>Value <var>v</var></dt><dd>What that key returns. Here, the temperature it measured.</dd></div>
-      </dl>
-      <p>Score each key against the query. Softmax exponentiates the scores and divides by their sum, so the weights add to one. Then average the values using those weights.</p>
-      <div class="equation" aria-label="The weight for key j is the exponential of score j divided by the sum of exponentials. The output is the weighted sum of the values.">
-        <span><var>w</var><sub>j</sub> = exp(<var>s</var><sub>j</sub>) / ∑<sub>ℓ</sub> exp(<var>s</var><sub>ℓ</sub>)</span>
-        <span>read(<var>q</var>) = ∑<sub>j</sub> <var>w</var><sub>j</sub> <var>v</var><sub>j</sub></span>
-      </div>
-      <details><summary>Check your understanding · What if the scores tie?</summary>
-        <p>Equal scores give equal weights. With just these two sensors, each receives half the weight and the read returns 15 degrees.</p>
-      </details>
-    </section>
-
-    <section id="radial" aria-labelledby="radial-title">
-      <h2 id="radial-title">2. Learning a distance</h2>
-      <p>A radial head gives larger scores to closer keys. Begin with squared distance and allow each coordinate to contribute by a different amount. The model learns the positive coordinate weights <var>m</var><sub>i</sub> and bandwidth <var>σ</var>.</p>
-      <div class="equation" aria-label="The radial score is minus the sum of weighted squared coordinate differences, divided by twice the squared bandwidth.">
-        <span><var>s</var>(<var>q</var>, <var>k</var>) = −∑<sub>i</sub> <var>m</var><sub>i</sub>(<var>q</var><sub>i</sub> − <var>k</var><sub>i</sub>)<sup>2</sup> / (2<var>σ</var><sup>2</sup>)</span>
-      </div>
-      <h3>Work it out before moving the sliders</h3>
-      <p>Put the query at (0, 0) and two keys at (1, 0) and (0, 2). With both metric weights equal to 1, the squared distances are 1 and 4. The first key gets the larger weight. Set the horizontal weight to 9 and the distances become 9 and 4. Now the second key gets the larger weight. Changing bandwidth alone preserves that order and changes how far apart the weights are.</p>
-
-      <div class="lab" id="geometry-lab">
-        <h3>Interactive lab · Shape the attention read</h3>
-        <p>Drag the query <var>q</var> or use the sliders to move it. Each ring marks an equal score. Try raising the horizontal metric weight while keeping the query still. Which keys lose weight?</p>
-        <div class="geometry-layout">
-          <canvas id="geometry" width="720" height="490" aria-label="Four keys and equal-score contours around the query. Use the query sliders to move the query.">Use the query sliders and read the resulting weights below.</canvas>
-          <div class="controls">
-            <label class="control" for="qx">Query x <output id="qx-value" for="qx"></output><input id="qx" type="range" min="-2.5" max="2.5" step=".01" value="0"></label>
-            <label class="control" for="qy">Query y <output id="qy-value" for="qy"></output><input id="qy" type="range" min="-1.7" max="1.7" step=".01" value=".05"></label>
-            <label class="control" for="sigma">Bandwidth σ <output id="sigma-value" for="sigma"></output><input id="sigma" type="range" min=".22" max="1.8" step=".01" value=".8"></label>
-            <label class="control" for="metric">Horizontal weight <output id="metric-value" for="metric"></output><input id="metric" type="range" min=".35" max="4" step=".05" value="1"></label>
-            <div class="weights" id="weights" aria-label="Weight per key"></div>
-            <button id="reset" type="button">Reset geometry</button>
-          </div>
-        </div>
-        <noscript><p>Enable JavaScript to use the sliders. The worked example above uses the same equation.</p></noscript>
-      </div>
-      <details><summary>Check your understanding · What happens as bandwidth grows?</summary>
-        <p>Each score approaches zero because the denominator grows. Softmax approaches equal weights. At small bandwidth, the nearest key dominates if it is uniquely closest.</p>
-      </details>
-
-      <div id="explainer" class="video-lesson">
-        <h3>Watch · From distance to memory</h3>
-        <video controls playsinline preload="metadata" poster="media/kam-cover.png" aria-label="KAM radial attention explainer">
-          <source src="media/radial-attention.mp4" type="video/mp4">
-          <track kind="captions" src="media/radial-attention.vtt" srclang="en" label="English">
-          <a href="media/radial-attention.mp4">Download the 30-second explainer</a>
-        </video>
-      </div>
-    </section>
-
-    <section id="supports" aria-labelledby="supports-title">
-      <h2 id="supports-title">3. Reading a persistent memory</h2>
-      <p>In causal context attention, the keys and values come from the current token and the earlier tokens it can see. Each sequence supplies its own context. A KAM block can also read from a bank of learned key–value pairs, called <em>supports</em>, that are shared across sequences.</p>
-      <figure>
-        <img src="media/memory-paths.png" width="1280" height="720" loading="lazy" alt="The KAM block reads context keys and values first, adds a residual update, then reads the learned support bank and adds a second residual update.">
-        <figcaption>In the combined block, the context read updates the token before the support read. A residual update adds the result of a read to the token representation.</figcaption>
-      </figure>
-      <p>For example, a token representing only part of a question can first combine it with earlier words. The updated representation then queries the support bank. The bank persists because it is part of the model’s parameters. In this variant, running a new prompt leaves those parameters as they were.</p>
-      <details><summary>Check your understanding · Which keys change with a new sequence?</summary>
-        <p>The projected context keys change with the tokens. The learned supports are shared. Their weights can still change because the query is computed from the new sequence.</p>
-      </details>
-    </section>
-
-    <section id="revision" aria-labelledby="revision-title">
-      <h2 id="revision-title">4. Looking up a revision</h2>
-      <p>Suppose we stored several estimates for the same quarter. The quarter identifies the observation, while each release day tells us when a version became known. A question about what was known on day 17 must exclude every release after day 17, even if it describes the right quarter.</p>
-      <ol class="steps">
-        <li>Keep the records with the requested identity and observation period.</li>
-        <li>Keep releases at or before the cutoff.</li>
-        <li>Choose the latest eligible release. If none qualify, return no record.</li>
+    <section id="outline" aria-labelledby="outline-title">
+      <h2 id="outline-title">Course outline</h2>
+      <ol class="outline">
+        <li id="attention"><a href="attention.html">Attention as a weighted average</a><p>Turn scores into weights and use them to blend two sensor readings.</p></li>
+        <li id="radial"><a href="radial.html">Learning a distance</a><p>Derive the radius of an equal-score contour, then reshape it in the lab.</p></li>
+        <li id="supports"><a href="supports.html">Reading a persistent memory</a><p>Follow a token through two residual updates and see how context changes which support it reads.</p></li>
+        <li id="revision"><a href="revision.html">Looking up a revision</a><p>Derive the exact as-of rule and move a cutoff through four releases.</p></li>
+        <li id="evidence"><a href="evidence.html">Reading the experiments</a><p>Reconstruct a held-out retrieval result from candidate coverage and conditional recovery.</p></li>
       </ol>
-      <div class="lab" id="revision-lab">
-        <h3>Interactive lab · Read the archive as of a date</h3>
-        <p>All four synthetic releases describe one observation. Predict the selected record on day 22 and day 23, then move the cutoff to check.</p>
-        <label class="control cutoff" for="cutoff">As-of day <output id="cutoff-value" for="cutoff">17</output><input id="cutoff" type="range" min="0" max="35" step="1" value="17"></label>
-        <p class="choice" id="choice" aria-live="polite">Selected value 100.9</p>
-        <table>
-          <thead><tr><th scope="col">Record</th><th scope="col">Release day</th><th scope="col">Value</th><th scope="col">Status</th></tr></thead>
-          <tbody id="revisions">
-            <tr><td>1</td><td>5</td><td>102.4</td><td>Superseded</td></tr>
-            <tr class="winner"><td>2</td><td>12</td><td>100.9</td><td>Selected</td></tr>
-            <tr><td>3</td><td>23</td><td>101.6</td><td>Future</td></tr>
-            <tr><td>4</td><td>30</td><td>101.2</td><td>Future</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>This is the exact lookup rule used to audit the archive labels. The learned retrieval experiment asks whether the decoder can recover the same target from a candidate pool.</p>
-      <details><summary>Check your understanding · What if the cutoff is day 4?</summary>
-        <p>No record qualifies. The earliest release is on day 5, so choosing it would use information from the future.</p>
-      </details>
+      <p><a id="geometry-lab" href="radial.html#geometry-lab">Attention geometry lab</a> ·
+        <a id="explainer" href="radial.html#explainer">Captioned explainer</a> ·
+        <a id="revision-lab" href="revision.html#revision-lab">As-of lookup lab</a></p>
     </section>
-
-    <section id="evidence" aria-labelledby="evidence-title">
-      <h2 id="evidence-title">5. Reading the experiments</h2>
-      <p>The geometry lab demonstrates the scoring rule. Each research experiment asks a narrower question about how well a model or retrieval method works on a specific task.</p>
-      <dl class="terms evidence">
-        <div><dt>Can the model recover the correct revision?</dt><dd>At 48 candidates in the Dallas Fed archive, radial recovery rose from 3.8% to 57.6% after training on synthetic histories that model clusters of releases. The evaluation supplied typed identities and used answerable questions. <a href="https://github.com/Jibby2k1/KAM/blob/main/reports/nonlinear_retrieval_natural/OECD_REVISIONS.md">Archive experiment and plot</a>.</dd></div>
-        <div><dt>Can a pair scorer recover two pieces of evidence?</dt><dd>In a held-out HotpotQA study, the pair scorer led when the two supporting documents linked to each other. Sequential retrieval led on unlinked evidence. These results use separate retrieval heads with shared candidate pools. <a href="https://github.com/Jibby2k1/KAM/blob/main/reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md">Supporting-link study</a>.</dd></div>
-        <div><dt>Can the radial read run on a fast attention kernel?</dt><dd>In the tested full-context variant, expanding the squared distance produces a dot product plus a key-dependent term. The query-only term cancels in softmax. That lets the scorer use an optimized attention kernel. <a href="https://github.com/Jibby2k1/KAM/blob/main/reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md">Derivation and GPU timings</a>.</dd></div>
-      </dl>
-      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/RESULTS.md">Browse all results and reproduction instructions</a>.</p>
-    </section>
-
-    <footer><a href="#start">Back to start ↑</a></footer>
+    <footer>
+      <nav class="pagination" aria-label="Adjacent chapters"><a rel="next" href="attention.html">Attention as a weighted average →</a></nav>
+    </footer>
   </main>
-
   <aside class="on-page">
-    <nav aria-label="Labs and media">
-      <strong>Lab and media shortcuts</strong>
-      <a href="#geometry-lab">Attention geometry</a>
-      <a href="#explainer">30-second explainer</a>
-      <a href="#revision-lab">As-of lookup</a>
+    <nav aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#start">What you will learn</a>
+      <a href="#outline">Course outline</a>
     </nav>
   </aside>
 </div>

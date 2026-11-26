@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Looking up a revision · Kernel Adaptive Memory. Worked derivations, interactive labs, and research results.">
+  <title>Looking up a revision · Kernel Adaptive Memory</title>
+  <link rel="stylesheet" href="course.css">
+  <script src="labs.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to course</a>
+<div class="book">
+  <aside class="sidebar" aria-label="Course navigation">
+    <div class="sidebar-heading">
+      <div><a class="brand" href="./">Kernel Adaptive Memory</a><p>Raul Valle</p></div>
+      <button id="course-menu" type="button" aria-controls="course-navigation" aria-expanded="false" hidden>Contents</button>
+    </div>
+    <div id="course-navigation">
+      <nav aria-label="Chapters">
+        <strong>Course contents</strong>
+        <ol>
+          <li><a href="./">Start here</a></li>
+          <li><a href="attention.html">1. Attention as a weighted average</a></li>
+          <li><a href="radial.html">2. Learning a distance</a></li>
+          <li><a href="supports.html">3. Reading a persistent memory</a></li>
+          <li><a href="revision.html" aria-current="page">4. Looking up a revision</a></li>
+          <li><a href="evidence.html">5. Reading the experiments</a></li>
+        </ol>
+      </nav>
+      <div class="sidebar-links">
+        <a href="https://www.raulv.dev/projects/kernel-adaptive-memory.html">Research project</a>
+        <a href="https://github.com/Jibby2k1/KAM">Source on GitHub</a>
+        <a href="https://www.raulv.dev/">Raul Valle’s home page</a>
+      </div>
+      <label class="theme">Theme
+        <select id="theme">
+          <option value="auto">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <main id="main" tabindex="-1">
+    <header id="revision">
+      <p class="chapter-number">Chapter 4</p>
+      <h1>Looking up a revision</h1>
+      <p class="lead">An observation describes a period. A release date says when a particular version was known.</p>
+    </header>
+    <section id="derive">
+      <h2>Derive the as-of lookup</h2>
+      <p>First fix the record identity and observation period. For an as-of day <var>t</var>, let <var>E</var>(<var>t</var>) contain the release days at or before <var>t</var>. The most recent eligible release is the largest member of that set.</p>
+      <div class="equation"><span><var>E</var>(<var>t</var>) = {<var>d</var> : <var>d</var> ≤ <var>t</var>} &nbsp; and &nbsp; <var>d</var><sup>★</sup> = max <var>E</var>(<var>t</var>)</span></div>
+      <p>For release days 5, 12, 23, and 30, the eligible set on day 17 is {5, 12}. Its maximum is 12, so return that record’s value of 100.9. On day 23 the inclusive cutoff adds 23 to the eligible set, so the answer becomes 101.6. An empty eligible set means no record was available.</p>
+      <p>The exact rule audits the archive labels. The learned experiment asks a decoder to recover that record from a candidate pool with the typed identity supplied.</p>
+    </section>
+    <section id="experiment">
+      <h2>Step through the release history</h2>
+      <div class="lab" id="revision-lab">
+        <h3>Interactive lab · Read the archive as of a date</h3>
+        <p>All four synthetic releases describe one observation. Predict the selected record on day 22 and day 23, then move the cutoff to check.</p>
+        <label class="control cutoff" for="cutoff">As-of day <output id="cutoff-value" for="cutoff">17</output><input id="cutoff" type="range" min="0" max="35" step="1" value="17"></label>
+        <p class="choice" id="choice" aria-live="polite">Selected value 100.9</p>
+        <div class="timeline" aria-hidden="true">
+          <div class="timeline-track">
+            <span id="day-line"></span>
+            <span class="release-mark" data-day="5" style="--position: 14.2857%">5</span>
+            <span class="release-mark winner" data-day="12" style="--position: 34.2857%">12</span>
+            <span class="release-mark future" data-day="23" style="--position: 65.7143%">23</span>
+            <span class="release-mark future" data-day="30" style="--position: 85.7143%">30</span>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th scope="col">Record</th><th scope="col">Release day</th><th scope="col">Value</th><th scope="col">Status</th></tr></thead>
+          <tbody id="revisions">
+            <tr><td>1</td><td>5</td><td>102.4</td><td>Superseded</td></tr>
+            <tr class="winner"><td>2</td><td>12</td><td>100.9</td><td>Selected</td></tr>
+            <tr><td>3</td><td>23</td><td>101.6</td><td>Future</td></tr>
+            <tr><td>4</td><td>30</td><td>101.2</td><td>Future</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <details><summary>Check your understanding · What if the cutoff is day 4?</summary>
+        <p>No record qualifies. Selecting the day-5 version would use information from the future.</p>
+      </details>
+    </section>
+    <footer>
+      <nav class="pagination" aria-label="Adjacent chapters"><a rel="prev" href="supports.html">← Reading a persistent memory</a><a rel="next" href="evidence.html">Reading the experiments →</a></nav>
+    </footer>
+  </main>
+  <aside class="on-page">
+    <nav aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#derive">Derive the as-of rule</a>
+      <a href="#revision-lab">As-of lookup lab</a>
+    </nav>
+  </aside>
+</div>
+</body>
+</html>

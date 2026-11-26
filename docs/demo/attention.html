@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Attention as a weighted average · Kernel Adaptive Memory. Worked derivations, interactive labs, and research results.">
+  <title>Attention as a weighted average · Kernel Adaptive Memory</title>
+  <link rel="stylesheet" href="course.css">
+  <script src="labs.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to course</a>
+<div class="book">
+  <aside class="sidebar" aria-label="Course navigation">
+    <div class="sidebar-heading">
+      <div><a class="brand" href="./">Kernel Adaptive Memory</a><p>Raul Valle</p></div>
+      <button id="course-menu" type="button" aria-controls="course-navigation" aria-expanded="false" hidden>Contents</button>
+    </div>
+    <div id="course-navigation">
+      <nav aria-label="Chapters">
+        <strong>Course contents</strong>
+        <ol>
+          <li><a href="./">Start here</a></li>
+          <li><a href="attention.html" aria-current="page">1. Attention as a weighted average</a></li>
+          <li><a href="radial.html">2. Learning a distance</a></li>
+          <li><a href="supports.html">3. Reading a persistent memory</a></li>
+          <li><a href="revision.html">4. Looking up a revision</a></li>
+          <li><a href="evidence.html">5. Reading the experiments</a></li>
+        </ol>
+      </nav>
+      <div class="sidebar-links">
+        <a href="https://www.raulv.dev/projects/kernel-adaptive-memory.html">Research project</a>
+        <a href="https://github.com/Jibby2k1/KAM">Source on GitHub</a>
+        <a href="https://www.raulv.dev/">Raul Valle’s home page</a>
+      </div>
+      <label class="theme">Theme
+        <select id="theme">
+          <option value="auto">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <main id="main" tabindex="-1">
+    <header id="attention">
+      <p class="chapter-number">Chapter 1</p>
+      <h1>Attention as a weighted average</h1>
+      <p class="lead">A query asks a question. Keys say where to look. Values say what you get back.</p>
+    </header>
+    <section id="derive">
+      <h2>Derive the read by hand</h2>
+      <p>Imagine that two sensors report 10 and 20 degrees. The query is the location where you want an estimate, the keys are the sensor locations, and the values are their measurements. A scoring rule compares the query with each key and produces a number for each sensor.</p>
+      <p>Suppose the first score is <var>s</var><sub>1</sub> = ln 3 and the second is <var>s</var><sub>2</sub> = 0. Exponentiating gives 3 and 1. Divide both by their sum, 4, to get weights ¾ and ¼. The read is ¾ × 10 + ¼ × 20 = <strong>12.5 degrees</strong>.</p>
+      <div class="equation">
+        <span><var>w</var><sub>j</sub> = exp(<var>s</var><sub>j</sub>) / ∑<sub>ℓ</sub> exp(<var>s</var><sub>ℓ</sub>)</span>
+        <span>read(<var>q</var>) = ∑<sub>j</sub> <var>w</var><sub>j</sub> <var>v</var><sub>j</sub></span>
+      </div>
+      <p>Adding the same constant to both scores multiplies both exponentials by the same factor, which cancels. For two keys, only the score gap <var>Δ</var> = <var>s</var><sub>1</sub> − <var>s</var><sub>2</sub> matters. Divide the numerator and denominator of the first weight by exp(<var>s</var><sub>1</sub>) to get <var>w</var><sub>1</sub> = 1 / (1 + exp(−<var>Δ</var>)).</p>
+    </section>
+    <section id="weight-lab">
+      <h2>Interactive lab · Blend two readings</h2>
+      <div class="lab">
+        <p>Move the score gap through zero. The stacked bar shows how much weight each sensor receives. The marker shows where the resulting average lies between the two readings.</p>
+        <label class="control cutoff" for="score-gap">Score gap Δ <output id="score-gap-value" for="score-gap">0.00</output>
+          <input id="score-gap" type="range" min="-4" max="4" step=".01" value="0"></label>
+        <div class="blend" aria-hidden="true"><span id="weight-first"></span><span></span></div>
+        <div class="axis-labels"><span>Sensor 1 · 10°</span><span>Sensor 2 · 20°</span></div>
+        <div class="number-line" aria-hidden="true"><span id="blend-marker"></span></div>
+        <p class="choice" id="blend-result" aria-live="polite">Weights 50.0% and 50.0%. Read 15.00°.</p>
+      </div>
+      <details><summary>Check your understanding · What does a tie return?</summary>
+        <p>A tie sets Δ to zero, so each weight is ½ and the average is 15 degrees. If you double both scores while the first score is higher, the gap doubles and the read moves toward 10 degrees.</p>
+      </details>
+    </section>
+    <footer>
+      <nav class="pagination" aria-label="Adjacent chapters"><a rel="prev" href="./">← Start here</a><a rel="next" href="radial.html">Learning a distance →</a></nav>
+    </footer>
+  </main>
+  <aside class="on-page">
+    <nav aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#derive">Derive the read by hand</a>
+      <a href="#weight-lab">Blend two readings</a>
+    </nav>
+  </aside>
+</div>
+</body>
+</html>
