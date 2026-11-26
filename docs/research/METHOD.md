@@ -1,6 +1,6 @@
 # How Kernel Adaptive Memory reads
 
-[Try the geometry demo](https://jibby2k1.github.io/KAM/#radial) · [Watch the narrated explainer](https://jibby2k1.github.io/KAM/#explainer)
+[Try the geometry demo](https://www.raulv.dev/KAM/#radial) · [Watch the narrated explainer](https://www.raulv.dev/KAM/#explainer)
 
 ![A combined KAM block applies a context read, then a learned-support read. Each can add a residual update.](../demo/media/memory-paths.png)
 
@@ -20,7 +20,7 @@ Expanding the square gives an inner product with the learned metric, a term for 
 
 Causal context attention reads projected keys and values from the current sequence. Persistent support attention reads an additional bank of learned keys and values. A combined block applies the context update before the support read. The model can also expose support weights as route features. [Block code](../../kam/model.py)
 
-The natural question-answering experiments test separate retrieval heads over a fixed text encoder. The revision demo shows the exact policy used to validate stored records when their identity and release times are supplied. [Research results](RESULTS.md) · [Revision lookup demo](https://jibby2k1.github.io/KAM/#revision)
+The natural question-answering experiments test separate retrieval heads over a fixed text encoder. The revision demo shows the exact policy used to validate stored records when their identity and release times are supplied. [Research results](RESULTS.md) · [Revision lookup demo](https://www.raulv.dev/KAM/#revision)
 
 ## Regenerate the illustrations
 

@@ -5,6 +5,7 @@ import argparse
 from functools import lru_cache
 from math import exp, sqrt
 from pathlib import Path
+import re
 import subprocess
 from tempfile import TemporaryDirectory
 
@@ -158,6 +159,11 @@ def render(out, spoken):
             for i,(duration,_,line) in enumerate(CHAPTERS):
                 clip = temp/f"word-{i}.aiff"
                 subprocess.run(["say","-v","Samantha","-r","170","-o",str(clip),line],check=True)
+                measured = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(clip), "-af", "volumedetect",
+                                           "-f", "null", "-"], capture_output=True, text=True, check=True)
+                peak = re.search(r"max_volume: (-?\d+(?:\.\d+)?) dB", measured.stderr)
+                if peak is None or float(peak[1]) < -45:
+                    raise RuntimeError(f"Narration is silent for chapter {i + 1}")
                 run_ffmpeg("-i",str(clip),"-af","adelay=420,apad","-t",str(duration),"-ar","44100",
                            "-ac","1",str(temp/f"sound-{i}.wav"))
             listing = temp/"audio.txt"

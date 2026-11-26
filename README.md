@@ -1,8 +1,8 @@
 # Kernel Adaptive Memory
 
-[![Kernel Adaptive Memory. A query, four keys, and a learned metric illustrated by elliptical contours.](docs/demo/media/kam-cover.png)](https://jibby2k1.github.io/KAM/)
+[![Kernel Adaptive Memory. A query, four keys, and a learned metric illustrated by elliptical contours.](docs/demo/media/kam-cover.png)](https://www.raulv.dev/KAM/)
 
-[**Try the interactive demos**](https://jibby2k1.github.io/KAM/) · [**Watch the 30-second explainer**](https://jibby2k1.github.io/KAM/#explainer) · [Results and evidence](docs/research/RESULTS.md)
+[**Try the interactive demos**](https://www.raulv.dev/KAM/) · [**Watch the 30-second explainer**](https://www.raulv.dev/KAM/#explainer) · [Results and evidence](docs/research/RESULTS.md)
 
 Kernel Adaptive Memory (KAM) studies how attention reads from the current context and from persistent learned supports. The research repository also contains separate experiments on one-pass evidence retrieval and temporal revision memory.
 
@@ -10,9 +10,9 @@ Kernel Adaptive Memory (KAM) studies how attention reads from the current contex
 
 ## See how the method works
 
-[<img src="docs/demo/media/attention-preview.gif" width="540" alt="The query moves between four keys while their attention weights change.">](https://jibby2k1.github.io/KAM/#radial)
+[<img src="docs/demo/media/attention-preview.gif" width="540" alt="The query moves between four keys while their attention weights change.">](https://www.raulv.dev/KAM/#radial)
 
-Move the query, narrow the bandwidth, or change the learned metric in the [attention demo](https://jibby2k1.github.io/KAM/#radial). The [revision lookup demo](https://jibby2k1.github.io/KAM/#revision) lets you move a release cutoff and see which version was available that day. The [method guide](docs/research/METHOD.md) explains both memory reads and connects the diagram to the implementation.
+Move the query, narrow the bandwidth, or change the learned metric in the [attention demo](https://www.raulv.dev/KAM/#radial). The [revision lookup demo](https://www.raulv.dev/KAM/#revision) lets you move a release cutoff and see which version was available that day. The [method guide](docs/research/METHOD.md) explains both memory reads and connects the diagram to the implementation.
 
 ## Research at a glance
 
