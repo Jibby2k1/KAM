@@ -517,6 +517,15 @@ def matched_pools(directory):
         answer[dataset] = {"n": len(rows), "conditions": {}}
         for name, example in rows[0]["conditions"].items():
             panel = [r["conditions"][name] for r in rows]
+            by_link = {}
+            for label, linked in (("linked", True), ("unlinked", False)):
+                members = [p for p in panel if p["gold_pairs_linked"] == linked]
+                by_link[label] = {"n": len(members),
+                                  "complete_support": {arm: sum(p["arms"][arm]["complete"] for p in members)
+                                                       for arm in example["arms"]},
+                                  "context_minus_no_coverage": paired([p["arms"]["context_only"]["complete"] -
+                                                                       p["arms"]["no_document_coverage"]["complete"]
+                                                                       for p in members])}
             answer[dataset]["conditions"][name] = {
                 "complete_support": {arm: sum(p["arms"][arm]["complete"] for p in panel) for arm in example["arms"]},
                 "linked_gold": sum(p["gold_pairs_linked"] for p in panel),
@@ -525,6 +534,9 @@ def matched_pools(directory):
                 if example["donor_relevance"] is not None else None,
                 "context_minus_no_coverage": paired([p["arms"]["context_only"]["complete"] -
                                                        p["arms"]["no_document_coverage"]["complete"] for p in panel]),
+                "by_gold_link": by_link,
+                "equal_link_weight_context_minus_no_coverage": mean(s["context_minus_no_coverage"]["delta"]
+                                                                    for s in by_link.values()),
             }
     return answer
 

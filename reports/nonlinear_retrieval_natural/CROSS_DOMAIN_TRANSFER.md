@@ -59,6 +59,8 @@ Both domains started from the supplied two gold paragraphs and eight supplied di
 
 Counts are complete evidence out of 768 and 236. The coverage gain at hard depth 64 was +8.7 percentage points on 2Wiki (paired question-bootstrap interval +4.9 to +12.4) and +0.4 points on MuSiQue (−4.7 to +5.5). Random expansion had little effect relative to the hard expansion. The domain gap survived matched depth and this shared donor procedure. [Matched-pool results](../../results/nonlinear_retrieval_natural/matched_pools_v1/summary.json)
 
+Within the hard 64-candidate pools, the coverage feature’s effect changed sign by gold link status in both datasets. On 2Wiki it moved linked support from 371 to 327 of 416, and unlinked support from 66 to 177 of 352. On MuSiQue it moved linked support from 65 to 53 of 74, and unlinked support from 11 to 24 of 162. Giving linked and unlinked strata equal weight yields coverage effects of +10.5 points on 2Wiki and −4.1 on MuSiQue. The large 2Wiki gain comes from unlinked evidence. Gold link status is an evaluation label, so a serving policy would need to gate on observable properties of candidate pairs. [Linked and unlinked results at each depth](../../results/nonlinear_retrieval_natural/matched_pools_v1/summary.json)
+
 ## More than two supports
 
 Scored 192 fresh MuSiQue questions per hop count. The leaked-title guard excluded original HotpotQA training candidates and supporting-link study gold titles. Earlier MuSiQue question IDs were reserved. Some supporting titles recur across held-out questions. All retrieval arms got the true evidence-set size and the same total 384-token reader budget. The one-pass clique score summed frozen pair residuals over each candidate set. The tree variant used a maximum-scoring spanning tree.
