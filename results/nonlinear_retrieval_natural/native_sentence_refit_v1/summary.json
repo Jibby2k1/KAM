@@ -1,0 +1,2820 @@
+{
+  "fixture_sha256": "8b85a269cc1d37e0aba2708888f82f1fe3766ef29b5861fb8e691a3356a84da2",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "columns": [
+    "context_logit",
+    "no_coverage_logit",
+    "weak_affinity",
+    "mean_affinity",
+    "pair_link",
+    "weak_max_lexical",
+    "max_lexical",
+    "joint_lexical",
+    "weak_first_sentence_lexical",
+    "mention_lexical",
+    "mention_same_sentence_count",
+    "weak_max_semantic",
+    "max_semantic",
+    "joint_top_semantic_lexical",
+    "mention_semantic",
+    "mention_margin"
+  ],
+  "shards": 8,
+  "gpu": [
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  ],
+  "training": {
+    "n": 1536,
+    "gold_in_pool": 920,
+    "native_linked_distractor": 688,
+    "fit_cases": {
+      "native_base": 863,
+      "native_relevance": 863,
+      "native_mentions": 863,
+      "native_semantic": 863,
+      "native_linked_semantic": 687
+    },
+    "transferred_clean_fit_cases": 714
+  },
+  "tests": {
+    "all": {
+      "n": 1024,
+      "gold_in_shortlist": 571,
+      "arms": {
+        "frozen_context": {
+          "both_support": 427,
+          "wrong_link": 383,
+          "wrong_link_shares_support": 248,
+          "support_count": {
+            "0": 178,
+            "1": 419,
+            "2": 427
+          },
+          "linked_only_gold_first": 401
+        },
+        "frozen_no_coverage": {
+          "both_support": 265,
+          "wrong_link": 709,
+          "wrong_link_shares_support": 349,
+          "support_count": {
+            "0": 384,
+            "1": 375,
+            "2": 265
+          },
+          "linked_only_gold_first": 264
+        },
+        "transferred_2wiki": {
+          "both_support": 401,
+          "wrong_link": 450,
+          "wrong_link_shares_support": 285,
+          "support_count": {
+            "0": 192,
+            "1": 431,
+            "2": 401
+          },
+          "linked_only_gold_first": 377
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 412,
+          "wrong_link": 450,
+          "wrong_link_shares_support": 274,
+          "support_count": {
+            "0": 199,
+            "1": 413,
+            "2": 412
+          },
+          "linked_only_gold_first": 387
+        },
+        "native_base": {
+          "both_support": 445,
+          "wrong_link": 308,
+          "wrong_link_shares_support": 215,
+          "support_count": {
+            "0": 150,
+            "1": 429,
+            "2": 445
+          },
+          "linked_only_gold_first": 401
+        },
+        "native_relevance": {
+          "both_support": 461,
+          "wrong_link": 290,
+          "wrong_link_shares_support": 212,
+          "support_count": {
+            "0": 134,
+            "1": 429,
+            "2": 461
+          },
+          "linked_only_gold_first": 407
+        },
+        "native_mentions": {
+          "both_support": 450,
+          "wrong_link": 303,
+          "wrong_link_shares_support": 212,
+          "support_count": {
+            "0": 148,
+            "1": 426,
+            "2": 450
+          },
+          "linked_only_gold_first": 405
+        },
+        "native_semantic": {
+          "both_support": 459,
+          "wrong_link": 297,
+          "wrong_link_shares_support": 215,
+          "support_count": {
+            "0": 134,
+            "1": 431,
+            "2": 459
+          },
+          "linked_only_gold_first": 407
+        },
+        "native_linked_semantic": {
+          "both_support": 438,
+          "wrong_link": 421,
+          "wrong_link_shares_support": 264,
+          "support_count": {
+            "0": 181,
+            "1": 405,
+            "2": 438
+          },
+          "linked_only_gold_first": 414
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 458,
+          "wrong_link": 310,
+          "wrong_link_shares_support": 215,
+          "support_count": {
+            "0": 144,
+            "1": 422,
+            "2": 458
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": -0.15820312,
+          "bootstrap95": [
+            -0.18164062,
+            -0.13378906
+          ],
+          "wins": 7,
+          "losses": 169
+        },
+        "transferred_2wiki": {
+          "delta": -0.02539062,
+          "bootstrap95": [
+            -0.04199219,
+            -0.0078125
+          ],
+          "wins": 27,
+          "losses": 53
+        },
+        "transferred_2wiki_clean": {
+          "delta": -0.01464844,
+          "bootstrap95": [
+            -0.03125,
+            0.00195312
+          ],
+          "wins": 31,
+          "losses": 46
+        },
+        "native_base": {
+          "delta": 0.01757812,
+          "bootstrap95": [
+            0.00683594,
+            0.02929688
+          ],
+          "wins": 27,
+          "losses": 9
+        },
+        "native_relevance": {
+          "delta": 0.03320312,
+          "bootstrap95": [
+            0.01757812,
+            0.04882812
+          ],
+          "wins": 51,
+          "losses": 17
+        },
+        "native_mentions": {
+          "delta": 0.02246094,
+          "bootstrap95": [
+            0.00976562,
+            0.03515625
+          ],
+          "wins": 34,
+          "losses": 11
+        },
+        "native_semantic": {
+          "delta": 0.03125,
+          "bootstrap95": [
+            0.015625,
+            0.04785156
+          ],
+          "wins": 52,
+          "losses": 20
+        },
+        "native_linked_semantic": {
+          "delta": 0.01074219,
+          "bootstrap95": [
+            -0.00195312,
+            0.02441406
+          ],
+          "wins": 29,
+          "losses": 18
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.03027344,
+          "bootstrap95": [
+            0.01464844,
+            0.046875
+          ],
+          "wins": 51,
+          "losses": 20
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.01367188,
+        "bootstrap95": [
+          -0.00097656,
+          0.02929688
+        ],
+        "wins": 37,
+        "losses": 23
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.05664062,
+        "bootstrap95": [
+          0.04003906,
+          0.07519531
+        ],
+        "wins": 73,
+        "losses": 15
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.04589844,
+        "bootstrap95": [
+          0.02929688,
+          0.06347656
+        ],
+        "wins": 64,
+        "losses": 17
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.01074219,
+        "bootstrap95": [
+          0.00195312,
+          0.01953125
+        ],
+        "wins": 16,
+        "losses": 5
+      }
+    },
+    "gold_in_pool": {
+      "n": 602,
+      "gold_in_shortlist": 571,
+      "arms": {
+        "frozen_context": {
+          "both_support": 427,
+          "wrong_link": 152,
+          "wrong_link_shares_support": 126,
+          "support_count": {
+            "0": 29,
+            "1": 146,
+            "2": 427
+          },
+          "linked_only_gold_first": 401
+        },
+        "frozen_no_coverage": {
+          "both_support": 265,
+          "wrong_link": 331,
+          "wrong_link_shares_support": 237,
+          "support_count": {
+            "0": 95,
+            "1": 242,
+            "2": 265
+          },
+          "linked_only_gold_first": 264
+        },
+        "transferred_2wiki": {
+          "both_support": 401,
+          "wrong_link": 188,
+          "wrong_link_shares_support": 162,
+          "support_count": {
+            "0": 26,
+            "1": 175,
+            "2": 401
+          },
+          "linked_only_gold_first": 377
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 412,
+          "wrong_link": 179,
+          "wrong_link_shares_support": 151,
+          "support_count": {
+            "0": 28,
+            "1": 162,
+            "2": 412
+          },
+          "linked_only_gold_first": 387
+        },
+        "native_base": {
+          "both_support": 445,
+          "wrong_link": 121,
+          "wrong_link_shares_support": 104,
+          "support_count": {
+            "0": 22,
+            "1": 135,
+            "2": 445
+          },
+          "linked_only_gold_first": 401
+        },
+        "native_relevance": {
+          "both_support": 461,
+          "wrong_link": 112,
+          "wrong_link_shares_support": 99,
+          "support_count": {
+            "0": 17,
+            "1": 124,
+            "2": 461
+          },
+          "linked_only_gold_first": 407
+        },
+        "native_mentions": {
+          "both_support": 450,
+          "wrong_link": 117,
+          "wrong_link_shares_support": 104,
+          "support_count": {
+            "0": 18,
+            "1": 134,
+            "2": 450
+          },
+          "linked_only_gold_first": 405
+        },
+        "native_semantic": {
+          "both_support": 459,
+          "wrong_link": 116,
+          "wrong_link_shares_support": 104,
+          "support_count": {
+            "0": 15,
+            "1": 128,
+            "2": 459
+          },
+          "linked_only_gold_first": 407
+        },
+        "native_linked_semantic": {
+          "both_support": 438,
+          "wrong_link": 151,
+          "wrong_link_shares_support": 128,
+          "support_count": {
+            "0": 23,
+            "1": 141,
+            "2": 438
+          },
+          "linked_only_gold_first": 414
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 458,
+          "wrong_link": 120,
+          "wrong_link_shares_support": 103,
+          "support_count": {
+            "0": 19,
+            "1": 125,
+            "2": 458
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": -0.26910299,
+          "bootstrap95": [
+            -0.30730897,
+            -0.23255814
+          ],
+          "wins": 7,
+          "losses": 169
+        },
+        "transferred_2wiki": {
+          "delta": -0.04318937,
+          "bootstrap95": [
+            -0.07142857,
+            -0.01328904
+          ],
+          "wins": 27,
+          "losses": 53
+        },
+        "transferred_2wiki_clean": {
+          "delta": -0.02491694,
+          "bootstrap95": [
+            -0.05315615,
+            0.00332226
+          ],
+          "wins": 31,
+          "losses": 46
+        },
+        "native_base": {
+          "delta": 0.02990033,
+          "bootstrap95": [
+            0.01158638,
+            0.04983389
+          ],
+          "wins": 27,
+          "losses": 9
+        },
+        "native_relevance": {
+          "delta": 0.05647841,
+          "bootstrap95": [
+            0.02990033,
+            0.08305648
+          ],
+          "wins": 51,
+          "losses": 17
+        },
+        "native_mentions": {
+          "delta": 0.03820598,
+          "bootstrap95": [
+            0.0166113,
+            0.05980066
+          ],
+          "wins": 34,
+          "losses": 11
+        },
+        "native_semantic": {
+          "delta": 0.05315615,
+          "bootstrap95": [
+            0.02657807,
+            0.08139535
+          ],
+          "wins": 52,
+          "losses": 20
+        },
+        "native_linked_semantic": {
+          "delta": 0.01827243,
+          "bootstrap95": [
+            -0.00332226,
+            0.03986711
+          ],
+          "wins": 29,
+          "losses": 18
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.05149502,
+          "bootstrap95": [
+            0.02491694,
+            0.07973422
+          ],
+          "wins": 51,
+          "losses": 20
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.02325581,
+        "bootstrap95": [
+          0.0,
+          0.04817276
+        ],
+        "wins": 37,
+        "losses": 23
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.09634551,
+        "bootstrap95": [
+          0.06644518,
+          0.12624585
+        ],
+        "wins": 73,
+        "losses": 15
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.07807309,
+        "bootstrap95": [
+          0.04817276,
+          0.10797342
+        ],
+        "wins": 64,
+        "losses": 17
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.01827243,
+        "bootstrap95": [
+          0.00332226,
+          0.03326412
+        ],
+        "wins": 16,
+        "losses": 5
+      }
+    },
+    "gold_linked": {
+      "n": 463,
+      "gold_in_shortlist": 460,
+      "arms": {
+        "frozen_context": {
+          "both_support": 401,
+          "wrong_link": 61,
+          "wrong_link_shares_support": 55,
+          "support_count": {
+            "0": 6,
+            "1": 56,
+            "2": 401
+          },
+          "linked_only_gold_first": 401
+        },
+        "frozen_no_coverage": {
+          "both_support": 264,
+          "wrong_link": 199,
+          "wrong_link_shares_support": 153,
+          "support_count": {
+            "0": 46,
+            "1": 153,
+            "2": 264
+          },
+          "linked_only_gold_first": 264
+        },
+        "transferred_2wiki": {
+          "both_support": 376,
+          "wrong_link": 86,
+          "wrong_link_shares_support": 78,
+          "support_count": {
+            "0": 8,
+            "1": 79,
+            "2": 376
+          },
+          "linked_only_gold_first": 377
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 387,
+          "wrong_link": 76,
+          "wrong_link_shares_support": 69,
+          "support_count": {
+            "0": 7,
+            "1": 69,
+            "2": 387
+          },
+          "linked_only_gold_first": 387
+        },
+        "native_base": {
+          "both_support": 400,
+          "wrong_link": 57,
+          "wrong_link_shares_support": 51,
+          "support_count": {
+            "0": 8,
+            "1": 55,
+            "2": 400
+          },
+          "linked_only_gold_first": 401
+        },
+        "native_relevance": {
+          "both_support": 404,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 49,
+          "support_count": {
+            "0": 6,
+            "1": 53,
+            "2": 404
+          },
+          "linked_only_gold_first": 407
+        },
+        "native_mentions": {
+          "both_support": 404,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 48,
+          "support_count": {
+            "0": 8,
+            "1": 51,
+            "2": 404
+          },
+          "linked_only_gold_first": 405
+        },
+        "native_semantic": {
+          "both_support": 405,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 49,
+          "support_count": {
+            "0": 6,
+            "1": 52,
+            "2": 405
+          },
+          "linked_only_gold_first": 407
+        },
+        "native_linked_semantic": {
+          "both_support": 414,
+          "wrong_link": 49,
+          "wrong_link_shares_support": 42,
+          "support_count": {
+            "0": 7,
+            "1": 42,
+            "2": 414
+          },
+          "linked_only_gold_first": 414
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 406,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 47,
+          "support_count": {
+            "0": 8,
+            "1": 49,
+            "2": 406
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": -0.29589633,
+          "bootstrap95": [
+            -0.3412527,
+            -0.25053996
+          ],
+          "wins": 6,
+          "losses": 143
+        },
+        "transferred_2wiki": {
+          "delta": -0.05399568,
+          "bootstrap95": [
+            -0.08639309,
+            -0.02159827
+          ],
+          "wins": 17,
+          "losses": 42
+        },
+        "transferred_2wiki_clean": {
+          "delta": -0.03023758,
+          "bootstrap95": [
+            -0.06047516,
+            0.0
+          ],
+          "wins": 20,
+          "losses": 34
+        },
+        "native_base": {
+          "delta": -0.00215983,
+          "bootstrap95": [
+            -0.01943844,
+            0.01511879
+          ],
+          "wins": 8,
+          "losses": 9
+        },
+        "native_relevance": {
+          "delta": 0.00647948,
+          "bootstrap95": [
+            -0.01943844,
+            0.03239741
+          ],
+          "wins": 19,
+          "losses": 16
+        },
+        "native_mentions": {
+          "delta": 0.00647948,
+          "bootstrap95": [
+            -0.01511879,
+            0.02807775
+          ],
+          "wins": 14,
+          "losses": 11
+        },
+        "native_semantic": {
+          "delta": 0.00863931,
+          "bootstrap95": [
+            -0.01727862,
+            0.03455724
+          ],
+          "wins": 21,
+          "losses": 17
+        },
+        "native_linked_semantic": {
+          "delta": 0.02807775,
+          "bootstrap95": [
+            0.00647948,
+            0.05183585
+          ],
+          "wins": 21,
+          "losses": 8
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.01079914,
+          "bootstrap95": [
+            -0.01511879,
+            0.03671706
+          ],
+          "wins": 22,
+          "losses": 17
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.01079914,
+        "bootstrap95": [
+          -0.01511879,
+          0.03671706
+        ],
+        "wins": 20,
+        "losses": 15
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.06263499,
+        "bootstrap95": [
+          0.03239741,
+          0.09287257
+        ],
+        "wins": 42,
+        "losses": 13
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.03887689,
+        "bootstrap95": [
+          0.01079914,
+          0.06911447
+        ],
+        "wins": 33,
+        "losses": 15
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.0237581,
+        "bootstrap95": [
+          0.00647948,
+          0.04103672
+        ],
+        "wins": 14,
+        "losses": 3
+      }
+    },
+    "natural_linked_distractor": {
+      "n": 450,
+      "gold_in_shortlist": 447,
+      "arms": {
+        "frozen_context": {
+          "both_support": 388,
+          "wrong_link": 61,
+          "wrong_link_shares_support": 55,
+          "support_count": {
+            "0": 6,
+            "1": 56,
+            "2": 388
+          },
+          "linked_only_gold_first": 388
+        },
+        "frozen_no_coverage": {
+          "both_support": 251,
+          "wrong_link": 199,
+          "wrong_link_shares_support": 153,
+          "support_count": {
+            "0": 46,
+            "1": 153,
+            "2": 251
+          },
+          "linked_only_gold_first": 251
+        },
+        "transferred_2wiki": {
+          "both_support": 363,
+          "wrong_link": 86,
+          "wrong_link_shares_support": 78,
+          "support_count": {
+            "0": 8,
+            "1": 79,
+            "2": 363
+          },
+          "linked_only_gold_first": 364
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 374,
+          "wrong_link": 76,
+          "wrong_link_shares_support": 69,
+          "support_count": {
+            "0": 7,
+            "1": 69,
+            "2": 374
+          },
+          "linked_only_gold_first": 374
+        },
+        "native_base": {
+          "both_support": 387,
+          "wrong_link": 57,
+          "wrong_link_shares_support": 51,
+          "support_count": {
+            "0": 8,
+            "1": 55,
+            "2": 387
+          },
+          "linked_only_gold_first": 388
+        },
+        "native_relevance": {
+          "both_support": 391,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 49,
+          "support_count": {
+            "0": 6,
+            "1": 53,
+            "2": 391
+          },
+          "linked_only_gold_first": 394
+        },
+        "native_mentions": {
+          "both_support": 391,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 48,
+          "support_count": {
+            "0": 8,
+            "1": 51,
+            "2": 391
+          },
+          "linked_only_gold_first": 392
+        },
+        "native_semantic": {
+          "both_support": 392,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 49,
+          "support_count": {
+            "0": 6,
+            "1": 52,
+            "2": 392
+          },
+          "linked_only_gold_first": 394
+        },
+        "native_linked_semantic": {
+          "both_support": 401,
+          "wrong_link": 49,
+          "wrong_link_shares_support": 42,
+          "support_count": {
+            "0": 7,
+            "1": 42,
+            "2": 401
+          },
+          "linked_only_gold_first": 401
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 393,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 47,
+          "support_count": {
+            "0": 8,
+            "1": 49,
+            "2": 393
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": -0.30444444,
+          "bootstrap95": [
+            -0.34888889,
+            -0.26
+          ],
+          "wins": 6,
+          "losses": 143
+        },
+        "transferred_2wiki": {
+          "delta": -0.05555556,
+          "bootstrap95": [
+            -0.08888889,
+            -0.02222222
+          ],
+          "wins": 17,
+          "losses": 42
+        },
+        "transferred_2wiki_clean": {
+          "delta": -0.03111111,
+          "bootstrap95": [
+            -0.06222222,
+            0.0
+          ],
+          "wins": 20,
+          "losses": 34
+        },
+        "native_base": {
+          "delta": -0.00222222,
+          "bootstrap95": [
+            -0.02,
+            0.01555556
+          ],
+          "wins": 8,
+          "losses": 9
+        },
+        "native_relevance": {
+          "delta": 0.00666667,
+          "bootstrap95": [
+            -0.01777778,
+            0.03333333
+          ],
+          "wins": 19,
+          "losses": 16
+        },
+        "native_mentions": {
+          "delta": 0.00666667,
+          "bootstrap95": [
+            -0.01555556,
+            0.02888889
+          ],
+          "wins": 14,
+          "losses": 11
+        },
+        "native_semantic": {
+          "delta": 0.00888889,
+          "bootstrap95": [
+            -0.01777778,
+            0.03777778
+          ],
+          "wins": 21,
+          "losses": 17
+        },
+        "native_linked_semantic": {
+          "delta": 0.02888889,
+          "bootstrap95": [
+            0.00666667,
+            0.05333333
+          ],
+          "wins": 21,
+          "losses": 8
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.01111111,
+          "bootstrap95": [
+            -0.01555556,
+            0.04
+          ],
+          "wins": 22,
+          "losses": 17
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.01111111,
+        "bootstrap95": [
+          -0.01555556,
+          0.03777778
+        ],
+        "wins": 20,
+        "losses": 15
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.06444444,
+        "bootstrap95": [
+          0.03333333,
+          0.09777778
+        ],
+        "wins": 42,
+        "losses": 13
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.04,
+        "bootstrap95": [
+          0.00888889,
+          0.07111111
+        ],
+        "wins": 33,
+        "losses": 15
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.02444444,
+        "bootstrap95": [
+          0.00666667,
+          0.04222222
+        ],
+        "wins": 14,
+        "losses": 3
+      }
+    },
+    "gold_unlinked": {
+      "n": 139,
+      "gold_in_shortlist": 111,
+      "arms": {
+        "frozen_context": {
+          "both_support": 26,
+          "wrong_link": 91,
+          "wrong_link_shares_support": 71,
+          "support_count": {
+            "0": 23,
+            "1": 90,
+            "2": 26
+          },
+          "linked_only_gold_first": 0
+        },
+        "frozen_no_coverage": {
+          "both_support": 1,
+          "wrong_link": 132,
+          "wrong_link_shares_support": 84,
+          "support_count": {
+            "0": 49,
+            "1": 89,
+            "2": 1
+          },
+          "linked_only_gold_first": 0
+        },
+        "transferred_2wiki": {
+          "both_support": 25,
+          "wrong_link": 102,
+          "wrong_link_shares_support": 84,
+          "support_count": {
+            "0": 18,
+            "1": 96,
+            "2": 25
+          },
+          "linked_only_gold_first": 0
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 25,
+          "wrong_link": 103,
+          "wrong_link_shares_support": 82,
+          "support_count": {
+            "0": 21,
+            "1": 93,
+            "2": 25
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_base": {
+          "both_support": 45,
+          "wrong_link": 64,
+          "wrong_link_shares_support": 53,
+          "support_count": {
+            "0": 14,
+            "1": 80,
+            "2": 45
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_relevance": {
+          "both_support": 57,
+          "wrong_link": 58,
+          "wrong_link_shares_support": 50,
+          "support_count": {
+            "0": 11,
+            "1": 71,
+            "2": 57
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_mentions": {
+          "both_support": 46,
+          "wrong_link": 63,
+          "wrong_link_shares_support": 56,
+          "support_count": {
+            "0": 10,
+            "1": 83,
+            "2": 46
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_semantic": {
+          "both_support": 54,
+          "wrong_link": 62,
+          "wrong_link_shares_support": 55,
+          "support_count": {
+            "0": 9,
+            "1": 76,
+            "2": 54
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_linked_semantic": {
+          "both_support": 24,
+          "wrong_link": 102,
+          "wrong_link_shares_support": 86,
+          "support_count": {
+            "0": 16,
+            "1": 99,
+            "2": 24
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 52,
+          "wrong_link": 66,
+          "wrong_link_shares_support": 56,
+          "support_count": {
+            "0": 11,
+            "1": 76,
+            "2": 52
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": -0.17985612,
+          "bootstrap95": [
+            -0.25179856,
+            -0.11510791
+          ],
+          "wins": 1,
+          "losses": 26
+        },
+        "transferred_2wiki": {
+          "delta": -0.00719424,
+          "bootstrap95": [
+            -0.07194245,
+            0.05755396
+          ],
+          "wins": 10,
+          "losses": 11
+        },
+        "transferred_2wiki_clean": {
+          "delta": -0.00719424,
+          "bootstrap95": [
+            -0.07194245,
+            0.05755396
+          ],
+          "wins": 11,
+          "losses": 12
+        },
+        "native_base": {
+          "delta": 0.13669065,
+          "bootstrap95": [
+            0.07913669,
+            0.1942446
+          ],
+          "wins": 19,
+          "losses": 0
+        },
+        "native_relevance": {
+          "delta": 0.22302158,
+          "bootstrap95": [
+            0.15107914,
+            0.29496403
+          ],
+          "wins": 32,
+          "losses": 1
+        },
+        "native_mentions": {
+          "delta": 0.14388489,
+          "bootstrap95": [
+            0.08633094,
+            0.20143885
+          ],
+          "wins": 20,
+          "losses": 0
+        },
+        "native_semantic": {
+          "delta": 0.20143885,
+          "bootstrap95": [
+            0.1294964,
+            0.28057554
+          ],
+          "wins": 31,
+          "losses": 3
+        },
+        "native_linked_semantic": {
+          "delta": -0.01438849,
+          "bootstrap95": [
+            -0.07194245,
+            0.04316547
+          ],
+          "wins": 8,
+          "losses": 10
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.18705036,
+          "bootstrap95": [
+            0.11510791,
+            0.25899281
+          ],
+          "wins": 29,
+          "losses": 3
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.0647482,
+        "bootstrap95": [
+          -0.00719424,
+          0.13669065
+        ],
+        "wins": 17,
+        "losses": 8
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.20863309,
+        "bootstrap95": [
+          0.13669065,
+          0.28057554
+        ],
+        "wins": 31,
+        "losses": 2
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.20863309,
+        "bootstrap95": [
+          0.13669065,
+          0.28776978
+        ],
+        "wins": 31,
+        "losses": 2
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.0,
+        "bootstrap95": [
+          -0.02877698,
+          0.02877698
+        ],
+        "wins": 2,
+        "losses": 2
+      }
+    },
+    "missing_gold": {
+      "n": 422,
+      "gold_in_shortlist": 0,
+      "arms": {
+        "frozen_context": {
+          "both_support": 0,
+          "wrong_link": 231,
+          "wrong_link_shares_support": 122,
+          "support_count": {
+            "0": 149,
+            "1": 273
+          },
+          "linked_only_gold_first": 0
+        },
+        "frozen_no_coverage": {
+          "both_support": 0,
+          "wrong_link": 378,
+          "wrong_link_shares_support": 112,
+          "support_count": {
+            "0": 289,
+            "1": 133
+          },
+          "linked_only_gold_first": 0
+        },
+        "transferred_2wiki": {
+          "both_support": 0,
+          "wrong_link": 262,
+          "wrong_link_shares_support": 123,
+          "support_count": {
+            "0": 166,
+            "1": 256
+          },
+          "linked_only_gold_first": 0
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 0,
+          "wrong_link": 271,
+          "wrong_link_shares_support": 123,
+          "support_count": {
+            "0": 171,
+            "1": 251
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_base": {
+          "both_support": 0,
+          "wrong_link": 187,
+          "wrong_link_shares_support": 111,
+          "support_count": {
+            "0": 128,
+            "1": 294
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_relevance": {
+          "both_support": 0,
+          "wrong_link": 178,
+          "wrong_link_shares_support": 113,
+          "support_count": {
+            "0": 117,
+            "1": 305
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_mentions": {
+          "both_support": 0,
+          "wrong_link": 186,
+          "wrong_link_shares_support": 108,
+          "support_count": {
+            "0": 130,
+            "1": 292
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_semantic": {
+          "both_support": 0,
+          "wrong_link": 181,
+          "wrong_link_shares_support": 111,
+          "support_count": {
+            "0": 119,
+            "1": 303
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_linked_semantic": {
+          "both_support": 0,
+          "wrong_link": 270,
+          "wrong_link_shares_support": 136,
+          "support_count": {
+            "0": 158,
+            "1": 264
+          },
+          "linked_only_gold_first": 0
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 0,
+          "wrong_link": 190,
+          "wrong_link_shares_support": 112,
+          "support_count": {
+            "0": 125,
+            "1": 297
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "transferred_2wiki": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "transferred_2wiki_clean": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "native_base": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "native_relevance": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "native_mentions": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "native_semantic": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "native_linked_semantic": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.0,
+        "bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0,
+        "losses": 0
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.0,
+        "bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0,
+        "losses": 0
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.0,
+        "bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0,
+        "losses": 0
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.0,
+        "bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0,
+        "losses": 0
+      }
+    },
+    "natural_linked_distractor_without_old_fit_titles": {
+      "n": 447,
+      "gold_in_shortlist": 444,
+      "arms": {
+        "frozen_context": {
+          "both_support": 386,
+          "wrong_link": 60,
+          "wrong_link_shares_support": 54,
+          "support_count": {
+            "0": 6,
+            "1": 55,
+            "2": 386
+          },
+          "linked_only_gold_first": 386
+        },
+        "frozen_no_coverage": {
+          "both_support": 250,
+          "wrong_link": 197,
+          "wrong_link_shares_support": 151,
+          "support_count": {
+            "0": 46,
+            "1": 151,
+            "2": 250
+          },
+          "linked_only_gold_first": 250
+        },
+        "transferred_2wiki": {
+          "both_support": 360,
+          "wrong_link": 86,
+          "wrong_link_shares_support": 78,
+          "support_count": {
+            "0": 8,
+            "1": 79,
+            "2": 360
+          },
+          "linked_only_gold_first": 361
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 371,
+          "wrong_link": 76,
+          "wrong_link_shares_support": 69,
+          "support_count": {
+            "0": 7,
+            "1": 69,
+            "2": 371
+          },
+          "linked_only_gold_first": 371
+        },
+        "native_base": {
+          "both_support": 385,
+          "wrong_link": 56,
+          "wrong_link_shares_support": 50,
+          "support_count": {
+            "0": 8,
+            "1": 54,
+            "2": 385
+          },
+          "linked_only_gold_first": 386
+        },
+        "native_relevance": {
+          "both_support": 389,
+          "wrong_link": 53,
+          "wrong_link_shares_support": 48,
+          "support_count": {
+            "0": 6,
+            "1": 52,
+            "2": 389
+          },
+          "linked_only_gold_first": 392
+        },
+        "native_mentions": {
+          "both_support": 389,
+          "wrong_link": 53,
+          "wrong_link_shares_support": 47,
+          "support_count": {
+            "0": 8,
+            "1": 50,
+            "2": 389
+          },
+          "linked_only_gold_first": 390
+        },
+        "native_semantic": {
+          "both_support": 389,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 49,
+          "support_count": {
+            "0": 6,
+            "1": 52,
+            "2": 389
+          },
+          "linked_only_gold_first": 391
+        },
+        "native_linked_semantic": {
+          "both_support": 398,
+          "wrong_link": 49,
+          "wrong_link_shares_support": 42,
+          "support_count": {
+            "0": 7,
+            "1": 42,
+            "2": 398
+          },
+          "linked_only_gold_first": 398
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 390,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 47,
+          "support_count": {
+            "0": 8,
+            "1": 49,
+            "2": 390
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": -0.30425056,
+          "bootstrap95": [
+            -0.34899329,
+            -0.25727069
+          ],
+          "wins": 6,
+          "losses": 142
+        },
+        "transferred_2wiki": {
+          "delta": -0.05816555,
+          "bootstrap95": [
+            -0.0917226,
+            -0.0246085
+          ],
+          "wins": 16,
+          "losses": 42
+        },
+        "transferred_2wiki_clean": {
+          "delta": -0.03355705,
+          "bootstrap95": [
+            -0.06487696,
+            -0.00223714
+          ],
+          "wins": 19,
+          "losses": 34
+        },
+        "native_base": {
+          "delta": -0.00223714,
+          "bootstrap95": [
+            -0.02013423,
+            0.01565996
+          ],
+          "wins": 8,
+          "losses": 9
+        },
+        "native_relevance": {
+          "delta": 0.00671141,
+          "bootstrap95": [
+            -0.01789709,
+            0.03355705
+          ],
+          "wins": 19,
+          "losses": 16
+        },
+        "native_mentions": {
+          "delta": 0.00671141,
+          "bootstrap95": [
+            -0.01565996,
+            0.02908277
+          ],
+          "wins": 14,
+          "losses": 11
+        },
+        "native_semantic": {
+          "delta": 0.00671141,
+          "bootstrap95": [
+            -0.02013423,
+            0.03355705
+          ],
+          "wins": 20,
+          "losses": 17
+        },
+        "native_linked_semantic": {
+          "delta": 0.02684564,
+          "bootstrap95": [
+            0.00447427,
+            0.05145414
+          ],
+          "wins": 20,
+          "losses": 8
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.00894855,
+          "bootstrap95": [
+            -0.01789709,
+            0.03579418
+          ],
+          "wins": 21,
+          "losses": 17
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.00894855,
+        "bootstrap95": [
+          -0.01565996,
+          0.03355705
+        ],
+        "wins": 19,
+        "losses": 15
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.06487696,
+        "bootstrap95": [
+          0.03131991,
+          0.0962528
+        ],
+        "wins": 42,
+        "losses": 13
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.04026846,
+        "bootstrap95": [
+          0.00894855,
+          0.07158837
+        ],
+        "wins": 33,
+        "losses": 15
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.0246085,
+        "bootstrap95": [
+          0.00671141,
+          0.04250559
+        ],
+        "wins": 14,
+        "losses": 3
+      }
+    },
+    "linked_distractor_shares_support_in_shortlist": {
+      "n": 388,
+      "gold_in_shortlist": 385,
+      "arms": {
+        "frozen_context": {
+          "both_support": 327,
+          "wrong_link": 60,
+          "wrong_link_shares_support": 55,
+          "support_count": {
+            "0": 5,
+            "1": 56,
+            "2": 327
+          },
+          "linked_only_gold_first": 327
+        },
+        "frozen_no_coverage": {
+          "both_support": 197,
+          "wrong_link": 191,
+          "wrong_link_shares_support": 153,
+          "support_count": {
+            "0": 38,
+            "1": 153,
+            "2": 197
+          },
+          "linked_only_gold_first": 197
+        },
+        "transferred_2wiki": {
+          "both_support": 302,
+          "wrong_link": 86,
+          "wrong_link_shares_support": 78,
+          "support_count": {
+            "0": 8,
+            "1": 78,
+            "2": 302
+          },
+          "linked_only_gold_first": 302
+        },
+        "transferred_2wiki_clean": {
+          "both_support": 312,
+          "wrong_link": 76,
+          "wrong_link_shares_support": 69,
+          "support_count": {
+            "0": 7,
+            "1": 69,
+            "2": 312
+          },
+          "linked_only_gold_first": 312
+        },
+        "native_base": {
+          "both_support": 327,
+          "wrong_link": 57,
+          "wrong_link_shares_support": 51,
+          "support_count": {
+            "0": 8,
+            "1": 53,
+            "2": 327
+          },
+          "linked_only_gold_first": 327
+        },
+        "native_relevance": {
+          "both_support": 332,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 49,
+          "support_count": {
+            "0": 6,
+            "1": 50,
+            "2": 332
+          },
+          "linked_only_gold_first": 333
+        },
+        "native_mentions": {
+          "both_support": 330,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 48,
+          "support_count": {
+            "0": 8,
+            "1": 50,
+            "2": 330
+          },
+          "linked_only_gold_first": 331
+        },
+        "native_semantic": {
+          "both_support": 332,
+          "wrong_link": 54,
+          "wrong_link_shares_support": 49,
+          "support_count": {
+            "0": 6,
+            "1": 50,
+            "2": 332
+          },
+          "linked_only_gold_first": 333
+        },
+        "native_linked_semantic": {
+          "both_support": 340,
+          "wrong_link": 48,
+          "wrong_link_shares_support": 42,
+          "support_count": {
+            "0": 6,
+            "1": 42,
+            "2": 340
+          },
+          "linked_only_gold_first": 340
+        },
+        "native_semantic_shortlist4": {
+          "both_support": 333,
+          "wrong_link": 53,
+          "wrong_link_shares_support": 47,
+          "support_count": {
+            "0": 7,
+            "1": 48,
+            "2": 333
+          },
+          "linked_only_gold_first": null
+        }
+      },
+      "vs_frozen_context": {
+        "frozen_no_coverage": {
+          "delta": -0.33505155,
+          "bootstrap95": [
+            -0.38659794,
+            -0.28608247
+          ],
+          "wins": 5,
+          "losses": 135
+        },
+        "transferred_2wiki": {
+          "delta": -0.06443299,
+          "bootstrap95": [
+            -0.10051546,
+            -0.0257732
+          ],
+          "wins": 16,
+          "losses": 41
+        },
+        "transferred_2wiki_clean": {
+          "delta": -0.03865979,
+          "bootstrap95": [
+            -0.07474227,
+            -0.00257732
+          ],
+          "wins": 19,
+          "losses": 34
+        },
+        "native_base": {
+          "delta": 0.0,
+          "bootstrap95": [
+            -0.02061856,
+            0.02061856
+          ],
+          "wins": 8,
+          "losses": 8
+        },
+        "native_relevance": {
+          "delta": 0.0128866,
+          "bootstrap95": [
+            -0.01546392,
+            0.04123711
+          ],
+          "wins": 18,
+          "losses": 13
+        },
+        "native_mentions": {
+          "delta": 0.00773196,
+          "bootstrap95": [
+            -0.01804124,
+            0.03350515
+          ],
+          "wins": 14,
+          "losses": 11
+        },
+        "native_semantic": {
+          "delta": 0.0128866,
+          "bootstrap95": [
+            -0.01804124,
+            0.04381443
+          ],
+          "wins": 20,
+          "losses": 15
+        },
+        "native_linked_semantic": {
+          "delta": 0.03350515,
+          "bootstrap95": [
+            0.00773196,
+            0.06185567
+          ],
+          "wins": 20,
+          "losses": 7
+        },
+        "native_semantic_shortlist4": {
+          "delta": 0.01546392,
+          "bootstrap95": [
+            -0.01546392,
+            0.04639175
+          ],
+          "wins": 21,
+          "losses": 15
+        }
+      },
+      "semantic_vs_base": {
+        "delta": 0.0128866,
+        "bootstrap95": [
+          -0.01546392,
+          0.04123711
+        ],
+        "wins": 18,
+        "losses": 13
+      },
+      "semantic_vs_transferred": {
+        "delta": 0.07731959,
+        "bootstrap95": [
+          0.04123711,
+          0.11346649
+        ],
+        "wins": 42,
+        "losses": 12
+      },
+      "semantic_vs_clean_transferred": {
+        "delta": 0.05154639,
+        "bootstrap95": [
+          0.01804124,
+          0.08505155
+        ],
+        "wins": 33,
+        "losses": 13
+      },
+      "clean_transfer_vs_paired_transfer": {
+        "delta": 0.0257732,
+        "bootstrap95": [
+          0.00773196,
+          0.04639175
+        ],
+        "wins": 13,
+        "losses": 3
+      }
+    }
+  },
+  "exploratory_native_weight_swaps": {
+    "natural_linked_distractor": {
+      "n": 450,
+      "correct": {
+        "transferred": 363,
+        "native": 392,
+        "pair_features": 365,
+        "sentence_relevance": 369,
+        "mention_local": 380
+      }
+    },
+    "gold_unlinked": {
+      "n": 139,
+      "correct": {
+        "transferred": 25,
+        "native": 54,
+        "pair_features": 26,
+        "sentence_relevance": 29,
+        "mention_local": 43
+      }
+    }
+  },
+  "reader": {
+    "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+    "old_policy_sha256": "d0630808197f0d4856ca7af04f6d150e5cade0903d81b99b69dd5f4c26f4e113",
+    "unmatched_ranked_pool_ids": [
+      "5a80024b5542992e7d278dd7",
+      "5a80a6c65542995d8a8ddfbc",
+      "5a82f82755429954d2e2ebd9",
+      "5ab48c1a55429942dd415f67",
+      "5ab494415542991779162cef",
+      "5abacb2f554299232ef4a395",
+      "5abc41075542996583600430",
+      "5abe28b55542991f661060f1",
+      "5abe3bf255429976d4830a91",
+      "5abe875f5542993f32c2a154",
+      "5add30975542994ed6169cc3",
+      "5adfdaae55429925eb1afac1",
+      "5ae1eac15542997283cd22e3",
+      "5ae3d62e5542992f92d8238e",
+      "5ae792a855429952e35ea97d"
+    ],
+    "gpu": [
+      "NVIDIA B200"
+    ],
+    "tests": {
+      "all": {
+        "n": 1009,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 357,
+            "joint_exact": 249
+          },
+          "native_base": {
+            "answer_exact": 366,
+            "joint_exact": 264
+          },
+          "native_semantic": {
+            "answer_exact": 370,
+            "joint_exact": 266
+          },
+          "native_linked_semantic": {
+            "answer_exact": 374,
+            "joint_exact": 258
+          },
+          "transferred_2wiki": {
+            "answer_exact": 363,
+            "joint_exact": 233
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": 0.00891972,
+              "bootstrap95": [
+                0.0,
+                0.01783944
+              ],
+              "wins": 15,
+              "losses": 6
+            },
+            "joint_exact": {
+              "delta": 0.0148662,
+              "bootstrap95": [
+                0.00594648,
+                0.02477701
+              ],
+              "wins": 19,
+              "losses": 4
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": 0.01288404,
+              "bootstrap95": [
+                -0.00099108,
+                0.02775025
+              ],
+              "wins": 32,
+              "losses": 19
+            },
+            "joint_exact": {
+              "delta": 0.01684836,
+              "bootstrap95": [
+                0.00396432,
+                0.02973241
+              ],
+              "wins": 31,
+              "losses": 14
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.01684836,
+              "bootstrap95": [
+                0.00594648,
+                0.02874133
+              ],
+              "wins": 27,
+              "losses": 10
+            },
+            "joint_exact": {
+              "delta": 0.00891972,
+              "bootstrap95": [
+                -0.00099108,
+                0.01883053
+              ],
+              "wins": 17,
+              "losses": 8
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": 0.00594648,
+              "bootstrap95": [
+                -0.00792864,
+                0.01982161
+              ],
+              "wins": 28,
+              "losses": 22
+            },
+            "joint_exact": {
+              "delta": -0.01585728,
+              "bootstrap95": [
+                -0.02973241,
+                -0.00198216
+              ],
+              "wins": 17,
+              "losses": 33
+            }
+          }
+        }
+      },
+      "gold_in_pool": {
+        "n": 594,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 312,
+            "joint_exact": 249
+          },
+          "native_base": {
+            "answer_exact": 316,
+            "joint_exact": 264
+          },
+          "native_semantic": {
+            "answer_exact": 316,
+            "joint_exact": 266
+          },
+          "native_linked_semantic": {
+            "answer_exact": 318,
+            "joint_exact": 258
+          },
+          "transferred_2wiki": {
+            "answer_exact": 315,
+            "joint_exact": 233
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": 0.00673401,
+              "bootstrap95": [
+                -0.00505051,
+                0.01851852
+              ],
+              "wins": 9,
+              "losses": 5
+            },
+            "joint_exact": {
+              "delta": 0.02525253,
+              "bootstrap95": [
+                0.01010101,
+                0.04208754
+              ],
+              "wins": 19,
+              "losses": 4
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": 0.00673401,
+              "bootstrap95": [
+                -0.01178451,
+                0.02525253
+              ],
+              "wins": 18,
+              "losses": 14
+            },
+            "joint_exact": {
+              "delta": 0.02861953,
+              "bootstrap95": [
+                0.00673401,
+                0.05218855
+              ],
+              "wins": 31,
+              "losses": 14
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.01010101,
+              "bootstrap95": [
+                -0.00505051,
+                0.02525253
+              ],
+              "wins": 14,
+              "losses": 8
+            },
+            "joint_exact": {
+              "delta": 0.01515152,
+              "bootstrap95": [
+                -0.0016835,
+                0.03198653
+              ],
+              "wins": 17,
+              "losses": 8
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": 0.00505051,
+              "bootstrap95": [
+                -0.01346801,
+                0.02356902
+              ],
+              "wins": 18,
+              "losses": 15
+            },
+            "joint_exact": {
+              "delta": -0.02693603,
+              "bootstrap95": [
+                -0.05050505,
+                -0.003367
+              ],
+              "wins": 17,
+              "losses": 33
+            }
+          }
+        }
+      },
+      "gold_linked": {
+        "n": 457,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 267,
+            "joint_exact": 237
+          },
+          "native_base": {
+            "answer_exact": 264,
+            "joint_exact": 239
+          },
+          "native_semantic": {
+            "answer_exact": 266,
+            "joint_exact": 239
+          },
+          "native_linked_semantic": {
+            "answer_exact": 269,
+            "joint_exact": 245
+          },
+          "transferred_2wiki": {
+            "answer_exact": 263,
+            "joint_exact": 220
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": -0.00656455,
+              "bootstrap95": [
+                -0.01750547,
+                0.00218818
+              ],
+              "wins": 1,
+              "losses": 4
+            },
+            "joint_exact": {
+              "delta": 0.00437637,
+              "bootstrap95": [
+                -0.00875274,
+                0.01750547
+              ],
+              "wins": 6,
+              "losses": 4
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": -0.00218818,
+              "bootstrap95": [
+                -0.01969365,
+                0.0131291
+              ],
+              "wins": 7,
+              "losses": 8
+            },
+            "joint_exact": {
+              "delta": 0.00437637,
+              "bootstrap95": [
+                -0.01750547,
+                0.02625821
+              ],
+              "wins": 14,
+              "losses": 12
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.00437637,
+              "bootstrap95": [
+                -0.01094092,
+                0.01969365
+              ],
+              "wins": 7,
+              "losses": 5
+            },
+            "joint_exact": {
+              "delta": 0.01750547,
+              "bootstrap95": [
+                0.0,
+                0.03501094
+              ],
+              "wins": 13,
+              "losses": 5
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": -0.00875274,
+              "bootstrap95": [
+                -0.02850109,
+                0.01094092
+              ],
+              "wins": 9,
+              "losses": 13
+            },
+            "joint_exact": {
+              "delta": -0.03719912,
+              "bootstrap95": [
+                -0.06345733,
+                -0.00875274
+              ],
+              "wins": 12,
+              "losses": 29
+            }
+          }
+        }
+      },
+      "natural_linked_distractor": {
+        "n": 444,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 256,
+            "joint_exact": 226
+          },
+          "native_base": {
+            "answer_exact": 253,
+            "joint_exact": 228
+          },
+          "native_semantic": {
+            "answer_exact": 255,
+            "joint_exact": 228
+          },
+          "native_linked_semantic": {
+            "answer_exact": 258,
+            "joint_exact": 234
+          },
+          "transferred_2wiki": {
+            "answer_exact": 252,
+            "joint_exact": 209
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": -0.00675676,
+              "bootstrap95": [
+                -0.01801802,
+                0.00225225
+              ],
+              "wins": 1,
+              "losses": 4
+            },
+            "joint_exact": {
+              "delta": 0.0045045,
+              "bootstrap95": [
+                -0.00900901,
+                0.01801802
+              ],
+              "wins": 6,
+              "losses": 4
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": -0.00225225,
+              "bootstrap95": [
+                -0.02027027,
+                0.01576577
+              ],
+              "wins": 7,
+              "losses": 8
+            },
+            "joint_exact": {
+              "delta": 0.0045045,
+              "bootstrap95": [
+                -0.01801802,
+                0.02702703
+              ],
+              "wins": 14,
+              "losses": 12
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.0045045,
+              "bootstrap95": [
+                -0.01126126,
+                0.02027027
+              ],
+              "wins": 7,
+              "losses": 5
+            },
+            "joint_exact": {
+              "delta": 0.01801802,
+              "bootstrap95": [
+                0.0,
+                0.03603604
+              ],
+              "wins": 13,
+              "losses": 5
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": -0.00900901,
+              "bootstrap95": [
+                -0.02927928,
+                0.01126126
+              ],
+              "wins": 9,
+              "losses": 13
+            },
+            "joint_exact": {
+              "delta": -0.03828829,
+              "bootstrap95": [
+                -0.06756757,
+                -0.01126126
+              ],
+              "wins": 12,
+              "losses": 29
+            }
+          }
+        }
+      },
+      "gold_unlinked": {
+        "n": 137,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 45,
+            "joint_exact": 12
+          },
+          "native_base": {
+            "answer_exact": 52,
+            "joint_exact": 25
+          },
+          "native_semantic": {
+            "answer_exact": 50,
+            "joint_exact": 27
+          },
+          "native_linked_semantic": {
+            "answer_exact": 49,
+            "joint_exact": 13
+          },
+          "transferred_2wiki": {
+            "answer_exact": 52,
+            "joint_exact": 13
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": 0.05109489,
+              "bootstrap95": [
+                0.01459854,
+                0.09489051
+              ],
+              "wins": 8,
+              "losses": 1
+            },
+            "joint_exact": {
+              "delta": 0.09489051,
+              "bootstrap95": [
+                0.05109489,
+                0.1459854
+              ],
+              "wins": 13,
+              "losses": 0
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": 0.03649635,
+              "bootstrap95": [
+                -0.02189781,
+                0.09489051
+              ],
+              "wins": 11,
+              "losses": 6
+            },
+            "joint_exact": {
+              "delta": 0.10948905,
+              "bootstrap95": [
+                0.05109489,
+                0.16788321
+              ],
+              "wins": 17,
+              "losses": 2
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.02919708,
+              "bootstrap95": [
+                -0.01459854,
+                0.0729927
+              ],
+              "wins": 7,
+              "losses": 3
+            },
+            "joint_exact": {
+              "delta": 0.00729927,
+              "bootstrap95": [
+                -0.02919708,
+                0.04379562
+              ],
+              "wins": 4,
+              "losses": 3
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": 0.05109489,
+              "bootstrap95": [
+                0.00729927,
+                0.09489051
+              ],
+              "wins": 9,
+              "losses": 2
+            },
+            "joint_exact": {
+              "delta": 0.00729927,
+              "bootstrap95": [
+                -0.03649635,
+                0.05109489
+              ],
+              "wins": 5,
+              "losses": 4
+            }
+          }
+        }
+      },
+      "missing_gold": {
+        "n": 415,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 45,
+            "joint_exact": 0
+          },
+          "native_base": {
+            "answer_exact": 50,
+            "joint_exact": 0
+          },
+          "native_semantic": {
+            "answer_exact": 54,
+            "joint_exact": 0
+          },
+          "native_linked_semantic": {
+            "answer_exact": 56,
+            "joint_exact": 0
+          },
+          "transferred_2wiki": {
+            "answer_exact": 48,
+            "joint_exact": 0
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": 0.01204819,
+              "bootstrap95": [
+                0.0,
+                0.02650602
+              ],
+              "wins": 6,
+              "losses": 1
+            },
+            "joint_exact": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": 0.02168675,
+              "bootstrap95": [
+                0.00240964,
+                0.04096386
+              ],
+              "wins": 14,
+              "losses": 5
+            },
+            "joint_exact": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.02650602,
+              "bootstrap95": [
+                0.00963855,
+                0.04578313
+              ],
+              "wins": 13,
+              "losses": 2
+            },
+            "joint_exact": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": 0.00722892,
+              "bootstrap95": [
+                -0.01204819,
+                0.02650602
+              ],
+              "wins": 10,
+              "losses": 7
+            },
+            "joint_exact": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            }
+          }
+        }
+      },
+      "natural_linked_distractor_without_old_fit_titles": {
+        "n": 441,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 254,
+            "joint_exact": 224
+          },
+          "native_base": {
+            "answer_exact": 251,
+            "joint_exact": 226
+          },
+          "native_semantic": {
+            "answer_exact": 253,
+            "joint_exact": 226
+          },
+          "native_linked_semantic": {
+            "answer_exact": 256,
+            "joint_exact": 232
+          },
+          "transferred_2wiki": {
+            "answer_exact": 250,
+            "joint_exact": 207
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": -0.00680272,
+              "bootstrap95": [
+                -0.01814059,
+                0.00226757
+              ],
+              "wins": 1,
+              "losses": 4
+            },
+            "joint_exact": {
+              "delta": 0.00453515,
+              "bootstrap95": [
+                -0.00907029,
+                0.01814059
+              ],
+              "wins": 6,
+              "losses": 4
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": -0.00226757,
+              "bootstrap95": [
+                -0.02040816,
+                0.01587302
+              ],
+              "wins": 7,
+              "losses": 8
+            },
+            "joint_exact": {
+              "delta": 0.00453515,
+              "bootstrap95": [
+                -0.01814059,
+                0.02721088
+              ],
+              "wins": 14,
+              "losses": 12
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.00453515,
+              "bootstrap95": [
+                -0.01133787,
+                0.02040816
+              ],
+              "wins": 7,
+              "losses": 5
+            },
+            "joint_exact": {
+              "delta": 0.01814059,
+              "bootstrap95": [
+                0.0,
+                0.03854875
+              ],
+              "wins": 13,
+              "losses": 5
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": -0.00907029,
+              "bootstrap95": [
+                -0.02947846,
+                0.01133787
+              ],
+              "wins": 9,
+              "losses": 13
+            },
+            "joint_exact": {
+              "delta": -0.03854875,
+              "bootstrap95": [
+                -0.06575964,
+                -0.01133787
+              ],
+              "wins": 12,
+              "losses": 29
+            }
+          }
+        }
+      },
+      "linked_distractor_shares_support_in_shortlist": {
+        "n": 383,
+        "arms": {
+          "frozen_context": {
+            "answer_exact": 228,
+            "joint_exact": 198
+          },
+          "native_base": {
+            "answer_exact": 225,
+            "joint_exact": 200
+          },
+          "native_semantic": {
+            "answer_exact": 227,
+            "joint_exact": 200
+          },
+          "native_linked_semantic": {
+            "answer_exact": 229,
+            "joint_exact": 205
+          },
+          "transferred_2wiki": {
+            "answer_exact": 224,
+            "joint_exact": 181
+          }
+        },
+        "versus_frozen_context": {
+          "native_base": {
+            "answer_exact": {
+              "delta": -0.0078329,
+              "bootstrap95": [
+                -0.02088773,
+                0.00261097
+              ],
+              "wins": 1,
+              "losses": 4
+            },
+            "joint_exact": {
+              "delta": 0.00522193,
+              "bootstrap95": [
+                -0.01044386,
+                0.02088773
+              ],
+              "wins": 6,
+              "losses": 4
+            }
+          },
+          "native_semantic": {
+            "answer_exact": {
+              "delta": -0.00261097,
+              "bootstrap95": [
+                -0.02088773,
+                0.0156658
+              ],
+              "wins": 6,
+              "losses": 7
+            },
+            "joint_exact": {
+              "delta": 0.00522193,
+              "bootstrap95": [
+                -0.02088773,
+                0.03133159
+              ],
+              "wins": 13,
+              "losses": 11
+            }
+          },
+          "native_linked_semantic": {
+            "answer_exact": {
+              "delta": 0.00261097,
+              "bootstrap95": [
+                -0.0156658,
+                0.02088773
+              ],
+              "wins": 6,
+              "losses": 5
+            },
+            "joint_exact": {
+              "delta": 0.01827676,
+              "bootstrap95": [
+                -0.00261097,
+                0.03916449
+              ],
+              "wins": 12,
+              "losses": 5
+            }
+          },
+          "transferred_2wiki": {
+            "answer_exact": {
+              "delta": -0.01044386,
+              "bootstrap95": [
+                -0.03394256,
+                0.01305483
+              ],
+              "wins": 8,
+              "losses": 12
+            },
+            "joint_exact": {
+              "delta": -0.04438642,
+              "bootstrap95": [
+                -0.07578329,
+                -0.01305483
+              ],
+              "wins": 11,
+              "losses": 28
+            }
+          }
+        }
+      }
+    }
+  },
+  "old_policy_sha256": "d0630808197f0d4856ca7af04f6d150e5cade0903d81b99b69dd5f4c26f4e113",
+  "old_fit_replay_sha256": "3732cf985b0d354b26667e92754ff26a969534570b68ef64465d609005fc85f5"
+}

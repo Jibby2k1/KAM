@@ -8,6 +8,8 @@ The [coverage-gate study](../../reports/nonlinear_retrieval_natural/COVERAGE_GAT
 
 A [sentence reranker](../../reports/nonlinear_retrieval_natural/EVIDENCE_VERIFIER.md) recovered both supports on 252/420 2Wiki and 88/300 MuSiQue questions with standard false links, up from 122/420 and 61/300 for the frozen context head. On native Wikipedia HotpotQA pools, joint exact match fell from 231 to 217 of 768.
 
+In a [fresh HotpotQA refit study](../../reports/nonlinear_retrieval_natural/NATIVE_SENTENCE_REFIT.md), native sentence training recovered 392/450 naturally linked support pairs, compared with 363 for the transferred 2Wiki policy and 388 for the frozen scorer. A native fit on the existing pair features recovered 387.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving
