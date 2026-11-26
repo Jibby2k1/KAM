@@ -103,8 +103,9 @@ def fullwiki(shards):
         "gold_linked": [r for r in rows if r["gold_linked"] is True],
         "gold_unlinked": [r for r in rows if r["gold_linked"] is False],
         "missing_gold": [r for r in rows if r["gold_linked"] is None],
+        "gold_linked_with_distractor": [r for r in rows if r["gold_linked"] is True and r["linked_pairs"] > 1],
     }
-    assert [len(panels[key]) for key in panels] == [768, 468, 368, 100, 300]
+    assert [len(panels[key]) for key in panels] == [768, 468, 368, 100, 300, 360]
     results = {}
     for label, cohort in panels.items():
         output = {}

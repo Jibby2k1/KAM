@@ -1,6 +1,6 @@
 # Verifying document links with sentence evidence
 
-The sentence reranker improved complete support recovery on both held-out corpora under clean input and two false-link perturbations. On clean questions where the gold link and another linked pair both reached the shortlist, the improvement in ranking the gold ahead of the linked alternatives was small. Context-bearing false links still caused substantial losses relative to the matched sham.
+The sentence reranker improved complete support recovery on supplied 2Wiki and MuSiQue pools under clean input and two false-link perturbations. It lost evidence and joint answer accuracy on separately retrieved HotpotQA pools, with the clearest losses on naturally linked support pairs.
 
 ## Method
 
@@ -54,6 +54,19 @@ On false links, joint exact match improved 12.1 points on 2Wiki (95% paired inte
 
 A local Apple M5 replication agreed on all 6,480 evidence decisions and on 6,478 of 6,480 answer exact-match decisions across methods and input variants. Both answer differences occurred on MuSiQue.
 
+## Transfer to retrieved Wikipedia pools
+
+Freeze the 2Wiki-trained reranker and apply it to the 768 held-out questions from the [HotpotQA supporting-link study](SUPPORT_LINKS.md). Use the original top-64 dense results from Wikipedia, including the 300 pools that lack at least one support. Freeze the full context head, encoder and reader, and reuse the previous dense vectors by row ID. A deterministic punctuation rule splits the stored Wikipedia excerpts into sentences. The underlying pair heads used HotpotQA for training. The new sentence policy was fit on 2Wiki, and these HotpotQA questions were held out from pair-head fitting.
+
+| HotpotQA stratum | Frozen head evidence / joint | Semantic, 16 per head | Semantic, 4 per head |
+| --- | ---: | ---: | ---: |
+| All 768 | 346 / 231 | 328 / 217 | 329 / 219 |
+| Gold linked, 368 | 323 / 216 | 306 / 205 | 307 / 205 |
+| Gold unlinked, 100 | 23 / 15 | 22 / 12 | 22 / 14 |
+| One or more supports missing, 300 | 0 / 0 | 0 / 0 | 0 / 0 |
+
+The reranker lost 1.8 percentage points in full-cohort joint exact match (paired 95% interval −3.4 to −0.3). On naturally linked questions the evidence decrease was 4.6 points (−7.6 to −1.6). For the 360 questions with both a gold link and at least one linked distractor, its complete support count fell from 315 to 298. All 768 frozen baseline decisions reproduced the previous evidence and answer-exact labels on HPG B200. These results show that resistance to injected references on supplied pools is an incomplete test of transfer to native retrieved pools. Keep the original context head as the reference for whole-Wikipedia retrieval. [HotpotQA counts and paired intervals](../../results/nonlinear_retrieval_natural/sentence_verifier_v1/followthrough.json)
+
 ## Serving cost
 
 The learned reranker still scores both original pair heads. A replay that applies its unchanged weights to the union of four candidates per head reduces the average scored list from about 26 to 6 pairs. On the standard false-link perturbation recovery moves from 252 to 250 on 2Wiki and from 88 to 85 on MuSiQue. The four-pair setting is a retrospective operating-point diagnostic.
@@ -69,7 +82,7 @@ Cold and resident feature differences were at most 0.0000011. The local M5 repli
 
 ## Reproduce
 
-The [HPG job driver](../../slurm/nonlinear_retrieval_sentence_verifier.sbatch) extracts training and test features from the earlier coverage-gate fixtures and checkpoints. All evidence comparisons in the table used NVIDIA RTX PRO 6000 Blackwell GPUs. The replay publishes only numeric shortlist features, evaluation labels, and identifiers.
+The [HPG feature driver](../../slurm/nonlinear_retrieval_sentence_verifier.sbatch) extracts training and test features from the earlier coverage-gate fixtures and checkpoints. The 2Wiki and MuSiQue evidence comparisons used NVIDIA RTX PRO 6000 Blackwell GPUs. The [HotpotQA driver](../../slurm/nonlinear_retrieval_sentence_fullwiki.sbatch) uses the supporting-link fixture and original retrieval audit files. The replay contains numeric shortlist features, evaluation labels, and identifiers.
 
 ```bash
 study=results/nonlinear_retrieval_natural/sentence_verifier_v1

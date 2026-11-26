@@ -739,5 +739,496 @@
       "evidence_changed": 0,
       "exact_changed": 2
     }
+  },
+  "fullwiki": {
+    "fixture_sha256": "5bcfdba0992090cb918528524cf5378c8a85cb669d9a33d3a0476ed55abe76b2",
+    "policy_sha256": "d0630808197f0d4856ca7af04f6d150e5cade0903d81b99b69dd5f4c26f4e113",
+    "hardware": [
+      "NVIDIA B200"
+    ],
+    "previous_baseline_evidence_matches": 768,
+    "previous_baseline_exact_matches": 768,
+    "tests": {
+      "all": {
+        "n": 768,
+        "correct": {
+          "full": {
+            "evidence": 346,
+            "exact": 296,
+            "joint": 231
+          },
+          "sentence16": {
+            "evidence": 328,
+            "exact": 288,
+            "joint": 217
+          },
+          "sentence4": {
+            "evidence": 329,
+            "exact": 293,
+            "joint": 219
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": -0.0234375,
+              "bootstrap95": [
+                -0.04296875,
+                -0.00520833
+              ],
+              "wins": 18,
+              "losses": 36
+            },
+            "exact": {
+              "delta": -0.01041667,
+              "bootstrap95": [
+                -0.02604167,
+                0.00520833
+              ],
+              "wins": 15,
+              "losses": 23
+            },
+            "joint": {
+              "delta": -0.01822917,
+              "bootstrap95": [
+                -0.03385417,
+                -0.00260417
+              ],
+              "wins": 11,
+              "losses": 25
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": -0.02213542,
+              "bootstrap95": [
+                -0.04036458,
+                -0.00390625
+              ],
+              "wins": 16,
+              "losses": 33
+            },
+            "exact": {
+              "delta": -0.00390625,
+              "bootstrap95": [
+                -0.01953125,
+                0.01171875
+              ],
+              "wins": 16,
+              "losses": 19
+            },
+            "joint": {
+              "delta": -0.015625,
+              "bootstrap95": [
+                -0.03125,
+                0.0
+              ],
+              "wins": 11,
+              "losses": 23
+            }
+          }
+        }
+      },
+      "gold_in_pool": {
+        "n": 468,
+        "correct": {
+          "full": {
+            "evidence": 346,
+            "exact": 267,
+            "joint": 231
+          },
+          "sentence16": {
+            "evidence": 328,
+            "exact": 259,
+            "joint": 217
+          },
+          "sentence4": {
+            "evidence": 329,
+            "exact": 261,
+            "joint": 219
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": -0.03846154,
+              "bootstrap95": [
+                -0.06837607,
+                -0.00854701
+              ],
+              "wins": 18,
+              "losses": 36
+            },
+            "exact": {
+              "delta": -0.01709402,
+              "bootstrap95": [
+                -0.03846154,
+                0.00641026
+              ],
+              "wins": 11,
+              "losses": 19
+            },
+            "joint": {
+              "delta": -0.02991453,
+              "bootstrap95": [
+                -0.05555556,
+                -0.0042735
+              ],
+              "wins": 11,
+              "losses": 25
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": -0.03632479,
+              "bootstrap95": [
+                -0.06623932,
+                -0.00854701
+              ],
+              "wins": 16,
+              "losses": 33
+            },
+            "exact": {
+              "delta": -0.01282051,
+              "bootstrap95": [
+                -0.03418803,
+                0.00854701
+              ],
+              "wins": 10,
+              "losses": 16
+            },
+            "joint": {
+              "delta": -0.02564103,
+              "bootstrap95": [
+                -0.0491453,
+                -0.00213675
+              ],
+              "wins": 11,
+              "losses": 23
+            }
+          }
+        }
+      },
+      "gold_linked": {
+        "n": 368,
+        "correct": {
+          "full": {
+            "evidence": 323,
+            "exact": 231,
+            "joint": 216
+          },
+          "sentence16": {
+            "evidence": 306,
+            "exact": 226,
+            "joint": 205
+          },
+          "sentence4": {
+            "evidence": 307,
+            "exact": 226,
+            "joint": 205
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": -0.04619565,
+              "bootstrap95": [
+                -0.07608696,
+                -0.01630435
+              ],
+              "wins": 8,
+              "losses": 25
+            },
+            "exact": {
+              "delta": -0.01358696,
+              "bootstrap95": [
+                -0.0326087,
+                0.00543478
+              ],
+              "wins": 4,
+              "losses": 9
+            },
+            "joint": {
+              "delta": -0.0298913,
+              "bootstrap95": [
+                -0.05434783,
+                -0.00543478
+              ],
+              "wins": 5,
+              "losses": 16
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": -0.04347826,
+              "bootstrap95": [
+                -0.07336957,
+                -0.01358696
+              ],
+              "wins": 8,
+              "losses": 24
+            },
+            "exact": {
+              "delta": -0.01358696,
+              "bootstrap95": [
+                -0.0326087,
+                0.00543478
+              ],
+              "wins": 4,
+              "losses": 9
+            },
+            "joint": {
+              "delta": -0.0298913,
+              "bootstrap95": [
+                -0.05434783,
+                -0.00543478
+              ],
+              "wins": 5,
+              "losses": 16
+            }
+          }
+        }
+      },
+      "gold_unlinked": {
+        "n": 100,
+        "correct": {
+          "full": {
+            "evidence": 23,
+            "exact": 36,
+            "joint": 15
+          },
+          "sentence16": {
+            "evidence": 22,
+            "exact": 33,
+            "joint": 12
+          },
+          "sentence4": {
+            "evidence": 22,
+            "exact": 35,
+            "joint": 14
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": -0.01,
+              "bootstrap95": [
+                -0.09025,
+                0.08
+              ],
+              "wins": 10,
+              "losses": 11
+            },
+            "exact": {
+              "delta": -0.03,
+              "bootstrap95": [
+                -0.11,
+                0.05
+              ],
+              "wins": 7,
+              "losses": 10
+            },
+            "joint": {
+              "delta": -0.03,
+              "bootstrap95": [
+                -0.1,
+                0.04
+              ],
+              "wins": 6,
+              "losses": 9
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": -0.01,
+              "bootstrap95": [
+                -0.09,
+                0.07
+              ],
+              "wins": 8,
+              "losses": 9
+            },
+            "exact": {
+              "delta": -0.01,
+              "bootstrap95": [
+                -0.08,
+                0.06
+              ],
+              "wins": 6,
+              "losses": 7
+            },
+            "joint": {
+              "delta": -0.01,
+              "bootstrap95": [
+                -0.08,
+                0.06
+              ],
+              "wins": 6,
+              "losses": 7
+            }
+          }
+        }
+      },
+      "missing_gold": {
+        "n": 300,
+        "correct": {
+          "full": {
+            "evidence": 0,
+            "exact": 29,
+            "joint": 0
+          },
+          "sentence16": {
+            "evidence": 0,
+            "exact": 29,
+            "joint": 0
+          },
+          "sentence4": {
+            "evidence": 0,
+            "exact": 32,
+            "joint": 0
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            },
+            "exact": {
+              "delta": 0.0,
+              "bootstrap95": [
+                -0.02,
+                0.02
+              ],
+              "wins": 4,
+              "losses": 4
+            },
+            "joint": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            },
+            "exact": {
+              "delta": 0.01,
+              "bootstrap95": [
+                -0.01,
+                0.03
+              ],
+              "wins": 6,
+              "losses": 3
+            },
+            "joint": {
+              "delta": 0.0,
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "wins": 0,
+              "losses": 0
+            }
+          }
+        }
+      },
+      "gold_linked_with_distractor": {
+        "n": 360,
+        "correct": {
+          "full": {
+            "evidence": 315,
+            "exact": 226,
+            "joint": 211
+          },
+          "sentence16": {
+            "evidence": 298,
+            "exact": 221,
+            "joint": 200
+          },
+          "sentence4": {
+            "evidence": 299,
+            "exact": 221,
+            "joint": 200
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": -0.04722222,
+              "bootstrap95": [
+                -0.07777778,
+                -0.01666667
+              ],
+              "wins": 8,
+              "losses": 25
+            },
+            "exact": {
+              "delta": -0.01388889,
+              "bootstrap95": [
+                -0.03333333,
+                0.00555556
+              ],
+              "wins": 4,
+              "losses": 9
+            },
+            "joint": {
+              "delta": -0.03055556,
+              "bootstrap95": [
+                -0.05555556,
+                -0.00555556
+              ],
+              "wins": 5,
+              "losses": 16
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": -0.04444444,
+              "bootstrap95": [
+                -0.07777778,
+                -0.01666667
+              ],
+              "wins": 8,
+              "losses": 24
+            },
+            "exact": {
+              "delta": -0.01388889,
+              "bootstrap95": [
+                -0.03333333,
+                0.00555556
+              ],
+              "wins": 4,
+              "losses": 9
+            },
+            "joint": {
+              "delta": -0.03055556,
+              "bootstrap95": [
+                -0.05555556,
+                -0.00555556
+              ],
+              "wins": 5,
+              "losses": 16
+            }
+          }
+        }
+      }
+    }
   }
 }
