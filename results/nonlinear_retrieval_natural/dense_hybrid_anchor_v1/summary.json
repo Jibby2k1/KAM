@@ -1,0 +1,2896 @@
+{
+  "provenance": {
+    "dense": {
+      "fixture_sha256": "b48adefb28f4e544abd874753df1262617f14894e59ce0815c362833ab212b97",
+      "pools_sha256": "325c1822d79160ff8d6f1c579bd604d61e5daee1004ef77c1a44174517889605",
+      "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+      "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+      "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+      "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+      "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+      "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+      "models": {
+        "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+      },
+      "indexed_documents": 5201800,
+      "guard_columns": [
+        "shared_document",
+        "added_document_count",
+        "added_document_rank",
+        "union_has_anchor",
+        "broad_margin",
+        "union_margin",
+        "union_original_pair_margin",
+        "original_pair_in_shortlist",
+        "broad_pair_link",
+        "union_pair_link",
+        "weak_semantic_shift",
+        "mean_affinity_shift",
+        "mention_margin_shift",
+        "union_size"
+      ],
+      "split": "test",
+      "repeated_broad_matches": 1024,
+      "rank_constant": 60,
+      "affinity_gpus": [
+        "NVIDIA B200",
+        "NVIDIA B200",
+        "NVIDIA B200",
+        "NVIDIA B200"
+      ],
+      "broad_anchor_gpus": [
+        "NVIDIA B200",
+        "NVIDIA B200",
+        "NVIDIA B200",
+        "NVIDIA B200"
+      ]
+    },
+    "hybrid": {
+      "fixture_sha256": "b48adefb28f4e544abd874753df1262617f14894e59ce0815c362833ab212b97",
+      "pools_sha256": "5dac15b5560c9659e269928a0d24e98bc1a2ba1d76511099b6faba223e6b004c",
+      "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+      "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+      "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+      "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+      "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+      "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+      "models": {
+        "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+      },
+      "indexed_documents": 5201800,
+      "guard_columns": [
+        "shared_document",
+        "added_document_count",
+        "added_document_rank",
+        "union_has_anchor",
+        "broad_margin",
+        "union_margin",
+        "union_original_pair_margin",
+        "original_pair_in_shortlist",
+        "broad_pair_link",
+        "union_pair_link",
+        "weak_semantic_shift",
+        "mean_affinity_shift",
+        "mention_margin_shift",
+        "union_size"
+      ],
+      "split": "test",
+      "repeated_broad_matches": 1024,
+      "rank_constant": 60,
+      "affinity_gpus": [
+        "NVIDIA L4",
+        "NVIDIA L4",
+        "NVIDIA L4",
+        "NVIDIA L4"
+      ],
+      "broad_anchor_gpus": [
+        "NVIDIA B200",
+        "NVIDIA B200",
+        "NVIDIA B200",
+        "NVIDIA B200"
+      ]
+    }
+  },
+  "initial_missing_count_table_dense_by_hybrid": [
+    [
+      576,
+      27,
+      0
+    ],
+    [
+      82,
+      310,
+      2
+    ],
+    [
+      1,
+      16,
+      10
+    ]
+  ],
+  "cohorts": {
+    "all": {
+      "questions": 1024,
+      "totals": {
+        "dense_broad": {
+          "coverage": 603,
+          "shortlist": 566,
+          "support": 456,
+          "joint_em": 284
+        },
+        "dense_affinity_anchor": {
+          "coverage": 708,
+          "shortlist": 641,
+          "support": 508,
+          "joint_em": 317
+        },
+        "dense_broad_anchor": {
+          "coverage": 734,
+          "shortlist": 664,
+          "support": 526,
+          "joint_em": 328
+        },
+        "hybrid_broad": {
+          "coverage": 659,
+          "shortlist": 606,
+          "support": 484,
+          "joint_em": 301
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 759,
+          "shortlist": 678,
+          "support": 528,
+          "joint_em": 332
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 780,
+          "shortlist": 695,
+          "support": 543,
+          "joint_em": 340
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.0546875,
+            "bootstrap95": [
+              0.03515625,
+              0.07421875
+            ],
+            "wins": 83,
+            "losses": 27
+          },
+          "shortlist": {
+            "delta": 0.0390625,
+            "bootstrap95": [
+              0.01953125,
+              0.05859375
+            ],
+            "wins": 74,
+            "losses": 34
+          },
+          "support": {
+            "delta": 0.02734375,
+            "bootstrap95": [
+              0.00878906,
+              0.04589844
+            ],
+            "wins": 60,
+            "losses": 32
+          },
+          "joint_em": {
+            "delta": 0.01660156,
+            "bootstrap95": [
+              0.00097656,
+              0.03125
+            ],
+            "wins": 39,
+            "losses": 22
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.04980469,
+            "bootstrap95": [
+              0.03320312,
+              0.06640625
+            ],
+            "wins": 63,
+            "losses": 12
+          },
+          "shortlist": {
+            "delta": 0.03613281,
+            "bootstrap95": [
+              0.02050781,
+              0.05175781
+            ],
+            "wins": 52,
+            "losses": 15
+          },
+          "support": {
+            "delta": 0.01953125,
+            "bootstrap95": [
+              0.00488281,
+              0.03417969
+            ],
+            "wins": 38,
+            "losses": 18
+          },
+          "joint_em": {
+            "delta": 0.01464844,
+            "bootstrap95": [
+              0.00292969,
+              0.02636719
+            ],
+            "wins": 25,
+            "losses": 10
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": 0.04492188,
+            "bootstrap95": [
+              0.02929688,
+              0.06152344
+            ],
+            "wins": 60,
+            "losses": 14
+          },
+          "shortlist": {
+            "delta": 0.03027344,
+            "bootstrap95": [
+              0.01367188,
+              0.046875
+            ],
+            "wins": 52,
+            "losses": 21
+          },
+          "support": {
+            "delta": 0.01660156,
+            "bootstrap95": [
+              0.00195312,
+              0.03125
+            ],
+            "wins": 38,
+            "losses": 21
+          },
+          "joint_em": {
+            "delta": 0.01171875,
+            "bootstrap95": [
+              0.0,
+              0.0234375
+            ],
+            "wins": 25,
+            "losses": 13
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.12792969,
+            "bootstrap95": [
+              0.10742188,
+              0.14941406
+            ],
+            "wins": 131,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.09570312,
+            "bootstrap95": [
+              0.07519531,
+              0.11623535
+            ],
+            "wins": 110,
+            "losses": 12
+          },
+          "support": {
+            "delta": 0.06835938,
+            "bootstrap95": [
+              0.04980469,
+              0.0859375
+            ],
+            "wins": 82,
+            "losses": 12
+          },
+          "joint_em": {
+            "delta": 0.04296875,
+            "bootstrap95": [
+              0.02832031,
+              0.05761719
+            ],
+            "wins": 51,
+            "losses": 7
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.11816406,
+            "bootstrap95": [
+              0.09960938,
+              0.13769531
+            ],
+            "wins": 121,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.08691406,
+            "bootstrap95": [
+              0.06933594,
+              0.10644531
+            ],
+            "wins": 98,
+            "losses": 9
+          },
+          "support": {
+            "delta": 0.05761719,
+            "bootstrap95": [
+              0.04101562,
+              0.07519531
+            ],
+            "wins": 72,
+            "losses": 13
+          },
+          "joint_em": {
+            "delta": 0.03808594,
+            "bootstrap95": [
+              0.02441406,
+              0.05273438
+            ],
+            "wins": 47,
+            "losses": 8
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.02539062,
+            "bootstrap95": [
+              0.01367188,
+              0.03808594
+            ],
+            "wins": 34,
+            "losses": 8
+          },
+          "shortlist": {
+            "delta": 0.02246094,
+            "bootstrap95": [
+              0.01171875,
+              0.03417969
+            ],
+            "wins": 30,
+            "losses": 7
+          },
+          "support": {
+            "delta": 0.01757812,
+            "bootstrap95": [
+              0.00683594,
+              0.02832031
+            ],
+            "wins": 26,
+            "losses": 8
+          },
+          "joint_em": {
+            "delta": 0.01074219,
+            "bootstrap95": [
+              0.00195312,
+              0.01953125
+            ],
+            "wins": 16,
+            "losses": 5
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.02050781,
+            "bootstrap95": [
+              0.00976562,
+              0.03125
+            ],
+            "wins": 28,
+            "losses": 7
+          },
+          "shortlist": {
+            "delta": 0.01660156,
+            "bootstrap95": [
+              0.00683594,
+              0.02734375
+            ],
+            "wins": 23,
+            "losses": 6
+          },
+          "support": {
+            "delta": 0.01464844,
+            "bootstrap95": [
+              0.00585938,
+              0.0234375
+            ],
+            "wins": 18,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.0078125,
+            "bootstrap95": [
+              0.00097656,
+              0.01464844
+            ],
+            "wins": 11,
+            "losses": 3
+          }
+        }
+      }
+    },
+    "dense_incomplete": {
+      "questions": 421,
+      "totals": {
+        "dense_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "dense_affinity_anchor": {
+          "coverage": 105,
+          "shortlist": 87,
+          "support": 61,
+          "joint_em": 39
+        },
+        "dense_broad_anchor": {
+          "coverage": 131,
+          "shortlist": 110,
+          "support": 81,
+          "joint_em": 51
+        },
+        "hybrid_broad": {
+          "coverage": 83,
+          "shortlist": 74,
+          "support": 56,
+          "joint_em": 37
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 168,
+          "shortlist": 138,
+          "support": 94,
+          "joint_em": 60
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 187,
+          "shortlist": 156,
+          "support": 109,
+          "joint_em": 69
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.19714964,
+            "bootstrap95": [
+              0.15914489,
+              0.23752969
+            ],
+            "wins": 83,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.17577197,
+            "bootstrap95": [
+              0.14014252,
+              0.21377672
+            ],
+            "wins": 74,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.13301663,
+            "bootstrap95": [
+              0.09976247,
+              0.16627078
+            ],
+            "wins": 56,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.08788599,
+            "bootstrap95": [
+              0.06175772,
+              0.11638955
+            ],
+            "wins": 37,
+            "losses": 0
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.14964371,
+            "bootstrap95": [
+              0.11638955,
+              0.18527316
+            ],
+            "wins": 63,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.12114014,
+            "bootstrap95": [
+              0.09026128,
+              0.1543943
+            ],
+            "wins": 51,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0783848,
+            "bootstrap95": [
+              0.04988124,
+              0.10688836
+            ],
+            "wins": 36,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.04988124,
+            "bootstrap95": [
+              0.02612827,
+              0.0760095
+            ],
+            "wins": 24,
+            "losses": 3
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": 0.13301663,
+            "bootstrap95": [
+              0.09738717,
+              0.16864608
+            ],
+            "wins": 60,
+            "losses": 4
+          },
+          "shortlist": {
+            "delta": 0.10926366,
+            "bootstrap95": [
+              0.0760095,
+              0.14489311
+            ],
+            "wins": 51,
+            "losses": 5
+          },
+          "support": {
+            "delta": 0.06650831,
+            "bootstrap95": [
+              0.03562945,
+              0.09738717
+            ],
+            "wins": 36,
+            "losses": 8
+          },
+          "joint_em": {
+            "delta": 0.04275534,
+            "bootstrap95": [
+              0.01662708,
+              0.06888361
+            ],
+            "wins": 24,
+            "losses": 6
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.3111639,
+            "bootstrap95": [
+              0.26603325,
+              0.35391924
+            ],
+            "wins": 131,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.26128266,
+            "bootstrap95": [
+              0.21852732,
+              0.30166271
+            ],
+            "wins": 110,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.19239905,
+            "bootstrap95": [
+              0.1567696,
+              0.2304038
+            ],
+            "wins": 81,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.12114014,
+            "bootstrap95": [
+              0.09026128,
+              0.152019
+            ],
+            "wins": 51,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.24703088,
+            "bootstrap95": [
+              0.20665083,
+              0.28741093
+            ],
+            "wins": 104,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.19477435,
+            "bootstrap95": [
+              0.1567696,
+              0.2327791
+            ],
+            "wins": 83,
+            "losses": 1
+          },
+          "support": {
+            "delta": 0.12589074,
+            "bootstrap95": [
+              0.09501188,
+              0.15920428
+            ],
+            "wins": 56,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.0760095,
+            "bootstrap95": [
+              0.04988124,
+              0.10451306
+            ],
+            "wins": 34,
+            "losses": 2
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.06175772,
+            "bootstrap95": [
+              0.03325416,
+              0.09263658
+            ],
+            "wins": 34,
+            "losses": 8
+          },
+          "shortlist": {
+            "delta": 0.05463183,
+            "bootstrap95": [
+              0.02612827,
+              0.08313539
+            ],
+            "wins": 30,
+            "losses": 7
+          },
+          "support": {
+            "delta": 0.04750594,
+            "bootstrap95": [
+              0.02137767,
+              0.0736342
+            ],
+            "wins": 26,
+            "losses": 6
+          },
+          "joint_em": {
+            "delta": 0.02850356,
+            "bootstrap95": [
+              0.00950119,
+              0.04988124
+            ],
+            "wins": 16,
+            "losses": 4
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.04513064,
+            "bootstrap95": [
+              0.01900238,
+              0.07125891
+            ],
+            "wins": 26,
+            "losses": 7
+          },
+          "shortlist": {
+            "delta": 0.04275534,
+            "bootstrap95": [
+              0.01900238,
+              0.06650831
+            ],
+            "wins": 22,
+            "losses": 4
+          },
+          "support": {
+            "delta": 0.03562945,
+            "bootstrap95": [
+              0.01662708,
+              0.05700713
+            ],
+            "wins": 17,
+            "losses": 2
+          },
+          "joint_em": {
+            "delta": 0.02137767,
+            "bootstrap95": [
+              0.00475059,
+              0.03800475
+            ],
+            "wins": 11,
+            "losses": 2
+          }
+        }
+      }
+    },
+    "dense_complete": {
+      "questions": 603,
+      "totals": {
+        "dense_broad": {
+          "coverage": 603,
+          "shortlist": 566,
+          "support": 456,
+          "joint_em": 284
+        },
+        "dense_affinity_anchor": {
+          "coverage": 603,
+          "shortlist": 554,
+          "support": 447,
+          "joint_em": 278
+        },
+        "dense_broad_anchor": {
+          "coverage": 603,
+          "shortlist": 554,
+          "support": 445,
+          "joint_em": 277
+        },
+        "hybrid_broad": {
+          "coverage": 576,
+          "shortlist": 532,
+          "support": 428,
+          "joint_em": 264
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 591,
+          "shortlist": 540,
+          "support": 434,
+          "joint_em": 272
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 593,
+          "shortlist": 539,
+          "support": 434,
+          "joint_em": 271
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": -0.04477612,
+            "bootstrap95": [
+              -0.06135987,
+              -0.02985075
+            ],
+            "wins": 0,
+            "losses": 27
+          },
+          "shortlist": {
+            "delta": -0.05638474,
+            "bootstrap95": [
+              -0.07462687,
+              -0.039801
+            ],
+            "wins": 0,
+            "losses": 34
+          },
+          "support": {
+            "delta": -0.04643449,
+            "bootstrap95": [
+              -0.06633499,
+              -0.02819237
+            ],
+            "wins": 4,
+            "losses": 32
+          },
+          "joint_em": {
+            "delta": -0.0331675,
+            "bootstrap95": [
+              -0.04975124,
+              -0.01824212
+            ],
+            "wins": 2,
+            "losses": 22
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": -0.0199005,
+            "bootstrap95": [
+              -0.03150912,
+              -0.00995025
+            ],
+            "wins": 0,
+            "losses": 12
+          },
+          "shortlist": {
+            "delta": -0.02321725,
+            "bootstrap95": [
+              -0.03648425,
+              -0.01160862
+            ],
+            "wins": 1,
+            "losses": 15
+          },
+          "support": {
+            "delta": -0.02155887,
+            "bootstrap95": [
+              -0.03482587,
+              -0.00829187
+            ],
+            "wins": 2,
+            "losses": 15
+          },
+          "joint_em": {
+            "delta": -0.00995025,
+            "bootstrap95": [
+              -0.0199005,
+              -0.00165837
+            ],
+            "wins": 1,
+            "losses": 7
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": -0.01658375,
+            "bootstrap95": [
+              -0.02819237,
+              -0.0066335
+            ],
+            "wins": 0,
+            "losses": 10
+          },
+          "shortlist": {
+            "delta": -0.02487562,
+            "bootstrap95": [
+              -0.03814262,
+              -0.01160862
+            ],
+            "wins": 1,
+            "losses": 16
+          },
+          "support": {
+            "delta": -0.01824212,
+            "bootstrap95": [
+              -0.03150912,
+              -0.0066335
+            ],
+            "wins": 2,
+            "losses": 13
+          },
+          "joint_em": {
+            "delta": -0.00995025,
+            "bootstrap95": [
+              -0.0199005,
+              -0.00165837
+            ],
+            "wins": 1,
+            "losses": 7
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": -0.0199005,
+            "bootstrap95": [
+              -0.03150912,
+              -0.00995025
+            ],
+            "wins": 0,
+            "losses": 12
+          },
+          "support": {
+            "delta": -0.01824212,
+            "bootstrap95": [
+              -0.02985075,
+              -0.0066335
+            ],
+            "wins": 1,
+            "losses": 12
+          },
+          "joint_em": {
+            "delta": -0.01160862,
+            "bootstrap95": [
+              -0.02155887,
+              -0.00331675
+            ],
+            "wins": 0,
+            "losses": 7
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.02819237,
+            "bootstrap95": [
+              0.01658375,
+              0.04145937
+            ],
+            "wins": 17,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.01160862,
+            "bootstrap95": [
+              -0.00331675,
+              0.02819237
+            ],
+            "wins": 15,
+            "losses": 8
+          },
+          "support": {
+            "delta": 0.00995025,
+            "bootstrap95": [
+              -0.0066335,
+              0.026534
+            ],
+            "wins": 16,
+            "losses": 10
+          },
+          "joint_em": {
+            "delta": 0.01160862,
+            "bootstrap95": [
+              -0.00165837,
+              0.026534
+            ],
+            "wins": 13,
+            "losses": 6
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": -0.00331675,
+            "bootstrap95": [
+              -0.00829187,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 2
+          },
+          "joint_em": {
+            "delta": -0.00165837,
+            "bootstrap95": [
+              -0.00497512,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 1
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.00331675,
+            "bootstrap95": [
+              0.0,
+              0.00829187
+            ],
+            "wins": 2,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": -0.00165837,
+            "bootstrap95": [
+              -0.00829187,
+              0.00331675
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00497512,
+              0.00497512
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": -0.00165837,
+            "bootstrap95": [
+              -0.00497512,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 1
+          }
+        }
+      }
+    },
+    "dense_one_missing": {
+      "questions": 394,
+      "totals": {
+        "dense_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "dense_affinity_anchor": {
+          "coverage": 105,
+          "shortlist": 87,
+          "support": 61,
+          "joint_em": 39
+        },
+        "dense_broad_anchor": {
+          "coverage": 130,
+          "shortlist": 109,
+          "support": 80,
+          "joint_em": 50
+        },
+        "hybrid_broad": {
+          "coverage": 82,
+          "shortlist": 73,
+          "support": 56,
+          "joint_em": 37
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 166,
+          "shortlist": 136,
+          "support": 94,
+          "joint_em": 60
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 183,
+          "shortlist": 152,
+          "support": 107,
+          "joint_em": 68
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.20812183,
+            "bootstrap95": [
+              0.16751269,
+              0.24873096
+            ],
+            "wins": 82,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.18527919,
+            "bootstrap95": [
+              0.14720812,
+              0.22588832
+            ],
+            "wins": 73,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.14213198,
+            "bootstrap95": [
+              0.10659898,
+              0.17766497
+            ],
+            "wins": 56,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.09390863,
+            "bootstrap95": [
+              0.06598985,
+              0.12436548
+            ],
+            "wins": 37,
+            "losses": 0
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.15482234,
+            "bootstrap95": [
+              0.11928934,
+              0.19035533
+            ],
+            "wins": 61,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.12436548,
+            "bootstrap95": [
+              0.09137056,
+              0.15736041
+            ],
+            "wins": 49,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.08375635,
+            "bootstrap95": [
+              0.05583756,
+              0.1142132
+            ],
+            "wins": 36,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.05329949,
+            "bootstrap95": [
+              0.02791878,
+              0.0786802
+            ],
+            "wins": 24,
+            "losses": 3
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": 0.13451777,
+            "bootstrap95": [
+              0.09898477,
+              0.17005076
+            ],
+            "wins": 57,
+            "losses": 4
+          },
+          "shortlist": {
+            "delta": 0.10913706,
+            "bootstrap95": [
+              0.07614213,
+              0.14467005
+            ],
+            "wins": 48,
+            "losses": 5
+          },
+          "support": {
+            "delta": 0.06852792,
+            "bootstrap95": [
+              0.03807107,
+              0.10152284
+            ],
+            "wins": 35,
+            "losses": 8
+          },
+          "joint_em": {
+            "delta": 0.04568528,
+            "bootstrap95": [
+              0.02030457,
+              0.07360406
+            ],
+            "wins": 24,
+            "losses": 6
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.32994924,
+            "bootstrap95": [
+              0.28426396,
+              0.37817259
+            ],
+            "wins": 130,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.27664975,
+            "bootstrap95": [
+              0.23350254,
+              0.31979695
+            ],
+            "wins": 109,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.20304569,
+            "bootstrap95": [
+              0.16243655,
+              0.24365482
+            ],
+            "wins": 80,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.12690355,
+            "bootstrap95": [
+              0.09390863,
+              0.15989848
+            ],
+            "wins": 50,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.25634518,
+            "bootstrap95": [
+              0.21319797,
+              0.29949239
+            ],
+            "wins": 101,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.20050761,
+            "bootstrap95": [
+              0.16243655,
+              0.24111675
+            ],
+            "wins": 80,
+            "losses": 1
+          },
+          "support": {
+            "delta": 0.12944162,
+            "bootstrap95": [
+              0.09390863,
+              0.16497462
+            ],
+            "wins": 54,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.0786802,
+            "bootstrap95": [
+              0.05076142,
+              0.10659898
+            ],
+            "wins": 33,
+            "losses": 2
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.06345178,
+            "bootstrap95": [
+              0.03299492,
+              0.0964467
+            ],
+            "wins": 33,
+            "losses": 8
+          },
+          "shortlist": {
+            "delta": 0.05583756,
+            "bootstrap95": [
+              0.02791878,
+              0.08629442
+            ],
+            "wins": 29,
+            "losses": 7
+          },
+          "support": {
+            "delta": 0.04822335,
+            "bootstrap95": [
+              0.02284264,
+              0.07614213
+            ],
+            "wins": 25,
+            "losses": 6
+          },
+          "joint_em": {
+            "delta": 0.02791878,
+            "bootstrap95": [
+              0.00761421,
+              0.05076142
+            ],
+            "wins": 15,
+            "losses": 4
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.04314721,
+            "bootstrap95": [
+              0.0177665,
+              0.07106599
+            ],
+            "wins": 24,
+            "losses": 7
+          },
+          "shortlist": {
+            "delta": 0.04060914,
+            "bootstrap95": [
+              0.0177665,
+              0.06598985
+            ],
+            "wins": 20,
+            "losses": 4
+          },
+          "support": {
+            "delta": 0.03299492,
+            "bootstrap95": [
+              0.01522843,
+              0.05329949
+            ],
+            "wins": 15,
+            "losses": 2
+          },
+          "joint_em": {
+            "delta": 0.02030457,
+            "bootstrap95": [
+              0.00507614,
+              0.03807107
+            ],
+            "wins": 10,
+            "losses": 2
+          }
+        }
+      }
+    },
+    "dense_two_missing": {
+      "questions": 27,
+      "totals": {
+        "dense_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "dense_affinity_anchor": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "dense_broad_anchor": {
+          "coverage": 1,
+          "shortlist": 1,
+          "support": 1,
+          "joint_em": 1
+        },
+        "hybrid_broad": {
+          "coverage": 1,
+          "shortlist": 1,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 2,
+          "shortlist": 2,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 4,
+          "shortlist": 4,
+          "support": 2,
+          "joint_em": 1
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.07407407,
+            "bootstrap95": [
+              0.0,
+              0.18518519
+            ],
+            "wins": 2,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.07407407,
+            "bootstrap95": [
+              0.0,
+              0.18518519
+            ],
+            "wins": 2,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": 0.11111111,
+            "bootstrap95": [
+              0.0,
+              0.25925926
+            ],
+            "wins": 3,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.11111111,
+            "bootstrap95": [
+              0.0,
+              0.25925926
+            ],
+            "wins": 3,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.11111111,
+            "bootstrap95": [
+              0.0,
+              0.25925926
+            ],
+            "wins": 3,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.11111111,
+            "bootstrap95": [
+              0.0,
+              0.25925926
+            ],
+            "wins": 3,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.07407407,
+            "bootstrap95": [
+              0.0,
+              0.18518519
+            ],
+            "wins": 2,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.07407407,
+            "bootstrap95": [
+              0.0,
+              0.18518519
+            ],
+            "wins": 2,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.07407407,
+            "bootstrap95": [
+              0.0,
+              0.18518519
+            ],
+            "wins": 2,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.07407407,
+            "bootstrap95": [
+              0.0,
+              0.18518519
+            ],
+            "wins": 2,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.03703704,
+            "bootstrap95": [
+              0.0,
+              0.11111111
+            ],
+            "wins": 1,
+            "losses": 0
+          }
+        }
+      }
+    },
+    "hybrid_incomplete": {
+      "questions": 365,
+      "totals": {
+        "dense_broad": {
+          "coverage": 27,
+          "shortlist": 22,
+          "support": 21,
+          "joint_em": 13
+        },
+        "dense_affinity_anchor": {
+          "coverage": 106,
+          "shortlist": 84,
+          "support": 63,
+          "joint_em": 40
+        },
+        "dense_broad_anchor": {
+          "coverage": 125,
+          "shortlist": 101,
+          "support": 77,
+          "joint_em": 48
+        },
+        "hybrid_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 100,
+          "shortlist": 79,
+          "support": 53,
+          "joint_em": 34
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 121,
+          "shortlist": 98,
+          "support": 69,
+          "joint_em": 44
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": -0.0739726,
+            "bootstrap95": [
+              -0.10136986,
+              -0.04931507
+            ],
+            "wins": 0,
+            "losses": 27
+          },
+          "shortlist": {
+            "delta": -0.06027397,
+            "bootstrap95": [
+              -0.08493151,
+              -0.03561644
+            ],
+            "wins": 0,
+            "losses": 22
+          },
+          "support": {
+            "delta": -0.05753425,
+            "bootstrap95": [
+              -0.08219178,
+              -0.03561644
+            ],
+            "wins": 0,
+            "losses": 21
+          },
+          "joint_em": {
+            "delta": -0.03561644,
+            "bootstrap95": [
+              -0.05486301,
+              -0.01917808
+            ],
+            "wins": 0,
+            "losses": 13
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": -0.01643836,
+            "bootstrap95": [
+              -0.04109589,
+              0.00547945
+            ],
+            "wins": 6,
+            "losses": 12
+          },
+          "shortlist": {
+            "delta": -0.01369863,
+            "bootstrap95": [
+              -0.03287671,
+              0.00273973
+            ],
+            "wins": 3,
+            "losses": 8
+          },
+          "support": {
+            "delta": -0.02739726,
+            "bootstrap95": [
+              -0.04657534,
+              -0.00821918
+            ],
+            "wins": 1,
+            "losses": 11
+          },
+          "joint_em": {
+            "delta": -0.01643836,
+            "bootstrap95": [
+              -0.03013699,
+              -0.00547945
+            ],
+            "wins": 0,
+            "losses": 6
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": -0.0109589,
+            "bootstrap95": [
+              -0.03561644,
+              0.01643836
+            ],
+            "wins": 10,
+            "losses": 14
+          },
+          "shortlist": {
+            "delta": -0.00821918,
+            "bootstrap95": [
+              -0.03013699,
+              0.01643836
+            ],
+            "wins": 8,
+            "losses": 11
+          },
+          "support": {
+            "delta": -0.02191781,
+            "bootstrap95": [
+              -0.04383562,
+              0.0
+            ],
+            "wins": 5,
+            "losses": 13
+          },
+          "joint_em": {
+            "delta": -0.0109589,
+            "bootstrap95": [
+              -0.02739726,
+              0.00547945
+            ],
+            "wins": 3,
+            "losses": 7
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.26849315,
+            "bootstrap95": [
+              0.22465753,
+              0.31232877
+            ],
+            "wins": 98,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.21643836,
+            "bootstrap95": [
+              0.17260274,
+              0.25753425
+            ],
+            "wins": 79,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.15342466,
+            "bootstrap95": [
+              0.11506849,
+              0.19178082
+            ],
+            "wins": 57,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.09589041,
+            "bootstrap95": [
+              0.06575342,
+              0.12609589
+            ],
+            "wins": 35,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.33150685,
+            "bootstrap95": [
+              0.28219178,
+              0.37808219
+            ],
+            "wins": 121,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.26849315,
+            "bootstrap95": [
+              0.22191781,
+              0.31506849
+            ],
+            "wins": 98,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.1890411,
+            "bootstrap95": [
+              0.14794521,
+              0.23013699
+            ],
+            "wins": 69,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.12054795,
+            "bootstrap95": [
+              0.08767123,
+              0.15342466
+            ],
+            "wins": 44,
+            "losses": 0
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.05205479,
+            "bootstrap95": [
+              0.02465753,
+              0.07945205
+            ],
+            "wins": 23,
+            "losses": 4
+          },
+          "shortlist": {
+            "delta": 0.04657534,
+            "bootstrap95": [
+              0.02191781,
+              0.07123288
+            ],
+            "wins": 20,
+            "losses": 3
+          },
+          "support": {
+            "delta": 0.03835616,
+            "bootstrap95": [
+              0.01643836,
+              0.06027397
+            ],
+            "wins": 16,
+            "losses": 2
+          },
+          "joint_em": {
+            "delta": 0.02191781,
+            "bootstrap95": [
+              0.00547945,
+              0.04109589
+            ],
+            "wins": 10,
+            "losses": 2
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.05753425,
+            "bootstrap95": [
+              0.02465753,
+              0.09041096
+            ],
+            "wins": 28,
+            "losses": 7
+          },
+          "shortlist": {
+            "delta": 0.05205479,
+            "bootstrap95": [
+              0.02465753,
+              0.07952055
+            ],
+            "wins": 23,
+            "losses": 4
+          },
+          "support": {
+            "delta": 0.04383562,
+            "bootstrap95": [
+              0.02191781,
+              0.06575342
+            ],
+            "wins": 17,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.02739726,
+            "bootstrap95": [
+              0.0109589,
+              0.04657534
+            ],
+            "wins": 11,
+            "losses": 1
+          }
+        }
+      }
+    },
+    "hybrid_complete": {
+      "questions": 659,
+      "totals": {
+        "dense_broad": {
+          "coverage": 576,
+          "shortlist": 544,
+          "support": 435,
+          "joint_em": 271
+        },
+        "dense_affinity_anchor": {
+          "coverage": 602,
+          "shortlist": 557,
+          "support": 445,
+          "joint_em": 277
+        },
+        "dense_broad_anchor": {
+          "coverage": 609,
+          "shortlist": 563,
+          "support": 449,
+          "joint_em": 280
+        },
+        "hybrid_broad": {
+          "coverage": 659,
+          "shortlist": 606,
+          "support": 484,
+          "joint_em": 301
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 659,
+          "shortlist": 599,
+          "support": 475,
+          "joint_em": 298
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 659,
+          "shortlist": 597,
+          "support": 474,
+          "joint_em": 296
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.12594841,
+            "bootstrap95": [
+              0.1016692,
+              0.15326252
+            ],
+            "wins": 83,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.09408194,
+            "bootstrap95": [
+              0.06828528,
+              0.12139605
+            ],
+            "wins": 74,
+            "losses": 12
+          },
+          "support": {
+            "delta": 0.07435508,
+            "bootstrap95": [
+              0.05159332,
+              0.10015175
+            ],
+            "wins": 60,
+            "losses": 11
+          },
+          "joint_em": {
+            "delta": 0.04552352,
+            "bootstrap95": [
+              0.02579666,
+              0.06676783
+            ],
+            "wins": 39,
+            "losses": 9
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.08649469,
+            "bootstrap95": [
+              0.06525038,
+              0.10925645
+            ],
+            "wins": 57,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.06373293,
+            "bootstrap95": [
+              0.04248862,
+              0.08649469
+            ],
+            "wins": 49,
+            "losses": 7
+          },
+          "support": {
+            "delta": 0.04552352,
+            "bootstrap95": [
+              0.02579666,
+              0.06525038
+            ],
+            "wins": 37,
+            "losses": 7
+          },
+          "joint_em": {
+            "delta": 0.03186646,
+            "bootstrap95": [
+              0.01669196,
+              0.04855842
+            ],
+            "wins": 25,
+            "losses": 4
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": 0.07587253,
+            "bootstrap95": [
+              0.05614568,
+              0.09711684
+            ],
+            "wins": 50,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.05159332,
+            "bootstrap95": [
+              0.03034901,
+              0.07435508
+            ],
+            "wins": 44,
+            "losses": 10
+          },
+          "support": {
+            "delta": 0.03793627,
+            "bootstrap95": [
+              0.01972686,
+              0.05766313
+            ],
+            "wins": 33,
+            "losses": 8
+          },
+          "joint_em": {
+            "delta": 0.02427921,
+            "bootstrap95": [
+              0.0091047,
+              0.04097117
+            ],
+            "wins": 22,
+            "losses": 6
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.05007587,
+            "bootstrap95": [
+              0.03490137,
+              0.06676783
+            ],
+            "wins": 33,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.02883156,
+            "bootstrap95": [
+              0.0091047,
+              0.04855842
+            ],
+            "wins": 31,
+            "losses": 12
+          },
+          "support": {
+            "delta": 0.02124431,
+            "bootstrap95": [
+              0.00455235,
+              0.03945372
+            ],
+            "wins": 25,
+            "losses": 11
+          },
+          "joint_em": {
+            "delta": 0.01365706,
+            "bootstrap95": [
+              0.0,
+              0.02731411
+            ],
+            "wins": 16,
+            "losses": 7
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": -0.01365706,
+            "bootstrap95": [
+              -0.02276176,
+              -0.0060698
+            ],
+            "wins": 0,
+            "losses": 9
+          },
+          "support": {
+            "delta": -0.01517451,
+            "bootstrap95": [
+              -0.02731411,
+              -0.00455235
+            ],
+            "wins": 3,
+            "losses": 13
+          },
+          "joint_em": {
+            "delta": -0.00758725,
+            "bootstrap95": [
+              -0.01820941,
+              0.00151745
+            ],
+            "wins": 3,
+            "losses": 8
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.01062215,
+            "bootstrap95": [
+              0.0,
+              0.02276176
+            ],
+            "wins": 11,
+            "losses": 4
+          },
+          "shortlist": {
+            "delta": 0.0091047,
+            "bootstrap95": [
+              -0.00151745,
+              0.01972686
+            ],
+            "wins": 10,
+            "losses": 4
+          },
+          "support": {
+            "delta": 0.0060698,
+            "bootstrap95": [
+              -0.0060698,
+              0.01820941
+            ],
+            "wins": 10,
+            "losses": 6
+          },
+          "joint_em": {
+            "delta": 0.00455235,
+            "bootstrap95": [
+              -0.00455235,
+              0.01365706
+            ],
+            "wins": 6,
+            "losses": 3
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": -0.0030349,
+            "bootstrap95": [
+              -0.00758725,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 2
+          },
+          "support": {
+            "delta": -0.00151745,
+            "bootstrap95": [
+              -0.00758725,
+              0.0030349
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "joint_em": {
+            "delta": -0.0030349,
+            "bootstrap95": [
+              -0.00758725,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 2
+          }
+        }
+      }
+    },
+    "hybrid_one_missing": {
+      "questions": 353,
+      "totals": {
+        "dense_broad": {
+          "coverage": 27,
+          "shortlist": 22,
+          "support": 21,
+          "joint_em": 13
+        },
+        "dense_affinity_anchor": {
+          "coverage": 106,
+          "shortlist": 84,
+          "support": 63,
+          "joint_em": 40
+        },
+        "dense_broad_anchor": {
+          "coverage": 125,
+          "shortlist": 101,
+          "support": 77,
+          "joint_em": 48
+        },
+        "hybrid_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 100,
+          "shortlist": 79,
+          "support": 53,
+          "joint_em": 34
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 121,
+          "shortlist": 98,
+          "support": 69,
+          "joint_em": 44
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": -0.07648725,
+            "bootstrap95": [
+              -0.10481586,
+              -0.0509915
+            ],
+            "wins": 0,
+            "losses": 27
+          },
+          "shortlist": {
+            "delta": -0.06232295,
+            "bootstrap95": [
+              -0.0878187,
+              -0.03966006
+            ],
+            "wins": 0,
+            "losses": 22
+          },
+          "support": {
+            "delta": -0.05949008,
+            "bootstrap95": [
+              -0.08498584,
+              -0.0368272
+            ],
+            "wins": 0,
+            "losses": 21
+          },
+          "joint_em": {
+            "delta": -0.0368272,
+            "bootstrap95": [
+              -0.05665722,
+              -0.01699717
+            ],
+            "wins": 0,
+            "losses": 13
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": -0.01699717,
+            "bootstrap95": [
+              -0.03966006,
+              0.00566572
+            ],
+            "wins": 6,
+            "losses": 12
+          },
+          "shortlist": {
+            "delta": -0.01416431,
+            "bootstrap95": [
+              -0.03399433,
+              0.00283286
+            ],
+            "wins": 3,
+            "losses": 8
+          },
+          "support": {
+            "delta": -0.02832861,
+            "bootstrap95": [
+              -0.04815864,
+              -0.01133144
+            ],
+            "wins": 1,
+            "losses": 11
+          },
+          "joint_em": {
+            "delta": -0.01699717,
+            "bootstrap95": [
+              -0.03116147,
+              -0.00566572
+            ],
+            "wins": 0,
+            "losses": 6
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": -0.01133144,
+            "bootstrap95": [
+              -0.03966006,
+              0.01416431
+            ],
+            "wins": 10,
+            "losses": 14
+          },
+          "shortlist": {
+            "delta": -0.00849858,
+            "bootstrap95": [
+              -0.03399433,
+              0.01416431
+            ],
+            "wins": 8,
+            "losses": 11
+          },
+          "support": {
+            "delta": -0.02266289,
+            "bootstrap95": [
+              -0.04532578,
+              0.0
+            ],
+            "wins": 5,
+            "losses": 13
+          },
+          "joint_em": {
+            "delta": -0.01133144,
+            "bootstrap95": [
+              -0.02832861,
+              0.00566572
+            ],
+            "wins": 3,
+            "losses": 7
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.2776204,
+            "bootstrap95": [
+              0.23229462,
+              0.32294618
+            ],
+            "wins": 98,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.22379603,
+            "bootstrap95": [
+              0.18130312,
+              0.26912181
+            ],
+            "wins": 79,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.15864023,
+            "bootstrap95": [
+              0.12181303,
+              0.19830028
+            ],
+            "wins": 57,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.09915014,
+            "bootstrap95": [
+              0.06798867,
+              0.13031161
+            ],
+            "wins": 35,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.3427762,
+            "bootstrap95": [
+              0.29461756,
+              0.39093484
+            ],
+            "wins": 121,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.2776204,
+            "bootstrap95": [
+              0.23229462,
+              0.32294618
+            ],
+            "wins": 98,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.19546742,
+            "bootstrap95": [
+              0.1529745,
+              0.23796034
+            ],
+            "wins": 69,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.12464589,
+            "bootstrap95": [
+              0.09065156,
+              0.15864023
+            ],
+            "wins": 44,
+            "losses": 0
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.05382436,
+            "bootstrap95": [
+              0.02549575,
+              0.08215297
+            ],
+            "wins": 23,
+            "losses": 4
+          },
+          "shortlist": {
+            "delta": 0.04815864,
+            "bootstrap95": [
+              0.02266289,
+              0.07365439
+            ],
+            "wins": 20,
+            "losses": 3
+          },
+          "support": {
+            "delta": 0.03966006,
+            "bootstrap95": [
+              0.01699717,
+              0.06232295
+            ],
+            "wins": 16,
+            "losses": 2
+          },
+          "joint_em": {
+            "delta": 0.02266289,
+            "bootstrap95": [
+              0.00566572,
+              0.04249292
+            ],
+            "wins": 10,
+            "losses": 2
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.05949008,
+            "bootstrap95": [
+              0.02549575,
+              0.09348442
+            ],
+            "wins": 28,
+            "losses": 7
+          },
+          "shortlist": {
+            "delta": 0.05382436,
+            "bootstrap95": [
+              0.02549575,
+              0.08215297
+            ],
+            "wins": 23,
+            "losses": 4
+          },
+          "support": {
+            "delta": 0.04532578,
+            "bootstrap95": [
+              0.02266289,
+              0.06798867
+            ],
+            "wins": 17,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.02832861,
+            "bootstrap95": [
+              0.01133144,
+              0.04815864
+            ],
+            "wins": 11,
+            "losses": 1
+          }
+        }
+      }
+    },
+    "hybrid_two_missing": {
+      "questions": 12,
+      "totals": {
+        "dense_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "dense_affinity_anchor": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "dense_broad_anchor": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_affinity_anchor": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        }
+      },
+      "paired": {
+        "hybrid_broad_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "hybrid_affinity_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_dense_broad_anchor": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "dense_broad_anchor_vs_dense_broad": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_broad": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "dense_broad_anchor_vs_dense_affinity_anchor": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "hybrid_broad_anchor_vs_hybrid_affinity_anchor": {
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      }
+    }
+  }
+}

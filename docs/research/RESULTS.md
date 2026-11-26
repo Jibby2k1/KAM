@@ -67,3 +67,5 @@ The [controlled revision-noise report](../../reports/nonlinear_retrieval_natural
 [Position-preserving context compaction](../../reports/nonlinear_retrieval_natural/CONTEXT_COMPACTION.md) preserved all decisions in a numerical probe and shortened the batched radial forward by about 5.3× on L4 and 2.5× on RTX when half of 257 slots were active.
 
 The [B200 serving prewarm crossover](../../reports/nonlinear_retrieval_natural/SHARED_PREWARM_SERVING.md) reduced median affinity-anchor request time from 132.34 to 63.29 ms and p95 from 203.50 to 91.50 ms. All 256 crossed requests retained identical evidence and answer exactness.
+
+At equal depth 64 and with the same B200 broad-ranked expansion, [hybrid initial search](../../reports/nonlinear_retrieval_natural/DENSE_HYBRID_ANCHOR.md) increased initial coverage from 603 to 659 of 1,024 questions. After expansion, it produced 543 support pairs and 340 joint exact matches versus 526 and 328 for dense. The paired joint EM interval reached zero.
