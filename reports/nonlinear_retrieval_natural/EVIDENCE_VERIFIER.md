@@ -58,7 +58,7 @@ A local Apple M5 replication agreed on all 6,480 evidence decisions and on 6,478
 
 ## Transfer to retrieved Wikipedia pools
 
-Freeze the 2Wiki-trained reranker and apply it to the 768 held-out questions from the [HotpotQA supporting-link study](SUPPORT_LINKS.md). Use the original top-64 dense results from Wikipedia, including the 300 pools that lack at least one support. Freeze the full context head, encoder and reader, and reuse the previous dense vectors by row ID. A deterministic punctuation rule splits the stored Wikipedia excerpts into sentences. The underlying pair heads used HotpotQA for training. The new sentence policy was fit on 2Wiki, and these HotpotQA questions were held out from pair-head fitting.
+Freeze the 2Wiki-trained reranker and apply it to the 768 held-out questions from the [HotpotQA supporting-link study](SUPPORT_LINKS.md). Use the original top-64 dense results from Wikipedia, including the 300 pools that lack at least one support. Freeze the full context head, encoder and reader, and reuse the previous dense vectors by row ID. A deterministic punctuation rule splits the stored Wikipedia excerpts into sentences. The underlying pair heads used HotpotQA for training. The new sentence policy was fit on 2Wiki, and these HotpotQA questions were held out from pair-head fitting. The two cohorts used for sentence fit and HotpotQA evaluation shared zero normalized questions and zero normalized supporting-document titles.
 
 | HotpotQA stratum | Frozen head evidence / joint | Semantic, 16 per head | Semantic, 4 per head |
 | --- | ---: | ---: | ---: |
