@@ -139,3 +139,12 @@ jobs:
                    --reference "$prior/replay.json.gz" --output "$output")
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_conditioned_corpus_search.py "$study/replay.json.gz" "${options[@]}"
           diff -u "$study/summary.json" "$output"
+      - name: Replay conditioned union reranking
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/conditioned_union_v1"
+          output=$(mktemp)
+          options=(--fixture "$study/fixture.json.gz" --pools "$study/pools.json.gz"
+                   --fitted "$base/native_sentence_refit_v1/fitted.json" --output "$output")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_conditioned_union.py "$study/replay.json.gz" "${options[@]}"
+          diff -u "$study/summary.json" "$output"

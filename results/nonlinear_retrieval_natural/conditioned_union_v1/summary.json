@@ -1,0 +1,854 @@
+{
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "pools_sha256": "cec8e5b60c0382a7d415d178c2d093a1856bcd57c09028f7f8e56f6303a1c531",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+  "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "indexed_documents": 5201800,
+  "shards": 4,
+  "gpus": {
+    "NVIDIA L4": 4
+  },
+  "cohorts": {
+    "all": {
+      "n": 1024,
+      "stages": {
+        "broad": {
+          "covered": 640,
+          "gold_pair_in_shortlist": 605,
+          "support": 481,
+          "joint_exact": 308,
+          "uses_added": 0,
+          "candidate_count": {
+            "min": 64,
+            "max": 64,
+            "mean": 64.0
+          }
+        },
+        "unconditioned_union": {
+          "covered": 669,
+          "gold_pair_in_shortlist": 616,
+          "support": 479,
+          "joint_exact": 307,
+          "uses_added": 128,
+          "candidate_count": {
+            "min": 75,
+            "max": 128,
+            "mean": 109.06348
+          }
+        },
+        "conditioned_union": {
+          "covered": 717,
+          "gold_pair_in_shortlist": 660,
+          "support": 511,
+          "joint_exact": 333,
+          "uses_added": 162,
+          "candidate_count": {
+            "min": 77,
+            "max": 128,
+            "mean": 111.7793
+          }
+        }
+      },
+      "paired": {
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.02929688,
+            "bootstrap95": [
+              0.01367188,
+              0.04492188
+            ],
+            "wins": 48,
+            "losses": 18
+          },
+          "joint_exact": {
+            "delta": 0.02441406,
+            "bootstrap95": [
+              0.01171875,
+              0.03808594
+            ],
+            "wins": 36,
+            "losses": 11
+          }
+        },
+        "unconditioned_union_vs_broad": {
+          "support": {
+            "delta": -0.00195312,
+            "bootstrap95": [
+              -0.01367188,
+              0.00976562
+            ],
+            "wins": 17,
+            "losses": 19
+          },
+          "joint_exact": {
+            "delta": -0.00097656,
+            "bootstrap95": [
+              -0.00976562,
+              0.0078125
+            ],
+            "wins": 11,
+            "losses": 12
+          }
+        },
+        "conditioned_union_vs_unconditioned_union": {
+          "support": {
+            "delta": 0.03125,
+            "bootstrap95": [
+              0.01855469,
+              0.04394531
+            ],
+            "wins": 38,
+            "losses": 6
+          },
+          "joint_exact": {
+            "delta": 0.02539062,
+            "bootstrap95": [
+              0.01464844,
+              0.03613281
+            ],
+            "wins": 29,
+            "losses": 3
+          }
+        }
+      },
+      "loss_diagnostics": {
+        "unconditioned_union": {
+          "broad_support_lost": 19,
+          "broad_support_lost_with_added_document": 14,
+          "broad_support_lost_gold_pair_left_shortlist": 1
+        },
+        "conditioned_union": {
+          "broad_support_lost": 18,
+          "broad_support_lost_with_added_document": 13,
+          "broad_support_lost_gold_pair_left_shortlist": 1
+        }
+      },
+      "broad_union_oracle": {
+        "support": 529,
+        "joint_exact": 344
+      }
+    },
+    "complete_original": {
+      "n": 640,
+      "stages": {
+        "broad": {
+          "covered": 640,
+          "gold_pair_in_shortlist": 605,
+          "support": 481,
+          "joint_exact": 308,
+          "uses_added": 0,
+          "candidate_count": {
+            "min": 64,
+            "max": 64,
+            "mean": 64.0
+          }
+        },
+        "unconditioned_union": {
+          "covered": 640,
+          "gold_pair_in_shortlist": 590,
+          "support": 464,
+          "joint_exact": 297,
+          "uses_added": 23,
+          "candidate_count": {
+            "min": 75,
+            "max": 127,
+            "mean": 107.48438
+          }
+        },
+        "conditioned_union": {
+          "covered": 640,
+          "gold_pair_in_shortlist": 589,
+          "support": 465,
+          "joint_exact": 298,
+          "uses_added": 26,
+          "candidate_count": {
+            "min": 77,
+            "max": 128,
+            "mean": 109.94688
+          }
+        }
+      },
+      "paired": {
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": -0.025,
+            "bootstrap95": [
+              -0.0390625,
+              -0.0125
+            ],
+            "wins": 2,
+            "losses": 18
+          },
+          "joint_exact": {
+            "delta": -0.015625,
+            "bootstrap95": [
+              -0.0265625,
+              -0.00625
+            ],
+            "wins": 1,
+            "losses": 11
+          }
+        },
+        "unconditioned_union_vs_broad": {
+          "support": {
+            "delta": -0.0265625,
+            "bootstrap95": [
+              -0.040625,
+              -0.0125
+            ],
+            "wins": 2,
+            "losses": 19
+          },
+          "joint_exact": {
+            "delta": -0.0171875,
+            "bootstrap95": [
+              -0.028125,
+              -0.00625
+            ],
+            "wins": 1,
+            "losses": 12
+          }
+        },
+        "conditioned_union_vs_unconditioned_union": {
+          "support": {
+            "delta": 0.0015625,
+            "bootstrap95": [
+              -0.0046875,
+              0.00785156
+            ],
+            "wins": 3,
+            "losses": 2
+          },
+          "joint_exact": {
+            "delta": 0.0015625,
+            "bootstrap95": [
+              -0.003125,
+              0.00625
+            ],
+            "wins": 2,
+            "losses": 1
+          }
+        }
+      },
+      "loss_diagnostics": {
+        "unconditioned_union": {
+          "broad_support_lost": 19,
+          "broad_support_lost_with_added_document": 14,
+          "broad_support_lost_gold_pair_left_shortlist": 1
+        },
+        "conditioned_union": {
+          "broad_support_lost": 18,
+          "broad_support_lost_with_added_document": 13,
+          "broad_support_lost_gold_pair_left_shortlist": 1
+        }
+      },
+      "broad_union_oracle": {
+        "support": 483,
+        "joint_exact": 309
+      }
+    },
+    "incomplete_original": {
+      "n": 384,
+      "stages": {
+        "broad": {
+          "covered": 0,
+          "gold_pair_in_shortlist": 0,
+          "support": 0,
+          "joint_exact": 0,
+          "uses_added": 0,
+          "candidate_count": {
+            "min": 64,
+            "max": 64,
+            "mean": 64.0
+          }
+        },
+        "unconditioned_union": {
+          "covered": 29,
+          "gold_pair_in_shortlist": 26,
+          "support": 15,
+          "joint_exact": 10,
+          "uses_added": 105,
+          "candidate_count": {
+            "min": 82,
+            "max": 128,
+            "mean": 111.69531
+          }
+        },
+        "conditioned_union": {
+          "covered": 77,
+          "gold_pair_in_shortlist": 71,
+          "support": 46,
+          "joint_exact": 35,
+          "uses_added": 136,
+          "candidate_count": {
+            "min": 83,
+            "max": 128,
+            "mean": 114.83333
+          }
+        }
+      },
+      "paired": {
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.11979167,
+            "bootstrap95": [
+              0.08854167,
+              0.15364583
+            ],
+            "wins": 46,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.09114583,
+            "bootstrap95": [
+              0.0625,
+              0.12239583
+            ],
+            "wins": 35,
+            "losses": 0
+          }
+        },
+        "unconditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.0390625,
+            "bootstrap95": [
+              0.02083333,
+              0.05729167
+            ],
+            "wins": 15,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.02604167,
+            "bootstrap95": [
+              0.01041667,
+              0.04166667
+            ],
+            "wins": 10,
+            "losses": 0
+          }
+        },
+        "conditioned_union_vs_unconditioned_union": {
+          "support": {
+            "delta": 0.08072917,
+            "bootstrap95": [
+              0.05208333,
+              0.11197917
+            ],
+            "wins": 35,
+            "losses": 4
+          },
+          "joint_exact": {
+            "delta": 0.06510417,
+            "bootstrap95": [
+              0.0390625,
+              0.09375
+            ],
+            "wins": 27,
+            "losses": 2
+          }
+        }
+      },
+      "loss_diagnostics": {
+        "unconditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        },
+        "conditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        }
+      },
+      "broad_union_oracle": {
+        "support": 46,
+        "joint_exact": 35
+      }
+    },
+    "one_missing": {
+      "n": 347,
+      "stages": {
+        "broad": {
+          "covered": 0,
+          "gold_pair_in_shortlist": 0,
+          "support": 0,
+          "joint_exact": 0,
+          "uses_added": 0,
+          "candidate_count": {
+            "min": 64,
+            "max": 64,
+            "mean": 64.0
+          }
+        },
+        "unconditioned_union": {
+          "covered": 29,
+          "gold_pair_in_shortlist": 26,
+          "support": 15,
+          "joint_exact": 10,
+          "uses_added": 92,
+          "candidate_count": {
+            "min": 82,
+            "max": 128,
+            "mean": 111.32853
+          }
+        },
+        "conditioned_union": {
+          "covered": 77,
+          "gold_pair_in_shortlist": 71,
+          "support": 46,
+          "joint_exact": 35,
+          "uses_added": 123,
+          "candidate_count": {
+            "min": 83,
+            "max": 128,
+            "mean": 114.52738
+          }
+        }
+      },
+      "paired": {
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.13256484,
+            "bootstrap95": [
+              0.09798271,
+              0.17002882
+            ],
+            "wins": 46,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.10086455,
+            "bootstrap95": [
+              0.07197406,
+              0.13256484
+            ],
+            "wins": 35,
+            "losses": 0
+          }
+        },
+        "unconditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.04322767,
+            "bootstrap95": [
+              0.02305476,
+              0.06628242
+            ],
+            "wins": 15,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.02881844,
+            "bootstrap95": [
+              0.01152738,
+              0.04899135
+            ],
+            "wins": 10,
+            "losses": 0
+          }
+        },
+        "conditioned_union_vs_unconditioned_union": {
+          "support": {
+            "delta": 0.08933718,
+            "bootstrap95": [
+              0.05475504,
+              0.12391931
+            ],
+            "wins": 35,
+            "losses": 4
+          },
+          "joint_exact": {
+            "delta": 0.07204611,
+            "bootstrap95": [
+              0.04322767,
+              0.1037464
+            ],
+            "wins": 27,
+            "losses": 2
+          }
+        }
+      },
+      "loss_diagnostics": {
+        "unconditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        },
+        "conditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        }
+      },
+      "broad_union_oracle": {
+        "support": 46,
+        "joint_exact": 35
+      }
+    },
+    "two_missing": {
+      "n": 37,
+      "stages": {
+        "broad": {
+          "covered": 0,
+          "gold_pair_in_shortlist": 0,
+          "support": 0,
+          "joint_exact": 0,
+          "uses_added": 0,
+          "candidate_count": {
+            "min": 64,
+            "max": 64,
+            "mean": 64.0
+          }
+        },
+        "unconditioned_union": {
+          "covered": 0,
+          "gold_pair_in_shortlist": 0,
+          "support": 0,
+          "joint_exact": 0,
+          "uses_added": 13,
+          "candidate_count": {
+            "min": 96,
+            "max": 128,
+            "mean": 115.13514
+          }
+        },
+        "conditioned_union": {
+          "covered": 0,
+          "gold_pair_in_shortlist": 0,
+          "support": 0,
+          "joint_exact": 0,
+          "uses_added": 13,
+          "candidate_count": {
+            "min": 95,
+            "max": 128,
+            "mean": 117.7027
+          }
+        }
+      },
+      "paired": {
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "unconditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "conditioned_union_vs_unconditioned_union": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      },
+      "loss_diagnostics": {
+        "unconditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        },
+        "conditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        }
+      },
+      "broad_union_oracle": {
+        "support": 0,
+        "joint_exact": 0
+      }
+    },
+    "incomplete_first_gold": {
+      "n": 138,
+      "stages": {
+        "broad": {
+          "covered": 0,
+          "gold_pair_in_shortlist": 0,
+          "support": 0,
+          "joint_exact": 0,
+          "uses_added": 0,
+          "candidate_count": {
+            "min": 64,
+            "max": 64,
+            "mean": 64.0
+          }
+        },
+        "unconditioned_union": {
+          "covered": 15,
+          "gold_pair_in_shortlist": 14,
+          "support": 9,
+          "joint_exact": 6,
+          "uses_added": 44,
+          "candidate_count": {
+            "min": 82,
+            "max": 127,
+            "mean": 109.81159
+          }
+        },
+        "conditioned_union": {
+          "covered": 63,
+          "gold_pair_in_shortlist": 58,
+          "support": 38,
+          "joint_exact": 29,
+          "uses_added": 73,
+          "candidate_count": {
+            "min": 83,
+            "max": 128,
+            "mean": 112.86232
+          }
+        }
+      },
+      "paired": {
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.27536232,
+            "bootstrap95": [
+              0.20289855,
+              0.34782609
+            ],
+            "wins": 38,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.21014493,
+            "bootstrap95": [
+              0.14492754,
+              0.2826087
+            ],
+            "wins": 29,
+            "losses": 0
+          }
+        },
+        "unconditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.06521739,
+            "bootstrap95": [
+              0.02898551,
+              0.10869565
+            ],
+            "wins": 9,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.04347826,
+            "bootstrap95": [
+              0.01449275,
+              0.07971014
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "conditioned_union_vs_unconditioned_union": {
+          "support": {
+            "delta": 0.21014493,
+            "bootstrap95": [
+              0.14492754,
+              0.2826087
+            ],
+            "wins": 31,
+            "losses": 2
+          },
+          "joint_exact": {
+            "delta": 0.16666667,
+            "bootstrap95": [
+              0.10144928,
+              0.23188406
+            ],
+            "wins": 24,
+            "losses": 1
+          }
+        }
+      },
+      "loss_diagnostics": {
+        "unconditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        },
+        "conditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        }
+      },
+      "broad_union_oracle": {
+        "support": 38,
+        "joint_exact": 29
+      }
+    },
+    "incomplete_first_wrong": {
+      "n": 246,
+      "stages": {
+        "broad": {
+          "covered": 0,
+          "gold_pair_in_shortlist": 0,
+          "support": 0,
+          "joint_exact": 0,
+          "uses_added": 0,
+          "candidate_count": {
+            "min": 64,
+            "max": 64,
+            "mean": 64.0
+          }
+        },
+        "unconditioned_union": {
+          "covered": 14,
+          "gold_pair_in_shortlist": 12,
+          "support": 6,
+          "joint_exact": 4,
+          "uses_added": 61,
+          "candidate_count": {
+            "min": 83,
+            "max": 128,
+            "mean": 112.75203
+          }
+        },
+        "conditioned_union": {
+          "covered": 14,
+          "gold_pair_in_shortlist": 13,
+          "support": 8,
+          "joint_exact": 6,
+          "uses_added": 63,
+          "candidate_count": {
+            "min": 85,
+            "max": 128,
+            "mean": 115.93902
+          }
+        }
+      },
+      "paired": {
+        "conditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.03252033,
+            "bootstrap95": [
+              0.01219512,
+              0.05691057
+            ],
+            "wins": 8,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.02439024,
+            "bootstrap95": [
+              0.00813008,
+              0.04471545
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "unconditioned_union_vs_broad": {
+          "support": {
+            "delta": 0.02439024,
+            "bootstrap95": [
+              0.00813008,
+              0.04471545
+            ],
+            "wins": 6,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.01626016,
+            "bootstrap95": [
+              0.00406504,
+              0.03252033
+            ],
+            "wins": 4,
+            "losses": 0
+          }
+        },
+        "conditioned_union_vs_unconditioned_union": {
+          "support": {
+            "delta": 0.00813008,
+            "bootstrap95": [
+              -0.01219512,
+              0.02845528
+            ],
+            "wins": 4,
+            "losses": 2
+          },
+          "joint_exact": {
+            "delta": 0.00813008,
+            "bootstrap95": [
+              -0.00813008,
+              0.02439024
+            ],
+            "wins": 3,
+            "losses": 1
+          }
+        }
+      },
+      "loss_diagnostics": {
+        "unconditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        },
+        "conditioned_union": {
+          "broad_support_lost": 0,
+          "broad_support_lost_with_added_document": 0,
+          "broad_support_lost_gold_pair_left_shortlist": 0
+        }
+      },
+      "broad_union_oracle": {
+        "support": 8,
+        "joint_exact": 6
+      }
+    }
+  }
+}

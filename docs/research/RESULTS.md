@@ -18,6 +18,8 @@ The [conservative sequential fallback](../../reports/nonlinear_retrieval_natural
 
 [Conditioned full-corpus second-hop search](../../reports/nonlinear_retrieval_natural/CONDITIONED_CORPUS_SEARCH.md) recovered both supports on 11 incomplete pools and reached six joint exact matches. Across all 1,024 questions it reached 173 support recoveries and 110 joint exact matches, compared with 178 and 116 from same-pool sequential and 452 and 285 from broad.
 
+[Reranking the conditioned union](../../reports/nonlinear_retrieval_natural/CONDITIONED_UNION.md) raised support recovery from 481 to 511 and joint exact match from 308 to 333 on 1,024 fresh HotpotQA pools. The union recovered 46 support pairs and 35 joint answers from 384 incomplete pools.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving
