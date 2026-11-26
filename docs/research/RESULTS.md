@@ -65,3 +65,5 @@ See the [architecture specification](../../Kernel_Adaptive_Memory_Research_Speci
 The [controlled revision-noise report](../../reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md) tests exact temporal pointers, absolute position, radial versus dot attention, token-matched training curricula, and exact batched pair reduction on two GPU families.
 
 [Position-preserving context compaction](../../reports/nonlinear_retrieval_natural/CONTEXT_COMPACTION.md) preserved all decisions in a numerical probe and shortened the batched radial forward by about 5.3× on L4 and 2.5× on RTX when half of 257 slots were active.
+
+The [B200 serving prewarm crossover](../../reports/nonlinear_retrieval_natural/SHARED_PREWARM_SERVING.md) reduced median affinity-anchor request time from 132.34 to 63.29 ms and p95 from 203.50 to 91.50 ms. All 256 crossed requests retained identical evidence and answer exactness.

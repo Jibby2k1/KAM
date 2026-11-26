@@ -222,16 +222,42 @@ def run(a):
                 arm["exact"] = bool(measure_answer(predicted, truth)["em"])
 
     output = []
-    if a.serving_profile:
-        def request(case, i, use_shared):
-            prompts, rows = {}, []
-            torch.cuda.synchronize()
-            before = perf_counter()
-            score_cases([case], i, prompts, rows, use_shared=use_shared)
-            read_answers(prompts)
-            torch.cuda.synchronize()
-            return rows[0], (perf_counter() - before) * 1000
+    def request(case, i, use_shared):
+        prompts, rows = {}, []
+        torch.cuda.synchronize()
+        before = perf_counter()
+        score_cases([case], i, prompts, rows, use_shared=use_shared)
+        read_answers(prompts)
+        torch.cuda.synchronize()
+        return rows[0], (perf_counter() - before) * 1000
 
+    index_profile = {}
+    if a.index_prewarm_rank is not None:
+        from os import uname
+        from random import Random
+
+        from benchmark_kam_article_prewarm import barrier, read_index
+
+        rank = a.index_prewarm_rank
+        sample = Random(20261127).sample(sorted(cases, key=lambda c: c["id"]), 256)
+        selected_ids = {q["id"] for q in sample}
+        warmup = [q for q in cases if q["id"] not in selected_ids][:4]
+        for i, q in enumerate(warmup):
+            request(q, i, True)
+        for i, q in enumerate(sample[rank::2]):
+            row, latency = request(q, i, True)
+            output.append(row | {"index_warmed": False, "request_ms": latency})
+        barrier(a.index_prewarm_jobdir, rank)
+        database_bytes, seconds = read_index(a.inputs / "lexical" / "articles.sqlite")
+        warm_barrier = a.index_prewarm_jobdir / "warmed"
+        warm_barrier.mkdir(exist_ok=True)
+        barrier(warm_barrier, rank)
+        for i, q in enumerate(sample[1 - rank::2]):
+            row, latency = request(q, i, True)
+            output.append(row | {"index_warmed": True, "request_ms": latency})
+        index_profile = {"index_profile_rank": rank, "database_bytes": database_bytes, "prewarm_seconds": seconds,
+                         "node_sha256": sha256(uname().nodename.encode()).hexdigest()}
+    elif a.serving_profile:
         for i, case in enumerate(cases[:4]):
             request(case, i, False)
             request(case, i, True)
@@ -257,7 +283,7 @@ def run(a):
             "gpu": torch.cuda.get_device_name(), "seconds": perf_counter() - started, "rows": output} | (
                 {"guard_columns": GUARD_COLUMNS, "split": split} if a.guard_split else {}) | (
                 {"anchor_reference_sha256": digest(a.anchor_reference)} if a.anchor_reference else {}) | (
-                {"serving_cache": "primed" if a.serving_prime else "first_pass"} if a.serving_profile else {})
+                {"serving_cache": "primed" if a.serving_prime else "first_pass"} if a.serving_profile else {}) | index_profile
 
 
 def main():
@@ -270,6 +296,8 @@ def main():
     parser.add_argument("--anchor-reference", type=Path)
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
+    parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
+    parser.add_argument("--index-prewarm-jobdir", type=Path)
     parser.add_argument("--shard", type=int, required=True)
     parser.add_argument("--shards", type=int, required=True)
     a = parser.parse_args()
@@ -284,6 +312,11 @@ def main():
         parser.error("serving timing uses the fixed four-shard sampling design")
     if a.serving_prime and not a.serving_profile:
         parser.error("serving priming requires a serving profile")
+    if a.index_prewarm_rank is not None and (
+        a.guard_split != "test" or a.serving_profile or a.verify_shared_relation or a.anchor_reference
+        or a.shards != 1 or not a.index_prewarm_jobdir
+    ):
+        parser.error("the shared-index crossover needs two independent full-cohort affinity workers")
     torch.set_float32_matmul_precision("highest")
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

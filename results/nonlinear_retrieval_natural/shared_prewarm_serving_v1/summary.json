@@ -1,0 +1,90 @@
+{
+  "fixture_sha256": "a2c2a5e358bdf9009431758eeaa51172123fc9e149c9d5d4bfdd33c4ae2f6e91",
+  "pools_sha256": "6a030bc87e994ba7f10d69a2ab242de13580820312759e59f792869dc5eba9a4",
+  "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "indexed_documents": 5201800,
+  "guard_columns": [
+    "shared_document",
+    "added_document_count",
+    "added_document_rank",
+    "union_has_anchor",
+    "broad_margin",
+    "union_margin",
+    "union_original_pair_margin",
+    "original_pair_in_shortlist",
+    "broad_pair_link",
+    "union_pair_link",
+    "weak_semantic_shift",
+    "mean_affinity_shift",
+    "mention_margin_shift",
+    "union_size"
+  ],
+  "split": "test",
+  "reference_sha256": "1891aaba4cee96183247fa68204d7460ac57bc8d7e16dc801e3a6db68a3ca74b",
+  "gpu": "NVIDIA B200",
+  "database_bytes": 1659428864,
+  "parity": {
+    "pool_hash": 256,
+    "first": 256,
+    "corpus_hits": 256,
+    "arms": 256,
+    "features": 256
+  },
+  "batched_archive_evidence_and_exactness": {
+    "baseline": 256,
+    "prewarmed": 256
+  },
+  "timing": {
+    "baseline": {
+      "p50_ms": 132.341797,
+      "p95_ms": 203.496663
+    },
+    "prewarmed": {
+      "p50_ms": 63.293265,
+      "p95_ms": 91.496572
+    },
+    "questions": 256,
+    "median_speedup": 2.09093,
+    "paired_median_saving_ms": 60.569551,
+    "paired_median_saving_ci95_ms": [
+      48.226936,
+      76.531062
+    ],
+    "prewarmed_faster": 256
+  },
+  "by_node": [
+    {
+      "rank": 0,
+      "prewarm_seconds": 0.5890701413154602,
+      "baseline": {
+        "p50_ms": 167.366305,
+        "p95_ms": 218.470516
+      },
+      "prewarmed": {
+        "p50_ms": 61.385212,
+        "p95_ms": 95.963203
+      }
+    },
+    {
+      "rank": 1,
+      "prewarm_seconds": 0.5535589726641774,
+      "baseline": {
+        "p50_ms": 102.982744,
+        "p95_ms": 135.287067
+      },
+      "prewarmed": {
+        "p50_ms": 64.619713,
+        "p95_ms": 85.274746
+      }
+    }
+  ]
+}
