@@ -96,6 +96,14 @@ def run(a):
     cases = fixture["rows"][split]
     assert set(sealed["rows"]) == {q["id"] for group in fixture["rows"].values() for q in group}
     assert len(cases) == (3072 if split == "training" else 1024)
+    anchors = {}
+    if a.anchor_reference:
+        reference = load_gzip(a.anchor_reference)
+        assert all(s["fixture_sha256"] == sealed["fixture_sha256"] and
+                   s["pools_sha256"] == digest(a.pools) and s["fitted_sha256"] == digest(a.fitted)
+                   for s in reference)
+        anchors = {r["id"]: r["arms"]["broad"]["pair"][0] for s in reference for r in s["rows"]}
+        assert set(anchors) == {q["id"] for q in cases}
     cases = cases[a.shard::a.shards]
     revisions = read(a.assets / "revisions.json")
     state = torch.load(a.heads, weights_only=True, map_location="cpu")
@@ -121,11 +129,16 @@ def run(a):
         examples = [pool_text(index.db, q["question"], ids) for q, ids in zip(chunk, original, strict=True)]
         query = encoder([c["question"] for c in chunk], "query")
         adapted = adapter(query)
-        ids = torch.tensor(original, device="cuda")
-        first_slots = score(adapted, index.bank[ids]).argmax(dim=-1, keepdim=True)
-        first_ids = ids.gather(1, first_slots).flatten().tolist()
+        if anchors:
+            first_ids = [anchors[q["id"]] for q in chunk]
+            first_slots = [pool.index(anchor) for pool, anchor in zip(original, first_ids, strict=True)]
+        else:
+            ids = torch.tensor(original, device="cuda")
+            first_slots = score(adapted, index.bank[ids]).argmax(dim=-1, keepdim=True)
+            first_ids = ids.gather(1, first_slots).flatten().tolist()
+            first_slots = first_slots.flatten().tolist()
         augmented = [f"{c['question']} First retrieved document: {candidate_texts(c)[slot]}"
-                     for c, slot in zip(examples, first_slots.flatten().tolist(), strict=True)]
+                     for c, slot in zip(examples, first_slots, strict=True)]
         second = adapter(encoder(augmented, "query"))
         conditioned = (adapted + second) * .5
         queries = conditioned if a.guard_split else torch.cat((adapted, conditioned))
@@ -205,7 +218,8 @@ def run(a):
             "ablations_sha256": digest(a.ablations), "baseline_sha256": a.baseline_sha256, "models": revisions,
             "indexed_documents": index.meta["indexed"], "shard": a.shard, "shards": a.shards,
             "gpu": torch.cuda.get_device_name(), "seconds": perf_counter() - started, "rows": output} | (
-                {"guard_columns": GUARD_COLUMNS, "split": split} if a.guard_split else {})
+                {"guard_columns": GUARD_COLUMNS, "split": split} if a.guard_split else {}) | (
+                {"anchor_reference_sha256": digest(a.anchor_reference)} if a.anchor_reference else {})
 
 
 def main():
@@ -215,12 +229,15 @@ def main():
     parser.add_argument("--baseline-sha256", required=True)
     parser.add_argument("--guard-split", choices=("training", "test"))
     parser.add_argument("--verify-shared-relation", action="store_true")
+    parser.add_argument("--anchor-reference", type=Path)
     parser.add_argument("--shard", type=int, required=True)
     parser.add_argument("--shards", type=int, required=True)
     a = parser.parse_args()
     assert 0 <= a.shard < a.shards
     if a.verify_shared_relation and a.guard_split != "test":
         parser.error("shared relation verification needs the two-arm test replay")
+    if a.anchor_reference and a.guard_split != "test":
+        parser.error("broad-ranked anchors need the two-arm test replay")
     torch.set_float32_matmul_precision("highest")
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

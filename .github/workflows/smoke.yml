@@ -185,3 +185,10 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_shared_relation.py "$study/replay.json.gz" --reference "$base/expansion_guard_v1/replay.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Replay broad-ranked anchor comparison
+        run: |
+          study=results/nonlinear_retrieval_natural/broad_anchor_v1
+          output=$(mktemp)
+          opts=(--affinity "$study/affinity-replay.json.gz" --fixture "$study/fixture.json.gz" --pools "$study/pools.json.gz")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_broad_anchor.py "$study/replay.json.gz" "${opts[@]}" --output "$output"
+          diff -u "$study/summary.json" "$output"

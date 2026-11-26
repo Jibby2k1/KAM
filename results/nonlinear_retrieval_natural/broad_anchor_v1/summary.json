@@ -1,0 +1,938 @@
+{
+  "fixture_sha256": "a5654cdb64b6531840aa58f0f71cf991fbaa853d0364bd7b204471662c8d725b",
+  "pools_sha256": "93de6e902ea79dae8c0eda947e097bac260377877478ae21cdd975715822c9bc",
+  "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "indexed_documents": 5201800,
+  "guard_columns": [
+    "shared_document",
+    "added_document_count",
+    "added_document_rank",
+    "union_has_anchor",
+    "broad_margin",
+    "union_margin",
+    "union_original_pair_margin",
+    "original_pair_in_shortlist",
+    "broad_pair_link",
+    "union_pair_link",
+    "weak_semantic_shift",
+    "mean_affinity_shift",
+    "mention_margin_shift",
+    "union_size"
+  ],
+  "split": "test",
+  "affinity_replay_sha256": "0c756111e7774dc508e83e2c4dccb4faca5828ecc46636f5ba02c00ae2637b3e",
+  "repeat_broad_matches": 1024,
+  "gpu_shards": {
+    "affinity": [
+      "NVIDIA L4",
+      "NVIDIA L4",
+      "NVIDIA L4",
+      "NVIDIA L4"
+    ],
+    "broad_anchor": [
+      "NVIDIA B200",
+      "NVIDIA B200",
+      "NVIDIA B200",
+      "NVIDIA B200"
+    ]
+  },
+  "cohorts": {
+    "all": {
+      "questions": 1024,
+      "arm_totals": {
+        "broad": {
+          "support": 487,
+          "joint_em": 321,
+          "coverage": 604,
+          "shortlist": 585
+        },
+        "affinity_anchor": {
+          "support": 541,
+          "joint_em": 356,
+          "coverage": 709,
+          "shortlist": 665
+        },
+        "broad_anchor": {
+          "support": 560,
+          "joint_em": 369,
+          "coverage": 735,
+          "shortlist": 686
+        }
+      },
+      "anchor_correct": {
+        "affinity_anchor": 552,
+        "broad_anchor": 785
+      },
+      "mean_unique_additions": {
+        "affinity_anchor": 48.487305,
+        "broad_anchor": 48.189453
+      },
+      "anchor_changed": 398,
+      "paired": {
+        "broad_anchor_vs_affinity_anchor": {
+          "support": {
+            "delta": 0.01855469,
+            "bootstrap95": [
+              0.00878906,
+              0.02929688
+            ],
+            "wins": 24,
+            "losses": 5
+          },
+          "joint_em": {
+            "delta": 0.01269531,
+            "bootstrap95": [
+              0.00488281,
+              0.02148438
+            ],
+            "wins": 16,
+            "losses": 3
+          },
+          "coverage": {
+            "delta": 0.02539062,
+            "bootstrap95": [
+              0.01464844,
+              0.03710938
+            ],
+            "wins": 31,
+            "losses": 5
+          },
+          "shortlist": {
+            "delta": 0.02050781,
+            "bootstrap95": [
+              0.01074219,
+              0.03027344
+            ],
+            "wins": 25,
+            "losses": 4
+          }
+        },
+        "broad_anchor_vs_broad": {
+          "support": {
+            "delta": 0.07128906,
+            "bootstrap95": [
+              0.05273438,
+              0.08984375
+            ],
+            "wins": 89,
+            "losses": 16
+          },
+          "joint_em": {
+            "delta": 0.046875,
+            "bootstrap95": [
+              0.03222656,
+              0.06152344
+            ],
+            "wins": 57,
+            "losses": 9
+          },
+          "coverage": {
+            "delta": 0.12792969,
+            "bootstrap95": [
+              0.10839844,
+              0.14746094
+            ],
+            "wins": 131,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.09863281,
+            "bootstrap95": [
+              0.07910156,
+              0.11914062
+            ],
+            "wins": 111,
+            "losses": 10
+          }
+        },
+        "affinity_anchor_vs_broad": {
+          "support": {
+            "delta": 0.05273438,
+            "bootstrap95": [
+              0.03515625,
+              0.06933594
+            ],
+            "wins": 71,
+            "losses": 17
+          },
+          "joint_em": {
+            "delta": 0.03417969,
+            "bootstrap95": [
+              0.02050781,
+              0.04785156
+            ],
+            "wins": 45,
+            "losses": 10
+          },
+          "coverage": {
+            "delta": 0.10253906,
+            "bootstrap95": [
+              0.08496094,
+              0.12109375
+            ],
+            "wins": 105,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.078125,
+            "bootstrap95": [
+              0.06054688,
+              0.09667969
+            ],
+            "wins": 90,
+            "losses": 10
+          }
+        }
+      }
+    },
+    "complete_original": {
+      "questions": 604,
+      "arm_totals": {
+        "broad": {
+          "support": 487,
+          "joint_em": 321,
+          "coverage": 604,
+          "shortlist": 585
+        },
+        "affinity_anchor": {
+          "support": 470,
+          "joint_em": 311,
+          "coverage": 604,
+          "shortlist": 575
+        },
+        "broad_anchor": {
+          "support": 471,
+          "joint_em": 312,
+          "coverage": 604,
+          "shortlist": 575
+        }
+      },
+      "anchor_correct": {
+        "affinity_anchor": 394,
+        "broad_anchor": 559
+      },
+      "mean_unique_additions": {
+        "affinity_anchor": 46.397351,
+        "broad_anchor": 46.014901
+      },
+      "anchor_changed": 197,
+      "paired": {
+        "broad_anchor_vs_affinity_anchor": {
+          "support": {
+            "delta": 0.00165563,
+            "bootstrap95": [
+              -0.00331126,
+              0.00827815
+            ],
+            "wins": 2,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.00165563,
+            "bootstrap95": [
+              -0.00331126,
+              0.00827815
+            ],
+            "wins": 2,
+            "losses": 1
+          },
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "broad_anchor_vs_broad": {
+          "support": {
+            "delta": -0.02649007,
+            "bootstrap95": [
+              -0.0397351,
+              -0.01490066
+            ],
+            "wins": 0,
+            "losses": 16
+          },
+          "joint_em": {
+            "delta": -0.01490066,
+            "bootstrap95": [
+              -0.02483444,
+              -0.00662252
+            ],
+            "wins": 0,
+            "losses": 9
+          },
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": -0.01655629,
+            "bootstrap95": [
+              -0.0281457,
+              -0.00662252
+            ],
+            "wins": 0,
+            "losses": 10
+          }
+        },
+        "affinity_anchor_vs_broad": {
+          "support": {
+            "delta": -0.0281457,
+            "bootstrap95": [
+              -0.04139073,
+              -0.01490066
+            ],
+            "wins": 0,
+            "losses": 17
+          },
+          "joint_em": {
+            "delta": -0.01655629,
+            "bootstrap95": [
+              -0.02649007,
+              -0.00662252
+            ],
+            "wins": 0,
+            "losses": 10
+          },
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": -0.01655629,
+            "bootstrap95": [
+              -0.0281457,
+              -0.00662252
+            ],
+            "wins": 0,
+            "losses": 10
+          }
+        }
+      }
+    },
+    "incomplete_original": {
+      "questions": 420,
+      "arm_totals": {
+        "broad": {
+          "support": 0,
+          "joint_em": 0,
+          "coverage": 0,
+          "shortlist": 0
+        },
+        "affinity_anchor": {
+          "support": 71,
+          "joint_em": 45,
+          "coverage": 105,
+          "shortlist": 90
+        },
+        "broad_anchor": {
+          "support": 89,
+          "joint_em": 57,
+          "coverage": 131,
+          "shortlist": 111
+        }
+      },
+      "anchor_correct": {
+        "affinity_anchor": 158,
+        "broad_anchor": 226
+      },
+      "mean_unique_additions": {
+        "affinity_anchor": 51.492857,
+        "broad_anchor": 51.316667
+      },
+      "anchor_changed": 201,
+      "paired": {
+        "broad_anchor_vs_affinity_anchor": {
+          "support": {
+            "delta": 0.04285714,
+            "bootstrap95": [
+              0.01904762,
+              0.06666667
+            ],
+            "wins": 22,
+            "losses": 4
+          },
+          "joint_em": {
+            "delta": 0.02857143,
+            "bootstrap95": [
+              0.00952381,
+              0.04761905
+            ],
+            "wins": 14,
+            "losses": 2
+          },
+          "coverage": {
+            "delta": 0.06190476,
+            "bootstrap95": [
+              0.03571429,
+              0.09047619
+            ],
+            "wins": 31,
+            "losses": 5
+          },
+          "shortlist": {
+            "delta": 0.05,
+            "bootstrap95": [
+              0.02619048,
+              0.07619048
+            ],
+            "wins": 25,
+            "losses": 4
+          }
+        },
+        "broad_anchor_vs_broad": {
+          "support": {
+            "delta": 0.21190476,
+            "bootstrap95": [
+              0.17380952,
+              0.25238095
+            ],
+            "wins": 89,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.13571429,
+            "bootstrap95": [
+              0.10238095,
+              0.16904762
+            ],
+            "wins": 57,
+            "losses": 0
+          },
+          "coverage": {
+            "delta": 0.31190476,
+            "bootstrap95": [
+              0.26666667,
+              0.35714286
+            ],
+            "wins": 131,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.26428571,
+            "bootstrap95": [
+              0.22142857,
+              0.30714286
+            ],
+            "wins": 111,
+            "losses": 0
+          }
+        },
+        "affinity_anchor_vs_broad": {
+          "support": {
+            "delta": 0.16904762,
+            "bootstrap95": [
+              0.13333333,
+              0.20714286
+            ],
+            "wins": 71,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.10714286,
+            "bootstrap95": [
+              0.07857143,
+              0.13809524
+            ],
+            "wins": 45,
+            "losses": 0
+          },
+          "coverage": {
+            "delta": 0.25,
+            "bootstrap95": [
+              0.20952381,
+              0.29285714
+            ],
+            "wins": 105,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.21428571,
+            "bootstrap95": [
+              0.17619048,
+              0.2547619
+            ],
+            "wins": 90,
+            "losses": 0
+          }
+        }
+      }
+    },
+    "one_missing": {
+      "questions": 383,
+      "arm_totals": {
+        "broad": {
+          "support": 0,
+          "joint_em": 0,
+          "coverage": 0,
+          "shortlist": 0
+        },
+        "affinity_anchor": {
+          "support": 71,
+          "joint_em": 45,
+          "coverage": 105,
+          "shortlist": 90
+        },
+        "broad_anchor": {
+          "support": 89,
+          "joint_em": 57,
+          "coverage": 131,
+          "shortlist": 111
+        }
+      },
+      "anchor_correct": {
+        "affinity_anchor": 158,
+        "broad_anchor": 226
+      },
+      "mean_unique_additions": {
+        "affinity_anchor": 51.344648,
+        "broad_anchor": 51.16188
+      },
+      "anchor_changed": 178,
+      "paired": {
+        "broad_anchor_vs_affinity_anchor": {
+          "support": {
+            "delta": 0.04699739,
+            "bootstrap95": [
+              0.02088773,
+              0.07310705
+            ],
+            "wins": 22,
+            "losses": 4
+          },
+          "joint_em": {
+            "delta": 0.03133159,
+            "bootstrap95": [
+              0.01044386,
+              0.05221932
+            ],
+            "wins": 14,
+            "losses": 2
+          },
+          "coverage": {
+            "delta": 0.06788512,
+            "bootstrap95": [
+              0.03916449,
+              0.09921671
+            ],
+            "wins": 31,
+            "losses": 5
+          },
+          "shortlist": {
+            "delta": 0.05483029,
+            "bootstrap95": [
+              0.02872063,
+              0.08355091
+            ],
+            "wins": 25,
+            "losses": 4
+          }
+        },
+        "broad_anchor_vs_broad": {
+          "support": {
+            "delta": 0.23237598,
+            "bootstrap95": [
+              0.19060052,
+              0.27415144
+            ],
+            "wins": 89,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.14882507,
+            "bootstrap95": [
+              0.11488251,
+              0.18537859
+            ],
+            "wins": 57,
+            "losses": 0
+          },
+          "coverage": {
+            "delta": 0.34203655,
+            "bootstrap95": [
+              0.29503916,
+              0.38903394
+            ],
+            "wins": 131,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.28981723,
+            "bootstrap95": [
+              0.24543081,
+              0.33681462
+            ],
+            "wins": 111,
+            "losses": 0
+          }
+        },
+        "affinity_anchor_vs_broad": {
+          "support": {
+            "delta": 0.18537859,
+            "bootstrap95": [
+              0.1462141,
+              0.22454308
+            ],
+            "wins": 71,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.11749347,
+            "bootstrap95": [
+              0.08616188,
+              0.14882507
+            ],
+            "wins": 45,
+            "losses": 0
+          },
+          "coverage": {
+            "delta": 0.27415144,
+            "bootstrap95": [
+              0.22976501,
+              0.31853786
+            ],
+            "wins": 105,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.23498695,
+            "bootstrap95": [
+              0.19321149,
+              0.27937337
+            ],
+            "wins": 90,
+            "losses": 0
+          }
+        }
+      }
+    },
+    "two_missing": {
+      "questions": 37,
+      "arm_totals": {
+        "broad": {
+          "support": 0,
+          "joint_em": 0,
+          "coverage": 0,
+          "shortlist": 0
+        },
+        "affinity_anchor": {
+          "support": 0,
+          "joint_em": 0,
+          "coverage": 0,
+          "shortlist": 0
+        },
+        "broad_anchor": {
+          "support": 0,
+          "joint_em": 0,
+          "coverage": 0,
+          "shortlist": 0
+        }
+      },
+      "anchor_correct": {
+        "affinity_anchor": 0,
+        "broad_anchor": 0
+      },
+      "mean_unique_additions": {
+        "affinity_anchor": 53.027027,
+        "broad_anchor": 52.918919
+      },
+      "anchor_changed": 23,
+      "paired": {
+        "broad_anchor_vs_affinity_anchor": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "broad_anchor_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "affinity_anchor_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "coverage": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      }
+    },
+    "different_anchor": {
+      "questions": 398,
+      "arm_totals": {
+        "broad": {
+          "support": 160,
+          "joint_em": 110,
+          "coverage": 197,
+          "shortlist": 188
+        },
+        "affinity_anchor": {
+          "support": 172,
+          "joint_em": 116,
+          "coverage": 220,
+          "shortlist": 206
+        },
+        "broad_anchor": {
+          "support": 191,
+          "joint_em": 129,
+          "coverage": 246,
+          "shortlist": 227
+        }
+      },
+      "anchor_correct": {
+        "affinity_anchor": 16,
+        "broad_anchor": 249
+      },
+      "mean_unique_additions": {
+        "affinity_anchor": 49.939698,
+        "broad_anchor": 49.173367
+      },
+      "anchor_changed": 398,
+      "paired": {
+        "broad_anchor_vs_affinity_anchor": {
+          "support": {
+            "delta": 0.04773869,
+            "bootstrap95": [
+              0.02261307,
+              0.07537688
+            ],
+            "wins": 24,
+            "losses": 5
+          },
+          "joint_em": {
+            "delta": 0.03266332,
+            "bootstrap95": [
+              0.01256281,
+              0.05527638
+            ],
+            "wins": 16,
+            "losses": 3
+          },
+          "coverage": {
+            "delta": 0.06532663,
+            "bootstrap95": [
+              0.03768844,
+              0.09547739
+            ],
+            "wins": 31,
+            "losses": 5
+          },
+          "shortlist": {
+            "delta": 0.05276382,
+            "bootstrap95": [
+              0.02763819,
+              0.08040201
+            ],
+            "wins": 25,
+            "losses": 4
+          }
+        },
+        "broad_anchor_vs_broad": {
+          "support": {
+            "delta": 0.07788945,
+            "bootstrap95": [
+              0.05025126,
+              0.1080402
+            ],
+            "wins": 34,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.04773869,
+            "bootstrap95": [
+              0.02512563,
+              0.07041457
+            ],
+            "wins": 21,
+            "losses": 2
+          },
+          "coverage": {
+            "delta": 0.12311558,
+            "bootstrap95": [
+              0.09045226,
+              0.15577889
+            ],
+            "wins": 49,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.09798995,
+            "bootstrap95": [
+              0.0678392,
+              0.1281407
+            ],
+            "wins": 40,
+            "losses": 1
+          }
+        },
+        "affinity_anchor_vs_broad": {
+          "support": {
+            "delta": 0.03015075,
+            "bootstrap95": [
+              0.01005025,
+              0.05276382
+            ],
+            "wins": 16,
+            "losses": 4
+          },
+          "joint_em": {
+            "delta": 0.01507538,
+            "bootstrap95": [
+              -0.00251256,
+              0.03266332
+            ],
+            "wins": 9,
+            "losses": 3
+          },
+          "coverage": {
+            "delta": 0.05778894,
+            "bootstrap95": [
+              0.03517588,
+              0.08040201
+            ],
+            "wins": 23,
+            "losses": 0
+          },
+          "shortlist": {
+            "delta": 0.04522613,
+            "bootstrap95": [
+              0.02512563,
+              0.0678392
+            ],
+            "wins": 19,
+            "losses": 1
+          }
+        }
+      }
+    }
+  }
+}

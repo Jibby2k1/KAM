@@ -26,6 +26,8 @@ The [expansion replacement guard](../../reports/nonlinear_retrieval_natural/EXPA
 
 [Shared relation extraction](../../reports/nonlinear_retrieval_natural/SHARED_RELATION_FEATURES.md) reproduced all evidence selections and reader labels while reducing median paired feature extraction from 12.68 to 7.51 ms.
 
+[Broad-ranked anchoring](../../reports/nonlinear_retrieval_natural/BROAD_RANKED_ANCHOR.md) raised the conditioned union from 356 to 369 joint exact matches on 1,024 new questions. Twelve of the 13 net gains came from initially incomplete pools.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving
