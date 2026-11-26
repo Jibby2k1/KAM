@@ -58,6 +58,32 @@ def union_example(index, example, original, top):
     return original + extra, {"question": example["question"], "context": context}
 
 
+def profile_relations(variants, pair_indices, original_size, retained_pairs, reference_first):
+    """Compare relation construction under identical text and candidate inputs."""
+    from kam_union_relation_features import bitset_relation_features, induced_original_features
+
+    def reference():
+        return {arm: relation_features(variant, pair_indices[len(ranked)][0])
+                for arm, (ranked, variant) in variants.items()}
+
+    def shared():
+        ranked, variant = variants["conditioned_union"]
+        features = bitset_relation_features(variant, pair_indices[len(ranked)][0])
+        return {"broad": induced_original_features(features, original_size, retained_pairs),
+                "conditioned_union": features}
+
+    methods = {"reference": reference, "shared": shared}
+    order = tuple(methods) if reference_first else tuple(reversed(methods))
+    features, elapsed = {}, {}
+    for name in order:
+        started = perf_counter()
+        features[name] = methods[name]()
+        elapsed[name] = (perf_counter() - started) * 1000
+    for arm in variants:
+        assert all(torch.equal(a, b) for a, b in zip(features["reference"][arm], features["shared"][arm], strict=True))
+    return features["shared"], elapsed
+
+
 @torch.inference_mode()
 def run(a):
     started = perf_counter()
@@ -87,7 +113,7 @@ def run(a):
     encoder = Encoder(a.assets / "encoder", 128)
     reader = Reader(a.assets / "reader")
     index = FullWikiIndex(a.inputs, manifest, cfg)
-    pair_indices, prompts, output = {}, {}, []
+    pair_indices, original_rows, prompts, output = {}, {}, {}, []
 
     for offset in range(0, len(cases), BATCH):
         chunk = cases[offset:offset+BATCH]
@@ -116,25 +142,37 @@ def run(a):
             variants = {"broad": (base, example)} | {
                 arm: union_example(index, example, base, top) for arm, top in hits.items()
             }
-            prepared, contexts = [], {}
-            terms = set(words(case["question"])) - STOP
-            for arm, (ranked, variant) in variants.items():
+            for ranked, _ in variants.values():
                 n = len(ranked)
                 if n not in pair_indices:
                     cpu_pairs = torch.triu_indices(n, n, 1)
                     pair_indices[n] = cpu_pairs, cpu_pairs.cuda()
+            relations, elapsed = {}, {}
+            if a.verify_shared_relation:
+                expanded_size = len(variants["conditioned_union"][0])
+                if expanded_size not in original_rows:
+                    expanded_pairs = pair_indices[expanded_size][0]
+                    keep = expanded_pairs[1] < len(base)
+                    assert torch.equal(expanded_pairs[:, keep], pair_indices[len(base)][0])
+                    original_rows[expanded_size] = keep
+                relations, elapsed = profile_relations(variants, pair_indices, len(base), original_rows[expanded_size],
+                                                       (offset + i) % 2 == 0)
+            prepared, contexts = [], {}
+            terms = set(words(case["question"])) - STOP
+            for arm, (ranked, variant) in variants.items():
+                n = len(ranked)
                 cpu_pairs, gpu_pairs = pair_indices[n]
-                graph, lexical = relation_features(variant, cpu_pairs)
+                graph, lexical = relations[arm] if a.verify_shared_relation else relation_features(variant, cpu_pairs)
                 bank = index.bank[torch.tensor(ranked, device="cuda")].unsqueeze(0)
                 stage = rank_variant(arm, variant, graph, lexical, bank, adapted[i:i+1], terms, heads, gpu_pairs,
                                      contexts)
                 prepared.append(stage)
             plans.append((id_, split, (), query[i], prepared))
-            details.append((case, base, variants, contexts, hits, first_ids[i]))
+            details.append((case, base, variants, contexts, hits, first_ids[i], elapsed))
 
         scored = flush(plans, encoder)
         for item, plan, detail in zip(scored, plans, details, strict=True):
-            case, base, variants, contexts, hits, first = detail
+            case, base, variants, contexts, hits, first, elapsed = detail
             gold = set(case["gold_ids"])
             arms, winners = {}, {}
             for stage in plan[4]:
@@ -155,6 +193,8 @@ def run(a):
             if a.guard_split:
                 row["features"] = guard_vector(arms, winners, first, len(base), hits["conditioned_union"],
                                                len(variants["conditioned_union"][0]))
+            if a.verify_shared_relation:
+                row["relation_timing_ms"] = elapsed
             output.append(row)
 
     for predicted, requests in zip(reader.answers(list(prompts)), prompts.values(), strict=True):
@@ -174,10 +214,13 @@ def main():
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--baseline-sha256", required=True)
     parser.add_argument("--guard-split", choices=("training", "test"))
+    parser.add_argument("--verify-shared-relation", action="store_true")
     parser.add_argument("--shard", type=int, required=True)
     parser.add_argument("--shards", type=int, required=True)
     a = parser.parse_args()
     assert 0 <= a.shard < a.shards
+    if a.verify_shared_relation and a.guard_split != "test":
+        parser.error("shared relation verification needs the two-arm test replay")
     torch.set_float32_matmul_precision("highest")
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

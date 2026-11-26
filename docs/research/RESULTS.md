@@ -24,6 +24,8 @@ The [conservative sequential fallback](../../reports/nonlinear_retrieval_natural
 
 The [expansion replacement guard](../../reports/nonlinear_retrieval_natural/EXPANSION_REPLACEMENT_GUARD.md) preserved more complete-pool support pairs but gave up 16 joint matches overall versus always using the conditioned union. The [exact bitset benchmark](../../reports/nonlinear_retrieval_natural/UNION_RELATION_FEATURES.md) matched all 2,048 feature inputs and accelerated the CPU feature step by about 1.3×.
 
+[Shared relation extraction](../../reports/nonlinear_retrieval_natural/SHARED_RELATION_FEATURES.md) reproduced all evidence selections and reader labels while reducing median paired feature extraction from 12.68 to 7.51 ms.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving

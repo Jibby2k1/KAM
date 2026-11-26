@@ -178,3 +178,10 @@ jobs:
           options=(--fixture "$union/fixture.json.gz" --pools "$union/pools.json.gz" --replay "$union/replay.json.gz")
           python scripts/analyze_kam_union_relation_features.py "$study"/profile-?.json "${options[@]}" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Replay shared relation feature parity
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/shared_relation_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_shared_relation.py "$study/replay.json.gz" --reference "$base/expansion_guard_v1/replay.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
