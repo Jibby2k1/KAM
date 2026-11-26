@@ -1,0 +1,375 @@
+{
+  "provenance": {
+    "fixture_sha256": "11322430c9644a59370bd686b9c2515c76a6c8486e1d09b4f7537324d6a51b16",
+    "source_sha256": {
+      "dev": "49a109c43c902e52f9a8b150f6b9d383261c308384f614ccd2b9990735cb12b1",
+      "articles": "d239390a27ed3f4aa868afe126187e6d108990a7bcc2a3efb6cae5de917264c7"
+    },
+    "span_counts_sha256": "863e0989956b51d3361a87ac1197e3b88a1baaf90221c227b8dd826b3de29139",
+    "excluded_multispan": [
+      "q_10965",
+      "q_11564",
+      "q_11580",
+      "q_11687",
+      "q_11775"
+    ],
+    "gpu": "NVIDIA L4",
+    "assets": {
+      "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+      "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    }
+  },
+  "identical_output": {
+    "source_lead_vs_question": 15,
+    "article_leads_vs_source_lead": 30,
+    "linked_oracle_windows_vs_article_leads": 114,
+    "annotated_spans_vs_article_leads": 43,
+    "annotated_spans_vs_linked_oracle_windows": 45
+  },
+  "literal_binary_outputs": {
+    "question": {
+      "no": 22,
+      "other": 3
+    },
+    "source_lead": {
+      "no": 5,
+      "other": 19,
+      "yes": 1
+    },
+    "article_leads": {
+      "no": 2,
+      "other": 23
+    },
+    "linked_oracle_windows": {
+      "no": 3,
+      "other": 22
+    },
+    "annotated_spans": {
+      "no": 4,
+      "other": 19,
+      "yes": 2
+    }
+  },
+  "all": {
+    "questions": 134,
+    "source_articles": 107,
+    "exact": {
+      "question": 20,
+      "source_lead": 21,
+      "article_leads": 25,
+      "linked_oracle_windows": 26,
+      "annotated_spans": 38
+    },
+    "prompt_tokens": {
+      "question": {
+        "p50": 30.5,
+        "max": 59
+      },
+      "source_lead": {
+        "p50": 152.5,
+        "max": 181
+      },
+      "article_leads": {
+        "p50": 482.0,
+        "max": 509
+      },
+      "linked_oracle_windows": {
+        "p50": 482.0,
+        "max": 509
+      },
+      "annotated_spans": {
+        "p50": 135.5,
+        "max": 370
+      }
+    },
+    "paired": {
+      "source_lead_vs_question": {
+        "wins": 15,
+        "losses": 14,
+        "delta": 0.00746269,
+        "bootstrap95": [
+          -0.07518797,
+          0.09160305
+        ]
+      },
+      "article_leads_vs_source_lead": {
+        "wins": 14,
+        "losses": 10,
+        "delta": 0.02985075,
+        "bootstrap95": [
+          -0.03787879,
+          0.09489051
+        ]
+      },
+      "linked_oracle_windows_vs_article_leads": {
+        "wins": 2,
+        "losses": 1,
+        "delta": 0.00746269,
+        "bootstrap95": [
+          -0.01550388,
+          0.03225806
+        ]
+      },
+      "annotated_spans_vs_article_leads": {
+        "wins": 22,
+        "losses": 9,
+        "delta": 0.09701493,
+        "bootstrap95": [
+          0.01515152,
+          0.18110236
+        ]
+      },
+      "annotated_spans_vs_linked_oracle_windows": {
+        "wins": 21,
+        "losses": 9,
+        "delta": 0.08955224,
+        "bootstrap95": [
+          0.0138818,
+          0.171875
+        ]
+      }
+    }
+  },
+  "by_answer_type": {
+    "span": {
+      "questions": 90,
+      "source_articles": 76,
+      "exact": {
+        "question": 3,
+        "source_lead": 16,
+        "article_leads": 24,
+        "linked_oracle_windows": 25,
+        "annotated_spans": 35
+      },
+      "prompt_tokens": {
+        "question": {
+          "p50": 30.0,
+          "max": 46
+        },
+        "source_lead": {
+          "p50": 152.0,
+          "max": 168
+        },
+        "article_leads": {
+          "p50": 481.0,
+          "max": 498
+        },
+        "linked_oracle_windows": {
+          "p50": 481.0,
+          "max": 498
+        },
+        "annotated_spans": {
+          "p50": 138.0,
+          "max": 325
+        }
+      },
+      "paired": {
+        "source_lead_vs_question": {
+          "wins": 14,
+          "losses": 1,
+          "delta": 0.14444444,
+          "bootstrap95": [
+            0.06741573,
+            0.23172271
+          ]
+        },
+        "article_leads_vs_source_lead": {
+          "wins": 14,
+          "losses": 6,
+          "delta": 0.08888889,
+          "bootstrap95": [
+            0.0,
+            0.17777778
+          ]
+        },
+        "linked_oracle_windows_vs_article_leads": {
+          "wins": 2,
+          "losses": 1,
+          "delta": 0.01111111,
+          "bootstrap95": [
+            -0.02298851,
+            0.05264558
+          ]
+        },
+        "annotated_spans_vs_article_leads": {
+          "wins": 19,
+          "losses": 8,
+          "delta": 0.12222222,
+          "bootstrap95": [
+            0.01162791,
+            0.23529412
+          ]
+        },
+        "annotated_spans_vs_linked_oracle_windows": {
+          "wins": 18,
+          "losses": 8,
+          "delta": 0.11111111,
+          "bootstrap95": [
+            0.0,
+            0.22222222
+          ]
+        }
+      }
+    },
+    "binary": {
+      "questions": 25,
+      "source_articles": 21,
+      "exact": {
+        "question": 15,
+        "source_lead": 4,
+        "article_leads": 1,
+        "linked_oracle_windows": 1,
+        "annotated_spans": 3
+      },
+      "prompt_tokens": {
+        "question": {
+          "p50": 30,
+          "max": 43
+        },
+        "source_lead": {
+          "p50": 152,
+          "max": 165
+        },
+        "article_leads": {
+          "p50": 482,
+          "max": 495
+        },
+        "linked_oracle_windows": {
+          "p50": 482,
+          "max": 495
+        },
+        "annotated_spans": {
+          "p50": 135,
+          "max": 370
+        }
+      },
+      "paired": {
+        "source_lead_vs_question": {
+          "wins": 1,
+          "losses": 12,
+          "delta": -0.44,
+          "bootstrap95": [
+            -0.65517241,
+            -0.20833333
+          ]
+        },
+        "article_leads_vs_source_lead": {
+          "wins": 0,
+          "losses": 3,
+          "delta": -0.12,
+          "bootstrap95": [
+            -0.2962963,
+            0.0
+          ]
+        },
+        "linked_oracle_windows_vs_article_leads": {
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "annotated_spans_vs_article_leads": {
+          "wins": 3,
+          "losses": 1,
+          "delta": 0.08,
+          "bootstrap95": [
+            -0.08695652,
+            0.26923077
+          ]
+        },
+        "annotated_spans_vs_linked_oracle_windows": {
+          "wins": 3,
+          "losses": 1,
+          "delta": 0.08,
+          "bootstrap95": [
+            -0.08695652,
+            0.26923077
+          ]
+        }
+      }
+    },
+    "value": {
+      "questions": 19,
+      "source_articles": 19,
+      "exact": {
+        "question": 2,
+        "source_lead": 1,
+        "article_leads": 0,
+        "linked_oracle_windows": 0,
+        "annotated_spans": 0
+      },
+      "prompt_tokens": {
+        "question": {
+          "p50": 31,
+          "max": 59
+        },
+        "source_lead": {
+          "p50": 153,
+          "max": 181
+        },
+        "article_leads": {
+          "p50": 483,
+          "max": 509
+        },
+        "linked_oracle_windows": {
+          "p50": 483,
+          "max": 509
+        },
+        "annotated_spans": {
+          "p50": 131,
+          "max": 216
+        }
+      },
+      "paired": {
+        "source_lead_vs_question": {
+          "wins": 0,
+          "losses": 1,
+          "delta": -0.05263158,
+          "bootstrap95": [
+            -0.15789474,
+            0.0
+          ]
+        },
+        "article_leads_vs_source_lead": {
+          "wins": 0,
+          "losses": 1,
+          "delta": -0.05263158,
+          "bootstrap95": [
+            -0.15789474,
+            0.0
+          ]
+        },
+        "linked_oracle_windows_vs_article_leads": {
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "annotated_spans_vs_article_leads": {
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "annotated_spans_vs_linked_oracle_windows": {
+          "wins": 0,
+          "losses": 0,
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    }
+  }
+}

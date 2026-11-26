@@ -79,3 +79,5 @@ On 153 [IIRC questions with two linked gold sources](../../reports/nonlinear_ret
 With gold IIRC article identities supplied, a [matched text-window audit](../../reports/nonlinear_retrieval_natural/IIRC_EVIDENCE_VISIBILITY.md) exposed all linked spans on 98 of 139 fully aligned questions with the first 160 words, on 9 with question-only BM25, and on 134 with annotation-informed windows at the same budget.
 
 A [HotpotQA expansion stage audit](../../reports/nonlinear_retrieval_natural/EXPANSION_STAGE_HEADROOM.md) found 244 unresolved coverage misses, 237 ranking misses despite coverage, and 203 inexact answers after recovering both supports. An oracle over the four existing B200 policies reaches 361 joint matches versus 340 for hybrid expansion.
+
+On 134 aligned IIRC cases with the two gold linked articles fixed, the [frozen reader](../../reports/nonlinear_retrieval_natural/IIRC_FIXED_ARTICLE_READER.md) reached 25 exact answers with article leads, 26 with oracle linked windows, and 38 with annotated source and linked spans. Most gains were on single-span answers.
