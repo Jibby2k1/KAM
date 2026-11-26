@@ -25,12 +25,12 @@ BLOCK = 262144
 CORPUS_ARMS = ("corpus_unconditioned", "corpus_conditioned")
 
 
-def top_corpus(index, queries, first):
+def top_corpus(index, queries, first, depth=DEPTH):
     """Exact FP32 batched dot products with a bounded-size score workspace."""
     n = len(queries)
     first = torch.tensor(first, device=queries.device)
-    values = queries.new_full((n, DEPTH), -torch.inf)
-    ids = first.new_full((n, DEPTH), -1)
+    values = queries.new_full((n, depth), -torch.inf)
+    ids = first.new_full((n, depth), -1)
     for start in range(0, len(index.bank), BLOCK):
         stop = min(start + BLOCK, len(index.bank))
         scores = queries @ index.bank[start:stop].T
@@ -41,8 +41,8 @@ def top_corpus(index, queries, first):
         pos = local.clamp(0, stop - start - 1).unsqueeze(1)
         prior = scores.gather(1, pos).masked_fill_(in_block.unsqueeze(1), -torch.inf)
         scores.scatter_(1, pos, prior)
-        local_values, local_ids = scores.topk(min(DEPTH, stop - start), sorted=False)
-        values, order = torch.cat((values, local_values), 1).topk(DEPTH)
+        local_values, local_ids = scores.topk(min(depth, stop - start), sorted=False)
+        values, order = torch.cat((values, local_values), 1).topk(depth)
         ids = torch.cat((ids, local_ids + start), 1).gather(1, order)
     assert torch.isfinite(values).all()
     return ids.tolist(), values[:, :2].tolist()

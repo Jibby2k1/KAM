@@ -148,3 +148,10 @@ jobs:
                    --fitted "$base/native_sentence_refit_v1/fitted.json" --output "$output")
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_conditioned_union.py "$study/replay.json.gz" "${options[@]}"
           diff -u "$study/summary.json" "$output"
+      - name: Replay fixed-budget multi-anchor expansion
+        run: |
+          study=results/nonlinear_retrieval_natural/multi_anchor_expansion_v1
+          output=$(mktemp)
+          options=(--fixture "$study/fixture.json.gz" --pools "$study/pools.json.gz" --output "$output")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_multi_anchor_expansion.py "$study/replay.json.gz" "${options[@]}"
+          diff -u "$study/summary.json" "$output"

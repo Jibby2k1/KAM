@@ -1,0 +1,368 @@
+{
+  "fixture_sha256": "a797fec89f4256b3f317d0c0cec6394eff04897b56f20d578989031e2e730a69",
+  "pools_sha256": "6b24e494b62204389c26c7448a436bb8a395c851645bd17d6eb63452eb6b97fe",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "indexed_documents": 5201800,
+  "shards": 4,
+  "gpus": {
+    "NVIDIA B200": 4
+  },
+  "cohorts": {
+    "all": {
+      "n": 1024,
+      "original_both": 617,
+      "anchor_gold": {
+        "1": 573,
+        "2": 683,
+        "4": 775
+      },
+      "both_supports_in_union": {
+        "unconditioned": 665,
+        "anchors_1": 722,
+        "anchors_2": 726,
+        "anchors_4": 730
+      },
+      "any_missing_found": {
+        "unconditioned": 53,
+        "anchors_1": 110,
+        "anchors_2": 114,
+        "anchors_4": 119
+      },
+      "paired_coverage": {
+        "anchors_1_vs_unconditioned": {
+          "delta": 0.05566406,
+          "bootstrap95": [
+            0.04003906,
+            0.07226562
+          ],
+          "wins": 66,
+          "losses": 9
+        },
+        "anchors_2_vs_anchors_1": {
+          "delta": 0.00390625,
+          "bootstrap95": [
+            -0.00488281,
+            0.01367188
+          ],
+          "wins": 14,
+          "losses": 10
+        },
+        "anchors_4_vs_anchors_1": {
+          "delta": 0.0078125,
+          "bootstrap95": [
+            -0.00488281,
+            0.01953125
+          ],
+          "wins": 25,
+          "losses": 17
+        }
+      }
+    },
+    "incomplete": {
+      "n": 407,
+      "original_both": 0,
+      "anchor_gold": {
+        "1": 166,
+        "2": 207,
+        "4": 246
+      },
+      "both_supports_in_union": {
+        "unconditioned": 48,
+        "anchors_1": 105,
+        "anchors_2": 109,
+        "anchors_4": 113
+      },
+      "any_missing_found": {
+        "unconditioned": 53,
+        "anchors_1": 110,
+        "anchors_2": 114,
+        "anchors_4": 119
+      },
+      "paired_coverage": {
+        "anchors_1_vs_unconditioned": {
+          "delta": 0.14004914,
+          "bootstrap95": [
+            0.1007371,
+            0.17936118
+          ],
+          "wins": 66,
+          "losses": 9
+        },
+        "anchors_2_vs_anchors_1": {
+          "delta": 0.00982801,
+          "bootstrap95": [
+            -0.01474201,
+            0.03439803
+          ],
+          "wins": 14,
+          "losses": 10
+        },
+        "anchors_4_vs_anchors_1": {
+          "delta": 0.01965602,
+          "bootstrap95": [
+            -0.00982801,
+            0.05159705
+          ],
+          "wins": 25,
+          "losses": 17
+        }
+      }
+    },
+    "one_missing": {
+      "n": 381,
+      "original_both": 0,
+      "anchor_gold": {
+        "1": 166,
+        "2": 207,
+        "4": 246
+      },
+      "both_supports_in_union": {
+        "unconditioned": 48,
+        "anchors_1": 105,
+        "anchors_2": 109,
+        "anchors_4": 113
+      },
+      "any_missing_found": {
+        "unconditioned": 48,
+        "anchors_1": 105,
+        "anchors_2": 109,
+        "anchors_4": 113
+      },
+      "paired_coverage": {
+        "anchors_1_vs_unconditioned": {
+          "delta": 0.1496063,
+          "bootstrap95": [
+            0.10761155,
+            0.19160105
+          ],
+          "wins": 66,
+          "losses": 9
+        },
+        "anchors_2_vs_anchors_1": {
+          "delta": 0.01049869,
+          "bootstrap95": [
+            -0.01574803,
+            0.03674541
+          ],
+          "wins": 14,
+          "losses": 10
+        },
+        "anchors_4_vs_anchors_1": {
+          "delta": 0.02099738,
+          "bootstrap95": [
+            -0.01312336,
+            0.05511811
+          ],
+          "wins": 25,
+          "losses": 17
+        }
+      }
+    },
+    "two_missing": {
+      "n": 26,
+      "original_both": 0,
+      "anchor_gold": {
+        "1": 0,
+        "2": 0,
+        "4": 0
+      },
+      "both_supports_in_union": {
+        "unconditioned": 0,
+        "anchors_1": 0,
+        "anchors_2": 0,
+        "anchors_4": 0
+      },
+      "any_missing_found": {
+        "unconditioned": 5,
+        "anchors_1": 5,
+        "anchors_2": 5,
+        "anchors_4": 6
+      },
+      "paired_coverage": {
+        "anchors_1_vs_unconditioned": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "anchors_2_vs_anchors_1": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "anchors_4_vs_anchors_1": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        }
+      }
+    },
+    "incomplete_anchor_1_gold": {
+      "n": 166,
+      "original_both": 0,
+      "anchor_gold": {
+        "1": 166,
+        "2": 166,
+        "4": 166
+      },
+      "both_supports_in_union": {
+        "unconditioned": 27,
+        "anchors_1": 87,
+        "anchors_2": 82,
+        "anchors_4": 73
+      },
+      "any_missing_found": {
+        "unconditioned": 27,
+        "anchors_1": 87,
+        "anchors_2": 82,
+        "anchors_4": 73
+      },
+      "paired_coverage": {
+        "anchors_1_vs_unconditioned": {
+          "delta": 0.36144578,
+          "bootstrap95": [
+            0.28915663,
+            0.43975904
+          ],
+          "wins": 61,
+          "losses": 1
+        },
+        "anchors_2_vs_anchors_1": {
+          "delta": -0.03012048,
+          "bootstrap95": [
+            -0.06024096,
+            0.0
+          ],
+          "wins": 1,
+          "losses": 6
+        },
+        "anchors_4_vs_anchors_1": {
+          "delta": -0.08433735,
+          "bootstrap95": [
+            -0.13253012,
+            -0.04216867
+          ],
+          "wins": 1,
+          "losses": 15
+        }
+      }
+    },
+    "incomplete_anchor_1_wrong": {
+      "n": 241,
+      "original_both": 0,
+      "anchor_gold": {
+        "1": 0,
+        "2": 41,
+        "4": 80
+      },
+      "both_supports_in_union": {
+        "unconditioned": 21,
+        "anchors_1": 18,
+        "anchors_2": 27,
+        "anchors_4": 40
+      },
+      "any_missing_found": {
+        "unconditioned": 26,
+        "anchors_1": 23,
+        "anchors_2": 32,
+        "anchors_4": 46
+      },
+      "paired_coverage": {
+        "anchors_1_vs_unconditioned": {
+          "delta": -0.01244813,
+          "bootstrap95": [
+            -0.04149378,
+            0.01659751
+          ],
+          "wins": 5,
+          "losses": 8
+        },
+        "anchors_2_vs_anchors_1": {
+          "delta": 0.0373444,
+          "bootstrap95": [
+            0.00414938,
+            0.07053942
+          ],
+          "wins": 13,
+          "losses": 4
+        },
+        "anchors_4_vs_anchors_1": {
+          "delta": 0.09128631,
+          "bootstrap95": [
+            0.05394191,
+            0.13278008
+          ],
+          "wins": 24,
+          "losses": 2
+        }
+      }
+    },
+    "incomplete_anchor_1_wrong_anchor_2_gold": {
+      "n": 41,
+      "original_both": 0,
+      "anchor_gold": {
+        "1": 0,
+        "2": 41,
+        "4": 41
+      },
+      "both_supports_in_union": {
+        "unconditioned": 7,
+        "anchors_1": 5,
+        "anchors_2": 14,
+        "anchors_4": 13
+      },
+      "any_missing_found": {
+        "unconditioned": 7,
+        "anchors_1": 5,
+        "anchors_2": 14,
+        "anchors_4": 13
+      },
+      "paired_coverage": {
+        "anchors_1_vs_unconditioned": {
+          "delta": -0.04878049,
+          "bootstrap95": [
+            -0.12195122,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 2
+        },
+        "anchors_2_vs_anchors_1": {
+          "delta": 0.2195122,
+          "bootstrap95": [
+            0.09756098,
+            0.36585366
+          ],
+          "wins": 9,
+          "losses": 0
+        },
+        "anchors_4_vs_anchors_1": {
+          "delta": 0.19512195,
+          "bootstrap95": [
+            0.07317073,
+            0.31707317
+          ],
+          "wins": 8,
+          "losses": 0
+        }
+      }
+    }
+  }
+}

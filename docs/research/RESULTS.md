@@ -20,6 +20,8 @@ The [conservative sequential fallback](../../reports/nonlinear_retrieval_natural
 
 [Reranking the conditioned union](../../reports/nonlinear_retrieval_natural/CONDITIONED_UNION.md) raised support recovery from 481 to 511 and joint exact match from 308 to 333 on 1,024 fresh HotpotQA pools. The union recovered 46 support pairs and 35 joint answers from 384 incomplete pools.
 
+[Fixed-budget multi-anchor expansion](../../reports/nonlinear_retrieval_natural/MULTI_ANCHOR_EXPANSION.md) completed 105 of 407 incomplete pools with one anchor, 109 with two, and 113 with four. Alternate anchors improved coverage when the first was wrong and reduced it when the first was correct.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving
