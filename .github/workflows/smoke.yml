@@ -284,3 +284,9 @@ jobs:
           output=$(mktemp)
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_iirc_visibility.py "$study/replay.json.gz" --manifest "$base/iirc_pair_v1/manifest.json" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit expansion stage failures and policy headroom
+        run: |
+          base=results/nonlinear_retrieval_natural
+          output=$(mktemp)
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_expansion_stage_headroom.py "$base/dense_hybrid_anchor_v1" --output "$output"
+          diff -u "$base/expansion_stage_headroom_v1/summary.json" "$output"

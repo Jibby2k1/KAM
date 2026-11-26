@@ -77,3 +77,5 @@ On 153 [IIRC questions with two linked gold sources](../../reports/nonlinear_ret
 [Within-request sentence reuse](../../reports/nonlinear_retrieval_natural/LIVE_ANCHOR_SENTENCE_REUSE.md) removed 33.1% of sentence encodings and saved 6.36 ms at the paired median on B200. All 128 requests preserved retrieval and reader decisions. The sample p95 rose from 120.96 to 137.76 ms.
 
 With gold IIRC article identities supplied, a [matched text-window audit](../../reports/nonlinear_retrieval_natural/IIRC_EVIDENCE_VISIBILITY.md) exposed all linked spans on 98 of 139 fully aligned questions with the first 160 words, on 9 with question-only BM25, and on 134 with annotation-informed windows at the same budget.
+
+A [HotpotQA expansion stage audit](../../reports/nonlinear_retrieval_natural/EXPANSION_STAGE_HEADROOM.md) found 244 unresolved coverage misses, 237 ranking misses despite coverage, and 203 inexact answers after recovering both supports. An oracle over the four existing B200 policies reaches 361 joint matches versus 340 for hybrid expansion.

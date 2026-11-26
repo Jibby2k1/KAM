@@ -1,0 +1,341 @@
+{
+  "refs": {
+    "dense": {
+      "pool_sha256": "325c1822d79160ff8d6f1c579bd604d61e5daee1004ef77c1a44174517889605",
+      "b200_replay_sha256": "58aff30309396c732b35d109b86d59237e5baf6a30753c8011fdc8ea5fc615fe",
+      "quality_config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+      "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d"
+    },
+    "hybrid": {
+      "pool_sha256": "5dac15b5560c9659e269928a0d24e98bc1a2ba1d76511099b6faba223e6b004c",
+      "b200_replay_sha256": "d2932a05a4e722bcd616784c1806e5e56d83f48f4a125c91f8e6c4c1461dfabe",
+      "quality_config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+      "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d"
+    }
+  },
+  "groups": {
+    "all": {
+      "questions": 1024,
+      "measures": {
+        "dense_broad": {
+          "coverage": 603,
+          "shortlist": 566,
+          "support": 456,
+          "joint_em": 284
+        },
+        "dense_broad_anchor": {
+          "coverage": 734,
+          "shortlist": 664,
+          "support": 526,
+          "joint_em": 328
+        },
+        "hybrid_broad": {
+          "coverage": 659,
+          "shortlist": 606,
+          "support": 484,
+          "joint_em": 301
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 780,
+          "shortlist": 695,
+          "support": 543,
+          "joint_em": 340
+        }
+      },
+      "first_failure": {
+        "dense_broad": {
+          "missing_from_pool": 421,
+          "removed_in_shortlist": 37,
+          "lost_in_final_rerank": 110,
+          "reader_inexact": 172
+        },
+        "dense_broad_anchor": {
+          "missing_from_pool": 290,
+          "removed_in_shortlist": 70,
+          "lost_in_final_rerank": 138,
+          "reader_inexact": 198
+        },
+        "hybrid_broad": {
+          "missing_from_pool": 365,
+          "removed_in_shortlist": 53,
+          "lost_in_final_rerank": 122,
+          "reader_inexact": 183
+        },
+        "hybrid_broad_anchor": {
+          "missing_from_pool": 244,
+          "removed_in_shortlist": 85,
+          "lost_in_final_rerank": 152,
+          "reader_inexact": 203
+        }
+      },
+      "policy_choice_oracle": {
+        "choose_between_expansions": {
+          "coverage": 794,
+          "shortlist": 716,
+          "support": 564,
+          "joint_em": 353
+        },
+        "choose_between_all_four": {
+          "coverage": 794,
+          "shortlist": 727,
+          "support": 579,
+          "joint_em": 361
+        }
+      },
+      "policy_choice_headroom_over_hybrid_expansion": {
+        "coverage": 14,
+        "shortlist": 32,
+        "support": 36,
+        "joint_em": 21
+      },
+      "joint_rescues_by_arm_among_hybrid_expansion_misses": {
+        "dense_broad": 14,
+        "dense_broad_anchor": 13,
+        "hybrid_broad": 8
+      },
+      "merged_candidate_coverage": 797,
+      "merged_candidate_size_mean": 141.455078
+    },
+    "hybrid_original_missing_0": {
+      "questions": 659,
+      "measures": {
+        "dense_broad": {
+          "coverage": 576,
+          "shortlist": 544,
+          "support": 435,
+          "joint_em": 271
+        },
+        "dense_broad_anchor": {
+          "coverage": 609,
+          "shortlist": 563,
+          "support": 449,
+          "joint_em": 280
+        },
+        "hybrid_broad": {
+          "coverage": 659,
+          "shortlist": 606,
+          "support": 484,
+          "joint_em": 301
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 659,
+          "shortlist": 597,
+          "support": 474,
+          "joint_em": 296
+        }
+      },
+      "first_failure": {
+        "dense_broad": {
+          "missing_from_pool": 83,
+          "removed_in_shortlist": 32,
+          "lost_in_final_rerank": 109,
+          "reader_inexact": 164
+        },
+        "dense_broad_anchor": {
+          "missing_from_pool": 50,
+          "removed_in_shortlist": 46,
+          "lost_in_final_rerank": 114,
+          "reader_inexact": 169
+        },
+        "hybrid_broad": {
+          "missing_from_pool": 0,
+          "removed_in_shortlist": 53,
+          "lost_in_final_rerank": 122,
+          "reader_inexact": 183
+        },
+        "hybrid_broad_anchor": {
+          "missing_from_pool": 0,
+          "removed_in_shortlist": 62,
+          "lost_in_final_rerank": 123,
+          "reader_inexact": 178
+        }
+      },
+      "policy_choice_oracle": {
+        "choose_between_expansions": {
+          "coverage": 659,
+          "shortlist": 607,
+          "support": 482,
+          "joint_em": 302
+        },
+        "choose_between_all_four": {
+          "coverage": 659,
+          "shortlist": 618,
+          "support": 496,
+          "joint_em": 310
+        }
+      },
+      "policy_choice_headroom_over_hybrid_expansion": {
+        "coverage": 0,
+        "shortlist": 21,
+        "support": 22,
+        "joint_em": 14
+      },
+      "joint_rescues_by_arm_among_hybrid_expansion_misses": {
+        "dense_broad": 11,
+        "dense_broad_anchor": 6,
+        "hybrid_broad": 8
+      },
+      "merged_candidate_coverage": 659,
+      "merged_candidate_size_mean": 137.652504
+    },
+    "hybrid_original_missing_1": {
+      "questions": 353,
+      "measures": {
+        "dense_broad": {
+          "coverage": 27,
+          "shortlist": 22,
+          "support": 21,
+          "joint_em": 13
+        },
+        "dense_broad_anchor": {
+          "coverage": 125,
+          "shortlist": 101,
+          "support": 77,
+          "joint_em": 48
+        },
+        "hybrid_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 121,
+          "shortlist": 98,
+          "support": 69,
+          "joint_em": 44
+        }
+      },
+      "first_failure": {
+        "dense_broad": {
+          "missing_from_pool": 326,
+          "removed_in_shortlist": 5,
+          "lost_in_final_rerank": 1,
+          "reader_inexact": 8
+        },
+        "dense_broad_anchor": {
+          "missing_from_pool": 228,
+          "removed_in_shortlist": 24,
+          "lost_in_final_rerank": 24,
+          "reader_inexact": 29
+        },
+        "hybrid_broad": {
+          "missing_from_pool": 353,
+          "removed_in_shortlist": 0,
+          "lost_in_final_rerank": 0,
+          "reader_inexact": 0
+        },
+        "hybrid_broad_anchor": {
+          "missing_from_pool": 232,
+          "removed_in_shortlist": 23,
+          "lost_in_final_rerank": 29,
+          "reader_inexact": 25
+        }
+      },
+      "policy_choice_oracle": {
+        "choose_between_expansions": {
+          "coverage": 135,
+          "shortlist": 109,
+          "support": 82,
+          "joint_em": 51
+        },
+        "choose_between_all_four": {
+          "coverage": 135,
+          "shortlist": 109,
+          "support": 83,
+          "joint_em": 51
+        }
+      },
+      "policy_choice_headroom_over_hybrid_expansion": {
+        "coverage": 14,
+        "shortlist": 11,
+        "support": 14,
+        "joint_em": 7
+      },
+      "joint_rescues_by_arm_among_hybrid_expansion_misses": {
+        "dense_broad": 3,
+        "dense_broad_anchor": 7
+      },
+      "merged_candidate_coverage": 138,
+      "merged_candidate_size_mean": 148.141643
+    },
+    "hybrid_original_missing_2": {
+      "questions": 12,
+      "measures": {
+        "dense_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "dense_broad_anchor": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_broad": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "hybrid_broad_anchor": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        }
+      },
+      "first_failure": {
+        "dense_broad": {
+          "missing_from_pool": 12,
+          "removed_in_shortlist": 0,
+          "lost_in_final_rerank": 0,
+          "reader_inexact": 0
+        },
+        "dense_broad_anchor": {
+          "missing_from_pool": 12,
+          "removed_in_shortlist": 0,
+          "lost_in_final_rerank": 0,
+          "reader_inexact": 0
+        },
+        "hybrid_broad": {
+          "missing_from_pool": 12,
+          "removed_in_shortlist": 0,
+          "lost_in_final_rerank": 0,
+          "reader_inexact": 0
+        },
+        "hybrid_broad_anchor": {
+          "missing_from_pool": 12,
+          "removed_in_shortlist": 0,
+          "lost_in_final_rerank": 0,
+          "reader_inexact": 0
+        }
+      },
+      "policy_choice_oracle": {
+        "choose_between_expansions": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "choose_between_all_four": {
+          "coverage": 0,
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        }
+      },
+      "policy_choice_headroom_over_hybrid_expansion": {
+        "coverage": 0,
+        "shortlist": 0,
+        "support": 0,
+        "joint_em": 0
+      },
+      "joint_rescues_by_arm_among_hybrid_expansion_misses": {},
+      "merged_candidate_coverage": 0,
+      "merged_candidate_size_mean": 153.583333
+    }
+  }
+}
