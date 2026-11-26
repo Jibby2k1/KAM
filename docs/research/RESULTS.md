@@ -6,6 +6,8 @@ The [held-out HotpotQA supporting-link study](../../reports/nonlinear_retrieval_
 
 The [coverage-gate study](../../reports/nonlinear_retrieval_natural/COVERAGE_GATE.md) tests a learned choice between two pair heads using observable candidate features. It measures clean, sham, and false-link evidence recovery on 720 additional questions.
 
+A [sentence reranker](../../reports/nonlinear_retrieval_natural/EVIDENCE_VERIFIER.md) recovered both supports on 252/420 2Wiki and 88/300 MuSiQue questions with standard false links, up from 122/420 and 61/300 for the frozen context head. A contextual false link still caused a large drop from the matched sham. The MuSiQue evaluation held the entire source out of reranker fitting.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving

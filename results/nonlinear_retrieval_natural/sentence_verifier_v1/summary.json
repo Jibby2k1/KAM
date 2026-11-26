@@ -1,0 +1,1827 @@
+{
+  "fixture_sha256": "1ab1d4f25e262ccf3b99915a695b16ba1866280217878acc326979a9942c415f",
+  "split_sha256": "7c1c224404d54b391f7ec76813ffcc1c8a828248a554257879c280467f6c3b7a",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "shortlist_per_head": 16,
+  "columns": [
+    "context_logit",
+    "no_coverage_logit",
+    "weak_affinity",
+    "mean_affinity",
+    "pair_link",
+    "weak_max_lexical",
+    "max_lexical",
+    "joint_lexical",
+    "weak_first_sentence_lexical",
+    "mention_lexical",
+    "mention_same_sentence_count",
+    "weak_max_semantic",
+    "max_semantic",
+    "joint_top_semantic_lexical",
+    "mention_semantic",
+    "mention_margin"
+  ],
+  "counts": {
+    "musique-test": 300,
+    "twowiki-fit": 768,
+    "twowiki-test": 420
+  },
+  "hardware": [
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  ],
+  "fitted": {
+    "base_reranker": {
+      "eligible_variants": 2127,
+      "coefficients": [
+        1.75135096,
+        1.13693226,
+        0.6596049,
+        0.11199272,
+        -0.92279649
+      ]
+    },
+    "lexical_sentence": {
+      "eligible_variants": 2127,
+      "coefficients": [
+        1.69093445,
+        0.89913902,
+        1.19840613,
+        0.58973788,
+        -0.52861109,
+        -0.51782645,
+        -0.1293375,
+        0.49442941,
+        0.06654419,
+        0.34191794,
+        -0.1994556
+      ]
+    },
+    "semantic_sentence": {
+      "eligible_variants": 2127,
+      "coefficients": [
+        1.37180982,
+        0.56261486,
+        0.18112712,
+        0.10235308,
+        -0.44534374,
+        -0.64177463,
+        -0.38396691,
+        0.56185289,
+        0.05538755,
+        0.65471923,
+        -0.20903352,
+        1.32175269,
+        1.05069635,
+        -0.06092805,
+        -0.15524383,
+        -0.34894581
+      ]
+    },
+    "semantic_clean_fit": {
+      "eligible_variants": 714,
+      "coefficients": [
+        1.68695107,
+        0.78679715,
+        0.39153799,
+        0.26568118,
+        -0.34479758,
+        -0.46238776,
+        -0.27758937,
+        0.43727766,
+        -0.20127852,
+        0.3543406,
+        -0.25433091,
+        1.21623238,
+        0.8684567,
+        0.00343034,
+        -0.17028229,
+        -0.33255842
+      ]
+    }
+  },
+  "tests": {
+    "twowiki-test:clean": {
+      "n": 420,
+      "correct": {
+        "full": 272,
+        "without": 239,
+        "oracle_shortlist": 391,
+        "oracle_heads": 327,
+        "base_reranker": 310,
+        "lexical_sentence": 309,
+        "semantic_sentence": 329,
+        "semantic_clean_fit": 335
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": 0.09047619,
+          "bootstrap95": [
+            0.05952381,
+            0.12380952
+          ],
+          "wins": 45,
+          "losses": 7
+        },
+        "lexical_sentence": {
+          "delta": 0.08809524,
+          "bootstrap95": [
+            0.05714286,
+            0.11910714
+          ],
+          "wins": 44,
+          "losses": 7
+        },
+        "semantic_sentence": {
+          "delta": 0.13571429,
+          "bootstrap95": [
+            0.09285714,
+            0.18095238
+          ],
+          "wins": 75,
+          "losses": 18
+        },
+        "semantic_clean_fit": {
+          "delta": 0.15,
+          "bootstrap95": [
+            0.10714286,
+            0.19285714
+          ],
+          "wins": 77,
+          "losses": 14
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.04761905,
+        "bootstrap95": [
+          0.01428571,
+          0.08095238
+        ],
+        "wins": 36,
+        "losses": 16
+      },
+      "semantic_vs_base": {
+        "delta": 0.0452381,
+        "bootstrap95": [
+          0.01428571,
+          0.07857143
+        ],
+        "wins": 34,
+        "losses": 15
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 316,
+          "gold_in_shortlist": 327,
+          "mean_pairs": 1.474
+        },
+        "2": {
+          "correct": 323,
+          "gold_in_shortlist": 355,
+          "mean_pairs": 3.114
+        },
+        "4": {
+          "correct": 328,
+          "gold_in_shortlist": 377,
+          "mean_pairs": 6.4
+        },
+        "8": {
+          "correct": 328,
+          "gold_in_shortlist": 388,
+          "mean_pairs": 13.057
+        },
+        "16": {
+          "correct": 329,
+          "gold_in_shortlist": 391,
+          "mean_pairs": 26.248
+        }
+      }
+    },
+    "twowiki-test:sham": {
+      "n": 420,
+      "correct": {
+        "full": 275,
+        "without": 244,
+        "oracle_shortlist": 392,
+        "oracle_heads": 333,
+        "base_reranker": 315,
+        "lexical_sentence": 317,
+        "semantic_sentence": 331,
+        "semantic_clean_fit": 331
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": 0.0952381,
+          "bootstrap95": [
+            0.06190476,
+            0.13095238
+          ],
+          "wins": 49,
+          "losses": 9
+        },
+        "lexical_sentence": {
+          "delta": 0.1,
+          "bootstrap95": [
+            0.06904762,
+            0.13333333
+          ],
+          "wins": 48,
+          "losses": 6
+        },
+        "semantic_sentence": {
+          "delta": 0.13333333,
+          "bootstrap95": [
+            0.09047619,
+            0.17619048
+          ],
+          "wins": 75,
+          "losses": 19
+        },
+        "semantic_clean_fit": {
+          "delta": 0.13333333,
+          "bootstrap95": [
+            0.09285714,
+            0.17619048
+          ],
+          "wins": 73,
+          "losses": 17
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.03333333,
+        "bootstrap95": [
+          0.0,
+          0.06666667
+        ],
+        "wins": 34,
+        "losses": 20
+      },
+      "semantic_vs_base": {
+        "delta": 0.03809524,
+        "bootstrap95": [
+          0.0047619,
+          0.07142857
+        ],
+        "wins": 34,
+        "losses": 18
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 322,
+          "gold_in_shortlist": 333,
+          "mean_pairs": 1.467
+        },
+        "2": {
+          "correct": 327,
+          "gold_in_shortlist": 357,
+          "mean_pairs": 3.095
+        },
+        "4": {
+          "correct": 329,
+          "gold_in_shortlist": 378,
+          "mean_pairs": 6.421
+        },
+        "8": {
+          "correct": 330,
+          "gold_in_shortlist": 388,
+          "mean_pairs": 13.036
+        },
+        "16": {
+          "correct": 331,
+          "gold_in_shortlist": 392,
+          "mean_pairs": 26.2
+        }
+      }
+    },
+    "twowiki-test:linked": {
+      "n": 420,
+      "correct": {
+        "full": 122,
+        "without": 108,
+        "oracle_shortlist": 382,
+        "oracle_heads": 157,
+        "base_reranker": 115,
+        "lexical_sentence": 170,
+        "semantic_sentence": 252,
+        "semantic_clean_fit": 214
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": -0.01666667,
+          "bootstrap95": [
+            -0.04285714,
+            0.00952381
+          ],
+          "wins": 12,
+          "losses": 19
+        },
+        "lexical_sentence": {
+          "delta": 0.11428571,
+          "bootstrap95": [
+            0.07857143,
+            0.15
+          ],
+          "wins": 56,
+          "losses": 8
+        },
+        "semantic_sentence": {
+          "delta": 0.30952381,
+          "bootstrap95": [
+            0.26190476,
+            0.35714286
+          ],
+          "wins": 139,
+          "losses": 9
+        },
+        "semantic_clean_fit": {
+          "delta": 0.21904762,
+          "bootstrap95": [
+            0.17142857,
+            0.26666667
+          ],
+          "wins": 107,
+          "losses": 15
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.1952381,
+        "bootstrap95": [
+          0.15,
+          0.24047619
+        ],
+        "wins": 94,
+        "losses": 12
+      },
+      "semantic_vs_base": {
+        "delta": 0.32619048,
+        "bootstrap95": [
+          0.27857143,
+          0.37380952
+        ],
+        "wins": 143,
+        "losses": 6
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 148,
+          "gold_in_shortlist": 157,
+          "mean_pairs": 1.367
+        },
+        "2": {
+          "correct": 233,
+          "gold_in_shortlist": 291,
+          "mean_pairs": 2.683
+        },
+        "4": {
+          "correct": 250,
+          "gold_in_shortlist": 352,
+          "mean_pairs": 5.862
+        },
+        "8": {
+          "correct": 252,
+          "gold_in_shortlist": 375,
+          "mean_pairs": 12.71
+        },
+        "16": {
+          "correct": 252,
+          "gold_in_shortlist": 382,
+          "mean_pairs": 26.224
+        }
+      }
+    },
+    "twowiki-test:contextual_sham": {
+      "n": 420,
+      "correct": {
+        "full": 276,
+        "without": 246,
+        "oracle_shortlist": 392,
+        "oracle_heads": 333,
+        "base_reranker": 320,
+        "lexical_sentence": 320,
+        "semantic_sentence": 329,
+        "semantic_clean_fit": 337
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": 0.1047619,
+          "bootstrap95": [
+            0.07142857,
+            0.13809524
+          ],
+          "wins": 50,
+          "losses": 6
+        },
+        "lexical_sentence": {
+          "delta": 0.1047619,
+          "bootstrap95": [
+            0.07380952,
+            0.13809524
+          ],
+          "wins": 49,
+          "losses": 5
+        },
+        "semantic_sentence": {
+          "delta": 0.12619048,
+          "bootstrap95": [
+            0.08333333,
+            0.16904762
+          ],
+          "wins": 72,
+          "losses": 19
+        },
+        "semantic_clean_fit": {
+          "delta": 0.1452381,
+          "bootstrap95": [
+            0.1047619,
+            0.18809524
+          ],
+          "wins": 74,
+          "losses": 13
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.02142857,
+        "bootstrap95": [
+          -0.01190476,
+          0.0547619
+        ],
+        "wins": 30,
+        "losses": 21
+      },
+      "semantic_vs_base": {
+        "delta": 0.02142857,
+        "bootstrap95": [
+          -0.01190476,
+          0.0547619
+        ],
+        "wins": 30,
+        "losses": 21
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 321,
+          "gold_in_shortlist": 333,
+          "mean_pairs": 1.462
+        },
+        "2": {
+          "correct": 328,
+          "gold_in_shortlist": 358,
+          "mean_pairs": 3.102
+        },
+        "4": {
+          "correct": 331,
+          "gold_in_shortlist": 378,
+          "mean_pairs": 6.412
+        },
+        "8": {
+          "correct": 328,
+          "gold_in_shortlist": 388,
+          "mean_pairs": 13.0
+        },
+        "16": {
+          "correct": 329,
+          "gold_in_shortlist": 392,
+          "mean_pairs": 26.086
+        }
+      }
+    },
+    "twowiki-test:contextual_linked": {
+      "n": 420,
+      "correct": {
+        "full": 144,
+        "without": 127,
+        "oracle_shortlist": 384,
+        "oracle_heads": 187,
+        "base_reranker": 148,
+        "lexical_sentence": 187,
+        "semantic_sentence": 211,
+        "semantic_clean_fit": 200
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": 0.00952381,
+          "bootstrap95": [
+            -0.01904762,
+            0.03809524
+          ],
+          "wins": 22,
+          "losses": 18
+        },
+        "lexical_sentence": {
+          "delta": 0.10238095,
+          "bootstrap95": [
+            0.06666667,
+            0.13809524
+          ],
+          "wins": 55,
+          "losses": 12
+        },
+        "semantic_sentence": {
+          "delta": 0.15952381,
+          "bootstrap95": [
+            0.10952381,
+            0.20952381
+          ],
+          "wins": 95,
+          "losses": 28
+        },
+        "semantic_clean_fit": {
+          "delta": 0.13333333,
+          "bootstrap95": [
+            0.08809524,
+            0.18095238
+          ],
+          "wins": 83,
+          "losses": 27
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.05714286,
+        "bootstrap95": [
+          0.01666667,
+          0.09761905
+        ],
+        "wins": 51,
+        "losses": 27
+      },
+      "semantic_vs_base": {
+        "delta": 0.15,
+        "bootstrap95": [
+          0.10714286,
+          0.1952381
+        ],
+        "wins": 82,
+        "losses": 19
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 164,
+          "gold_in_shortlist": 187,
+          "mean_pairs": 1.388
+        },
+        "2": {
+          "correct": 202,
+          "gold_in_shortlist": 307,
+          "mean_pairs": 2.705
+        },
+        "4": {
+          "correct": 209,
+          "gold_in_shortlist": 356,
+          "mean_pairs": 5.874
+        },
+        "8": {
+          "correct": 211,
+          "gold_in_shortlist": 377,
+          "mean_pairs": 12.671
+        },
+        "16": {
+          "correct": 211,
+          "gold_in_shortlist": 384,
+          "mean_pairs": 26.212
+        }
+      }
+    },
+    "musique-test:clean": {
+      "n": 300,
+      "correct": {
+        "full": 111,
+        "without": 77,
+        "oracle_shortlist": 220,
+        "oracle_heads": 122,
+        "base_reranker": 119,
+        "lexical_sentence": 117,
+        "semantic_sentence": 131,
+        "semantic_clean_fit": 133
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": 0.02666667,
+          "bootstrap95": [
+            0.00666667,
+            0.05
+          ],
+          "wins": 10,
+          "losses": 2
+        },
+        "lexical_sentence": {
+          "delta": 0.02,
+          "bootstrap95": [
+            -0.00666667,
+            0.04666667
+          ],
+          "wins": 11,
+          "losses": 5
+        },
+        "semantic_sentence": {
+          "delta": 0.06666667,
+          "bootstrap95": [
+            0.03,
+            0.10666667
+          ],
+          "wins": 28,
+          "losses": 8
+        },
+        "semantic_clean_fit": {
+          "delta": 0.07333333,
+          "bootstrap95": [
+            0.03666667,
+            0.11
+          ],
+          "wins": 28,
+          "losses": 6
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.04666667,
+        "bootstrap95": [
+          0.01333333,
+          0.08
+        ],
+        "wins": 21,
+        "losses": 7
+      },
+      "semantic_vs_base": {
+        "delta": 0.04,
+        "bootstrap95": [
+          0.00658333,
+          0.07666667
+        ],
+        "wins": 20,
+        "losses": 8
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 118,
+          "gold_in_shortlist": 122,
+          "mean_pairs": 1.623
+        },
+        "2": {
+          "correct": 124,
+          "gold_in_shortlist": 152,
+          "mean_pairs": 3.307
+        },
+        "4": {
+          "correct": 131,
+          "gold_in_shortlist": 179,
+          "mean_pairs": 6.643
+        },
+        "8": {
+          "correct": 129,
+          "gold_in_shortlist": 201,
+          "mean_pairs": 13.427
+        },
+        "16": {
+          "correct": 131,
+          "gold_in_shortlist": 220,
+          "mean_pairs": 26.547
+        }
+      }
+    },
+    "musique-test:sham": {
+      "n": 300,
+      "correct": {
+        "full": 113,
+        "without": 86,
+        "oracle_shortlist": 225,
+        "oracle_heads": 127,
+        "base_reranker": 121,
+        "lexical_sentence": 120,
+        "semantic_sentence": 132,
+        "semantic_clean_fit": 134
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": 0.02666667,
+          "bootstrap95": [
+            0.00333333,
+            0.05333333
+          ],
+          "wins": 11,
+          "losses": 3
+        },
+        "lexical_sentence": {
+          "delta": 0.02333333,
+          "bootstrap95": [
+            -0.00333333,
+            0.05
+          ],
+          "wins": 12,
+          "losses": 5
+        },
+        "semantic_sentence": {
+          "delta": 0.06333333,
+          "bootstrap95": [
+            0.02666667,
+            0.10333333
+          ],
+          "wins": 28,
+          "losses": 9
+        },
+        "semantic_clean_fit": {
+          "delta": 0.07,
+          "bootstrap95": [
+            0.03333333,
+            0.10666667
+          ],
+          "wins": 28,
+          "losses": 7
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.04,
+        "bootstrap95": [
+          0.00666667,
+          0.07666667
+        ],
+        "wins": 20,
+        "losses": 8
+      },
+      "semantic_vs_base": {
+        "delta": 0.03666667,
+        "bootstrap95": [
+          0.0,
+          0.07333333
+        ],
+        "wins": 20,
+        "losses": 9
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 121,
+          "gold_in_shortlist": 127,
+          "mean_pairs": 1.617
+        },
+        "2": {
+          "correct": 128,
+          "gold_in_shortlist": 157,
+          "mean_pairs": 3.3
+        },
+        "4": {
+          "correct": 131,
+          "gold_in_shortlist": 185,
+          "mean_pairs": 6.673
+        },
+        "8": {
+          "correct": 130,
+          "gold_in_shortlist": 205,
+          "mean_pairs": 13.41
+        },
+        "16": {
+          "correct": 132,
+          "gold_in_shortlist": 225,
+          "mean_pairs": 26.463
+        }
+      }
+    },
+    "musique-test:linked": {
+      "n": 300,
+      "correct": {
+        "full": 61,
+        "without": 37,
+        "oracle_shortlist": 200,
+        "oracle_heads": 65,
+        "base_reranker": 50,
+        "lexical_sentence": 63,
+        "semantic_sentence": 88,
+        "semantic_clean_fit": 69
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": -0.03666667,
+          "bootstrap95": [
+            -0.06666667,
+            -0.01
+          ],
+          "wins": 4,
+          "losses": 15
+        },
+        "lexical_sentence": {
+          "delta": 0.00666667,
+          "bootstrap95": [
+            -0.02333333,
+            0.03666667
+          ],
+          "wins": 11,
+          "losses": 9
+        },
+        "semantic_sentence": {
+          "delta": 0.09,
+          "bootstrap95": [
+            0.04666667,
+            0.13333333
+          ],
+          "wins": 37,
+          "losses": 10
+        },
+        "semantic_clean_fit": {
+          "delta": 0.02666667,
+          "bootstrap95": [
+            -0.01333333,
+            0.06666667
+          ],
+          "wins": 23,
+          "losses": 15
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.08333333,
+        "bootstrap95": [
+          0.04666667,
+          0.12
+        ],
+        "wins": 30,
+        "losses": 5
+      },
+      "semantic_vs_base": {
+        "delta": 0.12666667,
+        "bootstrap95": [
+          0.08333333,
+          0.17
+        ],
+        "wins": 43,
+        "losses": 5
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 58,
+          "gold_in_shortlist": 65,
+          "mean_pairs": 1.283
+        },
+        "2": {
+          "correct": 85,
+          "gold_in_shortlist": 122,
+          "mean_pairs": 2.803
+        },
+        "4": {
+          "correct": 85,
+          "gold_in_shortlist": 153,
+          "mean_pairs": 6.107
+        },
+        "8": {
+          "correct": 86,
+          "gold_in_shortlist": 180,
+          "mean_pairs": 13.0
+        },
+        "16": {
+          "correct": 88,
+          "gold_in_shortlist": 200,
+          "mean_pairs": 26.217
+        }
+      }
+    },
+    "musique-test:contextual_sham": {
+      "n": 300,
+      "correct": {
+        "full": 114,
+        "without": 86,
+        "oracle_shortlist": 228,
+        "oracle_heads": 129,
+        "base_reranker": 121,
+        "lexical_sentence": 120,
+        "semantic_sentence": 132,
+        "semantic_clean_fit": 133
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": 0.02333333,
+          "bootstrap95": [
+            0.0,
+            0.04666667
+          ],
+          "wins": 10,
+          "losses": 3
+        },
+        "lexical_sentence": {
+          "delta": 0.02,
+          "bootstrap95": [
+            -0.00666667,
+            0.04666667
+          ],
+          "wins": 11,
+          "losses": 5
+        },
+        "semantic_sentence": {
+          "delta": 0.06,
+          "bootstrap95": [
+            0.02,
+            0.1
+          ],
+          "wins": 28,
+          "losses": 10
+        },
+        "semantic_clean_fit": {
+          "delta": 0.06333333,
+          "bootstrap95": [
+            0.02666667,
+            0.10008333
+          ],
+          "wins": 27,
+          "losses": 8
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.04,
+        "bootstrap95": [
+          0.00666667,
+          0.07666667
+        ],
+        "wins": 20,
+        "losses": 8
+      },
+      "semantic_vs_base": {
+        "delta": 0.03666667,
+        "bootstrap95": [
+          0.0,
+          0.07333333
+        ],
+        "wins": 20,
+        "losses": 9
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 122,
+          "gold_in_shortlist": 129,
+          "mean_pairs": 1.633
+        },
+        "2": {
+          "correct": 127,
+          "gold_in_shortlist": 160,
+          "mean_pairs": 3.29
+        },
+        "4": {
+          "correct": 131,
+          "gold_in_shortlist": 187,
+          "mean_pairs": 6.693
+        },
+        "8": {
+          "correct": 131,
+          "gold_in_shortlist": 206,
+          "mean_pairs": 13.39
+        },
+        "16": {
+          "correct": 132,
+          "gold_in_shortlist": 228,
+          "mean_pairs": 26.447
+        }
+      }
+    },
+    "musique-test:contextual_linked": {
+      "n": 300,
+      "correct": {
+        "full": 68,
+        "without": 39,
+        "oracle_shortlist": 206,
+        "oracle_heads": 70,
+        "base_reranker": 59,
+        "lexical_sentence": 68,
+        "semantic_sentence": 84,
+        "semantic_clean_fit": 73
+      },
+      "paired_vs_full": {
+        "base_reranker": {
+          "delta": -0.03,
+          "bootstrap95": [
+            -0.05666667,
+            -0.00666667
+          ],
+          "wins": 3,
+          "losses": 12
+        },
+        "lexical_sentence": {
+          "delta": 0.0,
+          "bootstrap95": [
+            -0.02666667,
+            0.02666667
+          ],
+          "wins": 8,
+          "losses": 8
+        },
+        "semantic_sentence": {
+          "delta": 0.05333333,
+          "bootstrap95": [
+            0.01,
+            0.09666667
+          ],
+          "wins": 30,
+          "losses": 14
+        },
+        "semantic_clean_fit": {
+          "delta": 0.01666667,
+          "bootstrap95": [
+            -0.02333333,
+            0.05333333
+          ],
+          "wins": 20,
+          "losses": 15
+        }
+      },
+      "semantic_vs_lexical": {
+        "delta": 0.05333333,
+        "bootstrap95": [
+          0.01666667,
+          0.09333333
+        ],
+        "wins": 26,
+        "losses": 10
+      },
+      "semantic_vs_base": {
+        "delta": 0.08333333,
+        "bootstrap95": [
+          0.04333333,
+          0.12333333
+        ],
+        "wins": 32,
+        "losses": 7
+      },
+      "fixed_weight_shortlist_frontier": {
+        "1": {
+          "correct": 58,
+          "gold_in_shortlist": 70,
+          "mean_pairs": 1.297
+        },
+        "2": {
+          "correct": 79,
+          "gold_in_shortlist": 128,
+          "mean_pairs": 2.83
+        },
+        "4": {
+          "correct": 82,
+          "gold_in_shortlist": 164,
+          "mean_pairs": 6.133
+        },
+        "8": {
+          "correct": 83,
+          "gold_in_shortlist": 192,
+          "mean_pairs": 13.003
+        },
+        "16": {
+          "correct": 84,
+          "gold_in_shortlist": 206,
+          "mean_pairs": 26.267
+        }
+      }
+    }
+  },
+  "clean_linked_shortlist_challenge": {
+    "twowiki-test": {
+      "n": 151,
+      "gold_ranked_first_among_shortlisted_linked_pairs": {
+        "full": 131,
+        "without": 133,
+        "base_reranker": 130,
+        "lexical_sentence": 134,
+        "semantic_sentence": 132,
+        "semantic_clean_fit": 137
+      }
+    },
+    "musique-test": {
+      "n": 44,
+      "gold_ranked_first_among_shortlisted_linked_pairs": {
+        "full": 37,
+        "without": 38,
+        "base_reranker": 38,
+        "lexical_sentence": 38,
+        "semantic_sentence": 38,
+        "semantic_clean_fit": 39
+      }
+    }
+  },
+  "linked_minus_sham": {
+    "twowiki-test:linked": {
+      "full": {
+        "delta": -0.36428571,
+        "bootstrap95": [
+          -0.40952381,
+          -0.31904762
+        ],
+        "wins": 1,
+        "losses": 154
+      },
+      "without": {
+        "delta": -0.32380952,
+        "bootstrap95": [
+          -0.36904762,
+          -0.27857143
+        ],
+        "wins": 0,
+        "losses": 136
+      },
+      "oracle_shortlist": {
+        "delta": -0.02380952,
+        "bootstrap95": [
+          -0.03815476,
+          -0.00952381
+        ],
+        "wins": 0,
+        "losses": 10
+      },
+      "oracle_heads": {
+        "delta": -0.41904762,
+        "bootstrap95": [
+          -0.46666667,
+          -0.37142857
+        ],
+        "wins": 0,
+        "losses": 176
+      },
+      "base_reranker": {
+        "delta": -0.47619048,
+        "bootstrap95": [
+          -0.52619048,
+          -0.42857143
+        ],
+        "wins": 2,
+        "losses": 202
+      },
+      "lexical_sentence": {
+        "delta": -0.35,
+        "bootstrap95": [
+          -0.3952381,
+          -0.30714286
+        ],
+        "wins": 1,
+        "losses": 148
+      },
+      "semantic_sentence": {
+        "delta": -0.18809524,
+        "bootstrap95": [
+          -0.22619048,
+          -0.15
+        ],
+        "wins": 0,
+        "losses": 79
+      },
+      "semantic_clean_fit": {
+        "delta": -0.27857143,
+        "bootstrap95": [
+          -0.3214881,
+          -0.23571429
+        ],
+        "wins": 1,
+        "losses": 118
+      }
+    },
+    "twowiki-test:contextual_linked": {
+      "full": {
+        "delta": -0.31428571,
+        "bootstrap95": [
+          -0.35952381,
+          -0.26904762
+        ],
+        "wins": 0,
+        "losses": 132
+      },
+      "without": {
+        "delta": -0.28333333,
+        "bootstrap95": [
+          -0.32619048,
+          -0.23809524
+        ],
+        "wins": 1,
+        "losses": 120
+      },
+      "oracle_shortlist": {
+        "delta": -0.01904762,
+        "bootstrap95": [
+          -0.03333333,
+          -0.00714286
+        ],
+        "wins": 0,
+        "losses": 8
+      },
+      "oracle_heads": {
+        "delta": -0.34761905,
+        "bootstrap95": [
+          -0.39285714,
+          -0.30238095
+        ],
+        "wins": 0,
+        "losses": 146
+      },
+      "base_reranker": {
+        "delta": -0.40952381,
+        "bootstrap95": [
+          -0.45714286,
+          -0.36428571
+        ],
+        "wins": 0,
+        "losses": 172
+      },
+      "lexical_sentence": {
+        "delta": -0.31666667,
+        "bootstrap95": [
+          -0.36190476,
+          -0.27142857
+        ],
+        "wins": 1,
+        "losses": 134
+      },
+      "semantic_sentence": {
+        "delta": -0.28095238,
+        "bootstrap95": [
+          -0.32380952,
+          -0.23809524
+        ],
+        "wins": 0,
+        "losses": 118
+      },
+      "semantic_clean_fit": {
+        "delta": -0.32619048,
+        "bootstrap95": [
+          -0.37142857,
+          -0.28095238
+        ],
+        "wins": 1,
+        "losses": 138
+      }
+    },
+    "musique-test:linked": {
+      "full": {
+        "delta": -0.17333333,
+        "bootstrap95": [
+          -0.21666667,
+          -0.13
+        ],
+        "wins": 0,
+        "losses": 52
+      },
+      "without": {
+        "delta": -0.16333333,
+        "bootstrap95": [
+          -0.20666667,
+          -0.12333333
+        ],
+        "wins": 0,
+        "losses": 49
+      },
+      "oracle_shortlist": {
+        "delta": -0.08333333,
+        "bootstrap95": [
+          -0.11666667,
+          -0.05333333
+        ],
+        "wins": 0,
+        "losses": 25
+      },
+      "oracle_heads": {
+        "delta": -0.20666667,
+        "bootstrap95": [
+          -0.25333333,
+          -0.16333333
+        ],
+        "wins": 0,
+        "losses": 62
+      },
+      "base_reranker": {
+        "delta": -0.23666667,
+        "bootstrap95": [
+          -0.28666667,
+          -0.19
+        ],
+        "wins": 0,
+        "losses": 71
+      },
+      "lexical_sentence": {
+        "delta": -0.19,
+        "bootstrap95": [
+          -0.23666667,
+          -0.14666667
+        ],
+        "wins": 0,
+        "losses": 57
+      },
+      "semantic_sentence": {
+        "delta": -0.14666667,
+        "bootstrap95": [
+          -0.18666667,
+          -0.11
+        ],
+        "wins": 0,
+        "losses": 44
+      },
+      "semantic_clean_fit": {
+        "delta": -0.21666667,
+        "bootstrap95": [
+          -0.26333333,
+          -0.17333333
+        ],
+        "wins": 0,
+        "losses": 65
+      }
+    },
+    "musique-test:contextual_linked": {
+      "full": {
+        "delta": -0.15333333,
+        "bootstrap95": [
+          -0.19333333,
+          -0.11333333
+        ],
+        "wins": 0,
+        "losses": 46
+      },
+      "without": {
+        "delta": -0.15666667,
+        "bootstrap95": [
+          -0.2,
+          -0.11666667
+        ],
+        "wins": 0,
+        "losses": 47
+      },
+      "oracle_shortlist": {
+        "delta": -0.07333333,
+        "bootstrap95": [
+          -0.10333333,
+          -0.04666667
+        ],
+        "wins": 0,
+        "losses": 22
+      },
+      "oracle_heads": {
+        "delta": -0.19666667,
+        "bootstrap95": [
+          -0.24,
+          -0.15333333
+        ],
+        "wins": 0,
+        "losses": 59
+      },
+      "base_reranker": {
+        "delta": -0.20666667,
+        "bootstrap95": [
+          -0.25333333,
+          -0.16333333
+        ],
+        "wins": 0,
+        "losses": 62
+      },
+      "lexical_sentence": {
+        "delta": -0.17333333,
+        "bootstrap95": [
+          -0.22,
+          -0.13333333
+        ],
+        "wins": 0,
+        "losses": 52
+      },
+      "semantic_sentence": {
+        "delta": -0.16,
+        "bootstrap95": [
+          -0.20333333,
+          -0.12
+        ],
+        "wins": 0,
+        "losses": 48
+      },
+      "semantic_clean_fit": {
+        "delta": -0.2,
+        "bootstrap95": [
+          -0.24666667,
+          -0.15333333
+        ],
+        "wins": 1,
+        "losses": 61
+      }
+    }
+  },
+  "feature_group_ablation": {
+    "relevance_without_mentions": {
+      "features": [
+        "context_logit",
+        "no_coverage_logit",
+        "weak_affinity",
+        "mean_affinity",
+        "pair_link",
+        "weak_max_lexical",
+        "max_lexical",
+        "joint_lexical",
+        "weak_first_sentence_lexical",
+        "weak_max_semantic",
+        "max_semantic",
+        "joint_top_semantic_lexical"
+      ],
+      "tests": {
+        "twowiki-test:clean": {
+          "correct": 324,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.01190476,
+            "bootstrap95": [
+              -0.03571429,
+              0.01428571
+            ],
+            "wins": 11,
+            "losses": 16
+          }
+        },
+        "twowiki-test:sham": {
+          "correct": 321,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.02380952,
+            "bootstrap95": [
+              -0.04761905,
+              0.0
+            ],
+            "wins": 9,
+            "losses": 19
+          }
+        },
+        "twowiki-test:linked": {
+          "correct": 185,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.15952381,
+            "bootstrap95": [
+              -0.2,
+              -0.12142857
+            ],
+            "wins": 9,
+            "losses": 76
+          }
+        },
+        "twowiki-test:contextual_sham": {
+          "correct": 325,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.00952381,
+            "bootstrap95": [
+              -0.03333333,
+              0.01666667
+            ],
+            "wins": 12,
+            "losses": 16
+          }
+        },
+        "twowiki-test:contextual_linked": {
+          "correct": 188,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.0547619,
+            "bootstrap95": [
+              -0.08809524,
+              -0.02380952
+            ],
+            "wins": 12,
+            "losses": 35
+          }
+        },
+        "musique-test:clean": {
+          "correct": 133,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": 0.00666667,
+            "bootstrap95": [
+              -0.01333333,
+              0.03
+            ],
+            "wins": 6,
+            "losses": 4
+          }
+        },
+        "musique-test:sham": {
+          "correct": 133,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": 0.00333333,
+            "bootstrap95": [
+              -0.01666667,
+              0.02666667
+            ],
+            "wins": 6,
+            "losses": 5
+          }
+        },
+        "musique-test:linked": {
+          "correct": 63,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.08333333,
+            "bootstrap95": [
+              -0.11666667,
+              -0.05333333
+            ],
+            "wins": 1,
+            "losses": 26
+          }
+        },
+        "musique-test:contextual_sham": {
+          "correct": 133,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": 0.00333333,
+            "bootstrap95": [
+              -0.01666667,
+              0.02666667
+            ],
+            "wins": 6,
+            "losses": 5
+          }
+        },
+        "musique-test:contextual_linked": {
+          "correct": 68,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.05333333,
+            "bootstrap95": [
+              -0.08666667,
+              -0.02333333
+            ],
+            "wins": 4,
+            "losses": 20
+          }
+        }
+      }
+    },
+    "mention_only": {
+      "features": [
+        "context_logit",
+        "no_coverage_logit",
+        "weak_affinity",
+        "mean_affinity",
+        "pair_link",
+        "mention_lexical",
+        "mention_same_sentence_count",
+        "mention_semantic",
+        "mention_margin"
+      ],
+      "tests": {
+        "twowiki-test:clean": {
+          "correct": 320,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.02142857,
+            "bootstrap95": [
+              -0.05,
+              0.00714286
+            ],
+            "wins": 14,
+            "losses": 23
+          }
+        },
+        "twowiki-test:sham": {
+          "correct": 327,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.00952381,
+            "bootstrap95": [
+              -0.03809524,
+              0.02142857
+            ],
+            "wins": 19,
+            "losses": 23
+          }
+        },
+        "twowiki-test:linked": {
+          "correct": 202,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.11904762,
+            "bootstrap95": [
+              -0.15714286,
+              -0.08095238
+            ],
+            "wins": 11,
+            "losses": 61
+          }
+        },
+        "twowiki-test:contextual_sham": {
+          "correct": 330,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": 0.00238095,
+            "bootstrap95": [
+              -0.02619048,
+              0.03095238
+            ],
+            "wins": 20,
+            "losses": 19
+          }
+        },
+        "twowiki-test:contextual_linked": {
+          "correct": 209,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.0047619,
+            "bootstrap95": [
+              -0.03809524,
+              0.02857143
+            ],
+            "wins": 26,
+            "losses": 28
+          }
+        },
+        "musique-test:clean": {
+          "correct": 120,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.03666667,
+            "bootstrap95": [
+              -0.07,
+              -0.00333333
+            ],
+            "wins": 8,
+            "losses": 19
+          }
+        },
+        "musique-test:sham": {
+          "correct": 123,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.03,
+            "bootstrap95": [
+              -0.06333333,
+              0.00333333
+            ],
+            "wins": 8,
+            "losses": 17
+          }
+        },
+        "musique-test:linked": {
+          "correct": 76,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.04,
+            "bootstrap95": [
+              -0.07333333,
+              -0.00666667
+            ],
+            "wins": 8,
+            "losses": 20
+          }
+        },
+        "musique-test:contextual_sham": {
+          "correct": 122,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.03333333,
+            "bootstrap95": [
+              -0.06666667,
+              0.0
+            ],
+            "wins": 8,
+            "losses": 18
+          }
+        },
+        "musique-test:contextual_linked": {
+          "correct": 77,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.02333333,
+            "bootstrap95": [
+              -0.05666667,
+              0.01
+            ],
+            "wins": 10,
+            "losses": 17
+          }
+        }
+      }
+    },
+    "mention_without_margin": {
+      "features": [
+        "context_logit",
+        "no_coverage_logit",
+        "weak_affinity",
+        "mean_affinity",
+        "pair_link",
+        "mention_lexical",
+        "mention_same_sentence_count",
+        "mention_semantic"
+      ],
+      "tests": {
+        "twowiki-test:clean": {
+          "correct": 304,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.05952381,
+            "bootstrap95": [
+              -0.09285714,
+              -0.02857143
+            ],
+            "wins": 12,
+            "losses": 37
+          }
+        },
+        "twowiki-test:sham": {
+          "correct": 310,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.05,
+            "bootstrap95": [
+              -0.08333333,
+              -0.01666667
+            ],
+            "wins": 15,
+            "losses": 36
+          }
+        },
+        "twowiki-test:linked": {
+          "correct": 158,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.22380952,
+            "bootstrap95": [
+              -0.26904762,
+              -0.17857143
+            ],
+            "wins": 9,
+            "losses": 103
+          }
+        },
+        "twowiki-test:contextual_sham": {
+          "correct": 318,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.02619048,
+            "bootstrap95": [
+              -0.05714286,
+              0.0047619
+            ],
+            "wins": 17,
+            "losses": 28
+          }
+        },
+        "twowiki-test:contextual_linked": {
+          "correct": 172,
+          "n": 420,
+          "versus_all_sentence_features": {
+            "delta": -0.09285714,
+            "bootstrap95": [
+              -0.13333333,
+              -0.05238095
+            ],
+            "wins": 21,
+            "losses": 60
+          }
+        },
+        "musique-test:clean": {
+          "correct": 117,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.04666667,
+            "bootstrap95": [
+              -0.08,
+              -0.01333333
+            ],
+            "wins": 7,
+            "losses": 21
+          }
+        },
+        "musique-test:sham": {
+          "correct": 121,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.03666667,
+            "bootstrap95": [
+              -0.07,
+              -0.00333333
+            ],
+            "wins": 8,
+            "losses": 19
+          }
+        },
+        "musique-test:linked": {
+          "correct": 62,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.08666667,
+            "bootstrap95": [
+              -0.12333333,
+              -0.05
+            ],
+            "wins": 5,
+            "losses": 31
+          }
+        },
+        "musique-test:contextual_sham": {
+          "correct": 121,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.03666667,
+            "bootstrap95": [
+              -0.07,
+              -0.00333333
+            ],
+            "wins": 8,
+            "losses": 19
+          }
+        },
+        "musique-test:contextual_linked": {
+          "correct": 67,
+          "n": 300,
+          "versus_all_sentence_features": {
+            "delta": -0.05666667,
+            "bootstrap95": [
+              -0.09333333,
+              -0.02
+            ],
+            "wins": 9,
+            "losses": 26
+          }
+        }
+      }
+    }
+  }
+}

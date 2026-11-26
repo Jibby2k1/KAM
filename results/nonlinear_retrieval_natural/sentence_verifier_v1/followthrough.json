@@ -1,0 +1,743 @@
+{
+  "profile": {
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition:musique": {
+      "torch": "2.8.0+cu128",
+      "resident_cache_sentences": 971,
+      "vector_bytes": 1536,
+      "depths": {
+        "4": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 4.66,
+              "p95_ms": 5.473
+            },
+            "resident": {
+              "p50_ms": 0.169,
+              "p95_ms": 0.217
+            }
+          },
+          "mean_pairs": 6.729,
+          "mean_unique_sentences": 7.979,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "8": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 5.997,
+              "p95_ms": 7.568
+            },
+            "resident": {
+              "p50_ms": 0.255,
+              "p95_ms": 0.298
+            }
+          },
+          "mean_pairs": 13.688,
+          "mean_unique_sentences": 13.688,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "16": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 8.672,
+              "p95_ms": 10.249
+            },
+            "resident": {
+              "p50_ms": 0.401,
+              "p95_ms": 0.463
+            }
+          },
+          "mean_pairs": 26.854,
+          "mean_unique_sentences": 22.812,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        }
+      }
+    },
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition:twowiki": {
+      "torch": "2.8.0+cu128",
+      "resident_cache_sentences": 1343,
+      "vector_bytes": 1536,
+      "depths": {
+        "4": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 5.49,
+              "p95_ms": 7.833
+            },
+            "resident": {
+              "p50_ms": 0.175,
+              "p95_ms": 0.26
+            }
+          },
+          "mean_pairs": 6.354,
+          "mean_unique_sentences": 14.271,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "8": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 7.723,
+              "p95_ms": 9.428
+            },
+            "resident": {
+              "p50_ms": 0.279,
+              "p95_ms": 0.373
+            }
+          },
+          "mean_pairs": 13.042,
+          "mean_unique_sentences": 20.583,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "16": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 9.809,
+              "p95_ms": 11.786
+            },
+            "resident": {
+              "p50_ms": 0.446,
+              "p95_ms": 0.553
+            }
+          },
+          "mean_pairs": 26.5,
+          "mean_unique_sentences": 31.208,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        }
+      }
+    },
+    "mps:musique": {
+      "torch": "2.10.0",
+      "resident_cache_sentences": 971,
+      "vector_bytes": 1536,
+      "depths": {
+        "4": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 26.172,
+              "p95_ms": 37.182
+            },
+            "resident": {
+              "p50_ms": 0.586,
+              "p95_ms": 3.014
+            }
+          },
+          "mean_pairs": 6.729,
+          "mean_unique_sentences": 7.979,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "8": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 39.163,
+              "p95_ms": 51.2
+            },
+            "resident": {
+              "p50_ms": 0.655,
+              "p95_ms": 3.382
+            }
+          },
+          "mean_pairs": 13.688,
+          "mean_unique_sentences": 13.688,
+          "max_abs_feature_delta": 0.0
+        },
+        "16": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 64.744,
+              "p95_ms": 81.429
+            },
+            "resident": {
+              "p50_ms": 0.801,
+              "p95_ms": 4.36
+            }
+          },
+          "mean_pairs": 26.854,
+          "mean_unique_sentences": 22.812,
+          "max_abs_feature_delta": 0.0
+        }
+      }
+    },
+    "mps:twowiki": {
+      "torch": "2.10.0",
+      "resident_cache_sentences": 1343,
+      "vector_bytes": 1536,
+      "depths": {
+        "4": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 34.915,
+              "p95_ms": 101.516
+            },
+            "resident": {
+              "p50_ms": 0.54,
+              "p95_ms": 3.452
+            }
+          },
+          "mean_pairs": 6.354,
+          "mean_unique_sentences": 14.271,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "8": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 47.826,
+              "p95_ms": 65.082
+            },
+            "resident": {
+              "p50_ms": 0.623,
+              "p95_ms": 3.694
+            }
+          },
+          "mean_pairs": 13.042,
+          "mean_unique_sentences": 20.583,
+          "max_abs_feature_delta": 0.0
+        },
+        "16": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 73.607,
+              "p95_ms": 102.376
+            },
+            "resident": {
+              "p50_ms": 0.791,
+              "p95_ms": 4.837
+            }
+          },
+          "mean_pairs": 26.5,
+          "mean_unique_sentences": 31.208,
+          "max_abs_feature_delta": 0.0
+        }
+      }
+    }
+  },
+  "reader": {
+    "policy_sha256": "d0630808197f0d4856ca7af04f6d150e5cade0903d81b99b69dd5f4c26f4e113",
+    "fixture_sha256": "1ab1d4f25e262ccf3b99915a695b16ba1866280217878acc326979a9942c415f",
+    "tests": {
+      "musique-test:clean": {
+        "n": 300,
+        "hardware": [
+          "NVIDIA B200",
+          "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+        ],
+        "correct": {
+          "full": {
+            "evidence": 111,
+            "exact": 59,
+            "joint": 51
+          },
+          "sentence16": {
+            "evidence": 131,
+            "exact": 69,
+            "joint": 62
+          },
+          "sentence4": {
+            "evidence": 131,
+            "exact": 71,
+            "joint": 63
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": 0.06666667,
+              "bootstrap95": [
+                0.03,
+                0.10666667
+              ],
+              "wins": 28,
+              "losses": 8
+            },
+            "exact": {
+              "delta": 0.03333333,
+              "bootstrap95": [
+                0.0,
+                0.06666667
+              ],
+              "wins": 17,
+              "losses": 7
+            },
+            "joint": {
+              "delta": 0.03666667,
+              "bootstrap95": [
+                0.01,
+                0.06666667
+              ],
+              "wins": 15,
+              "losses": 4
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": 0.06666667,
+              "bootstrap95": [
+                0.03,
+                0.10666667
+              ],
+              "wins": 28,
+              "losses": 8
+            },
+            "exact": {
+              "delta": 0.04,
+              "bootstrap95": [
+                0.00666667,
+                0.07333333
+              ],
+              "wins": 19,
+              "losses": 7
+            },
+            "joint": {
+              "delta": 0.04,
+              "bootstrap95": [
+                0.01325,
+                0.07
+              ],
+              "wins": 16,
+              "losses": 4
+            }
+          }
+        }
+      },
+      "musique-test:sham": {
+        "n": 300,
+        "hardware": [
+          "NVIDIA B200",
+          "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+        ],
+        "correct": {
+          "full": {
+            "evidence": 113,
+            "exact": 62,
+            "joint": 53
+          },
+          "sentence16": {
+            "evidence": 132,
+            "exact": 69,
+            "joint": 63
+          },
+          "sentence4": {
+            "evidence": 131,
+            "exact": 71,
+            "joint": 64
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": 0.06333333,
+              "bootstrap95": [
+                0.02666667,
+                0.10333333
+              ],
+              "wins": 28,
+              "losses": 9
+            },
+            "exact": {
+              "delta": 0.02333333,
+              "bootstrap95": [
+                -0.01,
+                0.05666667
+              ],
+              "wins": 16,
+              "losses": 9
+            },
+            "joint": {
+              "delta": 0.03333333,
+              "bootstrap95": [
+                0.00666667,
+                0.06333333
+              ],
+              "wins": 15,
+              "losses": 5
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": 0.06,
+              "bootstrap95": [
+                0.02333333,
+                0.1
+              ],
+              "wins": 27,
+              "losses": 9
+            },
+            "exact": {
+              "delta": 0.03,
+              "bootstrap95": [
+                -0.00333333,
+                0.06333333
+              ],
+              "wins": 18,
+              "losses": 9
+            },
+            "joint": {
+              "delta": 0.03666667,
+              "bootstrap95": [
+                0.00666667,
+                0.06666667
+              ],
+              "wins": 16,
+              "losses": 5
+            }
+          }
+        }
+      },
+      "musique-test:linked": {
+        "n": 300,
+        "hardware": [
+          "NVIDIA B200",
+          "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+        ],
+        "correct": {
+          "full": {
+            "evidence": 61,
+            "exact": 55,
+            "joint": 28
+          },
+          "sentence16": {
+            "evidence": 88,
+            "exact": 59,
+            "joint": 40
+          },
+          "sentence4": {
+            "evidence": 85,
+            "exact": 59,
+            "joint": 39
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": 0.09,
+              "bootstrap95": [
+                0.04666667,
+                0.13333333
+              ],
+              "wins": 37,
+              "losses": 10
+            },
+            "exact": {
+              "delta": 0.01333333,
+              "bootstrap95": [
+                -0.02,
+                0.04666667
+              ],
+              "wins": 14,
+              "losses": 10
+            },
+            "joint": {
+              "delta": 0.04,
+              "bootstrap95": [
+                0.00666667,
+                0.07333333
+              ],
+              "wins": 19,
+              "losses": 7
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": 0.08,
+              "bootstrap95": [
+                0.03666667,
+                0.12333333
+              ],
+              "wins": 34,
+              "losses": 10
+            },
+            "exact": {
+              "delta": 0.01333333,
+              "bootstrap95": [
+                -0.02,
+                0.04666667
+              ],
+              "wins": 14,
+              "losses": 10
+            },
+            "joint": {
+              "delta": 0.03666667,
+              "bootstrap95": [
+                0.00333333,
+                0.07
+              ],
+              "wins": 18,
+              "losses": 7
+            }
+          }
+        }
+      },
+      "twowiki-test:clean": {
+        "n": 420,
+        "hardware": [
+          "NVIDIA B200"
+        ],
+        "correct": {
+          "full": {
+            "evidence": 272,
+            "exact": 133,
+            "joint": 109
+          },
+          "sentence16": {
+            "evidence": 329,
+            "exact": 140,
+            "joint": 128
+          },
+          "sentence4": {
+            "evidence": 328,
+            "exact": 140,
+            "joint": 129
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": 0.13571429,
+              "bootstrap95": [
+                0.09285714,
+                0.18095238
+              ],
+              "wins": 75,
+              "losses": 18
+            },
+            "exact": {
+              "delta": 0.01666667,
+              "bootstrap95": [
+                -0.00714286,
+                0.04047619
+              ],
+              "wins": 17,
+              "losses": 10
+            },
+            "joint": {
+              "delta": 0.0452381,
+              "bootstrap95": [
+                0.02142857,
+                0.07142857
+              ],
+              "wins": 24,
+              "losses": 5
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": 0.13333333,
+              "bootstrap95": [
+                0.09285714,
+                0.17619048
+              ],
+              "wins": 73,
+              "losses": 17
+            },
+            "exact": {
+              "delta": 0.01666667,
+              "bootstrap95": [
+                -0.00714286,
+                0.04047619
+              ],
+              "wins": 17,
+              "losses": 10
+            },
+            "joint": {
+              "delta": 0.04761905,
+              "bootstrap95": [
+                0.02380952,
+                0.07380952
+              ],
+              "wins": 24,
+              "losses": 4
+            }
+          }
+        }
+      },
+      "twowiki-test:sham": {
+        "n": 420,
+        "hardware": [
+          "NVIDIA B200"
+        ],
+        "correct": {
+          "full": {
+            "evidence": 275,
+            "exact": 131,
+            "joint": 108
+          },
+          "sentence16": {
+            "evidence": 331,
+            "exact": 141,
+            "joint": 130
+          },
+          "sentence4": {
+            "evidence": 329,
+            "exact": 140,
+            "joint": 129
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": 0.13333333,
+              "bootstrap95": [
+                0.09047619,
+                0.17619048
+              ],
+              "wins": 75,
+              "losses": 19
+            },
+            "exact": {
+              "delta": 0.02380952,
+              "bootstrap95": [
+                -0.00238095,
+                0.05
+              ],
+              "wins": 21,
+              "losses": 11
+            },
+            "joint": {
+              "delta": 0.05238095,
+              "bootstrap95": [
+                0.0285119,
+                0.08095238
+              ],
+              "wins": 27,
+              "losses": 5
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": 0.12857143,
+              "bootstrap95": [
+                0.08571429,
+                0.17142857
+              ],
+              "wins": 73,
+              "losses": 19
+            },
+            "exact": {
+              "delta": 0.02142857,
+              "bootstrap95": [
+                -0.0047619,
+                0.04761905
+              ],
+              "wins": 20,
+              "losses": 11
+            },
+            "joint": {
+              "delta": 0.05,
+              "bootstrap95": [
+                0.02619048,
+                0.07619048
+              ],
+              "wins": 26,
+              "losses": 5
+            }
+          }
+        }
+      },
+      "twowiki-test:linked": {
+        "n": 420,
+        "hardware": [
+          "NVIDIA B200"
+        ],
+        "correct": {
+          "full": {
+            "evidence": 122,
+            "exact": 107,
+            "joint": 38
+          },
+          "sentence16": {
+            "evidence": 252,
+            "exact": 137,
+            "joint": 89
+          },
+          "sentence4": {
+            "evidence": 250,
+            "exact": 137,
+            "joint": 87
+          }
+        },
+        "paired_vs_full": {
+          "sentence16": {
+            "evidence": {
+              "delta": 0.30952381,
+              "bootstrap95": [
+                0.26190476,
+                0.35714286
+              ],
+              "wins": 139,
+              "losses": 9
+            },
+            "exact": {
+              "delta": 0.07142857,
+              "bootstrap95": [
+                0.03809524,
+                0.1047619
+              ],
+              "wins": 41,
+              "losses": 11
+            },
+            "joint": {
+              "delta": 0.12142857,
+              "bootstrap95": [
+                0.09047619,
+                0.1547619
+              ],
+              "wins": 52,
+              "losses": 1
+            }
+          },
+          "sentence4": {
+            "evidence": {
+              "delta": 0.3047619,
+              "bootstrap95": [
+                0.25714286,
+                0.35238095
+              ],
+              "wins": 137,
+              "losses": 9
+            },
+            "exact": {
+              "delta": 0.07142857,
+              "bootstrap95": [
+                0.03809524,
+                0.1047619
+              ],
+              "wins": 41,
+              "losses": 11
+            },
+            "joint": {
+              "delta": 0.11666667,
+              "bootstrap95": [
+                0.08571429,
+                0.14767857
+              ],
+              "wins": 50,
+              "losses": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "reader_hardware_check": {
+    "twowiki-test": {
+      "decisions": 3780,
+      "evidence_changed": 0,
+      "exact_changed": 0
+    },
+    "musique-test": {
+      "decisions": 2700,
+      "evidence_changed": 0,
+      "exact_changed": 2
+    }
+  }
+}

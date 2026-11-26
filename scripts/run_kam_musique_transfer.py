@@ -20,7 +20,7 @@ from run_kam_natural_router import QueryAdapter, score
 ARMS = ("single_shot", "sequential", "pair", "pair_masked")
 
 
-def restore_checkpoint(weights_path, config, cfg, training_cache, title_cache, *, weights_sha256=None):
+def restore_checkpoint(weights_path, config, cfg, training_cache, title_cache, *, weights_sha256=None, device="cuda"):
     if weights_sha256 is not None and digest(weights_path) != weights_sha256:
         raise ValueError("baseline checkpoint SHA-256 mismatch")
     weights = torch.load(weights_path, map_location="cpu", weights_only=True)
@@ -31,9 +31,9 @@ def restore_checkpoint(weights_path, config, cfg, training_cache, title_cache, *
     elif weights_sha256 is None or training_cache is not None or title_cache is not None:
         raise ValueError("provide both source caches or a pinned checkpoint SHA-256")
     width = weights["adapter"]["input.weight"].shape[-1]
-    model = QueryAdapter(width, cfg["bottleneck"], False).cuda().eval()
+    model = QueryAdapter(width, cfg["bottleneck"], False).to(device).eval()
     model.load_state_dict(weights["adapter"])
-    scorer = PairScorer().cuda().eval()
+    scorer = PairScorer().to(device).eval()
     scorer.load_state_dict(weights["pair"])
     return model, scorer
 
