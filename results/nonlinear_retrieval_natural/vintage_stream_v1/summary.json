@@ -1,0 +1,41 @@
+{
+  "seeds": [
+    230619,
+    741885,
+    795173,
+    923918
+  ],
+  "records": 190764,
+  "addresses": 1276,
+  "median_late": 7598.5,
+  "panels": {
+    "point": {
+      "queries": 800000,
+      "static_vintage_only_mismatches": 241832,
+      "exact_all": true,
+      "median_ns_lookup": {
+        "descending_scan": 3127.392195,
+        "bisect_static_vintage_only": 443.0482475,
+        "min_arrival_tree": 722.8429974999999,
+        "sqlite_index": 1842.8723625
+      },
+      "median_insert_ns": 441.54471999774546,
+      "median_live_lookup_ns": 548.7751525,
+      "median_out_of_order_arrivals": 7226.0
+    },
+    "independent": {
+      "queries": 800000,
+      "static_vintage_only_mismatches": 311634,
+      "exact_all": true,
+      "median_ns_lookup": {
+        "descending_scan": 3199.0359525,
+        "bisect_static_vintage_only": 516.1292100000001,
+        "min_arrival_tree": 984.4488,
+        "sqlite_index": 1849.8131625
+      },
+      "median_insert_ns": 451.2911293535468,
+      "median_live_lookup_ns": 573.0775475,
+      "median_out_of_order_arrivals": 7538.5
+    }
+  }
+}

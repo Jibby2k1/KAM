@@ -1,0 +1,836 @@
+{
+  "NVIDIA L4": {
+    "corpus_size": 190764,
+    "vectors_bytes": 293013504,
+    "queries": {
+      "canonical:known": {
+        "n": 320,
+        "semantic_index_exact": 320,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 304,
+            "top1_exact": 76,
+            "pool_guard_exact": 304,
+            "top1_future": 80,
+            "top1_value_exact": 79
+          },
+          "dense_cutoff": {
+            "top64_has_target": 308,
+            "top1_exact": 102,
+            "pool_guard_exact": 308,
+            "top1_future": 0,
+            "top1_value_exact": 102
+          },
+          "dense_observation": {
+            "top64_has_target": 320,
+            "top1_exact": 188,
+            "pool_guard_exact": 320,
+            "top1_future": 62,
+            "top1_value_exact": 194
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 320,
+            "top1_exact": 230,
+            "pool_guard_exact": 320,
+            "top1_future": 0,
+            "top1_value_exact": 234
+          }
+        }
+      },
+      "paraphrase:known": {
+        "n": 320,
+        "semantic_index_exact": 80,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 174,
+            "top1_exact": 27,
+            "pool_guard_exact": 78,
+            "top1_future": 86,
+            "top1_value_exact": 29
+          },
+          "dense_cutoff": {
+            "top64_has_target": 194,
+            "top1_exact": 36,
+            "pool_guard_exact": 80,
+            "top1_future": 0,
+            "top1_value_exact": 36
+          },
+          "dense_observation": {
+            "top64_has_target": 320,
+            "top1_exact": 63,
+            "pool_guard_exact": 80,
+            "top1_future": 61,
+            "top1_value_exact": 66
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 320,
+            "top1_exact": 80,
+            "pool_guard_exact": 80,
+            "top1_future": 0,
+            "top1_value_exact": 81
+          }
+        }
+      },
+      "canonical:unavailable": {
+        "n": 160,
+        "semantic_index_exact": 160,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 57,
+            "top1_value_exact": 0
+          },
+          "dense_cutoff": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 0
+          },
+          "dense_observation": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 160,
+            "top1_value_exact": 0
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 0,
+            "top1_exact": 160,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 160
+          }
+        }
+      },
+      "paraphrase:unavailable": {
+        "n": 160,
+        "semantic_index_exact": 160,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 65,
+            "top1_value_exact": 0
+          },
+          "dense_cutoff": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 0
+          },
+          "dense_observation": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 160,
+            "top1_value_exact": 0
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 0,
+            "top1_exact": 160,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 160
+          }
+        }
+      }
+    },
+    "timing": {
+      "1:dense": {
+        "sort": {
+          "batch_ms": 1.2897687847726047,
+          "repetitions": [
+            1.2878652778454125,
+            1.2881275615654886,
+            1.2897687847726047,
+            1.2913631508126855,
+            1.2941260356456041
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.3410430983640254,
+          "repetitions": [
+            1.3406600337475538,
+            1.3401987380348146,
+            1.3420440373010933,
+            1.3419119641184807,
+            1.3410430983640254
+          ]
+        }
+      },
+      "1:dense_cutoff": {
+        "sort": {
+          "batch_ms": 1.3092271401546896,
+          "repetitions": [
+            1.3079646159894764,
+            1.3101535150781274,
+            1.3101842487230897,
+            1.3092271401546896,
+            1.3089135754853487
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.3624982675537467,
+          "repetitions": [
+            1.3627592707052827,
+            1.3625452411361039,
+            1.3622967526316643,
+            1.3624982675537467,
+            1.3606679858639836
+          ]
+        }
+      },
+      "1:dense_observation": {
+        "sort": {
+          "batch_ms": 1.2980044120922685,
+          "repetitions": [
+            1.2940089800395072,
+            1.2968527153134346,
+            1.2980044120922685,
+            1.2992838746868074,
+            1.2998741585761309
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.367467746604234,
+          "repetitions": [
+            1.369333069305867,
+            1.366997603327036,
+            1.3660825206898153,
+            1.367467746604234,
+            1.3679559924639761
+          ]
+        }
+      },
+      "1:dense_bitemporal": {
+        "sort": {
+          "batch_ms": 1.3140388764441013,
+          "repetitions": [
+            1.3116583577357233,
+            1.3137359637767076,
+            1.3140388764441013,
+            1.3146328856237233,
+            1.3149921433068812
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.37896160595119,
+          "repetitions": [
+            1.4072746853344142,
+            1.3811223325319588,
+            1.37896160595119,
+            1.3784138136543334,
+            1.3781415182165802
+          ]
+        }
+      },
+      "16:dense": {
+        "sort": {
+          "batch_ms": 3.0022882856428623,
+          "repetitions": [
+            2.985636063385755,
+            3.0022882856428623,
+            3.0040184501558542,
+            3.003159072250128,
+            3.0009118490852416
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.6715959645807743,
+          "repetitions": [
+            1.6717599937692285,
+            1.667322008870542,
+            1.671368780080229,
+            1.6716767568141222,
+            1.6715959645807743
+          ]
+        }
+      },
+      "16:dense_cutoff": {
+        "sort": {
+          "batch_ms": 3.1218398362398148,
+          "repetitions": [
+            3.1202417449094355,
+            3.119418048299849,
+            3.123023430816829,
+            3.1218398362398148,
+            3.1224582344293594
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.8277406925335526,
+          "repetitions": [
+            1.8249301356263459,
+            1.8480215803720057,
+            1.824704755563289,
+            1.8277406925335526,
+            1.8309567822143435
+          ]
+        }
+      },
+      "16:dense_observation": {
+        "sort": {
+          "batch_ms": 3.228472836781293,
+          "repetitions": [
+            3.240542486310005,
+            3.2309528323821723,
+            3.228472836781293,
+            3.2235703547485173,
+            3.224452317226678
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.8136805156245828,
+          "repetitions": [
+            1.7796505708247423,
+            1.8027507467195392,
+            1.8136805156245828,
+            1.8170863040722907,
+            1.8159683677367866
+          ]
+        }
+      },
+      "16:dense_bitemporal": {
+        "sort": {
+          "batch_ms": 3.2690984080545604,
+          "repetitions": [
+            3.284943290054798,
+            3.2751921098679304,
+            3.2690984080545604,
+            3.268150147050619,
+            3.2642673468217254
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 1.8571116379462183,
+          "repetitions": [
+            1.813808805309236,
+            1.838486990891397,
+            1.8571116379462183,
+            1.8698197090998292,
+            1.8659682828001678
+          ]
+        }
+      },
+      "64:dense": {
+        "sort": {
+          "batch_ms": 9.972987696528435,
+          "repetitions": [
+            9.968017635401338,
+            9.972987696528435,
+            9.97683359310031,
+            9.950999228749424,
+            9.978168120142072
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 2.381191065069288,
+          "repetitions": [
+            2.225147793069482,
+            2.2702038986608386,
+            2.381191065069288,
+            2.4000617559067905,
+            2.408873289823532
+          ]
+        }
+      },
+      "64:dense_cutoff": {
+        "sort": {
+          "batch_ms": 11.172267433721572,
+          "repetitions": [
+            11.189891200046986,
+            11.160644120536745,
+            11.172267433721572,
+            11.17528515169397,
+            11.159317684359848
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 3.483344742562622,
+          "repetitions": [
+            3.4452060353942215,
+            3.483344742562622,
+            3.487807174678892,
+            3.485040506348014,
+            3.480516141280532
+          ]
+        }
+      },
+      "64:dense_observation": {
+        "sort": {
+          "batch_ms": 11.139646521769464,
+          "repetitions": [
+            11.12882379675284,
+            11.139646521769464,
+            11.134391650557518,
+            11.142703064251691,
+            11.142240487970412
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 3.286129387561232,
+          "repetitions": [
+            3.160329011734575,
+            3.2690915977582335,
+            3.286129387561232,
+            3.3028285834006965,
+            3.304688318166882
+          ]
+        }
+      },
+      "64:dense_bitemporal": {
+        "sort": {
+          "batch_ms": 11.279038211796433,
+          "repetitions": [
+            11.277630983386189,
+            11.279038211796433,
+            11.270871968008578,
+            11.284165375400335,
+            11.288067558780313
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 3.436762548517436,
+          "repetitions": [
+            3.3215188304893672,
+            3.436762548517436,
+            3.445759473834187,
+            3.448104194831103,
+            3.425641916692257
+          ]
+        }
+      }
+    }
+  },
+  "NVIDIA RTX PRO 6000 Blackwell Server Edition": {
+    "corpus_size": 190764,
+    "vectors_bytes": 293013504,
+    "queries": {
+      "canonical:known": {
+        "n": 320,
+        "semantic_index_exact": 320,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 304,
+            "top1_exact": 76,
+            "pool_guard_exact": 304,
+            "top1_future": 80,
+            "top1_value_exact": 79
+          },
+          "dense_cutoff": {
+            "top64_has_target": 308,
+            "top1_exact": 102,
+            "pool_guard_exact": 308,
+            "top1_future": 0,
+            "top1_value_exact": 102
+          },
+          "dense_observation": {
+            "top64_has_target": 320,
+            "top1_exact": 188,
+            "pool_guard_exact": 320,
+            "top1_future": 62,
+            "top1_value_exact": 194
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 320,
+            "top1_exact": 230,
+            "pool_guard_exact": 320,
+            "top1_future": 0,
+            "top1_value_exact": 234
+          }
+        }
+      },
+      "paraphrase:known": {
+        "n": 320,
+        "semantic_index_exact": 80,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 174,
+            "top1_exact": 27,
+            "pool_guard_exact": 78,
+            "top1_future": 86,
+            "top1_value_exact": 29
+          },
+          "dense_cutoff": {
+            "top64_has_target": 194,
+            "top1_exact": 36,
+            "pool_guard_exact": 80,
+            "top1_future": 0,
+            "top1_value_exact": 36
+          },
+          "dense_observation": {
+            "top64_has_target": 320,
+            "top1_exact": 63,
+            "pool_guard_exact": 80,
+            "top1_future": 61,
+            "top1_value_exact": 66
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 320,
+            "top1_exact": 80,
+            "pool_guard_exact": 80,
+            "top1_future": 0,
+            "top1_value_exact": 81
+          }
+        }
+      },
+      "canonical:unavailable": {
+        "n": 160,
+        "semantic_index_exact": 160,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 57,
+            "top1_value_exact": 0
+          },
+          "dense_cutoff": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 0
+          },
+          "dense_observation": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 160,
+            "top1_value_exact": 0
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 0,
+            "top1_exact": 160,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 160
+          }
+        }
+      },
+      "paraphrase:unavailable": {
+        "n": 160,
+        "semantic_index_exact": 160,
+        "scoring": {
+          "dense": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 65,
+            "top1_value_exact": 0
+          },
+          "dense_cutoff": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 0
+          },
+          "dense_observation": {
+            "top64_has_target": 0,
+            "top1_exact": 0,
+            "pool_guard_exact": 160,
+            "top1_future": 160,
+            "top1_value_exact": 0
+          },
+          "dense_bitemporal": {
+            "top64_has_target": 0,
+            "top1_exact": 160,
+            "pool_guard_exact": 160,
+            "top1_future": 0,
+            "top1_value_exact": 160
+          }
+        }
+      }
+    },
+    "timing": {
+      "1:dense": {
+        "sort": {
+          "batch_ms": 0.2748159458860755,
+          "repetitions": [
+            0.2748159458860755,
+            0.27517962735146284,
+            0.27464376762509346,
+            0.275306636467576,
+            0.27471326757222414
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.33698638435453176,
+          "repetitions": [
+            0.33698638435453176,
+            0.3355585504323244,
+            0.3381374990567565,
+            0.33726682886481285,
+            0.3367415629327297
+          ]
+        }
+      },
+      "1:dense_cutoff": {
+        "sort": {
+          "batch_ms": 0.2810371806845069,
+          "repetitions": [
+            0.28100970666855574,
+            0.2809520810842514,
+            0.28121809009462595,
+            0.2810371806845069,
+            0.28106546960771084
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.3407576587051153,
+          "repetitions": [
+            0.3401705762371421,
+            0.34132099244743586,
+            0.3407576587051153,
+            0.340899801813066,
+            0.3404627786949277
+          ]
+        }
+      },
+      "1:dense_observation": {
+        "sort": {
+          "batch_ms": 0.27148029766976833,
+          "repetitions": [
+            0.27148029766976833,
+            0.27163117192685604,
+            0.2712324494495988,
+            0.2715303562581539,
+            0.271252472884953
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.34033891279250383,
+          "repetitions": [
+            0.34033891279250383,
+            0.3411289071664214,
+            0.33970363438129425,
+            0.3400141140446067,
+            0.34038652665913105
+          ]
+        }
+      },
+      "1:dense_bitemporal": {
+        "sort": {
+          "batch_ms": 0.2753442386165261,
+          "repetitions": [
+            0.2753442386165261,
+            0.27539057191461325,
+            0.27548871003091335,
+            0.27514901012182236,
+            0.2753286389634013
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.34686317667365074,
+          "repetitions": [
+            0.3473751712590456,
+            0.34686061553657055,
+            0.34785340540111065,
+            0.34686317667365074,
+            0.3466409398242831
+          ]
+        }
+      },
+      "16:dense": {
+        "sort": {
+          "batch_ms": 0.5705890944227576,
+          "repetitions": [
+            0.5707168020308018,
+            0.569591298699379,
+            0.5705689545720816,
+            0.5709915421903133,
+            0.5705890944227576
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.419268268160522,
+          "repetitions": [
+            0.4201402189210057,
+            0.41892845183610916,
+            0.419268268160522,
+            0.4198367241770029,
+            0.41888339910656214
+          ]
+        }
+      },
+      "16:dense_cutoff": {
+        "sort": {
+          "batch_ms": 0.5849293665960431,
+          "repetitions": [
+            0.585885951295495,
+            0.5852475296705961,
+            0.5849063163623214,
+            0.5848117871209979,
+            0.5849293665960431
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.4504182143136859,
+          "repetitions": [
+            0.45039074029773474,
+            0.4495701286941767,
+            0.4504182143136859,
+            0.4510999424383044,
+            0.45229680836200714
+          ]
+        }
+      },
+      "16:dense_observation": {
+        "sort": {
+          "batch_ms": 0.5323090590536594,
+          "repetitions": [
+            0.53162791300565,
+            0.5320241907611489,
+            0.5330288549885154,
+            0.5333888111636043,
+            0.5323090590536594
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.4481867654249072,
+          "repetitions": [
+            0.4481867654249072,
+            0.4490455612540245,
+            0.4476936301216483,
+            0.44881273061037064,
+            0.4480095813050866
+          ]
+        }
+      },
+      "16:dense_bitemporal": {
+        "sort": {
+          "batch_ms": 0.5415310151875019,
+          "repetitions": [
+            0.5415822379291058,
+            0.5415310151875019,
+            0.5412211176007986,
+            0.5399930523708463,
+            0.5420129746198654
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.462964060716331,
+          "repetitions": [
+            0.4635642981156707,
+            0.4594688070937991,
+            0.4630215698853135,
+            0.462964060716331,
+            0.4596052458509803
+          ]
+        }
+      },
+      "64:dense": {
+        "sort": {
+          "batch_ms": 1.7528459429740906,
+          "repetitions": [
+            1.752002164721489,
+            1.7529067117720842,
+            1.7528459429740906,
+            1.7530381446704268,
+            1.752707059495151
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.5373458843678236,
+          "repetitions": [
+            0.5375788314267993,
+            0.5373458843678236,
+            0.5366259720176458,
+            0.537198269739747,
+            0.5377740599215031
+          ]
+        }
+      },
+      "64:dense_cutoff": {
+        "sort": {
+          "batch_ms": 1.840842072851956,
+          "repetitions": [
+            1.840842072851956,
+            1.841411693021655,
+            1.8403638387098908,
+            1.841069315560162,
+            1.8400646513327956
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.6154165603220463,
+          "repetitions": [
+            0.6158533506095409,
+            0.6167903775349259,
+            0.614899443462491,
+            0.6151417037472129,
+            0.6154165603220463
+          ]
+        }
+      },
+      "64:dense_observation": {
+        "sort": {
+          "batch_ms": 1.808790140785277,
+          "repetitions": [
+            1.8093516118824482,
+            1.8082355381920934,
+            1.808790140785277,
+            1.8081215675920248,
+            1.8088796641677618
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.6115324795246124,
+          "repetitions": [
+            0.611557625234127,
+            0.6086401408538222,
+            0.6110036047175527,
+            0.6115324795246124,
+            0.6119243334978819
+          ]
+        }
+      },
+      "64:dense_bitemporal": {
+        "sort": {
+          "batch_ms": 1.8422110006213188,
+          "repetitions": [
+            1.8434316152706742,
+            1.8425289308652282,
+            1.8418022664263844,
+            1.8420532578602433,
+            1.8422110006213188
+          ]
+        },
+        "shortlist": {
+          "batch_ms": 0.6407896289601922,
+          "repetitions": [
+            0.6412134971469641,
+            0.6388418842107058,
+            0.6407896289601922,
+            0.6403371226042509,
+            0.6409682100638747
+          ]
+        }
+      }
+    }
+  },
+  "hardware_agreement": {
+    "dense": {
+      "identical_top64_order": 887,
+      "identical_top1": 960
+    },
+    "dense_cutoff": {
+      "identical_top64_order": 893,
+      "identical_top1": 960
+    },
+    "dense_observation": {
+      "identical_top64_order": 940,
+      "identical_top1": 960
+    },
+    "dense_bitemporal": {
+      "identical_top64_order": 957,
+      "identical_top1": 960
+    }
+  }
+}

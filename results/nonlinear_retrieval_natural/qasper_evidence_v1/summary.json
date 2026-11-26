@@ -1,0 +1,233 @@
+{
+  "one": {
+    "n": 237,
+    "oracle_exact": 9,
+    "oracle_token_f1": 0.19050237488998745,
+    "scenarios": {
+      "clean": {
+        "pool_coverage": 234,
+        "arms": {
+          "dense_top1": {
+            "complete": 34,
+            "evidence_f1": 0.16272855133614628,
+            "answer_em": 3,
+            "answer_f1": 0.08861316230032557
+          },
+          "dense_top2": {
+            "complete": 57,
+            "evidence_f1": 0.18474984930681132,
+            "answer_em": 1,
+            "answer_f1": 0.07696501292223831
+          },
+          "learned_sequential": {
+            "complete": 29,
+            "evidence_f1": 0.10632911392405063,
+            "answer_em": 3,
+            "answer_f1": 0.0807887769922095
+          },
+          "one_pass_pair": {
+            "complete": 28,
+            "evidence_f1": 0.10351617440225035,
+            "answer_em": 2,
+            "answer_f1": 0.08688402786344948
+          },
+          "context_pair": {
+            "complete": 56,
+            "evidence_f1": 0.17144866385372715,
+            "answer_em": 0,
+            "answer_f1": 0.08079322128662421
+          }
+        }
+      },
+      "noise": {
+        "pool_coverage": 234,
+        "arms": {
+          "dense_top1": {
+            "complete": 34,
+            "evidence_f1": 0.16272855133614628,
+            "answer_em": 3,
+            "answer_f1": 0.08861316230032557
+          },
+          "dense_top2": {
+            "complete": 57,
+            "evidence_f1": 0.18474984930681132,
+            "answer_em": 1,
+            "answer_f1": 0.07696501292223831
+          },
+          "learned_sequential": {
+            "complete": 29,
+            "evidence_f1": 0.10632911392405063,
+            "answer_em": 3,
+            "answer_f1": 0.0807887769922095
+          },
+          "one_pass_pair": {
+            "complete": 28,
+            "evidence_f1": 0.10351617440225035,
+            "answer_em": 2,
+            "answer_f1": 0.08688402786344948
+          },
+          "context_pair": {
+            "complete": 53,
+            "evidence_f1": 0.16132208157524613,
+            "answer_em": 0,
+            "answer_f1": 0.07760278864235928
+          }
+        }
+      }
+    }
+  },
+  "two": {
+    "n": 88,
+    "oracle_exact": 1,
+    "oracle_token_f1": 0.15282482518517973,
+    "scenarios": {
+      "clean": {
+        "pool_coverage": 84,
+        "arms": {
+          "dense_top1": {
+            "complete": 0,
+            "evidence_f1": 0.0821969696969697,
+            "answer_em": 1,
+            "answer_f1": 0.0863209724505175
+          },
+          "dense_top2": {
+            "complete": 1,
+            "evidence_f1": 0.1423160173160173,
+            "answer_em": 0,
+            "answer_f1": 0.08015380643483737
+          },
+          "learned_sequential": {
+            "complete": 1,
+            "evidence_f1": 0.12483766233766233,
+            "answer_em": 1,
+            "answer_f1": 0.08168299976929906
+          },
+          "one_pass_pair": {
+            "complete": 0,
+            "evidence_f1": 0.10854978354978355,
+            "answer_em": 0,
+            "answer_f1": 0.08184719009124203
+          },
+          "context_pair": {
+            "complete": 0,
+            "evidence_f1": 0.11628787878787879,
+            "answer_em": 0,
+            "answer_f1": 0.06393359493741502
+          }
+        }
+      },
+      "noise": {
+        "pool_coverage": 84,
+        "arms": {
+          "dense_top1": {
+            "complete": 0,
+            "evidence_f1": 0.0821969696969697,
+            "answer_em": 1,
+            "answer_f1": 0.0863209724505175
+          },
+          "dense_top2": {
+            "complete": 1,
+            "evidence_f1": 0.1423160173160173,
+            "answer_em": 0,
+            "answer_f1": 0.08015380643483737
+          },
+          "learned_sequential": {
+            "complete": 1,
+            "evidence_f1": 0.12483766233766233,
+            "answer_em": 1,
+            "answer_f1": 0.08168299976929906
+          },
+          "one_pass_pair": {
+            "complete": 0,
+            "evidence_f1": 0.10854978354978355,
+            "answer_em": 0,
+            "answer_f1": 0.08184719009124203
+          },
+          "context_pair": {
+            "complete": 0,
+            "evidence_f1": 0.10492424242424242,
+            "answer_em": 0,
+            "answer_f1": 0.0589275440032675
+          }
+        }
+      }
+    }
+  },
+  "three_plus": {
+    "n": 59,
+    "oracle_exact": 0,
+    "oracle_token_f1": 0.13147288972264073,
+    "scenarios": {
+      "clean": {
+        "pool_coverage": 52,
+        "arms": {
+          "dense_top1": {
+            "complete": 0,
+            "evidence_f1": 0.09156577885391445,
+            "answer_em": 0,
+            "answer_f1": 0.05241614836286328
+          },
+          "dense_top2": {
+            "complete": 0,
+            "evidence_f1": 0.14134199134199135,
+            "answer_em": 0,
+            "answer_f1": 0.0666683492496404
+          },
+          "learned_sequential": {
+            "complete": 0,
+            "evidence_f1": 0.1363245041211143,
+            "answer_em": 0,
+            "answer_f1": 0.058445435340755386
+          },
+          "one_pass_pair": {
+            "complete": 0,
+            "evidence_f1": 0.13858439112676402,
+            "answer_em": 0,
+            "answer_f1": 0.05773222592235118
+          },
+          "context_pair": {
+            "complete": 0,
+            "evidence_f1": 0.11396531905006481,
+            "answer_em": 0,
+            "answer_f1": 0.06344081432551056
+          }
+        }
+      },
+      "noise": {
+        "pool_coverage": 52,
+        "arms": {
+          "dense_top1": {
+            "complete": 0,
+            "evidence_f1": 0.09156577885391445,
+            "answer_em": 0,
+            "answer_f1": 0.05241614836286328
+          },
+          "dense_top2": {
+            "complete": 0,
+            "evidence_f1": 0.14134199134199135,
+            "answer_em": 0,
+            "answer_f1": 0.0666683492496404
+          },
+          "learned_sequential": {
+            "complete": 0,
+            "evidence_f1": 0.1363245041211143,
+            "answer_em": 0,
+            "answer_f1": 0.058445435340755386
+          },
+          "one_pass_pair": {
+            "complete": 0,
+            "evidence_f1": 0.13858439112676402,
+            "answer_em": 0,
+            "answer_f1": 0.05773222592235118
+          },
+          "context_pair": {
+            "complete": 0,
+            "evidence_f1": 0.10718565803311565,
+            "answer_em": 0,
+            "answer_f1": 0.05991524385078754
+          }
+        }
+      }
+    }
+  }
+}

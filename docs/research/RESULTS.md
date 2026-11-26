@@ -4,6 +4,8 @@
 
 The [held-out HotpotQA supporting-link study](../../reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) compares a question-conditioned pair scorer with one-pass and sequential retrieval on shared dense pools. It reports linked and unlinked gold evidence separately and tests the ranking of supporting links against distractor links directly.
 
+The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
+
 ## Corpus retrieval and serving
 
 At matched isolated latency on two independent HotpotQA cohorts (512 questions total), exact dense retrieval put both gold documents in the candidate pool for 349 questions, compared with 302 for hybrid and 266 for BM25. Joint exact match was 85, 89, and 91 respectively. Paired intervals covered zero. The change in rank from pool coverage to downstream joint exact match identifies pair selection as a separate bottleneck. [L4 aggregate](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_threads_l4/summary.json) · [Independent replication](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_replicate_l4/summary.json)
@@ -14,6 +16,10 @@ On an RTX GPU, FP32 lexical pruning in the hybrid pipeline reduced p95 latency f
 
 A frozen conservative gate rejected all 576 prompts for 96 unseen registry identities while answering 48 of 192 supported-alias prompts. Supplying a verified identity raised supported coverage to 192 of 192. These figures measure coverage and abstention on that fixture. [Registry holdout results](../../results/nonlinear_retrieval_natural/release_registry_sample_v1/summary.json)
 
+The [archived revision study](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#real-revision-and-abstention) measures the distinct effects of identity, observation date, publication cutoff, and simulated local ingestion delays.
+
 ## Model and controlled experiments
 
 See the [architecture specification](../../Kernel_Adaptive_Memory_Research_Specification.pdf), the [core experiment guide](../../EXPERIMENTS.md), and the [Phase IV–VI documentation index](../../LLM_NAVIGATION.md) for controlled KAM model experiments. Natural-task experiments evaluate the transfer of routing ideas using separate retrieval components.
+
+The [controlled revision-noise report](../../reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md) tests exact temporal pointers, absolute position, radial versus dot attention, token-matched training curricula, and exact batched pair reduction on two GPU families.

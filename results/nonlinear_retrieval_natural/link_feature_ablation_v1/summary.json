@@ -1,0 +1,2178 @@
+{
+  "fit": {
+    "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+    "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+    "fixture_sha256": "5bcfdba0992090cb918528524cf5378c8a85cb669d9a33d3a0476ed55abe76b2",
+    "fit_audit_sha256": "da71f07de89d6e55aad84172e1359e5bc56fd0cf3ade762a5d58aa7548420753",
+    "reference_heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+    "full_refit_max_param_delta": 0.0,
+    "elapsed_seconds": 30.002797154709697,
+    "gpu": "NVIDIA L4",
+    "torch": "2.8.0+cu128",
+    "arms": {
+      "refit_full": {
+        "mask": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "loss": 1.6157190799713135
+      },
+      "refit_no_mention": {
+        "mask": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        "loss": 1.5789341926574707
+      },
+      "refit_no_coverage": {
+        "mask": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          true,
+          true
+        ],
+        "loss": 3.229644775390625
+      },
+      "refit_without_links": {
+        "mask": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        "loss": 3.048717498779297
+      },
+      "refit_plain": {
+        "mask": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "loss": 3.213348388671875
+      },
+      "refit_affinity_only": {
+        "mask": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "loss": 5.781798839569092
+      }
+    }
+  },
+  "datasets": {
+    "hotpot": {
+      "all": {
+        "n": 768,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 346,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 231,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 346,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 231,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 347,
+              "vs_full": {
+                "delta": 0.0013020833333333333,
+                "bootstrap95": [
+                  -0.009114583333333334,
+                  0.01171875
+                ],
+                "improved": 10,
+                "worsened": 9
+              }
+            },
+            "joint": {
+              "hits": 234,
+              "vs_full": {
+                "delta": 0.00390625,
+                "bootstrap95": [
+                  -0.005208333333333333,
+                  0.013020833333333334
+                ],
+                "improved": 8,
+                "worsened": 5
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 210,
+              "vs_full": {
+                "delta": -0.17708333333333334,
+                "bootstrap95": [
+                  -0.20703125,
+                  -0.14973958333333334
+                ],
+                "improved": 8,
+                "worsened": 144
+              }
+            },
+            "joint": {
+              "hits": 137,
+              "vs_full": {
+                "delta": -0.12239583333333333,
+                "bootstrap95": [
+                  -0.14713541666666666,
+                  -0.09765625
+                ],
+                "improved": 5,
+                "worsened": 99
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 279,
+              "vs_full": {
+                "delta": -0.08723958333333333,
+                "bootstrap95": [
+                  -0.1171875,
+                  -0.05859375
+                ],
+                "improved": 38,
+                "worsened": 105
+              }
+            },
+            "joint": {
+              "hits": 184,
+              "vs_full": {
+                "delta": -0.061197916666666664,
+                "bootstrap95": [
+                  -0.0859375,
+                  -0.037760416666666664
+                ],
+                "improved": 21,
+                "worsened": 68
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 212,
+              "vs_full": {
+                "delta": -0.17447916666666666,
+                "bootstrap95": [
+                  -0.203125,
+                  -0.14583333333333334
+                ],
+                "improved": 7,
+                "worsened": 141
+              }
+            },
+            "joint": {
+              "hits": 144,
+              "vs_full": {
+                "delta": -0.11328125,
+                "bootstrap95": [
+                  -0.13802083333333334,
+                  -0.08984375
+                ],
+                "improved": 5,
+                "worsened": 92
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 94,
+              "vs_full": {
+                "delta": -0.328125,
+                "bootstrap95": [
+                  -0.3645833333333333,
+                  -0.2916666666666667
+                ],
+                "improved": 18,
+                "worsened": 270
+              }
+            },
+            "joint": {
+              "hits": 57,
+              "vs_full": {
+                "delta": -0.2265625,
+                "bootstrap95": [
+                  -0.2604166666666667,
+                  -0.1953125
+                ],
+                "improved": 9,
+                "worsened": 183
+              }
+            }
+          }
+        }
+      },
+      "linked": {
+        "n": 368,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 323,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 216,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 323,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 216,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 325,
+              "vs_full": {
+                "delta": 0.005434782608695652,
+                "bootstrap95": [
+                  -0.016304347826086956,
+                  0.02717391304347826
+                ],
+                "improved": 10,
+                "worsened": 8
+              }
+            },
+            "joint": {
+              "hits": 220,
+              "vs_full": {
+                "delta": 0.010869565217391304,
+                "bootstrap95": [
+                  -0.008152173913043478,
+                  0.029891304347826088
+                ],
+                "improved": 8,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 208,
+              "vs_full": {
+                "delta": -0.3125,
+                "bootstrap95": [
+                  -0.36141304347826086,
+                  -0.2608695652173913
+                ],
+                "improved": 7,
+                "worsened": 122
+              }
+            },
+            "joint": {
+              "hits": 135,
+              "vs_full": {
+                "delta": -0.22010869565217392,
+                "bootstrap95": [
+                  -0.26358695652173914,
+                  -0.1766304347826087
+                ],
+                "improved": 4,
+                "worsened": 85
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 223,
+              "vs_full": {
+                "delta": -0.2717391304347826,
+                "bootstrap95": [
+                  -0.32065217391304346,
+                  -0.22282608695652173
+                ],
+                "improved": 4,
+                "worsened": 104
+              }
+            },
+            "joint": {
+              "hits": 151,
+              "vs_full": {
+                "delta": -0.1766304347826087,
+                "bootstrap95": [
+                  -0.21739130434782608,
+                  -0.1358695652173913
+                ],
+                "improved": 3,
+                "worsened": 68
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 210,
+              "vs_full": {
+                "delta": -0.3070652173913043,
+                "bootstrap95": [
+                  -0.35597826086956524,
+                  -0.2554347826086957
+                ],
+                "improved": 6,
+                "worsened": 119
+              }
+            },
+            "joint": {
+              "hits": 142,
+              "vs_full": {
+                "delta": -0.20108695652173914,
+                "bootstrap95": [
+                  -0.24456521739130435,
+                  -0.15760869565217392
+                ],
+                "improved": 4,
+                "worsened": 78
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 78,
+              "vs_full": {
+                "delta": -0.6657608695652174,
+                "bootstrap95": [
+                  -0.717391304347826,
+                  -0.6141304347826086
+                ],
+                "improved": 5,
+                "worsened": 250
+              }
+            },
+            "joint": {
+              "hits": 50,
+              "vs_full": {
+                "delta": -0.45108695652173914,
+                "bootstrap95": [
+                  -0.5027173913043478,
+                  -0.3967391304347826
+                ],
+                "improved": 4,
+                "worsened": 170
+              }
+            }
+          }
+        }
+      },
+      "unlinked": {
+        "n": 100,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 23,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 15,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 23,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 15,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 22,
+              "vs_full": {
+                "delta": -0.01,
+                "bootstrap95": [
+                  -0.03,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 1
+              }
+            },
+            "joint": {
+              "hits": 14,
+              "vs_full": {
+                "delta": -0.01,
+                "bootstrap95": [
+                  -0.03,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 1
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 2,
+              "vs_full": {
+                "delta": -0.21,
+                "bootstrap95": [
+                  -0.3,
+                  -0.13
+                ],
+                "improved": 1,
+                "worsened": 22
+              }
+            },
+            "joint": {
+              "hits": 2,
+              "vs_full": {
+                "delta": -0.13,
+                "bootstrap95": [
+                  -0.21,
+                  -0.06
+                ],
+                "improved": 1,
+                "worsened": 14
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 56,
+              "vs_full": {
+                "delta": 0.33,
+                "bootstrap95": [
+                  0.24,
+                  0.43
+                ],
+                "improved": 34,
+                "worsened": 1
+              }
+            },
+            "joint": {
+              "hits": 33,
+              "vs_full": {
+                "delta": 0.18,
+                "bootstrap95": [
+                  0.11,
+                  0.26
+                ],
+                "improved": 18,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 2,
+              "vs_full": {
+                "delta": -0.21,
+                "bootstrap95": [
+                  -0.3,
+                  -0.13
+                ],
+                "improved": 1,
+                "worsened": 22
+              }
+            },
+            "joint": {
+              "hits": 2,
+              "vs_full": {
+                "delta": -0.13,
+                "bootstrap95": [
+                  -0.21,
+                  -0.06
+                ],
+                "improved": 1,
+                "worsened": 14
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 16,
+              "vs_full": {
+                "delta": -0.07,
+                "bootstrap95": [
+                  -0.18,
+                  0.04
+                ],
+                "improved": 13,
+                "worsened": 20
+              }
+            },
+            "joint": {
+              "hits": 7,
+              "vs_full": {
+                "delta": -0.08,
+                "bootstrap95": [
+                  -0.16,
+                  0.0
+                ],
+                "improved": 5,
+                "worsened": 13
+              }
+            }
+          }
+        }
+      }
+    },
+    "twowiki": {
+      "all": {
+        "n": 768,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 570,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 186,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 570,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 186,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 564,
+              "vs_full": {
+                "delta": -0.0078125,
+                "bootstrap95": [
+                  -0.018229166666666668,
+                  0.0026041666666666665
+                ],
+                "improved": 6,
+                "worsened": 12
+              }
+            },
+            "joint": {
+              "hits": 183,
+              "vs_full": {
+                "delta": -0.00390625,
+                "bootstrap95": [
+                  -0.009114583333333334,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 3
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 510,
+              "vs_full": {
+                "delta": -0.078125,
+                "bootstrap95": [
+                  -0.10807291666666667,
+                  -0.048177083333333336
+                ],
+                "improved": 42,
+                "worsened": 102
+              }
+            },
+            "joint": {
+              "hits": 164,
+              "vs_full": {
+                "delta": -0.028645833333333332,
+                "bootstrap95": [
+                  -0.048177083333333336,
+                  -0.0078125
+                ],
+                "improved": 19,
+                "worsened": 41
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 399,
+              "vs_full": {
+                "delta": -0.22265625,
+                "bootstrap95": [
+                  -0.2643229166666667,
+                  -0.18229166666666666
+                ],
+                "improved": 59,
+                "worsened": 230
+              }
+            },
+            "joint": {
+              "hits": 150,
+              "vs_full": {
+                "delta": -0.046875,
+                "bootstrap95": [
+                  -0.06901041666666667,
+                  -0.026041666666666668
+                ],
+                "improved": 18,
+                "worsened": 54
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 514,
+              "vs_full": {
+                "delta": -0.07291666666666667,
+                "bootstrap95": [
+                  -0.10416666666666667,
+                  -0.041666666666666664
+                ],
+                "improved": 47,
+                "worsened": 103
+              }
+            },
+            "joint": {
+              "hits": 163,
+              "vs_full": {
+                "delta": -0.029947916666666668,
+                "bootstrap95": [
+                  -0.049479166666666664,
+                  -0.009114583333333334
+                ],
+                "improved": 19,
+                "worsened": 42
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 369,
+              "vs_full": {
+                "delta": -0.26171875,
+                "bootstrap95": [
+                  -0.3046875,
+                  -0.21875
+                ],
+                "improved": 69,
+                "worsened": 270
+              }
+            },
+            "joint": {
+              "hits": 124,
+              "vs_full": {
+                "delta": -0.08072916666666667,
+                "bootstrap95": [
+                  -0.10677083333333333,
+                  -0.0546875
+                ],
+                "improved": 27,
+                "worsened": 89
+              }
+            }
+          }
+        }
+      },
+      "linked": {
+        "n": 416,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 373,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 88,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 373,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 88,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 372,
+              "vs_full": {
+                "delta": -0.002403846153846154,
+                "bootstrap95": [
+                  -0.019230769230769232,
+                  0.014423076923076924
+                ],
+                "improved": 6,
+                "worsened": 7
+              }
+            },
+            "joint": {
+              "hits": 87,
+              "vs_full": {
+                "delta": -0.002403846153846154,
+                "bootstrap95": [
+                  -0.007211538461538462,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 1
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 378,
+              "vs_full": {
+                "delta": 0.01201923076923077,
+                "bootstrap95": [
+                  -0.014423076923076924,
+                  0.038461538461538464
+                ],
+                "improved": 18,
+                "worsened": 13
+              }
+            },
+            "joint": {
+              "hits": 91,
+              "vs_full": {
+                "delta": 0.007211538461538462,
+                "bootstrap95": [
+                  -0.004807692307692308,
+                  0.019230769230769232
+                ],
+                "improved": 5,
+                "worsened": 2
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 148,
+              "vs_full": {
+                "delta": -0.5408653846153846,
+                "bootstrap95": [
+                  -0.5889423076923077,
+                  -0.49278846153846156
+                ],
+                "improved": 1,
+                "worsened": 226
+              }
+            },
+            "joint": {
+              "hits": 35,
+              "vs_full": {
+                "delta": -0.12740384615384615,
+                "bootstrap95": [
+                  -0.16105769230769232,
+                  -0.09615384615384616
+                ],
+                "improved": 0,
+                "worsened": 53
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 384,
+              "vs_full": {
+                "delta": 0.026442307692307692,
+                "bootstrap95": [
+                  0.0,
+                  0.055288461538461536
+                ],
+                "improved": 23,
+                "worsened": 12
+              }
+            },
+            "joint": {
+              "hits": 92,
+              "vs_full": {
+                "delta": 0.009615384615384616,
+                "bootstrap95": [
+                  0.0,
+                  0.021634615384615384
+                ],
+                "improved": 5,
+                "worsened": 1
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 210,
+              "vs_full": {
+                "delta": -0.3918269230769231,
+                "bootstrap95": [
+                  -0.4423076923076923,
+                  -0.34134615384615385
+                ],
+                "improved": 9,
+                "worsened": 172
+              }
+            },
+            "joint": {
+              "hits": 55,
+              "vs_full": {
+                "delta": -0.07932692307692307,
+                "bootstrap95": [
+                  -0.11057692307692307,
+                  -0.05048076923076923
+                ],
+                "improved": 4,
+                "worsened": 37
+              }
+            }
+          }
+        }
+      },
+      "unlinked": {
+        "n": 352,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 197,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 98,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 197,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 98,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 192,
+              "vs_full": {
+                "delta": -0.014204545454545454,
+                "bootstrap95": [
+                  -0.028409090909090908,
+                  -0.002840909090909091
+                ],
+                "improved": 0,
+                "worsened": 5
+              }
+            },
+            "joint": {
+              "hits": 96,
+              "vs_full": {
+                "delta": -0.005681818181818182,
+                "bootstrap95": [
+                  -0.014204545454545454,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 2
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 132,
+              "vs_full": {
+                "delta": -0.1846590909090909,
+                "bootstrap95": [
+                  -0.23863636363636365,
+                  -0.1278409090909091
+                ],
+                "improved": 24,
+                "worsened": 89
+              }
+            },
+            "joint": {
+              "hits": 73,
+              "vs_full": {
+                "delta": -0.07102272727272728,
+                "bootstrap95": [
+                  -0.11079545454545454,
+                  -0.03125
+                ],
+                "improved": 14,
+                "worsened": 39
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 251,
+              "vs_full": {
+                "delta": 0.1534090909090909,
+                "bootstrap95": [
+                  0.11363636363636363,
+                  0.19602272727272727
+                ],
+                "improved": 58,
+                "worsened": 4
+              }
+            },
+            "joint": {
+              "hits": 115,
+              "vs_full": {
+                "delta": 0.048295454545454544,
+                "bootstrap95": [
+                  0.02556818181818182,
+                  0.07386363636363637
+                ],
+                "improved": 18,
+                "worsened": 1
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 130,
+              "vs_full": {
+                "delta": -0.1903409090909091,
+                "bootstrap95": [
+                  -0.24431818181818182,
+                  -0.13352272727272727
+                ],
+                "improved": 24,
+                "worsened": 91
+              }
+            },
+            "joint": {
+              "hits": 71,
+              "vs_full": {
+                "delta": -0.07670454545454546,
+                "bootstrap95": [
+                  -0.11647727272727272,
+                  -0.036931818181818184
+                ],
+                "improved": 14,
+                "worsened": 41
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 159,
+              "vs_full": {
+                "delta": -0.10795454545454546,
+                "bootstrap95": [
+                  -0.17613636363636365,
+                  -0.036931818181818184
+                ],
+                "improved": 60,
+                "worsened": 98
+              }
+            },
+            "joint": {
+              "hits": 69,
+              "vs_full": {
+                "delta": -0.08238636363636363,
+                "bootstrap95": [
+                  -0.1278409090909091,
+                  -0.03409090909090909
+                ],
+                "improved": 23,
+                "worsened": 52
+              }
+            }
+          }
+        }
+      }
+    },
+    "musique": {
+      "all": {
+        "n": 236,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 64,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 25,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 64,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 25,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 63,
+              "vs_full": {
+                "delta": -0.00423728813559322,
+                "bootstrap95": [
+                  -0.01694915254237288,
+                  0.00847457627118644
+                ],
+                "improved": 1,
+                "worsened": 2
+              }
+            },
+            "joint": {
+              "hits": 24,
+              "vs_full": {
+                "delta": -0.00423728813559322,
+                "bootstrap95": [
+                  -0.012711864406779662,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 1
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 73,
+              "vs_full": {
+                "delta": 0.038135593220338986,
+                "bootstrap95": [
+                  -0.012711864406779662,
+                  0.08898305084745763
+                ],
+                "improved": 23,
+                "worsened": 14
+              }
+            },
+            "joint": {
+              "hits": 33,
+              "vs_full": {
+                "delta": 0.03389830508474576,
+                "bootstrap95": [
+                  0.0,
+                  0.06779661016949153
+                ],
+                "improved": 13,
+                "worsened": 5
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 43,
+              "vs_full": {
+                "delta": -0.08898305084745763,
+                "bootstrap95": [
+                  -0.1483050847457627,
+                  -0.029661016949152543
+                ],
+                "improved": 17,
+                "worsened": 38
+              }
+            },
+            "joint": {
+              "hits": 19,
+              "vs_full": {
+                "delta": -0.025423728813559324,
+                "bootstrap95": [
+                  -0.06779661016949153,
+                  0.01694915254237288
+                ],
+                "improved": 10,
+                "worsened": 16
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 70,
+              "vs_full": {
+                "delta": 0.025423728813559324,
+                "bootstrap95": [
+                  -0.025423728813559324,
+                  0.07627118644067797
+                ],
+                "improved": 22,
+                "worsened": 16
+              }
+            },
+            "joint": {
+              "hits": 29,
+              "vs_full": {
+                "delta": 0.01694915254237288,
+                "bootstrap95": [
+                  -0.01694915254237288,
+                  0.05508474576271186
+                ],
+                "improved": 12,
+                "worsened": 8
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 53,
+              "vs_full": {
+                "delta": -0.046610169491525424,
+                "bootstrap95": [
+                  -0.11440677966101695,
+                  0.0211864406779661
+                ],
+                "improved": 28,
+                "worsened": 39
+              }
+            },
+            "joint": {
+              "hits": 28,
+              "vs_full": {
+                "delta": 0.012711864406779662,
+                "bootstrap95": [
+                  -0.03389830508474576,
+                  0.059322033898305086
+                ],
+                "improved": 18,
+                "worsened": 15
+              }
+            }
+          }
+        }
+      },
+      "linked": {
+        "n": 74,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 48,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 19,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 48,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 19,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 47,
+              "vs_full": {
+                "delta": -0.013513513513513514,
+                "bootstrap95": [
+                  -0.06756756756756757,
+                  0.02702702702702703
+                ],
+                "improved": 1,
+                "worsened": 2
+              }
+            },
+            "joint": {
+              "hits": 18,
+              "vs_full": {
+                "delta": -0.013513513513513514,
+                "bootstrap95": [
+                  -0.04054054054054054,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 1
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 58,
+              "vs_full": {
+                "delta": 0.13513513513513514,
+                "bootstrap95": [
+                  0.013513513513513514,
+                  0.25675675675675674
+                ],
+                "improved": 16,
+                "worsened": 6
+              }
+            },
+            "joint": {
+              "hits": 26,
+              "vs_full": {
+                "delta": 0.0945945945945946,
+                "bootstrap95": [
+                  0.02702702702702703,
+                  0.17567567567567569
+                ],
+                "improved": 8,
+                "worsened": 1
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 10,
+              "vs_full": {
+                "delta": -0.5135135135135135,
+                "bootstrap95": [
+                  -0.6216216216216216,
+                  -0.40540540540540543
+                ],
+                "improved": 0,
+                "worsened": 38
+              }
+            },
+            "joint": {
+              "hits": 3,
+              "vs_full": {
+                "delta": -0.21621621621621623,
+                "bootstrap95": [
+                  -0.3108108108108108,
+                  -0.12162162162162163
+                ],
+                "improved": 0,
+                "worsened": 16
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 55,
+              "vs_full": {
+                "delta": 0.0945945945945946,
+                "bootstrap95": [
+                  -0.02702702702702703,
+                  0.21621621621621623
+                ],
+                "improved": 15,
+                "worsened": 8
+              }
+            },
+            "joint": {
+              "hits": 22,
+              "vs_full": {
+                "delta": 0.04054054054054054,
+                "bootstrap95": [
+                  -0.04054054054054054,
+                  0.12162162162162163
+                ],
+                "improved": 7,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 22,
+              "vs_full": {
+                "delta": -0.35135135135135137,
+                "bootstrap95": [
+                  -0.4864864864864865,
+                  -0.20270270270270271
+                ],
+                "improved": 6,
+                "worsened": 32
+              }
+            },
+            "joint": {
+              "hits": 8,
+              "vs_full": {
+                "delta": -0.14864864864864866,
+                "bootstrap95": [
+                  -0.25675675675675674,
+                  -0.04054054054054054
+                ],
+                "improved": 3,
+                "worsened": 14
+              }
+            }
+          }
+        }
+      },
+      "unlinked": {
+        "n": 162,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 16,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 16,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 16,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 15,
+              "vs_full": {
+                "delta": -0.006172839506172839,
+                "bootstrap95": [
+                  -0.05555555555555555,
+                  0.037037037037037035
+                ],
+                "improved": 7,
+                "worsened": 8
+              }
+            },
+            "joint": {
+              "hits": 7,
+              "vs_full": {
+                "delta": 0.006172839506172839,
+                "bootstrap95": [
+                  -0.030864197530864196,
+                  0.043209876543209874
+                ],
+                "improved": 5,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 33,
+              "vs_full": {
+                "delta": 0.10493827160493827,
+                "bootstrap95": [
+                  0.06172839506172839,
+                  0.15432098765432098
+                ],
+                "improved": 17,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 16,
+              "vs_full": {
+                "delta": 0.06172839506172839,
+                "bootstrap95": [
+                  0.030864197530864196,
+                  0.09876543209876543
+                ],
+                "improved": 10,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 15,
+              "vs_full": {
+                "delta": -0.006172839506172839,
+                "bootstrap95": [
+                  -0.05555555555555555,
+                  0.037037037037037035
+                ],
+                "improved": 7,
+                "worsened": 8
+              }
+            },
+            "joint": {
+              "hits": 7,
+              "vs_full": {
+                "delta": 0.006172839506172839,
+                "bootstrap95": [
+                  -0.030864197530864196,
+                  0.043209876543209874
+                ],
+                "improved": 5,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 31,
+              "vs_full": {
+                "delta": 0.09259259259259259,
+                "bootstrap95": [
+                  0.030864197530864196,
+                  0.16049382716049382
+                ],
+                "improved": 22,
+                "worsened": 7
+              }
+            },
+            "joint": {
+              "hits": 20,
+              "vs_full": {
+                "delta": 0.08641975308641975,
+                "bootstrap95": [
+                  0.043209876543209874,
+                  0.13580246913580246
+                ],
+                "improved": 15,
+                "worsened": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "news": {
+      "all": {
+        "n": 222,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 69,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 69,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 66,
+              "vs_full": {
+                "delta": -0.013513513513513514,
+                "bootstrap95": [
+                  -0.036036036036036036,
+                  0.0045045045045045045
+                ],
+                "improved": 1,
+                "worsened": 4
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 47,
+              "vs_full": {
+                "delta": -0.0990990990990991,
+                "bootstrap95": [
+                  -0.16666666666666666,
+                  -0.02702702702702703
+                ],
+                "improved": 22,
+                "worsened": 44
+              }
+            },
+            "joint": {
+              "hits": 4,
+              "vs_full": {
+                "delta": -0.009009009009009009,
+                "bootstrap95": [
+                  -0.03153153153153153,
+                  0.013513513513513514
+                ],
+                "improved": 2,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 77,
+              "vs_full": {
+                "delta": 0.036036036036036036,
+                "bootstrap95": [
+                  -0.0045045045045045045,
+                  0.07657657657657657
+                ],
+                "improved": 15,
+                "worsened": 7
+              }
+            },
+            "joint": {
+              "hits": 5,
+              "vs_full": {
+                "delta": -0.0045045045045045045,
+                "bootstrap95": [
+                  -0.02252252252252252,
+                  0.009009009009009009
+                ],
+                "improved": 1,
+                "worsened": 2
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 47,
+              "vs_full": {
+                "delta": -0.0990990990990991,
+                "bootstrap95": [
+                  -0.16666666666666666,
+                  -0.02702702702702703
+                ],
+                "improved": 22,
+                "worsened": 44
+              }
+            },
+            "joint": {
+              "hits": 4,
+              "vs_full": {
+                "delta": -0.009009009009009009,
+                "bootstrap95": [
+                  -0.03153153153153153,
+                  0.013513513513513514
+                ],
+                "improved": 2,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 40,
+              "vs_full": {
+                "delta": -0.13063063063063063,
+                "bootstrap95": [
+                  -0.2072072072072072,
+                  -0.05405405405405406
+                ],
+                "improved": 25,
+                "worsened": 54
+              }
+            },
+            "joint": {
+              "hits": 3,
+              "vs_full": {
+                "delta": -0.013513513513513514,
+                "bootstrap95": [
+                  -0.036036036036036036,
+                  0.009009009009009009
+                ],
+                "improved": 2,
+                "worsened": 5
+              }
+            }
+          }
+        }
+      },
+      "unlinked": {
+        "n": 207,
+        "arms": {
+          "context_only": {
+            "support": {
+              "hits": 69,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_full": {
+            "support": {
+              "hits": 69,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_mention": {
+            "support": {
+              "hits": 66,
+              "vs_full": {
+                "delta": -0.014492753623188406,
+                "bootstrap95": [
+                  -0.033816425120772944,
+                  0.004830917874396135
+                ],
+                "improved": 1,
+                "worsened": 4
+              }
+            },
+            "joint": {
+              "hits": 6,
+              "vs_full": {
+                "delta": 0,
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "improved": 0,
+                "worsened": 0
+              }
+            }
+          },
+          "refit_no_coverage": {
+            "support": {
+              "hits": 47,
+              "vs_full": {
+                "delta": -0.10628019323671498,
+                "bootstrap95": [
+                  -0.178743961352657,
+                  -0.028985507246376812
+                ],
+                "improved": 22,
+                "worsened": 44
+              }
+            },
+            "joint": {
+              "hits": 4,
+              "vs_full": {
+                "delta": -0.00966183574879227,
+                "bootstrap95": [
+                  -0.033816425120772944,
+                  0.014492753623188406
+                ],
+                "improved": 2,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_without_links": {
+            "support": {
+              "hits": 77,
+              "vs_full": {
+                "delta": 0.03864734299516908,
+                "bootstrap95": [
+                  -0.004830917874396135,
+                  0.0821256038647343
+                ],
+                "improved": 15,
+                "worsened": 7
+              }
+            },
+            "joint": {
+              "hits": 5,
+              "vs_full": {
+                "delta": -0.004830917874396135,
+                "bootstrap95": [
+                  -0.024154589371980676,
+                  0.00966183574879227
+                ],
+                "improved": 1,
+                "worsened": 2
+              }
+            }
+          },
+          "refit_plain": {
+            "support": {
+              "hits": 47,
+              "vs_full": {
+                "delta": -0.10628019323671498,
+                "bootstrap95": [
+                  -0.178743961352657,
+                  -0.028985507246376812
+                ],
+                "improved": 22,
+                "worsened": 44
+              }
+            },
+            "joint": {
+              "hits": 4,
+              "vs_full": {
+                "delta": -0.00966183574879227,
+                "bootstrap95": [
+                  -0.033816425120772944,
+                  0.014492753623188406
+                ],
+                "improved": 2,
+                "worsened": 4
+              }
+            }
+          },
+          "refit_affinity_only": {
+            "support": {
+              "hits": 40,
+              "vs_full": {
+                "delta": -0.14009661835748793,
+                "bootstrap95": [
+                  -0.2222222222222222,
+                  -0.057971014492753624
+                ],
+                "improved": 25,
+                "worsened": 54
+              }
+            },
+            "joint": {
+              "hits": 3,
+              "vs_full": {
+                "delta": -0.014492753623188406,
+                "bootstrap95": [
+                  -0.03864734299516908,
+                  0.00966183574879227
+                ],
+                "improved": 2,
+                "worsened": 5
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

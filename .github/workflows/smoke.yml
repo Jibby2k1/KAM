@@ -26,3 +26,16 @@ jobs:
           study=results/nonlinear_retrieval_natural/support_link_v1
           python scripts/analyze_kam_fullwiki_support_links.py "$study" --output /tmp/kam-summary.json
           diff -u "$study/summary.json" /tmp/kam-summary.json
+      - name: Replay dataset and model metrics
+        run: |
+          archive=results/nonlinear_retrieval_natural
+          output=$(mktemp -d)
+          for pair in corrections:bitemporal_corrections_v1 curriculum:bitemporal_curriculum_v1 \
+                      archive_projection:bitemporal_archive_v1 archive_topology:bitemporal_archive_topology_v1 \
+                      archive_factors:bitemporal_archive_factors_v1 vintage_stream:vintage_stream_v1 \
+                      timelineqa:timelineqa_v1 unseentimeqa_probe:unseentimeqa_probe_v1; do
+            analysis=${pair%%:*}
+            study="$archive/${pair#*:}"
+            python scripts/analyze_kam_breadth_followups.py "$analysis" "$study" --output "$output/$analysis.json"
+            diff -u "$study/summary.json" "$output/$analysis.json"
+          done

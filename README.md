@@ -2,7 +2,7 @@
 
 Kernel Adaptive Memory (KAM) is a research implementation for studying radial attention, persistent learned supports, and fast online adaptation. This repository contains model implementations, controlled experiments, and a separate line of experiments on one-pass evidence retrieval in natural question answering.
 
-[Research specification](Kernel_Adaptive_Memory_Research_Specification.pdf) · [Results and evidence](docs/research/RESULTS.md) · [Experiment guide](EXPERIMENTS.md) · [Citation](CITATION.cff)
+[Research specification](Kernel_Adaptive_Memory_Research_Specification.pdf) · [Results and evidence](docs/research/RESULTS.md) · [Dataset portfolio](docs/research/DATASET_PORTFOLIO.md) · [Citation](CITATION.cff)
 
 ## Research at a glance
 
@@ -12,6 +12,8 @@ Kernel Adaptive Memory (KAM) is a research implementation for studying radial at
 | Multi-hop retrieval | Can a one-pass pair scorer distinguish useful title mentions from linked distractors? | [HotpotQA study](reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) |
 | Retrieval systems | How do corpus retrieval and serving choices affect latency and evidence recall? | [Corpus and serving findings](docs/research/RESULTS.md#corpus-retrieval-and-serving) |
 | Revision memory | Can a router resolve ambiguous aliases and abstain on unseen identities? | [Revision-memory findings](docs/research/RESULTS.md#revision-memory) |
+
+The [dataset breadth and temporal memory report](reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) compares frozen transfer across domains, archived revisions, controlled noise, and the KAM decoder’s length generalization.
 
 The HotpotQA and MuSiQue experiments use frozen pretrained encoders and readers with separate routing heads. Their results concern retrieval and evidence selection. The KAM decoder has its own controlled experiments.
 

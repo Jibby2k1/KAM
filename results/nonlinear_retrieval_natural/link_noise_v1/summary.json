@@ -1,0 +1,526 @@
+{
+  "twowiki": {
+    "n": 768,
+    "target_questions": 768,
+    "linked_gold": 416,
+    "scenarios": {
+      "clean": {
+        "learned_single_shot": {
+          "n": 768,
+          "both_support": 333,
+          "injected_pair": 348,
+          "em": 181,
+          "contains_donor": 426,
+          "joint": 143
+        },
+        "one_pass_pair": {
+          "n": 768,
+          "both_support": 520,
+          "injected_pair": 63,
+          "em": 233,
+          "contains_donor": 183,
+          "joint": 175
+        },
+        "context_only": {
+          "n": 768,
+          "both_support": 570,
+          "injected_pair": 42,
+          "em": 228,
+          "contains_donor": 93,
+          "joint": 186
+        },
+        "learned_sequential": {
+          "n": 768,
+          "both_support": 447,
+          "injected_pair": 183,
+          "em": 207,
+          "contains_donor": 268,
+          "joint": 165
+        }
+      },
+      "sham_text": {
+        "learned_single_shot": {
+          "n": 768,
+          "both_support": 381,
+          "injected_pair": 189,
+          "em": 189,
+          "contains_donor": 240,
+          "joint": 162
+        },
+        "one_pass_pair": {
+          "n": 768,
+          "both_support": 540,
+          "injected_pair": 37,
+          "em": 230,
+          "contains_donor": 136,
+          "joint": 181
+        },
+        "context_only": {
+          "n": 768,
+          "both_support": 577,
+          "injected_pair": 26,
+          "em": 228,
+          "contains_donor": 73,
+          "joint": 187
+        },
+        "learned_sequential": {
+          "n": 768,
+          "both_support": 499,
+          "injected_pair": 110,
+          "em": 214,
+          "contains_donor": 170,
+          "joint": 180
+        }
+      },
+      "linked_text": {
+        "learned_single_shot": {
+          "n": 768,
+          "both_support": 152,
+          "injected_pair": 518,
+          "em": 151,
+          "contains_donor": 603,
+          "joint": 63
+        },
+        "one_pass_pair": {
+          "n": 768,
+          "both_support": 95,
+          "injected_pair": 600,
+          "em": 152,
+          "contains_donor": 663,
+          "joint": 23
+        },
+        "context_only": {
+          "n": 768,
+          "both_support": 256,
+          "injected_pair": 393,
+          "em": 193,
+          "contains_donor": 482,
+          "joint": 72
+        },
+        "learned_sequential": {
+          "n": 768,
+          "both_support": 210,
+          "injected_pair": 402,
+          "em": 182,
+          "contains_donor": 541,
+          "joint": 82
+        }
+      },
+      "graph_only": {
+        "learned_single_shot": {
+          "n": 768,
+          "both_support": 333,
+          "injected_pair": 348,
+          "em": 181,
+          "contains_donor": 426,
+          "joint": 143
+        },
+        "one_pass_pair": {
+          "n": 768,
+          "both_support": 267,
+          "injected_pair": 416,
+          "em": 186,
+          "contains_donor": 484,
+          "joint": 80
+        },
+        "context_only": {
+          "n": 768,
+          "both_support": 366,
+          "injected_pair": 337,
+          "em": 200,
+          "contains_donor": 358,
+          "joint": 110
+        },
+        "learned_sequential": {
+          "n": 768,
+          "both_support": 447,
+          "injected_pair": 183,
+          "em": 207,
+          "contains_donor": 268,
+          "joint": 165
+        }
+      }
+    },
+    "effect_vs_sham": {
+      "learned_single_shot": {
+        "both_support": {
+          "delta": -0.2981770833333333,
+          "bootstrap95": [
+            -0.3307291666666667,
+            -0.2669270833333333
+          ],
+          "improved": 0,
+          "worsened": 229
+        },
+        "injected_pair": {
+          "delta": 0.4283854166666667,
+          "bootstrap95": [
+            0.39453125,
+            0.4635416666666667
+          ],
+          "improved": 329,
+          "worsened": 0
+        },
+        "em": {
+          "delta": -0.049479166666666664,
+          "bootstrap95": [
+            -0.07161458333333333,
+            -0.028645833333333332
+          ],
+          "improved": 19,
+          "worsened": 57
+        }
+      },
+      "one_pass_pair": {
+        "both_support": {
+          "delta": -0.5794270833333334,
+          "bootstrap95": [
+            -0.6145833333333334,
+            -0.5455729166666666
+          ],
+          "improved": 0,
+          "worsened": 445
+        },
+        "injected_pair": {
+          "delta": 0.7330729166666666,
+          "bootstrap95": [
+            0.7018229166666666,
+            0.7630208333333334
+          ],
+          "improved": 563,
+          "worsened": 0
+        },
+        "em": {
+          "delta": -0.1015625,
+          "bootstrap95": [
+            -0.13151041666666666,
+            -0.07291666666666667
+          ],
+          "improved": 28,
+          "worsened": 106
+        }
+      },
+      "context_only": {
+        "both_support": {
+          "delta": -0.41796875,
+          "bootstrap95": [
+            -0.453125,
+            -0.3815104166666667
+          ],
+          "improved": 0,
+          "worsened": 321
+        },
+        "injected_pair": {
+          "delta": 0.4778645833333333,
+          "bootstrap95": [
+            0.44140625,
+            0.5143229166666666
+          ],
+          "improved": 370,
+          "worsened": 3
+        },
+        "em": {
+          "delta": -0.045572916666666664,
+          "bootstrap95": [
+            -0.06770833333333333,
+            -0.0234375
+          ],
+          "improved": 22,
+          "worsened": 57
+        }
+      },
+      "learned_sequential": {
+        "both_support": {
+          "delta": -0.3763020833333333,
+          "bootstrap95": [
+            -0.41015625,
+            -0.3424479166666667
+          ],
+          "improved": 0,
+          "worsened": 289
+        },
+        "injected_pair": {
+          "delta": 0.3802083333333333,
+          "bootstrap95": [
+            0.3450520833333333,
+            0.4153645833333333
+          ],
+          "improved": 297,
+          "worsened": 5
+        },
+        "em": {
+          "delta": -0.041666666666666664,
+          "bootstrap95": [
+            -0.06510416666666667,
+            -0.01953125
+          ],
+          "improved": 24,
+          "worsened": 56
+        }
+      }
+    },
+    "guards": {}
+  },
+  "musique": {
+    "n": 234,
+    "target_questions": 236,
+    "linked_gold": 73,
+    "scenarios": {
+      "clean": {
+        "learned_single_shot": {
+          "n": 234,
+          "both_support": 47,
+          "injected_pair": 115,
+          "em": 32,
+          "contains_donor": 181,
+          "joint": 23
+        },
+        "one_pass_pair": {
+          "n": 234,
+          "both_support": 71,
+          "injected_pair": 53,
+          "em": 43,
+          "contains_donor": 114,
+          "joint": 32
+        },
+        "context_only": {
+          "n": 234,
+          "both_support": 63,
+          "injected_pair": 21,
+          "em": 32,
+          "contains_donor": 73,
+          "joint": 25
+        },
+        "learned_sequential": {
+          "n": 234,
+          "both_support": 62,
+          "injected_pair": 73,
+          "em": 42,
+          "contains_donor": 138,
+          "joint": 30
+        }
+      },
+      "sham_text": {
+        "learned_single_shot": {
+          "n": 234,
+          "both_support": 59,
+          "injected_pair": 62,
+          "em": 34,
+          "contains_donor": 111,
+          "joint": 28
+        },
+        "one_pass_pair": {
+          "n": 234,
+          "both_support": 77,
+          "injected_pair": 26,
+          "em": 44,
+          "contains_donor": 75,
+          "joint": 35
+        },
+        "context_only": {
+          "n": 234,
+          "both_support": 64,
+          "injected_pair": 13,
+          "em": 32,
+          "contains_donor": 58,
+          "joint": 25
+        },
+        "learned_sequential": {
+          "n": 234,
+          "both_support": 70,
+          "injected_pair": 55,
+          "em": 44,
+          "contains_donor": 99,
+          "joint": 34
+        }
+      },
+      "linked_text": {
+        "learned_single_shot": {
+          "n": 234,
+          "both_support": 30,
+          "injected_pair": 130,
+          "em": 24,
+          "contains_donor": 190,
+          "joint": 14
+        },
+        "one_pass_pair": {
+          "n": 234,
+          "both_support": 19,
+          "injected_pair": 169,
+          "em": 25,
+          "contains_donor": 198,
+          "joint": 6
+        },
+        "context_only": {
+          "n": 234,
+          "both_support": 32,
+          "injected_pair": 130,
+          "em": 30,
+          "contains_donor": 167,
+          "joint": 11
+        },
+        "learned_sequential": {
+          "n": 234,
+          "both_support": 37,
+          "injected_pair": 119,
+          "em": 35,
+          "contains_donor": 178,
+          "joint": 19
+        }
+      },
+      "graph_only": {
+        "learned_single_shot": {
+          "n": 234,
+          "both_support": 47,
+          "injected_pair": 115,
+          "em": 32,
+          "contains_donor": 181,
+          "joint": 23
+        },
+        "one_pass_pair": {
+          "n": 234,
+          "both_support": 29,
+          "injected_pair": 158,
+          "em": 31,
+          "contains_donor": 186,
+          "joint": 11
+        },
+        "context_only": {
+          "n": 234,
+          "both_support": 41,
+          "injected_pair": 128,
+          "em": 34,
+          "contains_donor": 155,
+          "joint": 17
+        },
+        "learned_sequential": {
+          "n": 234,
+          "both_support": 62,
+          "injected_pair": 73,
+          "em": 42,
+          "contains_donor": 138,
+          "joint": 30
+        }
+      }
+    },
+    "effect_vs_sham": {
+      "learned_single_shot": {
+        "both_support": {
+          "delta": -0.12393162393162394,
+          "bootstrap95": [
+            -0.16666666666666666,
+            -0.08547008547008547
+          ],
+          "improved": 0,
+          "worsened": 29
+        },
+        "injected_pair": {
+          "delta": 0.2905982905982906,
+          "bootstrap95": [
+            0.23076923076923078,
+            0.3504273504273504
+          ],
+          "improved": 68,
+          "worsened": 0
+        },
+        "em": {
+          "delta": -0.042735042735042736,
+          "bootstrap95": [
+            -0.07692307692307693,
+            -0.01282051282051282
+          ],
+          "improved": 3,
+          "worsened": 13
+        }
+      },
+      "one_pass_pair": {
+        "both_support": {
+          "delta": -0.24786324786324787,
+          "bootstrap95": [
+            -0.3034188034188034,
+            -0.19230769230769232
+          ],
+          "improved": 0,
+          "worsened": 58
+        },
+        "injected_pair": {
+          "delta": 0.6111111111111112,
+          "bootstrap95": [
+            0.5470085470085471,
+            0.6709401709401709
+          ],
+          "improved": 143,
+          "worsened": 0
+        },
+        "em": {
+          "delta": -0.0811965811965812,
+          "bootstrap95": [
+            -0.13247863247863248,
+            -0.029914529914529916
+          ],
+          "improved": 11,
+          "worsened": 30
+        }
+      },
+      "context_only": {
+        "both_support": {
+          "delta": -0.13675213675213677,
+          "bootstrap95": [
+            -0.18376068376068377,
+            -0.09401709401709402
+          ],
+          "improved": 0,
+          "worsened": 32
+        },
+        "injected_pair": {
+          "delta": 0.5,
+          "bootstrap95": [
+            0.4358974358974359,
+            0.5641025641025641
+          ],
+          "improved": 117,
+          "worsened": 0
+        },
+        "em": {
+          "delta": -0.008547008547008548,
+          "bootstrap95": [
+            -0.05128205128205128,
+            0.03418803418803419
+          ],
+          "improved": 12,
+          "worsened": 14
+        }
+      },
+      "learned_sequential": {
+        "both_support": {
+          "delta": -0.14102564102564102,
+          "bootstrap95": [
+            -0.18803418803418803,
+            -0.09829059829059829
+          ],
+          "improved": 0,
+          "worsened": 33
+        },
+        "injected_pair": {
+          "delta": 0.27350427350427353,
+          "bootstrap95": [
+            0.21794871794871795,
+            0.3333333333333333
+          ],
+          "improved": 65,
+          "worsened": 1
+        },
+        "em": {
+          "delta": -0.038461538461538464,
+          "bootstrap95": [
+            -0.07264957264957266,
+            -0.004273504273504274
+          ],
+          "improved": 4,
+          "worsened": 13
+        }
+      }
+    },
+    "guards": {}
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "snapshot_date": "2026-11-26",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab",
+    "google/flan-t5-base": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+  },
+  "sources": {
+    "twowiki": [
+      {
+        "file": "2wiki-dev.parquet",
+        "download": "https://huggingface.co/api/datasets/framolfese/2WikiMultihopQA/parquet/default/validation/0.parquet",
+        "sha256": "408e2dbb28edc6c8b9ca3ba0c94d4fc7bf17ffb923766593a3a7f546ab4cba59",
+        "bytes": 29505064
+      }
+    ],
+    "musique": [
+      {
+        "file": "musique_ans_v1.0_dev.jsonl",
+        "download": "https://drive.google.com/file/d/1tGdADlNjWFaHLeZZGShh2IRcpO6Lv24h/view",
+        "sha256": "15fa63794d18a94ce12411aca6e2327e65b6e83b0b1490efab3f1962e48abf3b",
+        "bytes": 30439728,
+        "archive_member": "data/musique_ans_v1.0_dev.jsonl"
+      }
+    ],
+    "news": [
+      {
+        "file": "news-MultiHopRAG.json",
+        "download": "https://huggingface.co/datasets/yixuantt/MultiHopRAG/resolve/71ac0d0bd1f951d2d6b70311f7d2ae404e1ffa82/MultiHopRAG.json",
+        "sha256": "03cfb4926461f868684903aadc8024447bdda5bb3f6804741424cce338515bff",
+        "bytes": 5171312
+      },
+      {
+        "file": "news-corpus.json",
+        "download": "https://huggingface.co/datasets/yixuantt/MultiHopRAG/resolve/71ac0d0bd1f951d2d6b70311f7d2ae404e1ffa82/corpus.json",
+        "sha256": "20b61b5ab84de84a927420c5d265b7ec8d859ae49980699958a787ade9e4d28f",
+        "bytes": 6785567
+      }
+    ],
+    "qasper": [
+      {
+        "file": "qasper-test.parquet",
+        "download": "https://huggingface.co/api/datasets/allenai/qasper/parquet/qasper/test/0.parquet",
+        "sha256": "206d05a86672dc330a47de4ff95eb0042d5ce0c74a84885bc3d15c36ae67b86e",
+        "bytes": 7074873
+      }
+    ],
+    "timeqa": [
+      {
+        "file": "timeqa-dev.json",
+        "download": "https://raw.githubusercontent.com/wenhuchen/Time-Sensitive-QA/38b05989070c1168b2bef3d5a2656afeeba763dc/dataset/annotated_dev.json",
+        "sha256": "7d851056974c2af85abc2167a4416a8b376a3f4e84541af488b6197edd76a4f7",
+        "bytes": 8889195
+      },
+      {
+        "file": "timeqa-test.json",
+        "download": "https://raw.githubusercontent.com/wenhuchen/Time-Sensitive-QA/38b05989070c1168b2bef3d5a2656afeeba763dc/dataset/annotated_test.json",
+        "sha256": "848226a51b31ca71f888e48ee799f48e7490161fad551822285257bb8cc884dc",
+        "bytes": 8849256
+      },
+      {
+        "file": "timeqa-human_test.easy.json",
+        "download": "https://raw.githubusercontent.com/wenhuchen/Time-Sensitive-QA/38b05989070c1168b2bef3d5a2656afeeba763dc/dataset/human_test.easy.json",
+        "sha256": "be7bc2871d9c9ff6e97a368755c89cd1ade9ac7a4a7060b88104de281cc43407",
+        "bytes": 26871461
+      },
+      {
+        "file": "timeqa-human_test.hard.json",
+        "download": "https://raw.githubusercontent.com/wenhuchen/Time-Sensitive-QA/38b05989070c1168b2bef3d5a2656afeeba763dc/dataset/human_test.hard.json",
+        "sha256": "0318963bb2af931143be50ca24402d03c075c4b5a4898fda9bf4d5b2f0c6c188",
+        "bytes": 26871056
+      },
+      {
+        "file": "timeqa-human_annotated_test.json",
+        "download": "https://raw.githubusercontent.com/wenhuchen/Time-Sensitive-QA/38b05989070c1168b2bef3d5a2656afeeba763dc/dataset/human_annotated_test.json",
+        "sha256": "70d61fcac05fa41689ac3c0d2b52563f9c2d6892e80d881be4b78910614d5fdc",
+        "bytes": 3542514
+      }
+    ],
+    "tempreason": [
+      {
+        "file": "tempreason-test-l2.json",
+        "download": "https://huggingface.co/datasets/tonytan48/TempReason/resolve/1646dea364ac667dd6098646da7d6638de00cc71/test_l2.json",
+        "sha256": "9292d14519e34441c43efda9a0739a27a498665039f0e2c354c3dcde709c9021",
+        "bytes": 67471020
+      },
+      {
+        "file": "tempreason-test-l3.json",
+        "download": "https://huggingface.co/datasets/tonytan48/TempReason/resolve/1646dea364ac667dd6098646da7d6638de00cc71/test_l3.json",
+        "sha256": "b6fb4468d5accab156b2d2481c27d0860ea54f8604045a172f42c5e36978d7dd",
+        "bytes": 62183180
+      }
+    ],
+    "vintage": [
+      {
+        "file": "fed-ROUTPUT.xlsx",
+        "download": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/ROUTPUTQvQd.xlsx",
+        "sha256": "6a7971b31b7336551705465de8a0855826f3652abe112406f52b2c2ed0994c0c",
+        "bytes": 244845
+      },
+      {
+        "file": "fed-NOUTPUT.xlsx",
+        "download": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/NOUTPUTQvQd.xlsx",
+        "sha256": "c0f3c99a6b149d5e23ce5536802b9c96cdc5db729d8f747d4ed5636bcf6932dd",
+        "bytes": 244863
+      },
+      {
+        "file": "fed-RCON.xlsx",
+        "download": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/RCONQvQd.xlsx",
+        "sha256": "584118fbc989768717ed615dc77f82d60a4a411c33b501dbd3ace12f63d1b95f",
+        "bytes": 243915
+      },
+      {
+        "file": "fed-NCON.xlsx",
+        "download": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/NCONQvQd.xlsx",
+        "sha256": "6238ecd7328aa2b6183c52e347fb6a8b98025e1e24f9435e98a015ead60c0f61",
+        "bytes": 244764
+      }
+    ],
+    "nolima": [
+      {
+        "file": "nolima-needle_set.json",
+        "download": "https://huggingface.co/datasets/amodaresi/NoLiMa/resolve/378115b1f136b6ba78f90f78682bc55f70ec3ddd/needlesets/needle_set.json",
+        "sha256": "b197f5633668be11aa5855144716b3009d6246c5fb05a508c37db0d08303aa99",
+        "bytes": 12286
+      },
+      {
+        "file": "nolima-needle_set_ONLYDirect.json",
+        "download": "https://huggingface.co/datasets/amodaresi/NoLiMa/resolve/378115b1f136b6ba78f90f78682bc55f70ec3ddd/needlesets/needle_set_ONLYDirect.json",
+        "sha256": "0f44e4d277f72bd05780a6cf449b7691636837e1e8da254d3ab73fa3b38c071e",
+        "bytes": 11416
+      },
+      {
+        "file": "nolima-needle_set_w_Distractor.json",
+        "download": "https://huggingface.co/datasets/amodaresi/NoLiMa/resolve/378115b1f136b6ba78f90f78682bc55f70ec3ddd/needlesets/needle_set_w_Distractor.json",
+        "sha256": "f4b2c8b875d9aac3c1319f2dd9e49f8bc3544dcfe68a34d95e0498b22ff680f5",
+        "bytes": 14214
+      },
+      {
+        "file": "nolima-rand_book_1.txt",
+        "download": "https://huggingface.co/datasets/amodaresi/NoLiMa/resolve/378115b1f136b6ba78f90f78682bc55f70ec3ddd/haystack/rand_shuffle/rand_book_1.txt",
+        "sha256": "1f7bdc697141b888565c851e6c34dbd649aaf580280eae92199561c4f0e93dab",
+        "bytes": 418037
+      },
+      {
+        "file": "nolima-rand_book_2.txt",
+        "download": "https://huggingface.co/datasets/amodaresi/NoLiMa/resolve/378115b1f136b6ba78f90f78682bc55f70ec3ddd/haystack/rand_shuffle/rand_book_2.txt",
+        "sha256": "e77a1c8c52b31b0cb02b4b78af2e4f662ef7baaf0cfca52d84b33c710e353357",
+        "bytes": 400808
+      }
+    ],
+    "longmemeval": [
+      {
+        "file": "longmemeval-s.json",
+        "download": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/98d7416c24c778c2fee6e6f3006e7a073259d48f/longmemeval_s_cleaned.json",
+        "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+        "bytes": 277383467
+      }
+    ]
+  },
+  "derived_fixture_digests": {
+    "fed-vintage-fixture.json": "9e297c6c5adc6e4f605265678db3f8bdc513f23dbfe29a6a381b4bd644f3e265",
+    "hotpot-fixture.json": "08298f6797df095ec7c69371aa0470ee617273273c936db50d848d7adc4bfc21",
+    "matched-depth-fixture.json": "34d831aff20a90bbd36b80acbb224dd188c212f52b65655ead7845abb056da12",
+    "musique-fixture.json": "1c0a23f0d9ca398acb2172a32f96c962de6e14784295de40ede7525a043c85e9",
+    "musique-independent-noise-fixture.json": "2f2763253983d3c66eee8d9821044f2abfc18bd6e9919d89413aaf734fdb1a46",
+    "musique-multihop-fixture.json": "56fa1a5090c8de8da01a27dab92472dc948522cfdb8f4fa31903d5ac123408e0",
+    "news-fixture.json": "6f377b3b2006ee96487f355e0c445ec445f16d5429e066d20a23f22db172d41a",
+    "qasper-fixture.json": "2a54850523ed1243f3f7f256fdacfeb6d9b0951b82913cfd9a5f7b8b75e85aaa",
+    "tempreason-l2-fixture.json": "c3ef575a38b65b71738b7e74f699294c0faadaa5c5ca913ca4e6a62d47504f71",
+    "tempreason-l3-fixture.json": "c6c2f2aee6a92bb754c9507d96872597916b8ca00903f70328413edeae47b4a2",
+    "timeqa-fixture.json": "ed1be495a6648dc1f760e0352abccf072f79303605ab6146870a782e403e65be",
+    "timeqa-human-fixture.json": "58236a297c351af3da497251977a9d4ed73321738fcc3d851569d180ea7eeb4b",
+    "twowiki-fixture.json": "0a25ca766b5081ee78a21e4980e396d52e990415753e4f78ffcb0d14f0a9c9dc",
+    "twowiki-independent-noise-fixture.json": "ed2deea9a4394b27701c1d29e4f22836a884fe0e4aecc536b94153c5488b39a9",
+    "timeline-fixture.json": "a1115eb99835186fde126ede08d7cd4dba59d68083d1f24b7b0dadc0eea69a63",
+    "unseentimeqa-probe-fixture.json": "26539c6f41b8bd11bf7564d4d60fdf20fc5e7434492d26a04cf20215b3622759",
+    "fed-vintage-topology-fixture.json": "d0da2bc0f0d9be75fe0a8db84418d690ab5a5d44b1828ae8dd14461fe25839e3"
+  },
+  "vintage_catalog_sha256": "8ac56fc8de01306d8dea706c40d9f3edaaeab89f007e06e4ef6cdc975a8bf828",
+  "upstream_repository_snapshots": {
+    "timelineqa": {
+      "repo": "https://github.com/facebookresearch/TimelineQA",
+      "revision": "e0ff14f707ce07b1f656e61b2921059c3fc98168",
+      "generation_command": "PYTHONHASHSEED=0 python generateDB.py -y 2022 -s SEED -c DENSITY -d OUTPUT_DIR -o episodes.json",
+      "versions": {
+        "python": "3.11.18",
+        "numpy": "2.4.6",
+        "pandas": "3.1.1",
+        "python-dateutil": "4.0.0"
+      }
+    },
+    "unseentimeqa": {
+      "repo": "https://github.com/nurakib/UnSeenTimeQA",
+      "revision": "84f910fcd32f2b21d6e34d9efb98e94eb04844bb",
+      "per_source_checksums": "../unseentimeqa_v1/summary.json"
+    }
+  }
+}

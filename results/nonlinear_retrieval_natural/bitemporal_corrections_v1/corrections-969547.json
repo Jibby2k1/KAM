@@ -1,0 +1,1372 @@
+{
+  "seed": 969547,
+  "epochs": 24,
+  "train_examples": 8192,
+  "train_regime": "corrections",
+  "device": "NVIDIA L4",
+  "torch": "2.8.0+cu128",
+  "rows": [
+    {
+      "profile": "clean",
+      "depth_per_bank": 12,
+      "matched_sha256": "621ac648056fa7cd5c2df53fb1aac1add4eb4a793f0c087fe47dd0e4770ceaaa",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1924,
+          "fact": 1896,
+          "joint": 1787,
+          "payload": 1896,
+          "same_entity": 1924,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1867,
+          "joint": 1867,
+          "payload": 1867,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1896,
+          "joint": 1896,
+          "payload": 1896,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "irrelevant",
+      "depth_per_bank": 32,
+      "matched_sha256": "1ffdfd1f27aaf59a83d20f0d094aadad8c5065b0fc727ac13a4875c37ce62a39",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1924,
+          "fact": 1894,
+          "joint": 1787,
+          "payload": 1894,
+          "same_entity": 1925,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 2
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1867,
+          "joint": 1867,
+          "payload": 1867,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1896,
+          "joint": 1896,
+          "payload": 1896,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "homonym",
+      "depth_per_bank": 32,
+      "matched_sha256": "1ffdfd1f27aaf59a83d20f0d094aadad8c5065b0fc727ac13a4875c37ce62a39",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1924,
+          "fact": 1896,
+          "joint": 1787,
+          "payload": 1896,
+          "same_entity": 1924,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1867,
+          "joint": 1867,
+          "payload": 1867,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1896,
+          "joint": 1896,
+          "payload": 1896,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "future_effective",
+      "depth_per_bank": 32,
+      "matched_sha256": "1ffdfd1f27aaf59a83d20f0d094aadad8c5065b0fc727ac13a4875c37ce62a39",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 2048,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1724,
+          "fact": 1817,
+          "joint": 1539,
+          "payload": 1817,
+          "same_entity": 1725,
+          "abstains": 0,
+          "future_effective": 275,
+          "late_arrival": 0,
+          "wrong_workspace": 2
+        },
+        "one_pass_pair": {
+          "alias": 2047,
+          "fact": 1697,
+          "joint": 1697,
+          "payload": 1697,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 174,
+          "late_arrival": 0,
+          "wrong_workspace": 1
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1819,
+          "joint": 1819,
+          "payload": 1819,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 80,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "late_arrival",
+      "depth_per_bank": 32,
+      "matched_sha256": "1ffdfd1f27aaf59a83d20f0d094aadad8c5065b0fc727ac13a4875c37ce62a39",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1833,
+          "fact": 1826,
+          "joint": 1638,
+          "payload": 1826,
+          "same_entity": 1834,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 160,
+          "wrong_workspace": 1
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1785,
+          "joint": 1785,
+          "payload": 1785,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 85,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1827,
+          "joint": 1827,
+          "payload": 1827,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 72,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "stale",
+      "depth_per_bank": 32,
+      "matched_sha256": "1ffdfd1f27aaf59a83d20f0d094aadad8c5065b0fc727ac13a4875c37ce62a39",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1573,
+          "fact": 1562,
+          "joint": 1201,
+          "payload": 1562,
+          "same_entity": 1573,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "one_pass_pair": {
+          "alias": 2047,
+          "fact": 1454,
+          "joint": 1454,
+          "payload": 1454,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 1
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1562,
+          "joint": 1562,
+          "payload": 1562,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "mixed",
+      "depth_per_bank": 32,
+      "matched_sha256": "1ffdfd1f27aaf59a83d20f0d094aadad8c5065b0fc727ac13a4875c37ce62a39",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 2048,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1753,
+          "fact": 1760,
+          "joint": 1508,
+          "payload": 1760,
+          "same_entity": 1754,
+          "abstains": 0,
+          "future_effective": 63,
+          "late_arrival": 34,
+          "wrong_workspace": 1
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1674,
+          "joint": 1674,
+          "payload": 1674,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 32,
+          "late_arrival": 19,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1761,
+          "joint": 1761,
+          "payload": 1761,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 14,
+          "late_arrival": 18,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "mixed",
+      "depth_per_bank": 64,
+      "matched_sha256": "54de783591604452d179ec974945fb03349f39bf6a1234e9e517bee60051599a",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 2048,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1503,
+          "fact": 1590,
+          "joint": 1172,
+          "payload": 1590,
+          "same_entity": 1503,
+          "abstains": 0,
+          "future_effective": 165,
+          "late_arrival": 67,
+          "wrong_workspace": 4
+        },
+        "one_pass_pair": {
+          "alias": 2047,
+          "fact": 1440,
+          "joint": 1440,
+          "payload": 1440,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 109,
+          "late_arrival": 33,
+          "wrong_workspace": 1
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1593,
+          "joint": 1593,
+          "payload": 1593,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 42,
+          "late_arrival": 32,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "mixed",
+      "depth_per_bank": 128,
+      "matched_sha256": "bfc9cecc16ab616bfd07a738d1eb0be31f2fdbb3c4ede52827919a95c6a3b9cc",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 2048,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1296,
+          "fact": 1415,
+          "joint": 916,
+          "payload": 1415,
+          "same_entity": 1298,
+          "abstains": 0,
+          "future_effective": 292,
+          "late_arrival": 107,
+          "wrong_workspace": 5
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1203,
+          "joint": 1203,
+          "payload": 1203,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 187,
+          "late_arrival": 68,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1417,
+          "joint": 1417,
+          "payload": 1417,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 74,
+          "late_arrival": 62,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "older_correction",
+      "depth_per_bank": 32,
+      "matched_sha256": "b07fc0c3c233a81a2fca2312b91f5f294b57f20a36206bdee890f2cfa345387c",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1211,
+          "fact": 1161,
+          "joint": 696,
+          "payload": 1161,
+          "same_entity": 1212,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 2
+        },
+        "one_pass_pair": {
+          "alias": 2046,
+          "fact": 1298,
+          "joint": 1298,
+          "payload": 1298,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 2
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1163,
+          "joint": 1163,
+          "payload": 1163,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "late_correction",
+      "depth_per_bank": 32,
+      "matched_sha256": "b07fc0c3c233a81a2fca2312b91f5f294b57f20a36206bdee890f2cfa345387c",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1858,
+          "fact": 1896,
+          "joint": 1732,
+          "payload": 1896,
+          "same_entity": 1858,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 67,
+          "wrong_workspace": 0
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1754,
+          "joint": 1754,
+          "payload": 1754,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 117,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1896,
+          "joint": 1896,
+          "payload": 1896,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "correction_mix",
+      "depth_per_bank": 32,
+      "matched_sha256": "d3fc146b0ac4a7dd72d06c5bf762861a566559be8ea12380a34123635d4f9f82",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 2048,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1312,
+          "fact": 1274,
+          "joint": 826,
+          "payload": 1274,
+          "same_entity": 1312,
+          "abstains": 0,
+          "future_effective": 56,
+          "late_arrival": 42,
+          "wrong_workspace": 1
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1322,
+          "joint": 1322,
+          "payload": 1322,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 27,
+          "late_arrival": 44,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1275,
+          "joint": 1275,
+          "payload": 1275,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 11,
+          "late_arrival": 12,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "older_correction",
+      "depth_per_bank": 64,
+      "matched_sha256": "e4be90a7b61901e4c8384f308eec92897541b3a6cb299985fdfc8b6860ac5f53",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1186,
+          "fact": 1131,
+          "joint": 662,
+          "payload": 1131,
+          "same_entity": 1188,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 3
+        },
+        "one_pass_pair": {
+          "alias": 2046,
+          "fact": 1284,
+          "joint": 1284,
+          "payload": 1284,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 2
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1133,
+          "joint": 1133,
+          "payload": 1133,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "late_correction",
+      "depth_per_bank": 64,
+      "matched_sha256": "e4be90a7b61901e4c8384f308eec92897541b3a6cb299985fdfc8b6860ac5f53",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1840,
+          "fact": 1896,
+          "joint": 1714,
+          "payload": 1896,
+          "same_entity": 1840,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 86,
+          "wrong_workspace": 0
+        },
+        "one_pass_pair": {
+          "alias": 2047,
+          "fact": 1719,
+          "joint": 1719,
+          "payload": 1719,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 152,
+          "wrong_workspace": 1
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1896,
+          "joint": 1896,
+          "payload": 1896,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "correction_mix",
+      "depth_per_bank": 64,
+      "matched_sha256": "2b0e33eade8dd33c9b2826885ff29c49c58c1616d0909b35bde32453e002fe54",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 2048,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1062,
+          "fact": 1081,
+          "joint": 581,
+          "payload": 1081,
+          "same_entity": 1062,
+          "abstains": 0,
+          "future_effective": 122,
+          "late_arrival": 80,
+          "wrong_workspace": 3
+        },
+        "one_pass_pair": {
+          "alias": 2048,
+          "fact": 1074,
+          "joint": 1074,
+          "payload": 1074,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 77,
+          "late_arrival": 60,
+          "wrong_workspace": 0
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1084,
+          "joint": 1084,
+          "payload": 1084,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 30,
+          "late_arrival": 20,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "older_correction",
+      "depth_per_bank": 128,
+      "matched_sha256": "603d36ea736de1f7c3cc8d754d670ae9a6767aa41f2f1cb79b53bd22a3ec0bf8",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1182,
+          "fact": 1128,
+          "joint": 660,
+          "payload": 1128,
+          "same_entity": 1184,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 3
+        },
+        "one_pass_pair": {
+          "alias": 2042,
+          "fact": 1279,
+          "joint": 1279,
+          "payload": 1279,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 6
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1131,
+          "joint": 1131,
+          "payload": 1131,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "late_correction",
+      "depth_per_bank": 128,
+      "matched_sha256": "603d36ea736de1f7c3cc8d754d670ae9a6767aa41f2f1cb79b53bd22a3ec0bf8",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 1837,
+          "fact": 1895,
+          "joint": 1711,
+          "payload": 1895,
+          "same_entity": 1838,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 89,
+          "wrong_workspace": 1
+        },
+        "one_pass_pair": {
+          "alias": 2047,
+          "fact": 1714,
+          "joint": 1714,
+          "payload": 1714,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 157,
+          "wrong_workspace": 1
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 1896,
+          "joint": 1896,
+          "payload": 1896,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        }
+      }
+    },
+    {
+      "profile": "correction_mix",
+      "depth_per_bank": 128,
+      "matched_sha256": "8bfec7d034f81e98bacf2326249a277da2aded016d8e06aab277a2a4e0891c87",
+      "query_payload_sha256": "d72adf35f3e0a136032933df5f1fc46e718affe0a1d26be1593b4b9efca1b402",
+      "count": 2048,
+      "arms": {
+        "exact": {
+          "alias": 2048,
+          "fact": 2048,
+          "joint": 2048,
+          "payload": 2048,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 0,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "known_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 2048,
+          "late_arrival": 0,
+          "wrong_workspace": 0
+        },
+        "effective_only": {
+          "alias": 0,
+          "fact": 0,
+          "joint": 0,
+          "payload": 0,
+          "same_entity": 0,
+          "abstains": 2048,
+          "future_effective": 0,
+          "late_arrival": 2048,
+          "wrong_workspace": 0
+        },
+        "sequential": {
+          "alias": 872,
+          "fact": 955,
+          "joint": 419,
+          "payload": 955,
+          "same_entity": 873,
+          "abstains": 0,
+          "future_effective": 212,
+          "late_arrival": 91,
+          "wrong_workspace": 8
+        },
+        "one_pass_pair": {
+          "alias": 2044,
+          "fact": 872,
+          "joint": 872,
+          "payload": 872,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 148,
+          "late_arrival": 92,
+          "wrong_workspace": 4
+        },
+        "sequential_with_gold_alias": {
+          "alias": 2048,
+          "fact": 957,
+          "joint": 957,
+          "payload": 957,
+          "same_entity": 2048,
+          "abstains": 0,
+          "future_effective": 58,
+          "late_arrival": 26,
+          "wrong_workspace": 0
+        }
+      }
+    }
+  ],
+  "fitting": {
+    "sequential": {
+      "loss": 0.9814128279685974,
+      "parameters": 1379
+    },
+    "one_pass_pair": {
+      "loss": 0.5088591575622559,
+      "parameters": 1379
+    }
+  },
+  "fit_seconds": 3.6558914445340633,
+  "run_seconds": 4.1811340022832155
+}

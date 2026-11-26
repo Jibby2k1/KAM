@@ -1,0 +1,340 @@
+{
+  "device": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "torch": "2.8.0+cu128",
+  "seed": 8519227,
+  "checkpoint_sha256": "3e1196f8f88c42e812a05580a52438f167135ff9129e5086af59c14d6ffd777f",
+  "checkpoint_train_tokens": 13516800,
+  "event_repeats": 40,
+  "depths": {
+    "20": {
+      "examples": 512,
+      "fixture_sha256": "d0cfc4b3eebaaf91e78c50608927e9d0f2e9aa004f7c921c44dd49033521534b",
+      "modes": {
+        "eager_fp32": {
+          "joint": 507,
+          "joint_agreement": 512,
+          "max_logit_error": 0.0,
+          "mean_logit_error": 0.0,
+          "timing": {
+            "1": {
+              "p50_ms": 0.6097120046615601,
+              "p95_ms": 0.628383994102478,
+              "episodes_per_second_at_p50": 1640.118600838574,
+              "peak_allocated_increment": 1123328
+            },
+            "16": {
+              "p50_ms": 0.6163520216941833,
+              "p95_ms": 0.6351680159568787,
+              "episodes_per_second_at_p50": 25959.191236236024,
+              "peak_allocated_increment": 3256320
+            },
+            "64": {
+              "p50_ms": 0.618399977684021,
+              "p95_ms": 0.6312959790229797,
+              "episodes_per_second_at_p50": 103492.88859887634,
+              "peak_allocated_increment": 13016064
+            }
+          }
+        },
+        "eager_bf16": {
+          "joint": 508,
+          "joint_agreement": 511,
+          "max_logit_error": 1.5634918212890625,
+          "mean_logit_error": 0.04050610587000847,
+          "timing": {
+            "1": {
+              "p50_ms": 0.7530400156974792,
+              "p95_ms": 0.7747840285301208,
+              "episodes_per_second_at_p50": 1327.9506787880082,
+              "peak_allocated_increment": 1256960
+            },
+            "16": {
+              "p50_ms": 0.7642879784107208,
+              "p95_ms": 0.780128002166748,
+              "episodes_per_second_at_p50": 20934.51742270079,
+              "peak_allocated_increment": 2827776
+            },
+            "64": {
+              "p50_ms": 0.7654399871826172,
+              "p95_ms": 0.7791039943695068,
+              "episodes_per_second_at_p50": 83612.04153387273,
+              "peak_allocated_increment": 10934272
+            }
+          }
+        },
+        "augmented_math_fp32": {
+          "joint": 507,
+          "joint_agreement": 512,
+          "max_logit_error": 6.866455078125e-05,
+          "mean_logit_error": 1.6378633063141024e-06,
+          "timing": {
+            "1": {
+              "p50_ms": 0.7090239822864532,
+              "p95_ms": 0.7311679720878601,
+              "episodes_per_second_at_p50": 1410.3895283981935,
+              "peak_allocated_increment": 1123328
+            },
+            "16": {
+              "p50_ms": 0.6907199919223785,
+              "p95_ms": 0.7051519751548767,
+              "episodes_per_second_at_p50": 23164.234692946375,
+              "peak_allocated_increment": 2839040
+            },
+            "64": {
+              "p50_ms": 0.7041920125484467,
+              "p95_ms": 0.718783974647522,
+              "episodes_per_second_at_p50": 90884.30266112534,
+              "peak_allocated_increment": 11323904
+            }
+          }
+        },
+        "augmented_flash_bf16": {
+          "joint": 508,
+          "joint_agreement": 511,
+          "max_logit_error": 1.286569595336914,
+          "mean_logit_error": 0.03382902964949608,
+          "timing": {
+            "1": {
+              "p50_ms": 0.6981119811534882,
+              "p95_ms": 0.7082880139350891,
+              "episodes_per_second_at_p50": 1432.4349488282714,
+              "peak_allocated_increment": 1256960
+            },
+            "16": {
+              "p50_ms": 0.696832001209259,
+              "p95_ms": 0.7031679749488831,
+              "episodes_per_second_at_p50": 22961.058005708885,
+              "peak_allocated_increment": 1884672
+            },
+            "64": {
+              "p50_ms": 0.6945759952068329,
+              "p95_ms": 0.7022719979286194,
+              "episodes_per_second_at_p50": 92142.54515222901,
+              "peak_allocated_increment": 6254080
+            }
+          }
+        }
+      }
+    },
+    "128": {
+      "examples": 512,
+      "fixture_sha256": "b8267e2192fbd6dc13599da584324d9ed5658f0aa62f5120aa8a762058ba823a",
+      "modes": {
+        "eager_fp32": {
+          "joint": 498,
+          "joint_agreement": 512,
+          "max_logit_error": 0.0,
+          "mean_logit_error": 0.0,
+          "timing": {
+            "1": {
+              "p50_ms": 0.6048960089683533,
+              "p95_ms": 0.6230080127716064,
+              "episodes_per_second_at_p50": 1653.1767199216513,
+              "peak_allocated_increment": 4863488
+            },
+            "16": {
+              "p50_ms": 0.6100639998912811,
+              "p95_ms": 0.6268799901008606,
+              "episodes_per_second_at_p50": 26226.75654169291,
+              "peak_allocated_increment": 78170112
+            },
+            "64": {
+              "p50_ms": 1.404799997806549,
+              "p95_ms": 1.408992052078247,
+              "episodes_per_second_at_p50": 45558.086631498736,
+              "peak_allocated_increment": 308960256
+            }
+          }
+        },
+        "eager_bf16": {
+          "joint": 497,
+          "joint_agreement": 510,
+          "max_logit_error": 1.3433113098144531,
+          "mean_logit_error": 0.07505607604980469,
+          "timing": {
+            "1": {
+              "p50_ms": 0.7455680072307587,
+              "p95_ms": 0.7554879784584045,
+              "episodes_per_second_at_p50": 1341.2592685062634,
+              "peak_allocated_increment": 4325888
+            },
+            "16": {
+              "p50_ms": 0.7685120105743408,
+              "p95_ms": 0.7836480140686035,
+              "episodes_per_second_at_p50": 20819.45341106971,
+              "peak_allocated_increment": 66840064
+            },
+            "64": {
+              "p50_ms": 1.1664320230484009,
+              "p95_ms": 1.1719679832458496,
+              "episodes_per_second_at_p50": 54868.178115291965,
+              "peak_allocated_increment": 266844160
+            }
+          }
+        },
+        "augmented_math_fp32": {
+          "joint": 498,
+          "joint_agreement": 512,
+          "max_logit_error": 8.0108642578125e-05,
+          "mean_logit_error": 3.180850853823358e-06,
+          "timing": {
+            "1": {
+              "p50_ms": 0.7079519927501678,
+              "p95_ms": 0.7277119755744934,
+              "episodes_per_second_at_p50": 1412.5251574126075,
+              "peak_allocated_increment": 3406848
+            },
+            "16": {
+              "p50_ms": 0.7023520171642303,
+              "p95_ms": 0.7189760208129883,
+              "episodes_per_second_at_p50": 22780.599484287854,
+              "peak_allocated_increment": 50309120
+            },
+            "64": {
+              "p50_ms": 1.2637120485305786,
+              "p95_ms": 1.2688319683074951,
+              "episodes_per_second_at_p50": 50644.4486894131,
+              "peak_allocated_increment": 199090176
+            }
+          }
+        },
+        "augmented_flash_bf16": {
+          "joint": 500,
+          "joint_agreement": 510,
+          "max_logit_error": 1.4370613098144531,
+          "mean_logit_error": 0.056190140545368195,
+          "timing": {
+            "1": {
+              "p50_ms": 0.7048479914665222,
+              "p95_ms": 0.7086079716682434,
+              "episodes_per_second_at_p50": 1418.745619065152,
+              "peak_allocated_increment": 1478144
+            },
+            "16": {
+              "p50_ms": 0.6971199810504913,
+              "p95_ms": 0.7047680020332336,
+              "episodes_per_second_at_p50": 22951.5728065771,
+              "peak_allocated_increment": 10623488
+            },
+            "64": {
+              "p50_ms": 0.6990559995174408,
+              "p95_ms": 0.7121919989585876,
+              "episodes_per_second_at_p50": 91552.03595159655,
+              "peak_allocated_increment": 39439872
+            }
+          }
+        }
+      }
+    },
+    "512": {
+      "examples": 512,
+      "fixture_sha256": "1005ebb3c91d5525169592d3a7cdd97239a65f9614ac8f2d742de146405511a1",
+      "modes": {
+        "eager_fp32": {
+          "joint": 463,
+          "joint_agreement": 512,
+          "max_logit_error": 0.0,
+          "mean_logit_error": 0.0,
+          "timing": {
+            "1": {
+              "p50_ms": 0.5905599892139435,
+              "p95_ms": 0.6061760187149048,
+              "episodes_per_second_at_p50": 1693.3080775266133,
+              "peak_allocated_increment": 69640192
+            },
+            "16": {
+              "p50_ms": 6.6976799964904785,
+              "p95_ms": 6.703807830810547,
+              "episodes_per_second_at_p50": 2388.8868994015615,
+              "peak_allocated_increment": 1115200512
+            },
+            "64": {
+              "p50_ms": 25.8897123336792,
+              "p95_ms": 25.900575637817383,
+              "episodes_per_second_at_p50": 2472.02437690836,
+              "peak_allocated_increment": 4458146816
+            }
+          }
+        },
+        "eager_bf16": {
+          "joint": 462,
+          "joint_agreement": 500,
+          "max_logit_error": 1.9644417762756348,
+          "mean_logit_error": 0.10355228185653687,
+          "timing": {
+            "1": {
+              "p50_ms": 0.7557919919490814,
+              "p95_ms": 0.7730240225791931,
+              "episodes_per_second_at_p50": 1323.1153685832796,
+              "peak_allocated_increment": 60832768
+            },
+            "16": {
+              "p50_ms": 6.0438079833984375,
+              "p95_ms": 6.051936149597168,
+              "episodes_per_second_at_p50": 2647.3375798751285,
+              "peak_allocated_increment": 971398656
+            },
+            "64": {
+              "p50_ms": 23.593327522277832,
+              "p95_ms": 23.601760864257812,
+              "episodes_per_second_at_p50": 2712.6313547577574,
+              "peak_allocated_increment": 3887810048
+            }
+          }
+        },
+        "augmented_math_fp32": {
+          "joint": 463,
+          "joint_agreement": 512,
+          "max_logit_error": 7.200241088867188e-05,
+          "mean_logit_error": 4.386516138765728e-06,
+          "timing": {
+            "1": {
+              "p50_ms": 0.6947200000286102,
+              "p95_ms": 0.7074880003929138,
+              "episodes_per_second_at_p50": 1439.4288345791363,
+              "peak_allocated_increment": 44937728
+            },
+            "16": {
+              "p50_ms": 4.398655891418457,
+              "p95_ms": 4.40831995010376,
+              "episodes_per_second_at_p50": 3637.47480934236,
+              "peak_allocated_increment": 656134656
+            },
+            "64": {
+              "p50_ms": 16.748720169067383,
+              "p95_ms": 16.76041603088379,
+              "episodes_per_second_at_p50": 3821.1874909821067,
+              "peak_allocated_increment": 2612430848
+            }
+          }
+        },
+        "augmented_flash_bf16": {
+          "joint": 462,
+          "joint_agreement": 501,
+          "max_logit_error": 1.2382969856262207,
+          "mean_logit_error": 0.0799664855003357,
+          "timing": {
+            "1": {
+              "p50_ms": 0.711872011423111,
+              "p95_ms": 0.731552004814148,
+              "episodes_per_second_at_p50": 1404.7468982533662,
+              "peak_allocated_increment": 5228544
+            },
+            "16": {
+              "p50_ms": 0.7033440172672272,
+              "p95_ms": 0.7175359725952148,
+              "episodes_per_second_at_p50": 22748.46960690218,
+              "peak_allocated_increment": 39397888
+            },
+            "64": {
+              "p50_ms": 1.5441920161247253,
+              "p95_ms": 1.549056053161621,
+              "episodes_per_second_at_p50": 41445.62290939256,
+              "peak_allocated_increment": 154843648
+            }
+          }
+        }
+      }
+    }
+  }
+}

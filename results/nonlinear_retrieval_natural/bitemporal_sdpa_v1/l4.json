@@ -1,0 +1,340 @@
+{
+  "device": "NVIDIA L4",
+  "torch": "2.8.0+cu128",
+  "seed": 8519227,
+  "checkpoint_sha256": "3e1196f8f88c42e812a05580a52438f167135ff9129e5086af59c14d6ffd777f",
+  "checkpoint_train_tokens": 13516800,
+  "event_repeats": 40,
+  "depths": {
+    "20": {
+      "examples": 512,
+      "fixture_sha256": "d0cfc4b3eebaaf91e78c50608927e9d0f2e9aa004f7c921c44dd49033521534b",
+      "modes": {
+        "eager_fp32": {
+          "joint": 507,
+          "joint_agreement": 512,
+          "max_logit_error": 0.0,
+          "mean_logit_error": 0.0,
+          "timing": {
+            "1": {
+              "p50_ms": 0.808976024389267,
+              "p95_ms": 0.8326719999313354,
+              "episodes_per_second_at_p50": 1236.1305772379915,
+              "peak_allocated_increment": 1123328
+            },
+            "16": {
+              "p50_ms": 0.8022559881210327,
+              "p95_ms": 0.8131200075149536,
+              "episodes_per_second_at_p50": 19943.758896052208,
+              "peak_allocated_increment": 3256320
+            },
+            "64": {
+              "p50_ms": 0.8110239803791046,
+              "p95_ms": 0.826367974281311,
+              "episodes_per_second_at_p50": 78912.58649353855,
+              "peak_allocated_increment": 13016064
+            }
+          }
+        },
+        "eager_bf16": {
+          "joint": 508,
+          "joint_agreement": 511,
+          "max_logit_error": 1.5634679794311523,
+          "mean_logit_error": 0.0405074879527092,
+          "timing": {
+            "1": {
+              "p50_ms": 0.9943520128726959,
+              "p95_ms": 1.036128044128418,
+              "episodes_per_second_at_p50": 1005.6800680786947,
+              "peak_allocated_increment": 1256960
+            },
+            "16": {
+              "p50_ms": 1.02811199426651,
+              "p95_ms": 1.0455679893493652,
+              "episodes_per_second_at_p50": 15562.506895384431,
+              "peak_allocated_increment": 2827776
+            },
+            "64": {
+              "p50_ms": 1.0428320169448853,
+              "p95_ms": 1.070080041885376,
+              "episodes_per_second_at_p50": 61371.34165433134,
+              "peak_allocated_increment": 10934272
+            }
+          }
+        },
+        "augmented_math_fp32": {
+          "joint": 507,
+          "joint_agreement": 512,
+          "max_logit_error": 6.67572021484375e-05,
+          "mean_logit_error": 1.5580380932078697e-06,
+          "timing": {
+            "1": {
+              "p50_ms": 0.9412160217761993,
+              "p95_ms": 0.9697279930114746,
+              "episodes_per_second_at_p50": 1062.455352292949,
+              "peak_allocated_increment": 1123328
+            },
+            "16": {
+              "p50_ms": 0.9113599956035614,
+              "p95_ms": 0.9256960153579712,
+              "episodes_per_second_at_p50": 17556.179859972643,
+              "peak_allocated_increment": 2839040
+            },
+            "64": {
+              "p50_ms": 0.926751971244812,
+              "p95_ms": 0.9481279850006104,
+              "episodes_per_second_at_p50": 69058.39101052603,
+              "peak_allocated_increment": 11323904
+            }
+          }
+        },
+        "augmented_flash_bf16": {
+          "joint": 508,
+          "joint_agreement": 511,
+          "max_logit_error": 1.2865791320800781,
+          "mean_logit_error": 0.033831775188446045,
+          "timing": {
+            "1": {
+              "p50_ms": 0.9435360133647919,
+              "p95_ms": 0.9564160108566284,
+              "episodes_per_second_at_p50": 1059.8429586527907,
+              "peak_allocated_increment": 1256960
+            },
+            "16": {
+              "p50_ms": 0.936847984790802,
+              "p95_ms": 0.9587839841842651,
+              "episodes_per_second_at_p50": 17078.54450215079,
+              "peak_allocated_increment": 1884672
+            },
+            "64": {
+              "p50_ms": 0.9519359767436981,
+              "p95_ms": 0.9690240025520325,
+              "episodes_per_second_at_p50": 67231.41215749171,
+              "peak_allocated_increment": 6254080
+            }
+          }
+        }
+      }
+    },
+    "128": {
+      "examples": 512,
+      "fixture_sha256": "b8267e2192fbd6dc13599da584324d9ed5658f0aa62f5120aa8a762058ba823a",
+      "modes": {
+        "eager_fp32": {
+          "joint": 498,
+          "joint_agreement": 512,
+          "max_logit_error": 0.0,
+          "mean_logit_error": 0.0,
+          "timing": {
+            "1": {
+              "p50_ms": 0.7977280020713806,
+              "p95_ms": 0.8202239871025085,
+              "episodes_per_second_at_p50": 1253.5601074594347,
+              "peak_allocated_increment": 4863488
+            },
+            "16": {
+              "p50_ms": 1.674239993095398,
+              "p95_ms": 1.8042880296707153,
+              "episodes_per_second_at_p50": 9556.574962958923,
+              "peak_allocated_increment": 78170112
+            },
+            "64": {
+              "p50_ms": 11.280384063720703,
+              "p95_ms": 11.305983543395996,
+              "episodes_per_second_at_p50": 5673.565690536458,
+              "peak_allocated_increment": 308960256
+            }
+          }
+        },
+        "eager_bf16": {
+          "joint": 497,
+          "joint_agreement": 510,
+          "max_logit_error": 1.3433103561401367,
+          "mean_logit_error": 0.07506176829338074,
+          "timing": {
+            "1": {
+              "p50_ms": 0.9939199984073639,
+              "p95_ms": 1.0219520330429077,
+              "episodes_per_second_at_p50": 1006.1171941427665,
+              "peak_allocated_increment": 4325888
+            },
+            "16": {
+              "p50_ms": 1.3987840414047241,
+              "p95_ms": 1.4438400268554688,
+              "episodes_per_second_at_p50": 11438.50624999414,
+              "peak_allocated_increment": 66840064
+            },
+            "64": {
+              "p50_ms": 9.987584114074707,
+              "p95_ms": 10.02620792388916,
+              "episodes_per_second_at_p50": 6407.956045127059,
+              "peak_allocated_increment": 266844160
+            }
+          }
+        },
+        "augmented_math_fp32": {
+          "joint": 498,
+          "joint_agreement": 512,
+          "max_logit_error": 8.0108642578125e-05,
+          "mean_logit_error": 3.1849194783717394e-06,
+          "timing": {
+            "1": {
+              "p50_ms": 0.8969280123710632,
+              "p95_ms": 0.9305599927902222,
+              "episodes_per_second_at_p50": 1114.9166780469507,
+              "peak_allocated_increment": 3406848
+            },
+            "16": {
+              "p50_ms": 1.4177280068397522,
+              "p95_ms": 1.5493119955062866,
+              "episodes_per_second_at_p50": 11285.662639666329,
+              "peak_allocated_increment": 50309120
+            },
+            "64": {
+              "p50_ms": 7.903232097625732,
+              "p95_ms": 8.013824462890625,
+              "episodes_per_second_at_p50": 8097.952737491629,
+              "peak_allocated_increment": 199090176
+            }
+          }
+        },
+        "augmented_flash_bf16": {
+          "joint": 500,
+          "joint_agreement": 510,
+          "max_logit_error": 1.4370603561401367,
+          "mean_logit_error": 0.056189484894275665,
+          "timing": {
+            "1": {
+              "p50_ms": 0.9573439955711365,
+              "p95_ms": 0.9747200012207031,
+              "episodes_per_second_at_p50": 1044.5566114439519,
+              "peak_allocated_increment": 1478144
+            },
+            "16": {
+              "p50_ms": 0.919728010892868,
+              "p95_ms": 0.9410560131072998,
+              "episodes_per_second_at_p50": 17396.44743935467,
+              "peak_allocated_increment": 10623488
+            },
+            "64": {
+              "p50_ms": 1.4781439900398254,
+              "p95_ms": 1.581055998802185,
+              "episodes_per_second_at_p50": 43297.540991439986,
+              "peak_allocated_increment": 39439872
+            }
+          }
+        }
+      }
+    },
+    "512": {
+      "examples": 512,
+      "fixture_sha256": "1005ebb3c91d5525169592d3a7cdd97239a65f9614ac8f2d742de146405511a1",
+      "modes": {
+        "eager_fp32": {
+          "joint": 463,
+          "joint_agreement": 512,
+          "max_logit_error": 0.0,
+          "mean_logit_error": 0.0,
+          "timing": {
+            "1": {
+              "p50_ms": 1.3593599796295166,
+              "p95_ms": 1.3649920225143433,
+              "episodes_per_second_at_p50": 735.6403123420938,
+              "peak_allocated_increment": 69640192
+            },
+            "16": {
+              "p50_ms": 39.50540733337402,
+              "p95_ms": 39.7209587097168,
+              "episodes_per_second_at_p50": 405.00784778602343,
+              "peak_allocated_increment": 1115200512
+            },
+            "64": {
+              "p50_ms": 157.66629791259766,
+              "p95_ms": 157.82298278808594,
+              "episodes_per_second_at_p50": 405.9206111091567,
+              "peak_allocated_increment": 4458146816
+            }
+          }
+        },
+        "eager_bf16": {
+          "joint": 462,
+          "joint_agreement": 500,
+          "max_logit_error": 1.9644417762756348,
+          "mean_logit_error": 0.10356603562831879,
+          "timing": {
+            "1": {
+              "p50_ms": 1.2984319925308228,
+              "p95_ms": 1.3486080169677734,
+              "episodes_per_second_at_p50": 770.1597047457698,
+              "peak_allocated_increment": 60832768
+            },
+            "16": {
+              "p50_ms": 36.61916923522949,
+              "p95_ms": 36.66636657714844,
+              "episodes_per_second_at_p50": 436.9296282289001,
+              "peak_allocated_increment": 971398656
+            },
+            "64": {
+              "p50_ms": 145.21548461914062,
+              "p95_ms": 145.35679626464844,
+              "episodes_per_second_at_p50": 440.72434952687036,
+              "peak_allocated_increment": 3887810048
+            }
+          }
+        },
+        "augmented_math_fp32": {
+          "joint": 463,
+          "joint_agreement": 512,
+          "max_logit_error": 7.152557373046875e-05,
+          "mean_logit_error": 4.383748091640882e-06,
+          "timing": {
+            "1": {
+              "p50_ms": 1.1955199837684631,
+              "p95_ms": 1.2093440294265747,
+              "episodes_per_second_at_p50": 836.4561141402639,
+              "peak_allocated_increment": 44937728
+            },
+            "16": {
+              "p50_ms": 24.41267204284668,
+              "p95_ms": 24.49510383605957,
+              "episodes_per_second_at_p50": 655.3973269258851,
+              "peak_allocated_increment": 656134656
+            },
+            "64": {
+              "p50_ms": 98.55855941772461,
+              "p95_ms": 98.79961395263672,
+              "episodes_per_second_at_p50": 649.360140591608,
+              "peak_allocated_increment": 2612430848
+            }
+          }
+        },
+        "augmented_flash_bf16": {
+          "joint": 462,
+          "joint_agreement": 501,
+          "max_logit_error": 1.2382965087890625,
+          "mean_logit_error": 0.07995745539665222,
+          "timing": {
+            "1": {
+              "p50_ms": 0.9517279863357544,
+              "p95_ms": 0.968671977519989,
+              "episodes_per_second_at_p50": 1050.720388973847,
+              "peak_allocated_increment": 4183552
+            },
+            "16": {
+              "p50_ms": 1.6261119842529297,
+              "p95_ms": 1.6752640008926392,
+              "episodes_per_second_at_p50": 9839.42075019559,
+              "peak_allocated_increment": 39397888
+            },
+            "64": {
+              "p50_ms": 8.57753610610962,
+              "p95_ms": 8.641535758972168,
+              "episodes_per_second_at_p50": 7461.350113631581,
+              "peak_allocated_increment": 154843648
+            }
+          }
+        }
+      }
+    }
+  }
+}

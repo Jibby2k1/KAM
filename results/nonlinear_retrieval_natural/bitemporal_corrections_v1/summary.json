@@ -1,0 +1,516 @@
+{
+  "seeds": [
+    846497,
+    874147,
+    969547,
+    974239,
+    990481,
+    1129869
+  ],
+  "tests": {
+    "clean:12": {
+      "sequential": {
+        "baseline": 0.9064127604166666,
+        "correction_training": 0.8369140625,
+        "paired": {
+          "delta": -0.06949869791666667,
+          "bootstrap95": [
+            -0.07999674479166667,
+            -0.0576171875
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.9462890625,
+        "correction_training": 0.921142578125,
+        "paired": {
+          "delta": -0.025146484375,
+          "bootstrap95": [
+            -0.043294270833333336,
+            0.0
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "irrelevant:32": {
+      "sequential": {
+        "baseline": 0.9064127604166666,
+        "correction_training": 0.8369140625,
+        "paired": {
+          "delta": -0.06949869791666667,
+          "bootstrap95": [
+            -0.07999674479166667,
+            -0.0576171875
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.9462076822916666,
+        "correction_training": 0.9210611979166666,
+        "paired": {
+          "delta": -0.025146484375,
+          "bootstrap95": [
+            -0.043294270833333336,
+            -0.00016276041666666666
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "homonym:32": {
+      "sequential": {
+        "baseline": 0.9064127604166666,
+        "correction_training": 0.8369140625,
+        "paired": {
+          "delta": -0.06949869791666667,
+          "bootstrap95": [
+            -0.07999674479166667,
+            -0.0576171875
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.9462890625,
+        "correction_training": 0.921142578125,
+        "paired": {
+          "delta": -0.025146484375,
+          "bootstrap95": [
+            -0.043294270833333336,
+            0.0
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "future_effective:32": {
+      "sequential": {
+        "baseline": 0.684814453125,
+        "correction_training": 0.6659342447916666,
+        "paired": {
+          "delta": -0.018880208333333332,
+          "bootstrap95": [
+            -0.037272135416666664,
+            -0.0033365885416666665
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.8287760416666666,
+        "correction_training": 0.818603515625,
+        "paired": {
+          "delta": -0.010172526041666666,
+          "bootstrap95": [
+            -0.046549479166666664,
+            0.03515625
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "late_arrival:32": {
+      "sequential": {
+        "baseline": 0.876708984375,
+        "correction_training": 0.7447102864583334,
+        "paired": {
+          "delta": -0.13199869791666666,
+          "bootstrap95": [
+            -0.14143880208333334,
+            -0.12174479166666667
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.9290364583333334,
+        "correction_training": 0.8641764322916666,
+        "paired": {
+          "delta": -0.06486002604166667,
+          "bootstrap95": [
+            -0.092529296875,
+            -0.039225260416666664
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      }
+    },
+    "stale:32": {
+      "sequential": {
+        "baseline": 0.7232259114583334,
+        "correction_training": 0.5230305989583334,
+        "paired": {
+          "delta": -0.2001953125,
+          "bootstrap95": [
+            -0.23006184895833334,
+            -0.170166015625
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.8463541666666666,
+        "correction_training": 0.7391764322916666,
+        "paired": {
+          "delta": -0.107177734375,
+          "bootstrap95": [
+            -0.15738932291666666,
+            -0.037190755208333336
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "mixed:32": {
+      "sequential": {
+        "baseline": 0.7779134114583334,
+        "correction_training": 0.6626790364583334,
+        "paired": {
+          "delta": -0.115234375,
+          "bootstrap95": [
+            -0.13321940104166666,
+            -0.09733072916666667
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.8719889322916666,
+        "correction_training": 0.8199869791666666,
+        "paired": {
+          "delta": -0.052001953125,
+          "bootstrap95": [
+            -0.09212239583333333,
+            -0.004150390625
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "mixed:64": {
+      "sequential": {
+        "baseline": 0.6412760416666666,
+        "correction_training": 0.4928385416666667,
+        "paired": {
+          "delta": -0.1484375,
+          "bootstrap95": [
+            -0.163818359375,
+            -0.13395182291666666
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.7932942708333334,
+        "correction_training": 0.7076822916666666,
+        "paired": {
+          "delta": -0.08561197916666667,
+          "bootstrap95": [
+            -0.134521484375,
+            -0.017252604166666668
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "mixed:128": {
+      "sequential": {
+        "baseline": 0.508544921875,
+        "correction_training": 0.3548990885416667,
+        "paired": {
+          "delta": -0.15364583333333334,
+          "bootstrap95": [
+            -0.168701171875,
+            -0.14168294270833334
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.7123209635416666,
+        "correction_training": 0.59912109375,
+        "paired": {
+          "delta": -0.11319986979166667,
+          "bootstrap95": [
+            -0.165283203125,
+            -0.0390625
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "older_correction:32": {
+      "sequential": {
+        "baseline": 0.0,
+        "correction_training": 0.34423828125,
+        "paired": {
+          "delta": 0.34423828125,
+          "bootstrap95": [
+            0.3151041666666667,
+            0.3740234375
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.0,
+        "correction_training": 0.5850423177083334,
+        "paired": {
+          "delta": 0.5850423177083334,
+          "bootstrap95": [
+            0.5613606770833334,
+            0.6109212239583334
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      }
+    },
+    "late_correction:32": {
+      "sequential": {
+        "baseline": 0.9064127604166666,
+        "correction_training": 0.8011067708333334,
+        "paired": {
+          "delta": -0.10530598958333333,
+          "bootstrap95": [
+            -0.12117513020833333,
+            -0.09318033854166667
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.9462890625,
+        "correction_training": 0.89599609375,
+        "paired": {
+          "delta": -0.05029296875,
+          "bootstrap95": [
+            -0.08219401041666667,
+            -0.013102213541666666
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "correction_mix:32": {
+      "sequential": {
+        "baseline": 0.0,
+        "correction_training": 0.3856608072916667,
+        "paired": {
+          "delta": 0.3856608072916667,
+          "bootstrap95": [
+            0.3610026041666667,
+            0.4110514322916667
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.0,
+        "correction_training": 0.6241861979166666,
+        "paired": {
+          "delta": 0.6241861979166666,
+          "bootstrap95": [
+            0.5972493489583334,
+            0.6538899739583334
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      }
+    },
+    "older_correction:64": {
+      "sequential": {
+        "baseline": 0.0,
+        "correction_training": 0.3312174479166667,
+        "paired": {
+          "delta": 0.3312174479166667,
+          "bootstrap95": [
+            0.3035481770833333,
+            0.3605143229166667
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.0,
+        "correction_training": 0.5753580729166666,
+        "paired": {
+          "delta": 0.5753580729166666,
+          "bootstrap95": [
+            0.5509440104166666,
+            0.6025390625
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      }
+    },
+    "late_correction:64": {
+      "sequential": {
+        "baseline": 0.9064127604166666,
+        "correction_training": 0.7902018229166666,
+        "paired": {
+          "delta": -0.1162109375,
+          "bootstrap95": [
+            -0.1357421875,
+            -0.10221354166666667
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.9462890625,
+        "correction_training": 0.8892415364583334,
+        "paired": {
+          "delta": -0.057047526041666664,
+          "bootstrap95": [
+            -0.09358723958333333,
+            -0.015869140625
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "correction_mix:64": {
+      "sequential": {
+        "baseline": 0.0,
+        "correction_training": 0.25146484375,
+        "paired": {
+          "delta": 0.25146484375,
+          "bootstrap95": [
+            0.22713216145833334,
+            0.2757975260416667
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.0,
+        "correction_training": 0.4996744791666667,
+        "paired": {
+          "delta": 0.4996744791666667,
+          "bootstrap95": [
+            0.4610188802083333,
+            0.5419921875
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      }
+    },
+    "older_correction:128": {
+      "sequential": {
+        "baseline": 0.0,
+        "correction_training": 0.3297526041666667,
+        "paired": {
+          "delta": 0.3297526041666667,
+          "bootstrap95": [
+            0.302490234375,
+            0.358642578125
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.0,
+        "correction_training": 0.573486328125,
+        "paired": {
+          "delta": 0.573486328125,
+          "bootstrap95": [
+            0.549560546875,
+            0.6004231770833334
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      }
+    },
+    "late_correction:128": {
+      "sequential": {
+        "baseline": 0.9064127604166666,
+        "correction_training": 0.7882486979166666,
+        "paired": {
+          "delta": -0.1181640625,
+          "bootstrap95": [
+            -0.13956705729166666,
+            -0.10310872395833333
+          ],
+          "improved": 0,
+          "worsened": 6
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.9462890625,
+        "correction_training": 0.8881022135416666,
+        "paired": {
+          "delta": -0.058186848958333336,
+          "bootstrap95": [
+            -0.09505208333333333,
+            -0.017740885416666668
+          ],
+          "improved": 1,
+          "worsened": 5
+        }
+      }
+    },
+    "correction_mix:128": {
+      "sequential": {
+        "baseline": 0.0,
+        "correction_training": 0.16756184895833334,
+        "paired": {
+          "delta": 0.16756184895833334,
+          "bootstrap95": [
+            0.14713541666666666,
+            0.18839518229166666
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      },
+      "one_pass_pair": {
+        "baseline": 0.0,
+        "correction_training": 0.40576171875,
+        "paired": {
+          "delta": 0.40576171875,
+          "bootstrap95": [
+            0.36474609375,
+            0.4510091145833333
+          ],
+          "improved": 6,
+          "worsened": 0
+        }
+      }
+    }
+  }
+}

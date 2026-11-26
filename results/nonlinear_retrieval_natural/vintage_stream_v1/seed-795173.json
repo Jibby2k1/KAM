@@ -1,0 +1,127 @@
+{
+  "seed": 795173,
+  "records": 190764,
+  "addresses": 1276,
+  "catalog_sha256": "8ac56fc8de01306d8dea706c40d9f3edaaeab89f007e06e4ef6cdc975a8bf828",
+  "date_tick_granularity": "quarter split into 1000 synthetic ingestion ticks",
+  "late_arrivals": 7601,
+  "static_tree_build_ns": 40426573,
+  "profiles": {
+    "point": {
+      "count": 200000,
+      "query_sha256": "a7b9c2960695b7724ae3349965ad218c343527a1465600292b0538dda54a7153",
+      "gold_sha256": "d9ef3c55990c82a0ef327f4e2b863427054a854def8e3ba8a218c45e33037dc9",
+      "methods": {
+        "descending_scan": {
+          "ns_per_query": 2932.91675,
+          "timed_repeats": [
+            2941.049155,
+            2932.91675,
+            2913.19923
+          ],
+          "correct": 200000,
+          "unavailable": 1348
+        },
+        "bisect_static_vintage_only": {
+          "ns_per_query": 355.56731,
+          "timed_repeats": [
+            377.40515,
+            355.56731,
+            344.59519
+          ],
+          "correct": 139364,
+          "unavailable": 0
+        },
+        "min_arrival_tree": {
+          "ns_per_query": 606.62522,
+          "timed_repeats": [
+            596.9083,
+            626.3465,
+            606.62522
+          ],
+          "correct": 200000,
+          "unavailable": 1348
+        },
+        "sqlite_index": {
+          "ns_per_query": 1856.19323,
+          "timed_repeats": [
+            1856.19323,
+            1861.73089,
+            1832.956075
+          ],
+          "correct": 200000,
+          "unavailable": 1348
+        }
+      },
+      "prequential": {
+        "queries": 200000,
+        "ingested": 190383,
+        "total_events": 190764,
+        "unreleased_after_last_request": 381,
+        "max_event_arrival": 8119486,
+        "out_of_order_insertions": 7208,
+        "live_read_ns_per_query": 519.37057,
+        "incremental_ingest_ns_per_arrival": 408.77791084287986,
+        "interleaved_ns": 328016264
+      }
+    },
+    "independent": {
+      "count": 200000,
+      "query_sha256": "f9e7c8d3aeab07bf6a60b6628a4d2958c86dbbfb2e25d50cbf78d66afdb736b8",
+      "gold_sha256": "d62b7240035669c3ccfa746107d112d3565feea56dcbbb28829f7d1751a8a970",
+      "methods": {
+        "descending_scan": {
+          "ns_per_query": 2959.58305,
+          "timed_repeats": [
+            2973.91487,
+            2959.58305,
+            2955.34556
+          ],
+          "correct": 200000,
+          "unavailable": 7125
+        },
+        "bisect_static_vintage_only": {
+          "ns_per_query": 428.012705,
+          "timed_repeats": [
+            449.282475,
+            422.273125,
+            428.012705
+          ],
+          "correct": 122237,
+          "unavailable": 5668
+        },
+        "min_arrival_tree": {
+          "ns_per_query": 782.81032,
+          "timed_repeats": [
+            800.292055,
+            774.00831,
+            782.81032
+          ],
+          "correct": 200000,
+          "unavailable": 7125
+        },
+        "sqlite_index": {
+          "ns_per_query": 1855.909595,
+          "timed_repeats": [
+            1858.64641,
+            1853.2922,
+            1855.909595
+          ],
+          "correct": 200000,
+          "unavailable": 7125
+        }
+      },
+      "prequential": {
+        "queries": 200000,
+        "ingested": 190764,
+        "total_events": 190764,
+        "unreleased_after_last_request": 0,
+        "max_event_arrival": 8119486,
+        "out_of_order_insertions": 7531,
+        "live_read_ns_per_query": 516.77167,
+        "incremental_ingest_ns_per_arrival": 437.2022027216875,
+        "interleaved_ns": 336914489
+      }
+    }
+  }
+}
