@@ -1,0 +1,759 @@
+{
+  "fixture_sha256": "4361c22f2fe6c204d1b9bc4618099c6d56c2443db99150a3ec790721afafac73",
+  "pools_sha256": "2bf0c633957aa56aadb5f9acbf4faa28af4cae91fc9f4bd48a7e2fefd22958f9",
+  "broad_replay_sha256": "8ab0f6f8c6ab48d0811259cfd699629c23597b176234e79e5c5820ee810df46d",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "shards": 4,
+  "gpu": [
+    "NVIDIA B200",
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  ],
+  "broad_reader_differences_from_previous_pass": [],
+  "tests": {
+    "all": {
+      "n": 1024,
+      "sequential_first_is_gold": 571,
+      "same_pair": 213,
+      "same_reader_order": 213,
+      "correct": {
+        "broad": {
+          "support": 487,
+          "answer_exact": 369,
+          "joint_exact": 276
+        },
+        "sequential": {
+          "support": 174,
+          "answer_exact": 210,
+          "joint_exact": 99
+        },
+        "oracle": {
+          "support": 506,
+          "answer_exact": 411,
+          "joint_exact": 291
+        }
+      },
+      "exclusive_successes": {
+        "support": {
+          "broad_only": 332,
+          "sequential_only": 19
+        },
+        "answer_exact": {
+          "broad_only": 201,
+          "sequential_only": 42
+        },
+        "joint_exact": {
+          "broad_only": 192,
+          "sequential_only": 15
+        }
+      },
+      "sequential_vs_broad": {
+        "support": {
+          "delta": -0.30566406,
+          "bootstrap95": [
+            -0.3359375,
+            -0.27539062
+          ],
+          "wins": 19,
+          "losses": 332
+        },
+        "answer_exact": {
+          "delta": -0.15527344,
+          "bootstrap95": [
+            -0.18359375,
+            -0.12792969
+          ],
+          "wins": 42,
+          "losses": 201
+        },
+        "joint_exact": {
+          "delta": -0.17285156,
+          "bootstrap95": [
+            -0.19921875,
+            -0.14746094
+          ],
+          "wins": 15,
+          "losses": 192
+        }
+      },
+      "oracle_vs_broad": {
+        "support": {
+          "delta": 0.01855469,
+          "bootstrap95": [
+            0.01074219,
+            0.02734375
+          ],
+          "wins": 19,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.04101562,
+          "bootstrap95": [
+            0.02929688,
+            0.05371094
+          ],
+          "wins": 42,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.01464844,
+          "bootstrap95": [
+            0.0078125,
+            0.02246094
+          ],
+          "wins": 15,
+          "losses": 0
+        }
+      },
+      "oracle_vs_sequential": {
+        "support": {
+          "delta": 0.32421875,
+          "bootstrap95": [
+            0.29589844,
+            0.35253906
+          ],
+          "wins": 332,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.19628906,
+          "bootstrap95": [
+            0.17285156,
+            0.22070312
+          ],
+          "wins": 201,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.1875,
+          "bootstrap95": [
+            0.16503906,
+            0.21191406
+          ],
+          "wins": 192,
+          "losses": 0
+        }
+      }
+    },
+    "gold_in_pool": {
+      "n": 619,
+      "sequential_first_is_gold": 408,
+      "same_pair": 178,
+      "same_reader_order": 178,
+      "correct": {
+        "broad": {
+          "support": 487,
+          "answer_exact": 319,
+          "joint_exact": 276
+        },
+        "sequential": {
+          "support": 174,
+          "answer_exact": 180,
+          "joint_exact": 99
+        },
+        "oracle": {
+          "support": 506,
+          "answer_exact": 348,
+          "joint_exact": 291
+        }
+      },
+      "exclusive_successes": {
+        "support": {
+          "broad_only": 332,
+          "sequential_only": 19
+        },
+        "answer_exact": {
+          "broad_only": 168,
+          "sequential_only": 29
+        },
+        "joint_exact": {
+          "broad_only": 192,
+          "sequential_only": 15
+        }
+      },
+      "sequential_vs_broad": {
+        "support": {
+          "delta": -0.50565428,
+          "bootstrap95": [
+            -0.55088853,
+            -0.46203554
+          ],
+          "wins": 19,
+          "losses": 332
+        },
+        "answer_exact": {
+          "delta": -0.22455574,
+          "bootstrap95": [
+            -0.26494346,
+            -0.18416801
+          ],
+          "wins": 29,
+          "losses": 168
+        },
+        "joint_exact": {
+          "delta": -0.28594507,
+          "bootstrap95": [
+            -0.32471729,
+            -0.24717286
+          ],
+          "wins": 15,
+          "losses": 192
+        }
+      },
+      "oracle_vs_broad": {
+        "support": {
+          "delta": 0.03069467,
+          "bootstrap95": [
+            0.0177706,
+            0.04523425
+          ],
+          "wins": 19,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.04684976,
+          "bootstrap95": [
+            0.03069467,
+            0.06462036
+          ],
+          "wins": 29,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.02423263,
+          "bootstrap95": [
+            0.01292407,
+            0.0371567
+          ],
+          "wins": 15,
+          "losses": 0
+        }
+      },
+      "oracle_vs_sequential": {
+        "support": {
+          "delta": 0.53634895,
+          "bootstrap95": [
+            0.49757674,
+            0.57673667
+          ],
+          "wins": 332,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.27140549,
+          "bootstrap95": [
+            0.23747981,
+            0.30694669
+          ],
+          "wins": 168,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.31017771,
+          "bootstrap95": [
+            0.27463651,
+            0.3457189
+          ],
+          "wins": 192,
+          "losses": 0
+        }
+      }
+    },
+    "natural_linked_distractor": {
+      "n": 468,
+      "sequential_first_is_gold": 311,
+      "same_pair": 146,
+      "same_reader_order": 146,
+      "correct": {
+        "broad": {
+          "support": 416,
+          "answer_exact": 261,
+          "joint_exact": 241
+        },
+        "sequential": {
+          "support": 140,
+          "answer_exact": 134,
+          "joint_exact": 76
+        },
+        "oracle": {
+          "support": 422,
+          "answer_exact": 275,
+          "joint_exact": 246
+        }
+      },
+      "exclusive_successes": {
+        "support": {
+          "broad_only": 282,
+          "sequential_only": 6
+        },
+        "answer_exact": {
+          "broad_only": 141,
+          "sequential_only": 14
+        },
+        "joint_exact": {
+          "broad_only": 170,
+          "sequential_only": 5
+        }
+      },
+      "sequential_vs_broad": {
+        "support": {
+          "delta": -0.58974359,
+          "bootstrap95": [
+            -0.63675214,
+            -0.54273504
+          ],
+          "wins": 6,
+          "losses": 282
+        },
+        "answer_exact": {
+          "delta": -0.27136752,
+          "bootstrap95": [
+            -0.31837607,
+            -0.22435897
+          ],
+          "wins": 14,
+          "losses": 141
+        },
+        "joint_exact": {
+          "delta": -0.3525641,
+          "bootstrap95": [
+            -0.39957265,
+            -0.30769231
+          ],
+          "wins": 5,
+          "losses": 170
+        }
+      },
+      "oracle_vs_broad": {
+        "support": {
+          "delta": 0.01282051,
+          "bootstrap95": [
+            0.0042735,
+            0.02350427
+          ],
+          "wins": 6,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.02991453,
+          "bootstrap95": [
+            0.01495726,
+            0.04487179
+          ],
+          "wins": 14,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.01068376,
+          "bootstrap95": [
+            0.00213675,
+            0.02136752
+          ],
+          "wins": 5,
+          "losses": 0
+        }
+      },
+      "oracle_vs_sequential": {
+        "support": {
+          "delta": 0.6025641,
+          "bootstrap95": [
+            0.55769231,
+            0.6474359
+          ],
+          "wins": 282,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.30128205,
+          "bootstrap95": [
+            0.26068376,
+            0.34401709
+          ],
+          "wins": 141,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.36324786,
+          "bootstrap95": [
+            0.32051282,
+            0.40811966
+          ],
+          "wins": 170,
+          "losses": 0
+        }
+      }
+    },
+    "gold_unlinked": {
+      "n": 136,
+      "sequential_first_is_gold": 90,
+      "same_pair": 28,
+      "same_reader_order": 28,
+      "correct": {
+        "broad": {
+          "support": 56,
+          "answer_exact": 48,
+          "joint_exact": 25
+        },
+        "sequential": {
+          "support": 30,
+          "answer_exact": 40,
+          "joint_exact": 19
+        },
+        "oracle": {
+          "support": 69,
+          "answer_exact": 63,
+          "joint_exact": 35
+        }
+      },
+      "exclusive_successes": {
+        "support": {
+          "broad_only": 39,
+          "sequential_only": 13
+        },
+        "answer_exact": {
+          "broad_only": 23,
+          "sequential_only": 15
+        },
+        "joint_exact": {
+          "broad_only": 16,
+          "sequential_only": 10
+        }
+      },
+      "sequential_vs_broad": {
+        "support": {
+          "delta": -0.19117647,
+          "bootstrap95": [
+            -0.28676471,
+            -0.08823529
+          ],
+          "wins": 13,
+          "losses": 39
+        },
+        "answer_exact": {
+          "delta": -0.05882353,
+          "bootstrap95": [
+            -0.14705882,
+            0.02941176
+          ],
+          "wins": 15,
+          "losses": 23
+        },
+        "joint_exact": {
+          "delta": -0.04411765,
+          "bootstrap95": [
+            -0.11764706,
+            0.02941176
+          ],
+          "wins": 10,
+          "losses": 16
+        }
+      },
+      "oracle_vs_broad": {
+        "support": {
+          "delta": 0.09558824,
+          "bootstrap95": [
+            0.05147059,
+            0.14705882
+          ],
+          "wins": 13,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.11029412,
+          "bootstrap95": [
+            0.05882353,
+            0.16176471
+          ],
+          "wins": 15,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.07352941,
+          "bootstrap95": [
+            0.02941176,
+            0.11764706
+          ],
+          "wins": 10,
+          "losses": 0
+        }
+      },
+      "oracle_vs_sequential": {
+        "support": {
+          "delta": 0.28676471,
+          "bootstrap95": [
+            0.21323529,
+            0.36029412
+          ],
+          "wins": 39,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.16911765,
+          "bootstrap95": [
+            0.11029412,
+            0.23529412
+          ],
+          "wins": 23,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.11764706,
+          "bootstrap95": [
+            0.06617647,
+            0.17647059
+          ],
+          "wins": 16,
+          "losses": 0
+        }
+      }
+    },
+    "missing_gold": {
+      "n": 405,
+      "sequential_first_is_gold": 163,
+      "same_pair": 35,
+      "same_reader_order": 35,
+      "correct": {
+        "broad": {
+          "support": 0,
+          "answer_exact": 50,
+          "joint_exact": 0
+        },
+        "sequential": {
+          "support": 0,
+          "answer_exact": 30,
+          "joint_exact": 0
+        },
+        "oracle": {
+          "support": 0,
+          "answer_exact": 63,
+          "joint_exact": 0
+        }
+      },
+      "exclusive_successes": {
+        "support": {
+          "broad_only": 0,
+          "sequential_only": 0
+        },
+        "answer_exact": {
+          "broad_only": 33,
+          "sequential_only": 13
+        },
+        "joint_exact": {
+          "broad_only": 0,
+          "sequential_only": 0
+        }
+      },
+      "sequential_vs_broad": {
+        "support": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": -0.04938272,
+          "bootstrap95": [
+            -0.08395062,
+            -0.01728395
+          ],
+          "wins": 13,
+          "losses": 33
+        },
+        "joint_exact": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        }
+      },
+      "oracle_vs_broad": {
+        "support": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.03209877,
+          "bootstrap95": [
+            0.01481481,
+            0.04938272
+          ],
+          "wins": 13,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        }
+      },
+      "oracle_vs_sequential": {
+        "support": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.08148148,
+          "bootstrap95": [
+            0.05679012,
+            0.11111111
+          ],
+          "wins": 33,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0,
+          "losses": 0
+        }
+      }
+    },
+    "pair_disagreement": {
+      "n": 811,
+      "sequential_first_is_gold": 380,
+      "same_pair": 0,
+      "same_reader_order": 0,
+      "correct": {
+        "broad": {
+          "support": 332,
+          "answer_exact": 275,
+          "joint_exact": 192
+        },
+        "sequential": {
+          "support": 19,
+          "answer_exact": 116,
+          "joint_exact": 15
+        },
+        "oracle": {
+          "support": 351,
+          "answer_exact": 317,
+          "joint_exact": 207
+        }
+      },
+      "exclusive_successes": {
+        "support": {
+          "broad_only": 332,
+          "sequential_only": 19
+        },
+        "answer_exact": {
+          "broad_only": 201,
+          "sequential_only": 42
+        },
+        "joint_exact": {
+          "broad_only": 192,
+          "sequential_only": 15
+        }
+      },
+      "sequential_vs_broad": {
+        "support": {
+          "delta": -0.38594328,
+          "bootstrap95": [
+            -0.42293465,
+            -0.34895191
+          ],
+          "wins": 19,
+          "losses": 332
+        },
+        "answer_exact": {
+          "delta": -0.19605425,
+          "bootstrap95": [
+            -0.23057953,
+            -0.16029593
+          ],
+          "wins": 42,
+          "losses": 201
+        },
+        "joint_exact": {
+          "delta": -0.21824908,
+          "bootstrap95": [
+            -0.25030826,
+            -0.18742293
+          ],
+          "wins": 15,
+          "losses": 192
+        }
+      },
+      "oracle_vs_broad": {
+        "support": {
+          "delta": 0.02342787,
+          "bootstrap95": [
+            0.0135635,
+            0.03452528
+          ],
+          "wins": 19,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.05178792,
+          "bootstrap95": [
+            0.03699137,
+            0.06781751
+          ],
+          "wins": 42,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.01849568,
+          "bootstrap95": [
+            0.00986436,
+            0.02836005
+          ],
+          "wins": 15,
+          "losses": 0
+        }
+      },
+      "oracle_vs_sequential": {
+        "support": {
+          "delta": 0.40937115,
+          "bootstrap95": [
+            0.37484587,
+            0.44389642
+          ],
+          "wins": 332,
+          "losses": 0
+        },
+        "answer_exact": {
+          "delta": 0.24784217,
+          "bootstrap95": [
+            0.21824908,
+            0.27743527
+          ],
+          "wins": 201,
+          "losses": 0
+        },
+        "joint_exact": {
+          "delta": 0.23674476,
+          "bootstrap95": [
+            0.20838471,
+            0.26513564
+          ],
+          "wins": 192,
+          "losses": 0
+        }
+      }
+    }
+  }
+}

@@ -104,6 +104,16 @@ jobs:
                    --fitted "$base/native_sentence_refit_v1/fitted.json" --output "$output")
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_native_routing_gate.py analyze "$study/replay.json.gz" "${options[@]}"
           diff -u "$study/summary.json" "$output"
+      - name: Replay sequential oracle headroom on frozen pools
+        run: |
+          base=results/nonlinear_retrieval_natural
+          prior="$base/native_routing_gate_v1"
+          study="$base/frozen_sequential_oracle_v1"
+          output=$(mktemp)
+          options=(--fixture "$prior/fixture.json.gz" --pools "$prior/pools.json.gz"
+                   --broad-replay "$prior/replay.json.gz" --output "$output")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_frozen_sequential_oracle.py "$study/replay.json.gz" "${options[@]}"
+          diff -u "$study/summary.json" "$output"
       - name: Check relative-lag compaction parity on CPU
         run: |
           for arm in dot_without_absolute radial_without_absolute; do
