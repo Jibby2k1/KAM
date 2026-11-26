@@ -30,6 +30,8 @@ The [expansion replacement guard](../../reports/nonlinear_retrieval_natural/EXPA
 
 [Primed request timing](../../reports/nonlinear_retrieval_natural/SHARED_SERVING.md) found a 4.37 ms paired median saving for shared relation extraction and a higher empirical p95. [Exact article staging](../../reports/nonlinear_retrieval_natural/ARTICLE_STAGING.md) found similar lookup times for warmed shared and node-local stores.
 
+[Shared-index prewarming](../../reports/nonlinear_retrieval_natural/ARTICLE_PREWARM.md) reduced median article lookup from 34.73 to 0.54 ms across 256 exact crossed requests on two HPG nodes.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving

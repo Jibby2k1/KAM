@@ -205,3 +205,11 @@ jobs:
           staging="$base/article_staging_v1"
           python scripts/analyze_kam_article_staging.py "$staging"/staging-[01].json --pools "$guard/pools.json.gz" --reference "$guard/replay.json.gz" --output "$output"
           diff -u "$staging/summary.json" "$output"
+      - name: Audit crossed article prewarm timing
+        run: |
+          base=results/nonlinear_retrieval_natural
+          guard="$base/expansion_guard_v1"
+          study="$base/article_prewarm_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_article_prewarm.py "$study"/prewarm-[01].json --pools "$guard/pools.json.gz" --reference "$guard/replay.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
