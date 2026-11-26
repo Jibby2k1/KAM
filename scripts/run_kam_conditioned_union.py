@@ -126,13 +126,51 @@ def run(a):
     reader = Reader(a.assets / "reader")
     index = FullWikiIndex(a.inputs, manifest, cfg)
     pair_indices, original_rows = {}, {}
+    if a.live_anchor_profile:
+        from kam_union_relation_features import bitset_relation_features
 
-    def score_cases(chunk, offset, prompts, output, use_shared=False):
+    def pairs_for(n):
+        if n not in pair_indices:
+            pairs = torch.triu_indices(n, n, 1)
+            pair_indices[n] = pairs, pairs.cuda()
+        return pair_indices[n]
+
+    def plan_variant(arm, ranked, variant, vector, terms, contexts, features=None):
+        cpu_pairs, gpu_pairs = pairs_for(len(ranked))
+        graph, lexical = features if features is not None else relation_features(variant, cpu_pairs)
+        bank = index.bank[torch.tensor(ranked, device="cuda")].unsqueeze(0)
+        return rank_variant(arm, variant, graph, lexical, bank, vector, terms, heads, gpu_pairs, contexts)
+
+    def select(stage, item, contexts):
+        arm, _, _, pairs, _, _ = stage
+        x = np.asarray(item["variants"][arm]["features"], dtype=np.float64)
+        scores = ((x - model["mean"]) / model["scale"]) @ model["coefficients"]
+        order = contexts[arm][1]
+        winner = int(scores.argmax())
+        chosen = sorted(pairs[winner], key=lambda j: (-order[j], j))
+        return chosen, pairs, scores, x[winner]
+
+    def score_cases(chunk, offset, prompts, output, use_shared=False, *, live_anchor=False, phase=None):
         original = [sealed["rows"][c["id"]] for c in chunk]
         examples = [pool_text(index.db, q["question"], ids) for q, ids in zip(chunk, original, strict=True)]
         query = encoder([c["question"] for c in chunk], "query")
         adapted = adapter(query)
-        if anchors:
+        if phase is not None:
+            original_ready = perf_counter()
+        early = None
+        if live_anchor:
+            case, = chunk
+            base, = original
+            example, = examples
+            early_context = {}
+            terms = set(words(case["question"])) - STOP
+            relation = bitset_relation_features(example, pairs_for(len(base))[0])
+            stage = plan_variant("broad", base, example, adapted, terms, early_context, relation)
+            item, = flush([(case["id"], split, (), query[0], [stage])], encoder)
+            early = select(stage, item, early_context)
+            first_slots = early[0][:1]
+            first_ids = [base[first_slots[0]]]
+        elif anchors:
             first_ids = [anchors[q["id"]] for q in chunk]
             first_slots = [pool.index(anchor) for pool, anchor in zip(original, first_ids, strict=True)]
         else:
@@ -140,6 +178,8 @@ def run(a):
             first_slots = score(adapted, index.bank[ids]).argmax(dim=-1, keepdim=True)
             first_ids = ids.gather(1, first_slots).flatten().tolist()
             first_slots = first_slots.flatten().tolist()
+        if phase is not None:
+            anchor_ready = perf_counter()
         augmented = [f"{c['question']} First retrieved document: {candidate_texts(c)[slot]}"
                      for c, slot in zip(examples, first_slots, strict=True)]
         second = adapter(encoder(augmented, "query"))
@@ -147,6 +187,8 @@ def run(a):
         queries = conditioned if a.guard_split else torch.cat((adapted, conditioned))
         candidates, _ = top_corpus(index, queries, first_ids if a.guard_split else first_ids * 2)
 
+        if phase is not None:
+            search_ready = perf_counter()
         plans, details = [], []
         for i, (case, example, base) in enumerate(zip(chunk, examples, original, strict=True)):
             gold = set(case["gold_ids"])
@@ -158,18 +200,13 @@ def run(a):
             variants = {"broad": (base, example)} | {
                 arm: union_example(index, example, base, top) for arm, top in hits.items()
             }
-            for ranked, _ in variants.values():
-                n = len(ranked)
-                if n not in pair_indices:
-                    cpu_pairs = torch.triu_indices(n, n, 1)
-                    pair_indices[n] = cpu_pairs, cpu_pairs.cuda()
             relations, elapsed = {}, {}
-            if a.verify_shared_relation or use_shared:
+            if (a.verify_shared_relation or use_shared) and not live_anchor:
                 expanded_size = len(variants["conditioned_union"][0])
                 if expanded_size not in original_rows:
-                    expanded_pairs = pair_indices[expanded_size][0]
+                    expanded_pairs = pairs_for(expanded_size)[0]
                     keep = expanded_pairs[1] < len(base)
-                    assert torch.equal(expanded_pairs[:, keep], pair_indices[len(base)][0])
+                    assert torch.equal(expanded_pairs[:, keep], pairs_for(len(base))[0])
                     original_rows[expanded_size] = keep
                 if a.verify_shared_relation:
                     relations, elapsed = profile_relations(variants, pair_indices, len(base), original_rows[expanded_size],
@@ -179,13 +216,12 @@ def run(a):
             prepared, contexts = [], {}
             terms = set(words(case["question"])) - STOP
             for arm, (ranked, variant) in variants.items():
-                n = len(ranked)
-                cpu_pairs, gpu_pairs = pair_indices[n]
-                graph, lexical = relations[arm] if relations else relation_features(variant, cpu_pairs)
-                bank = index.bank[torch.tensor(ranked, device="cuda")].unsqueeze(0)
-                stage = rank_variant(arm, variant, graph, lexical, bank, adapted[i:i+1], terms, heads, gpu_pairs,
-                                     contexts)
-                prepared.append(stage)
+                if live_anchor and arm == "broad":
+                    continue
+                features = relations.get(arm)
+                if live_anchor:
+                    features = bitset_relation_features(variant, pairs_for(len(ranked))[0])
+                prepared.append(plan_variant(arm, ranked, variant, adapted[i:i+1], terms, contexts, features))
             plans.append((id_, split, (), query[i], prepared))
             details.append((case, base, variants, contexts, hits, first_ids[i], elapsed))
 
@@ -193,20 +229,15 @@ def run(a):
         for item, plan, detail in zip(scored, plans, details, strict=True):
             case, base, variants, contexts, hits, first, elapsed = detail
             gold = set(case["gold_ids"])
-            arms, winners = {}, {}
-            for stage in plan[4]:
-                arm = stage[0]
+            arms = {}
+            winners = {stage[0]: select(stage, item, contexts) for stage in plan[4]}
+            if early is not None:
+                winners = {"broad": early, **winners}
+            for arm, (chosen, pairs, _, _) in winners.items():
                 ranked, example = variants[arm]
-                pairs = stage[3]
-                x = np.asarray(item["variants"][arm]["features"], dtype=np.float64)
-                scores = ((x - model["mean"]) / model["scale"]) @ model["coefficients"]
-                order = contexts[arm][1]
-                winner = int(scores.argmax())
-                chosen = sorted(pairs[winner], key=lambda j: (-order[j], j))
                 shortlisted = any({ranked[j], ranked[k]} == gold for j, k in pairs)
                 arms[arm] = {"pair": [ranked[j] for j in chosen], "gold_pair_in_shortlist": shortlisted}
                 prompts.setdefault(reader.prompt(example, chosen), []).append((arms[arm], case["answer"]))
-                winners[arm] = (chosen, pairs, scores, x[winner])
             row = {"id": case["id"], "first": first, "corpus_hits": hits, "arms": arms,
                    "pool_hash": sha256(json.dumps(base, separators=(",", ":")).encode()).hexdigest()}
             if a.guard_split:
@@ -215,6 +246,10 @@ def run(a):
             if a.verify_shared_relation:
                 row["relation_timing_ms"] = elapsed
             output.append(row)
+        if phase is not None:
+            phase.update(anchor_ms=(anchor_ready - original_ready) * 1000,
+                         conditioned_search_ms=(search_ready - anchor_ready) * 1000,
+                         remaining_rerank_ms=(perf_counter() - search_ready) * 1000)
 
     def read_answers(prompts):
         for predicted, requests in zip(reader.answers(list(prompts)), prompts.values(), strict=True):
@@ -222,14 +257,18 @@ def run(a):
                 arm["exact"] = bool(measure_answer(predicted, truth)["em"])
 
     output = []
-    def request(case, i, use_shared):
+    def request(case, i, use_shared, *, live_anchor=False, phase=None):
         prompts, rows = {}, []
         torch.cuda.synchronize()
         before = perf_counter()
-        score_cases([case], i, prompts, rows, use_shared=use_shared)
+        score_cases([case], i, prompts, rows, use_shared=use_shared, live_anchor=live_anchor, phase=phase)
+        before_reader = perf_counter()
         read_answers(prompts)
         torch.cuda.synchronize()
-        return rows[0], (perf_counter() - before) * 1000
+        done = perf_counter()
+        if phase is not None:
+            phase["reader_ms"] = (done - before_reader) * 1000
+        return rows[0], (done - before) * 1000
 
     index_profile = {}
     if a.index_prewarm_rank is not None:
@@ -257,6 +296,27 @@ def run(a):
             output.append(row | {"index_warmed": True, "request_ms": latency})
         index_profile = {"index_profile_rank": rank, "database_bytes": database_bytes, "prewarm_seconds": seconds,
                          "node_sha256": sha256(uname().nodename.encode()).hexdigest()}
+    elif a.live_anchor_profile:
+        from random import Random
+
+        from benchmark_kam_article_prewarm import read_index
+
+        database_bytes, seconds = read_index(a.inputs / "lexical" / "articles.sqlite")
+        for i, case in enumerate(cases[:4]):
+            request(case, i, True)
+            request(case, i, True, live_anchor=True)
+        rng = Random(23847 + a.shard)
+        for i, case in enumerate(cases[4:132:4]):
+            arms = ["affinity", "live_broad"]
+            rng.shuffle(arms)
+            timings, records, phases = {}, {}, {}
+            for arm in arms:
+                phases[arm] = {}
+                records[arm], timings[arm] = request(case, i, True, live_anchor=arm == "live_broad",
+                                                       phase=phases[arm])
+            output.append({"id": case["id"], "order": arms, "timing_ms": timings,
+                           "phase_ms": phases, "records": records})
+        index_profile = {"prewarm_seconds": seconds, "database_bytes": database_bytes}
     elif a.serving_profile:
         for i, case in enumerate(cases[:4]):
             request(case, i, False)
@@ -296,6 +356,7 @@ def main():
     parser.add_argument("--anchor-reference", type=Path)
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
+    parser.add_argument("--live-anchor-profile", action="store_true")
     parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
     parser.add_argument("--index-prewarm-jobdir", type=Path)
     parser.add_argument("--shard", type=int, required=True)
@@ -317,6 +378,11 @@ def main():
         or a.shards != 1 or not a.index_prewarm_jobdir
     ):
         parser.error("the shared-index crossover needs two independent full-cohort affinity workers")
+    if a.live_anchor_profile and (
+        a.guard_split != "test" or a.anchor_reference or a.serving_profile or a.index_prewarm_rank is not None
+        or a.verify_shared_relation or a.shards != 4
+    ):
+        parser.error("live anchor timing uses the fixed four-shard warm-request design")
     torch.set_float32_matmul_precision("highest")
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

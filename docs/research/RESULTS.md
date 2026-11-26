@@ -69,3 +69,5 @@ The [controlled revision-noise report](../../reports/nonlinear_retrieval_natural
 The [B200 serving prewarm crossover](../../reports/nonlinear_retrieval_natural/SHARED_PREWARM_SERVING.md) reduced median affinity-anchor request time from 132.34 to 63.29 ms and p95 from 203.50 to 91.50 ms. All 256 crossed requests retained identical evidence and answer exactness.
 
 At equal depth 64 and with the same B200 broad-ranked expansion, [hybrid initial search](../../reports/nonlinear_retrieval_natural/DENSE_HYBRID_ANCHOR.md) increased initial coverage from 603 to 659 of 1,024 questions. After expansion, it produced 543 support pairs and 340 joint exact matches versus 526 and 328 for dense. The paired joint EM interval reached zero.
+
+The [live B200 anchor profile](../../reports/nonlinear_retrieval_natural/LIVE_ANCHOR_LATENCY.md) measured an 11.29 ms paired median overhead for broad-ranked anchoring versus affinity across 128 prewarmed requests. Both policies reproduced their archived anchors, candidate membership, evidence selections, and exactness.
