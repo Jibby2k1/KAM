@@ -1,0 +1,1823 @@
+{
+  "sources": {
+    "Canada": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/canrealGDP.xls",
+      "sha256": "4e23678a18fcefebff73d2cf9811d72c0d6808ed02cb724a69819e12bfcc361d",
+      "records": 1259
+    },
+    "France": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/frarealGDP.xls",
+      "sha256": "ee9d096fa1306bc4043a6aa658bfee4061192b3d023b8c13349e6713d991ff12",
+      "records": 515
+    },
+    "Italy": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/itarealGDP.xls",
+      "sha256": "bc9de34b2dd72070a053babb4f252a573f1892af3773e545cbddef2c7fc9fb2b",
+      "records": 692
+    },
+    "Portugal": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/porrealGDP.xls",
+      "sha256": "d6a796824be2840bf24ce08dfe1fd4b2ba85f73236153fd7963724677ee8503b",
+      "records": 118
+    }
+  },
+  "groups": {
+    "Canada": 137,
+    "France": 61,
+    "Italy": 79,
+    "Portugal": 15
+  },
+  "seeds": [
+    12004937,
+    12679517,
+    13791913,
+    15293789
+  ],
+  "train_tokens": 13516800,
+  "oracle": {
+    "as_of_known": 584,
+    "as_of_unavailable": 292,
+    "method": "independent SQLite lookup at the exact source release day"
+  },
+  "tests": {
+    "16": {
+      "performance": {
+        "dot_without_absolute:procedural_dual_boundary:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 204,
+            "numerical": 464
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 97,
+            "numerical": 261
+          },
+          "France": {
+            "n": 976,
+            "joint": 52,
+            "numerical": 77
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 49,
+            "numerical": 93
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 6,
+            "numerical": 33
+          }
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 239,
+            "numerical": 581
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 116,
+            "numerical": 321
+          },
+          "France": {
+            "n": 976,
+            "joint": 56,
+            "numerical": 101
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 61,
+            "numerical": 124
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 6,
+            "numerical": 35
+          }
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 58,
+            "numerical": 360
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 26,
+            "numerical": 186
+          },
+          "France": {
+            "n": 976,
+            "joint": 12,
+            "numerical": 62
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 14,
+            "numerical": 87
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 6,
+            "numerical": 25
+          }
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 71,
+            "numerical": 410
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 33,
+            "numerical": 225
+          },
+          "France": {
+            "n": 976,
+            "joint": 12,
+            "numerical": 68
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 21,
+            "numerical": 93
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 5,
+            "numerical": 24
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 3755,
+            "numerical": 3846
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1859,
+            "numerical": 1888
+          },
+          "France": {
+            "n": 976,
+            "joint": 758,
+            "numerical": 782
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 999,
+            "numerical": 1023
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 139,
+            "numerical": 153
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 3022,
+            "numerical": 3277
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1530,
+            "numerical": 1637
+          },
+          "France": {
+            "n": 976,
+            "joint": 602,
+            "numerical": 658
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 784,
+            "numerical": 855
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 106,
+            "numerical": 127
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 2309,
+            "numerical": 2693
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1213,
+            "numerical": 1397
+          },
+          "France": {
+            "n": 976,
+            "joint": 408,
+            "numerical": 503
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 572,
+            "numerical": 665
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 116,
+            "numerical": 128
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2224,
+            "numerical": 2647
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1194,
+            "numerical": 1405
+          },
+          "France": {
+            "n": 976,
+            "joint": 391,
+            "numerical": 485
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 541,
+            "numerical": 641
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 98,
+            "numerical": 116
+          }
+        },
+        "dot_without_absolute:archive:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 4255,
+            "numerical": 4291
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 2027,
+            "numerical": 2052
+          },
+          "France": {
+            "n": 976,
+            "joint": 862,
+            "numerical": 864
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 1169,
+            "numerical": 1173
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 197,
+            "numerical": 202
+          }
+        },
+        "dot_without_absolute:archive:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 3962,
+            "numerical": 4052
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1925,
+            "numerical": 1961
+          },
+          "France": {
+            "n": 976,
+            "joint": 806,
+            "numerical": 819
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 1065,
+            "numerical": 1092
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 166,
+            "numerical": 180
+          }
+        },
+        "dot_without_absolute:archive:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 2228,
+            "numerical": 2500
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1084,
+            "numerical": 1195
+          },
+          "France": {
+            "n": 976,
+            "joint": 428,
+            "numerical": 495
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 600,
+            "numerical": 678
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 116,
+            "numerical": 132
+          }
+        },
+        "dot_without_absolute:archive:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2433,
+            "numerical": 2735
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1255,
+            "numerical": 1400
+          },
+          "France": {
+            "n": 976,
+            "joint": 437,
+            "numerical": 506
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 625,
+            "numerical": 702
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 116,
+            "numerical": 127
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 842,
+            "numerical": 1228
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 354,
+            "numerical": 565
+          },
+          "France": {
+            "n": 976,
+            "joint": 205,
+            "numerical": 266
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 253,
+            "numerical": 334
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 30,
+            "numerical": 63
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 1519,
+            "numerical": 2112
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 659,
+            "numerical": 967
+          },
+          "France": {
+            "n": 976,
+            "joint": 357,
+            "numerical": 452
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 453,
+            "numerical": 601
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 50,
+            "numerical": 92
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 276,
+            "numerical": 834
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 131,
+            "numerical": 431
+          },
+          "France": {
+            "n": 976,
+            "joint": 59,
+            "numerical": 155
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 71,
+            "numerical": 203
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 15,
+            "numerical": 45
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 576,
+            "numerical": 1432
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 263,
+            "numerical": 746
+          },
+          "France": {
+            "n": 976,
+            "joint": 126,
+            "numerical": 256
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 155,
+            "numerical": 349
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 32,
+            "numerical": 81
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 3128,
+            "numerical": 3329
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1645,
+            "numerical": 1717
+          },
+          "France": {
+            "n": 976,
+            "joint": 606,
+            "numerical": 642
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 771,
+            "numerical": 838
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 106,
+            "numerical": 132
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 3103,
+            "numerical": 3328
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1639,
+            "numerical": 1716
+          },
+          "France": {
+            "n": 976,
+            "joint": 596,
+            "numerical": 640
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 762,
+            "numerical": 839
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 106,
+            "numerical": 133
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 2798,
+            "numerical": 3165
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1534,
+            "numerical": 1659
+          },
+          "France": {
+            "n": 976,
+            "joint": 466,
+            "numerical": 565
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 690,
+            "numerical": 813
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 108,
+            "numerical": 128
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2790,
+            "numerical": 3175
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1539,
+            "numerical": 1663
+          },
+          "France": {
+            "n": 976,
+            "joint": 461,
+            "numerical": 573
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 683,
+            "numerical": 812
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 107,
+            "numerical": 127
+          }
+        },
+        "radial_without_absolute:archive:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 3100,
+            "numerical": 3278
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1596,
+            "numerical": 1664
+          },
+          "France": {
+            "n": 976,
+            "joint": 592,
+            "numerical": 641
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 802,
+            "numerical": 846
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 110,
+            "numerical": 127
+          }
+        },
+        "radial_without_absolute:archive:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2995,
+            "numerical": 3333
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1580,
+            "numerical": 1712
+          },
+          "France": {
+            "n": 976,
+            "joint": 561,
+            "numerical": 654
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 753,
+            "numerical": 841
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 101,
+            "numerical": 126
+          }
+        },
+        "radial_without_absolute:archive:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 2411,
+            "numerical": 2917
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1281,
+            "numerical": 1516
+          },
+          "France": {
+            "n": 976,
+            "joint": 435,
+            "numerical": 548
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 594,
+            "numerical": 725
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 101,
+            "numerical": 128
+          }
+        },
+        "radial_without_absolute:archive:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2433,
+            "numerical": 3119
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1368,
+            "numerical": 1671
+          },
+          "France": {
+            "n": 976,
+            "joint": 404,
+            "numerical": 562
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 575,
+            "numerical": 765
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 86,
+            "numerical": 121
+          }
+        }
+      },
+      "effects": {
+        "dot_without_absolute:procedural_dual_boundary:archive_scaled_minus_observed": {
+          "delta": 0.007491438356164383,
+          "bootstrap95": [
+            -0.0010557432432432433,
+            0.01588628762541806
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin_minus_observed": {
+          "delta": -0.03125,
+          "bootstrap95": [
+            -0.041666666666666664,
+            -0.021398305084745762
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin_scaled_minus_observed": {
+          "delta": -0.028467465753424657,
+          "bootstrap95": [
+            -0.03872950819672131,
+            -0.019085570469798658
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_scaled_minus_observed": {
+          "delta": -0.15689212328767124,
+          "bootstrap95": [
+            -0.18316831683168316,
+            -0.13232899022801303
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin_minus_observed": {
+          "delta": -0.3095034246575342,
+          "bootstrap95": [
+            -0.3554421768707483,
+            -0.2578996282527881
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin_scaled_minus_observed": {
+          "delta": -0.3276969178082192,
+          "bootstrap95": [
+            -0.37338709677419357,
+            -0.2774390243902439
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:archive_scaled_minus_observed": {
+          "delta": -0.0627140410958904,
+          "bootstrap95": [
+            -0.08122895622895623,
+            -0.04483695652173913
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:archive_thin_minus_observed": {
+          "delta": -0.433861301369863,
+          "bootstrap95": [
+            -0.4627272727272727,
+            -0.40492021276595747
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:archive_thin_scaled_minus_observed": {
+          "delta": -0.3899828767123288,
+          "bootstrap95": [
+            -0.4210097719869707,
+            -0.3582427536231884
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_scaled_minus_observed": {
+          "delta": 0.1449058219178082,
+          "bootstrap95": [
+            0.12376644736842106,
+            0.16638795986622074
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin_minus_observed": {
+          "delta": -0.1211472602739726,
+          "bootstrap95": [
+            -0.1478813559322034,
+            -0.09487410071942447
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin_scaled_minus_observed": {
+          "delta": -0.056934931506849314,
+          "bootstrap95": [
+            -0.08675699300699301,
+            -0.023859797297297296
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_scaled_minus_observed": {
+          "delta": -0.005351027397260274,
+          "bootstrap95": [
+            -0.013658940397350994,
+            0.0016571969696969697
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin_minus_observed": {
+          "delta": -0.07063356164383562,
+          "bootstrap95": [
+            -0.09967845659163987,
+            -0.041520979020979024
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin_scaled_minus_observed": {
+          "delta": -0.0723458904109589,
+          "bootstrap95": [
+            -0.10496794871794872,
+            -0.04050925925925926
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:archive_scaled_minus_observed": {
+          "delta": -0.02247431506849315,
+          "bootstrap95": [
+            -0.038524590163934426,
+            -0.006825938566552901
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:archive_thin_minus_observed": {
+          "delta": -0.14747431506849315,
+          "bootstrap95": [
+            -0.17844827586206896,
+            -0.11710963455149502
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:archive_thin_scaled_minus_observed": {
+          "delta": -0.1427654109589041,
+          "bootstrap95": [
+            -0.1813186813186813,
+            -0.10654981549815498
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:release_clusters_minus_boundary": {
+          "delta": 0.7600599315068494,
+          "bootstrap95": [
+            0.7278559602649006,
+            0.7903508771929825
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive_scaled:release_clusters_minus_boundary": {
+          "delta": 0.5956763698630136,
+          "bootstrap95": [
+            0.5629237288135593,
+            0.6290322580645161
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive_thin:release_clusters_minus_boundary": {
+          "delta": 0.4818065068493151,
+          "bootstrap95": [
+            0.4508620689655172,
+            0.5160472972972973
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive_thin_scaled:release_clusters_minus_boundary": {
+          "delta": 0.4608304794520548,
+          "bootstrap95": [
+            0.4276639344262295,
+            0.4953457446808511
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:release_clusters_minus_boundary": {
+          "delta": 0.4892979452054795,
+          "bootstrap95": [
+            0.4444444444444444,
+            0.5365646258503401
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive_scaled:release_clusters_minus_boundary": {
+          "delta": 0.339041095890411,
+          "bootstrap95": [
+            0.30109797297297297,
+            0.3785087719298246
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive_thin:release_clusters_minus_boundary": {
+          "delta": 0.5398116438356164,
+          "bootstrap95": [
+            0.5045529801324503,
+            0.5791666666666667
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive_thin_scaled:release_clusters_minus_boundary": {
+          "delta": 0.4738869863013699,
+          "bootstrap95": [
+            0.43968949044585987,
+            0.511405109489051
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        }
+      }
+    },
+    "48": {
+      "performance": {
+        "dot_without_absolute:procedural_dual_boundary:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 25,
+            "numerical": 170
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 11,
+            "numerical": 87
+          },
+          "France": {
+            "n": 976,
+            "joint": 9,
+            "numerical": 33
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 4,
+            "numerical": 37
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 1,
+            "numerical": 13
+          }
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 23,
+            "numerical": 198
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 8,
+            "numerical": 95
+          },
+          "France": {
+            "n": 976,
+            "joint": 9,
+            "numerical": 44
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 6,
+            "numerical": 45
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 0,
+            "numerical": 14
+          }
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 7,
+            "numerical": 132
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 2,
+            "numerical": 58
+          },
+          "France": {
+            "n": 976,
+            "joint": 3,
+            "numerical": 32
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 2,
+            "numerical": 34
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 0,
+            "numerical": 8
+          }
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 11,
+            "numerical": 161
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 4,
+            "numerical": 71
+          },
+          "France": {
+            "n": 976,
+            "joint": 3,
+            "numerical": 37
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 4,
+            "numerical": 45
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 0,
+            "numerical": 8
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 2372,
+            "numerical": 2730
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1323,
+            "numerical": 1465
+          },
+          "France": {
+            "n": 976,
+            "joint": 401,
+            "numerical": 492
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 561,
+            "numerical": 664
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 87,
+            "numerical": 109
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2024,
+            "numerical": 2518
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1195,
+            "numerical": 1393
+          },
+          "France": {
+            "n": 976,
+            "joint": 322,
+            "numerical": 433
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 444,
+            "numerical": 598
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 63,
+            "numerical": 94
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 1719,
+            "numerical": 2230
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1018,
+            "numerical": 1256
+          },
+          "France": {
+            "n": 976,
+            "joint": 280,
+            "numerical": 403
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 383,
+            "numerical": 506
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 38,
+            "numerical": 65
+          }
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 1904,
+            "numerical": 2421
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1113,
+            "numerical": 1353
+          },
+          "France": {
+            "n": 976,
+            "joint": 323,
+            "numerical": 433
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 430,
+            "numerical": 562
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 38,
+            "numerical": 73
+          }
+        },
+        "dot_without_absolute:archive:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 2316,
+            "numerical": 2518
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1181,
+            "numerical": 1274
+          },
+          "France": {
+            "n": 976,
+            "joint": 444,
+            "numerical": 496
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 589,
+            "numerical": 637
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 102,
+            "numerical": 111
+          }
+        },
+        "dot_without_absolute:archive:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2329,
+            "numerical": 2605
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1260,
+            "numerical": 1391
+          },
+          "France": {
+            "n": 976,
+            "joint": 418,
+            "numerical": 473
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 561,
+            "numerical": 631
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 90,
+            "numerical": 110
+          }
+        },
+        "dot_without_absolute:archive:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 853,
+            "numerical": 1083
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 438,
+            "numerical": 538
+          },
+          "France": {
+            "n": 976,
+            "joint": 164,
+            "numerical": 214
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 205,
+            "numerical": 274
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 46,
+            "numerical": 57
+          }
+        },
+        "dot_without_absolute:archive:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 1619,
+            "numerical": 1971
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 910,
+            "numerical": 1073
+          },
+          "France": {
+            "n": 976,
+            "joint": 274,
+            "numerical": 346
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 371,
+            "numerical": 472
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 64,
+            "numerical": 80
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 179,
+            "numerical": 523
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 104,
+            "numerical": 318
+          },
+          "France": {
+            "n": 976,
+            "joint": 21,
+            "numerical": 64
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 44,
+            "numerical": 113
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 10,
+            "numerical": 28
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 373,
+            "numerical": 1047
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 220,
+            "numerical": 594
+          },
+          "France": {
+            "n": 976,
+            "joint": 52,
+            "numerical": 150
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 90,
+            "numerical": 249
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 11,
+            "numerical": 54
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 79,
+            "numerical": 465
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 57,
+            "numerical": 290
+          },
+          "France": {
+            "n": 976,
+            "joint": 9,
+            "numerical": 62
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 13,
+            "numerical": 103
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 0,
+            "numerical": 10
+          }
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 241,
+            "numerical": 955
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 146,
+            "numerical": 538
+          },
+          "France": {
+            "n": 976,
+            "joint": 36,
+            "numerical": 151
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 55,
+            "numerical": 232
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 4,
+            "numerical": 34
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 2690,
+            "numerical": 3093
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1522,
+            "numerical": 1664
+          },
+          "France": {
+            "n": 976,
+            "joint": 477,
+            "numerical": 571
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 626,
+            "numerical": 758
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 65,
+            "numerical": 100
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2712,
+            "numerical": 3109
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1528,
+            "numerical": 1669
+          },
+          "France": {
+            "n": 976,
+            "joint": 483,
+            "numerical": 572
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 635,
+            "numerical": 766
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 66,
+            "numerical": 102
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 2608,
+            "numerical": 3074
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1481,
+            "numerical": 1648
+          },
+          "France": {
+            "n": 976,
+            "joint": 430,
+            "numerical": 553
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 624,
+            "numerical": 761
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 73,
+            "numerical": 112
+          }
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2664,
+            "numerical": 3094
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1506,
+            "numerical": 1653
+          },
+          "France": {
+            "n": 976,
+            "joint": 445,
+            "numerical": 560
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 636,
+            "numerical": 763
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 77,
+            "numerical": 118
+          }
+        },
+        "radial_without_absolute:archive:archive": {
+          "all": {
+            "n": 4672,
+            "joint": 1788,
+            "numerical": 2412
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 994,
+            "numerical": 1282
+          },
+          "France": {
+            "n": 976,
+            "joint": 316,
+            "numerical": 443
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 433,
+            "numerical": 606
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 45,
+            "numerical": 81
+          }
+        },
+        "radial_without_absolute:archive:archive_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2264,
+            "numerical": 3018
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1298,
+            "numerical": 1621
+          },
+          "France": {
+            "n": 976,
+            "joint": 393,
+            "numerical": 553
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 525,
+            "numerical": 753
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 48,
+            "numerical": 91
+          }
+        },
+        "radial_without_absolute:archive:archive_thin": {
+          "all": {
+            "n": 4672,
+            "joint": 1385,
+            "numerical": 2328
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 806,
+            "numerical": 1248
+          },
+          "France": {
+            "n": 976,
+            "joint": 239,
+            "numerical": 427
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 299,
+            "numerical": 566
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 41,
+            "numerical": 87
+          }
+        },
+        "radial_without_absolute:archive:archive_thin_scaled": {
+          "all": {
+            "n": 4672,
+            "joint": 2101,
+            "numerical": 3020
+          },
+          "Canada": {
+            "n": 2192,
+            "joint": 1207,
+            "numerical": 1603
+          },
+          "France": {
+            "n": 976,
+            "joint": 356,
+            "numerical": 556
+          },
+          "Italy": {
+            "n": 1264,
+            "joint": 480,
+            "numerical": 754
+          },
+          "Portugal": {
+            "n": 240,
+            "joint": 58,
+            "numerical": 107
+          }
+        }
+      },
+      "effects": {
+        "dot_without_absolute:procedural_dual_boundary:archive_scaled_minus_observed": {
+          "delta": -0.0004280821917808219,
+          "bootstrap95": [
+            -0.00375,
+            0.0028317152103559872
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin_minus_observed": {
+          "delta": -0.003852739726027397,
+          "bootstrap95": [
+            -0.008512544802867384,
+            0.0006421232876712328
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_dual_boundary:archive_thin_scaled_minus_observed": {
+          "delta": -0.0029965753424657533,
+          "bootstrap95": [
+            -0.007894736842105263,
+            0.0017482517482517483
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_scaled_minus_observed": {
+          "delta": -0.07448630136986302,
+          "bootstrap95": [
+            -0.10008591065292097,
+            -0.04298245614035088
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin_minus_observed": {
+          "delta": -0.13976883561643835,
+          "bootstrap95": [
+            -0.18669354838709679,
+            -0.09322033898305085
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:procedural_archive_topology:archive_thin_scaled_minus_observed": {
+          "delta": -0.10017123287671233,
+          "bootstrap95": [
+            -0.14690721649484537,
+            -0.05399659863945578
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:archive_scaled_minus_observed": {
+          "delta": 0.0027825342465753423,
+          "bootstrap95": [
+            -0.042291666666666665,
+            0.044514388489208634
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:archive_thin_minus_observed": {
+          "delta": -0.3131421232876712,
+          "bootstrap95": [
+            -0.354458041958042,
+            -0.2774234693877551
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:archive_thin_scaled_minus_observed": {
+          "delta": -0.14918664383561644,
+          "bootstrap95": [
+            -0.19306930693069307,
+            -0.10625
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_scaled_minus_observed": {
+          "delta": 0.041523972602739725,
+          "bootstrap95": [
+            0.026449843260188087,
+            0.058051601423487545
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin_minus_observed": {
+          "delta": -0.021404109589041095,
+          "bootstrap95": [
+            -0.034129692832764506,
+            -0.008152173913043478
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_dual_boundary:archive_thin_scaled_minus_observed": {
+          "delta": 0.013270547945205479,
+          "bootstrap95": [
+            -0.00522508038585209,
+            0.03623778501628665
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_scaled_minus_observed": {
+          "delta": 0.004708904109589041,
+          "bootstrap95": [
+            -0.004774305555555556,
+            0.014158576051779935
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin_minus_observed": {
+          "delta": -0.0175513698630137,
+          "bootstrap95": [
+            -0.04978448275862069,
+            0.014679715302491103
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:procedural_archive_topology:archive_thin_scaled_minus_observed": {
+          "delta": -0.005565068493150685,
+          "bootstrap95": [
+            -0.03824300699300699,
+            0.0273972602739726
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:archive_scaled_minus_observed": {
+          "delta": 0.10188356164383562,
+          "bootstrap95": [
+            0.05971746575342466,
+            0.14886363636363636
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:archive_thin_minus_observed": {
+          "delta": -0.08625856164383562,
+          "bootstrap95": [
+            -0.11613036303630363,
+            -0.055640243902439025
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:archive_thin_scaled_minus_observed": {
+          "delta": 0.06699486301369863,
+          "bootstrap95": [
+            0.015472312703583062,
+            0.11582167832167832
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive:release_clusters_minus_boundary": {
+          "delta": 0.5023544520547946,
+          "bootstrap95": [
+            0.4682274247491639,
+            0.539485559566787
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive_scaled:release_clusters_minus_boundary": {
+          "delta": 0.4282962328767123,
+          "bootstrap95": [
+            0.38985148514851486,
+            0.47232142857142856
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive_thin:release_clusters_minus_boundary": {
+          "delta": 0.3664383561643836,
+          "bootstrap95": [
+            0.32575757575757575,
+            0.4120291095890411
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "dot_without_absolute:archive_thin_scaled:release_clusters_minus_boundary": {
+          "delta": 0.4051797945205479,
+          "bootstrap95": [
+            0.3620833333333333,
+            0.450625
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive:release_clusters_minus_boundary": {
+          "delta": 0.537457191780822,
+          "bootstrap95": [
+            0.5004180602006689,
+            0.5764388489208633
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive_scaled:release_clusters_minus_boundary": {
+          "delta": 0.5006421232876712,
+          "bootstrap95": [
+            0.46316614420062696,
+            0.5409252669039146
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive_thin:release_clusters_minus_boundary": {
+          "delta": 0.5413099315068494,
+          "bootstrap95": [
+            0.4970332278481013,
+            0.5871282527881041
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        },
+        "radial_without_absolute:archive_thin_scaled:release_clusters_minus_boundary": {
+          "delta": 0.5186215753424658,
+          "bootstrap95": [
+            0.47413793103448276,
+            0.5658844765342961
+          ],
+          "quarter_clusters": 137,
+          "fit_seeds": 4
+        }
+      }
+    }
+  },
+  "archive_fixture_sha256": "27d876ce24bbdefcb9fecdc6c12df210285e5d9c23d3e9b90841e6f4c1249bab",
+  "archive_thin_sha256": "bc0a16b958bea27054c1a324a12f8b5a834867955b1735d354b6e2bc86d4c753",
+  "device": "NVIDIA L4"
+}

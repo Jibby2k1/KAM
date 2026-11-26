@@ -39,3 +39,20 @@ jobs:
             python scripts/analyze_kam_breadth_followups.py "$analysis" "$study" --output "$output/$analysis.json"
             diff -u "$study/summary.json" "$output/$analysis.json"
           done
+      - name: Replay archive and coverage-gate follow-up
+        run: |
+          archive=results/nonlinear_retrieval_natural
+          output=$(mktemp -d)
+          study="$archive/oecd_revisions_v1"
+          python scripts/analyze_kam_oecd_revisions.py "$study/replay.json.gz" \
+            --provenance "$study/provenance.json" --output "$output/oecd.json"
+          diff -u "$study/summary.json" "$output/oecd.json"
+          study="$archive/coverage_gate_v1"
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_coverage_gate.py "$study" --output "$output/gate.json"
+          python - "$study/summary.json" "$output/gate.json" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          expected, replayed = (json.loads(Path(p).read_text()) for p in sys.argv[1:])
+          assert expected["tests"] == replayed["tests"]
+          PY

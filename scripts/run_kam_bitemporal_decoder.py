@@ -171,7 +171,7 @@ def validation(model, cfg, device):
 
 
 @torch.inference_mode()
-def archive_score(model, cfg, fixture, device):
+def archive_score(model, cfg, fixture, device, publication_scale=1):
     model.eval()
     cases = published_questions(fixture, "test")
     output = []
@@ -179,6 +179,11 @@ def archive_score(model, cfg, fixture, device):
         for recode in (0, 1):
             seed = cfg.seed + 1852713 + 1909 * recode + depth
             panel, rows = archive_scene(cases, depth, seed, device)
+            if publication_scale != 1:
+                cutoff = panel[0][:, None, 3]
+                panel[2][..., 4] = cutoff + publication_scale * (panel[2][..., 4] - cutoff)
+                found_alias, found_fact = exact(*panel[:3], "both")
+                assert torch.equal(found_alias, panel[3]) and torch.equal(found_fact, panel[4])
             order = record_order(len(rows), depth, seed + 10249, device)
             gaps = ((0, 0), (8, 0), (0, 8), (8, 8)) if cfg.archive_boundary_diagnostic else ((0, 0),)
             for effective_gap, publication_gap in gaps:
@@ -264,6 +269,8 @@ def main():
     p.add_argument("--no-query-clock", action="store_true")
     p.add_argument("--extended", action="store_true")
     p.add_argument("--archive-fixture", type=Path)
+    p.add_argument("--archive-thin-fixture", type=Path)
+    p.add_argument("--archive-scale-check", action="store_true")
     p.add_argument("--training-data", choices=("procedural", "procedural_corrections", "procedural_boundary",
                                                 "procedural_dual_boundary", "procedural_archive_topology", "archive"),
                    default="procedural")
@@ -278,6 +285,8 @@ def main():
     assert cfg.steps > 0 and cfg.batch <= cfg.bank
     if (cfg.training_data in ("archive", "procedural_archive_topology") or cfg.archive_boundary_diagnostic) and cfg.archive_fixture is None:
         p.error("Archive training and diagnostics require --archive-fixture")
+    if (cfg.archive_thin_fixture or cfg.archive_scale_check) and cfg.archive_fixture is None:
+        p.error("Archive interventions require --archive-fixture")
     archive_generation = {"shared_effective": not cfg.spread_effective_dates,
                           "many_future": not cfg.mostly_earlier_revisions,
                           "unique_payloads": not cfg.allow_duplicate_distractor_payloads}
@@ -362,6 +371,14 @@ def main():
         output["archive_fixture_sha256"] = sha256(cfg.archive_fixture.read_bytes()).hexdigest()
         output["archive_test_years"] = fixture.get("test_years", [2013, 2023])
         output["archive"] = archive_score(model, cfg, fixture, device)
+        if cfg.archive_scale_check:
+            output["archive_scaled"] = archive_score(model, cfg, fixture, device, publication_scale=3)
+        if cfg.archive_thin_fixture:
+            thin = json.loads(cfg.archive_thin_fixture.read_text())
+            output["archive_thin_sha256"] = sha256(cfg.archive_thin_fixture.read_bytes()).hexdigest()
+            output["archive_thin"] = archive_score(model, cfg, thin, device)
+            if cfg.archive_scale_check:
+                output["archive_thin_scaled"] = archive_score(model, cfg, thin, device, publication_scale=3)
     if cfg.training_data == "procedural_archive_topology":
         output["archive_generation"] = archive_generation
     cfg.output.write_text(json.dumps(output, indent=2, allow_nan=False) + "\n")

@@ -1,0 +1,42 @@
+{
+  "counts": {
+    "Canada": 137,
+    "France": 61,
+    "Italy": 79,
+    "Portugal": 15
+  },
+  "oracle": {
+    "as_of_known": 584,
+    "as_of_unavailable": 292,
+    "method": "independent SQLite lookup at the exact source release day"
+  },
+  "sources": {
+    "Canada": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/canrealGDP.xls",
+      "sha256": "4e23678a18fcefebff73d2cf9811d72c0d6808ed02cb724a69819e12bfcc361d",
+      "records": 1259
+    },
+    "France": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/frarealGDP.xls",
+      "sha256": "ee9d096fa1306bc4043a6aa658bfee4061192b3d023b8c13349e6713d991ff12",
+      "records": 515
+    },
+    "Italy": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/itarealGDP.xls",
+      "sha256": "bc9de34b2dd72070a053babb4f252a573f1892af3773e545cbddef2c7fc9fb2b",
+      "records": 692
+    },
+    "Portugal": {
+      "url": "https://www.dallasfed.org/~/media/documents/research/international/oecd/porrealGDP.xls",
+      "sha256": "d6a796824be2840bf24ce08dfe1fd4b2ba85f73236153fd7963724677ee8503b",
+      "records": 118
+    }
+  },
+  "test_years": [
+    1956,
+    1999
+  ],
+  "archive_fixture_sha256": "27d876ce24bbdefcb9fecdc6c12df210285e5d9c23d3e9b90841e6f4c1249bab",
+  "archive_thin_sha256": "bc0a16b958bea27054c1a324a12f8b5a834867955b1735d354b6e2bc86d4c753",
+  "training_fixture_sha256": "9e297c6c5adc6e4f605265678db3f8bdc513f23dbfe29a6a381b4bd644f3e265"
+}

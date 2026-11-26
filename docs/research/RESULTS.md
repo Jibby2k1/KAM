@@ -20,6 +20,8 @@ A frozen conservative gate rejected all 576 prompts for 96 unseen registry ident
 
 The [archived revision study](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#real-revision-and-abstention) measures the distinct effects of identity, observation date, publication cutoff, and simulated local ingestion delays.
 
+The [independent Dallas Fed replication](../../reports/nonlinear_retrieval_natural/OECD_REVISIONS.md) tests typed as-of lookup against an exact oracle. On observed 48-candidate pools, radial recovery rose from 3.8% to 57.6% after procedural training incorporated clusters of real release patterns.
+
 ## Model and controlled experiments
 
 See the [architecture specification](../../Kernel_Adaptive_Memory_Research_Specification.pdf), the [core experiment guide](../../EXPERIMENTS.md), and the [Phase IV–VI documentation index](../../LLM_NAVIGATION.md) for controlled KAM model experiments. Natural-task experiments evaluate the transfer of routing ideas using separate retrieval components.
