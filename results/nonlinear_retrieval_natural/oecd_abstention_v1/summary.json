@@ -1,0 +1,272 @@
+{
+  "calibration_sha256": "9e297c6c5adc6e4f605265678db3f8bdc513f23dbfe29a6a381b4bd644f3e265",
+  "test_sha256": "27d876ce24bbdefcb9fecdc6c12df210285e5d9c23d3e9b90841e6f4c1249bab",
+  "gpu": "NVIDIA B200",
+  "target_answerable_acceptance": 0.9,
+  "thresholds": {
+    "dot_without_absolute:payload_margin": {
+      "min": 2.927321434020996,
+      "median": 3.661576986312866,
+      "max": 4.548213005065918
+    },
+    "dot_without_absolute:payload_max_probability": {
+      "min": 0.9225599765777588,
+      "median": 0.9468787610530853,
+      "max": 0.9602916836738586
+    },
+    "radial_without_absolute:payload_margin": {
+      "min": 1.247385025024414,
+      "median": 1.7955188751220703,
+      "max": 2.2749862670898438
+    },
+    "radial_without_absolute:payload_max_probability": {
+      "min": 0.7043322324752808,
+      "median": 0.781149834394455,
+      "max": 0.8473957777023315
+    }
+  },
+  "confidence_ranking": {
+    "dot_without_absolute:Dallas_clock_tripled:payload_margin": {
+      "mean_auroc": 0.706976273691124,
+      "known_higher_pairs": 1653,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "dot_without_absolute:Dallas_clock_tripled:payload_max_probability": {
+      "mean_auroc": 0.7295506456417714,
+      "known_higher_pairs": 1712,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "dot_without_absolute:Dallas_observed:payload_margin": {
+      "mean_auroc": 0.6674596693798086,
+      "known_higher_pairs": 1572,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "dot_without_absolute:Dallas_observed:payload_max_probability": {
+      "mean_auroc": 0.6836073108228561,
+      "known_higher_pairs": 1613,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "dot_without_absolute:Philadelphia_calibration:payload_margin": {
+      "mean_auroc": 0.84080810546875,
+      "known_higher_pairs": 1068,
+      "tied_pairs": 0,
+      "pairs": 1280
+    },
+    "dot_without_absolute:Philadelphia_calibration:payload_max_probability": {
+      "mean_auroc": 0.848358154296875,
+      "known_higher_pairs": 1081,
+      "tied_pairs": 0,
+      "pairs": 1280
+    },
+    "radial_without_absolute:Dallas_clock_tripled:payload_margin": {
+      "mean_auroc": 0.7047493666729218,
+      "known_higher_pairs": 1670,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "radial_without_absolute:Dallas_clock_tripled:payload_max_probability": {
+      "mean_auroc": 0.7259482313754926,
+      "known_higher_pairs": 1722,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "radial_without_absolute:Dallas_observed:payload_margin": {
+      "mean_auroc": 0.4538389589979358,
+      "known_higher_pairs": 1058,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "radial_without_absolute:Dallas_observed:payload_max_probability": {
+      "mean_auroc": 0.46362914008256706,
+      "known_higher_pairs": 1081,
+      "tied_pairs": 0,
+      "pairs": 2336
+    },
+    "radial_without_absolute:Philadelphia_calibration:payload_margin": {
+      "mean_auroc": 0.76224365234375,
+      "known_higher_pairs": 949,
+      "tied_pairs": 0,
+      "pairs": 1280
+    },
+    "radial_without_absolute:Philadelphia_calibration:payload_max_probability": {
+      "mean_auroc": 0.778812255859375,
+      "known_higher_pairs": 974,
+      "tied_pairs": 0,
+      "pairs": 1280
+    }
+  },
+  "metrics": {
+    "dot_without_absolute:Dallas_clock_tripled:always_emit": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 2336,
+      "unavailable_accepted": 2336,
+      "answerable_correct_accepted": 1015
+    },
+    "dot_without_absolute:Dallas_clock_tripled:exact_eligibility_check": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1015,
+      "unavailable_accepted": 0,
+      "answerable_correct_accepted": 1015
+    },
+    "dot_without_absolute:Dallas_clock_tripled:payload_margin": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1607,
+      "unavailable_accepted": 881,
+      "answerable_correct_accepted": 880
+    },
+    "dot_without_absolute:Dallas_clock_tripled:payload_max_probability": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1628,
+      "unavailable_accepted": 856,
+      "answerable_correct_accepted": 885
+    },
+    "dot_without_absolute:Dallas_observed:always_emit": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 2336,
+      "unavailable_accepted": 2336,
+      "answerable_correct_accepted": 1202
+    },
+    "dot_without_absolute:Dallas_observed:exact_eligibility_check": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1203,
+      "unavailable_accepted": 0,
+      "answerable_correct_accepted": 1202
+    },
+    "dot_without_absolute:Dallas_observed:payload_margin": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1595,
+      "unavailable_accepted": 967,
+      "answerable_correct_accepted": 1012
+    },
+    "dot_without_absolute:Dallas_observed:payload_max_probability": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1596,
+      "unavailable_accepted": 942,
+      "answerable_correct_accepted": 1018
+    },
+    "dot_without_absolute:Philadelphia_calibration:always_emit": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 1280,
+      "unavailable_accepted": 1280,
+      "answerable_correct_accepted": 1145
+    },
+    "dot_without_absolute:Philadelphia_calibration:exact_eligibility_check": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 1146,
+      "unavailable_accepted": 0,
+      "answerable_correct_accepted": 1145
+    },
+    "dot_without_absolute:Philadelphia_calibration:payload_margin": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 1152,
+      "unavailable_accepted": 417,
+      "answerable_correct_accepted": 1092
+    },
+    "dot_without_absolute:Philadelphia_calibration:payload_max_probability": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 1152,
+      "unavailable_accepted": 407,
+      "answerable_correct_accepted": 1090
+    },
+    "radial_without_absolute:Dallas_clock_tripled:always_emit": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 2336,
+      "unavailable_accepted": 2336,
+      "answerable_correct_accepted": 1407
+    },
+    "radial_without_absolute:Dallas_clock_tripled:exact_eligibility_check": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1408,
+      "unavailable_accepted": 0,
+      "answerable_correct_accepted": 1407
+    },
+    "radial_without_absolute:Dallas_clock_tripled:payload_margin": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1991,
+      "unavailable_accepted": 1280,
+      "answerable_correct_accepted": 1320
+    },
+    "radial_without_absolute:Dallas_clock_tripled:payload_max_probability": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1983,
+      "unavailable_accepted": 1115,
+      "answerable_correct_accepted": 1314
+    },
+    "radial_without_absolute:Dallas_observed:always_emit": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 2336,
+      "unavailable_accepted": 2336,
+      "answerable_correct_accepted": 1403
+    },
+    "radial_without_absolute:Dallas_observed:exact_eligibility_check": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1404,
+      "unavailable_accepted": 0,
+      "answerable_correct_accepted": 1403
+    },
+    "radial_without_absolute:Dallas_observed:payload_margin": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1968,
+      "unavailable_accepted": 2070,
+      "answerable_correct_accepted": 1319
+    },
+    "radial_without_absolute:Dallas_observed:payload_max_probability": {
+      "answerable": 2336,
+      "unavailable": 2336,
+      "answerable_accepted": 1959,
+      "unavailable_accepted": 2028,
+      "answerable_correct_accepted": 1312
+    },
+    "radial_without_absolute:Philadelphia_calibration:always_emit": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 1280,
+      "unavailable_accepted": 1280,
+      "answerable_correct_accepted": 981
+    },
+    "radial_without_absolute:Philadelphia_calibration:exact_eligibility_check": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 982,
+      "unavailable_accepted": 0,
+      "answerable_correct_accepted": 981
+    },
+    "radial_without_absolute:Philadelphia_calibration:payload_margin": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 1152,
+      "unavailable_accepted": 784,
+      "answerable_correct_accepted": 947
+    },
+    "radial_without_absolute:Philadelphia_calibration:payload_max_probability": {
+      "answerable": 1280,
+      "unavailable": 1280,
+      "answerable_accepted": 1152,
+      "unavailable_accepted": 701,
+      "answerable_correct_accepted": 946
+    }
+  }
+}

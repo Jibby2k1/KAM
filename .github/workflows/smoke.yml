@@ -56,3 +56,13 @@ jobs:
           expected, replayed = (json.loads(Path(p).read_text()) for p in sys.argv[1:])
           assert expected["tests"] == replayed["tests"]
           PY
+      - name: Replay matched revision controls
+        run: |
+          results=results/nonlinear_retrieval_natural
+          output=$(mktemp -d)
+          python scripts/analyze_kam_oecd_masks.py "$results/oecd_masks_v1/replay.json.gz" \
+            --provenance "$results/oecd_revisions_v1/provenance.json" --output "$output/masks.json"
+          diff -u "$results/oecd_masks_v1/summary.json" "$output/masks.json"
+          python scripts/analyze_kam_archive_abstention.py "$results/oecd_abstention_v1/replay.json.gz" \
+            --output "$output/abstention.json"
+          diff -u "$results/oecd_abstention_v1/summary.json" "$output/abstention.json"

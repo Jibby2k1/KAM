@@ -22,6 +22,8 @@ The [archived revision study](../../reports/nonlinear_retrieval_natural/TEMPORAL
 
 The [independent Dallas Fed replication](../../reports/nonlinear_retrieval_natural/OECD_REVISIONS.md) tests typed as-of lookup against an exact oracle. On observed 48-candidate pools, radial recovery rose from 3.8% to 57.6% after procedural training incorporated clusters of real release patterns.
 
+The [matched revision and abstention follow-up](../../reports/nonlinear_retrieval_natural/REVISION_CONTROLS.md) holds records and positions fixed. Hiding extra same-address releases cost dot 13.1 points and radial 1.4 points. Hiding equally many distractors improved both. On unavailable historical cutoffs, confidence thresholds transferred poorly from the Philadelphia Fed to the Dallas Fed archive.
+
 ## Model and controlled experiments
 
 See the [architecture specification](../../Kernel_Adaptive_Memory_Research_Specification.pdf), the [core experiment guide](../../EXPERIMENTS.md), and the [Phase IV–VI documentation index](../../LLM_NAVIGATION.md) for controlled KAM model experiments. Natural-task experiments evaluate the transfer of routing ideas using separate retrieval components.

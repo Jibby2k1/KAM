@@ -218,6 +218,82 @@ def archive_score(model, cfg, fixture, device, publication_scale=1):
     return output
 
 
+def matched_archive_masks(cases, scene):
+    query, aliases, facts, gold_alias, gold_fact, _ = scene
+    correct_address = aliases[..., 2].gather(1, gold_alias[:, None])
+    same = ((facts[..., 0] == query[:, :1]) & (facts[..., 1] == correct_address)
+            & (facts[..., 3] == query[:, 2:3]))
+    queried_releases = torch.tensor(
+        [[group["candidates"][q["gold"]]["vintage"] - item["cutoff"]
+          for q in group["questions"] if q["style"] == "canonical" and q["gold"] is not None]
+         for group, item in cases], device=query.device,
+    )
+    gap = facts[..., 4] - query[:, 3:4]
+    must_keep = same & gap[..., None].eq(queried_releases[:, None, :]).any(-1)
+    assert torch.all(must_keep.sum(-1) == 2)
+    nearest = gap.abs().masked_fill(~(same & ~must_keep), torch.iinfo(gap.dtype).max).argmin(-1)
+    assert torch.all(same.sum(-1) >= 3)
+    remove_same = same & ~must_keep
+    remove_same.scatter_(1, nearest[:, None], False)
+    remove_other = ~same & ((~same).cumsum(-1) <= remove_same.sum(-1, keepdim=True))
+    assert torch.all(remove_same.sum(-1) == remove_other.sum(-1))
+    assert torch.all((same & ~remove_same).sum(-1) == 3)
+    assert must_keep.gather(1, gold_fact[:, None]).all()
+    return {"observed": torch.ones_like(same), "three_releases": ~remove_same, "load_control": ~remove_other}, same
+
+
+@torch.inference_mode()
+def matched_archive_score(model, cfg, fixture, device):
+    """Exclude masked keys at every context layer and retain their position slots."""
+    model.eval()
+    cases = published_questions(fixture, "test")
+    output = []
+    active_tokens = None
+
+    def mask_keys(_module, _args, scores):
+        return scores.masked_fill(~active_tokens[:, None, None, :], torch.finfo(scores.dtype).min)
+
+    hooks = [block.context.score.register_forward_hook(mask_keys) for block in model.blocks]
+    assert all(block.memory is None for block in model.blocks)
+    depth = 48
+    try:
+        for recode in (0, 1):
+            seed = cfg.seed + 1852713 + 1909 * recode + depth
+            panel, rows = archive_scene(cases, depth, seed, device)
+            masks, same = matched_archive_masks(cases, panel)
+            order = record_order(len(rows), depth, seed + 10249, device)
+            for clock in (1, 3):
+                query, aliases, facts, gold_alias, gold_fact, gold_value = panel
+                facts = facts.clone()
+                cutoff = query[:, 3:4]
+                facts[..., 4] = cutoff + clock * (facts[..., 4] - cutoff)
+                candidate = (query, aliases, facts, gold_alias, gold_fact, gold_value)
+                for arm, fact_mask in masks.items():
+                    # Independent maximum over release dates for the fixed address.
+                    eligible = same & fact_mask & (facts[..., 4] <= cutoff)
+                    assert eligible.any(-1).all()
+                    by_release = facts[..., 4].masked_fill(~eligible, torch.iinfo(facts.dtype).min).argmax(-1)
+                    assert torch.equal(by_release, gold_fact)
+                    aliases_visible = torch.ones_like(fact_mask)
+                    keep = torch.cat((aliases_visible, fact_mask), 1).gather(1, order)
+                    keep = torch.cat((keep, aliases_visible[:, :1]), 1)
+                    counts = fact_mask.sum(-1).tolist()
+                    for start in range(0, len(rows), cfg.eval_batch):
+                        end = start + cfg.eval_batch
+                        active_tokens = keep[start:end]
+                        x, entities, values = encode(pack(candidate, slice(start, end)), order[start:end],
+                                                    hide_query_clock=cfg.no_query_clock)
+                        logits = model(x)
+                        correct = (logits[:, :64].argmax(-1).eq(entities)
+                                   & logits[:, 64:].argmax(-1).eq(values)).tolist()
+                        for row, count, hit in zip(rows[start:end], counts[start:end], correct, strict=True):
+                            output.append([row["id"], row["period"], depth, recode, clock, arm, count, hit])
+    finally:
+        for hook in hooks:
+            hook.remove()
+    return output
+
+
 def include_clock_boundaries(scene, seed, count):
     query, _, records, _, gold_f, _ = scene
     g = torch.Generator().manual_seed(seed)
@@ -271,6 +347,7 @@ def main():
     p.add_argument("--archive-fixture", type=Path)
     p.add_argument("--archive-thin-fixture", type=Path)
     p.add_argument("--archive-scale-check", action="store_true")
+    p.add_argument("--archive-mask-check", action="store_true")
     p.add_argument("--training-data", choices=("procedural", "procedural_corrections", "procedural_boundary",
                                                 "procedural_dual_boundary", "procedural_archive_topology", "archive"),
                    default="procedural")
@@ -285,8 +362,10 @@ def main():
     assert cfg.steps > 0 and cfg.batch <= cfg.bank
     if (cfg.training_data in ("archive", "procedural_archive_topology") or cfg.archive_boundary_diagnostic) and cfg.archive_fixture is None:
         p.error("Archive training and diagnostics require --archive-fixture")
-    if (cfg.archive_thin_fixture or cfg.archive_scale_check) and cfg.archive_fixture is None:
+    if (cfg.archive_thin_fixture or cfg.archive_scale_check or cfg.archive_mask_check) and cfg.archive_fixture is None:
         p.error("Archive interventions require --archive-fixture")
+    if cfg.archive_mask_check and cfg.arm not in ("dot_without_absolute", "radial_without_absolute"):
+        p.error("Matched archive masking requires a context-only relative-position arm")
     archive_generation = {"shared_effective": not cfg.spread_effective_dates,
                           "many_future": not cfg.mostly_earlier_revisions,
                           "unique_payloads": not cfg.allow_duplicate_distractor_payloads}
@@ -371,6 +450,8 @@ def main():
         output["archive_fixture_sha256"] = sha256(cfg.archive_fixture.read_bytes()).hexdigest()
         output["archive_test_years"] = fixture.get("test_years", [2013, 2023])
         output["archive"] = archive_score(model, cfg, fixture, device)
+        if cfg.archive_mask_check:
+            output["archive_masks"] = matched_archive_score(model, cfg, fixture, device)
         if cfg.archive_scale_check:
             output["archive_scaled"] = archive_score(model, cfg, fixture, device, publication_scale=3)
         if cfg.archive_thin_fixture:
