@@ -263,3 +263,9 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_live_anchor_profile.py "$study"/profile-52953830-*.json.gz --fixture "$anchor/fixture.json.gz" --affinity "$anchor/affinity-replay.json.gz" --broad "$anchor/replay.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit frozen IIRC routing transfer
+        run: |
+          study=results/nonlinear_retrieval_natural/iirc_pair_v1
+          output=$(mktemp)
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_iirc_pair.py "$study/replay.json.gz" --manifest "$study/manifest.json" --source-audit "$study/source-audit.json" --output "$output"
+          diff -u "$study/summary.json" "$output"

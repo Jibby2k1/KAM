@@ -71,3 +71,5 @@ The [B200 serving prewarm crossover](../../reports/nonlinear_retrieval_natural/S
 At equal depth 64 and with the same B200 broad-ranked expansion, [hybrid initial search](../../reports/nonlinear_retrieval_natural/DENSE_HYBRID_ANCHOR.md) increased initial coverage from 603 to 659 of 1,024 questions. After expansion, it produced 543 support pairs and 340 joint exact matches versus 526 and 328 for dense. The paired joint EM interval reached zero.
 
 The [live B200 anchor profile](../../reports/nonlinear_retrieval_natural/LIVE_ANCHOR_LATENCY.md) measured an 11.29 ms paired median overhead for broad-ranked anchoring versus affinity across 128 prewarmed requests. Both policies reproduced their archived anchors, candidate membership, evidence selections, and exactness.
+
+On 153 [IIRC questions with two linked gold sources](../../reports/nonlinear_retrieval_natural/IIRC_PAIR_TRANSFER.md), sequential recovered 40 pairs, independent top-two 32, and frozen pair scoring 22. Masking between-candidate title mentions recovered 30. Title features helped the small between-gold mention slice and hurt the larger remaining slice.

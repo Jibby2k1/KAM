@@ -1,0 +1,230 @@
+{
+  "provenance": {
+    "fixture_sha256": "189471f1e7d4674e17f8b92d5366dfebeb9a53396ee107b383349ceb2ae9e8f2",
+    "source_sha256": {
+      "dev": "49a109c43c902e52f9a8b150f6b9d383261c308384f614ccd2b9990735cb12b1",
+      "articles": "d239390a27ed3f4aa868afe126187e6d108990a7bcc2a3efb6cae5de917264c7"
+    },
+    "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+    "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+    "assets": {
+      "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+      "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    },
+    "device": "NVIDIA B200",
+    "torch": "2.8.0+cu128"
+  },
+  "pool_widths": {
+    "8": 2,
+    "10": 1,
+    "11": 21,
+    "12": 29,
+    "13": 27,
+    "14": 20,
+    "15": 21,
+    "16": 3,
+    "17": 11,
+    "18": 8,
+    "19": 2,
+    "20": 5,
+    "21": 2,
+    "23": 1
+  },
+  "groups": {
+    "all": {
+      "questions": 153,
+      "source_articles": 117,
+      "arms": {
+        "single_shot": {
+          "both_gold": 32,
+          "gold_articles_selected": 141,
+          "warm_route_p50_ms": 4.248811
+        },
+        "sequential": {
+          "both_gold": 40,
+          "gold_articles_selected": 150,
+          "warm_route_p50_ms": 8.703317
+        },
+        "pair": {
+          "both_gold": 22,
+          "gold_articles_selected": 120,
+          "warm_route_p50_ms": 4.635852
+        },
+        "pair_masked": {
+          "both_gold": 30,
+          "gold_articles_selected": 137,
+          "warm_route_p50_ms": 4.559897
+        }
+      },
+      "paired": {
+        "pair_vs_single_shot": {
+          "wins": 10,
+          "losses": 20,
+          "delta": -0.06535948,
+          "bootstrap95": [
+            -0.14,
+            0.0061738
+          ]
+        },
+        "pair_vs_sequential": {
+          "wins": 4,
+          "losses": 22,
+          "delta": -0.11764706,
+          "bootstrap95": [
+            -0.18666667,
+            -0.05555556
+          ]
+        },
+        "pair_vs_pair_masked": {
+          "wins": 10,
+          "losses": 18,
+          "delta": -0.05228758,
+          "bootstrap95": [
+            -0.12337662,
+            0.01369863
+          ]
+        },
+        "sequential_vs_single_shot": {
+          "wins": 9,
+          "losses": 1,
+          "delta": 0.05228758,
+          "bootstrap95": [
+            0.01360544,
+            0.094346
+          ]
+        }
+      },
+      "pair_or_sequential_oracle": 44
+    },
+    "title_link": {
+      "questions": 33,
+      "source_articles": 30,
+      "arms": {
+        "single_shot": {
+          "both_gold": 7,
+          "gold_articles_selected": 38,
+          "warm_route_p50_ms": 4.247834
+        },
+        "sequential": {
+          "both_gold": 13,
+          "gold_articles_selected": 44,
+          "warm_route_p50_ms": 8.708306
+        },
+        "pair": {
+          "both_gold": 16,
+          "gold_articles_selected": 47,
+          "warm_route_p50_ms": 4.631313
+        },
+        "pair_masked": {
+          "both_gold": 7,
+          "gold_articles_selected": 37,
+          "warm_route_p50_ms": 4.543897
+        }
+      },
+      "paired": {
+        "pair_vs_single_shot": {
+          "wins": 10,
+          "losses": 1,
+          "delta": 0.27272727,
+          "bootstrap95": [
+            0.1,
+            0.4516129
+          ]
+        },
+        "pair_vs_sequential": {
+          "wins": 4,
+          "losses": 1,
+          "delta": 0.09090909,
+          "bootstrap95": [
+            -0.03225806,
+            0.22580645
+          ]
+        },
+        "pair_vs_pair_masked": {
+          "wins": 10,
+          "losses": 1,
+          "delta": 0.27272727,
+          "bootstrap95": [
+            0.1,
+            0.4516129
+          ]
+        },
+        "sequential_vs_single_shot": {
+          "wins": 6,
+          "losses": 0,
+          "delta": 0.18181818,
+          "bootstrap95": [
+            0.05882353,
+            0.33333333
+          ]
+        }
+      },
+      "pair_or_sequential_oracle": 17
+    },
+    "no_title_link": {
+      "questions": 120,
+      "source_articles": 95,
+      "arms": {
+        "single_shot": {
+          "both_gold": 25,
+          "gold_articles_selected": 103,
+          "warm_route_p50_ms": 4.250078
+        },
+        "sequential": {
+          "both_gold": 27,
+          "gold_articles_selected": 106,
+          "warm_route_p50_ms": 8.70009
+        },
+        "pair": {
+          "both_gold": 6,
+          "gold_articles_selected": 73,
+          "warm_route_p50_ms": 4.637755
+        },
+        "pair_masked": {
+          "both_gold": 23,
+          "gold_articles_selected": 100,
+          "warm_route_p50_ms": 4.565411
+        }
+      },
+      "paired": {
+        "pair_vs_single_shot": {
+          "wins": 0,
+          "losses": 19,
+          "delta": -0.15833333,
+          "bootstrap95": [
+            -0.23214286,
+            -0.09322034
+          ]
+        },
+        "pair_vs_sequential": {
+          "wins": 0,
+          "losses": 21,
+          "delta": -0.175,
+          "bootstrap95": [
+            -0.25203252,
+            -0.10655738
+          ]
+        },
+        "pair_vs_pair_masked": {
+          "wins": 0,
+          "losses": 17,
+          "delta": -0.14166667,
+          "bootstrap95": [
+            -0.21238938,
+            -0.08064516
+          ]
+        },
+        "sequential_vs_single_shot": {
+          "wins": 3,
+          "losses": 1,
+          "delta": 0.01666667,
+          "bootstrap95": [
+            -0.01639344,
+            0.05128205
+          ]
+        }
+      },
+      "pair_or_sequential_oracle": 27
+    }
+  }
+}
