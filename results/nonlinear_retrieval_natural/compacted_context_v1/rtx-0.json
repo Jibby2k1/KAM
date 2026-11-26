@@ -1,0 +1,408 @@
+{
+  "arm": "dot_without_absolute",
+  "device": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "torch": "2.8.0+cu128",
+  "timing_iterations": 24,
+  "rows": [
+    {
+      "batch": 1,
+      "full_tokens": 97,
+      "active_tokens": 97,
+      "max_abs_logit_delta": 0.0,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.42276177555322647,
+          "p95_ms": 0.44149868190288544
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.35352306440472603,
+          "p95_ms": 0.3576599061489105
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.37922197952866554,
+          "p95_ms": 0.38666599430143833
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 97,
+      "active_tokens": 91,
+      "max_abs_logit_delta": 2.384185791015625e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.38351817056536674,
+          "p95_ms": 0.392388179898262
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3566378727555275,
+          "p95_ms": 0.3621780779212713
+        },
+        "masked_full": {
+          "p50_ms": 0.41285715997219086,
+          "p95_ms": 0.42084837332367897
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 97,
+      "active_tokens": 73,
+      "max_abs_logit_delta": 2.384185791015625e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.4153754562139511,
+          "p95_ms": 0.4249804653227329
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3530927933752537,
+          "p95_ms": 0.3606455400586128
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3767777234315872,
+          "p95_ms": 0.38516814820468426
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 97,
+      "active_tokens": 48,
+      "max_abs_logit_delta": 4.76837158203125e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.376818235963583,
+          "p95_ms": 0.3850993700325489
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.35279663279652596,
+          "p95_ms": 0.3578274045139551
+        },
+        "masked_full": {
+          "p50_ms": 0.4096571356058121,
+          "p95_ms": 0.41841198690235615
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 97,
+      "active_tokens": 24,
+      "max_abs_logit_delta": 3.5762786865234375e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.41070859879255295,
+          "p95_ms": 0.4194430075585842
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.35175587981939316,
+          "p95_ms": 0.35729343071579933
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3761816769838333,
+          "p95_ms": 0.386581989005208
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 97,
+      "active_tokens": 97,
+      "max_abs_logit_delta": 0.0,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.4262877628207207,
+          "p95_ms": 0.43660756200551987
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3639291971921921,
+          "p95_ms": 0.3704478498548269
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.38232654333114624,
+          "p95_ms": 0.38990224711596966
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 97,
+      "active_tokens": 91,
+      "max_abs_logit_delta": 8.046627044677734e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.39402907714247704,
+          "p95_ms": 0.40486291982233524
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.369412824511528,
+          "p95_ms": 0.37570674903690815
+        },
+        "masked_full": {
+          "p50_ms": 0.42178016155958176,
+          "p95_ms": 0.4263637587428093
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 97,
+      "active_tokens": 73,
+      "max_abs_logit_delta": 8.344650268554688e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.42688800022006035,
+          "p95_ms": 0.43385764583945274
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.373082235455513,
+          "p95_ms": 0.37896353751420975
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3990163095295429,
+          "p95_ms": 0.40418743155896664
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 97,
+      "active_tokens": 48,
+      "max_abs_logit_delta": 8.940696716308594e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3959569148719311,
+          "p95_ms": 0.4070162307471037
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.368454959243536,
+          "p95_ms": 0.3765304107218981
+        },
+        "masked_full": {
+          "p50_ms": 0.4211999475955963,
+          "p95_ms": 0.42673442512750626
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 97,
+      "active_tokens": 24,
+      "max_abs_logit_delta": 9.5367431640625e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.4227622412145138,
+          "p95_ms": 0.4319253843277693
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3620358183979988,
+          "p95_ms": 0.37020198069512844
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.38566160947084427,
+          "p95_ms": 0.39148428477346897
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 257,
+      "active_tokens": 257,
+      "max_abs_logit_delta": 0.0,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.42387889698147774,
+          "p95_ms": 0.4314033780246973
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3562779165804386,
+          "p95_ms": 0.3614700399339199
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3813444636762142,
+          "p95_ms": 0.3880576230585575
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 257,
+      "active_tokens": 242,
+      "max_abs_logit_delta": 2.384185791015625e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3829868510365486,
+          "p95_ms": 0.3903810400515795
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.35268208011984825,
+          "p95_ms": 0.3593640401959419
+        },
+        "masked_full": {
+          "p50_ms": 0.41411397978663445,
+          "p95_ms": 0.42146542109549046
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 257,
+      "active_tokens": 193,
+      "max_abs_logit_delta": 2.384185791015625e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.4206881858408451,
+          "p95_ms": 0.4291401244699955
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.354875810444355,
+          "p95_ms": 0.3605846781283617
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3752005286514759,
+          "p95_ms": 0.38184416480362415
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 257,
+      "active_tokens": 128,
+      "max_abs_logit_delta": 4.172325134277344e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.38082944229245186,
+          "p95_ms": 0.39130658842623234
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3552408888936043,
+          "p95_ms": 0.3642777446657419
+        },
+        "masked_full": {
+          "p50_ms": 0.418725423514843,
+          "p95_ms": 0.42480239644646645
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "full_tokens": 257,
+      "active_tokens": 64,
+      "max_abs_logit_delta": 4.76837158203125e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 0.42082881554961205,
+          "p95_ms": 0.4293841775506735
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3503737971186638,
+          "p95_ms": 0.35545420832931995
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3749709576368332,
+          "p95_ms": 0.3848834428936243
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 257,
+      "active_tokens": 257,
+      "max_abs_logit_delta": 0.0,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 1.2148753739893436,
+          "p95_ms": 1.2181718368083239
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 1.3431375846266747,
+          "p95_ms": 1.3457697350531816
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 1.39969727024436,
+          "p95_ms": 1.4026845805346966
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 257,
+      "active_tokens": 242,
+      "max_abs_logit_delta": 4.76837158203125e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 1.2261332012712955,
+          "p95_ms": 1.229745289310813
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 1.1762683279812336,
+          "p95_ms": 1.1819976847618818
+        },
+        "masked_full": {
+          "p50_ms": 1.217779703438282,
+          "p95_ms": 1.2219575233757496
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 257,
+      "active_tokens": 193,
+      "max_abs_logit_delta": 8.344650268554688e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 1.2160283513367176,
+          "p95_ms": 1.2191483285278082
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.800661277025938,
+          "p95_ms": 0.8033291436731815
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.8238269947469234,
+          "p95_ms": 0.828659487888217
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 257,
+      "active_tokens": 128,
+      "max_abs_logit_delta": 4.76837158203125e-07,
+      "timings": {
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.4102787934243679,
+          "p95_ms": 0.4141154233366251
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3930525854229927,
+          "p95_ms": 0.3956655506044626
+        },
+        "masked_full": {
+          "p50_ms": 1.2208139523863792,
+          "p95_ms": 1.2236133683472872
+        }
+      }
+    },
+    {
+      "batch": 64,
+      "full_tokens": 257,
+      "active_tokens": 64,
+      "max_abs_logit_delta": 9.5367431640625e-07,
+      "timings": {
+        "masked_full": {
+          "p50_ms": 1.2242146767675877,
+          "p95_ms": 1.228841207921505
+        },
+        "compact_inputs_ready": {
+          "p50_ms": 0.3665522672235966,
+          "p95_ms": 0.37627224810421467
+        },
+        "compact_with_gather_and_lags": {
+          "p50_ms": 0.3885207697749138,
+          "p95_ms": 0.3960687667131424
+        }
+      }
+    }
+  ]
+}

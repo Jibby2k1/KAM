@@ -31,3 +31,5 @@ The [matched revision and abstention follow-up](../../reports/nonlinear_retrieva
 See the [architecture specification](../../Kernel_Adaptive_Memory_Research_Specification.pdf), the [core experiment guide](../../EXPERIMENTS.md), and the [Phase IV–VI documentation index](../../LLM_NAVIGATION.md) for controlled KAM model experiments. Natural-task experiments evaluate the transfer of routing ideas using separate retrieval components.
 
 The [controlled revision-noise report](../../reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md) tests exact temporal pointers, absolute position, radial versus dot attention, token-matched training curricula, and exact batched pair reduction on two GPU families.
+
+[Position-preserving context compaction](../../reports/nonlinear_retrieval_natural/CONTEXT_COMPACTION.md) preserved all decisions in a numerical probe and shortened the batched radial forward by about 5.3× on L4 and 2.5× on RTX when half of 257 slots were active.

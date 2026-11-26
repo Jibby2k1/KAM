@@ -84,3 +84,9 @@ jobs:
           python scripts/analyze_kam_verifier_followthrough.py "$study/followthrough_replay.json" \
             --output "$output/followthrough.json"
           diff -u "$study/followthrough.json" "$output/followthrough.json"
+      - name: Check relative-lag compaction parity on CPU
+        run: |
+          for arm in dot_without_absolute radial_without_absolute; do
+            python scripts/benchmark_kam_compacted_context.py --device cpu --arm "$arm" \
+              --steps 2 --smoke --output "/tmp/kam-compaction-$arm.json"
+          done
