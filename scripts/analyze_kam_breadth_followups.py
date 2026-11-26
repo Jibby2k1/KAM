@@ -3,6 +3,7 @@
 
 import argparse
 from collections import Counter, defaultdict
+from hashlib import sha256
 import json
 from pathlib import Path
 from random import Random
@@ -351,11 +352,24 @@ def cluster_interval(rows, group, difference):
             "bootstrap95": [replicates[125], replicates[4874]], "clusters": len(members)}
 
 
-def timeqa_human(directory):
+def timeqa_human(directory, reference_fixture=None):
     data = runs(directory, "eval-?.json", 4)
     rows = flattened(data)
     assert len(rows) == data[0]["recruitment"]["selected"] == 827
     result = {"recruitment": data[0]["recruitment"], "subsets": {}}
+    if reference_fixture is not None:
+        reference_bytes = reference_fixture.read_bytes()
+        reference = json.loads(reference_bytes)["rows"]
+        train = {r["entity"] for r in reference["dev"]}
+        test = {r["entity"] for r in reference["test"]}
+        entities = {r["entity"] for r in rows}
+        assert not train & entities
+        independent = [r for r in rows if r["entity"] not in test]
+        result["reference_exclusion"] = {"fixture_sha256": sha256(reference_bytes).hexdigest(),
+                                         "held_out_overlap_entities": len(test & entities),
+                                         "held_out_overlap_questions": len(rows) - len(independent),
+                                         "fit_overlap_entities": len(train & entities)}
+        rows = independent
     for title, subset in (("all", rows), ("edited_question", [r for r in rows if r["edited"]])):
         panel = {"n": len(subset), "entities": len({r["entity"] for r in subset}), "variants": {}}
         for variant in ("easy", "hard"):
@@ -835,8 +849,14 @@ def main():
     p.add_argument("study", choices=ROUTES)
     p.add_argument("directory", type=Path)
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--timeqa-reference-fixture", type=Path)
     a = p.parse_args()
-    output = ROUTES[a.study](a.directory)
+    if a.timeqa_reference_fixture is not None:
+        if a.study != "timeqa_human":
+            p.error("--timeqa-reference-fixture applies to timeqa_human")
+        output = timeqa_human(a.directory, a.timeqa_reference_fixture)
+    else:
+        output = ROUTES[a.study](a.directory)
     a.output.write_text(json.dumps(output, indent=2, allow_nan=False) + "\n")
 
 
