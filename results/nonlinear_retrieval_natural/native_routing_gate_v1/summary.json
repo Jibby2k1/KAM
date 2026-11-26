@@ -1,0 +1,1198 @@
+{
+  "fixture_sha256": "4361c22f2fe6c204d1b9bc4618099c6d56c2443db99150a3ec790721afafac73",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "pools_sha256": "2bf0c633957aa56aadb5f9acbf4faa28af4cae91fc9f4bd48a7e2fefd22958f9",
+  "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "features": [
+    "broad_pair_link",
+    "linked_pair_link",
+    "broad_margin",
+    "linked_margin",
+    "broad_cross_preference",
+    "linked_cross_preference",
+    "shared_document",
+    "pool_link_fraction",
+    "broad_mean_affinity",
+    "linked_mean_affinity",
+    "broad_weak_semantic",
+    "linked_weak_semantic",
+    "broad_mention_margin",
+    "linked_mention_margin"
+  ],
+  "freeze_gpu": [
+    "NVIDIA B200"
+  ],
+  "score_gpu": [
+    "NVIDIA B200"
+  ],
+  "training": {
+    "n": 1536,
+    "same_pair": 1222,
+    "supervision": {
+      "broad_only": 53,
+      "linked_only": 21
+    }
+  },
+  "tests": {
+    "all": {
+      "n": 1024,
+      "same_pair": 842,
+      "linked_routes": {
+        "observed_link_rule": 689,
+        "link_only_gate": 689,
+        "learned_gate": 223
+      },
+      "correct": {
+        "broad": {
+          "support": 487,
+          "answer_exact": 369,
+          "joint_exact": 276
+        },
+        "linked": {
+          "support": 458,
+          "answer_exact": 359,
+          "joint_exact": 264
+        },
+        "frozen_context": {
+          "support": 442,
+          "answer_exact": 348,
+          "joint_exact": 256
+        },
+        "observed_link_rule": {
+          "support": 487,
+          "answer_exact": 366,
+          "joint_exact": 275
+        },
+        "link_only_gate": {
+          "support": 487,
+          "answer_exact": 366,
+          "joint_exact": 275
+        },
+        "learned_gate": {
+          "support": 486,
+          "answer_exact": 366,
+          "joint_exact": 275
+        },
+        "oracle_choice": {
+          "support": 492,
+          "answer_exact": 382,
+          "joint_exact": 280
+        }
+      },
+      "gate_vs": {
+        "broad": {
+          "support": {
+            "delta": -0.00097656,
+            "bootstrap95": [
+              -0.00390625,
+              0.00195312
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": -0.00292969,
+            "bootstrap95": [
+              -0.00683594,
+              0.00097656
+            ],
+            "wins": 1,
+            "losses": 4
+          },
+          "joint_exact": {
+            "delta": -0.00097656,
+            "bootstrap95": [
+              -0.00390625,
+              0.00195312
+            ],
+            "wins": 1,
+            "losses": 2
+          }
+        },
+        "linked": {
+          "support": {
+            "delta": 0.02734375,
+            "bootstrap95": [
+              0.01660156,
+              0.0390625
+            ],
+            "wins": 32,
+            "losses": 4
+          },
+          "answer_exact": {
+            "delta": 0.00683594,
+            "bootstrap95": [
+              -0.00390625,
+              0.01757812
+            ],
+            "wins": 19,
+            "losses": 12
+          },
+          "joint_exact": {
+            "delta": 0.01074219,
+            "bootstrap95": [
+              0.00292969,
+              0.01855469
+            ],
+            "wins": 14,
+            "losses": 3
+          }
+        },
+        "frozen_context": {
+          "support": {
+            "delta": 0.04296875,
+            "bootstrap95": [
+              0.02734375,
+              0.05957031
+            ],
+            "wins": 59,
+            "losses": 15
+          },
+          "answer_exact": {
+            "delta": 0.01757812,
+            "bootstrap95": [
+              0.00390625,
+              0.03222656
+            ],
+            "wins": 37,
+            "losses": 19
+          },
+          "joint_exact": {
+            "delta": 0.01855469,
+            "bootstrap95": [
+              0.00585938,
+              0.03125
+            ],
+            "wins": 31,
+            "losses": 12
+          }
+        },
+        "observed_link_rule": {
+          "support": {
+            "delta": -0.00097656,
+            "bootstrap95": [
+              -0.00488281,
+              0.00195312
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00292969,
+              0.00292969
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00292969,
+              0.00292969
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        },
+        "link_only_gate": {
+          "support": {
+            "delta": -0.00097656,
+            "bootstrap95": [
+              -0.00488281,
+              0.00195312
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00292969,
+              0.00292969
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00292969,
+              0.00292969
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        }
+      }
+    },
+    "gold_in_pool": {
+      "n": 619,
+      "same_pair": 555,
+      "linked_routes": {
+        "observed_link_rule": 535,
+        "link_only_gate": 535,
+        "learned_gate": 147
+      },
+      "correct": {
+        "broad": {
+          "support": 487,
+          "answer_exact": 319,
+          "joint_exact": 276
+        },
+        "linked": {
+          "support": 458,
+          "answer_exact": 315,
+          "joint_exact": 264
+        },
+        "frozen_context": {
+          "support": 442,
+          "answer_exact": 308,
+          "joint_exact": 256
+        },
+        "observed_link_rule": {
+          "support": 487,
+          "answer_exact": 317,
+          "joint_exact": 275
+        },
+        "link_only_gate": {
+          "support": 487,
+          "answer_exact": 317,
+          "joint_exact": 275
+        },
+        "learned_gate": {
+          "support": 486,
+          "answer_exact": 317,
+          "joint_exact": 275
+        },
+        "oracle_choice": {
+          "support": 492,
+          "answer_exact": 329,
+          "joint_exact": 280
+        }
+      },
+      "gate_vs": {
+        "broad": {
+          "support": {
+            "delta": -0.00161551,
+            "bootstrap95": [
+              -0.00807754,
+              0.00323102
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": -0.00323102,
+            "bootstrap95": [
+              -0.00969305,
+              0.00323102
+            ],
+            "wins": 1,
+            "losses": 3
+          },
+          "joint_exact": {
+            "delta": -0.00161551,
+            "bootstrap95": [
+              -0.00807754,
+              0.00323102
+            ],
+            "wins": 1,
+            "losses": 2
+          }
+        },
+        "linked": {
+          "support": {
+            "delta": 0.04523425,
+            "bootstrap95": [
+              0.02746365,
+              0.06462036
+            ],
+            "wins": 32,
+            "losses": 4
+          },
+          "answer_exact": {
+            "delta": 0.00323102,
+            "bootstrap95": [
+              -0.01130856,
+              0.0177706
+            ],
+            "wins": 11,
+            "losses": 9
+          },
+          "joint_exact": {
+            "delta": 0.0177706,
+            "bootstrap95": [
+              0.00484653,
+              0.03069467
+            ],
+            "wins": 14,
+            "losses": 3
+          }
+        },
+        "frozen_context": {
+          "support": {
+            "delta": 0.07108239,
+            "bootstrap95": [
+              0.04523425,
+              0.09854604
+            ],
+            "wins": 59,
+            "losses": 15
+          },
+          "answer_exact": {
+            "delta": 0.01453958,
+            "bootstrap95": [
+              -0.00488691,
+              0.0355412
+            ],
+            "wins": 25,
+            "losses": 16
+          },
+          "joint_exact": {
+            "delta": 0.03069467,
+            "bootstrap95": [
+              0.01130856,
+              0.05169628
+            ],
+            "wins": 31,
+            "losses": 12
+          }
+        },
+        "observed_link_rule": {
+          "support": {
+            "delta": -0.00161551,
+            "bootstrap95": [
+              -0.00807754,
+              0.00323102
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00484653,
+              0.00484653
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00484653,
+              0.00484653
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        },
+        "link_only_gate": {
+          "support": {
+            "delta": -0.00161551,
+            "bootstrap95": [
+              -0.00807754,
+              0.00323102
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00484653,
+              0.00484653
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00484653,
+              0.00484653
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        }
+      }
+    },
+    "natural_linked_distractor": {
+      "n": 468,
+      "same_pair": 457,
+      "linked_routes": {
+        "observed_link_rule": 466,
+        "link_only_gate": 466,
+        "learned_gate": 116
+      },
+      "correct": {
+        "broad": {
+          "support": 416,
+          "answer_exact": 261,
+          "joint_exact": 241
+        },
+        "linked": {
+          "support": 417,
+          "answer_exact": 259,
+          "joint_exact": 241
+        },
+        "frozen_context": {
+          "support": 401,
+          "answer_exact": 252,
+          "joint_exact": 233
+        },
+        "observed_link_rule": {
+          "support": 416,
+          "answer_exact": 258,
+          "joint_exact": 240
+        },
+        "link_only_gate": {
+          "support": 416,
+          "answer_exact": 258,
+          "joint_exact": 240
+        },
+        "learned_gate": {
+          "support": 415,
+          "answer_exact": 258,
+          "joint_exact": 240
+        },
+        "oracle_choice": {
+          "support": 420,
+          "answer_exact": 263,
+          "joint_exact": 244
+        }
+      },
+      "gate_vs": {
+        "broad": {
+          "support": {
+            "delta": -0.00213675,
+            "bootstrap95": [
+              -0.00860043,
+              0.0042735
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": -0.00641026,
+            "bootstrap95": [
+              -0.01495726,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 3
+          },
+          "joint_exact": {
+            "delta": -0.00213675,
+            "bootstrap95": [
+              -0.00860043,
+              0.0042735
+            ],
+            "wins": 1,
+            "losses": 2
+          }
+        },
+        "linked": {
+          "support": {
+            "delta": -0.0042735,
+            "bootstrap95": [
+              -0.01282051,
+              0.0042735
+            ],
+            "wins": 1,
+            "losses": 3
+          },
+          "answer_exact": {
+            "delta": -0.00213675,
+            "bootstrap95": [
+              -0.01068376,
+              0.0042735
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "joint_exact": {
+            "delta": -0.00213675,
+            "bootstrap95": [
+              -0.01068376,
+              0.0042735
+            ],
+            "wins": 1,
+            "losses": 2
+          }
+        },
+        "frozen_context": {
+          "support": {
+            "delta": 0.02991453,
+            "bootstrap95": [
+              0.0042735,
+              0.05555556
+            ],
+            "wins": 26,
+            "losses": 12
+          },
+          "answer_exact": {
+            "delta": 0.01282051,
+            "bootstrap95": [
+              -0.0042735,
+              0.02991453
+            ],
+            "wins": 12,
+            "losses": 6
+          },
+          "joint_exact": {
+            "delta": 0.01495726,
+            "bootstrap95": [
+              -0.00641026,
+              0.03632479
+            ],
+            "wins": 16,
+            "losses": 9
+          }
+        },
+        "observed_link_rule": {
+          "support": {
+            "delta": -0.00213675,
+            "bootstrap95": [
+              -0.00854701,
+              0.0042735
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00641026,
+              0.00641026
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00641026,
+              0.00641026
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        },
+        "link_only_gate": {
+          "support": {
+            "delta": -0.00213675,
+            "bootstrap95": [
+              -0.00854701,
+              0.0042735
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00641026,
+              0.00641026
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.00641026,
+              0.00641026
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        }
+      }
+    },
+    "gold_unlinked": {
+      "n": 136,
+      "same_pair": 83,
+      "linked_routes": {
+        "observed_link_rule": 54,
+        "link_only_gate": 54,
+        "learned_gate": 28
+      },
+      "correct": {
+        "broad": {
+          "support": 56,
+          "answer_exact": 48,
+          "joint_exact": 25
+        },
+        "linked": {
+          "support": 26,
+          "answer_exact": 46,
+          "joint_exact": 13
+        },
+        "frozen_context": {
+          "support": 26,
+          "answer_exact": 46,
+          "joint_exact": 13
+        },
+        "observed_link_rule": {
+          "support": 56,
+          "answer_exact": 49,
+          "joint_exact": 25
+        },
+        "link_only_gate": {
+          "support": 56,
+          "answer_exact": 49,
+          "joint_exact": 25
+        },
+        "learned_gate": {
+          "support": 56,
+          "answer_exact": 49,
+          "joint_exact": 25
+        },
+        "oracle_choice": {
+          "support": 57,
+          "answer_exact": 56,
+          "joint_exact": 26
+        }
+      },
+      "gate_vs": {
+        "broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": 0.00735294,
+            "bootstrap95": [
+              0.0,
+              0.02205882
+            ],
+            "wins": 1,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "linked": {
+          "support": {
+            "delta": 0.22058824,
+            "bootstrap95": [
+              0.15441176,
+              0.29411765
+            ],
+            "wins": 31,
+            "losses": 1
+          },
+          "answer_exact": {
+            "delta": 0.02205882,
+            "bootstrap95": [
+              -0.03676471,
+              0.08088235
+            ],
+            "wins": 10,
+            "losses": 7
+          },
+          "joint_exact": {
+            "delta": 0.08823529,
+            "bootstrap95": [
+              0.03676471,
+              0.13970588
+            ],
+            "wins": 13,
+            "losses": 1
+          }
+        },
+        "frozen_context": {
+          "support": {
+            "delta": 0.22058824,
+            "bootstrap95": [
+              0.14705882,
+              0.30147059
+            ],
+            "wins": 33,
+            "losses": 3
+          },
+          "answer_exact": {
+            "delta": 0.02205882,
+            "bootstrap95": [
+              -0.04411765,
+              0.09558824
+            ],
+            "wins": 13,
+            "losses": 10
+          },
+          "joint_exact": {
+            "delta": 0.08823529,
+            "bootstrap95": [
+              0.02941176,
+              0.14705882
+            ],
+            "wins": 15,
+            "losses": 3
+          }
+        },
+        "observed_link_rule": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "link_only_gate": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      }
+    },
+    "missing_gold": {
+      "n": 405,
+      "same_pair": 287,
+      "linked_routes": {
+        "observed_link_rule": 154,
+        "link_only_gate": 154,
+        "learned_gate": 76
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "answer_exact": 50,
+          "joint_exact": 0
+        },
+        "linked": {
+          "support": 0,
+          "answer_exact": 44,
+          "joint_exact": 0
+        },
+        "frozen_context": {
+          "support": 0,
+          "answer_exact": 40,
+          "joint_exact": 0
+        },
+        "observed_link_rule": {
+          "support": 0,
+          "answer_exact": 49,
+          "joint_exact": 0
+        },
+        "link_only_gate": {
+          "support": 0,
+          "answer_exact": 49,
+          "joint_exact": 0
+        },
+        "learned_gate": {
+          "support": 0,
+          "answer_exact": 49,
+          "joint_exact": 0
+        },
+        "oracle_choice": {
+          "support": 0,
+          "answer_exact": 53,
+          "joint_exact": 0
+        }
+      },
+      "gate_vs": {
+        "broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": -0.00246914,
+            "bootstrap95": [
+              -0.00740741,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "linked": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": 0.01234568,
+            "bootstrap95": [
+              -0.00246914,
+              0.02962963
+            ],
+            "wins": 8,
+            "losses": 3
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "frozen_context": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": 0.02222222,
+            "bootstrap95": [
+              0.00493827,
+              0.04197531
+            ],
+            "wins": 12,
+            "losses": 3
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "observed_link_rule": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "link_only_gate": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      }
+    },
+    "reranker_disagreement": {
+      "n": 182,
+      "same_pair": 0,
+      "linked_routes": {
+        "observed_link_rule": 24,
+        "link_only_gate": 24,
+        "learned_gate": 17
+      },
+      "correct": {
+        "broad": {
+          "support": 34,
+          "answer_exact": 43,
+          "joint_exact": 16
+        },
+        "linked": {
+          "support": 5,
+          "answer_exact": 33,
+          "joint_exact": 4
+        },
+        "frozen_context": {
+          "support": 11,
+          "answer_exact": 36,
+          "joint_exact": 7
+        },
+        "observed_link_rule": {
+          "support": 34,
+          "answer_exact": 40,
+          "joint_exact": 15
+        },
+        "link_only_gate": {
+          "support": 34,
+          "answer_exact": 40,
+          "joint_exact": 15
+        },
+        "learned_gate": {
+          "support": 33,
+          "answer_exact": 40,
+          "joint_exact": 15
+        },
+        "oracle_choice": {
+          "support": 39,
+          "answer_exact": 56,
+          "joint_exact": 20
+        }
+      },
+      "gate_vs": {
+        "broad": {
+          "support": {
+            "delta": -0.00549451,
+            "bootstrap95": [
+              -0.02747253,
+              0.01098901
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": -0.01648352,
+            "bootstrap95": [
+              -0.04395604,
+              0.00549451
+            ],
+            "wins": 1,
+            "losses": 4
+          },
+          "joint_exact": {
+            "delta": -0.00549451,
+            "bootstrap95": [
+              -0.02747253,
+              0.01098901
+            ],
+            "wins": 1,
+            "losses": 2
+          }
+        },
+        "linked": {
+          "support": {
+            "delta": 0.15384615,
+            "bootstrap95": [
+              0.09340659,
+              0.21428571
+            ],
+            "wins": 32,
+            "losses": 4
+          },
+          "answer_exact": {
+            "delta": 0.03846154,
+            "bootstrap95": [
+              -0.02197802,
+              0.0989011
+            ],
+            "wins": 19,
+            "losses": 12
+          },
+          "joint_exact": {
+            "delta": 0.06043956,
+            "bootstrap95": [
+              0.01648352,
+              0.1043956
+            ],
+            "wins": 14,
+            "losses": 3
+          }
+        },
+        "frozen_context": {
+          "support": {
+            "delta": 0.12087912,
+            "bootstrap95": [
+              0.06593407,
+              0.18131868
+            ],
+            "wins": 27,
+            "losses": 5
+          },
+          "answer_exact": {
+            "delta": 0.02197802,
+            "bootstrap95": [
+              -0.03846154,
+              0.07706044
+            ],
+            "wins": 16,
+            "losses": 12
+          },
+          "joint_exact": {
+            "delta": 0.04395604,
+            "bootstrap95": [
+              0.00549451,
+              0.08791209
+            ],
+            "wins": 12,
+            "losses": 4
+          }
+        },
+        "observed_link_rule": {
+          "support": {
+            "delta": -0.00549451,
+            "bootstrap95": [
+              -0.02197802,
+              0.01098901
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.01648352,
+              0.01648352
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.01648352,
+              0.01648352
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        },
+        "link_only_gate": {
+          "support": {
+            "delta": -0.00549451,
+            "bootstrap95": [
+              -0.02197802,
+              0.01098901
+            ],
+            "wins": 1,
+            "losses": 2
+          },
+          "answer_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.01648352,
+              0.01648352
+            ],
+            "wins": 1,
+            "losses": 1
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.01648352,
+              0.01648352
+            ],
+            "wins": 1,
+            "losses": 1
+          }
+        }
+      }
+    }
+  }
+}

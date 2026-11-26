@@ -10,6 +10,8 @@ A [sentence reranker](../../reports/nonlinear_retrieval_natural/EVIDENCE_VERIFIE
 
 In a [fresh HotpotQA refit study](../../reports/nonlinear_retrieval_natural/NATIVE_SENTENCE_REFIT.md), native sentence training recovered 392/450 naturally linked support pairs, compared with 363 for the transferred 2Wiki policy and 388 for the frozen scorer. A native fit on the existing pair features recovered 387.
 
+On [fresh frozen Wikipedia pools](../../reports/nonlinear_retrieval_natural/NATIVE_ROUTING_GATE.md), the inference-visible gate recovered both supports on 486/1,024 and joint exact answers on 275/1,024. Always using the broad native reranker reached 487 and 276. The two-reranker oracle reached 492 and 280.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving
