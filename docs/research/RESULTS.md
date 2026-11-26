@@ -16,6 +16,8 @@ On [the same sealed pools](../../reports/nonlinear_retrieval_natural/FROZEN_SEQU
 
 The [conservative sequential fallback](../../reports/nonlinear_retrieval_natural/SEQUENTIAL_FALLBACK.md) stayed with broad on all 1,024 fresh pools after calibration, yielding 452 complete support recoveries and 285 joint exact matches. The 5% calibration threshold yielded 450 and 283. Signals detected unlinked gold evidence better than they detected the cases where switching helped.
 
+[Conditioned full-corpus second-hop search](../../reports/nonlinear_retrieval_natural/CONDITIONED_CORPUS_SEARCH.md) recovered both supports on 11 incomplete pools and reached six joint exact matches. Across all 1,024 questions it reached 173 support recoveries and 110 joint exact matches, compared with 178 and 116 from same-pool sequential and 452 and 285 from broad.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving

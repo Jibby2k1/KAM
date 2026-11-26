@@ -129,3 +129,13 @@ jobs:
                    --fitted "$base/native_sentence_refit_v1/fitted.json" --output "$output")
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_sequential_fallback.py "$study/replay.json.gz" "${options[@]}"
           diff -u "$study/summary.json" "$output"
+      - name: Replay conditioned full-corpus second-hop search
+        run: |
+          base=results/nonlinear_retrieval_natural
+          prior="$base/sequential_fallback_v1"
+          study="$base/conditioned_corpus_v1"
+          output=$(mktemp)
+          options=(--fixture "$prior/fixture.json.gz" --pools "$prior/pools.json.gz"
+                   --reference "$prior/replay.json.gz" --output "$output")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_conditioned_corpus_search.py "$study/replay.json.gz" "${options[@]}"
+          diff -u "$study/summary.json" "$output"

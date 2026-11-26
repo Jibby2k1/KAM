@@ -1,0 +1,1248 @@
+{
+  "fixture_sha256": "292adcfbf51b1f9fad417a402d3d408356f95089ca75edb3f3a84329246dda9e",
+  "pools_sha256": "83f6408b3e21c0fdd3e818083dbcf1296543965203b2bec6049f08d90d9b8273",
+  "reference_sha256": "a1b0fa5bbff47b70a309168274d7f5b1e1d86849bfb69db5505c371d81301447",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "indexed_documents": 5201800,
+  "candidate_depth": 64,
+  "shards": 4,
+  "reread_differences_vs_reference": {
+    "broad": 0,
+    "same_pool_sequential": 0
+  },
+  "conditioned_top1_inside_pool_but_differs_from_same_pool": 0,
+  "corpus_top1_near_ties": {
+    "corpus_unconditioned": 0,
+    "corpus_conditioned": 0
+  },
+  "gpus": {
+    "NVIDIA B200": 4
+  },
+  "cohorts": {
+    "all": {
+      "n": 1024,
+      "first_hop_gold": 575,
+      "answer_exact": {
+        "broad": 372,
+        "same_pool_sequential": 229,
+        "corpus_unconditioned": 205,
+        "corpus_conditioned": 219
+      },
+      "correct": {
+        "broad": {
+          "support": 452,
+          "joint_exact": 285
+        },
+        "same_pool_sequential": {
+          "support": 178,
+          "joint_exact": 116
+        },
+        "corpus_unconditioned": {
+          "support": 141,
+          "joint_exact": 87
+        },
+        "corpus_conditioned": {
+          "support": 173,
+          "joint_exact": 110
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": -0.26757812,
+            "bootstrap95": [
+              -0.29785156,
+              -0.23730469
+            ],
+            "wins": 27,
+            "losses": 301
+          },
+          "joint_exact": {
+            "delta": -0.16503906,
+            "bootstrap95": [
+              -0.19042969,
+              -0.140625
+            ],
+            "wins": 15,
+            "losses": 184
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": -0.27246094,
+            "bootstrap95": [
+              -0.3046875,
+              -0.24121094
+            ],
+            "wins": 36,
+            "losses": 315
+          },
+          "joint_exact": {
+            "delta": -0.17089844,
+            "bootstrap95": [
+              -0.19726562,
+              -0.14550781
+            ],
+            "wins": 19,
+            "losses": 194
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": -0.00488281,
+            "bootstrap95": [
+              -0.01464844,
+              0.00488281
+            ],
+            "wins": 11,
+            "losses": 16
+          },
+          "joint_exact": {
+            "delta": -0.00585938,
+            "bootstrap95": [
+              -0.01464844,
+              0.00195312
+            ],
+            "wins": 6,
+            "losses": 12
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.03125,
+            "bootstrap95": [
+              0.01367188,
+              0.04882812
+            ],
+            "wins": 61,
+            "losses": 29
+          },
+          "joint_exact": {
+            "delta": 0.02246094,
+            "bootstrap95": [
+              0.00878906,
+              0.03613281
+            ],
+            "wins": 38,
+            "losses": 15
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 279,
+          "top1_missing_gold": 1,
+          "top64_any_missing_gold": 51,
+          "first_plus_top64_both_gold": 361,
+          "first_plus_top64_union_pool_both_gold": 416
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 333,
+          "top1_missing_gold": 11,
+          "top64_any_missing_gold": 113,
+          "first_plus_top64_both_gold": 445,
+          "first_plus_top64_union_pool_both_gold": 481
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 490,
+        "joint_exact": 306
+      }
+    },
+    "both_in_frozen_pool": {
+      "n": 591,
+      "first_hop_gold": 392,
+      "answer_exact": {
+        "broad": 329,
+        "same_pool_sequential": 195,
+        "corpus_unconditioned": 171,
+        "corpus_conditioned": 178
+      },
+      "correct": {
+        "broad": {
+          "support": 452,
+          "joint_exact": 285
+        },
+        "same_pool_sequential": {
+          "support": 178,
+          "joint_exact": 116
+        },
+        "corpus_unconditioned": {
+          "support": 141,
+          "joint_exact": 87
+        },
+        "corpus_conditioned": {
+          "support": 162,
+          "joint_exact": 104
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": -0.46362098,
+            "bootstrap95": [
+              -0.50930626,
+              -0.41624365
+            ],
+            "wins": 27,
+            "losses": 301
+          },
+          "joint_exact": {
+            "delta": -0.28595601,
+            "bootstrap95": [
+              -0.32825719,
+              -0.24365482
+            ],
+            "wins": 15,
+            "losses": 184
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": -0.49069374,
+            "bootstrap95": [
+              -0.53637902,
+              -0.44331641
+            ],
+            "wins": 25,
+            "losses": 315
+          },
+          "joint_exact": {
+            "delta": -0.30626058,
+            "bootstrap95": [
+              -0.34856176,
+              -0.26565144
+            ],
+            "wins": 13,
+            "losses": 194
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": -0.02707276,
+            "bootstrap95": [
+              -0.04060914,
+              -0.01522843
+            ],
+            "wins": 0,
+            "losses": 16
+          },
+          "joint_exact": {
+            "delta": -0.02030457,
+            "bootstrap95": [
+              -0.0321489,
+              -0.01015228
+            ],
+            "wins": 0,
+            "losses": 12
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.03553299,
+            "bootstrap95": [
+              0.00507614,
+              0.0642978
+            ],
+            "wins": 50,
+            "losses": 29
+          },
+          "joint_exact": {
+            "delta": 0.02876481,
+            "bootstrap95": [
+              0.00676819,
+              0.05245347
+            ],
+            "wins": 32,
+            "losses": 15
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 120,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 0,
+          "first_plus_top64_both_gold": 337,
+          "first_plus_top64_union_pool_both_gold": 392
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 124,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 0,
+          "first_plus_top64_both_gold": 356,
+          "first_plus_top64_union_pool_both_gold": 392
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 479,
+        "joint_exact": 300
+      }
+    },
+    "either_absent_from_frozen_pool": {
+      "n": 433,
+      "first_hop_gold": 183,
+      "answer_exact": {
+        "broad": 43,
+        "same_pool_sequential": 34,
+        "corpus_unconditioned": 34,
+        "corpus_conditioned": 41
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "same_pool_sequential": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_unconditioned": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_conditioned": {
+          "support": 11,
+          "joint_exact": 6
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": 0.02540416,
+            "bootstrap95": [
+              0.01154734,
+              0.04157044
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.01385681,
+            "bootstrap95": [
+              0.00461894,
+              0.02540416
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": 0.02540416,
+            "bootstrap95": [
+              0.01154734,
+              0.04157044
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.01385681,
+            "bootstrap95": [
+              0.00461894,
+              0.02540416
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.02540416,
+            "bootstrap95": [
+              0.01154734,
+              0.04157044
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.01385681,
+            "bootstrap95": [
+              0.00461894,
+              0.02540416
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 159,
+          "top1_missing_gold": 1,
+          "top64_any_missing_gold": 51,
+          "first_plus_top64_both_gold": 24,
+          "first_plus_top64_union_pool_both_gold": 24
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 209,
+          "top1_missing_gold": 11,
+          "top64_any_missing_gold": 113,
+          "first_plus_top64_both_gold": 89,
+          "first_plus_top64_union_pool_both_gold": 89
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 11,
+        "joint_exact": 6
+      }
+    },
+    "one_absent_from_frozen_pool": {
+      "n": 396,
+      "first_hop_gold": 183,
+      "answer_exact": {
+        "broad": 43,
+        "same_pool_sequential": 34,
+        "corpus_unconditioned": 34,
+        "corpus_conditioned": 41
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "same_pool_sequential": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_unconditioned": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_conditioned": {
+          "support": 11,
+          "joint_exact": 6
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": 0.02777778,
+            "bootstrap95": [
+              0.01262626,
+              0.04292929
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.01515152,
+            "bootstrap95": [
+              0.00505051,
+              0.02777778
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": 0.02777778,
+            "bootstrap95": [
+              0.01262626,
+              0.04292929
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.01515152,
+            "bootstrap95": [
+              0.00505051,
+              0.02777778
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.02777778,
+            "bootstrap95": [
+              0.01262626,
+              0.04292929
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.01515152,
+            "bootstrap95": [
+              0.00505051,
+              0.02777778
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 136,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 44,
+          "first_plus_top64_both_gold": 24,
+          "first_plus_top64_union_pool_both_gold": 24
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 183,
+          "top1_missing_gold": 11,
+          "top64_any_missing_gold": 107,
+          "first_plus_top64_both_gold": 89,
+          "first_plus_top64_union_pool_both_gold": 89
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 11,
+        "joint_exact": 6
+      }
+    },
+    "one_absent_first_hop_gold": {
+      "n": 183,
+      "first_hop_gold": 183,
+      "answer_exact": {
+        "broad": 24,
+        "same_pool_sequential": 25,
+        "corpus_unconditioned": 23,
+        "corpus_conditioned": 32
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "same_pool_sequential": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_unconditioned": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_conditioned": {
+          "support": 11,
+          "joint_exact": 6
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": 0.06010929,
+            "bootstrap95": [
+              0.0273224,
+              0.09836066
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.03278689,
+            "bootstrap95": [
+              0.01092896,
+              0.06010929
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": 0.06010929,
+            "bootstrap95": [
+              0.0273224,
+              0.09836066
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.03278689,
+            "bootstrap95": [
+              0.01092896,
+              0.06010929
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.06010929,
+            "bootstrap95": [
+              0.0273224,
+              0.09836066
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.03278689,
+            "bootstrap95": [
+              0.01092896,
+              0.06010929
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 45,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 24,
+          "first_plus_top64_both_gold": 24,
+          "first_plus_top64_union_pool_both_gold": 24
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 68,
+          "top1_missing_gold": 11,
+          "top64_any_missing_gold": 89,
+          "first_plus_top64_both_gold": 89,
+          "first_plus_top64_union_pool_both_gold": 89
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 11,
+        "joint_exact": 6
+      }
+    },
+    "one_absent_first_hop_gold_both_in_index": {
+      "n": 183,
+      "first_hop_gold": 183,
+      "answer_exact": {
+        "broad": 24,
+        "same_pool_sequential": 25,
+        "corpus_unconditioned": 23,
+        "corpus_conditioned": 32
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "same_pool_sequential": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_unconditioned": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_conditioned": {
+          "support": 11,
+          "joint_exact": 6
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": 0.06010929,
+            "bootstrap95": [
+              0.0273224,
+              0.09836066
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.03278689,
+            "bootstrap95": [
+              0.01092896,
+              0.06010929
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": 0.06010929,
+            "bootstrap95": [
+              0.0273224,
+              0.09836066
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.03278689,
+            "bootstrap95": [
+              0.01092896,
+              0.06010929
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.06010929,
+            "bootstrap95": [
+              0.0273224,
+              0.09836066
+            ],
+            "wins": 11,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.03278689,
+            "bootstrap95": [
+              0.01092896,
+              0.06010929
+            ],
+            "wins": 6,
+            "losses": 0
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 45,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 24,
+          "first_plus_top64_both_gold": 24,
+          "first_plus_top64_union_pool_both_gold": 24
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 68,
+          "top1_missing_gold": 11,
+          "top64_any_missing_gold": 89,
+          "first_plus_top64_both_gold": 89,
+          "first_plus_top64_union_pool_both_gold": 89
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 11,
+        "joint_exact": 6
+      }
+    },
+    "one_absent_first_hop_wrong": {
+      "n": 213,
+      "first_hop_gold": 0,
+      "answer_exact": {
+        "broad": 19,
+        "same_pool_sequential": 9,
+        "corpus_unconditioned": 11,
+        "corpus_conditioned": 9
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "same_pool_sequential": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_unconditioned": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_conditioned": {
+          "support": 0,
+          "joint_exact": 0
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 91,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 20,
+          "first_plus_top64_both_gold": 0,
+          "first_plus_top64_union_pool_both_gold": 0
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 115,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 18,
+          "first_plus_top64_both_gold": 0,
+          "first_plus_top64_union_pool_both_gold": 0
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 0,
+        "joint_exact": 0
+      }
+    },
+    "both_absent_from_frozen_pool": {
+      "n": 37,
+      "first_hop_gold": 0,
+      "answer_exact": {
+        "broad": 0,
+        "same_pool_sequential": 0,
+        "corpus_unconditioned": 0,
+        "corpus_conditioned": 0
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "same_pool_sequential": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_unconditioned": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_conditioned": {
+          "support": 0,
+          "joint_exact": 0
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 23,
+          "top1_missing_gold": 1,
+          "top64_any_missing_gold": 7,
+          "first_plus_top64_both_gold": 0,
+          "first_plus_top64_union_pool_both_gold": 0
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 26,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 6,
+          "first_plus_top64_both_gold": 0,
+          "first_plus_top64_union_pool_both_gold": 0
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 0,
+        "joint_exact": 0
+      }
+    },
+    "gold_absent_from_index": {
+      "n": 0,
+      "first_hop_gold": 0,
+      "answer_exact": {
+        "broad": 0,
+        "same_pool_sequential": 0,
+        "corpus_unconditioned": 0,
+        "corpus_conditioned": 0
+      },
+      "correct": {
+        "broad": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "same_pool_sequential": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_unconditioned": {
+          "support": 0,
+          "joint_exact": 0
+        },
+        "corpus_conditioned": {
+          "support": 0,
+          "joint_exact": 0
+        }
+      },
+      "paired": {},
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 0,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 0,
+          "first_plus_top64_both_gold": 0,
+          "first_plus_top64_union_pool_both_gold": 0
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 0,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 0,
+          "first_plus_top64_both_gold": 0,
+          "first_plus_top64_union_pool_both_gold": 0
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 0,
+        "joint_exact": 0
+      }
+    },
+    "gold_unlinked_in_frozen_pool": {
+      "n": 150,
+      "first_hop_gold": 109,
+      "answer_exact": {
+        "broad": 57,
+        "same_pool_sequential": 38,
+        "corpus_unconditioned": 34,
+        "corpus_conditioned": 33
+      },
+      "correct": {
+        "broad": {
+          "support": 56,
+          "joint_exact": 33
+        },
+        "same_pool_sequential": {
+          "support": 45,
+          "joint_exact": 20
+        },
+        "corpus_unconditioned": {
+          "support": 36,
+          "joint_exact": 16
+        },
+        "corpus_conditioned": {
+          "support": 41,
+          "joint_exact": 17
+        }
+      },
+      "paired": {
+        "same_pool_sequential_vs_broad": {
+          "support": {
+            "delta": -0.07333333,
+            "bootstrap95": [
+              -0.16,
+              0.02
+            ],
+            "wins": 19,
+            "losses": 30
+          },
+          "joint_exact": {
+            "delta": -0.08666667,
+            "bootstrap95": [
+              -0.15333333,
+              -0.02
+            ],
+            "wins": 8,
+            "losses": 21
+          }
+        },
+        "corpus_conditioned_vs_broad": {
+          "support": {
+            "delta": -0.1,
+            "bootstrap95": [
+              -0.18666667,
+              -0.00666667
+            ],
+            "wins": 17,
+            "losses": 32
+          },
+          "joint_exact": {
+            "delta": -0.10666667,
+            "bootstrap95": [
+              -0.17333333,
+              -0.04
+            ],
+            "wins": 6,
+            "losses": 22
+          }
+        },
+        "corpus_conditioned_vs_same_pool_sequential": {
+          "support": {
+            "delta": -0.02666667,
+            "bootstrap95": [
+              -0.05333333,
+              -0.00666667
+            ],
+            "wins": 0,
+            "losses": 4
+          },
+          "joint_exact": {
+            "delta": -0.02,
+            "bootstrap95": [
+              -0.04666667,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 3
+          }
+        },
+        "corpus_conditioned_vs_corpus_unconditioned": {
+          "support": {
+            "delta": 0.03333333,
+            "bootstrap95": [
+              -0.02666667,
+              0.09333333
+            ],
+            "wins": 13,
+            "losses": 8
+          },
+          "joint_exact": {
+            "delta": 0.00666667,
+            "bootstrap95": [
+              -0.03333333,
+              0.04666667
+            ],
+            "wins": 5,
+            "losses": 4
+          }
+        }
+      },
+      "corpus_expansion": {
+        "corpus_unconditioned": {
+          "top1_outside_pool": 25,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 0,
+          "first_plus_top64_both_gold": 93,
+          "first_plus_top64_union_pool_both_gold": 109
+        },
+        "corpus_conditioned": {
+          "top1_outside_pool": 23,
+          "top1_missing_gold": 0,
+          "top64_any_missing_gold": 0,
+          "first_plus_top64_both_gold": 95,
+          "first_plus_top64_union_pool_both_gold": 109
+        }
+      },
+      "oracle_broad_same_pool_conditioned": {
+        "support": 75,
+        "joint_exact": 41
+      }
+    }
+  }
+}
