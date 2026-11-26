@@ -1,8 +1,18 @@
 # Kernel Adaptive Memory
 
-Kernel Adaptive Memory (KAM) is a research implementation for studying radial attention, persistent learned supports, and fast online adaptation. This repository contains model implementations, controlled experiments, and a separate line of experiments on one-pass evidence retrieval in natural question answering.
+[![Kernel Adaptive Memory. A query, four keys, and a learned metric illustrated by elliptical contours.](docs/demo/media/kam-cover.png)](https://jibby2k1.github.io/KAM/)
 
-[Research specification](Kernel_Adaptive_Memory_Research_Specification.pdf) · [Results and evidence](docs/research/RESULTS.md) · [Dataset portfolio](docs/research/DATASET_PORTFOLIO.md) · [Citation](CITATION.cff)
+[**Try the interactive demos**](https://jibby2k1.github.io/KAM/) · [**Watch the 30-second explainer**](https://jibby2k1.github.io/KAM/#explainer) · [Results and evidence](docs/research/RESULTS.md)
+
+Kernel Adaptive Memory (KAM) studies how attention reads from the current context and from persistent learned supports. The research repository also contains separate experiments on one-pass evidence retrieval and temporal revision memory.
+
+[Research specification](Kernel_Adaptive_Memory_Research_Specification.pdf) · [Dataset portfolio](docs/research/DATASET_PORTFOLIO.md) · [Citation](CITATION.cff)
+
+## See how the method works
+
+[<img src="docs/demo/media/attention-preview.gif" width="540" alt="The query moves between four keys while their attention weights change.">](https://jibby2k1.github.io/KAM/#radial)
+
+Move the query, narrow the bandwidth, or change the learned metric in the [attention demo](https://jibby2k1.github.io/KAM/#radial). The [revision lookup demo](https://jibby2k1.github.io/KAM/#revision) lets you move a release cutoff and see which version was available that day. The [method guide](docs/research/METHOD.md) explains both memory reads and connects the diagram to the implementation.
 
 ## Research at a glance
 
@@ -16,6 +26,8 @@ Kernel Adaptive Memory (KAM) is a research implementation for studying radial at
 The [dataset breadth and temporal memory report](reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) compares frozen transfer across domains, archived revisions, controlled noise, and the KAM decoder’s length generalization.
 
 The HotpotQA and MuSiQue experiments use frozen pretrained encoders and readers with separate routing heads. Their results concern retrieval and evidence selection. The KAM decoder has its own controlled experiments.
+
+[![Across longer synthetic histories, radial attention retains more exact joint accuracy when the model omits absolute positions.](reports/nonlinear_retrieval_natural/figures/bitemporal_length_scaling.svg)](reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md#position-and-scoring-geometry)
 
 ## Quick start
 
