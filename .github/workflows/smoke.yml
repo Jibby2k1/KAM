@@ -120,3 +120,12 @@ jobs:
             python scripts/benchmark_kam_compacted_context.py --device cpu --arm "$arm" \
               --steps 2 --smoke --output "/tmp/kam-compaction-$arm.json"
           done
+      - name: Replay conservative sequential fallback on fresh HotpotQA pools
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/sequential_fallback_v1"
+          output=$(mktemp)
+          options=(--fixture "$study/fixture.json.gz" --pools "$study/pools.json.gz"
+                   --fitted "$base/native_sentence_refit_v1/fitted.json" --output "$output")
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_sequential_fallback.py "$study/replay.json.gz" "${options[@]}"
+          diff -u "$study/summary.json" "$output"
