@@ -55,6 +55,73 @@
         }
       }
     },
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition:musique:host-cache-profile": {
+      "torch": "2.8.0+cu128",
+      "resident_cache_sentences": 971,
+      "vector_bytes": 1536,
+      "depths": {
+        "4": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 4.648,
+              "p95_ms": 5.467
+            },
+            "resident": {
+              "p50_ms": 0.152,
+              "p95_ms": 0.191
+            },
+            "host_staged": {
+              "p50_ms": 0.148,
+              "p95_ms": 0.183
+            }
+          },
+          "mean_pairs": 6.729,
+          "mean_unique_sentences": 7.979,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "8": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 5.991,
+              "p95_ms": 7.581
+            },
+            "resident": {
+              "p50_ms": 0.237,
+              "p95_ms": 0.277
+            },
+            "host_staged": {
+              "p50_ms": 0.237,
+              "p95_ms": 0.291
+            }
+          },
+          "mean_pairs": 13.688,
+          "mean_unique_sentences": 13.688,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "16": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 8.675,
+              "p95_ms": 10.264
+            },
+            "resident": {
+              "p50_ms": 0.381,
+              "p95_ms": 0.441
+            },
+            "host_staged": {
+              "p50_ms": 0.374,
+              "p95_ms": 0.448
+            }
+          },
+          "mean_pairs": 26.854,
+          "mean_unique_sentences": 22.812,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        }
+      }
+    },
     "NVIDIA RTX PRO 6000 Blackwell Server Edition:twowiki": {
       "torch": "2.8.0+cu128",
       "resident_cache_sentences": 1343,
@@ -102,6 +169,73 @@
             "resident": {
               "p50_ms": 0.446,
               "p95_ms": 0.553
+            }
+          },
+          "mean_pairs": 26.5,
+          "mean_unique_sentences": 31.208,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        }
+      }
+    },
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition:twowiki:host-cache-profile": {
+      "torch": "2.8.0+cu128",
+      "resident_cache_sentences": 1343,
+      "vector_bytes": 1536,
+      "depths": {
+        "4": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 5.547,
+              "p95_ms": 7.719
+            },
+            "resident": {
+              "p50_ms": 0.161,
+              "p95_ms": 0.228
+            },
+            "host_staged": {
+              "p50_ms": 0.158,
+              "p95_ms": 0.192
+            }
+          },
+          "mean_pairs": 6.354,
+          "mean_unique_sentences": 14.271,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "8": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 7.741,
+              "p95_ms": 9.177
+            },
+            "resident": {
+              "p50_ms": 0.25,
+              "p95_ms": 0.357
+            },
+            "host_staged": {
+              "p50_ms": 0.247,
+              "p95_ms": 0.304
+            }
+          },
+          "mean_pairs": 13.042,
+          "mean_unique_sentences": 20.583,
+          "max_abs_feature_delta": 1.0000000000287557e-06
+        },
+        "16": {
+          "requests": 48,
+          "timings": {
+            "cold": {
+              "p50_ms": 9.653,
+              "p95_ms": 11.831
+            },
+            "resident": {
+              "p50_ms": 0.412,
+              "p95_ms": 0.506
+            },
+            "host_staged": {
+              "p50_ms": 0.412,
+              "p95_ms": 0.49
             }
           },
           "mean_pairs": 26.5,

@@ -78,7 +78,8 @@ jobs:
           from pathlib import Path
           import sys
           expected, replayed = (json.loads(Path(p).read_text()) for p in sys.argv[1:])
-          for key in ("tests", "clean_linked_shortlist_challenge", "linked_minus_sham", "feature_group_ablation"):
+          for key in ("tests", "clean_linked_shortlist_challenge", "linked_minus_sham", "feature_group_ablation",
+                      "semantic_versus_frozen_link_interaction"):
               assert expected[key] == replayed[key], key
           PY
           python scripts/analyze_kam_verifier_followthrough.py "$study/followthrough_replay.json" \

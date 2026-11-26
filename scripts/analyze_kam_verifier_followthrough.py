@@ -18,6 +18,10 @@ def profiles(shards):
     for shard in sorted(shards, key=lambda s: (s["device"], s["dataset"])):
         rows = shard["rows"]
         key = f'{shard["device"]}:{shard["dataset"]}'
+        modes = ("cold", "resident")
+        if shard.get("host_cache"):
+            key += ":host-cache-profile"
+            modes += ("host_staged",)
         assert key not in results
         assert len({r["id"] for r in rows}) == 48
         result = {}
@@ -25,7 +29,7 @@ def profiles(shards):
             panel = [r for r in rows if r["depth"] == depth]
             assert len(panel) == 48
             timing = {}
-            for mode in ("cold", "resident"):
+            for mode in modes:
                 a = [r[mode + "_ms"] for r in panel]
                 timing[mode] = {"p50_ms": round(float(np.median(a)), 3),
                                 "p95_ms": round(float(np.quantile(a, .95)), 3)}

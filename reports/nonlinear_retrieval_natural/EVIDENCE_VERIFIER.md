@@ -29,6 +29,8 @@ For the paired-fit semantic reranker versus the frozen context head, the gain wa
 
 The contextual intervention reduced the gains over the frozen context head to 16.0 points on 2Wiki (+11.0 to +21.0) and 5.3 on MuSiQue (+1.0 to +9.7). Compared with its own contextual sham, semantic reranking lost 28.1 points on 2Wiki and 16.0 on MuSiQue. The frozen context head lost 31.4 and 15.3 points. The contextual MuSiQue result therefore shows better absolute recovery with a similar degradation under the injected link.
 
+The paired difference between these sham-to-link drops separates robustness from overall accuracy. For standard links, the verifier reduced the drop by 17.6 points on 2Wiki (95% paired interval +12.6 to +22.4) and 2.7 on MuSiQue (−2.3 to +7.7). For contextual links the changes were +3.3 (−1.7 to +8.1) and −0.7 (−5.3 to +4.0).
+
 ![Complete support recovery by corpus for clean, sham, false-link and context-bearing inputs](figures/sentence_verifier.svg)
 
 On clean questions whose shortlist contained the gold link and at least one linked distractor, the paired semantic reranker ranked the exact supporting link first on 132/151 in 2Wiki and 38/44 in MuSiQue. The frozen context scores gave 131/151 and 37/44 when restricted to the same linked pairs. This conditional diagnostic cannot detect gains on questions whose gold pair never entered the shortlist.
@@ -80,9 +82,13 @@ Profile 48 clean requests per source, selected by a fixed ID hash. The measured 
 
 Cold and resident feature differences were at most 0.0000011. The local M5 replication yielded the same direction, with recompute medians of 26–35 ms and resident medians near 0.6 ms. These measurements quantify the cost of the extra sentence stage with its inputs ready. Corpus-scale sentence indexing and live cache hit rates remain open. [Timing samples and profiler summary](../../results/nonlinear_retrieval_natural/sentence_verifier_v1/followthrough.json)
 
+A second RTX run kept sentence vectors in ordinary host memory and staged only the selected vectors through a reusable pinned buffer. Its four-pair medians were 0.158 ms on 2Wiki and 0.148 ms on MuSiQue, close to 0.161 and 0.152 ms for device-resident vectors on that run. The host timing includes lookup, staging, transfer, and feature construction from a prepopulated in-memory bank. Feature differences stayed within the same bound. This measures isolated cache hits on the 96-question profiling sample.
+
 ## Reproduce
 
 The [HPG feature driver](../../slurm/nonlinear_retrieval_sentence_verifier.sbatch) extracts training and test features from the earlier coverage-gate fixtures and checkpoints. The 2Wiki and MuSiQue evidence comparisons used NVIDIA RTX PRO 6000 Blackwell GPUs. The [HotpotQA driver](../../slurm/nonlinear_retrieval_sentence_fullwiki.sbatch) uses the supporting-link fixture and original retrieval audit files. The replay contains numeric shortlist features, evaluation labels, and identifiers.
+
+The replay uses Python 3.11 with SciPy 1.17.1 in CI.
 
 ```bash
 study=results/nonlinear_retrieval_natural/sentence_verifier_v1

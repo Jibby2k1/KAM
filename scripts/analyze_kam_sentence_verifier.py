@@ -193,7 +193,7 @@ def summarize(shards):
                                             "fixed_weight_shortlist_frontier": frontier}
             by_scenario[split, scenario] = {k: dict(zip((id_ for id_, _ in items), values, strict=True))
                                            for k, values in responses.items()}
-    drops = {}
+    drops, interactions = {}, {}
     for split in ("twowiki-test", "musique-test"):
         for sham, link in (("sham", "linked"), CONTEXTUAL):
             if (split, link) not in by_scenario:
@@ -203,11 +203,15 @@ def summarize(shards):
             assert set(keys) == set(after["full"])
             drops[f"{split}:{link}"] = {k: paired([after[k][q] for q in keys], [before[k][q] for q in keys])
                                          for k in before}
+            semantic = [int(after["semantic_sentence"][q]) - int(before["semantic_sentence"][q]) for q in keys]
+            full = [int(after["full"][q]) - int(before["full"][q]) for q in keys]
+            interactions[f"{split}:{link}"] = paired(semantic, full)
     return {**{k: shards[0][k] for k in metadata}, "counts": dict(sorted(counts.items())),
             "hardware": sorted({s["device"] for s in shards}),
             "fitted": {name: {"eligible_variants": params[-1], "coefficients": np.round(params[2], 8).tolist()}
                        for name, params in fitted.items()}, "tests": report,
             "clean_linked_shortlist_challenge": challenge, "linked_minus_sham": drops,
+            "semantic_versus_frozen_link_interaction": interactions,
             "feature_group_ablation": feature_group_ablation(rows, shards[0]["columns"], fitted["semantic_sentence"])}
 
 

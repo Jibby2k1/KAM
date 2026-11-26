@@ -184,7 +184,7 @@ def flush(plans, enc):
     return result
 
 
-def profile_plans(plans, enc):
+def profile_plans(plans, enc, *, host_cache=False):
     """Time the added sentence stage for one request at a time, after shortlisting."""
     clean = [(*plan[:4], [plan[4][0]]) for plan in plans]
     assert all(plan[4][0][0] == "clean" for plan in clean)
@@ -198,6 +198,21 @@ def profile_plans(plans, enc):
         index = torch.tensor([positions[text] for text in texts], device=cache.device)
         return cache.index_select(0, index)
 
+    modes = [("cold", enc), ("resident", cached)]
+    if host_cache:
+        host_bank = cache.cpu()
+        limit = max(len(requested_sentences([plan])) for plan in clean)
+        staging = torch.empty((limit, cache.shape[1]), dtype=cache.dtype, device="cpu", pin_memory=True)
+
+        def host_cached(texts, _prefix, max_length):
+            assert max_length == 96
+            index = torch.tensor([positions[text] for text in texts], device="cpu")
+            chunk = staging[:len(index)]
+            torch.index_select(host_bank, 0, index, out=chunk)
+            return chunk.to(cache.device, non_blocking=True)
+
+        modes.append(("host_staged", host_cached))
+
     def narrow(plan, depth):
         mode, bank, question, selected, features, winners = plan[4][0]
         keep = set(winners)
@@ -207,7 +222,7 @@ def profile_plans(plans, enc):
         return (*plan[:4], [(mode, bank, question, [selected[i] for i in keep], [features[i] for i in keep],
                              [keep.index(winner) for winner in winners])])
 
-    for mode in (enc, cached):
+    for _, mode in modes:
         for depth in (4, 8, 16):
             flush([narrow(clean[0], depth)], mode)
     output = []
@@ -217,7 +232,6 @@ def profile_plans(plans, enc):
             row = {"id": plan[0], "pairs": len(batch[0][4][0][3]), "depth": depth,
                    "unique_sentences": len(requested_sentences(batch))}
             reference = {}
-            modes = (("cold", enc), ("resident", cached))
             for label, mode in (modes if i % 2 == 0 else modes[::-1]):
                 if barrier:
                     barrier()
@@ -226,11 +240,12 @@ def profile_plans(plans, enc):
                 if barrier:
                     barrier()
                 row[label + "_ms"] = (perf_counter() - t0) * 1000
-            x, y = reference["cold"]["features"], reference["resident"]["features"]
-            row["feature_max_abs_delta"] = max(abs(a - b) for u, v in zip(x, y, strict=True)
+            x = reference["cold"]["features"]
+            row["feature_max_abs_delta"] = max(abs(a - b) for label, _ in modes[1:]
+                                               for u, v in zip(x, reference[label]["features"], strict=True)
                                                for a, b in zip(u, v, strict=True))
             output.append(row)
-    return {"rows": output, "resident_cache_sentences": len(corpus),
+    return {"rows": output, "resident_cache_sentences": len(corpus), "host_cache": host_cache,
             "vector_bytes": cache.element_size() * cache.shape[1]}
 
 
@@ -305,7 +320,7 @@ def evaluate(a, fixture, rows):
         if len(pending) == 16 and not a.profile:
             finish_batch()
     if a.profile:
-        return profile_plans(pending, enc)
+        return profile_plans(pending, enc, host_cache=a.profile_host)
     if pending:
         finish_batch()
     if reader is not None:
@@ -326,10 +341,14 @@ def main():
     mode = p.add_mutually_exclusive_group()
     mode.add_argument("--contextual-test", action="store_true", help="Evaluate held-out context-bearing false references")
     mode.add_argument("--profile", action="store_true", help="Time the single-request sentence stage on a held-out sample")
+    mode.add_argument("--profile-host", action="store_true", help="Add a host cache with a pinned transfer buffer")
     mode.add_argument("--reader-policy", type=Path, help="Evaluate fixed evidence selection and the frozen answer reader")
     p.add_argument("--device", choices=("cuda", "cpu", "mps"), default="cuda")
     a = p.parse_args()
     assert 0 <= a.shard < a.shards
+    if a.profile_host and a.device != "cuda":
+        p.error("The pinned host transfer profile requires CUDA")
+    a.profile = a.profile or a.profile_host
     fixture, splits = read(a.fixture), read(a.splits)
     if a.reader_policy:
         a.policy = read(a.reader_policy)
