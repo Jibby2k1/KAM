@@ -58,19 +58,23 @@ def union_example(index, example, original, top):
     return original + extra, {"question": example["question"], "context": context}
 
 
-def profile_relations(variants, pair_indices, original_size, retained_pairs, reference_first):
-    """Compare relation construction under identical text and candidate inputs."""
+def shared_relations(variants, pair_indices, original_size, retained_pairs):
     from kam_union_relation_features import bitset_relation_features, induced_original_features
 
+    ranked, variant = variants["conditioned_union"]
+    features = bitset_relation_features(variant, pair_indices[len(ranked)][0])
+    return {"broad": induced_original_features(features, original_size, retained_pairs),
+            "conditioned_union": features}
+
+
+def profile_relations(variants, pair_indices, original_size, retained_pairs, reference_first):
+    """Compare relation construction under identical text and candidate inputs."""
     def reference():
         return {arm: relation_features(variant, pair_indices[len(ranked)][0])
                 for arm, (ranked, variant) in variants.items()}
 
     def shared():
-        ranked, variant = variants["conditioned_union"]
-        features = bitset_relation_features(variant, pair_indices[len(ranked)][0])
-        return {"broad": induced_original_features(features, original_size, retained_pairs),
-                "conditioned_union": features}
+        return shared_relations(variants, pair_indices, original_size, retained_pairs)
 
     methods = {"reference": reference, "shared": shared}
     order = tuple(methods) if reference_first else tuple(reversed(methods))
@@ -121,10 +125,9 @@ def run(a):
     encoder = Encoder(a.assets / "encoder", 128)
     reader = Reader(a.assets / "reader")
     index = FullWikiIndex(a.inputs, manifest, cfg)
-    pair_indices, original_rows, prompts, output = {}, {}, {}, []
+    pair_indices, original_rows = {}, {}
 
-    for offset in range(0, len(cases), BATCH):
-        chunk = cases[offset:offset+BATCH]
+    def score_cases(chunk, offset, prompts, output, use_shared=False):
         original = [sealed["rows"][c["id"]] for c in chunk]
         examples = [pool_text(index.db, q["question"], ids) for q, ids in zip(chunk, original, strict=True)]
         query = encoder([c["question"] for c in chunk], "query")
@@ -161,21 +164,24 @@ def run(a):
                     cpu_pairs = torch.triu_indices(n, n, 1)
                     pair_indices[n] = cpu_pairs, cpu_pairs.cuda()
             relations, elapsed = {}, {}
-            if a.verify_shared_relation:
+            if a.verify_shared_relation or use_shared:
                 expanded_size = len(variants["conditioned_union"][0])
                 if expanded_size not in original_rows:
                     expanded_pairs = pair_indices[expanded_size][0]
                     keep = expanded_pairs[1] < len(base)
                     assert torch.equal(expanded_pairs[:, keep], pair_indices[len(base)][0])
                     original_rows[expanded_size] = keep
-                relations, elapsed = profile_relations(variants, pair_indices, len(base), original_rows[expanded_size],
-                                                       (offset + i) % 2 == 0)
+                if a.verify_shared_relation:
+                    relations, elapsed = profile_relations(variants, pair_indices, len(base), original_rows[expanded_size],
+                                                           (offset + i) % 2 == 0)
+                else:
+                    relations = shared_relations(variants, pair_indices, len(base), original_rows[expanded_size])
             prepared, contexts = [], {}
             terms = set(words(case["question"])) - STOP
             for arm, (ranked, variant) in variants.items():
                 n = len(ranked)
                 cpu_pairs, gpu_pairs = pair_indices[n]
-                graph, lexical = relations[arm] if a.verify_shared_relation else relation_features(variant, cpu_pairs)
+                graph, lexical = relations[arm] if relations else relation_features(variant, cpu_pairs)
                 bank = index.bank[torch.tensor(ranked, device="cuda")].unsqueeze(0)
                 stage = rank_variant(arm, variant, graph, lexical, bank, adapted[i:i+1], terms, heads, gpu_pairs,
                                      contexts)
@@ -210,16 +216,48 @@ def run(a):
                 row["relation_timing_ms"] = elapsed
             output.append(row)
 
-    for predicted, requests in zip(reader.answers(list(prompts)), prompts.values(), strict=True):
-        for arm, truth in requests:
-            arm["exact"] = bool(measure_answer(predicted, truth)["em"])
+    def read_answers(prompts):
+        for predicted, requests in zip(reader.answers(list(prompts)), prompts.values(), strict=True):
+            for arm, truth in requests:
+                arm["exact"] = bool(measure_answer(predicted, truth)["em"])
+
+    output = []
+    if a.serving_profile:
+        def request(case, i, use_shared):
+            prompts, rows = {}, []
+            torch.cuda.synchronize()
+            before = perf_counter()
+            score_cases([case], i, prompts, rows, use_shared=use_shared)
+            read_answers(prompts)
+            torch.cuda.synchronize()
+            return rows[0], (perf_counter() - before) * 1000
+
+        for i, case in enumerate(cases[:4]):
+            request(case, i, False)
+            request(case, i, True)
+        for i, case in enumerate(cases[4:132:4]):
+            order = (False, True) if i % 2 == 0 else (True, False)
+            if a.serving_prime:
+                request(case, i, order[0])
+            measured = {shared: request(case, i, shared) for shared in order}
+            baseline, old_ms = measured[False]
+            candidate, new_ms = measured[True]
+            assert baseline == candidate, case["id"]
+            output.append(candidate | {"serving_timing_ms": {"reference": old_ms, "shared": new_ms},
+                                       "reference_first": not order[0]})
+    else:
+        prompts = {}
+        for offset in range(0, len(cases), BATCH):
+            score_cases(cases[offset:offset+BATCH], offset, prompts, output)
+        read_answers(prompts)
     return {"fixture_sha256": digest(a.fixture), "pools_sha256": digest(a.pools), "config_sha256": digest(a.config),
             "index_sha256": index_sha, "fitted_sha256": digest(a.fitted), "heads_sha256": digest(a.heads),
             "ablations_sha256": digest(a.ablations), "baseline_sha256": a.baseline_sha256, "models": revisions,
             "indexed_documents": index.meta["indexed"], "shard": a.shard, "shards": a.shards,
             "gpu": torch.cuda.get_device_name(), "seconds": perf_counter() - started, "rows": output} | (
                 {"guard_columns": GUARD_COLUMNS, "split": split} if a.guard_split else {}) | (
-                {"anchor_reference_sha256": digest(a.anchor_reference)} if a.anchor_reference else {})
+                {"anchor_reference_sha256": digest(a.anchor_reference)} if a.anchor_reference else {}) | (
+                {"serving_cache": "primed" if a.serving_prime else "first_pass"} if a.serving_profile else {})
 
 
 def main():
@@ -230,6 +268,8 @@ def main():
     parser.add_argument("--guard-split", choices=("training", "test"))
     parser.add_argument("--verify-shared-relation", action="store_true")
     parser.add_argument("--anchor-reference", type=Path)
+    parser.add_argument("--serving-profile", action="store_true")
+    parser.add_argument("--serving-prime", action="store_true")
     parser.add_argument("--shard", type=int, required=True)
     parser.add_argument("--shards", type=int, required=True)
     a = parser.parse_args()
@@ -238,6 +278,12 @@ def main():
         parser.error("shared relation verification needs the two-arm test replay")
     if a.anchor_reference and a.guard_split != "test":
         parser.error("broad-ranked anchors need the two-arm test replay")
+    if a.serving_profile and (a.guard_split != "test" or a.verify_shared_relation or a.anchor_reference):
+        parser.error("serving timing needs the affinity-anchor two-arm test without parity double-computation")
+    if a.serving_profile and a.shards != 4:
+        parser.error("serving timing uses the fixed four-shard sampling design")
+    if a.serving_prime and not a.serving_profile:
+        parser.error("serving priming requires a serving profile")
     torch.set_float32_matmul_precision("highest")
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))
