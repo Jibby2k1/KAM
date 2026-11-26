@@ -1,0 +1,111 @@
+{
+  "manifest_sha256": "3795d404bc26a042cfed5105a4fa43ca848757d90db8c7d44fb7f8fb428425fb",
+  "source_sha256": {
+    "dev": "49a109c43c902e52f9a8b150f6b9d383261c308384f614ccd2b9990735cb12b1",
+    "articles": "d239390a27ed3f4aa868afe126187e6d108990a7bcc2a3efb6cae5de917264c7"
+  },
+  "all": 153,
+  "fully_aligned": 139,
+  "excluded_by_answer_type": {
+    "value": 3,
+    "span": 8,
+    "binary": 3
+  },
+  "aligned_source_articles": 111,
+  "alignment": {
+    "source": {
+      "offset": 212
+    },
+    "linked": {
+      "offset": 301,
+      "unresolved": 17
+    }
+  },
+  "fully_visible_source": 92,
+  "linked_spans_total": 288,
+  "visible_linked_spans": {
+    "lead": 227,
+    "bm25_window": 66,
+    "oracle_window": 283
+  },
+  "metrics": {
+    "one_each_linked": {
+      "questions": 139,
+      "totals": {
+        "lead": 102,
+        "bm25_window": 10,
+        "oracle_window": 139
+      },
+      "bm25_vs_lead": {
+        "wins": 1,
+        "losses": 93,
+        "delta": -0.6618705,
+        "bootstrap95": [
+          -0.73943662,
+          -0.58088235
+        ]
+      },
+      "oracle_vs_bm25": {
+        "wins": 129,
+        "losses": 0,
+        "delta": 0.92805755,
+        "bootstrap95": [
+          0.88194308,
+          0.96644295
+        ]
+      }
+    },
+    "all_linked": {
+      "questions": 139,
+      "totals": {
+        "lead": 98,
+        "bm25_window": 9,
+        "oracle_window": 134
+      },
+      "bm25_vs_lead": {
+        "wins": 1,
+        "losses": 90,
+        "delta": -0.64028777,
+        "bootstrap95": [
+          -0.72027972,
+          -0.55725191
+        ]
+      },
+      "oracle_vs_bm25": {
+        "wins": 125,
+        "losses": 0,
+        "delta": 0.89928058,
+        "bootstrap95": [
+          0.84732559,
+          0.94594595
+        ]
+      }
+    },
+    "all_source_and_linked": {
+      "questions": 139,
+      "totals": {
+        "lead": 66,
+        "bm25_window": 7,
+        "oracle_window": 89
+      },
+      "bm25_vs_lead": {
+        "wins": 1,
+        "losses": 60,
+        "delta": -0.42446043,
+        "bootstrap95": [
+          -0.50757576,
+          -0.34074074
+        ]
+      },
+      "oracle_vs_bm25": {
+        "wins": 82,
+        "losses": 0,
+        "delta": 0.58992806,
+        "bootstrap95": [
+          0.50746269,
+          0.66896552
+        ]
+      }
+    }
+  }
+}

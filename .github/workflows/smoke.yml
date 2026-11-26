@@ -277,3 +277,10 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_live_anchor_profile.py "$study"/profile-52954950-*.json.gz --fixture "$anchor/fixture.json.gz" --broad "$anchor/replay.json.gz" --sentence-reuse --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit fixed-budget IIRC evidence visibility
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/iirc_visibility_v1"
+          output=$(mktemp)
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_iirc_visibility.py "$study/replay.json.gz" --manifest "$base/iirc_pair_v1/manifest.json" --output "$output"
+          diff -u "$study/summary.json" "$output"
