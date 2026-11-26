@@ -1,0 +1,418 @@
+{
+  "fixture_sha256": "a5654cdb64b6531840aa58f0f71cf991fbaa853d0364bd7b204471662c8d725b",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "evidence_sha256": "092880f280da34437d4c53869dc8f3f5fa4f06484c7f6b923c203cc359d00683",
+  "reference_sha256": "d0e6eb54d353702d0c198ed700fbcdb0714481794c28a45e8c22c6ada62b8ac2",
+  "gpu_shards": {
+    "NVIDIA L4": 4
+  },
+  "prefix_parity_with_reference": 1024,
+  "cohorts": {
+    "all": {
+      "questions": 1024,
+      "support_pairs": 560,
+      "joint_oracle": 396,
+      "valid_annotations": 2475,
+      "totals": {
+        "prefix": {
+          "exact": 445,
+          "joint_em": 369,
+          "visible_annotations": 1637,
+          "questions_with_all_annotations_visible": 473
+        },
+        "lead_two": {
+          "exact": 401,
+          "joint_em": 336,
+          "visible_annotations": 1270,
+          "questions_with_all_annotations_visible": 263
+        },
+        "dense_two": {
+          "exact": 444,
+          "joint_em": 367,
+          "visible_annotations": 1451,
+          "questions_with_all_annotations_visible": 368
+        },
+        "bridge_two": {
+          "exact": 445,
+          "joint_em": 369,
+          "visible_annotations": 1459,
+          "questions_with_all_annotations_visible": 376
+        }
+      },
+      "contrasts": {
+        "lead_two_vs_prefix": {
+          "exact": {
+            "delta": -0.04296875,
+            "bootstrap95": [
+              -0.0625,
+              -0.02441406
+            ],
+            "wins": 29,
+            "losses": 73
+          },
+          "joint_em": {
+            "delta": -0.03222656,
+            "bootstrap95": [
+              -0.04882812,
+              -0.01660156
+            ],
+            "wins": 21,
+            "losses": 54
+          }
+        },
+        "dense_two_vs_prefix": {
+          "exact": {
+            "delta": -0.00097656,
+            "bootstrap95": [
+              -0.01662598,
+              0.01464844
+            ],
+            "wins": 33,
+            "losses": 34
+          },
+          "joint_em": {
+            "delta": -0.00195312,
+            "bootstrap95": [
+              -0.015625,
+              0.01171875
+            ],
+            "wins": 25,
+            "losses": 27
+          }
+        },
+        "bridge_two_vs_prefix": {
+          "exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.01464844,
+              0.01464844
+            ],
+            "wins": 31,
+            "losses": 31
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.01367188,
+              0.01367188
+            ],
+            "wins": 24,
+            "losses": 24
+          }
+        },
+        "dense_two_vs_lead_two": {
+          "exact": {
+            "delta": 0.04199219,
+            "bootstrap95": [
+              0.02539062,
+              0.05859375
+            ],
+            "wins": 62,
+            "losses": 19
+          },
+          "joint_em": {
+            "delta": 0.03027344,
+            "bootstrap95": [
+              0.015625,
+              0.04492188
+            ],
+            "wins": 46,
+            "losses": 15
+          }
+        },
+        "bridge_two_vs_dense_two": {
+          "exact": {
+            "delta": 0.00097656,
+            "bootstrap95": [
+              -0.00585938,
+              0.0078125
+            ],
+            "wins": 7,
+            "losses": 6
+          },
+          "joint_em": {
+            "delta": 0.00195312,
+            "bootstrap95": [
+              -0.00292969,
+              0.0078125
+            ],
+            "wins": 5,
+            "losses": 3
+          }
+        }
+      }
+    },
+    "both_supports_retrieved": {
+      "questions": 560,
+      "support_pairs": 560,
+      "joint_oracle": 396,
+      "valid_annotations": 1359,
+      "totals": {
+        "prefix": {
+          "exact": 369,
+          "joint_em": 369,
+          "visible_annotations": 1255,
+          "questions_with_all_annotations_visible": 473
+        },
+        "lead_two": {
+          "exact": 336,
+          "joint_em": 336,
+          "visible_annotations": 986,
+          "questions_with_all_annotations_visible": 263
+        },
+        "dense_two": {
+          "exact": 367,
+          "joint_em": 367,
+          "visible_annotations": 1117,
+          "questions_with_all_annotations_visible": 368
+        },
+        "bridge_two": {
+          "exact": 369,
+          "joint_em": 369,
+          "visible_annotations": 1130,
+          "questions_with_all_annotations_visible": 376
+        }
+      },
+      "contrasts": {
+        "lead_two_vs_prefix": {
+          "exact": {
+            "delta": -0.05892857,
+            "bootstrap95": [
+              -0.08928571,
+              -0.02857143
+            ],
+            "wins": 21,
+            "losses": 54
+          },
+          "joint_em": {
+            "delta": -0.05892857,
+            "bootstrap95": [
+              -0.08928571,
+              -0.02857143
+            ],
+            "wins": 21,
+            "losses": 54
+          }
+        },
+        "dense_two_vs_prefix": {
+          "exact": {
+            "delta": -0.00357143,
+            "bootstrap95": [
+              -0.02857143,
+              0.02142857
+            ],
+            "wins": 25,
+            "losses": 27
+          },
+          "joint_em": {
+            "delta": -0.00357143,
+            "bootstrap95": [
+              -0.02857143,
+              0.02142857
+            ],
+            "wins": 25,
+            "losses": 27
+          }
+        },
+        "bridge_two_vs_prefix": {
+          "exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.025,
+              0.02321429
+            ],
+            "wins": 24,
+            "losses": 24
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.025,
+              0.02321429
+            ],
+            "wins": 24,
+            "losses": 24
+          }
+        },
+        "dense_two_vs_lead_two": {
+          "exact": {
+            "delta": 0.05535714,
+            "bootstrap95": [
+              0.02678571,
+              0.08214286
+            ],
+            "wins": 46,
+            "losses": 15
+          },
+          "joint_em": {
+            "delta": 0.05535714,
+            "bootstrap95": [
+              0.02678571,
+              0.08214286
+            ],
+            "wins": 46,
+            "losses": 15
+          }
+        },
+        "bridge_two_vs_dense_two": {
+          "exact": {
+            "delta": 0.00357143,
+            "bootstrap95": [
+              -0.00540179,
+              0.01428571
+            ],
+            "wins": 5,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.00357143,
+            "bootstrap95": [
+              -0.00540179,
+              0.01428571
+            ],
+            "wins": 5,
+            "losses": 3
+          }
+        }
+      }
+    },
+    "some_support_missing": {
+      "questions": 464,
+      "support_pairs": 0,
+      "joint_oracle": 0,
+      "valid_annotations": 1116,
+      "totals": {
+        "prefix": {
+          "exact": 76,
+          "joint_em": 0,
+          "visible_annotations": 382,
+          "questions_with_all_annotations_visible": 0
+        },
+        "lead_two": {
+          "exact": 65,
+          "joint_em": 0,
+          "visible_annotations": 284,
+          "questions_with_all_annotations_visible": 0
+        },
+        "dense_two": {
+          "exact": 77,
+          "joint_em": 0,
+          "visible_annotations": 334,
+          "questions_with_all_annotations_visible": 0
+        },
+        "bridge_two": {
+          "exact": 76,
+          "joint_em": 0,
+          "visible_annotations": 329,
+          "questions_with_all_annotations_visible": 0
+        }
+      },
+      "contrasts": {
+        "lead_two_vs_prefix": {
+          "exact": {
+            "delta": -0.0237069,
+            "bootstrap95": [
+              -0.04525862,
+              -0.00215517
+            ],
+            "wins": 8,
+            "losses": 19
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "dense_two_vs_prefix": {
+          "exact": {
+            "delta": 0.00215517,
+            "bootstrap95": [
+              -0.01508621,
+              0.01939655
+            ],
+            "wins": 8,
+            "losses": 7
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "bridge_two_vs_prefix": {
+          "exact": {
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.01724138,
+              0.01508621
+            ],
+            "wins": 7,
+            "losses": 7
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "dense_two_vs_lead_two": {
+          "exact": {
+            "delta": 0.02586207,
+            "bootstrap95": [
+              0.00862069,
+              0.04525862
+            ],
+            "wins": 16,
+            "losses": 4
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "bridge_two_vs_dense_two": {
+          "exact": {
+            "delta": -0.00215517,
+            "bootstrap95": [
+              -0.01293103,
+              0.00646552
+            ],
+            "wins": 2,
+            "losses": 3
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      }
+    }
+  }
+}

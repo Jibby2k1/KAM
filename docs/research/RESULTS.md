@@ -34,6 +34,8 @@ The [expansion replacement guard](../../reports/nonlinear_retrieval_natural/EXPA
 
 The [gold-evidence reader diagnostic](../../reports/nonlinear_retrieval_natural/GOLD_READER_ORACLE.md) found 611 exact answers with indexed gold articles and 660 with annotated supporting sentences, a paired 4.79 percentage point gain on 1,023 valid questions.
 
+[Automatic sentence selection](../../reports/nonlinear_retrieval_natural/READER_SENTENCE_SELECTION.md) tied the full reader prefix at 369 joint exact matches with a companion-title selector. The fixed lead-two baseline reached 336, and query-only selection reached 367.
+
 The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) includes independent Wikipedia, news and scholarly evidence, real temporal revisions, noisy conversation retrieval, and a position and length study of the KAM decoder. See the [dataset portfolio](DATASET_PORTFOLIO.md) for source and evaluation choices.
 
 ## Corpus retrieval and serving

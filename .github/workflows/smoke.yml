@@ -219,3 +219,11 @@ jobs:
           output=$(mktemp)
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_gold_reader_oracle.py "$study/replay.json.gz" --fixture "$study/fixture.json.gz" --evidence "$study/gold-evidence.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit the fixed-pair sentence selection replay
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/reader_selection_v1"
+          anchor="$base/broad_anchor_v1"
+          output=$(mktemp)
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_reader_sentence_selection.py "$study/replay.json.gz" --fixture "$anchor/fixture.json.gz" --reference "$anchor/replay.json.gz" --evidence "$study/gold-evidence.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
