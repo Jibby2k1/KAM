@@ -165,3 +165,5 @@ Across [800 additional warm HotpotQA requests](../../reports/nonlinear_retrieval
 In the matched [B200 fused Wikipedia replay](../../reports/nonlinear_retrieval_natural/FULLWIKI_COARSE.md#b200-search-only-replay), probe 256 reduced search p50 from 1.74 to 0.68 ms and reproduced all 1,024 gathered rank lists exactly.
 
 On [140 independent two-hop MuSiQue questions](../../reports/nonlinear_retrieval_natural/MUSIQUE_ASSIGNMENT_REPLICATION.md), distinct assignment raised joint exact match from 12–14 to 21–24 across three seeds. Greedy and global assignment gave identical joint decisions.
+
+On [288 positive TimelineQA count questions](../../reports/nonlinear_retrieval_natural/TIMELINEQA_COUNTS.md), false displayed dates changed dense top-eight complete recovery from 278 to 97. A source-date guard kept 286 complete sets, and an exact count rule preserved all 380 answers including the zero controls.

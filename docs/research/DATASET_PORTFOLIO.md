@@ -27,7 +27,7 @@ Use three complementary evaluation regimes. Frozen natural evidence tests measur
 
 ## Additional datasets to screen
 
-- **TimelineQA aggregation** extends the tested atomic probe to filters and counts over multiple episodes. Validate logical rows, persona separation, and support coverage before scoring natural-language aggregation. [Author benchmark repository](https://github.com/facebookresearch/TimelineQA)
+- **TimelineQA aggregation** extends the atomic probe to exact monthly counts. The fixture independently verifies event IDs in generated tables and measures false-date interference at matched evidence budgets. [Executable count study](../../reports/nonlinear_retrieval_natural/TIMELINEQA_COUNTS.md) · [Author benchmark repository](https://github.com/facebookresearch/TimelineQA)
 - **UnSeenTimeQA hard and hypothetical** provide a next test of dependency-aware rescheduling. The exact audit covers only serial static and relative questions with explicit event clocks. Check the hard, parallel, and hypothetical conventions independently before generating scored counterfactuals. [Author paper](https://aclanthology.org/2025.acl-long.94/)
 - **NoLiMa** reduces lexical overlap between a needle and its query. It is a direct challenge for raw query-term coverage, which is useful on some sources and brittle under lexical distractions. [Author paper](https://proceedings.mlr.press/v267/modarressi25a.html)
 - **RULER** offers seeded long-context tasks with explicit parameters for evidence count, distance, and filler. Use it to independently audit position and depth effects. Preserve the generator revision, tokenizer, and actual token lengths. [Author benchmark repository](https://github.com/NVIDIA/RULER)
