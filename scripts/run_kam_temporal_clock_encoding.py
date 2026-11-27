@@ -13,6 +13,7 @@ import torch
 from audit_kam_natural_data import digest
 from benchmark_kam_radial_backward import objective
 from benchmark_kam_radial_sdpa import labels
+from kam_archive_projection import generated_archive_scene
 from run_kam_bitemporal_decoder import encode, fingerprint, make_decoder, pack, record_order
 from run_kam_bitemporal_noise import generate
 from run_kam_radial_archive_training import archive_panels, assess as read_archive
@@ -56,17 +57,25 @@ class ClockDecoder(torch.nn.Module):
         return self.decoder.readout(hidden[torch.arange(len(hidden), device=hidden.device), query])
 
 
-def banks(seed):
+def banks(seed, domain):
     by_depth = {}
     for d, count in SCHEDULE:
-        original = generate(seed + 681133 + d, 4096, d, "mixed", "cuda")
-        scene, changed = intervention(original)
-        order = record_order(len(scene[0]), d, seed + 772709 + d, "cuda")
+        scene_seed = seed + 681133 + d
+        revision, archive, changed = None, None, None
+        if domain != "archive_shaped":
+            revision, changed = intervention(generate(scene_seed, 4096, d, "mixed", "cuda"))
+        if domain != "corrections":
+            archive = generated_archive_scene(scene_seed, 4096, d, "cuda")
+        scenes = tuple(s for s in (revision, archive) if s is not None)
+        order = record_order(4096, d, seed + 772709 + d, "cuda")
         g = torch.Generator().manual_seed(seed + 575019 + d)
-        sample = torch.randint(len(scene[0]), (STEPS // 2, count), generator=g)
-        by_depth[d] = scene, order, sample.cuda(), {"scene_sha256": fingerprint(scene, order),
-                                                   "sample_sha256": sha256(sample.numpy().tobytes()).hexdigest(),
-                                                   "records_changed": changed}
+        sample = torch.randint(4096, (STEPS // 2, count), generator=g)
+        fingerprints = [fingerprint(scene, order) for scene in scenes]
+        by_depth[d] = scenes, order, sample.cuda(), {
+            "scene_sha256": fingerprints[0] if len(scenes) == 1 else fingerprints,
+            "sample_sha256": sha256(sample.numpy().tobytes()).hexdigest(),
+            "records_changed": changed,
+        }
     return by_depth
 
 
@@ -78,9 +87,15 @@ def fit(model, panels):
     losses = []
     for k in range(STEPS):
         d, _ = SCHEDULE[k % len(SCHEDULE)]
-        scene, order, batches, _ = panels[d]
+        scenes, order, batches, _ = panels[d]
         slots = batches[k // len(SCHEDULE)]
-        tokens, key, value = encode(pack(scene, slots), order[slots], hide_query_clock=True)
+        assert len(slots) % len(scenes) == 0
+        blocks = [encode(pack(scene, indices), order[indices], hide_query_clock=True)
+                  for scene, indices in zip(scenes, slots.chunk(len(scenes)), strict=True)]
+        if len(blocks) == 1:
+            tokens, key, value = blocks[0]
+        else:
+            tokens, key, value = (torch.cat(parts) for parts in zip(*blocks, strict=True))
         step = k + 1
         opt.param_groups[0]["lr"] = .002 * min(step / 100, 1) * (.2 + .8 * (1 + cos(pi * step / STEPS)) / 2)
         opt.zero_grad(set_to_none=True)
@@ -116,7 +131,8 @@ def evaluate(model, panels):
 def run(a):
     torch.set_float32_matmul_precision("highest")
     torch.use_deterministic_algorithms(True)
-    training = banks(a.seed)
+    domain = "mixed" if a.mixed_training else ("archive_shaped" if a.archive_shaped else "corrections")
+    training = banks(a.seed, domain)
     holdout = {"original": [], "corrections": []}
     for d in (16, 48, 128, 512):
         raw = generate(a.seed + 761419 + d, 512, d, "mixed", "cuda")
@@ -124,11 +140,25 @@ def run(a):
         changed, _ = intervention(raw)
         for name, scene in zip(holdout, (raw, changed), strict=True):
             holdout[name].append((d, scene, order, fingerprint(scene, order)))
-    archive = {k: archive_panels(json.loads(getattr(a, k).read_text()), a.seed) for k in ("earlier", "later")}
-    variants = COMPACTION if a.test_compaction else VARIANTS
+    sources = {k: getattr(a, k) for k in ("earlier", "later")}
+    if a.external:
+        sources["external"] = a.external
+    archive = {k: archive_panels(json.loads(file.read_text()), a.seed) for k, file in sources.items()}
+    if a.external:
+        def rescale(panel):
+            tokens, entity, value = panel["data"]
+            tokens = tokens.clone()
+            tokens[..., -1].mul_(3)
+            return panel | {"data": (tokens, entity, value)}
+
+        archive["external_clock_times_3"] = [rescale(panel) for panel in archive["external"]]
+        variants = ("linear", "signed_log")
+    else:
+        variants = (*VARIANTS, "signed_log_compact") if domain != "corrections" else (COMPACTION if a.test_compaction else VARIANTS)
     schemes = tuple((g, mode) for g in ("dot", "radial") for mode in variants)
     outputs = {}
-    for geometry, mode in (*schemes[a.order:], *schemes[:a.order]):
+    start = a.order % len(schemes)
+    for geometry, mode in (*schemes[start:], *schemes[:start]):
         decoder = make_decoder(f"{geometry}_without_position", a.seed, "cuda")
         net = ClockDecoder(decoder, mode)
         stamp = state_sha(decoder, common=True)
@@ -139,8 +169,9 @@ def run(a):
         print(geometry, mode, fitted["seconds"], flush=True)
     assert len({p["initial_sha256"] for p in outputs.values()}) == 1
     return {"seed": a.seed, "device": torch.cuda.get_device_name(), "steps": STEPS, "schedule": SCHEDULE,
+            "training_domain": domain,
             "banks": {d: v[-1] for d, v in training.items()},
-            "archive_sha256": {k: digest(getattr(a, k)) for k in archive}, "results": outputs}
+            "archive_sha256": {k: digest(file) for k, file in sources.items()}, "results": outputs}
 
 
 def main():
@@ -149,7 +180,11 @@ def main():
         p.add_argument("--" + k, required=True, type=Path)
     p.add_argument("--seed", type=int, required=True)
     p.add_argument("--order", type=int, choices=range(6), required=True)
-    p.add_argument("--test-compaction", action="store_true")
+    p.add_argument("--external", type=Path)
+    variants = p.add_mutually_exclusive_group()
+    variants.add_argument("--test-compaction", action="store_true")
+    variants.add_argument("--archive-shaped", action="store_true")
+    variants.add_argument("--mixed-training", action="store_true")
     a = p.parse_args()
     a.output.write_text(json.dumps(run(a), separators=(",", ":"), allow_nan=False) + "\n")
 

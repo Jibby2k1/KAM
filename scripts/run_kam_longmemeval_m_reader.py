@@ -27,6 +27,12 @@ CONTEXT_VARIANTS = {
 }
 
 
+SCALE_VARIANTS = {
+    k: CONTEXT_VARIANTS[k] for k in ("dense_512_prefix", "dense_512_window", "dense_1024_window",
+                                    "oracle_512_prefix", "oracle_1024_prefix")
+} | {"no_history": ("no_history", 512, False, 20)}
+
+
 def read(path):
     raw = path.read_bytes()
     return json.loads(gzip.decompress(raw) if path.suffix == ".gz" else raw)
@@ -171,8 +177,22 @@ def run(a):
     model_path = a.assets / f"reader_base_{BASE_REVISION}"
     assert digest(model_path / "model.safetensors") == BASE_WEIGHT
     reader = Reader(model_path)
+    readers = {"base": reader}
+    weights = {"base": {"revision": BASE_REVISION, "sha256": BASE_WEIGHT}}
+    if a.compare_reader_size:
+        from kam_flan_reader_assets import LARGE_REVISION, LARGE_WEIGHT
+
+        large_path = a.assets / f"reader_large_{LARGE_REVISION}"
+        assert digest(large_path / "model.safetensors") == LARGE_WEIGHT
+        readers["large"] = Reader(large_path)
+        assert readers["large"].tokenizer.get_vocab() == reader.tokenizer.get_vocab()
+        weights["large"] = {"revision": LARGE_REVISION, "sha256": LARGE_WEIGHT}
     prompts, panels = {}, []
-    variants = CONTEXT_VARIANTS if a.compare_context_budget else {k: (k, MAX_INPUT, False, 20) for k in ARMS}
+    variants = {k: (k, MAX_INPUT, False, 20) for k in ARMS}
+    if a.compare_context_budget:
+        variants = CONTEXT_VARIANTS
+    if a.compare_reader_size:
+        variants = SCALE_VARIANTS
     for q, groups in planned:
         panel = {"id": q["id"], "arms": {}}
         for arm, (evidence, limit, window, output_length) in variants.items():
@@ -186,34 +206,49 @@ def run(a):
                    "clipped_turns": content[2], "prompt_tokens": len(tokens),
                    "marked_support": set(q["gold_ids"]) <= marked_ids,
                    "turns": [list(pair) for pair in positions]}
-            if a.compare_context_budget:
+            if a.compare_context_budget or a.compare_reader_size:
                 got["shifted_turns"] = content[3]
             panel["arms"][arm] = got
             prompts[key].append((q["id"], got))
-        if not a.compare_context_budget:
+        if not a.compare_context_budget and not a.compare_reader_size:
             for arm in ("dense", "oracle_marked"):
                 assert panel["arms"][arm]["retained_turn_tokens"] == panel["arms"][arm + "_dated"]["retained_turn_tokens"]
         panels.append(panel)
 
     answers = read(a.labels)
     assert answers["fixture_sha256"] == fx and set(answers["answers"]) == {q["id"] for q in fixture["rows"]}
-    with torch.inference_mode():
-        for cap in sorted({length for length, _ in prompts}):
-            sorted_input = sorted((tokens for length, tokens in prompts if length == cap), key=len)
-            for group in batches(sorted_input, 16):
-                inputs = reader.tokenizer.pad({"input_ids": [list(tokens) for tokens in group]},
-                                              padding=True, return_tensors="pt").to("cuda")
-                output = reader.model.generate(**inputs, max_new_tokens=cap, do_sample=False)
-                predicted = reader.tokenizer.batch_decode(output, skip_special_tokens=True)
-                for tokens, answer in zip(group, predicted, strict=True):
-                    norm = normalized_answer(answer)
-                    abstain = norm in (["unknown"], ["i", "don", "t", "know"], ["cannot", "answer"])
-                    for qid, pointer in prompts[cap, tokens]:
-                        pointer.update(measure_answer(answer, answers["answers"][qid]), abstained=abstain)
+    prediction_seconds = {}
+    names = tuple(readers)
+    order = names if a.shard % 2 == 0 else tuple(reversed(names))
+    for size in order:
+        active = readers[size]
+        torch.cuda.synchronize()
+        begin = perf_counter()
+        with torch.inference_mode():
+            for cap in sorted({length for length, _ in prompts}):
+                sorted_input = sorted((tokens for length, tokens in prompts if length == cap), key=len)
+                for group in batches(sorted_input, 16):
+                    inputs = reader.tokenizer.pad({"input_ids": [list(tokens) for tokens in group]},
+                                                  padding=True, return_tensors="pt").to("cuda")
+                    output = active.model.generate(**inputs, max_new_tokens=cap, do_sample=False)
+                    predicted = reader.tokenizer.batch_decode(output, skip_special_tokens=True)
+                    for tokens, answer in zip(group, predicted, strict=True):
+                        norm = normalized_answer(answer)
+                        abstain = norm in (["unknown"], ["i", "don", "t", "know"], ["cannot", "answer"])
+                        for qid, pointer in prompts[cap, tokens]:
+                            scored = measure_answer(answer, answers["answers"][qid]) | {"abstained": abstain}
+                            if a.compare_reader_size:
+                                pointer.setdefault("readers", {})[size] = scored
+                            else:
+                                pointer.update(scored)
+        torch.cuda.synchronize()
+        prediction_seconds[size] = perf_counter() - begin
     payload = {"fixture_sha256": fx, "reference_sha256": digest(a.reference), "labels_sha256": digest(a.labels),
                "reader_revision": BASE_REVISION, "reader_weights_sha256": BASE_WEIGHT, "device": torch.cuda.get_device_name(),
                "shard": a.shard, "shards": a.shards, "unique_prompts": len(prompts), "arms": list(variants),
                "elapsed_seconds": perf_counter() - start, "rows": panels}
+    if a.compare_reader_size:
+        payload.update(weights=weights, prediction_seconds=prediction_seconds)
     a.output.write_bytes(gzip.compress(json.dumps(payload, separators=(",", ":")).encode(), mtime=0))
 
 
@@ -223,7 +258,9 @@ def main():
     for name in ("fixture", "output", "source", "labels", "reference", "assets", "bank-index"):
         p.add_argument("--" + name, type=Path)
     p.add_argument("--banks", nargs=8, type=Path)
-    p.add_argument("--compare-context-budget", action="store_true")
+    options = p.add_mutually_exclusive_group()
+    options.add_argument("--compare-context-budget", action="store_true")
+    options.add_argument("--compare-reader-size", action="store_true")
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)
     a = p.parse_args()

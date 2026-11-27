@@ -14,3 +14,5 @@ The short fit uses fixed 3,200-update procedural streams at candidate depths 16 
 Cell values are mean accuracies across three seeds. Every signed-log and signed-log-plus-zeroing outcome was reproduced in the second run. At depth 48 in earlier and later archive slices, compact dot recovered 11.77% and 5.21%, and compact radial recovered 6.98% and 2.60%. Synthetic improvement therefore supplies a diagnostic for eligibility and clock scale. Archive-shaped fit and held-out release groups remain the stronger natural test.
 
 HPG arrays 52987023 and 52988198. [Numeric summaries](../../results/nonlinear_retrieval_natural/temporal_clock_compaction_v1/) · [Training and evaluator](../../scripts/run_kam_temporal_clock_encoding.py) · [Archive-shaped fit](RADIAL_ARCHIVE_TRAINING.md)
+
+[Matched mixed training](TEMPORAL_CLOCK_CURRICULUM.md) subsequently combined correction and archive-shaped examples at the same update budget.
