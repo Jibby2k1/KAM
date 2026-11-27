@@ -433,3 +433,11 @@ jobs:
             python scripts/analyze_kam_iirc_sparse_beam.py --profile "$study/$host-profile.json.gz" --reference "$base/iirc_anchor_beam_v1/replay.json.gz" --static "$base/iirc_pair_fit_v1/train-features.json.gz" --output "$output"
             diff -u "$study/$host-summary.json" "$output"
           done
+      - name: Audit B200 Python collector readiness variants
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/live_anchor_gc_readiness_v1"
+          ref="$base/broad_anchor_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_gc_readiness.py "$study"/profile-52959337-*.json.gz --fixture "$ref/fixture.json.gz" --reference "$ref/replay.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"

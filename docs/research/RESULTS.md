@@ -101,3 +101,5 @@ With prewarmed files, [threaded B200 hybrid serving](../../reports/nonlinear_ret
 In source-held-out IIRC folds, a [four-link anchor beam](../../reports/nonlinear_retrieval_natural/IIRC_ANCHOR_BEAM.md) recovered 563/1,200 neutral and 598/1,200 title-aware pairs, versus 539 and 547 with one link. The four-link subset contained about 47% as many distinct pairs as exhaustive joint scoring.
 
 [Exact sparse IIRC beam scoring](../../reports/nonlinear_retrieval_natural/IIRC_SPARSE_BEAM_TIMING.md) reduced mean scored pair rows from 101.18 to 47.22 but increased median latency on both tested CPUs. All four-link selections matched.
+
+A [B200 collector readiness trial](../../reports/nonlinear_retrieval_natural/LIVE_GC_READINESS.md) moved four observed generation-2 pauses out of the short request window. Readiness collection took 87–142 ms per worker. Additional freezing showed no clear paired median improvement over collection alone.

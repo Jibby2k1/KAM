@@ -369,6 +369,20 @@ def run(a):
         for i, case in enumerate(cases[:4]):
             for arm in policies:
                 profile_request(case, i, arm, {})
+        collection_profile = {}
+        if a.gc_readiness is not None:
+            import gc
+            from resource import RUSAGE_SELF, getrusage
+
+            assert gc.isenabled()
+            before_readiness = perf_counter()
+            freed = gc.collect(2) if a.gc_readiness in ("collect", "freeze") else 0
+            if a.gc_readiness == "freeze":
+                gc.freeze()
+            collection_profile = {"gc_readiness_mode": a.gc_readiness,
+                                  "gc_readiness_seconds": perf_counter() - before_readiness,
+                                  "gc_readiness_collected": freed, "gc_frozen_objects": gc.get_freeze_count(),
+                                  "rss_before_requests_kib": getrusage(RUSAGE_SELF).ru_maxrss}
         rng = Random(23847 + a.shard)
         for i, case in enumerate(cases[4:132:4]):
             arms = policies.copy()
@@ -399,7 +413,10 @@ def run(a):
                     records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
             output.append({"id": case["id"], "order": arms, "timing_ms": timings,
                            "phase_ms": phases, "records": records})
-        index_profile = {"prewarm_seconds": seconds, "database_bytes": database_bytes} | lexical_profile
+        if collection_profile:
+            collection_profile["rss_after_requests_kib"] = getrusage(RUSAGE_SELF).ru_maxrss
+        index_profile = ({"prewarm_seconds": seconds, "database_bytes": database_bytes}
+                         | lexical_profile | collection_profile)
     elif a.serving_profile:
         for i, case in enumerate(cases[:4]):
             request(case, i, False)
@@ -445,6 +462,7 @@ def main():
     parser.add_argument("--sentence-reuse-profile", action="store_true")
     parser.add_argument("--warm-lexical-profile", action="store_true")
     parser.add_argument("--trace-gc", action="store_true")
+    parser.add_argument("--gc-readiness", choices=("normal", "collect", "freeze"))
     parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
     parser.add_argument("--index-prewarm-jobdir", type=Path)
     parser.add_argument("--shard", type=int, required=True)
@@ -468,6 +486,8 @@ def main():
         parser.error("the shared-index crossover needs two independent full-cohort affinity workers")
     if a.warm_lexical_profile and not a.live_initial_profile:
         parser.error("warmed lexical timing requires the full initial-search profile")
+    if a.gc_readiness is not None and not a.trace_gc:
+        parser.error("collection readiness timing requires garbage collection tracing")
     if a.trace_gc and not a.sentence_reuse_profile:
         parser.error("garbage collector tracing requires the sentence reuse profile")
     if a.sentence_reuse_profile and not a.live_anchor_profile:
