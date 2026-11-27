@@ -48,7 +48,9 @@
 
 [Address-local temporal rank](../../reports/nonlinear_retrieval_natural/ADDRESS_LOCAL_CLOCK.md) improved mixed radial strict Eurostat unemployment lookup from 2.31% to 78.70% and synthetic depth-512 correction lookup from 39.52% to 82.03%. Dallas release-day accuracy fell from 57.56% to 44.35% when rank replaced time. Keeping both features in mixed dot improved Dallas from 57.08% to 61.24%, Eurostat unemployment from 3.01% to 81.37%, and depth-512 corrections from 30.92% to 99.02%. Typed exact joins recovered every measured archive lookup. [Clock resolution](../../reports/nonlinear_retrieval_natural/REVISION_CLOCK_RESOLUTION.md) changes that boundary. Week-only dates identify 290/576 unemployment snapshots and 556/576 industrial-production snapshots, even with a complete address history.
 
-[Eurostat text routing](../../reports/nonlinear_retrieval_natural/EUROSTAT_TEXT_ROUTING.md) recovered 864/864 exact snapshots by applying exact time selection to the dense top-document address, versus 114 with direct dense ranking. Separate gates rejected all tested unsupported and ambiguous prompts and declined 216 answerable paraphrases.
+[Eurostat text routing](../../reports/nonlinear_retrieval_natural/EUROSTAT_TEXT_ROUTING.md) recovered 864/864 exact snapshots by applying exact time selection to the dense top-document address, versus 114 with direct dense ranking. Separate gates rejected all tested unsupported and ambiguous prompts and declined 216 answerable paraphrases. [Same-word request scope](../../reports/nonlinear_retrieval_natural/EUROSTAT_QUERY_SCOPE.md) recovered all 432 address switches from the marked request, compared with 220 when routing the whole message with the right clocks.
+
+[Early MuSiQue branching](../../reports/nonlinear_retrieval_natural/MUSIQUE_FIRST_BINDING_BRANCH.md) raised four-hop full candidate coverage from 52 to 57–58 but kept joint exactness at four to five across three fits. The same-reader gold-paragraph ceiling inside these pools stayed at 15–16.
 
 ## Multi-hop evidence selection
 

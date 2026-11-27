@@ -97,12 +97,19 @@ def alternative_queries(policy, prompts, templates, histories, step):
 
 
 def replay(arm, current, templates, labels, initial, passage_text, bank, encoder, reader, *,
-           gold_at=None, alternate_reader=None, alternate_steps=(), final_branch=None, final_labels=None):
+           gold_at=None, alternate_reader=None, alternate_steps=(), final_branch=None, final_labels=None,
+           first_branch=None, span_reader=None):
     pools = [initial[q["id"]].copy() for q in current]
     rows = [{"id": q["id"], "target_ranks": [], "answer_em": [], "reader_context_ids": [],
              "gold_in_reader": [], "unfilled_references": 0} for q in current]
     histories = [[] for _ in current]
     final_alternatives = None
+    alternate_history = [[] for _ in current]
+    first_active = [False] * len(current)
+    if first_branch:
+        for row in rows:
+            row.update(first_alternative_used=False, first_alternative_em=0,
+                       alternate_searches=0, alternate_target_ranks=[])
     distinct = [[] for _ in current]
     for step, add in enumerate(BUDGETS[current[0]["hops"]]):
         queries = binding_queries(templates, histories, step)
@@ -110,7 +117,15 @@ def replay(arm, current, templates, labels, initial, passage_text, bank, encoder
         updated = encoder(queries, "query")
         ranks = (updated @ bank.T).argsort(dim=-1, descending=True, stable=True)[:, :DEPTH].tolist()
         raw_targets = [label["targets"][step] for label in labels]
-        extra_ranks = {}
+        extra_ranks, active_queries = {}, {}
+        if first_branch and step:
+            proposals = binding_queries(templates, alternate_history, step)
+            active_queries = {i: alt for i, (base, alt, active) in enumerate(zip(queries, proposals, first_active, strict=True))
+                              if active and " ".join(base.split()) != " ".join(alt.split())}
+            if active_queries:
+                vectors = encoder(list(active_queries.values()), "query")
+                extra_order = (vectors @ bank.T).argsort(dim=-1, descending=True, stable=True)[:, :DEPTH].tolist()
+                extra_ranks = dict(zip(active_queries, extra_order, strict=True))
         if final_alternatives is not None:
             indexes = [i for i, (q, other) in enumerate(zip(queries, final_alternatives, strict=True))
                        if other and " ".join(q.split()) != other]
@@ -131,9 +146,12 @@ def replay(arm, current, templates, labels, initial, passage_text, bank, encoder
             evidence = [target] if arm == "gold_paragraph" else rank[:1 if arm == "top1" else 3]
             selected.append(evidence)
             row["reader_context_ids"].append(evidence)
-            if final_branch:
+            if first_branch:
+                row["alternate_searches"] += partner is not None
+                row["alternate_target_ranks"].append(partner.index(target) + 1 if partner and target in partner else None)
+            if final_branch or first_branch:
                 distinct[i].extend(ranked_additions(candidate_rank, distinct[i], 1))
-                if step == len(template) - 1:
+                if final_branch and step == len(template) - 1:
                     row["alternative_search"] = partner is not None
                     row["alternate_final_rank"] = partner.index(target) + 1 if partner and target in partner else None
         prompts = [f"Answer the question with a short answer. Question: {question} Evidence: "
@@ -145,9 +163,30 @@ def replay(arm, current, templates, labels, initial, passage_text, bank, encoder
         for previous, answer, label in zip(histories, predictions, labels, strict=True):
             binding = label["answers"][step] if step == gold_at else answer
             previous.append(" ".join(binding.split()) or "unknown")
+        if first_branch:
+            choices = predictions.copy()
+            if step == 0 and first_branch != "reference":
+                from run_kam_natural_feasibility import measure_answer
+
+                offset = int(first_branch == "second")
+                first_prompts = [f"Answer the question with a short answer. Question: {q} Evidence: {passage_text(rank[offset])}"
+                                 for q, rank in zip(queries, ranks, strict=True)]
+                for i, (alt, gen, path) in enumerate(zip(span_reader.answers(first_prompts), predictions, templates, strict=True)):
+                    different = " ".join(alt.split()).casefold() != " ".join(gen.split()).casefold()
+                    if alt and different and any("1" in REFERENCE.findall(q) for q in path[1:]):
+                        first_active[i] = rows[i]["first_alternative_used"] = True
+                        rows[i]["first_alternative_em"] = measure_answer(alt, labels[i]["answers"][0])["em"]
+                        choices[i] = alt
+            elif active_queries:
+                second_prompts = [f"Answer the question with a short answer. Question: {text} Evidence: {passage_text(extra_ranks[i][0])}"
+                                  for i, text in active_queries.items()]
+                for i, answer in zip(active_queries, reader.answers(second_prompts), strict=True):
+                    choices[i] = answer
+            for previous, value in zip(alternate_history, choices, strict=True):
+                previous.append(" ".join(value.split()) or "unknown")
         if final_branch and step == len(templates[0]) - 2:
             final_alternatives = alternative_queries(final_branch, prompts, templates, histories, step)
-    if final_branch:
+    if final_branch or first_branch:
         from run_kam_musique_final_reader import LIMIT, PASSAGE_CAP
         from run_kam_natural_feasibility import measure_answer
 
@@ -258,15 +297,19 @@ def run(a, articles, fixture):
         if a.branch:
             policies = [baseline, ("branch_unbound", "top1", None, None, ()), ("branch_span", "top1", None, None, ())]
         branches = {"top1": "reference", "branch_unbound": "unbound", "branch_span": trained} if a.branch else {}
+        if a.early_branch:
+            policies = [baseline, ("first_span_same", "top1", None, None, ()), ("first_span_second", "top1", None, None, ())]
+        first_paths = {"top1": "reference", "first_span_same": "same", "first_span_second": "second"} if a.early_branch else {}
         for arm, context_rule, gold_at, active, alternate_steps in policies:
-            if a.branch:
+            if a.branch or a.early_branch:
                 torch.cuda.synchronize()
                 branch_start = perf_counter()
             for row in replay(context_rule, cases, templates, diagnostics, initial, passage_text, bank, encoder, reader,
                               gold_at=gold_at, alternate_reader=active, alternate_steps=alternate_steps,
-                              final_branch=branches.get(arm), final_labels=branch_labels["answers"] if branch_labels else None):
+                              final_branch=branches.get(arm), final_labels=branch_labels["answers"] if branch_labels else None,
+                              first_branch=first_paths.get(arm), span_reader=trained if a.early_branch else None):
                 answers.setdefault(row["id"], {})[arm] = row
-            if a.branch:
+            if a.branch or a.early_branch:
                 torch.cuda.synchronize()
                 timings.setdefault(nhops, {})[arm] = perf_counter() - branch_start
     return {"fixture_sha256": fx, "corpus_sha256": cx, "models": models | {"google/flan-t5-base": BASE_REVISION},
@@ -275,7 +318,7 @@ def run(a, articles, fixture):
             "shard": a.shard, "shards": a.shards, "device": torch.cuda.get_device_name(),
             "rows": [{"id": q["id"], "arms": answers[q["id"]]} for q in questions]} | (
                 {"span_checkpoint_sha256": digest(a.span_checkpoint)} if a.span_checkpoint else {}) | (
-                {"branch_labels_sha256": digest(a.branch_labels), "branch_seconds": timings} if a.branch else {})
+                {"branch_labels_sha256": digest(a.branch_labels), "branch_seconds": timings} if a.branch or a.early_branch else {})
 
 
 def main():
@@ -290,13 +333,16 @@ def main():
     diagnostics.add_argument("--single-oracle", action="store_true")
     diagnostics.add_argument("--reader-size", action="store_true")
     diagnostics.add_argument("--span-checkpoint", type=Path)
-    p.add_argument("--branch", action="store_true", help="Compare a second final-step query at the same retained depth.")
+    branch = p.add_mutually_exclusive_group()
+    branch.add_argument("--branch", action="store_true", help="Compare a second final-step query at the same retained depth.")
+    branch.add_argument("--early-branch", action="store_true", help="Carry an independent alternate first binding at the same retained depth.")
     p.add_argument("--branch-labels", type=Path)
     p.add_argument("--shard", default=0, type=int)
     p.add_argument("--shards", default=1, type=int)
     a = p.parse_args()
     assert 0 <= a.shard < a.shards
-    assert a.branch == bool(a.branch_labels) and (not a.branch or a.span_checkpoint)
+    uses_branch = a.branch or a.early_branch
+    assert uses_branch == bool(a.branch_labels) and (not uses_branch or a.span_checkpoint)
     articles, fixture = corpus_and_fixture(a)
     if a.mode == "freeze":
         freeze(a, articles, fixture)
