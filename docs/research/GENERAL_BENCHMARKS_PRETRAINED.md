@@ -1,5 +1,7 @@
 # KAM adapters on a shared pretrained Qwen backbone
 
+> **Historical run.** UF Research Computing prohibits the use of models from designated countries of concern on university resources. This includes Qwen and its derivatives. The earlier Qwen jobs were run on HiPerGator in error. Do not run or adapt this checkpoint on HiPerGator. [UF Research Computing policy](https://docs.rc.ufl.edu/training/new_user_training/#prohibition-on-large-language-models-from-countries-of-concern)
+
 The three arms start from the same [Qwen2.5-1.5B-Instruct checkpoint](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/tree/989aa7980e4cf806f80c7fef2b1adb7bc71aa306). The untouched arm measures the quality available at initialization. The other two freeze all backbone weights, including the language-model head, and train residual adapters at decoder layers 8, 15, 22, and 28, counted from one.
 
 ## HPG results
@@ -54,8 +56,6 @@ Benchmark overlap in the upstream pretrained data is unknown. The matched test m
 
 HPG job 53038499 tokenized the corpus. B200 array 53038500 trained both adapters. Evaluation arrays 53038808 and 53038810 used RTX PRO 6000 GPUs. Isolated coding jobs 53038811 and 53038814 retained raw grading outcomes on HPG CPUs. Array 53040218 regraded the same completions with common block indentation removed. The HPG runtime used PyTorch 2.8.0 and Transformers 5.14.0.
 
-## Reproduce
+## Historical protocol and artifacts
 
-1. Fetch the [pinned benchmark inputs](../../scripts/fetch_kam_general_benchmarks.sh), [parent corpus](GENERAL_BENCHMARKS_LONG.md), and the pinned model files from the revision above. Stage the [model adapters](../../scripts/kam_pretrained_adapters.py), Python entry points, and Slurm files in the HPG run directory. Use PyTorch 2.8.0 with Transformers 5.14.0. Put the model under the run directory's model path, the KAM package under repo, the frozen previous corpus under corpus, and the benchmark environment from the previous study under runtime.
-2. Run the [tokenization job](../../slurm/kam_pretrained_prepare.sbatch), then the [B200 adapter training array](../../slurm/kam_pretrained_train.sbatch). Retain the adapter weights from the two arms and their [KAM training record](../../results/general_benchmarks_pretrained/train-kam.json) and [dot training record](../../results/general_benchmarks_pretrained/train-dot.json). The [token manifest](../../results/general_benchmarks_pretrained/token-manifest.json) identifies the retokenized inputs. Record the SHA-256 digests of config.json, tokenizer.json, and model.safetensors in model-sha256.txt from the model directory.
-3. Run the [RTX PRO 6000 benchmark array](../../slurm/kam_pretrained_eval.sbatch) and the [CPU coding grades](../../slurm/kam_pretrained_grade.sbatch). The same [summarizer](../../scripts/summarize_kam_pretrained.py) reads either the per-arm numeric outputs or the published gzip. It checks checkpoints, exposure, prompt lengths, dataset hashes, and coverage.
+The earlier method is retained for audit. Any reproduction requires a compute environment that permits the checkpoint and benchmark data. The [model adapter source](../../scripts/kam_pretrained_adapters.py) defines the intervention. The [numeric results](../../results/general_benchmarks_pretrained/summary.json) can be reproduced without model weights by applying the [summarizer](../../scripts/summarize_kam_pretrained.py) to the published gzip. See the scorecard for follow-up experiments with a different backbone.

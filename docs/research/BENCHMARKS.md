@@ -37,6 +37,8 @@ These are newly trained, approximately 10M-parameter models. Each saw the same 1
 
 ### Shared pretrained backbone
 
+UF Research Computing prohibits Qwen use on HiPerGator. These historical scores are retained for audit. [UF policy](https://docs.rc.ufl.edu/training/new_user_training/#prohibition-on-large-language-models-from-countries-of-concern)
+
 Both adapters start from the same frozen Qwen2.5-1.5B-Instruct weights. Each adds 851,968 trainable parameters and trains on the same 2,097,152 subword tokens. The untouched checkpoint uses the same Qwen prompts and scoring.
 
 | Benchmark | Metric | Untouched Qwen | KAM adapter | Dot adapter |
