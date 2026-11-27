@@ -115,3 +115,5 @@ In the [sustained B200 collector replay](../../reports/nonlinear_retrieval_natur
 The [parallel schedule audit](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#parallel-schedules) matched 2,618 of 2,700 released hard parallel answers from text-derived dependencies. Using the authors' dependency schedules, 2,675 had a unique active-event answer, 15 had competing active events, and ten had ambiguous timing interventions.
 
 On [1,173 matched serial duration swaps](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#duration-changes-with-the-same-numbers), none of the tested frozen semantic policies selected both exact events before and after the label-changing edit. The best clean selector reached 330 top-five hits, compared with 275 after the duration swap.
+
+An [exact serial duration index](../../reports/nonlinear_retrieval_natural/SERIAL_DURATION_INDEX.md) matched 3,519 authored-domain selections and 5,760 boundary queries on both CPUs. At 16,384 events, HPG lookup took 1.15 μs versus 446.97 μs to rebuild the timeline, with 403.15 μs to precompute the reusable prefix.
