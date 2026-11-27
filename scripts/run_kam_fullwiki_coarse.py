@@ -90,6 +90,22 @@ class Search:
         self.posting_bank = self.full_half[self.posting_ids]
         self.resident_bytes = self.centroids.nbytes + self.posting_ids.nbytes + self.posting_bank.nbytes
 
+
+    def initialize_int8(self):
+        from kam_int8_index import int8_encode
+
+        self.full_int8, self.row_scales = int8_encode(self.fp32)
+        self.int8_mask = torch.zeros(len(self.full_int8), dtype=torch.bool, device=self.mask.device)
+        self.int8_mask[:len(self.mask)] = self.mask
+        return self.full_int8.nbytes + self.row_scales.nbytes
+
+    def full_rescore_int8(self, queries):
+        from kam_int8_index import integer_product
+
+        scores = integer_product(queries, self.full_int8, self.row_scales).masked_fill_(~self.int8_mask, -torch.inf)
+        shortlist = scores.topk(RESCORE, dim=-1).indices
+        return torch.stack([self.rescore(q, ids) for q, ids in zip(queries.split(1), shortlist, strict=True)])
+
     def exact(self, q, exclude):
         scores = torch.mv(self.fp32, q[0]).masked_fill_(~self.mask, -torch.inf)
         scores[exclude] = -torch.inf

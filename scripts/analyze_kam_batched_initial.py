@@ -15,7 +15,8 @@ from analyze_kam_shared_serving import unpack
 
 ARMS = ("separate", "shared")
 PROFILES = {"reader_precision": ("fp32", "bf16"), "prompt_cache": ("baseline", "cached_prompt"),
-            "feature_reuse": ("baseline", "shared_features"), "second_batch": ("baseline", "shared_second")}
+            "feature_reuse": ("baseline", "shared_features"), "second_batch": ("baseline", "shared_second"),
+            "int8_initial": ("baseline", "int8_initial")}
 STAGES = ("request_ms", "initial_search_ms", "reader_ms")
 DETAILED = ("initial_encode_ms", "initial_articles_ms", "anchor_ms", "conditioned_search_ms",
             "rerank_prepare_ms", "rerank_score_ms", "prompt_build_ms", "remaining_rerank_ms")
@@ -34,7 +35,7 @@ def main():
     a = p.parse_args()
     arms = PROFILES.get(a.profile, ARMS)
     reference_arm = "shared" if a.profile else "fp16/8"
-    detailed = a.profile in ("prompt_cache", "feature_reuse", "second_batch")
+    detailed = a.profile in ("prompt_cache", "feature_reuse", "second_batch", "int8_initial")
     reference_device = a.device if detailed else "NVIDIA L4"
     reference_name = "baseline_vs_archive" if detailed else ("fp32_vs_archive" if a.profile else "separate_vs_archive")
     stages = STAGES + DETAILED if detailed else STAGES
@@ -84,6 +85,9 @@ def main():
                 parity.update({reference_name: one == ref, "arms_vs_archive": one["arms"] == ref["arms"],
                                "initial_set": set(one["initial_ids"]) == set(many["initial_ids"]),
                                "initial_order": one["initial_ids"] == many["initial_ids"],
+                               "initial_top_one": one["initial_ids"][0] == many["initial_ids"][0],
+                               "initial_complete_pool": (truth[id_] <= set(one["initial_ids"])) ==
+                               (truth[id_] <= set(many["initial_ids"])),
                                "second_hop": one["corpus_hits"] == many["corpus_hits"],
                                "conditioned_pairs": selected[0] == selected[1], "all_records": one == many})
                 for name, out, pair in zip(arms, (one, many), selected, strict=True):

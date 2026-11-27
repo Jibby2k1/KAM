@@ -137,20 +137,26 @@ def run(a):
         bf16.model.bfloat16()
         answer_readers["bf16"] = bf16
     sentence_encoders = {"fp32": encoder}
+    detailed_profile = (a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch
+                        or a.compare_int8_initial)
+    sustained_batch = (a.confirm_fp16_throughput or a.compare_batched_initial or a.compare_reader_precision
+                       or detailed_profile or a.sweep_optimized_widths)
     low_precision = {"bf16": torch.bfloat16, "fp16": torch.float16} if a.compare_sentence_precision else (
-        {"fp16": torch.float16} if a.confirm_fp16_throughput or a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch else {})
+        {"fp16": torch.float16} if sustained_batch else {})
     for label, dtype in low_precision.items():
         resident = Encoder(a.assets / "encoder", 128)
         resident.model.to(dtype=dtype)
         sentence_encoders[label] = resident
     index = FullWikiIndex(a.inputs, manifest, cfg)
-    corpus_engine = None
+    corpus_engine, int8_bytes = None, None
     if a.corpus_profile_index:
         from run_kam_fullwiki_coarse import Search
 
         partition = torch.load(a.corpus_profile_index, weights_only=True, map_location="cpu")
         assert partition["index_sha256"] == index_sha and partition["source_sha256"] == manifest["source_sha256"]
         corpus_engine = Search(index, partition)
+        if a.compare_int8_initial:
+            int8_bytes = corpus_engine.initialize_int8()
     pair_indices, original_rows = {}, {}
     if a.live_anchor_profile or a.live_initial_profile:
         from kam_union_relation_features import bitset_relation_features
@@ -205,7 +211,7 @@ def run(a):
                     cache.update(zip(missing, vectors, strict=True))
                 return torch.stack([cache[text] for text in texts])
 
-        detailed = a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch
+        detailed = detailed_profile
         if detailed:
             phase_start = perf_counter()
         if initial_method is not None:
@@ -218,6 +224,8 @@ def run(a):
             individual = query.split(1)
             if initial_method == "batched_rescore":
                 original = corpus_engine.full_rescore_batch(query).tolist()
+            elif initial_method == "batched_int8":
+                original = corpus_engine.full_rescore_int8(query).tolist()
             elif initial_method == "dense_rescore":
                 original = [corpus_engine.full_rescore(q, exclude=None)[0].tolist() for q in individual]
             else:
@@ -387,10 +395,14 @@ def run(a):
                          cache_reader_passages=False, reuse_features=False, batch_second=False):
         rows, timing = [], []
         counts = dict(requested=0, encoded=0)
+        if a.sweep_optimized_widths:
+            resident = torch.cuda.memory_allocated()
+            torch.cuda.reset_peak_memory_stats()
         for offset in range(0, len(cases), width):
             prompts, block_rows = {}, []
             sentence_counts = dict(requested=0, encoded=0)
-            phases = {} if a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch else None
+            phases = {} if (a.compare_batched_initial or a.compare_reader_precision or
+                            detailed_profile or a.sweep_optimized_widths) else None
             torch.cuda.synchronize()
             begin = perf_counter()
             score_cases(cases[offset:offset+width], offset, prompts, block_rows, True, reuse_sentences=True,
@@ -406,12 +418,15 @@ def run(a):
                            "reader_ms": (done - rank_done) * 1000})
             if phases is not None:
                 timing[-1]["initial_search_ms"] = phases["initial_search_ms"]
-            if a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch:
+            if detailed_profile:
                 timing[-1].update(phases)
             rows.extend(block_rows)
             for key, value in sentence_counts.items():
                 counts[key] += value
-        return {"rows": rows, "timing": timing, "sentence_counts": counts}
+        output = {"rows": rows, "timing": timing, "sentence_counts": counts}
+        if a.sweep_optimized_widths:
+            output["extra_peak_bytes"] = torch.cuda.max_memory_allocated() - resident
+        return output
 
     output = []
     def request(case, i, use_shared, *, live_anchor=False, phase=None, reuse_sentences=False,
@@ -469,8 +484,6 @@ def run(a):
                            sentence_precision=method if a.compare_sentence_precision else "fp32")
 
         rng = Random(195823 + a.shard)
-        sustained_batch = (a.confirm_fp16_throughput or a.compare_batched_initial
-                           or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch)
         if a.compare_request_throughput or sustained_batch:
             sample = rng.sample(cases[4:], 48)
             trial = {str(w): (w, "fp32") for w in (1, 2, 4, 8)}
@@ -489,17 +502,25 @@ def run(a):
                 if a.compare_second_batch:
                     trial = {"baseline": (8, "fp16", "batched_rescore", "fp32", False, False, False),
                              "shared_second": (8, "fp16", "batched_rescore", "fp32", False, False, True)}
+                if a.compare_int8_initial:
+                    trial = {"baseline": (8, "fp16", "batched_rescore", "fp32", True, True),
+                             "int8_initial": (8, "fp16", "batched_int8", "fp32", True, True)}
+                if a.sweep_optimized_widths:
+                    trial = {f"optimized/{width}": (width, "fp16", "batched_rescore", "fp32", True, True)
+                             for width in (1, 4, 8, 16, 32)}
+                    trial["reference/8"] = (8, "fp16", "batched_rescore")
                 prior = {q["id"] for q in cases[:4] + sample}
                 eligible = [q for q in cases if q["id"] not in prior]
-                sample = rng.sample(eligible, 200)
+                sample = rng.sample(eligible, 192 if a.sweep_optimized_widths else 200)
+            group = 32 if a.sweep_optimized_widths else 8
             avoid = {c["id"] for c in sample}
-            warm = [c for c in cases if c["id"] not in avoid][:8]
+            warm = [c for c in cases if c["id"] not in avoid][:group]
             for config in trial.values():
                 throughput_block(warm, *config)
             gc.collect(2)
-            for i in range(0, len(sample), 8):
+            for i in range(0, len(sample), group):
                 order = rng.sample(list(trial), len(trial))
-                batch = sample[i:i+8]
+                batch = sample[i:i+group]
                 output.append({"ids": [r["id"] for r in batch], "order": order,
                                "batches": {key: throughput_block(batch, *trial[key]) for key in order}})
         else:
@@ -525,6 +546,8 @@ def run(a):
             index_profile["search_modes"] = methods
         if sustained_batch:
             index_profile["batch_policies"] = trial
+        if int8_bytes is not None:
+            index_profile["int8_first_pass_bytes"] = int8_bytes
     elif a.index_prewarm_rank is not None:
         from os import uname
         from random import Random
@@ -719,6 +742,8 @@ def main():
     coarse_comparison.add_argument("--compare-prompt-cache", action="store_true")
     coarse_comparison.add_argument("--compare-feature-reuse", action="store_true")
     coarse_comparison.add_argument("--compare-second-batch", action="store_true")
+    coarse_comparison.add_argument("--sweep-optimized-widths", action="store_true")
+    coarse_comparison.add_argument("--compare-int8-initial", action="store_true")
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
     live_profiles = parser.add_mutually_exclusive_group()
@@ -755,8 +780,11 @@ def main():
         parser.error("sentence bucketing timing requires a coarse-partition checkpoint")
     if a.compare_sentence_precision and not a.corpus_profile_index:
         parser.error("sentence precision timing requires a coarse-partition checkpoint")
-    if (a.compare_request_throughput or a.confirm_fp16_throughput or a.compare_batched_initial
-            or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch) and not a.corpus_profile_index:
+    if not a.corpus_profile_index and (
+        a.compare_request_throughput or a.confirm_fp16_throughput or a.compare_batched_initial
+        or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse
+        or a.compare_second_batch or a.sweep_optimized_widths or a.compare_int8_initial
+    ):
         parser.error("batched request timing requires a coarse-partition checkpoint")
     if a.verify_shared_relation and a.guard_split != "test":
         parser.error("shared relation verification needs the two-arm test replay")
@@ -791,7 +819,7 @@ def main():
     torch.set_float32_matmul_precision("highest")
     if (a.compare_rescored_initial or a.compare_shortlist_text or a.compare_sentence_bucketing
             or a.compare_sentence_precision or a.compare_request_throughput or a.confirm_fp16_throughput
-            or a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch):
+            or a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch or a.sweep_optimized_widths or a.compare_int8_initial):
         torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

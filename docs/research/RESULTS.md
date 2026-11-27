@@ -68,6 +68,8 @@ The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_
 
 ## Corpus retrieval and serving
 
+[L4 width and integer search](../../reports/nonlinear_retrieval_natural/FULLWIKI_L4_THROUGHPUT.md) measured 28.74, 30.08 and 30.38 requests per second at widths eight, sixteen and thirty-two with identical support and answer flags. At width eight, a separate INT8 shortlist crossover halved the first-pass bank size and saved 4.32 ms at the paired median while preserving all 800 evidence pairs and answer flags.
+
 [Exact reranker feature reuse](../../reports/nonlinear_retrieval_natural/FULLWIKI_FEATURE_REUSE.md) improved L4 throughput from 25.27 to 27.67 requests per second with every feature, prompt and decision record unchanged. A batched posting-score launch preserved the conditioned rankings with little effect on request time.
 
 At matched isolated latency on two independent HotpotQA cohorts (512 questions total), exact dense retrieval put both gold documents in the candidate pool for 349 questions, compared with 302 for hybrid and 266 for BM25. Joint exact match was 85, 89, and 91 respectively. Paired intervals covered zero. The change in rank from pool coverage to downstream joint exact match identifies pair selection as a separate bottleneck. [L4 aggregate](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_threads_l4/summary.json) · [Independent replication](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_replicate_l4/summary.json)
