@@ -1,0 +1,1414 @@
+{
+  "fixture_sha256": "0d6a4cb740d63047f0ba03b4a06f7c1dc7563852bb37cc50e9138fd3493b72dc",
+  "reader_prompts": 4301,
+  "scopes": {
+    "2": {
+      "metrics": {
+        "gold_only": {
+          "all_support": 224,
+          "answer_em": 112,
+          "joint": 112,
+          "support_count": 448
+        },
+        "hybrid_dense": {
+          "all_support": 36,
+          "answer_em": 26,
+          "joint": 17,
+          "support_count": 204
+        },
+        "hybrid_oracle": {
+          "all_support": 135,
+          "answer_em": 60,
+          "joint": 55,
+          "support_count": 353
+        },
+        "hybrid_rank": {
+          "all_support": 42,
+          "answer_em": 36,
+          "joint": 18,
+          "support_count": 223
+        },
+        "learned_dense/0": {
+          "all_support": 36,
+          "answer_em": 26,
+          "joint": 17,
+          "support_count": 204
+        },
+        "learned_dense/1": {
+          "all_support": 36,
+          "answer_em": 26,
+          "joint": 17,
+          "support_count": 204
+        },
+        "learned_dense/2": {
+          "all_support": 36,
+          "answer_em": 26,
+          "joint": 17,
+          "support_count": 204
+        },
+        "learned_oracle/0": {
+          "all_support": 159,
+          "answer_em": 65,
+          "joint": 61,
+          "support_count": 378
+        },
+        "learned_oracle/1": {
+          "all_support": 169,
+          "answer_em": 70,
+          "joint": 67,
+          "support_count": 387
+        },
+        "learned_oracle/2": {
+          "all_support": 163,
+          "answer_em": 67,
+          "joint": 65,
+          "support_count": 381
+        },
+        "learned_path/0": {
+          "all_support": 53,
+          "answer_em": 28,
+          "joint": 18,
+          "support_count": 221
+        },
+        "learned_path/1": {
+          "all_support": 58,
+          "answer_em": 32,
+          "joint": 20,
+          "support_count": 228
+        },
+        "learned_path/2": {
+          "all_support": 58,
+          "answer_em": 33,
+          "joint": 21,
+          "support_count": 228
+        },
+        "no_evidence": {
+          "all_support": 0,
+          "answer_em": 2,
+          "joint": 0,
+          "support_count": 0
+        }
+      },
+      "paired": {
+        "learned_dense/0_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/1_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/2_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_oracle/0_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.10714286,
+            "losses": 11,
+            "shared_evidence_cluster_bootstrap95": [
+              0.04444444,
+              0.17226083
+            ],
+            "wins": 35
+          },
+          "answer_em": {
+            "delta": 0.02232143,
+            "losses": 13,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02631579,
+              0.07142857
+            ],
+            "wins": 18
+          },
+          "joint": {
+            "delta": 0.02678571,
+            "losses": 13,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02262443,
+              0.07623318
+            ],
+            "wins": 19
+          }
+        },
+        "learned_oracle/1_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.15178571,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              0.09565217,
+              0.21051526
+            ],
+            "wins": 39
+          },
+          "answer_em": {
+            "delta": 0.04464286,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.08849249
+            ],
+            "wins": 18
+          },
+          "joint": {
+            "delta": 0.05357143,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00840425,
+              0.10047742
+            ],
+            "wins": 20
+          }
+        },
+        "learned_oracle/2_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.125,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              0.06572924,
+              0.18695551
+            ],
+            "wins": 36
+          },
+          "answer_em": {
+            "delta": 0.03125,
+            "losses": 11,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.0169546,
+              0.07818411
+            ],
+            "wins": 18
+          },
+          "joint": {
+            "delta": 0.04464286,
+            "losses": 9,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.09132325
+            ],
+            "wins": 19
+          }
+        },
+        "learned_path/0_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.04910714,
+            "losses": 15,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.00834921,
+              0.10454051
+            ],
+            "wins": 26
+          },
+          "answer_em": {
+            "delta": -0.03571429,
+            "losses": 18,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.08372042,
+              0.01248359
+            ],
+            "wins": 10
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 11,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.04054054,
+              0.04
+            ],
+            "wins": 11
+          }
+        },
+        "learned_path/1_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.07142857,
+            "losses": 15,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00925926,
+              0.13512885
+            ],
+            "wins": 31
+          },
+          "answer_em": {
+            "delta": -0.01785714,
+            "losses": 17,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.06896552,
+              0.03348489
+            ],
+            "wins": 13
+          },
+          "joint": {
+            "delta": 0.00892857,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.0306984,
+              0.05
+            ],
+            "wins": 12
+          }
+        },
+        "learned_path/2_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.07142857,
+            "losses": 15,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00901003,
+              0.13513228
+            ],
+            "wins": 31
+          },
+          "answer_em": {
+            "delta": -0.01339286,
+            "losses": 15,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.06159947,
+              0.03317536
+            ],
+            "wins": 12
+          },
+          "joint": {
+            "delta": 0.01339286,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02666667,
+              0.05531866
+            ],
+            "wins": 13
+          }
+        }
+      },
+      "questions": 224
+    },
+    "3": {
+      "metrics": {
+        "gold_only": {
+          "all_support": 192,
+          "answer_em": 60,
+          "joint": 60,
+          "support_count": 576
+        },
+        "hybrid_dense": {
+          "all_support": 0,
+          "answer_em": 10,
+          "joint": 0,
+          "support_count": 196
+        },
+        "hybrid_oracle": {
+          "all_support": 56,
+          "answer_em": 29,
+          "joint": 15,
+          "support_count": 396
+        },
+        "hybrid_rank": {
+          "all_support": 2,
+          "answer_em": 8,
+          "joint": 0,
+          "support_count": 226
+        },
+        "learned_dense/0": {
+          "all_support": 0,
+          "answer_em": 10,
+          "joint": 0,
+          "support_count": 196
+        },
+        "learned_dense/1": {
+          "all_support": 0,
+          "answer_em": 10,
+          "joint": 0,
+          "support_count": 196
+        },
+        "learned_dense/2": {
+          "all_support": 0,
+          "answer_em": 10,
+          "joint": 0,
+          "support_count": 196
+        },
+        "learned_oracle/0": {
+          "all_support": 86,
+          "answer_em": 38,
+          "joint": 28,
+          "support_count": 439
+        },
+        "learned_oracle/1": {
+          "all_support": 80,
+          "answer_em": 33,
+          "joint": 21,
+          "support_count": 436
+        },
+        "learned_oracle/2": {
+          "all_support": 85,
+          "answer_em": 34,
+          "joint": 25,
+          "support_count": 439
+        },
+        "learned_path/0": {
+          "all_support": 8,
+          "answer_em": 12,
+          "joint": 4,
+          "support_count": 254
+        },
+        "learned_path/1": {
+          "all_support": 6,
+          "answer_em": 10,
+          "joint": 2,
+          "support_count": 241
+        },
+        "learned_path/2": {
+          "all_support": 10,
+          "answer_em": 14,
+          "joint": 4,
+          "support_count": 254
+        },
+        "no_evidence": {
+          "all_support": 0,
+          "answer_em": 2,
+          "joint": 0,
+          "support_count": 0
+        }
+      },
+      "paired": {
+        "learned_dense/0_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/1_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/2_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_oracle/0_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.15625,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0652263,
+              0.2430951
+            ],
+            "wins": 38
+          },
+          "answer_em": {
+            "delta": 0.046875,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01562298,
+              0.10958741
+            ],
+            "wins": 17
+          },
+          "joint": {
+            "delta": 0.06770833,
+            "losses": 4,
+            "shared_evidence_cluster_bootstrap95": [
+              0.01744441,
+              0.12021311
+            ],
+            "wins": 17
+          }
+        },
+        "learned_oracle/1_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.125,
+            "losses": 12,
+            "shared_evidence_cluster_bootstrap95": [
+              0.02551347,
+              0.23254987
+            ],
+            "wins": 36
+          },
+          "answer_em": {
+            "delta": 0.02083333,
+            "losses": 9,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03270774,
+              0.08234726
+            ],
+            "wins": 13
+          },
+          "joint": {
+            "delta": 0.03125,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01843247,
+              0.08823529
+            ],
+            "wins": 14
+          }
+        },
+        "learned_oracle/2_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.15104167,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              0.04847219,
+              0.25246868
+            ],
+            "wins": 39
+          },
+          "answer_em": {
+            "delta": 0.02604167,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01986755,
+              0.08092486
+            ],
+            "wins": 11
+          },
+          "joint": {
+            "delta": 0.05208333,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.11445708
+            ],
+            "wins": 16
+          }
+        },
+        "learned_path/0_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.03125,
+            "losses": 1,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.07100592
+            ],
+            "wins": 7
+          },
+          "answer_em": {
+            "delta": 0.02083333,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01816845,
+              0.06399574
+            ],
+            "wins": 9
+          },
+          "joint": {
+            "delta": 0.02083333,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.04888288
+            ],
+            "wins": 4
+          }
+        },
+        "learned_path/1_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.02083333,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01080936,
+              0.05555556
+            ],
+            "wins": 6
+          },
+          "answer_em": {
+            "delta": 0.01041667,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02197802,
+              0.04477403
+            ],
+            "wins": 7
+          },
+          "joint": {
+            "delta": 0.01041667,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.02597234
+            ],
+            "wins": 2
+          }
+        },
+        "learned_path/2_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.04166667,
+            "losses": 1,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00926816,
+              0.07970337
+            ],
+            "wins": 9
+          },
+          "answer_em": {
+            "delta": 0.03125,
+            "losses": 4,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.06912442
+            ],
+            "wins": 10
+          },
+          "joint": {
+            "delta": 0.02083333,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00483092,
+              0.04285714
+            ],
+            "wins": 4
+          }
+        }
+      },
+      "questions": 192
+    },
+    "4": {
+      "metrics": {
+        "gold_only": {
+          "all_support": 160,
+          "answer_em": 59,
+          "joint": 59,
+          "support_count": 640
+        },
+        "hybrid_dense": {
+          "all_support": 0,
+          "answer_em": 5,
+          "joint": 0,
+          "support_count": 115
+        },
+        "hybrid_oracle": {
+          "all_support": 12,
+          "answer_em": 23,
+          "joint": 4,
+          "support_count": 332
+        },
+        "hybrid_rank": {
+          "all_support": 0,
+          "answer_em": 7,
+          "joint": 0,
+          "support_count": 150
+        },
+        "learned_dense/0": {
+          "all_support": 0,
+          "answer_em": 5,
+          "joint": 0,
+          "support_count": 115
+        },
+        "learned_dense/1": {
+          "all_support": 0,
+          "answer_em": 5,
+          "joint": 0,
+          "support_count": 115
+        },
+        "learned_dense/2": {
+          "all_support": 0,
+          "answer_em": 5,
+          "joint": 0,
+          "support_count": 115
+        },
+        "learned_oracle/0": {
+          "all_support": 18,
+          "answer_em": 23,
+          "joint": 5,
+          "support_count": 352
+        },
+        "learned_oracle/1": {
+          "all_support": 17,
+          "answer_em": 24,
+          "joint": 5,
+          "support_count": 347
+        },
+        "learned_oracle/2": {
+          "all_support": 13,
+          "answer_em": 26,
+          "joint": 4,
+          "support_count": 346
+        },
+        "learned_path/0": {
+          "all_support": 0,
+          "answer_em": 8,
+          "joint": 0,
+          "support_count": 169
+        },
+        "learned_path/1": {
+          "all_support": 0,
+          "answer_em": 8,
+          "joint": 0,
+          "support_count": 183
+        },
+        "learned_path/2": {
+          "all_support": 0,
+          "answer_em": 9,
+          "joint": 0,
+          "support_count": 170
+        },
+        "no_evidence": {
+          "all_support": 0,
+          "answer_em": 0,
+          "joint": 0,
+          "support_count": 0
+        }
+      },
+      "paired": {
+        "learned_dense/0_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/1_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/2_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_oracle/0_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.0375,
+            "losses": 3,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01587302,
+              0.09815951
+            ],
+            "wins": 9
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 4,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02836579,
+              0.03053435
+            ],
+            "wins": 4
+          },
+          "joint": {
+            "delta": 0.00625,
+            "losses": 1,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01724138,
+              0.03703704
+            ],
+            "wins": 2
+          }
+        },
+        "learned_oracle/1_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.03125,
+            "losses": 1,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.06914435
+            ],
+            "wins": 6
+          },
+          "answer_em": {
+            "delta": 0.00625,
+            "losses": 4,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03149482,
+              0.04273504
+            ],
+            "wins": 5
+          },
+          "joint": {
+            "delta": 0.00625,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.01989967
+            ],
+            "wins": 1
+          }
+        },
+        "learned_oracle/2_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.00625,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03947368,
+              0.05127737
+            ],
+            "wins": 6
+          },
+          "answer_em": {
+            "delta": 0.01875,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.00694207,
+              0.04216236
+            ],
+            "wins": 5
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02803575,
+              0.02365832
+            ],
+            "wins": 2
+          }
+        },
+        "learned_path/0_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.00625,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.05072234,
+              0.07352044
+            ],
+            "wins": 6
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_path/1_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.00625,
+            "losses": 4,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.04761905,
+              0.07189362
+            ],
+            "wins": 5
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_path/2_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0125,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.05127389,
+              0.09039548
+            ],
+            "wins": 7
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        }
+      },
+      "questions": 160
+    },
+    "all": {
+      "metrics": {
+        "gold_only": {
+          "all_support": 576,
+          "answer_em": 231,
+          "joint": 231,
+          "support_count": 1664
+        },
+        "hybrid_dense": {
+          "all_support": 36,
+          "answer_em": 41,
+          "joint": 17,
+          "support_count": 515
+        },
+        "hybrid_oracle": {
+          "all_support": 203,
+          "answer_em": 112,
+          "joint": 74,
+          "support_count": 1081
+        },
+        "hybrid_rank": {
+          "all_support": 44,
+          "answer_em": 51,
+          "joint": 18,
+          "support_count": 599
+        },
+        "learned_dense/0": {
+          "all_support": 36,
+          "answer_em": 41,
+          "joint": 17,
+          "support_count": 515
+        },
+        "learned_dense/1": {
+          "all_support": 36,
+          "answer_em": 41,
+          "joint": 17,
+          "support_count": 515
+        },
+        "learned_dense/2": {
+          "all_support": 36,
+          "answer_em": 41,
+          "joint": 17,
+          "support_count": 515
+        },
+        "learned_oracle/0": {
+          "all_support": 263,
+          "answer_em": 126,
+          "joint": 94,
+          "support_count": 1169
+        },
+        "learned_oracle/1": {
+          "all_support": 266,
+          "answer_em": 127,
+          "joint": 93,
+          "support_count": 1170
+        },
+        "learned_oracle/2": {
+          "all_support": 261,
+          "answer_em": 127,
+          "joint": 94,
+          "support_count": 1166
+        },
+        "learned_path/0": {
+          "all_support": 61,
+          "answer_em": 48,
+          "joint": 22,
+          "support_count": 644
+        },
+        "learned_path/1": {
+          "all_support": 64,
+          "answer_em": 50,
+          "joint": 22,
+          "support_count": 652
+        },
+        "learned_path/2": {
+          "all_support": 68,
+          "answer_em": 56,
+          "joint": 25,
+          "support_count": 652
+        },
+        "no_evidence": {
+          "all_support": 0,
+          "answer_em": 4,
+          "joint": 0,
+          "support_count": 0
+        }
+      },
+      "paired": {
+        "learned_dense/0_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/1_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_dense/2_vs_hybrid_dense": {
+          "all_support": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "answer_em": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0
+          }
+        },
+        "learned_oracle/0_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.10416667,
+            "losses": 22,
+            "shared_evidence_cluster_bootstrap95": [
+              0.05989868,
+              0.14772129
+            ],
+            "wins": 82
+          },
+          "answer_em": {
+            "delta": 0.02430556,
+            "losses": 25,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.00609482,
+              0.0562004
+            ],
+            "wins": 39
+          },
+          "joint": {
+            "delta": 0.03472222,
+            "losses": 18,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00840514,
+              0.06174904
+            ],
+            "wins": 38
+          }
+        },
+        "learned_oracle/1_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.109375,
+            "losses": 18,
+            "shared_evidence_cluster_bootstrap95": [
+              0.06655922,
+              0.15543902
+            ],
+            "wins": 81
+          },
+          "answer_em": {
+            "delta": 0.02604167,
+            "losses": 21,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.00171512,
+              0.05726681
+            ],
+            "wins": 36
+          },
+          "joint": {
+            "delta": 0.03298611,
+            "losses": 16,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00713108,
+              0.0614274
+            ],
+            "wins": 35
+          }
+        },
+        "learned_oracle/2_vs_hybrid_oracle": {
+          "all_support": {
+            "delta": 0.10069444,
+            "losses": 23,
+            "shared_evidence_cluster_bootstrap95": [
+              0.05593722,
+              0.14681693
+            ],
+            "wins": 81
+          },
+          "answer_em": {
+            "delta": 0.02604167,
+            "losses": 19,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.00157384,
+              0.05397151
+            ],
+            "wins": 34
+          },
+          "joint": {
+            "delta": 0.03472222,
+            "losses": 17,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00805416,
+              0.06336866
+            ],
+            "wins": 37
+          }
+        },
+        "learned_path/0_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.02951389,
+            "losses": 16,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00597913,
+              0.05689355
+            ],
+            "wins": 33
+          },
+          "answer_em": {
+            "delta": -0.00520833,
+            "losses": 28,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03549061,
+              0.02829981
+            ],
+            "wins": 25
+          },
+          "joint": {
+            "delta": 0.00694444,
+            "losses": 11,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01025424,
+              0.02438918
+            ],
+            "wins": 15
+          }
+        },
+        "learned_path/1_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.03472222,
+            "losses": 17,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00993443,
+              0.06302365
+            ],
+            "wins": 37
+          },
+          "answer_em": {
+            "delta": -0.00173611,
+            "losses": 26,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03130706,
+              0.03073569
+            ],
+            "wins": 25
+          },
+          "joint": {
+            "delta": 0.00694444,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.0087558,
+              0.02339155
+            ],
+            "wins": 14
+          }
+        },
+        "learned_path/2_vs_hybrid_rank": {
+          "all_support": {
+            "delta": 0.04166667,
+            "losses": 16,
+            "shared_evidence_cluster_bootstrap95": [
+              0.01597472,
+              0.06968641
+            ],
+            "wins": 40
+          },
+          "answer_em": {
+            "delta": 0.00868056,
+            "losses": 24,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02206944,
+              0.04270356
+            ],
+            "wins": 29
+          },
+          "joint": {
+            "delta": 0.01215278,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.0050323,
+              0.02984748
+            ],
+            "wins": 17
+          }
+        }
+      },
+      "questions": 576
+    }
+  }
+}

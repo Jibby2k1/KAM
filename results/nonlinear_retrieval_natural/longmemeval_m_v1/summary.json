@@ -1,0 +1,4489 @@
+{
+  "fixture_sha256": "6da7149c12835a378f28697f575285bd822ba7ed4434575a28bdf02e66a47e7b",
+  "measures": {
+    "answerable": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": -0.05531915,
+          "losses": 26,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.07691898,
+            -0.03571617
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": -0.08510638,
+          "losses": 47,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.11677282,
+            -0.05567751
+          ],
+          "wins": 7
+        },
+        "dense_recent": {
+          "delta": -0.0106383,
+          "losses": 9,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.02725224,
+            0.00426439
+          ],
+          "wins": 4
+        },
+        "length_corrected": {
+          "delta": -0.05106383,
+          "losses": 24,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.0720339,
+            -0.03191489
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -0.74468085,
+          "losses": 350,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.78250912,
+            -0.70449679
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": -0.00425532,
+          "losses": 16,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.02765811,
+            0.01918977
+          ],
+          "wins": 14
+        }
+      },
+      "gold_sessions": 890,
+      "incomplete_under_date_cutoff": 37,
+      "median_chunks": 10027.0,
+      "median_distinct_sessions": 473.0,
+      "median_session_occurrences": 476.0,
+      "questions": 470,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 140,
+            "all/10": 402,
+            "all/20": 417,
+            "all/3": 334,
+            "all/5": 370,
+            "gold_recalled/1": 393,
+            "gold_recalled/10": 794,
+            "gold_recalled/20": 815,
+            "gold_recalled/3": 677,
+            "gold_recalled/5": 743,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 126,
+            "all/10": 411,
+            "all/20": 439,
+            "all/3": 329,
+            "all/5": 372,
+            "gold_recalled/1": 379,
+            "gold_recalled/10": 819,
+            "gold_recalled/20": 859,
+            "gold_recalled/3": 680,
+            "gold_recalled/5": 756,
+            "one_future_in_top5": 53
+          },
+          "dense": {
+            "all/1": 140,
+            "all/10": 437,
+            "all/20": 452,
+            "all/3": 363,
+            "all/5": 403,
+            "gold_recalled/1": 409,
+            "gold_recalled/10": 851,
+            "gold_recalled/20": 871,
+            "gold_recalled/3": 727,
+            "gold_recalled/5": 798,
+            "one_future_in_top5": 54
+          },
+          "dense_recent": {
+            "all/1": 140,
+            "all/10": 432,
+            "all/20": 452,
+            "all/3": 357,
+            "all/5": 400,
+            "gold_recalled/1": 408,
+            "gold_recalled/10": 844,
+            "gold_recalled/20": 871,
+            "gold_recalled/3": 720,
+            "gold_recalled/5": 794,
+            "one_future_in_top5": 57
+          },
+          "length_corrected": {
+            "all/1": 134,
+            "all/10": 425,
+            "all/20": 445,
+            "all/3": 349,
+            "all/5": 389,
+            "gold_recalled/1": 392,
+            "gold_recalled/10": 833,
+            "gold_recalled/20": 861,
+            "gold_recalled/3": 701,
+            "gold_recalled/5": 769,
+            "one_future_in_top5": 56
+          },
+          "recent_only": {
+            "all/1": 1,
+            "all/10": 16,
+            "all/20": 39,
+            "all/3": 3,
+            "all/5": 8,
+            "gold_recalled/1": 9,
+            "gold_recalled/10": 89,
+            "gold_recalled/20": 173,
+            "gold_recalled/3": 24,
+            "gold_recalled/5": 36,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 134,
+            "all/10": 433,
+            "all/20": 447,
+            "all/3": 359,
+            "all/5": 397,
+            "gold_recalled/1": 399,
+            "gold_recalled/10": 847,
+            "gold_recalled/20": 865,
+            "gold_recalled/3": 718,
+            "gold_recalled/5": 792,
+            "one_future_in_top5": 54
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 130,
+            "all/10": 385,
+            "all/20": 408,
+            "all/3": 316,
+            "all/5": 354,
+            "gold_recalled/1": 372,
+            "gold_recalled/10": 768,
+            "gold_recalled/20": 801,
+            "gold_recalled/3": 644,
+            "gold_recalled/5": 715,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 115,
+            "all/10": 384,
+            "all/20": 421,
+            "all/3": 297,
+            "all/5": 341,
+            "gold_recalled/1": 352,
+            "gold_recalled/10": 779,
+            "gold_recalled/20": 832,
+            "gold_recalled/3": 629,
+            "gold_recalled/5": 710,
+            "one_future_in_top5": 56
+          },
+          "dense": {
+            "all/1": 130,
+            "all/10": 419,
+            "all/20": 443,
+            "all/3": 341,
+            "all/5": 386,
+            "gold_recalled/1": 386,
+            "gold_recalled/10": 824,
+            "gold_recalled/20": 858,
+            "gold_recalled/3": 690,
+            "gold_recalled/5": 770,
+            "one_future_in_top5": 54
+          },
+          "dense_recent": {
+            "all/1": 131,
+            "all/10": 416,
+            "all/20": 441,
+            "all/3": 337,
+            "all/5": 381,
+            "gold_recalled/1": 387,
+            "gold_recalled/10": 821,
+            "gold_recalled/20": 856,
+            "gold_recalled/3": 687,
+            "gold_recalled/5": 763,
+            "one_future_in_top5": 60
+          },
+          "length_corrected": {
+            "all/1": 121,
+            "all/10": 405,
+            "all/20": 431,
+            "all/3": 321,
+            "all/5": 365,
+            "gold_recalled/1": 368,
+            "gold_recalled/10": 800,
+            "gold_recalled/20": 842,
+            "gold_recalled/3": 654,
+            "gold_recalled/5": 732,
+            "one_future_in_top5": 53
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 8,
+            "all/20": 18,
+            "all/3": 0,
+            "all/5": 1,
+            "gold_recalled/1": 3,
+            "gold_recalled/10": 38,
+            "gold_recalled/20": 85,
+            "gold_recalled/3": 11,
+            "gold_recalled/5": 20,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 124,
+            "all/10": 416,
+            "all/20": 435,
+            "all/3": 336,
+            "all/5": 378,
+            "gold_recalled/1": 375,
+            "gold_recalled/10": 820,
+            "gold_recalled/20": 849,
+            "gold_recalled/3": 681,
+            "gold_recalled/5": 758,
+            "one_future_in_top5": 54
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 117,
+            "all/10": 364,
+            "all/20": 388,
+            "all/3": 296,
+            "all/5": 324,
+            "gold_recalled/1": 344,
+            "gold_recalled/10": 731,
+            "gold_recalled/20": 772,
+            "gold_recalled/3": 605,
+            "gold_recalled/5": 664,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 102,
+            "all/10": 361,
+            "all/20": 393,
+            "all/3": 264,
+            "all/5": 310,
+            "gold_recalled/1": 319,
+            "gold_recalled/10": 742,
+            "gold_recalled/20": 793,
+            "gold_recalled/3": 566,
+            "gold_recalled/5": 653,
+            "one_future_in_top5": 53
+          },
+          "dense": {
+            "all/1": 117,
+            "all/10": 396,
+            "all/20": 422,
+            "all/3": 320,
+            "all/5": 350,
+            "gold_recalled/1": 359,
+            "gold_recalled/10": 786,
+            "gold_recalled/20": 828,
+            "gold_recalled/3": 648,
+            "gold_recalled/5": 713,
+            "one_future_in_top5": 53
+          },
+          "dense_recent": {
+            "all/1": 119,
+            "all/10": 398,
+            "all/20": 422,
+            "all/3": 313,
+            "all/5": 345,
+            "gold_recalled/1": 360,
+            "gold_recalled/10": 787,
+            "gold_recalled/20": 827,
+            "gold_recalled/3": 642,
+            "gold_recalled/5": 707,
+            "one_future_in_top5": 59
+          },
+          "length_corrected": {
+            "all/1": 106,
+            "all/10": 381,
+            "all/20": 410,
+            "all/3": 286,
+            "all/5": 326,
+            "gold_recalled/1": 331,
+            "gold_recalled/10": 760,
+            "gold_recalled/20": 811,
+            "gold_recalled/3": 600,
+            "gold_recalled/5": 671,
+            "one_future_in_top5": 56
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 3,
+            "all/20": 9,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 2,
+            "gold_recalled/10": 22,
+            "gold_recalled/20": 44,
+            "gold_recalled/3": 9,
+            "gold_recalled/5": 12,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 110,
+            "all/10": 387,
+            "all/20": 421,
+            "all/3": 312,
+            "all/5": 348,
+            "gold_recalled/1": 350,
+            "gold_recalled/10": 781,
+            "gold_recalled/20": 828,
+            "gold_recalled/3": 640,
+            "gold_recalled/5": 710,
+            "one_future_in_top5": 55
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 146,
+            "all/10": 414,
+            "all/20": 424,
+            "all/3": 354,
+            "all/5": 389,
+            "gold_recalled/1": 411,
+            "gold_recalled/10": 812,
+            "gold_recalled/20": 823,
+            "gold_recalled/3": 712,
+            "gold_recalled/5": 774,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 137,
+            "all/10": 435,
+            "all/20": 456,
+            "all/3": 358,
+            "all/5": 398,
+            "gold_recalled/1": 405,
+            "gold_recalled/10": 854,
+            "gold_recalled/20": 876,
+            "gold_recalled/3": 733,
+            "gold_recalled/5": 801,
+            "one_future_in_top5": 54
+          },
+          "dense": {
+            "all/1": 146,
+            "all/10": 449,
+            "all/20": 461,
+            "all/3": 387,
+            "all/5": 423,
+            "gold_recalled/1": 426,
+            "gold_recalled/10": 868,
+            "gold_recalled/20": 881,
+            "gold_recalled/3": 766,
+            "gold_recalled/5": 830,
+            "one_future_in_top5": 54
+          },
+          "dense_recent": {
+            "all/1": 146,
+            "all/10": 450,
+            "all/20": 462,
+            "all/3": 385,
+            "all/5": 421,
+            "gold_recalled/1": 426,
+            "gold_recalled/10": 869,
+            "gold_recalled/20": 882,
+            "gold_recalled/3": 763,
+            "gold_recalled/5": 826,
+            "one_future_in_top5": 58
+          },
+          "length_corrected": {
+            "all/1": 141,
+            "all/10": 447,
+            "all/20": 454,
+            "all/3": 370,
+            "all/5": 415,
+            "gold_recalled/1": 415,
+            "gold_recalled/10": 863,
+            "gold_recalled/20": 874,
+            "gold_recalled/3": 739,
+            "gold_recalled/5": 817,
+            "one_future_in_top5": 53
+          },
+          "recent_only": {
+            "all/1": 1,
+            "all/10": 34,
+            "all/20": 89,
+            "all/3": 9,
+            "all/5": 17,
+            "gold_recalled/1": 17,
+            "gold_recalled/10": 168,
+            "gold_recalled/20": 301,
+            "gold_recalled/3": 47,
+            "gold_recalled/5": 90,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 140,
+            "all/10": 445,
+            "all/20": 458,
+            "all/3": 386,
+            "all/5": 416,
+            "gold_recalled/1": 420,
+            "gold_recalled/10": 862,
+            "gold_recalled/20": 878,
+            "gold_recalled/3": 760,
+            "gold_recalled/5": 822,
+            "one_future_in_top5": 55
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 117,
+            "all/10": 364,
+            "all/20": 388,
+            "all/3": 296,
+            "all/5": 324,
+            "gold_recalled/1": 344,
+            "gold_recalled/10": 731,
+            "gold_recalled/20": 772,
+            "gold_recalled/3": 605,
+            "gold_recalled/5": 664,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 102,
+            "all/10": 361,
+            "all/20": 393,
+            "all/3": 264,
+            "all/5": 310,
+            "gold_recalled/1": 319,
+            "gold_recalled/10": 742,
+            "gold_recalled/20": 793,
+            "gold_recalled/3": 566,
+            "gold_recalled/5": 653,
+            "one_future_in_top5": 53
+          },
+          "dense": {
+            "all/1": 117,
+            "all/10": 396,
+            "all/20": 422,
+            "all/3": 320,
+            "all/5": 350,
+            "gold_recalled/1": 359,
+            "gold_recalled/10": 786,
+            "gold_recalled/20": 828,
+            "gold_recalled/3": 648,
+            "gold_recalled/5": 713,
+            "one_future_in_top5": 53
+          },
+          "dense_recent": {
+            "all/1": 119,
+            "all/10": 398,
+            "all/20": 422,
+            "all/3": 313,
+            "all/5": 345,
+            "gold_recalled/1": 360,
+            "gold_recalled/10": 787,
+            "gold_recalled/20": 827,
+            "gold_recalled/3": 642,
+            "gold_recalled/5": 707,
+            "one_future_in_top5": 59
+          },
+          "length_corrected": {
+            "all/1": 106,
+            "all/10": 381,
+            "all/20": 410,
+            "all/3": 286,
+            "all/5": 326,
+            "gold_recalled/1": 331,
+            "gold_recalled/10": 760,
+            "gold_recalled/20": 811,
+            "gold_recalled/3": 600,
+            "gold_recalled/5": 671,
+            "one_future_in_top5": 56
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 3,
+            "all/20": 9,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 2,
+            "gold_recalled/10": 22,
+            "gold_recalled/20": 44,
+            "gold_recalled/3": 9,
+            "gold_recalled/5": 12,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 110,
+            "all/10": 387,
+            "all/20": 421,
+            "all/3": 312,
+            "all/5": 348,
+            "gold_recalled/1": 350,
+            "gold_recalled/10": 781,
+            "gold_recalled/20": 828,
+            "gold_recalled/3": 640,
+            "gold_recalled/5": 710,
+            "one_future_in_top5": 55
+          }
+        }
+      },
+      "shared_evidence_clusters": 465,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 397,
+          "any_marked_turn/20": 416,
+          "any_marked_turn/5": 345,
+          "marked_turn_each_gold_session/10": 284,
+          "marked_turn_each_gold_session/20": 326,
+          "marked_turn_each_gold_session/5": 213
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 395,
+          "any_marked_turn/20": 415,
+          "any_marked_turn/5": 345,
+          "marked_turn_each_gold_session/10": 273,
+          "marked_turn_each_gold_session/20": 307,
+          "marked_turn_each_gold_session/5": 210
+        },
+        "user": {
+          "any_marked_turn/10": 395,
+          "any_marked_turn/20": 414,
+          "any_marked_turn/5": 349,
+          "marked_turn_each_gold_session/10": 290,
+          "marked_turn_each_gold_session/20": 330,
+          "marked_turn_each_gold_session/5": 217
+        }
+      }
+    },
+    "cutoff_complete": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": -0.08314088,
+          "losses": 43,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.11574074,
+            -0.05336427
+          ],
+          "wins": 7
+        },
+        "dense_recent": {
+          "delta": -0.01154734,
+          "losses": 9,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.02777778,
+            0.00462963
+          ],
+          "wins": 4
+        },
+        "length_corrected": {
+          "delta": -0.05311778,
+          "losses": 23,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.07424594,
+            -0.03240741
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -0.7482679,
+          "losses": 324,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.78752887,
+            -0.70575391
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": -0.00461894,
+          "losses": 15,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.02988334,
+            0.01860465
+          ],
+          "wins": 13
+        }
+      },
+      "gold_sessions": 804,
+      "incomplete_under_date_cutoff": 0,
+      "median_chunks": 10027,
+      "median_distinct_sessions": 473,
+      "median_session_occurrences": 476,
+      "questions": 433,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 140,
+            "all/10": 402,
+            "all/20": 417,
+            "all/3": 334,
+            "all/5": 370,
+            "gold_recalled/1": 373,
+            "gold_recalled/10": 767,
+            "gold_recalled/20": 787,
+            "gold_recalled/3": 652,
+            "gold_recalled/5": 717,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 126,
+            "all/10": 380,
+            "all/20": 404,
+            "all/3": 305,
+            "all/5": 342,
+            "gold_recalled/1": 344,
+            "gold_recalled/10": 739,
+            "gold_recalled/20": 775,
+            "gold_recalled/3": 612,
+            "gold_recalled/5": 679,
+            "one_future_in_top5": 16
+          },
+          "dense": {
+            "all/1": 140,
+            "all/10": 402,
+            "all/20": 417,
+            "all/3": 333,
+            "all/5": 370,
+            "gold_recalled/1": 373,
+            "gold_recalled/10": 767,
+            "gold_recalled/20": 787,
+            "gold_recalled/3": 651,
+            "gold_recalled/5": 717,
+            "one_future_in_top5": 17
+          },
+          "dense_recent": {
+            "all/1": 140,
+            "all/10": 397,
+            "all/20": 417,
+            "all/3": 327,
+            "all/5": 367,
+            "gold_recalled/1": 372,
+            "gold_recalled/10": 760,
+            "gold_recalled/20": 787,
+            "gold_recalled/3": 644,
+            "gold_recalled/5": 713,
+            "one_future_in_top5": 20
+          },
+          "length_corrected": {
+            "all/1": 134,
+            "all/10": 392,
+            "all/20": 410,
+            "all/3": 321,
+            "all/5": 357,
+            "gold_recalled/1": 356,
+            "gold_recalled/10": 751,
+            "gold_recalled/20": 777,
+            "gold_recalled/3": 629,
+            "gold_recalled/5": 690,
+            "one_future_in_top5": 19
+          },
+          "recent_only": {
+            "all/1": 1,
+            "all/10": 16,
+            "all/20": 39,
+            "all/3": 3,
+            "all/5": 8,
+            "gold_recalled/1": 6,
+            "gold_recalled/10": 84,
+            "gold_recalled/20": 163,
+            "gold_recalled/3": 21,
+            "gold_recalled/5": 33,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 134,
+            "all/10": 398,
+            "all/20": 412,
+            "all/3": 329,
+            "all/5": 364,
+            "gold_recalled/1": 364,
+            "gold_recalled/10": 763,
+            "gold_recalled/20": 781,
+            "gold_recalled/3": 642,
+            "gold_recalled/5": 710,
+            "one_future_in_top5": 17
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 130,
+            "all/10": 385,
+            "all/20": 408,
+            "all/3": 316,
+            "all/5": 354,
+            "gold_recalled/1": 355,
+            "gold_recalled/10": 741,
+            "gold_recalled/20": 774,
+            "gold_recalled/3": 620,
+            "gold_recalled/5": 690,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 115,
+            "all/10": 354,
+            "all/20": 389,
+            "all/3": 279,
+            "all/5": 316,
+            "gold_recalled/1": 322,
+            "gold_recalled/10": 700,
+            "gold_recalled/20": 751,
+            "gold_recalled/3": 567,
+            "gold_recalled/5": 639,
+            "one_future_in_top5": 19
+          },
+          "dense": {
+            "all/1": 130,
+            "all/10": 385,
+            "all/20": 408,
+            "all/3": 316,
+            "all/5": 353,
+            "gold_recalled/1": 355,
+            "gold_recalled/10": 741,
+            "gold_recalled/20": 774,
+            "gold_recalled/3": 620,
+            "gold_recalled/5": 689,
+            "one_future_in_top5": 17
+          },
+          "dense_recent": {
+            "all/1": 131,
+            "all/10": 382,
+            "all/20": 406,
+            "all/3": 312,
+            "all/5": 348,
+            "gold_recalled/1": 356,
+            "gold_recalled/10": 738,
+            "gold_recalled/20": 772,
+            "gold_recalled/3": 617,
+            "gold_recalled/5": 682,
+            "one_future_in_top5": 23
+          },
+          "length_corrected": {
+            "all/1": 121,
+            "all/10": 372,
+            "all/20": 397,
+            "all/3": 296,
+            "all/5": 338,
+            "gold_recalled/1": 337,
+            "gold_recalled/10": 719,
+            "gold_recalled/20": 759,
+            "gold_recalled/3": 587,
+            "gold_recalled/5": 659,
+            "one_future_in_top5": 16
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 8,
+            "all/20": 18,
+            "all/3": 0,
+            "all/5": 1,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 35,
+            "gold_recalled/20": 79,
+            "gold_recalled/3": 8,
+            "gold_recalled/5": 17,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 124,
+            "all/10": 383,
+            "all/20": 400,
+            "all/3": 310,
+            "all/5": 346,
+            "gold_recalled/1": 344,
+            "gold_recalled/10": 738,
+            "gold_recalled/20": 765,
+            "gold_recalled/3": 610,
+            "gold_recalled/5": 678,
+            "one_future_in_top5": 17
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 117,
+            "all/10": 364,
+            "all/20": 388,
+            "all/3": 296,
+            "all/5": 324,
+            "gold_recalled/1": 328,
+            "gold_recalled/10": 706,
+            "gold_recalled/20": 745,
+            "gold_recalled/3": 583,
+            "gold_recalled/5": 639,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 102,
+            "all/10": 334,
+            "all/20": 363,
+            "all/3": 249,
+            "all/5": 288,
+            "gold_recalled/1": 289,
+            "gold_recalled/10": 667,
+            "gold_recalled/20": 714,
+            "gold_recalled/3": 511,
+            "gold_recalled/5": 586,
+            "one_future_in_top5": 16
+          },
+          "dense": {
+            "all/1": 117,
+            "all/10": 363,
+            "all/20": 388,
+            "all/3": 296,
+            "all/5": 324,
+            "gold_recalled/1": 328,
+            "gold_recalled/10": 705,
+            "gold_recalled/20": 745,
+            "gold_recalled/3": 583,
+            "gold_recalled/5": 639,
+            "one_future_in_top5": 16
+          },
+          "dense_recent": {
+            "all/1": 119,
+            "all/10": 365,
+            "all/20": 388,
+            "all/3": 289,
+            "all/5": 319,
+            "gold_recalled/1": 329,
+            "gold_recalled/10": 706,
+            "gold_recalled/20": 744,
+            "gold_recalled/3": 577,
+            "gold_recalled/5": 633,
+            "one_future_in_top5": 22
+          },
+          "length_corrected": {
+            "all/1": 106,
+            "all/10": 350,
+            "all/20": 377,
+            "all/3": 264,
+            "all/5": 301,
+            "gold_recalled/1": 300,
+            "gold_recalled/10": 681,
+            "gold_recalled/20": 730,
+            "gold_recalled/3": 539,
+            "gold_recalled/5": 602,
+            "one_future_in_top5": 19
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 3,
+            "all/20": 9,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 19,
+            "gold_recalled/20": 41,
+            "gold_recalled/3": 6,
+            "gold_recalled/5": 9,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 110,
+            "all/10": 355,
+            "all/20": 386,
+            "all/3": 289,
+            "all/5": 322,
+            "gold_recalled/1": 321,
+            "gold_recalled/10": 700,
+            "gold_recalled/20": 744,
+            "gold_recalled/3": 575,
+            "gold_recalled/5": 636,
+            "one_future_in_top5": 18
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 146,
+            "all/10": 414,
+            "all/20": 424,
+            "all/3": 354,
+            "all/5": 389,
+            "gold_recalled/1": 390,
+            "gold_recalled/10": 784,
+            "gold_recalled/20": 795,
+            "gold_recalled/3": 687,
+            "gold_recalled/5": 747,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 137,
+            "all/10": 400,
+            "all/20": 419,
+            "all/3": 331,
+            "all/5": 367,
+            "gold_recalled/1": 369,
+            "gold_recalled/10": 770,
+            "gold_recalled/20": 790,
+            "gold_recalled/3": 660,
+            "gold_recalled/5": 721,
+            "one_future_in_top5": 17
+          },
+          "dense": {
+            "all/1": 146,
+            "all/10": 414,
+            "all/20": 424,
+            "all/3": 354,
+            "all/5": 389,
+            "gold_recalled/1": 390,
+            "gold_recalled/10": 784,
+            "gold_recalled/20": 795,
+            "gold_recalled/3": 687,
+            "gold_recalled/5": 747,
+            "one_future_in_top5": 17
+          },
+          "dense_recent": {
+            "all/1": 146,
+            "all/10": 415,
+            "all/20": 425,
+            "all/3": 352,
+            "all/5": 387,
+            "gold_recalled/1": 390,
+            "gold_recalled/10": 785,
+            "gold_recalled/20": 796,
+            "gold_recalled/3": 684,
+            "gold_recalled/5": 743,
+            "one_future_in_top5": 21
+          },
+          "length_corrected": {
+            "all/1": 141,
+            "all/10": 412,
+            "all/20": 418,
+            "all/3": 340,
+            "all/5": 382,
+            "gold_recalled/1": 379,
+            "gold_recalled/10": 779,
+            "gold_recalled/20": 789,
+            "gold_recalled/3": 664,
+            "gold_recalled/5": 736,
+            "one_future_in_top5": 16
+          },
+          "recent_only": {
+            "all/1": 1,
+            "all/10": 34,
+            "all/20": 89,
+            "all/3": 9,
+            "all/5": 17,
+            "gold_recalled/1": 14,
+            "gold_recalled/10": 159,
+            "gold_recalled/20": 284,
+            "gold_recalled/3": 43,
+            "gold_recalled/5": 84,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 140,
+            "all/10": 410,
+            "all/20": 422,
+            "all/3": 353,
+            "all/5": 382,
+            "gold_recalled/1": 384,
+            "gold_recalled/10": 778,
+            "gold_recalled/20": 793,
+            "gold_recalled/3": 681,
+            "gold_recalled/5": 739,
+            "one_future_in_top5": 18
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 117,
+            "all/10": 364,
+            "all/20": 388,
+            "all/3": 296,
+            "all/5": 324,
+            "gold_recalled/1": 328,
+            "gold_recalled/10": 706,
+            "gold_recalled/20": 745,
+            "gold_recalled/3": 583,
+            "gold_recalled/5": 639,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 102,
+            "all/10": 334,
+            "all/20": 363,
+            "all/3": 249,
+            "all/5": 288,
+            "gold_recalled/1": 289,
+            "gold_recalled/10": 667,
+            "gold_recalled/20": 714,
+            "gold_recalled/3": 511,
+            "gold_recalled/5": 586,
+            "one_future_in_top5": 16
+          },
+          "dense": {
+            "all/1": 117,
+            "all/10": 363,
+            "all/20": 388,
+            "all/3": 296,
+            "all/5": 324,
+            "gold_recalled/1": 328,
+            "gold_recalled/10": 705,
+            "gold_recalled/20": 745,
+            "gold_recalled/3": 583,
+            "gold_recalled/5": 639,
+            "one_future_in_top5": 16
+          },
+          "dense_recent": {
+            "all/1": 119,
+            "all/10": 365,
+            "all/20": 388,
+            "all/3": 289,
+            "all/5": 319,
+            "gold_recalled/1": 329,
+            "gold_recalled/10": 706,
+            "gold_recalled/20": 744,
+            "gold_recalled/3": 577,
+            "gold_recalled/5": 633,
+            "one_future_in_top5": 22
+          },
+          "length_corrected": {
+            "all/1": 106,
+            "all/10": 350,
+            "all/20": 377,
+            "all/3": 264,
+            "all/5": 301,
+            "gold_recalled/1": 300,
+            "gold_recalled/10": 681,
+            "gold_recalled/20": 730,
+            "gold_recalled/3": 539,
+            "gold_recalled/5": 602,
+            "one_future_in_top5": 19
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 3,
+            "all/20": 9,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 19,
+            "gold_recalled/20": 41,
+            "gold_recalled/3": 6,
+            "gold_recalled/5": 9,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 110,
+            "all/10": 355,
+            "all/20": 386,
+            "all/3": 289,
+            "all/5": 322,
+            "gold_recalled/1": 321,
+            "gold_recalled/10": 700,
+            "gold_recalled/20": 744,
+            "gold_recalled/3": 575,
+            "gold_recalled/5": 636,
+            "one_future_in_top5": 18
+          }
+        }
+      },
+      "shared_evidence_clusters": 429,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 365,
+          "any_marked_turn/20": 379,
+          "any_marked_turn/5": 316,
+          "marked_turn_each_gold_session/10": 268,
+          "marked_turn_each_gold_session/20": 303,
+          "marked_turn_each_gold_session/5": 204
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 363,
+          "any_marked_turn/20": 378,
+          "any_marked_turn/5": 316,
+          "marked_turn_each_gold_session/10": 258,
+          "marked_turn_each_gold_session/20": 285,
+          "marked_turn_each_gold_session/5": 201
+        },
+        "user": {
+          "any_marked_turn/10": 363,
+          "any_marked_turn/20": 377,
+          "any_marked_turn/5": 320,
+          "marked_turn_each_gold_session/10": 273,
+          "marked_turn_each_gold_session/20": 306,
+          "marked_turn_each_gold_session/5": 208
+        }
+      }
+    },
+    "knowledge-update": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": -0.02777778,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.06944444,
+            0.0
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": -0.09722222,
+          "losses": 8,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.18303502,
+            -0.02666667
+          ],
+          "wins": 1
+        },
+        "dense_recent": {
+          "delta": -0.04166667,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.09589041,
+            0.0
+          ],
+          "wins": 0
+        },
+        "length_corrected": {
+          "delta": -0.06944444,
+          "losses": 5,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.13694002,
+            -0.01388889
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -0.91666667,
+          "losses": 66,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.97222222,
+            -0.84507042
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": -0.02777778,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.08450704,
+            0.02739726
+          ],
+          "wins": 1
+        }
+      },
+      "gold_sessions": 144,
+      "incomplete_under_date_cutoff": 2,
+      "median_chunks": 10024.5,
+      "median_distinct_sessions": 473.5,
+      "median_session_occurrences": 476.0,
+      "questions": 72,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 70,
+            "all/20": 70,
+            "all/3": 64,
+            "all/5": 68,
+            "gold_recalled/1": 69,
+            "gold_recalled/10": 142,
+            "gold_recalled/20": 142,
+            "gold_recalled/3": 136,
+            "gold_recalled/5": 140,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 70,
+            "all/20": 71,
+            "all/3": 60,
+            "all/5": 68,
+            "gold_recalled/1": 66,
+            "gold_recalled/10": 142,
+            "gold_recalled/20": 143,
+            "gold_recalled/3": 132,
+            "gold_recalled/5": 140,
+            "one_future_in_top5": 7
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 66,
+            "all/5": 70,
+            "gold_recalled/1": 69,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 138,
+            "gold_recalled/5": 142,
+            "one_future_in_top5": 8
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 65,
+            "all/5": 70,
+            "gold_recalled/1": 68,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 137,
+            "gold_recalled/5": 142,
+            "one_future_in_top5": 11
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 64,
+            "all/5": 66,
+            "gold_recalled/1": 68,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 135,
+            "gold_recalled/5": 138,
+            "one_future_in_top5": 9
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 2,
+            "gold_recalled/10": 20,
+            "gold_recalled/20": 35,
+            "gold_recalled/3": 6,
+            "gold_recalled/5": 9,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 66,
+            "all/5": 71,
+            "gold_recalled/1": 70,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 138,
+            "gold_recalled/5": 143,
+            "one_future_in_top5": 9
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 70,
+            "all/20": 70,
+            "all/3": 62,
+            "all/5": 68,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 142,
+            "gold_recalled/20": 142,
+            "gold_recalled/3": 134,
+            "gold_recalled/5": 140,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 69,
+            "all/20": 70,
+            "all/3": 57,
+            "all/5": 64,
+            "gold_recalled/1": 64,
+            "gold_recalled/10": 141,
+            "gold_recalled/20": 142,
+            "gold_recalled/3": 128,
+            "gold_recalled/5": 136,
+            "one_future_in_top5": 8
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 64,
+            "all/5": 70,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 136,
+            "gold_recalled/5": 142,
+            "one_future_in_top5": 9
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 71,
+            "all/20": 72,
+            "all/3": 64,
+            "all/5": 68,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 143,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 136,
+            "gold_recalled/5": 140,
+            "one_future_in_top5": 14
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 71,
+            "all/20": 72,
+            "all/3": 61,
+            "all/5": 65,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 143,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 131,
+            "gold_recalled/5": 137,
+            "one_future_in_top5": 8
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 0,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 9,
+            "gold_recalled/20": 16,
+            "gold_recalled/3": 3,
+            "gold_recalled/5": 6,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 64,
+            "all/5": 68,
+            "gold_recalled/1": 66,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 136,
+            "gold_recalled/5": 140,
+            "one_future_in_top5": 9
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 68,
+            "all/20": 70,
+            "all/3": 58,
+            "all/5": 64,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 140,
+            "gold_recalled/20": 142,
+            "gold_recalled/3": 129,
+            "gold_recalled/5": 135,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 67,
+            "all/20": 69,
+            "all/3": 50,
+            "all/5": 59,
+            "gold_recalled/1": 62,
+            "gold_recalled/10": 139,
+            "gold_recalled/20": 141,
+            "gold_recalled/3": 120,
+            "gold_recalled/5": 130,
+            "one_future_in_top5": 8
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 70,
+            "all/20": 72,
+            "all/3": 60,
+            "all/5": 66,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 142,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 131,
+            "gold_recalled/5": 137,
+            "one_future_in_top5": 8
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 71,
+            "all/20": 71,
+            "all/3": 58,
+            "all/5": 63,
+            "gold_recalled/1": 66,
+            "gold_recalled/10": 143,
+            "gold_recalled/20": 143,
+            "gold_recalled/3": 129,
+            "gold_recalled/5": 134,
+            "one_future_in_top5": 14
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 67,
+            "all/20": 72,
+            "all/3": 53,
+            "all/5": 61,
+            "gold_recalled/1": 64,
+            "gold_recalled/10": 139,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 123,
+            "gold_recalled/5": 132,
+            "one_future_in_top5": 10
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 0,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 6,
+            "gold_recalled/20": 9,
+            "gold_recalled/3": 3,
+            "gold_recalled/5": 3,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 69,
+            "all/20": 72,
+            "all/3": 59,
+            "all/5": 64,
+            "gold_recalled/1": 66,
+            "gold_recalled/10": 141,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 130,
+            "gold_recalled/5": 135,
+            "one_future_in_top5": 9
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 70,
+            "all/20": 70,
+            "all/3": 67,
+            "all/5": 69,
+            "gold_recalled/1": 71,
+            "gold_recalled/10": 142,
+            "gold_recalled/20": 142,
+            "gold_recalled/3": 139,
+            "gold_recalled/5": 141,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 71,
+            "all/20": 72,
+            "all/3": 65,
+            "all/5": 70,
+            "gold_recalled/1": 70,
+            "gold_recalled/10": 143,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 137,
+            "gold_recalled/5": 142,
+            "one_future_in_top5": 6
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 69,
+            "all/5": 71,
+            "gold_recalled/1": 71,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 141,
+            "gold_recalled/5": 143,
+            "one_future_in_top5": 7
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 67,
+            "all/5": 72,
+            "gold_recalled/1": 70,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 139,
+            "gold_recalled/5": 144,
+            "one_future_in_top5": 11
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 65,
+            "all/5": 71,
+            "gold_recalled/1": 70,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 137,
+            "gold_recalled/5": 143,
+            "one_future_in_top5": 7
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 3,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 3,
+            "gold_recalled/10": 35,
+            "gold_recalled/20": 53,
+            "gold_recalled/3": 11,
+            "gold_recalled/5": 17,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 72,
+            "all/20": 72,
+            "all/3": 71,
+            "all/5": 71,
+            "gold_recalled/1": 72,
+            "gold_recalled/10": 144,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 143,
+            "gold_recalled/5": 143,
+            "one_future_in_top5": 8
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 68,
+            "all/20": 70,
+            "all/3": 58,
+            "all/5": 64,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 140,
+            "gold_recalled/20": 142,
+            "gold_recalled/3": 129,
+            "gold_recalled/5": 135,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 67,
+            "all/20": 69,
+            "all/3": 50,
+            "all/5": 59,
+            "gold_recalled/1": 62,
+            "gold_recalled/10": 139,
+            "gold_recalled/20": 141,
+            "gold_recalled/3": 120,
+            "gold_recalled/5": 130,
+            "one_future_in_top5": 8
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 70,
+            "all/20": 72,
+            "all/3": 60,
+            "all/5": 66,
+            "gold_recalled/1": 67,
+            "gold_recalled/10": 142,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 131,
+            "gold_recalled/5": 137,
+            "one_future_in_top5": 8
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 71,
+            "all/20": 71,
+            "all/3": 58,
+            "all/5": 63,
+            "gold_recalled/1": 66,
+            "gold_recalled/10": 143,
+            "gold_recalled/20": 143,
+            "gold_recalled/3": 129,
+            "gold_recalled/5": 134,
+            "one_future_in_top5": 14
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 67,
+            "all/20": 72,
+            "all/3": 53,
+            "all/5": 61,
+            "gold_recalled/1": 64,
+            "gold_recalled/10": 139,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 123,
+            "gold_recalled/5": 132,
+            "one_future_in_top5": 10
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 0,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 6,
+            "gold_recalled/20": 9,
+            "gold_recalled/3": 3,
+            "gold_recalled/5": 3,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 69,
+            "all/20": 72,
+            "all/3": 59,
+            "all/5": 64,
+            "gold_recalled/1": 66,
+            "gold_recalled/10": 141,
+            "gold_recalled/20": 144,
+            "gold_recalled/3": 130,
+            "gold_recalled/5": 135,
+            "one_future_in_top5": 9
+          }
+        }
+      },
+      "shared_evidence_clusters": 70,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 68,
+          "any_marked_turn/20": 70,
+          "any_marked_turn/5": 62,
+          "marked_turn_each_gold_session/10": 49,
+          "marked_turn_each_gold_session/20": 60,
+          "marked_turn_each_gold_session/5": 34
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 67,
+          "any_marked_turn/20": 71,
+          "any_marked_turn/5": 61,
+          "marked_turn_each_gold_session/10": 47,
+          "marked_turn_each_gold_session/20": 55,
+          "marked_turn_each_gold_session/5": 33
+        },
+        "user": {
+          "any_marked_turn/10": 67,
+          "any_marked_turn/20": 69,
+          "any_marked_turn/5": 62,
+          "marked_turn_each_gold_session/10": 50,
+          "marked_turn_each_gold_session/20": 61,
+          "marked_turn_each_gold_session/5": 34
+        }
+      }
+    },
+    "multi-session": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": -0.14049587,
+          "losses": 20,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.21487603,
+            -0.0661157
+          ],
+          "wins": 3
+        },
+        "dense_recent": {
+          "delta": -0.02479339,
+          "losses": 4,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.0661157,
+            0.00826446
+          ],
+          "wins": 1
+        },
+        "length_corrected": {
+          "delta": -0.07438017,
+          "losses": 9,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.12396694,
+            -0.03305785
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -0.59504132,
+          "losses": 72,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.68595041,
+            -0.50413223
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": 0.04132231,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.09090909
+          ],
+          "wins": 6
+        }
+      },
+      "gold_sessions": 316,
+      "incomplete_under_date_cutoff": 0,
+      "median_chunks": 10078,
+      "median_distinct_sessions": 474,
+      "median_session_occurrences": 476,
+      "questions": 121,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 110,
+            "all/20": 117,
+            "all/3": 75,
+            "all/5": 92,
+            "gold_recalled/1": 108,
+            "gold_recalled/10": 302,
+            "gold_recalled/20": 311,
+            "gold_recalled/3": 242,
+            "gold_recalled/5": 276,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 96,
+            "all/20": 110,
+            "all/3": 59,
+            "all/5": 75,
+            "gold_recalled/1": 97,
+            "gold_recalled/10": 284,
+            "gold_recalled/20": 305,
+            "gold_recalled/3": 214,
+            "gold_recalled/5": 248,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 110,
+            "all/20": 117,
+            "all/3": 75,
+            "all/5": 92,
+            "gold_recalled/1": 108,
+            "gold_recalled/10": 302,
+            "gold_recalled/20": 311,
+            "gold_recalled/3": 242,
+            "gold_recalled/5": 276,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 109,
+            "all/20": 117,
+            "all/3": 71,
+            "all/5": 90,
+            "gold_recalled/1": 108,
+            "gold_recalled/10": 299,
+            "gold_recalled/20": 311,
+            "gold_recalled/3": 237,
+            "gold_recalled/5": 273,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 104,
+            "all/20": 114,
+            "all/3": 68,
+            "all/5": 89,
+            "gold_recalled/1": 102,
+            "gold_recalled/10": 296,
+            "gold_recalled/20": 307,
+            "gold_recalled/3": 229,
+            "gold_recalled/5": 266,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 2,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 27,
+            "gold_recalled/20": 47,
+            "gold_recalled/3": 6,
+            "gold_recalled/5": 8,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 112,
+            "all/20": 117,
+            "all/3": 74,
+            "all/5": 92,
+            "gold_recalled/1": 106,
+            "gold_recalled/10": 304,
+            "gold_recalled/20": 312,
+            "gold_recalled/3": 238,
+            "gold_recalled/5": 277,
+            "one_future_in_top5": 0
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 101,
+            "all/20": 113,
+            "all/3": 66,
+            "all/5": 85,
+            "gold_recalled/1": 104,
+            "gold_recalled/10": 291,
+            "gold_recalled/20": 306,
+            "gold_recalled/3": 224,
+            "gold_recalled/5": 263,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 85,
+            "all/20": 100,
+            "all/3": 47,
+            "all/5": 63,
+            "gold_recalled/1": 90,
+            "gold_recalled/10": 266,
+            "gold_recalled/20": 291,
+            "gold_recalled/3": 190,
+            "gold_recalled/5": 229,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 101,
+            "all/20": 113,
+            "all/3": 66,
+            "all/5": 85,
+            "gold_recalled/1": 104,
+            "gold_recalled/10": 291,
+            "gold_recalled/20": 306,
+            "gold_recalled/3": 224,
+            "gold_recalled/5": 263,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 100,
+            "all/20": 114,
+            "all/3": 61,
+            "all/5": 84,
+            "gold_recalled/1": 105,
+            "gold_recalled/10": 290,
+            "gold_recalled/20": 307,
+            "gold_recalled/3": 219,
+            "gold_recalled/5": 260,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 95,
+            "all/20": 109,
+            "all/3": 58,
+            "all/5": 80,
+            "gold_recalled/1": 98,
+            "gold_recalled/10": 279,
+            "gold_recalled/20": 301,
+            "gold_recalled/3": 209,
+            "gold_recalled/5": 249,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 10,
+            "gold_recalled/20": 25,
+            "gold_recalled/3": 3,
+            "gold_recalled/5": 5,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 105,
+            "all/20": 113,
+            "all/3": 69,
+            "all/5": 86,
+            "gold_recalled/1": 102,
+            "gold_recalled/10": 294,
+            "gold_recalled/20": 305,
+            "gold_recalled/3": 227,
+            "gold_recalled/5": 263,
+            "one_future_in_top5": 0
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 90,
+            "all/20": 102,
+            "all/3": 60,
+            "all/5": 72,
+            "gold_recalled/1": 97,
+            "gold_recalled/10": 271,
+            "gold_recalled/20": 292,
+            "gold_recalled/3": 211,
+            "gold_recalled/5": 237,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 74,
+            "all/20": 89,
+            "all/3": 39,
+            "all/5": 55,
+            "gold_recalled/1": 82,
+            "gold_recalled/10": 247,
+            "gold_recalled/20": 274,
+            "gold_recalled/3": 167,
+            "gold_recalled/5": 206,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 90,
+            "all/20": 102,
+            "all/3": 60,
+            "all/5": 72,
+            "gold_recalled/1": 97,
+            "gold_recalled/10": 271,
+            "gold_recalled/20": 292,
+            "gold_recalled/3": 211,
+            "gold_recalled/5": 237,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 92,
+            "all/20": 104,
+            "all/3": 56,
+            "all/5": 69,
+            "gold_recalled/1": 98,
+            "gold_recalled/10": 272,
+            "gold_recalled/20": 294,
+            "gold_recalled/3": 205,
+            "gold_recalled/5": 232,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 86,
+            "all/20": 97,
+            "all/3": 45,
+            "all/5": 63,
+            "gold_recalled/1": 85,
+            "gold_recalled/10": 262,
+            "gold_recalled/20": 285,
+            "gold_recalled/3": 187,
+            "gold_recalled/5": 221,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 6,
+            "gold_recalled/20": 14,
+            "gold_recalled/3": 2,
+            "gold_recalled/5": 4,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 92,
+            "all/20": 107,
+            "all/3": 59,
+            "all/5": 77,
+            "gold_recalled/1": 98,
+            "gold_recalled/10": 277,
+            "gold_recalled/20": 298,
+            "gold_recalled/3": 209,
+            "gold_recalled/5": 242,
+            "one_future_in_top5": 0
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 116,
+            "all/20": 119,
+            "all/3": 80,
+            "all/5": 101,
+            "gold_recalled/1": 113,
+            "gold_recalled/10": 310,
+            "gold_recalled/20": 314,
+            "gold_recalled/3": 254,
+            "gold_recalled/5": 290,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 107,
+            "all/20": 117,
+            "all/3": 67,
+            "all/5": 87,
+            "gold_recalled/1": 103,
+            "gold_recalled/10": 302,
+            "gold_recalled/20": 312,
+            "gold_recalled/3": 237,
+            "gold_recalled/5": 270,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 116,
+            "all/20": 119,
+            "all/3": 80,
+            "all/5": 101,
+            "gold_recalled/1": 113,
+            "gold_recalled/10": 310,
+            "gold_recalled/20": 314,
+            "gold_recalled/3": 254,
+            "gold_recalled/5": 290,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 117,
+            "all/20": 119,
+            "all/3": 80,
+            "all/5": 102,
+            "gold_recalled/1": 113,
+            "gold_recalled/10": 311,
+            "gold_recalled/20": 314,
+            "gold_recalled/3": 255,
+            "gold_recalled/5": 289,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 116,
+            "all/20": 118,
+            "all/3": 74,
+            "all/5": 98,
+            "gold_recalled/1": 110,
+            "gold_recalled/10": 309,
+            "gold_recalled/20": 313,
+            "gold_recalled/3": 244,
+            "gold_recalled/5": 285,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 2,
+            "all/20": 10,
+            "all/3": 1,
+            "all/5": 1,
+            "gold_recalled/1": 6,
+            "gold_recalled/10": 50,
+            "gold_recalled/20": 88,
+            "gold_recalled/3": 12,
+            "gold_recalled/5": 26,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 116,
+            "all/20": 118,
+            "all/3": 81,
+            "all/5": 100,
+            "gold_recalled/1": 113,
+            "gold_recalled/10": 310,
+            "gold_recalled/20": 313,
+            "gold_recalled/3": 252,
+            "gold_recalled/5": 289,
+            "one_future_in_top5": 0
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 0,
+            "all/10": 90,
+            "all/20": 102,
+            "all/3": 60,
+            "all/5": 72,
+            "gold_recalled/1": 97,
+            "gold_recalled/10": 271,
+            "gold_recalled/20": 292,
+            "gold_recalled/3": 211,
+            "gold_recalled/5": 237,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 0,
+            "all/10": 74,
+            "all/20": 89,
+            "all/3": 39,
+            "all/5": 55,
+            "gold_recalled/1": 82,
+            "gold_recalled/10": 247,
+            "gold_recalled/20": 274,
+            "gold_recalled/3": 167,
+            "gold_recalled/5": 206,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 0,
+            "all/10": 90,
+            "all/20": 102,
+            "all/3": 60,
+            "all/5": 72,
+            "gold_recalled/1": 97,
+            "gold_recalled/10": 271,
+            "gold_recalled/20": 292,
+            "gold_recalled/3": 211,
+            "gold_recalled/5": 237,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 0,
+            "all/10": 92,
+            "all/20": 104,
+            "all/3": 56,
+            "all/5": 69,
+            "gold_recalled/1": 98,
+            "gold_recalled/10": 272,
+            "gold_recalled/20": 294,
+            "gold_recalled/3": 205,
+            "gold_recalled/5": 232,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 0,
+            "all/10": 86,
+            "all/20": 97,
+            "all/3": 45,
+            "all/5": 63,
+            "gold_recalled/1": 85,
+            "gold_recalled/10": 262,
+            "gold_recalled/20": 285,
+            "gold_recalled/3": 187,
+            "gold_recalled/5": 221,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 6,
+            "gold_recalled/20": 14,
+            "gold_recalled/3": 2,
+            "gold_recalled/5": 4,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 0,
+            "all/10": 92,
+            "all/20": 107,
+            "all/3": 59,
+            "all/5": 77,
+            "gold_recalled/1": 98,
+            "gold_recalled/10": 277,
+            "gold_recalled/20": 298,
+            "gold_recalled/3": 209,
+            "gold_recalled/5": 242,
+            "one_future_in_top5": 0
+          }
+        }
+      },
+      "shared_evidence_clusters": 121,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 110,
+          "any_marked_turn/20": 112,
+          "any_marked_turn/5": 95,
+          "marked_turn_each_gold_session/10": 56,
+          "marked_turn_each_gold_session/20": 66,
+          "marked_turn_each_gold_session/5": 31
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 110,
+          "any_marked_turn/20": 113,
+          "any_marked_turn/5": 96,
+          "marked_turn_each_gold_session/10": 51,
+          "marked_turn_each_gold_session/20": 60,
+          "marked_turn_each_gold_session/5": 30
+        },
+        "user": {
+          "any_marked_turn/10": 110,
+          "any_marked_turn/20": 113,
+          "any_marked_turn/5": 97,
+          "marked_turn_each_gold_session/10": 61,
+          "marked_turn_each_gold_session/20": 72,
+          "marked_turn_each_gold_session/5": 33
+        }
+      }
+    },
+    "single-session-assistant": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "dense_recent": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "length_corrected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -1.0,
+          "losses": 56,
+          "shared_evidence_cluster_bootstrap95": [
+            -1.0,
+            -1.0
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": -0.07142857,
+          "losses": 4,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.14285714,
+            -0.01785714
+          ],
+          "wins": 0
+        }
+      },
+      "gold_sessions": 56,
+      "incomplete_under_date_cutoff": 0,
+      "median_chunks": 10070.0,
+      "median_distinct_sessions": 474.5,
+      "median_session_occurrences": 477.0,
+      "questions": 56,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 55,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 55,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 4,
+            "all/20": 8,
+            "all/3": 0,
+            "all/5": 2,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 4,
+            "gold_recalled/20": 8,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 2,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 50,
+            "all/10": 52,
+            "all/20": 54,
+            "all/3": 52,
+            "all/5": 52,
+            "gold_recalled/1": 50,
+            "gold_recalled/10": 52,
+            "gold_recalled/20": 54,
+            "gold_recalled/3": 52,
+            "gold_recalled/5": 52,
+            "one_future_in_top5": 0
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 55,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 55,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 54,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 54,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 55,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 55,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 54,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 54,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 5,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 1,
+            "gold_recalled/20": 5,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 47,
+            "all/10": 52,
+            "all/20": 52,
+            "all/3": 51,
+            "all/5": 52,
+            "gold_recalled/1": 47,
+            "gold_recalled/10": 52,
+            "gold_recalled/20": 52,
+            "gold_recalled/3": 51,
+            "gold_recalled/5": 52,
+            "one_future_in_top5": 0
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 54,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 54,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 53,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 53,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 54,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 54,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 53,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 53,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 2,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 1,
+            "gold_recalled/20": 2,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 44,
+            "all/10": 52,
+            "all/20": 52,
+            "all/3": 51,
+            "all/5": 52,
+            "gold_recalled/1": 44,
+            "gold_recalled/10": 52,
+            "gold_recalled/20": 52,
+            "gold_recalled/3": 51,
+            "gold_recalled/5": 52,
+            "one_future_in_top5": 0
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 7,
+            "all/20": 21,
+            "all/3": 3,
+            "all/5": 5,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 7,
+            "gold_recalled/20": 21,
+            "gold_recalled/3": 3,
+            "gold_recalled/5": 5,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 52,
+            "all/10": 54,
+            "all/20": 54,
+            "all/3": 52,
+            "all/5": 52,
+            "gold_recalled/1": 52,
+            "gold_recalled/10": 54,
+            "gold_recalled/20": 54,
+            "gold_recalled/3": 52,
+            "gold_recalled/5": 52,
+            "one_future_in_top5": 0
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 54,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 54,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 53,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 53,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 54,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 54,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 53,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 53,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 56,
+            "all/10": 56,
+            "all/20": 56,
+            "all/3": 56,
+            "all/5": 56,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 56,
+            "gold_recalled/20": 56,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 56,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 2,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 1,
+            "gold_recalled/20": 2,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 44,
+            "all/10": 52,
+            "all/20": 52,
+            "all/3": 51,
+            "all/5": 52,
+            "gold_recalled/1": 44,
+            "gold_recalled/10": 52,
+            "gold_recalled/20": 52,
+            "gold_recalled/3": 51,
+            "gold_recalled/5": 52,
+            "one_future_in_top5": 0
+          }
+        }
+      },
+      "shared_evidence_clusters": 56,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 55,
+          "any_marked_turn/20": 55,
+          "any_marked_turn/5": 51,
+          "marked_turn_each_gold_session/10": 55,
+          "marked_turn_each_gold_session/20": 55,
+          "marked_turn_each_gold_session/5": 51
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 55,
+          "any_marked_turn/20": 56,
+          "any_marked_turn/5": 52,
+          "marked_turn_each_gold_session/10": 55,
+          "marked_turn_each_gold_session/20": 56,
+          "marked_turn_each_gold_session/5": 52
+        },
+        "user": {
+          "any_marked_turn/10": 51,
+          "any_marked_turn/20": 51,
+          "any_marked_turn/5": 48,
+          "marked_turn_each_gold_session/10": 51,
+          "marked_turn_each_gold_session/20": 51,
+          "marked_turn_each_gold_session/5": 48
+        }
+      }
+    },
+    "single-session-preference": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "dense_recent": {
+          "delta": 0.03333333,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.1
+          ],
+          "wins": 1
+        },
+        "length_corrected": {
+          "delta": -0.03333333,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.1,
+            0.0
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -0.53333333,
+          "losses": 16,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.7,
+            -0.36666667
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": 0.06666667,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.1,
+            0.23333333
+          ],
+          "wins": 5
+        }
+      },
+      "gold_sessions": 30,
+      "incomplete_under_date_cutoff": 0,
+      "median_chunks": 9943.0,
+      "median_distinct_sessions": 472.0,
+      "median_session_occurrences": 474.0,
+      "questions": 30,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 16,
+            "all/10": 27,
+            "all/20": 30,
+            "all/3": 22,
+            "all/5": 24,
+            "gold_recalled/1": 16,
+            "gold_recalled/10": 27,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 22,
+            "gold_recalled/5": 24,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 16,
+            "all/10": 28,
+            "all/20": 29,
+            "all/3": 22,
+            "all/5": 23,
+            "gold_recalled/1": 16,
+            "gold_recalled/10": 28,
+            "gold_recalled/20": 29,
+            "gold_recalled/3": 22,
+            "gold_recalled/5": 23,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 16,
+            "all/10": 27,
+            "all/20": 30,
+            "all/3": 22,
+            "all/5": 24,
+            "gold_recalled/1": 16,
+            "gold_recalled/10": 27,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 22,
+            "gold_recalled/5": 24,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 16,
+            "all/10": 27,
+            "all/20": 30,
+            "all/3": 21,
+            "all/5": 24,
+            "gold_recalled/1": 16,
+            "gold_recalled/10": 27,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 21,
+            "gold_recalled/5": 24,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 16,
+            "all/10": 27,
+            "all/20": 30,
+            "all/3": 20,
+            "all/5": 23,
+            "gold_recalled/1": 16,
+            "gold_recalled/10": 27,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 20,
+            "gold_recalled/5": 23,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 3,
+            "all/3": 1,
+            "all/5": 1,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 1,
+            "gold_recalled/20": 3,
+            "gold_recalled/3": 1,
+            "gold_recalled/5": 1,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 16,
+            "all/10": 28,
+            "all/20": 30,
+            "all/3": 20,
+            "all/5": 25,
+            "gold_recalled/1": 16,
+            "gold_recalled/10": 28,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 20,
+            "gold_recalled/5": 25,
+            "one_future_in_top5": 0
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 12,
+            "all/10": 24,
+            "all/20": 29,
+            "all/3": 20,
+            "all/5": 22,
+            "gold_recalled/1": 12,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 29,
+            "gold_recalled/3": 20,
+            "gold_recalled/5": 22,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 11,
+            "all/10": 23,
+            "all/20": 29,
+            "all/3": 21,
+            "all/5": 22,
+            "gold_recalled/1": 11,
+            "gold_recalled/10": 23,
+            "gold_recalled/20": 29,
+            "gold_recalled/3": 21,
+            "gold_recalled/5": 22,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 12,
+            "all/10": 24,
+            "all/20": 29,
+            "all/3": 20,
+            "all/5": 22,
+            "gold_recalled/1": 12,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 29,
+            "gold_recalled/3": 20,
+            "gold_recalled/5": 22,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 13,
+            "all/10": 24,
+            "all/20": 28,
+            "all/3": 20,
+            "all/5": 21,
+            "gold_recalled/1": 13,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 28,
+            "gold_recalled/3": 20,
+            "gold_recalled/5": 21,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 11,
+            "all/10": 23,
+            "all/20": 27,
+            "all/3": 17,
+            "all/5": 22,
+            "gold_recalled/1": 11,
+            "gold_recalled/10": 23,
+            "gold_recalled/20": 27,
+            "gold_recalled/3": 17,
+            "gold_recalled/5": 22,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 1,
+            "gold_recalled/20": 1,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 12,
+            "all/10": 24,
+            "all/20": 29,
+            "all/3": 18,
+            "all/5": 21,
+            "gold_recalled/1": 12,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 29,
+            "gold_recalled/3": 18,
+            "gold_recalled/5": 21,
+            "one_future_in_top5": 0
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 8,
+            "all/10": 24,
+            "all/20": 24,
+            "all/3": 14,
+            "all/5": 16,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 14,
+            "gold_recalled/5": 16,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 8,
+            "all/10": 22,
+            "all/20": 23,
+            "all/3": 14,
+            "all/5": 16,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 22,
+            "gold_recalled/20": 23,
+            "gold_recalled/3": 14,
+            "gold_recalled/5": 16,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 8,
+            "all/10": 24,
+            "all/20": 24,
+            "all/3": 14,
+            "all/5": 16,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 14,
+            "gold_recalled/5": 16,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 9,
+            "all/10": 23,
+            "all/20": 24,
+            "all/3": 15,
+            "all/5": 17,
+            "gold_recalled/1": 9,
+            "gold_recalled/10": 23,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 15,
+            "gold_recalled/5": 17,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 8,
+            "all/10": 21,
+            "all/20": 24,
+            "all/3": 13,
+            "all/5": 15,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 21,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 13,
+            "gold_recalled/5": 15,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 0,
+            "gold_recalled/20": 1,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 8,
+            "all/10": 21,
+            "all/20": 25,
+            "all/3": 15,
+            "all/5": 18,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 21,
+            "gold_recalled/20": 25,
+            "gold_recalled/3": 15,
+            "gold_recalled/5": 18,
+            "one_future_in_top5": 0
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 19,
+            "all/10": 30,
+            "all/20": 30,
+            "all/3": 25,
+            "all/5": 28,
+            "gold_recalled/1": 19,
+            "gold_recalled/10": 30,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 25,
+            "gold_recalled/5": 28,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 19,
+            "all/10": 29,
+            "all/20": 29,
+            "all/3": 27,
+            "all/5": 28,
+            "gold_recalled/1": 19,
+            "gold_recalled/10": 29,
+            "gold_recalled/20": 29,
+            "gold_recalled/3": 27,
+            "gold_recalled/5": 28,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 19,
+            "all/10": 30,
+            "all/20": 30,
+            "all/3": 25,
+            "all/5": 28,
+            "gold_recalled/1": 19,
+            "gold_recalled/10": 30,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 25,
+            "gold_recalled/5": 28,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 18,
+            "all/10": 29,
+            "all/20": 30,
+            "all/3": 25,
+            "all/5": 28,
+            "gold_recalled/1": 18,
+            "gold_recalled/10": 29,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 25,
+            "gold_recalled/5": 28,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 18,
+            "all/10": 30,
+            "all/20": 30,
+            "all/3": 23,
+            "all/5": 27,
+            "gold_recalled/1": 18,
+            "gold_recalled/10": 30,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 23,
+            "gold_recalled/5": 27,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 3,
+            "all/20": 10,
+            "all/3": 1,
+            "all/5": 1,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 3,
+            "gold_recalled/20": 10,
+            "gold_recalled/3": 1,
+            "gold_recalled/5": 1,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 17,
+            "all/10": 30,
+            "all/20": 30,
+            "all/3": 27,
+            "all/5": 29,
+            "gold_recalled/1": 17,
+            "gold_recalled/10": 30,
+            "gold_recalled/20": 30,
+            "gold_recalled/3": 27,
+            "gold_recalled/5": 29,
+            "one_future_in_top5": 0
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 8,
+            "all/10": 24,
+            "all/20": 24,
+            "all/3": 14,
+            "all/5": 16,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 14,
+            "gold_recalled/5": 16,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 8,
+            "all/10": 22,
+            "all/20": 23,
+            "all/3": 14,
+            "all/5": 16,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 22,
+            "gold_recalled/20": 23,
+            "gold_recalled/3": 14,
+            "gold_recalled/5": 16,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 8,
+            "all/10": 24,
+            "all/20": 24,
+            "all/3": 14,
+            "all/5": 16,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 24,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 14,
+            "gold_recalled/5": 16,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 9,
+            "all/10": 23,
+            "all/20": 24,
+            "all/3": 15,
+            "all/5": 17,
+            "gold_recalled/1": 9,
+            "gold_recalled/10": 23,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 15,
+            "gold_recalled/5": 17,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 8,
+            "all/10": 21,
+            "all/20": 24,
+            "all/3": 13,
+            "all/5": 15,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 21,
+            "gold_recalled/20": 24,
+            "gold_recalled/3": 13,
+            "gold_recalled/5": 15,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 0,
+            "gold_recalled/20": 1,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 8,
+            "all/10": 21,
+            "all/20": 25,
+            "all/3": 15,
+            "all/5": 18,
+            "gold_recalled/1": 8,
+            "gold_recalled/10": 21,
+            "gold_recalled/20": 25,
+            "gold_recalled/3": 15,
+            "gold_recalled/5": 18,
+            "one_future_in_top5": 0
+          }
+        }
+      },
+      "shared_evidence_clusters": 30,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 10,
+          "any_marked_turn/20": 13,
+          "any_marked_turn/5": 2,
+          "marked_turn_each_gold_session/10": 10,
+          "marked_turn_each_gold_session/20": 13,
+          "marked_turn_each_gold_session/5": 2
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 10,
+          "any_marked_turn/20": 12,
+          "any_marked_turn/5": 2,
+          "marked_turn_each_gold_session/10": 10,
+          "marked_turn_each_gold_session/20": 12,
+          "marked_turn_each_gold_session/5": 2
+        },
+        "user": {
+          "any_marked_turn/10": 13,
+          "any_marked_turn/20": 15,
+          "any_marked_turn/5": 7,
+          "marked_turn_each_gold_session/10": 13,
+          "marked_turn_each_gold_session/20": 15,
+          "marked_turn_each_gold_session/5": 7
+        }
+      }
+    },
+    "single-session-user": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": -0.09375,
+          "losses": 6,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.171875,
+            -0.03125
+          ],
+          "wins": 0
+        },
+        "dense_recent": {
+          "delta": -0.015625,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.046875,
+            0.0
+          ],
+          "wins": 0
+        },
+        "length_corrected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -0.90625,
+          "losses": 58,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.96875,
+            -0.828125
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        }
+      },
+      "gold_sessions": 64,
+      "incomplete_under_date_cutoff": 0,
+      "median_chunks": 10002.0,
+      "median_distinct_sessions": 472.0,
+      "median_session_occurrences": 474.5,
+      "questions": 64,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 55,
+            "all/10": 64,
+            "all/20": 64,
+            "all/3": 59,
+            "all/5": 62,
+            "gold_recalled/1": 55,
+            "gold_recalled/10": 64,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 59,
+            "gold_recalled/5": 62,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 44,
+            "all/10": 61,
+            "all/20": 63,
+            "all/3": 56,
+            "all/5": 59,
+            "gold_recalled/1": 44,
+            "gold_recalled/10": 61,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 59,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 55,
+            "all/10": 64,
+            "all/20": 64,
+            "all/3": 59,
+            "all/5": 62,
+            "gold_recalled/1": 55,
+            "gold_recalled/10": 64,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 59,
+            "gold_recalled/5": 62,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 55,
+            "all/10": 63,
+            "all/20": 64,
+            "all/3": 59,
+            "all/5": 62,
+            "gold_recalled/1": 55,
+            "gold_recalled/10": 63,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 59,
+            "gold_recalled/5": 62,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 50,
+            "all/10": 63,
+            "all/20": 64,
+            "all/3": 59,
+            "all/5": 61,
+            "gold_recalled/1": 50,
+            "gold_recalled/10": 63,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 59,
+            "gold_recalled/5": 61,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 1,
+            "all/10": 7,
+            "all/20": 13,
+            "all/3": 2,
+            "all/5": 4,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 7,
+            "gold_recalled/20": 13,
+            "gold_recalled/3": 2,
+            "gold_recalled/5": 4,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 55,
+            "all/10": 63,
+            "all/20": 63,
+            "all/3": 62,
+            "all/5": 62,
+            "gold_recalled/1": 55,
+            "gold_recalled/10": 63,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 62,
+            "gold_recalled/5": 62,
+            "one_future_in_top5": 0
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 51,
+            "all/10": 63,
+            "all/20": 64,
+            "all/3": 58,
+            "all/5": 59,
+            "gold_recalled/1": 51,
+            "gold_recalled/10": 63,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 58,
+            "gold_recalled/5": 59,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 41,
+            "all/10": 59,
+            "all/20": 62,
+            "all/3": 52,
+            "all/5": 55,
+            "gold_recalled/1": 41,
+            "gold_recalled/10": 59,
+            "gold_recalled/20": 62,
+            "gold_recalled/3": 52,
+            "gold_recalled/5": 55,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 51,
+            "all/10": 63,
+            "all/20": 64,
+            "all/3": 58,
+            "all/5": 59,
+            "gold_recalled/1": 51,
+            "gold_recalled/10": 63,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 58,
+            "gold_recalled/5": 59,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 52,
+            "all/10": 62,
+            "all/20": 63,
+            "all/3": 58,
+            "all/5": 59,
+            "gold_recalled/1": 52,
+            "gold_recalled/10": 62,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 58,
+            "gold_recalled/5": 59,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 45,
+            "all/10": 62,
+            "all/20": 63,
+            "all/3": 58,
+            "all/5": 58,
+            "gold_recalled/1": 45,
+            "gold_recalled/10": 62,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 58,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 4,
+            "all/20": 9,
+            "all/3": 0,
+            "all/5": 1,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 4,
+            "gold_recalled/20": 9,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 1,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 52,
+            "all/10": 62,
+            "all/20": 63,
+            "all/3": 58,
+            "all/5": 61,
+            "gold_recalled/1": 52,
+            "gold_recalled/10": 62,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 58,
+            "gold_recalled/5": 61,
+            "one_future_in_top5": 0
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 46,
+            "all/10": 59,
+            "all/20": 63,
+            "all/3": 57,
+            "all/5": 58,
+            "gold_recalled/1": 46,
+            "gold_recalled/10": 59,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 57,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 33,
+            "all/10": 57,
+            "all/20": 59,
+            "all/3": 49,
+            "all/5": 52,
+            "gold_recalled/1": 33,
+            "gold_recalled/10": 57,
+            "gold_recalled/20": 59,
+            "gold_recalled/3": 49,
+            "gold_recalled/5": 52,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 46,
+            "all/10": 59,
+            "all/20": 63,
+            "all/3": 57,
+            "all/5": 58,
+            "gold_recalled/1": 46,
+            "gold_recalled/10": 59,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 57,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 47,
+            "all/10": 59,
+            "all/20": 63,
+            "all/3": 56,
+            "all/5": 57,
+            "gold_recalled/1": 47,
+            "gold_recalled/10": 59,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 57,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 36,
+            "all/10": 58,
+            "all/20": 62,
+            "all/3": 55,
+            "all/5": 58,
+            "gold_recalled/1": 36,
+            "gold_recalled/10": 58,
+            "gold_recalled/20": 62,
+            "gold_recalled/3": 55,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 4,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 1,
+            "gold_recalled/20": 4,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 47,
+            "all/10": 60,
+            "all/20": 62,
+            "all/3": 58,
+            "all/5": 58,
+            "gold_recalled/1": 47,
+            "gold_recalled/10": 60,
+            "gold_recalled/20": 62,
+            "gold_recalled/3": 58,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 56,
+            "all/10": 64,
+            "all/20": 64,
+            "all/3": 62,
+            "all/5": 64,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 64,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 62,
+            "gold_recalled/5": 64,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 49,
+            "all/10": 62,
+            "all/20": 63,
+            "all/3": 59,
+            "all/5": 61,
+            "gold_recalled/1": 49,
+            "gold_recalled/10": 62,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 59,
+            "gold_recalled/5": 61,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 56,
+            "all/10": 64,
+            "all/20": 64,
+            "all/3": 62,
+            "all/5": 64,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 64,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 62,
+            "gold_recalled/5": 64,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 56,
+            "all/10": 64,
+            "all/20": 64,
+            "all/3": 62,
+            "all/5": 63,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 64,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 62,
+            "gold_recalled/5": 63,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 53,
+            "all/10": 64,
+            "all/20": 64,
+            "all/3": 62,
+            "all/5": 63,
+            "gold_recalled/1": 53,
+            "gold_recalled/10": 64,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 62,
+            "gold_recalled/5": 63,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 1,
+            "all/10": 12,
+            "all/20": 21,
+            "all/3": 4,
+            "all/5": 7,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 12,
+            "gold_recalled/20": 21,
+            "gold_recalled/3": 4,
+            "gold_recalled/5": 7,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 56,
+            "all/10": 63,
+            "all/20": 64,
+            "all/3": 62,
+            "all/5": 63,
+            "gold_recalled/1": 56,
+            "gold_recalled/10": 63,
+            "gold_recalled/20": 64,
+            "gold_recalled/3": 62,
+            "gold_recalled/5": 63,
+            "one_future_in_top5": 0
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 46,
+            "all/10": 59,
+            "all/20": 63,
+            "all/3": 57,
+            "all/5": 58,
+            "gold_recalled/1": 46,
+            "gold_recalled/10": 59,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 57,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 33,
+            "all/10": 57,
+            "all/20": 59,
+            "all/3": 49,
+            "all/5": 52,
+            "gold_recalled/1": 33,
+            "gold_recalled/10": 57,
+            "gold_recalled/20": 59,
+            "gold_recalled/3": 49,
+            "gold_recalled/5": 52,
+            "one_future_in_top5": 0
+          },
+          "dense": {
+            "all/1": 46,
+            "all/10": 59,
+            "all/20": 63,
+            "all/3": 57,
+            "all/5": 58,
+            "gold_recalled/1": 46,
+            "gold_recalled/10": 59,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 57,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          },
+          "dense_recent": {
+            "all/1": 47,
+            "all/10": 59,
+            "all/20": 63,
+            "all/3": 56,
+            "all/5": 57,
+            "gold_recalled/1": 47,
+            "gold_recalled/10": 59,
+            "gold_recalled/20": 63,
+            "gold_recalled/3": 56,
+            "gold_recalled/5": 57,
+            "one_future_in_top5": 0
+          },
+          "length_corrected": {
+            "all/1": 36,
+            "all/10": 58,
+            "all/20": 62,
+            "all/3": 55,
+            "all/5": 58,
+            "gold_recalled/1": 36,
+            "gold_recalled/10": 58,
+            "gold_recalled/20": 62,
+            "gold_recalled/3": 55,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 4,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 0,
+            "gold_recalled/10": 1,
+            "gold_recalled/20": 4,
+            "gold_recalled/3": 0,
+            "gold_recalled/5": 0,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 47,
+            "all/10": 60,
+            "all/20": 62,
+            "all/3": 58,
+            "all/5": 58,
+            "gold_recalled/1": 47,
+            "gold_recalled/10": 60,
+            "gold_recalled/20": 62,
+            "gold_recalled/3": 58,
+            "gold_recalled/5": 58,
+            "one_future_in_top5": 0
+          }
+        }
+      },
+      "shared_evidence_clusters": 64,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 56,
+          "any_marked_turn/20": 57,
+          "any_marked_turn/5": 49,
+          "marked_turn_each_gold_session/10": 56,
+          "marked_turn_each_gold_session/20": 57,
+          "marked_turn_each_gold_session/5": 49
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 56,
+          "any_marked_turn/20": 57,
+          "any_marked_turn/5": 49,
+          "marked_turn_each_gold_session/10": 56,
+          "marked_turn_each_gold_session/20": 57,
+          "marked_turn_each_gold_session/5": 49
+        },
+        "user": {
+          "any_marked_turn/10": 56,
+          "any_marked_turn/20": 57,
+          "any_marked_turn/5": 49,
+          "marked_turn_each_gold_session/10": 56,
+          "marked_turn_each_gold_session/20": 57,
+          "marked_turn_each_gold_session/5": 49
+        }
+      }
+    },
+    "temporal-reasoning": {
+      "full_top5_paired_vs_dense": {
+        "asof_dense": {
+          "delta": -0.18897638,
+          "losses": 24,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.26190476,
+            -0.12125874
+          ],
+          "wins": 0
+        },
+        "assistant": {
+          "delta": -0.07874016,
+          "losses": 13,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.13950805,
+            -0.02325581
+          ],
+          "wins": 3
+        },
+        "dense_recent": {
+          "delta": 0.00787402,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.01612903,
+            0.0390625
+          ],
+          "wins": 2
+        },
+        "length_corrected": {
+          "delta": -0.07086614,
+          "losses": 9,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.11904762,
+            -0.03100775
+          ],
+          "wins": 0
+        },
+        "recent_only": {
+          "delta": -0.64566929,
+          "losses": 82,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.72440945,
+            -0.55905512
+          ],
+          "wins": 0
+        },
+        "user": {
+          "delta": -0.02362205,
+          "losses": 5,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.06299213,
+            0.01587302
+          ],
+          "wins": 2
+        }
+      },
+      "gold_sessions": 280,
+      "incomplete_under_date_cutoff": 35,
+      "median_chunks": 10020,
+      "median_distinct_sessions": 472,
+      "median_session_occurrences": 475,
+      "questions": 127,
+      "retrieval": {
+        "128": {
+          "asof_dense": {
+            "all/1": 13,
+            "all/10": 75,
+            "all/20": 80,
+            "all/3": 58,
+            "all/5": 68,
+            "gold_recalled/1": 89,
+            "gold_recalled/10": 203,
+            "gold_recalled/20": 212,
+            "gold_recalled/3": 162,
+            "gold_recalled/5": 185,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 10,
+            "all/10": 100,
+            "all/20": 110,
+            "all/3": 76,
+            "all/5": 91,
+            "gold_recalled/1": 100,
+            "gold_recalled/10": 248,
+            "gold_recalled/20": 263,
+            "gold_recalled/3": 200,
+            "gold_recalled/5": 230,
+            "one_future_in_top5": 46
+          },
+          "dense": {
+            "all/1": 13,
+            "all/10": 108,
+            "all/20": 113,
+            "all/3": 85,
+            "all/5": 99,
+            "gold_recalled/1": 105,
+            "gold_recalled/10": 258,
+            "gold_recalled/20": 266,
+            "gold_recalled/3": 210,
+            "gold_recalled/5": 238,
+            "one_future_in_top5": 46
+          },
+          "dense_recent": {
+            "all/1": 14,
+            "all/10": 105,
+            "all/20": 113,
+            "all/3": 85,
+            "all/5": 98,
+            "gold_recalled/1": 106,
+            "gold_recalled/10": 255,
+            "gold_recalled/20": 266,
+            "gold_recalled/3": 210,
+            "gold_recalled/5": 237,
+            "one_future_in_top5": 46
+          },
+          "length_corrected": {
+            "all/1": 12,
+            "all/10": 103,
+            "all/20": 109,
+            "all/3": 82,
+            "all/5": 94,
+            "gold_recalled/1": 100,
+            "gold_recalled/10": 247,
+            "gold_recalled/20": 260,
+            "gold_recalled/3": 202,
+            "gold_recalled/5": 225,
+            "one_future_in_top5": 47
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 3,
+            "all/20": 12,
+            "all/3": 0,
+            "all/5": 1,
+            "gold_recalled/1": 5,
+            "gold_recalled/10": 30,
+            "gold_recalled/20": 67,
+            "gold_recalled/3": 9,
+            "gold_recalled/5": 12,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 13,
+            "all/10": 106,
+            "all/20": 111,
+            "all/3": 85,
+            "all/5": 95,
+            "gold_recalled/1": 102,
+            "gold_recalled/10": 256,
+            "gold_recalled/20": 262,
+            "gold_recalled/3": 208,
+            "gold_recalled/5": 233,
+            "one_future_in_top5": 45
+          }
+        },
+        "256": {
+          "asof_dense": {
+            "all/1": 12,
+            "all/10": 71,
+            "all/20": 76,
+            "all/3": 54,
+            "all/5": 64,
+            "gold_recalled/1": 83,
+            "gold_recalled/10": 192,
+            "gold_recalled/20": 204,
+            "gold_recalled/3": 152,
+            "gold_recalled/5": 175,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 9,
+            "all/10": 92,
+            "all/20": 104,
+            "all/3": 64,
+            "all/5": 81,
+            "gold_recalled/1": 92,
+            "gold_recalled/10": 234,
+            "gold_recalled/20": 252,
+            "gold_recalled/3": 182,
+            "gold_recalled/5": 212,
+            "one_future_in_top5": 48
+          },
+          "dense": {
+            "all/1": 12,
+            "all/10": 103,
+            "all/20": 109,
+            "all/3": 77,
+            "all/5": 94,
+            "gold_recalled/1": 97,
+            "gold_recalled/10": 246,
+            "gold_recalled/20": 259,
+            "gold_recalled/3": 196,
+            "gold_recalled/5": 228,
+            "one_future_in_top5": 45
+          },
+          "dense_recent": {
+            "all/1": 12,
+            "all/10": 103,
+            "all/20": 108,
+            "all/3": 78,
+            "all/5": 93,
+            "gold_recalled/1": 96,
+            "gold_recalled/10": 246,
+            "gold_recalled/20": 258,
+            "gold_recalled/3": 198,
+            "gold_recalled/5": 227,
+            "one_future_in_top5": 46
+          },
+          "length_corrected": {
+            "all/1": 9,
+            "all/10": 98,
+            "all/20": 104,
+            "all/3": 71,
+            "all/5": 84,
+            "gold_recalled/1": 91,
+            "gold_recalled/10": 237,
+            "gold_recalled/20": 251,
+            "gold_recalled/3": 183,
+            "gold_recalled/5": 210,
+            "one_future_in_top5": 45
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 1,
+            "all/20": 2,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 2,
+            "gold_recalled/10": 13,
+            "gold_recalled/20": 29,
+            "gold_recalled/3": 5,
+            "gold_recalled/5": 8,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 13,
+            "all/10": 101,
+            "all/20": 106,
+            "all/3": 76,
+            "all/5": 90,
+            "gold_recalled/1": 96,
+            "gold_recalled/10": 244,
+            "gold_recalled/20": 256,
+            "gold_recalled/3": 191,
+            "gold_recalled/5": 221,
+            "one_future_in_top5": 45
+          }
+        },
+        "512": {
+          "asof_dense": {
+            "all/1": 9,
+            "all/10": 67,
+            "all/20": 73,
+            "all/3": 51,
+            "all/5": 58,
+            "gold_recalled/1": 72,
+            "gold_recalled/10": 181,
+            "gold_recalled/20": 195,
+            "gold_recalled/3": 138,
+            "gold_recalled/5": 162,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 8,
+            "all/10": 85,
+            "all/20": 97,
+            "all/3": 56,
+            "all/5": 72,
+            "gold_recalled/1": 81,
+            "gold_recalled/10": 221,
+            "gold_recalled/20": 240,
+            "gold_recalled/3": 160,
+            "gold_recalled/5": 193,
+            "one_future_in_top5": 45
+          },
+          "dense": {
+            "all/1": 9,
+            "all/10": 97,
+            "all/20": 105,
+            "all/3": 73,
+            "all/5": 82,
+            "gold_recalled/1": 87,
+            "gold_recalled/10": 234,
+            "gold_recalled/20": 249,
+            "gold_recalled/3": 179,
+            "gold_recalled/5": 209,
+            "one_future_in_top5": 45
+          },
+          "dense_recent": {
+            "all/1": 10,
+            "all/10": 97,
+            "all/20": 104,
+            "all/3": 72,
+            "all/5": 83,
+            "gold_recalled/1": 87,
+            "gold_recalled/10": 234,
+            "gold_recalled/20": 247,
+            "gold_recalled/3": 181,
+            "gold_recalled/5": 211,
+            "one_future_in_top5": 45
+          },
+          "length_corrected": {
+            "all/1": 6,
+            "all/10": 93,
+            "all/20": 99,
+            "all/3": 64,
+            "all/5": 73,
+            "gold_recalled/1": 82,
+            "gold_recalled/10": 224,
+            "gold_recalled/20": 240,
+            "gold_recalled/3": 166,
+            "gold_recalled/5": 189,
+            "one_future_in_top5": 46
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 8,
+            "gold_recalled/20": 14,
+            "gold_recalled/3": 4,
+            "gold_recalled/5": 5,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 11,
+            "all/10": 93,
+            "all/20": 103,
+            "all/3": 70,
+            "all/5": 79,
+            "gold_recalled/1": 87,
+            "gold_recalled/10": 230,
+            "gold_recalled/20": 247,
+            "gold_recalled/3": 177,
+            "gold_recalled/5": 205,
+            "one_future_in_top5": 46
+          }
+        },
+        "64": {
+          "asof_dense": {
+            "all/1": 15,
+            "all/10": 78,
+            "all/20": 85,
+            "all/3": 64,
+            "all/5": 71,
+            "gold_recalled/1": 96,
+            "gold_recalled/10": 210,
+            "gold_recalled/20": 217,
+            "gold_recalled/3": 176,
+            "gold_recalled/5": 195,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 13,
+            "all/10": 110,
+            "all/20": 119,
+            "all/3": 84,
+            "all/5": 96,
+            "gold_recalled/1": 108,
+            "gold_recalled/10": 262,
+            "gold_recalled/20": 272,
+            "gold_recalled/3": 217,
+            "gold_recalled/5": 244,
+            "one_future_in_top5": 48
+          },
+          "dense": {
+            "all/1": 15,
+            "all/10": 111,
+            "all/20": 120,
+            "all/3": 95,
+            "all/5": 103,
+            "gold_recalled/1": 111,
+            "gold_recalled/10": 264,
+            "gold_recalled/20": 273,
+            "gold_recalled/3": 228,
+            "gold_recalled/5": 249,
+            "one_future_in_top5": 47
+          },
+          "dense_recent": {
+            "all/1": 16,
+            "all/10": 112,
+            "all/20": 121,
+            "all/3": 95,
+            "all/5": 100,
+            "gold_recalled/1": 113,
+            "gold_recalled/10": 265,
+            "gold_recalled/20": 274,
+            "gold_recalled/3": 226,
+            "gold_recalled/5": 246,
+            "one_future_in_top5": 47
+          },
+          "length_corrected": {
+            "all/1": 14,
+            "all/10": 109,
+            "all/20": 114,
+            "all/3": 90,
+            "all/5": 100,
+            "gold_recalled/1": 108,
+            "gold_recalled/10": 260,
+            "gold_recalled/20": 267,
+            "gold_recalled/3": 217,
+            "gold_recalled/5": 243,
+            "one_future_in_top5": 46
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 9,
+            "all/20": 24,
+            "all/3": 0,
+            "all/5": 3,
+            "gold_recalled/1": 7,
+            "gold_recalled/10": 61,
+            "gold_recalled/20": 108,
+            "gold_recalled/3": 16,
+            "gold_recalled/5": 34,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 15,
+            "all/10": 110,
+            "all/20": 120,
+            "all/3": 93,
+            "all/5": 101,
+            "gold_recalled/1": 110,
+            "gold_recalled/10": 261,
+            "gold_recalled/20": 273,
+            "gold_recalled/3": 224,
+            "gold_recalled/5": 246,
+            "one_future_in_top5": 47
+          }
+        },
+        "full": {
+          "asof_dense": {
+            "all/1": 9,
+            "all/10": 67,
+            "all/20": 73,
+            "all/3": 51,
+            "all/5": 58,
+            "gold_recalled/1": 72,
+            "gold_recalled/10": 181,
+            "gold_recalled/20": 195,
+            "gold_recalled/3": 138,
+            "gold_recalled/5": 162,
+            "one_future_in_top5": 0
+          },
+          "assistant": {
+            "all/1": 8,
+            "all/10": 85,
+            "all/20": 97,
+            "all/3": 56,
+            "all/5": 72,
+            "gold_recalled/1": 81,
+            "gold_recalled/10": 221,
+            "gold_recalled/20": 240,
+            "gold_recalled/3": 160,
+            "gold_recalled/5": 193,
+            "one_future_in_top5": 45
+          },
+          "dense": {
+            "all/1": 9,
+            "all/10": 97,
+            "all/20": 105,
+            "all/3": 73,
+            "all/5": 82,
+            "gold_recalled/1": 87,
+            "gold_recalled/10": 234,
+            "gold_recalled/20": 249,
+            "gold_recalled/3": 179,
+            "gold_recalled/5": 209,
+            "one_future_in_top5": 45
+          },
+          "dense_recent": {
+            "all/1": 10,
+            "all/10": 97,
+            "all/20": 104,
+            "all/3": 72,
+            "all/5": 83,
+            "gold_recalled/1": 87,
+            "gold_recalled/10": 234,
+            "gold_recalled/20": 247,
+            "gold_recalled/3": 181,
+            "gold_recalled/5": 211,
+            "one_future_in_top5": 45
+          },
+          "length_corrected": {
+            "all/1": 6,
+            "all/10": 93,
+            "all/20": 99,
+            "all/3": 64,
+            "all/5": 73,
+            "gold_recalled/1": 82,
+            "gold_recalled/10": 224,
+            "gold_recalled/20": 240,
+            "gold_recalled/3": 166,
+            "gold_recalled/5": 189,
+            "one_future_in_top5": 46
+          },
+          "recent_only": {
+            "all/1": 0,
+            "all/10": 0,
+            "all/20": 1,
+            "all/3": 0,
+            "all/5": 0,
+            "gold_recalled/1": 1,
+            "gold_recalled/10": 8,
+            "gold_recalled/20": 14,
+            "gold_recalled/3": 4,
+            "gold_recalled/5": 5,
+            "one_future_in_top5": 0
+          },
+          "user": {
+            "all/1": 11,
+            "all/10": 93,
+            "all/20": 103,
+            "all/3": 70,
+            "all/5": 79,
+            "gold_recalled/1": 87,
+            "gold_recalled/10": 230,
+            "gold_recalled/20": 247,
+            "gold_recalled/3": 177,
+            "gold_recalled/5": 205,
+            "one_future_in_top5": 46
+          }
+        }
+      },
+      "shared_evidence_clusters": 124,
+      "turn_selection": {
+        "dense": {
+          "any_marked_turn/10": 98,
+          "any_marked_turn/20": 109,
+          "any_marked_turn/5": 86,
+          "marked_turn_each_gold_session/10": 58,
+          "marked_turn_each_gold_session/20": 75,
+          "marked_turn_each_gold_session/5": 46
+        },
+        "length_corrected": {
+          "any_marked_turn/10": 97,
+          "any_marked_turn/20": 106,
+          "any_marked_turn/5": 85,
+          "marked_turn_each_gold_session/10": 54,
+          "marked_turn_each_gold_session/20": 67,
+          "marked_turn_each_gold_session/5": 44
+        },
+        "user": {
+          "any_marked_turn/10": 98,
+          "any_marked_turn/20": 109,
+          "any_marked_turn/5": 86,
+          "marked_turn_each_gold_session/10": 59,
+          "marked_turn_each_gold_session/20": 74,
+          "marked_turn_each_gold_session/5": 46
+        }
+      }
+    }
+  },
+  "small_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "source_sha256": "9d79e5524794a2e6900a3aa9cb7d9152c5a3e8319c9a87c25494ba1eacee495f",
+  "summary": {
+    "answer_turn_marks": 896,
+    "distinct_sessions": 49018,
+    "distinct_turns": 510829,
+    "identical_gold_session_text_to_small": 500,
+    "question_types/knowledge-update": 78,
+    "question_types/multi-session": 133,
+    "question_types/single-session-assistant": 56,
+    "question_types/single-session-preference": 30,
+    "question_types/single-session-user": 70,
+    "question_types/temporal-reasoning": 133,
+    "same_answer_as_small": 500,
+    "same_evidence_ids_as_small": 500,
+    "same_question_as_small": 500,
+    "same_question_date_to_small": 3,
+    "session_id_duplicate_cases": 449,
+    "session_occurrences": 237655
+  }
+}
