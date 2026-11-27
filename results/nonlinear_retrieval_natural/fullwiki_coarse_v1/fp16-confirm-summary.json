@@ -1,0 +1,194 @@
+{
+  "encoded_sentences": {
+    "fp16/1": 73553,
+    "fp16/8": 73361,
+    "fp32/1": 73553,
+    "fp32/8": 73361
+  },
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "groups": 100,
+  "outcomes": {
+    "fp16/1": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    },
+    "fp16/8": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    },
+    "fp32/1": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    },
+    "fp32/8": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    }
+  },
+  "performance": {
+    "fp16/1": {
+      "batch_p50_ms": 66.43344927579165,
+      "batch_p95_ms": 91.04819931089878,
+      "group_p50_ms": 547.2359266132116,
+      "median_group_speedup": 1.3746077242160628,
+      "median_group_speedup_95": [
+        1.356182214672556,
+        1.3850942289143835
+      ],
+      "requests_per_second": 14.525798399856265
+    },
+    "fp16/8": {
+      "batch_p50_ms": 397.5977133959532,
+      "batch_p95_ms": 454.94732772931457,
+      "group_p50_ms": 397.5977133959532,
+      "median_group_speedup": 1.8865971387050835,
+      "median_group_speedup_95": [
+        1.8634098289863794,
+        1.9005974887048496
+      ],
+      "requests_per_second": 19.827675743511023
+    },
+    "fp32/1": {
+      "batch_p50_ms": 91.85611782595515,
+      "batch_p95_ms": 132.3868995532393,
+      "group_p50_ms": 742.648777551949,
+      "median_group_speedup": 1.0,
+      "median_group_speedup_95": [
+        1.0,
+        1.0
+      ],
+      "requests_per_second": 10.608641942744686
+    },
+    "fp32/8": {
+      "batch_p50_ms": 648.0149617418647,
+      "batch_p95_ms": 773.6039022915065,
+      "group_p50_ms": 648.0149617418647,
+      "median_group_speedup": 1.1603757238373036,
+      "median_group_speedup_95": [
+        1.1483901691285099,
+        1.170524607073477
+      ],
+      "requests_per_second": 12.25977852563575
+    }
+  },
+  "quality_vs_single_fp32": {
+    "fp16/1": {
+      "answer": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "joint": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "support": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      }
+    },
+    "fp16/8": {
+      "answer": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "joint": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "support": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      }
+    },
+    "fp32/8": {
+      "answer": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "joint": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "support": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      }
+    }
+  },
+  "requests": 800,
+  "same": {
+    "fp16/1": {
+      "all_fields": 1,
+      "all_ranking_and_answer_records": 795,
+      "candidate_lists": 800,
+      "conditioned_pair": 797
+    },
+    "fp16/8": {
+      "all_fields": 0,
+      "all_ranking_and_answer_records": 795,
+      "candidate_lists": 787,
+      "conditioned_pair": 797
+    },
+    "fp32/1": {
+      "all_fields": 800,
+      "all_ranking_and_answer_records": 800,
+      "candidate_lists": 800,
+      "conditioned_pair": 800
+    },
+    "fp32/8": {
+      "all_fields": 6,
+      "all_ranking_and_answer_records": 800,
+      "candidate_lists": 787,
+      "conditioned_pair": 800
+    }
+  }
+}

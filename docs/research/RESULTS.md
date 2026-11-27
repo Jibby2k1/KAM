@@ -157,3 +157,5 @@ In the [B200 exactness replay](../../reports/nonlinear_retrieval_natural/FULLWIK
 At [equal continuation updates](../../reports/nonlinear_retrieval_natural/RADIAL_CURRICULUM_RATE.md), cosine decay increased deep procedural joint accuracy from 44.14% to 50.91% for dot and from 75.91% to 79.69% for radial.
 
 Under [same-effective revision stress](../../reports/nonlinear_retrieval_natural/TEMPORAL_CORRECTION_CURRICULUM.md), both geometries stayed near one percent joint accuracy on corrected 1,024-record histories even after matched training on that distribution.
+
+Across [800 additional warm HotpotQA requests](../../reports/nonlinear_retrieval_natural/FULLWIKI_SENTENCE_THROUGHPUT.md#confirmation-on-800-different-requests), FP16 sentence encoding and batches of eight raised L4 throughput from 10.61 to 19.83 requests per second. Every support, answer EM, and joint flag agreed with single-request FP32.

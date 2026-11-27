@@ -1,0 +1,97 @@
+{
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "identical": {
+    "all_records": 190,
+    "candidate_pool": 192
+  },
+  "latency": {
+    "reader_ms": {
+      "p50": {
+        "bucketed": 20.675756968557835,
+        "unbucketed": 20.307634491473436
+      },
+      "p95": {
+        "bucketed": 48.46223285421729,
+        "unbucketed": 48.13502188771963
+      },
+      "paired_bootstrap95": [
+        -0.0841338187456131,
+        0.046390655916184374
+      ],
+      "paired_p50": 0.012899748980998993
+    },
+    "remaining_rerank_ms": {
+      "p50": {
+        "bucketed": 45.97768932580948,
+        "unbucketed": 46.75137344747782
+      },
+      "p95": {
+        "bucketed": 70.51173080690204,
+        "unbucketed": 75.46674842014909
+      },
+      "paired_bootstrap95": [
+        -0.3100680420175194,
+        0.17424579709768295
+      ],
+      "paired_p50": 0.0012777745723724365
+    },
+    "request_ms": {
+      "p50": {
+        "bucketed": 90.57396277785301,
+        "unbucketed": 91.67533926665783
+      },
+      "p95": {
+        "bucketed": 131.0075688175857,
+        "unbucketed": 138.09923464432356
+      },
+      "paired_bootstrap95": [
+        -0.438186340034008,
+        0.2508116886019707
+      ],
+      "paired_p50": -0.16668811440467834
+    },
+    "rerank_through_sentence_ms": {
+      "p50": {
+        "bucketed": 44.98186428099871,
+        "unbucketed": 45.85057031363249
+      },
+      "p95": {
+        "bucketed": 69.6455041412264,
+        "unbucketed": 74.46128679439425
+      },
+      "paired_bootstrap95": [
+        -0.13046897947788239,
+        0.08347537368535995
+      ],
+      "paired_p50": -0.06571505218744278
+    },
+    "sentence_encoding_ms": {
+      "p50": {
+        "bucketed": 35.89099319651723,
+        "unbucketed": 36.89196426421404
+      },
+      "p95": {
+        "bucketed": 60.458515956997864,
+        "unbucketed": 65.32490802928805
+      },
+      "paired_bootstrap95": [
+        -0.09158812463283539,
+        0.03762729465961456
+      ],
+      "paired_p50": -0.03373529762029648
+    }
+  },
+  "outcomes": {
+    "bucketed": {
+      "answer_em": 73,
+      "joint_em": 57,
+      "support": 97
+    },
+    "unbucketed": {
+      "answer_em": 73,
+      "joint_em": 57,
+      "support": 97
+    }
+  },
+  "requests": 192
+}

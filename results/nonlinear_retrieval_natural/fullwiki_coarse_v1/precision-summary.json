@@ -1,0 +1,209 @@
+{
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "latency": {
+    "bf16": {
+      "reader_ms": {
+        "p50": 20.18624311313033,
+        "p95": 49.48819708079099,
+        "paired_bootstrap95_ms": [
+          -0.8477251976728439,
+          -0.4980890080332756
+        ],
+        "paired_median_ms": -0.6672730669379234
+      },
+      "remaining_rerank_ms": {
+        "p50": 25.638624094426632,
+        "p95": 36.56139895319939,
+        "paired_bootstrap95_ms": [
+          -24.93554074317217,
+          -20.65573213621974
+        ],
+        "paired_median_ms": -23.188388906419277
+      },
+      "request_ms": {
+        "p50": 71.21958630159497,
+        "p95": 104.74458169192074,
+        "paired_bootstrap95_ms": [
+          -25.686589535325766,
+          -21.297549677547064
+        ],
+        "paired_median_ms": -23.966090753674507
+      },
+      "sentence_encoding_ms": {
+        "p50": 14.917589258402586,
+        "p95": 24.896678514778603,
+        "paired_bootstrap95_ms": [
+          -24.89095041528344,
+          -20.695204846560955
+        ],
+        "paired_median_ms": -23.077762685716152
+      }
+    },
+    "fp16": {
+      "reader_ms": {
+        "p50": 20.895924419164658,
+        "p95": 50.09312117472289,
+        "paired_bootstrap95_ms": [
+          -0.8513848297297955,
+          -0.45658182352781296
+        ],
+        "paired_median_ms": -0.6770465988665819
+      },
+      "remaining_rerank_ms": {
+        "p50": 26.03585598990321,
+        "p95": 36.54650505632162,
+        "paired_bootstrap95_ms": [
+          -24.792728945612907,
+          -20.691131241619587
+        ],
+        "paired_median_ms": -22.977916058152914
+      },
+      "request_ms": {
+        "p50": 71.4776935055852,
+        "p95": 103.91291617415844,
+        "paired_bootstrap95_ms": [
+          -25.222458294592798,
+          -21.453403402119875
+        ],
+        "paired_median_ms": -23.725888691842556
+      },
+      "sentence_encoding_ms": {
+        "p50": 14.952825848013163,
+        "p95": 25.289567932486527,
+        "paired_bootstrap95_ms": [
+          -24.80101026594639,
+          -20.552688278257847
+        ],
+        "paired_median_ms": -22.782584186643362
+      }
+    },
+    "fp32": {
+      "reader_ms": {
+        "p50": 21.682729246094823,
+        "p95": 51.88975664786994,
+        "paired_bootstrap95_ms": [
+          0.0,
+          0.0
+        ],
+        "paired_median_ms": 0.0
+      },
+      "remaining_rerank_ms": {
+        "p50": 48.667187336832285,
+        "p95": 77.35117948614061,
+        "paired_bootstrap95_ms": [
+          0.0,
+          0.0
+        ],
+        "paired_median_ms": 0.0
+      },
+      "request_ms": {
+        "p50": 93.59385166317225,
+        "p95": 143.2082227896899,
+        "paired_bootstrap95_ms": [
+          0.0,
+          0.0
+        ],
+        "paired_median_ms": 0.0
+      },
+      "sentence_encoding_ms": {
+        "p50": 37.82658511772752,
+        "p95": 66.93732324056327,
+        "paired_bootstrap95_ms": [
+          0.0,
+          0.0
+        ],
+        "paired_median_ms": 0.0
+      }
+    }
+  },
+  "quality": {
+    "bf16": {
+      "answer": 72,
+      "joint": 56,
+      "support": 96
+    },
+    "fp16": {
+      "answer": 73,
+      "joint": 57,
+      "support": 97
+    },
+    "fp32": {
+      "answer": 73,
+      "joint": 57,
+      "support": 97
+    }
+  },
+  "quality_contrast": {
+    "bf16": {
+      "answer": {
+        "delta": -0.00520833,
+        "losses": 1,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.015625,
+          0.0
+        ],
+        "wins": 0
+      },
+      "joint": {
+        "delta": -0.00520833,
+        "losses": 1,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.015625,
+          0.0
+        ],
+        "wins": 0
+      },
+      "support": {
+        "delta": -0.00520833,
+        "losses": 1,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.015625,
+          0.0
+        ],
+        "wins": 0
+      }
+    },
+    "fp16": {
+      "answer": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "joint": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      },
+      "support": {
+        "delta": 0.0,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "wins": 0
+      }
+    }
+  },
+  "requests": 192,
+  "unchanged_records": {
+    "bf16": {
+      "all_fields": 0,
+      "conditioned_pair": 190,
+      "ranker_and_reader": 189
+    },
+    "fp16": {
+      "all_fields": 0,
+      "conditioned_pair": 192,
+      "ranker_and_reader": 191
+    }
+  }
+}
