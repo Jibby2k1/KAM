@@ -123,3 +123,5 @@ With a typed anchor and elapsed time, [learned dot and radial event pointers](..
 In [matched from-scratch radial precision training](../../reports/nonlinear_retrieval_natural/RADIAL_ARCHIVE_TRAINING.md), the combined BF16 Flash encoding stayed within 0.47 points of eager FP32 on the earlier 48-record archive cohort and within 2.08 on the later one. Eager FP32 finished the full short-sequence training schedule fastest on both GPUs.
 
 Coupled [clock and position scaling](../../reports/nonlinear_retrieval_natural/DURATION_COORDINATES.md) raised exact paired duration-swap recovery from 51.27% to 62.92%. The wide normalized curriculum recovered 23.63% at 256 events, compared with 20.12% for a suffix-mean control.
+
+A [cross-dataset index audit](../../reports/nonlinear_retrieval_natural/CROSS_DATASET_WIKIPEDIA.md) found every supporting title for 10,096/12,576 2Wiki and 2,046/2,417 MuSiQue questions. Complete exact annotation coverage was 2,488 and 150 respectively, with sentence and paragraph units as released by each dataset.
