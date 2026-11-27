@@ -49,3 +49,22 @@ Generation timings use the identical frozen quality panel and preloaded candidat
 | Large 8 | 15 | 536.82 ms | 300.37 ms | 224.35 ms |
 
 HPG L4 arrays 53016711, 53017541 and 53018115. [Sealed panel manifest, matched outcomes and timings](../../results/nonlinear_retrieval_natural/musique_endpoint_routing_v1/) · [Four-hop terminal evidence controls](MUSIQUE_TERMINAL_EVIDENCE.md)
+
+## Retrieving the earlier paragraph from the native corpus
+
+Opening the first hop preserved most of the conditional routing gain. On one canonical ordering of the 168 two-hop questions, dense top-one selected the annotated earlier paragraph on 141. It then chose the correct endpoint on 160, and 109 also had exact answers. Ninety-three of those 109 matched the full annotated chain. The corresponding original-question route gave 72 exact endpoint-and-answer pairs, and providing the verified earlier paragraph gave 112.
+
+The first step queries the same native bank of 101,748 paragraphs with frozen E5, BM25 or rank fusion. It excludes the two visible endpoint titles and uses the original question without author intermediate answers. For each eligible earlier candidate, the frozen selector reads up to 128 tokens of its text. The primary route uses top one. A four-candidate control chooses the candidate with the largest absolute E5 margin between the two endpoints. Both routes feed the same reader the selected endpoint alone. This experiment opens the earlier search and keeps endpoint capacity and membership fixed.
+
+| Earlier search and selection | Annotated earlier passage chosen | Correct endpoint | Joint endpoint and answer | Full annotated chain and answer |
+| --- | ---: | ---: | ---: | ---: |
+| Dense, top one | 141 | 160 | 109 | 93 |
+| Dense, margin over top four | 128 | 155 | 105 | 86 |
+| BM25, top one | 118 | 150 | 102 | 79 |
+| BM25, margin over top four | 112 | 153 | 105 | 76 |
+| Hybrid, top one | 136 | 158 | 107 | 89 |
+| Hybrid, margin over top four | 124 | 157 | 107 | 84 |
+
+Dense top-one gained 22.02 points [8.16, 31.47] over original-question endpoint scoring and was three questions below the true-earlier control [−4.76, 0.00 points]. The margin-selected beam had more earlier passages available and chose the annotated one less often. A complete open-corpus comparison would also generate the endpoint candidates and evaluate reachability.
+
+HPG L4 array 53019537. [Corpus checksum, paired first-hop and complete-chain outcomes](../../results/nonlinear_retrieval_natural/musique_endpoint_open_v1/)
