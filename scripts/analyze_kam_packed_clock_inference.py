@@ -44,12 +44,15 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--l4", required=True, nargs=3, type=Path)
     p.add_argument("--b200", nargs=3, type=Path)
+    p.add_argument("--rtx6000", nargs=3, type=Path)
     p.add_argument("--output", required=True, type=Path)
     a = p.parse_args()
     result = {"l4": aggregate(a.l4)}
-    if a.b200:
-        result["b200"] = aggregate(a.b200)
-        assert result["l4"]["input_hashes"].keys() == result["b200"]["input_hashes"].keys()
+    for device, files in (("b200", a.b200), ("rtx6000", a.rtx6000)):
+        if files:
+            result[device] = aggregate(files)
+            assert result["l4"]["input_hashes"].keys() == result[device]["input_hashes"].keys()
+            assert ("B200" if device == "b200" else "RTX PRO 6000") in result[device]["device"]
     a.output.write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
 
 

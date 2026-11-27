@@ -79,12 +79,15 @@ def main():
         p.add_argument("--" + opt, type=Path, required=True)
     p.add_argument("--l4", nargs=4, type=Path, required=True)
     p.add_argument("--b200", nargs=4, type=Path)
+    p.add_argument("--rtx6000", nargs=4, type=Path)
     a = p.parse_args()
     fixture = gzip.decompress(a.fixture.read_bytes())
     out = {}
-    for name, device in (("l4", "NVIDIA L4"), ("b200", "NVIDIA B200")):
+    for name, marker in (("l4", "NVIDIA L4"), ("b200", "NVIDIA B200"), ("rtx6000", "RTX PRO 6000")):
         if inputs := getattr(a, name):
             runs = sorted(map(unpack, inputs), key=lambda c: c["shard"])
+            device = runs[0]["device"]
+            assert marker in device
             out[name] = run(fixture, runs, device)
     a.output.write_text(json.dumps(out, indent=2, sort_keys=True) + "\n")
 

@@ -12,6 +12,7 @@ from audit_kam_natural_data import digest
 
 REVISION = "8c3fa985016abc6b0e914d82dd01950e0669c0b7"
 DOMAINS = ("economics", "earth_science")
+REPLICATION_DOMAINS = ("psychology", "sustainable_living")
 SHARDS = 4
 NONEXCLUSION = "N/A"
 
@@ -66,8 +67,9 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--sources", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--domains", nargs="+", choices=(*DOMAINS, *REPLICATION_DOMAINS), default=DOMAINS)
     a = p.parse_args()
-    for domain in DOMAINS:
+    for domain in a.domains:
         prepare(a.sources, a.output, domain)
 
 

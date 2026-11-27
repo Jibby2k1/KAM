@@ -1,0 +1,194 @@
+{
+  "l4": {
+    "candidate_docs": 5201800,
+    "coverage": {
+      "192": {
+        "baseline_complete": 640,
+        "paired": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "quantized_complete": 640
+      },
+      "256": {
+        "baseline_complete": 640,
+        "paired": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "quantized_complete": 640
+      },
+      "96": {
+        "baseline_complete": 640,
+        "paired": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "quantized_complete": 640
+      }
+    },
+    "device": "NVIDIA L4",
+    "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+    "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+    "measurements": 128,
+    "med_int8_build_ms": 393.24093237519264,
+    "models": {
+      "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab",
+      "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52"
+    },
+    "parity": {
+      "192": {
+        "first": 1024,
+        "identical_set": 1024,
+        "mean_shared_top64": 64.0,
+        "ordered": 1017,
+        "shared_documents": 65536
+      },
+      "256": {
+        "first": 1024,
+        "identical_set": 1024,
+        "mean_shared_top64": 64.0,
+        "ordered": 1017,
+        "shared_documents": 65536
+      },
+      "96": {
+        "first": 1024,
+        "identical_set": 1024,
+        "mean_shared_top64": 64.0,
+        "ordered": 1017,
+        "shared_documents": 65536
+      }
+    },
+    "requests": 1024,
+    "resident_bytes": {
+      "fp16": 4019196672,
+      "int8": 2030537472
+    },
+    "timing": {
+      "p50_ms": {
+        "fp16_rescore": 23.11662770807743,
+        "int8_rescore": 20.364781375974417
+      },
+      "p95_ms": {
+        "fp16_rescore": 23.274805769324303,
+        "int8_rescore": 20.578105561435223
+      },
+      "paired_95_ms": [
+        -2.756538800895214,
+        -2.7312077581882477
+      ],
+      "paired_median_ms": -2.7443375438451767
+    }
+  },
+  "rtx6000": {
+    "candidate_docs": 5201800,
+    "coverage": {
+      "192": {
+        "baseline_complete": 640,
+        "paired": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "quantized_complete": 640
+      },
+      "256": {
+        "baseline_complete": 640,
+        "paired": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "quantized_complete": 640
+      },
+      "96": {
+        "baseline_complete": 640,
+        "paired": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "quantized_complete": 640
+      }
+    },
+    "device": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+    "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+    "measurements": 128,
+    "med_int8_build_ms": 73.21760151535273,
+    "models": {
+      "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab",
+      "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52"
+    },
+    "parity": {
+      "192": {
+        "first": 1024,
+        "identical_set": 1024,
+        "mean_shared_top64": 64.0,
+        "ordered": 1020,
+        "shared_documents": 65536
+      },
+      "256": {
+        "first": 1024,
+        "identical_set": 1024,
+        "mean_shared_top64": 64.0,
+        "ordered": 1020,
+        "shared_documents": 65536
+      },
+      "96": {
+        "first": 1024,
+        "identical_set": 1024,
+        "mean_shared_top64": 64.0,
+        "ordered": 1020,
+        "shared_documents": 65536
+      }
+    },
+    "requests": 1024,
+    "resident_bytes": {
+      "fp16": 4019196672,
+      "int8": 2030537472
+    },
+    "timing": {
+      "p50_ms": {
+        "fp16_rescore": 4.267728887498379,
+        "int8_rescore": 3.704514354467392
+      },
+      "p95_ms": {
+        "fp16_rescore": 4.282303433865309,
+        "int8_rescore": 3.7193487398326397
+      },
+      "paired_95_ms": [
+        -0.5640540970489383,
+        -0.560208223760128
+      ],
+      "paired_median_ms": -0.5619991570711136
+    }
+  }
+}
