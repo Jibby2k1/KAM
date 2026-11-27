@@ -51,8 +51,8 @@ def read(model, kernel, data, positions):
         return model.readout(hidden[row, positions])
 
 
-def evaluate(model, kernel, tokens, method):
-    data, query = compact_tokens(tokens)
+def evaluate(model, kernel, tokens, method, *, preprocess=compact_tokens):
+    data, query = preprocess(tokens)
     if method == "full":
         return read(model, kernel, data, query)
     if method == "batch_max":
