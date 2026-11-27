@@ -66,9 +66,12 @@ def search(a, paragraphs, fixture):
             qids, templates, pools = zip(*block, strict=True)
             histories = [[] for _ in block]
             used = [[] for _ in block]
+            addresses = []
             for step, budget in enumerate(BUDGETS[nhops]):
                 queries = binding_queries(templates, histories, step)
                 encoded = encoder(queries, "query")
+                if a.emit_affinity:
+                    addresses.append(encoded)
                 ranks = (encoded @ bank.T).argsort(dim=-1, descending=True, stable=True)[:, :DEPTH].tolist()
                 for pool, subrank in zip(pools, ranks, strict=True):
                     pool.extend(ranked_additions(subrank, pool, budget))
@@ -80,10 +83,17 @@ def search(a, paragraphs, fixture):
                     for history, answer, i, provenance in zip(histories, replies, docs, used, strict=True):
                         history.append(" ".join(answer.split()) or "unknown")
                         provenance.append(i)
-            for id_, pool, chosen, values in zip(qids, pools, used, histories, strict=True):
+            relation = None
+            if addresses:
+                candidates = torch.tensor(pools, device="cuda")
+                affinity = torch.bmm(torch.stack(addresses, dim=1), bank[candidates].transpose(1, 2))
+                relation = affinity.cpu().tolist()
+            for i, (id_, pool, chosen, values) in enumerate(zip(qids, pools, used, histories, strict=True)):
                 assert len(pool) == len(set(pool)) == DEPTH
                 output[id_] = {"id": id_, "predicted_steps": nhops, "fallback": False,
                               "pool": pool, "read_from": chosen, "unknown_bindings": values.count("unknown")}
+                if relation is not None:
+                    output[id_]["subquery_affinity"] = relation[i]
     return {"fixture_sha256": fixture_hash, "corpus_sha256": corpus_hash, "generation_sha256": digest(a.generated),
             "weights_sha256": learned["weights_sha256"], "baseline_sha256": digest(a.baseline),
             "models": revisions | {"google/flan-t5-base": BASE_REVISION}, "device": torch.cuda.get_device_name(),
@@ -98,6 +108,7 @@ def main():
     p.add_argument("--vectors", nargs=4, required=True, type=Path)
     p.add_argument("--shard", required=True, type=int)
     p.add_argument("--shards", required=True, type=int)
+    p.add_argument("--emit-affinity", action="store_true")
     a = p.parse_args()
     assert 0 <= a.shard < a.shards
     torch.set_float32_matmul_precision("highest")

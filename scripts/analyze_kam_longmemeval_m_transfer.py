@@ -52,19 +52,13 @@ def panel(cases, records):
     return {"questions": len(cases), "scoring": result}
 
 
-def main():
-    p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--manifest", type=Path, required=True)
-    for mode in ("reference", "transfer"):
-        p.add_argument("--" + mode, nargs=4, type=Path, required=True)
-    p.add_argument("--output", type=Path, required=True)
-    a = p.parse_args()
-    f = unpack(a.manifest)
-    by_hash = {sha256(file.read_bytes()).hexdigest(): unpack(file) for file in a.reference}
-    rows = sorted(map(unpack, a.transfer), key=lambda r: r["shard"])
+def read_panel(fixture, reference, transfer):
+    f = unpack(fixture)
+    by_hash = {sha256(file.read_bytes()).hexdigest(): unpack(file) for file in reference}
+    rows = sorted(map(unpack, transfer), key=lambda r: r["shard"])
     assert [r["shard"] for r in rows] == list(range(4))
     common = ("fixture_sha256", "plans_sha256", "seeds", "models")
-    out = {}
+    base, out = {}, {}
     for chunk in rows:
         r = by_hash[chunk["reference_sha256"]]
         assert all(rows[0][k] == chunk[k] for k in common)
@@ -74,11 +68,23 @@ def main():
             assert q["id"] == baseline["id"] == result["id"]
             assert result["dense"]["sessions"] == baseline["full"]["dense"][:5]
             assert result["dense"]["turns"] == baseline["turns_from_top5"]["dense"]
+            base[q["id"]] = baseline
             out[result["id"]] = result
     cases = [q for q in f["rows"] if not q["id"].endswith("_abs")]
-    assert len(cases) == 470 and len(out) == 500
+    assert len(cases) == 470 and len(out) == len(base) == 500
+    return f, cases, base, out, rows[0]
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--manifest", type=Path, required=True)
+    for mode in ("reference", "transfer"):
+        p.add_argument("--" + mode, nargs=4, type=Path, required=True)
+    p.add_argument("--output", type=Path, required=True)
+    a = p.parse_args()
+    f, cases, _, out, data = read_panel(a.manifest, a.reference, a.transfer)
     scopes = {"all": cases, **{k: [q for q in cases if q["kind"] == k] for k in sorted({q["kind"] for q in cases})}}
-    record = {"fixture_sha256": f["fixture_sha256"], "seeds": rows[0]["seeds"], "plans_sha256": rows[0]["plans_sha256"],
+    record = {"fixture_sha256": f["fixture_sha256"], "seeds": data["seeds"], "plans_sha256": data["plans_sha256"],
               "scopes": {key: panel(s, out) for key, s in scopes.items()}}
     a.output.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
 

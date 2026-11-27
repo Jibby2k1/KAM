@@ -10,7 +10,7 @@ module purge
 module load pytorch/2.8.0
 root="${1:?runtime directory required}"
 baseline="${2:?baseline array job ID required}"
-work="$root/native_musique_selector_reader_v1"
+work="$root/${KAM_MUSIQUE_SELECTOR_READER_STAGE:-native_musique_selector_reader_v1}"
 native="$root/native_musique_v1"
 learned="$root/native_musique_learned_search_v1"
 export PYTHONPATH="$work:$root/native_musique_bindings_v1:$root/native_musique_recursive_v1:$native:$root/native_twowiki_v1:$root/coverage_gate_v1:$root/fullwiki_native_v1/python"

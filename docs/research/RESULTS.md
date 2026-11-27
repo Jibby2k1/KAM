@@ -141,3 +141,7 @@ In [warm L4 HotpotQA serving](../../reports/nonlinear_retrieval_natural/FULLWIKI
 On [LongMemEval-M](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_TRANSFER.md), three MuSiQue-trained decomposers recovered all required sessions on 334–342/470 questions with predicted bindings, versus 350 with dense ranking. Temporal questions contributed most of the losses.
 
 A [separately fitted MuSiQue evidence selector](../../reports/nonlinear_retrieval_natural/MUSIQUE_EVIDENCE_SELECTOR.md) increased joint exact match from 22–25 to 26–27 of 576 with four final paragraphs. Overall intervals included zero and complete four-hop support remained zero.
+
+[Distinct subquery assignment](../../reports/nonlinear_retrieval_natural/MUSIQUE_SUBQUERY_ASSIGNMENT.md) increased final evidence recovery from 61–68 to 84–87 on 576 MuSiQue questions, and joint EM increased from 22–25 to 38–42. Four-hop joint EM remained zero.
+
+On [LongMemEval-M with a fixed reader](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_READER.md), dense turns gave 28/470 normalized exact matches and a full-history marked-turn oracle gave 121. Adding conversation dates at fixed retained text changed overall counts to 31 and 122 respectively.

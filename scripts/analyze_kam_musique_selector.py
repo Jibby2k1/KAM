@@ -76,8 +76,11 @@ def main():
     cases = fixture["rows"]
     scope = {"all": cases, **{str(i): [q for q in cases if q["hops"] == i] for i in COHORTS}}
     out = {"fixture_sha256": fixture["fixture_sha256"], "old_measured_exact_parity": exact_parity,
-           "queries_replayed": len(output), "scopes": {name: summarize(group, output) for name, group in scope.items()},
-           "fit_questions_used": [model["fit_questions"] for model in policy["models"]]}
+           "queries_replayed": len(output), "scopes": {name: summarize(group, output) for name, group in scope.items()}}
+    if "models" in policy:
+        out["fit_questions_used"] = [model["fit_questions"] for model in policy["models"]]
+    else:
+        out["fixed_policy"] = policy["method"]
     a.output.write_text(json.dumps(out, indent=2, sort_keys=True) + "\n")
 
 
