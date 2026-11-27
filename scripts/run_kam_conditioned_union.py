@@ -336,7 +336,22 @@ def run(a):
         from benchmark_kam_article_prewarm import read_index
 
         database_bytes, seconds = read_index(a.inputs / "lexical" / "articles.sqlite")
-        if a.live_initial_profile:
+        engines, lexical_profile = {}, {}
+        if a.warm_lexical_profile:
+            import tantivy
+
+            lexical = a.inputs / "lexical" / "tantivy"
+            started_lexical = perf_counter()
+            files = sorted(p for p in lexical.iterdir() if p.is_file() and not p.name.startswith("."))
+            lexical_bytes = sum(read_index(path)[0] for path in files)
+            lexical_profile = {"lexical_prewarm_bytes": lexical_bytes,
+                               "lexical_prewarm_seconds": perf_counter() - started_lexical}
+            threaded = tantivy.Index.open(str(lexical), search_threads=2)
+            engines = {"hybrid_serial": (index.index, index.searcher),
+                       "hybrid_two_threads": (threaded, threaded.searcher())}
+            assert all(s.num_docs == index.meta["indexed"] for _, s in engines.values())
+            policies = ["dense", *engines]
+        elif a.live_initial_profile:
             policies = ["dense", "hybrid"]
         elif a.sentence_reuse_profile:
             policies = ["live_broad", "live_reuse"]
@@ -344,9 +359,12 @@ def run(a):
             policies = ["affinity", "live_broad"]
 
         def profile_request(case, i, arm, phase):
+            if arm in engines:
+                index.index, index.searcher = engines[arm]
+            method = "hybrid" if arm in engines else arm
             return request(case, i, True, live_anchor=arm != "affinity", phase=phase,
                            reuse_sentences=a.live_initial_profile or arm == "live_reuse",
-                           initial_method=arm if a.live_initial_profile else None)
+                           initial_method=method if a.live_initial_profile else None)
 
         for i, case in enumerate(cases[:4]):
             for arm in policies:
@@ -381,7 +399,7 @@ def run(a):
                     records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
             output.append({"id": case["id"], "order": arms, "timing_ms": timings,
                            "phase_ms": phases, "records": records})
-        index_profile = {"prewarm_seconds": seconds, "database_bytes": database_bytes}
+        index_profile = {"prewarm_seconds": seconds, "database_bytes": database_bytes} | lexical_profile
     elif a.serving_profile:
         for i, case in enumerate(cases[:4]):
             request(case, i, False)
@@ -425,6 +443,7 @@ def main():
     live_profiles.add_argument("--live-anchor-profile", action="store_true")
     live_profiles.add_argument("--live-initial-profile", action="store_true")
     parser.add_argument("--sentence-reuse-profile", action="store_true")
+    parser.add_argument("--warm-lexical-profile", action="store_true")
     parser.add_argument("--trace-gc", action="store_true")
     parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
     parser.add_argument("--index-prewarm-jobdir", type=Path)
@@ -447,6 +466,8 @@ def main():
         or a.shards != 1 or not a.index_prewarm_jobdir
     ):
         parser.error("the shared-index crossover needs two independent full-cohort affinity workers")
+    if a.warm_lexical_profile and not a.live_initial_profile:
+        parser.error("warmed lexical timing requires the full initial-search profile")
     if a.trace_gc and not a.sentence_reuse_profile:
         parser.error("garbage collector tracing requires the sentence reuse profile")
     if a.sentence_reuse_profile and not a.live_anchor_profile:

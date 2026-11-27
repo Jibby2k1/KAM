@@ -17,6 +17,9 @@ fi
 index="$root/fullwiki_native_v1"
 support="$index/support_link_v1"
 export PYTHONPATH="$work:$root/coverage_gate_v1:$index/python" HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=6 OPENBLAS_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false
+if [[ " ${extra[*]} " == *" --warm-lexical-profile "* ]]; then
+    export PYTHONPATH="$index/lexical_segment_v1/python:$PYTHONPATH"
+fi
 (cd "$work" && sha256sum --quiet -c staged.sha256)
 python -u "$work/run_kam_conditioned_union.py" --inputs "$index" --assets "$root/assets" \
     --config "$support/hotpot_fullwiki_native_v1.json" --baseline "$support/baseline.pt" \

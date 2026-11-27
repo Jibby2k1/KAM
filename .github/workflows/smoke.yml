@@ -409,3 +409,18 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_live_gc_trace.py "$study"/profile-52955880-*.json.gz --fixture "$ref/fixture.json.gz" --reference "$ref/replay.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit prewarmed threaded B200 serving
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/live_warm_lexical_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_live_initial_profile.py "$study"/profile-52959320-*.json.gz --warm-lexical --study "$base/dense_hybrid_anchor_v1" --output "$output"
+          diff -u "$study/summary.json" "$output"
+      - name: Refit and audit source-disjoint IIRC anchor beams
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/iirc_anchor_beam_v1"
+          output=$(mktemp -d)
+          OPENBLAS_NUM_THREADS=1 python scripts/fit_kam_iirc_anchor_beam.py --static "$base/iirc_pair_fit_v1/train-features.json.gz" --output "$output/summary.json" --replay "$output/replay.json.gz"
+          diff -u "$study/summary.json" "$output/summary.json"
+          diff -u <(gzip -cd "$study/replay.json.gz") <(gzip -cd "$output/replay.json.gz")

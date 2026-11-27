@@ -1,0 +1,805 @@
+{
+  "feature_sha256": "330425ca0e65bd69b62ba78deb2e274c687d404c0ca2bcf64c981388deb3d349",
+  "fixture": {
+    "fixture_sha256": "fed2737c01a34744abd03fdbc22bac67df8c3dac2d4cb62ac1c6e4293642aeb5",
+    "source_sha256": {
+      "train": "00a88b97dbbda56c32c620254eb7f0ac0a41507152c2de21f21164052ffcdaa5",
+      "articles": "d239390a27ed3f4aa868afe126187e6d108990a7bcc2a3efb6cae5de917264c7"
+    }
+  },
+  "fold_salt": "kam-iirc-anchor-beam-v1:",
+  "l2": 0.05,
+  "overall": {
+    "questions": 1200,
+    "sources": 1055,
+    "both_gold": {
+      "additive": 486,
+      "joint_neutral": 548,
+      "beam_neutral_1": 539,
+      "beam_neutral_2": 538,
+      "beam_neutral_4": 563,
+      "joint_title": 602,
+      "beam_title_1": 547,
+      "beam_title_2": 564,
+      "beam_title_4": 598
+    },
+    "first_beam_has_gold": {
+      "1": 777,
+      "2": 983,
+      "4": 1116
+    },
+    "branch_oracle": {
+      "neutral": {
+        "1": 539,
+        "2": 650,
+        "4": 801
+      },
+      "title": {
+        "1": 547,
+        "2": 674,
+        "4": 844
+      }
+    },
+    "paired": {
+      "beam_neutral_2_vs_1": {
+        "wins": 41,
+        "losses": 42,
+        "delta": -0.00083333,
+        "bootstrap95": [
+          -0.01570248,
+          0.01409648
+        ]
+      },
+      "beam_neutral_4_vs_1": {
+        "wins": 53,
+        "losses": 29,
+        "delta": 0.02,
+        "bootstrap95": [
+          0.00585774,
+          0.03448276
+        ]
+      },
+      "beam_title_2_vs_1": {
+        "wins": 50,
+        "losses": 33,
+        "delta": 0.01416667,
+        "bootstrap95": [
+          0.0,
+          0.0292887
+        ]
+      },
+      "beam_title_4_vs_1": {
+        "wins": 65,
+        "losses": 14,
+        "delta": 0.0425,
+        "bootstrap95": [
+          0.02864364,
+          0.05737705
+        ]
+      },
+      "beam_neutral_1_vs_joint": {
+        "wins": 53,
+        "losses": 62,
+        "delta": -0.0075,
+        "bootstrap95": [
+          -0.02538196,
+          0.00991756
+        ]
+      },
+      "beam_neutral_2_vs_joint": {
+        "wins": 45,
+        "losses": 55,
+        "delta": -0.00833333,
+        "bootstrap95": [
+          -0.02448988,
+          0.00808656
+        ]
+      },
+      "beam_neutral_4_vs_joint": {
+        "wins": 41,
+        "losses": 26,
+        "delta": 0.0125,
+        "bootstrap95": [
+          -0.00083056,
+          0.02602964
+        ]
+      },
+      "beam_title_1_vs_joint": {
+        "wins": 35,
+        "losses": 90,
+        "delta": -0.04583333,
+        "bootstrap95": [
+          -0.06438127,
+          -0.02802968
+        ]
+      },
+      "beam_title_2_vs_joint": {
+        "wins": 44,
+        "losses": 82,
+        "delta": -0.03166667,
+        "bootstrap95": [
+          -0.05020929,
+          -0.01337793
+        ]
+      },
+      "beam_title_4_vs_joint": {
+        "wins": 38,
+        "losses": 42,
+        "delta": -0.00333333,
+        "bootstrap95": [
+          -0.0182425,
+          0.01143885
+        ]
+      }
+    },
+    "mean_distinct_pairs": {
+      "joint": 101.180833,
+      "1": 13.304167,
+      "2": 25.608333,
+      "4": 47.216667
+    }
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "fit_questions": 951,
+      "questions": 249,
+      "sources": 212,
+      "both_gold": {
+        "additive": 98,
+        "joint_neutral": 109,
+        "beam_neutral_1": 103,
+        "beam_neutral_2": 101,
+        "beam_neutral_4": 108,
+        "joint_title": 115,
+        "beam_title_1": 100,
+        "beam_title_2": 108,
+        "beam_title_4": 114
+      },
+      "first_beam_has_gold": {
+        "1": 162,
+        "2": 208,
+        "4": 231
+      },
+      "branch_oracle": {
+        "neutral": {
+          "1": 103,
+          "2": 124,
+          "4": 157
+        },
+        "title": {
+          "1": 100,
+          "2": 126,
+          "4": 166
+        }
+      },
+      "paired": {
+        "beam_neutral_2_vs_1": {
+          "wins": 4,
+          "losses": 6,
+          "delta": -0.00803213,
+          "bootstrap95": [
+            -0.03292181,
+            0.016
+          ]
+        },
+        "beam_neutral_4_vs_1": {
+          "wins": 9,
+          "losses": 4,
+          "delta": 0.02008032,
+          "bootstrap95": [
+            -0.00806452,
+            0.04846127
+          ]
+        },
+        "beam_title_2_vs_1": {
+          "wins": 10,
+          "losses": 2,
+          "delta": 0.03212851,
+          "bootstrap95": [
+            0.0078125,
+            0.05928854
+          ]
+        },
+        "beam_title_4_vs_1": {
+          "wins": 14,
+          "losses": 0,
+          "delta": 0.0562249,
+          "bootstrap95": [
+            0.02868852,
+            0.08536585
+          ]
+        },
+        "beam_neutral_1_vs_joint": {
+          "wins": 5,
+          "losses": 11,
+          "delta": -0.02409639,
+          "bootstrap95": [
+            -0.0562249,
+            0.00787402
+          ]
+        },
+        "beam_neutral_2_vs_joint": {
+          "wins": 4,
+          "losses": 12,
+          "delta": -0.03212851,
+          "bootstrap95": [
+            -0.06425703,
+            0.0
+          ]
+        },
+        "beam_neutral_4_vs_joint": {
+          "wins": 6,
+          "losses": 7,
+          "delta": -0.00401606,
+          "bootstrap95": [
+            -0.03292181,
+            0.0242915
+          ]
+        },
+        "beam_title_1_vs_joint": {
+          "wins": 5,
+          "losses": 20,
+          "delta": -0.06024096,
+          "bootstrap95": [
+            -0.09920635,
+            -0.0210084
+          ]
+        },
+        "beam_title_2_vs_joint": {
+          "wins": 7,
+          "losses": 14,
+          "delta": -0.02811245,
+          "bootstrap95": [
+            -0.06349206,
+            0.00790514
+          ]
+        },
+        "beam_title_4_vs_joint": {
+          "wins": 8,
+          "losses": 9,
+          "delta": -0.00401606,
+          "bootstrap95": [
+            -0.03643725,
+            0.02822581
+          ]
+        }
+      },
+      "mean_distinct_pairs": {
+        "joint": 100.831325,
+        "1": 13.269076,
+        "2": 25.538153,
+        "4": 47.076305
+      }
+    },
+    {
+      "fold": 1,
+      "fit_questions": 985,
+      "questions": 215,
+      "sources": 197,
+      "both_gold": {
+        "additive": 90,
+        "joint_neutral": 98,
+        "beam_neutral_1": 101,
+        "beam_neutral_2": 97,
+        "beam_neutral_4": 102,
+        "joint_title": 117,
+        "beam_title_1": 109,
+        "beam_title_2": 106,
+        "beam_title_4": 114
+      },
+      "first_beam_has_gold": {
+        "1": 147,
+        "2": 184,
+        "4": 205
+      },
+      "branch_oracle": {
+        "neutral": {
+          "1": 101,
+          "2": 120,
+          "4": 152
+        },
+        "title": {
+          "1": 109,
+          "2": 128,
+          "4": 160
+        }
+      },
+      "paired": {
+        "beam_neutral_2_vs_1": {
+          "wins": 9,
+          "losses": 13,
+          "delta": -0.01860465,
+          "bootstrap95": [
+            -0.06103286,
+            0.02358491
+          ]
+        },
+        "beam_neutral_4_vs_1": {
+          "wins": 9,
+          "losses": 8,
+          "delta": 0.00465116,
+          "bootstrap95": [
+            -0.03286385,
+            0.04186047
+          ]
+        },
+        "beam_title_2_vs_1": {
+          "wins": 7,
+          "losses": 10,
+          "delta": -0.01395349,
+          "bootstrap95": [
+            -0.05188679,
+            0.02325581
+          ]
+        },
+        "beam_title_4_vs_1": {
+          "wins": 10,
+          "losses": 5,
+          "delta": 0.02325581,
+          "bootstrap95": [
+            -0.01395349,
+            0.06222222
+          ]
+        },
+        "beam_neutral_1_vs_joint": {
+          "wins": 15,
+          "losses": 12,
+          "delta": 0.01395349,
+          "bootstrap95": [
+            -0.03365791,
+            0.06306416
+          ]
+        },
+        "beam_neutral_2_vs_joint": {
+          "wins": 10,
+          "losses": 11,
+          "delta": -0.00465116,
+          "bootstrap95": [
+            -0.04672897,
+            0.03703704
+          ]
+        },
+        "beam_neutral_4_vs_joint": {
+          "wins": 11,
+          "losses": 7,
+          "delta": 0.01860465,
+          "bootstrap95": [
+            -0.01886792,
+            0.05633803
+          ]
+        },
+        "beam_title_1_vs_joint": {
+          "wins": 10,
+          "losses": 18,
+          "delta": -0.0372093,
+          "bootstrap95": [
+            -0.08738311,
+            0.00961538
+          ]
+        },
+        "beam_title_2_vs_joint": {
+          "wins": 8,
+          "losses": 19,
+          "delta": -0.05116279,
+          "bootstrap95": [
+            -0.0990566,
+            -0.0046729
+          ]
+        },
+        "beam_title_4_vs_joint": {
+          "wins": 7,
+          "losses": 10,
+          "delta": -0.01395349,
+          "bootstrap95": [
+            -0.0521327,
+            0.02347418
+          ]
+        }
+      },
+      "mean_distinct_pairs": {
+        "joint": 96.67907,
+        "1": 13.106977,
+        "2": 25.213953,
+        "4": 46.427907
+      }
+    },
+    {
+      "fold": 2,
+      "fit_questions": 966,
+      "questions": 234,
+      "sources": 204,
+      "both_gold": {
+        "additive": 103,
+        "joint_neutral": 113,
+        "beam_neutral_1": 114,
+        "beam_neutral_2": 114,
+        "beam_neutral_4": 116,
+        "joint_title": 121,
+        "beam_title_1": 112,
+        "beam_title_2": 119,
+        "beam_title_4": 122
+      },
+      "first_beam_has_gold": {
+        "1": 153,
+        "2": 194,
+        "4": 218
+      },
+      "branch_oracle": {
+        "neutral": {
+          "1": 114,
+          "2": 135,
+          "4": 158
+        },
+        "title": {
+          "1": 112,
+          "2": 136,
+          "4": 165
+        }
+      },
+      "paired": {
+        "beam_neutral_2_vs_1": {
+          "wins": 8,
+          "losses": 8,
+          "delta": 0.0,
+          "bootstrap95": [
+            -0.03404255,
+            0.03375527
+          ]
+        },
+        "beam_neutral_4_vs_1": {
+          "wins": 9,
+          "losses": 7,
+          "delta": 0.00854701,
+          "bootstrap95": [
+            -0.02531646,
+            0.04219409
+          ]
+        },
+        "beam_title_2_vs_1": {
+          "wins": 12,
+          "losses": 5,
+          "delta": 0.02991453,
+          "bootstrap95": [
+            -0.00423729,
+            0.06493506
+          ]
+        },
+        "beam_title_4_vs_1": {
+          "wins": 13,
+          "losses": 3,
+          "delta": 0.04273504,
+          "bootstrap95": [
+            0.01244813,
+            0.07589286
+          ]
+        },
+        "beam_neutral_1_vs_joint": {
+          "wins": 10,
+          "losses": 9,
+          "delta": 0.0042735,
+          "bootstrap95": [
+            -0.03070175,
+            0.04166667
+          ]
+        },
+        "beam_neutral_2_vs_joint": {
+          "wins": 8,
+          "losses": 7,
+          "delta": 0.0042735,
+          "bootstrap95": [
+            -0.02666667,
+            0.03750392
+          ]
+        },
+        "beam_neutral_4_vs_joint": {
+          "wins": 6,
+          "losses": 3,
+          "delta": 0.01282051,
+          "bootstrap95": [
+            -0.01260504,
+            0.03846154
+          ]
+        },
+        "beam_title_1_vs_joint": {
+          "wins": 6,
+          "losses": 15,
+          "delta": -0.03846154,
+          "bootstrap95": [
+            -0.07692308,
+            0.0
+          ]
+        },
+        "beam_title_2_vs_joint": {
+          "wins": 8,
+          "losses": 10,
+          "delta": -0.00854701,
+          "bootstrap95": [
+            -0.04424779,
+            0.02608696
+          ]
+        },
+        "beam_title_4_vs_joint": {
+          "wins": 6,
+          "losses": 5,
+          "delta": 0.0042735,
+          "bootstrap95": [
+            -0.02286756,
+            0.03306128
+          ]
+        }
+      },
+      "mean_distinct_pairs": {
+        "joint": 100.67094,
+        "1": 13.303419,
+        "2": 25.606838,
+        "4": 47.213675
+      }
+    },
+    {
+      "fold": 3,
+      "fit_questions": 947,
+      "questions": 253,
+      "sources": 223,
+      "both_gold": {
+        "additive": 102,
+        "joint_neutral": 118,
+        "beam_neutral_1": 121,
+        "beam_neutral_2": 122,
+        "beam_neutral_4": 127,
+        "joint_title": 132,
+        "beam_title_1": 124,
+        "beam_title_2": 126,
+        "beam_title_4": 136
+      },
+      "first_beam_has_gold": {
+        "1": 168,
+        "2": 206,
+        "4": 228
+      },
+      "branch_oracle": {
+        "neutral": {
+          "1": 121,
+          "2": 151,
+          "4": 172
+        },
+        "title": {
+          "1": 124,
+          "2": 157,
+          "4": 180
+        }
+      },
+      "paired": {
+        "beam_neutral_2_vs_1": {
+          "wins": 10,
+          "losses": 9,
+          "delta": 0.00395257,
+          "bootstrap95": [
+            -0.03101077,
+            0.03831418
+          ]
+        },
+        "beam_neutral_4_vs_1": {
+          "wins": 13,
+          "losses": 7,
+          "delta": 0.02371542,
+          "bootstrap95": [
+            -0.01140684,
+            0.05882353
+          ]
+        },
+        "beam_title_2_vs_1": {
+          "wins": 11,
+          "losses": 9,
+          "delta": 0.00790514,
+          "bootstrap95": [
+            -0.02766798,
+            0.04313725
+          ]
+        },
+        "beam_title_4_vs_1": {
+          "wins": 15,
+          "losses": 3,
+          "delta": 0.04743083,
+          "bootstrap95": [
+            0.016,
+            0.08
+          ]
+        },
+        "beam_neutral_1_vs_joint": {
+          "wins": 19,
+          "losses": 16,
+          "delta": 0.01185771,
+          "bootstrap95": [
+            -0.03557312,
+            0.05714871
+          ]
+        },
+        "beam_neutral_2_vs_joint": {
+          "wins": 15,
+          "losses": 11,
+          "delta": 0.01581028,
+          "bootstrap95": [
+            -0.02371542,
+            0.05511811
+          ]
+        },
+        "beam_neutral_4_vs_joint": {
+          "wins": 14,
+          "losses": 5,
+          "delta": 0.03557312,
+          "bootstrap95": [
+            0.00387597,
+            0.06976744
+          ]
+        },
+        "beam_title_1_vs_joint": {
+          "wins": 9,
+          "losses": 17,
+          "delta": -0.03162055,
+          "bootstrap95": [
+            -0.07086614,
+            0.00784314
+          ]
+        },
+        "beam_title_2_vs_joint": {
+          "wins": 14,
+          "losses": 20,
+          "delta": -0.02371542,
+          "bootstrap95": [
+            -0.06882591,
+            0.0203252
+          ]
+        },
+        "beam_title_4_vs_joint": {
+          "wins": 11,
+          "losses": 7,
+          "delta": 0.01581028,
+          "bootstrap95": [
+            -0.01593785,
+            0.0483871
+          ]
+        }
+      },
+      "mean_distinct_pairs": {
+        "joint": 110.047431,
+        "1": 13.762846,
+        "2": 26.525692,
+        "4": 49.051383
+      }
+    },
+    {
+      "fold": 4,
+      "fit_questions": 951,
+      "questions": 249,
+      "sources": 219,
+      "both_gold": {
+        "additive": 93,
+        "joint_neutral": 110,
+        "beam_neutral_1": 100,
+        "beam_neutral_2": 104,
+        "beam_neutral_4": 110,
+        "joint_title": 117,
+        "beam_title_1": 102,
+        "beam_title_2": 105,
+        "beam_title_4": 112
+      },
+      "first_beam_has_gold": {
+        "1": 147,
+        "2": 191,
+        "4": 234
+      },
+      "branch_oracle": {
+        "neutral": {
+          "1": 100,
+          "2": 120,
+          "4": 162
+        },
+        "title": {
+          "1": 102,
+          "2": 127,
+          "4": 173
+        }
+      },
+      "paired": {
+        "beam_neutral_2_vs_1": {
+          "wins": 10,
+          "losses": 6,
+          "delta": 0.01606426,
+          "bootstrap95": [
+            -0.016,
+            0.04724409
+          ]
+        },
+        "beam_neutral_4_vs_1": {
+          "wins": 13,
+          "losses": 3,
+          "delta": 0.04016064,
+          "bootstrap95": [
+            0.01190476,
+            0.07142857
+          ]
+        },
+        "beam_title_2_vs_1": {
+          "wins": 10,
+          "losses": 7,
+          "delta": 0.01204819,
+          "bootstrap95": [
+            -0.02016129,
+            0.04435484
+          ]
+        },
+        "beam_title_4_vs_1": {
+          "wins": 13,
+          "losses": 3,
+          "delta": 0.04016064,
+          "bootstrap95": [
+            0.01167315,
+            0.07228916
+          ]
+        },
+        "beam_neutral_1_vs_joint": {
+          "wins": 4,
+          "losses": 14,
+          "delta": -0.04016064,
+          "bootstrap95": [
+            -0.07346939,
+            -0.00809717
+          ]
+        },
+        "beam_neutral_2_vs_joint": {
+          "wins": 8,
+          "losses": 14,
+          "delta": -0.02409639,
+          "bootstrap95": [
+            -0.06177606,
+            0.01209677
+          ]
+        },
+        "beam_neutral_4_vs_joint": {
+          "wins": 4,
+          "losses": 4,
+          "delta": 0.0,
+          "bootstrap95": [
+            -0.0209205,
+            0.02074689
+          ]
+        },
+        "beam_title_1_vs_joint": {
+          "wins": 5,
+          "losses": 20,
+          "delta": -0.06024096,
+          "bootstrap95": [
+            -0.09920635,
+            -0.02380952
+          ]
+        },
+        "beam_title_2_vs_joint": {
+          "wins": 7,
+          "losses": 19,
+          "delta": -0.04819277,
+          "bootstrap95": [
+            -0.08915438,
+            -0.00812926
+          ]
+        },
+        "beam_title_4_vs_joint": {
+          "wins": 6,
+          "losses": 11,
+          "delta": -0.02008032,
+          "bootstrap95": [
+            -0.05241935,
+            0.01195219
+          ]
+        }
+      },
+      "mean_distinct_pairs": {
+        "joint": 96.88755,
+        "1": 13.044177,
+        "2": 25.088353,
+        "4": 46.176707
+      }
+    }
+  ],
+  "replay_payload_sha256": "345360b2d2a5e5a7cd8f438b49f7c6d8c34fcb0d321625da1217ed273c3f1d48"
+}

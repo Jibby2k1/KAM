@@ -1,0 +1,205 @@
+{
+  "fixture_sha256": "b48adefb28f4e544abd874753df1262617f14894e59ce0815c362833ab212b97",
+  "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "guard_columns": [
+    "shared_document",
+    "added_document_count",
+    "added_document_rank",
+    "union_has_anchor",
+    "broad_margin",
+    "union_margin",
+    "union_original_pair_margin",
+    "original_pair_in_shortlist",
+    "broad_pair_link",
+    "union_pair_link",
+    "weak_semantic_shift",
+    "mean_affinity_shift",
+    "mention_margin_shift",
+    "union_size"
+  ],
+  "split": "test",
+  "references": {
+    "dense": {
+      "pool_sha256": "325c1822d79160ff8d6f1c579bd604d61e5daee1004ef77c1a44174517889605",
+      "replay_sha256": "58aff30309396c732b35d109b86d59237e5baf6a30753c8011fdc8ea5fc615fe"
+    },
+    "hybrid": {
+      "pool_sha256": "5dac15b5560c9659e269928a0d24e98bc1a2ba1d76511099b6faba223e6b004c",
+      "replay_sha256": "d2932a05a4e722bcd616784c1806e5e56d83f48f4a125c91f8e6c4c1461dfabe"
+    }
+  },
+  "phases": {
+    "dense": {
+      "initial_search_ms": 2.935498,
+      "anchor_ms": 17.575779,
+      "conditioned_search_ms": 8.686424,
+      "remaining_rerank_ms": 16.479913,
+      "reader_ms": 24.586941
+    },
+    "hybrid_serial": {
+      "initial_search_ms": 49.349011,
+      "anchor_ms": 16.558794,
+      "conditioned_search_ms": 8.587476,
+      "remaining_rerank_ms": 16.51463,
+      "reader_ms": 24.278551
+    },
+    "hybrid_two_threads": {
+      "initial_search_ms": 41.80153,
+      "anchor_ms": 16.714459,
+      "conditioned_search_ms": 8.628045,
+      "remaining_rerank_ms": 16.887429,
+      "reader_ms": 24.598685
+    }
+  },
+  "archive_parity": {
+    "dense": {
+      "initial_order": 128,
+      "initial_membership": 128,
+      "anchor": 128,
+      "expanded_order": 123,
+      "expanded_membership": 128,
+      "arms": 128
+    },
+    "hybrid_serial": {
+      "initial_order": 128,
+      "initial_membership": 128,
+      "anchor": 128,
+      "expanded_order": 123,
+      "expanded_membership": 128,
+      "arms": 128
+    },
+    "hybrid_two_threads": {
+      "initial_order": 128,
+      "initial_membership": 128,
+      "anchor": 128,
+      "expanded_order": 123,
+      "expanded_membership": 128,
+      "arms": 128
+    }
+  },
+  "live_quality": {
+    "dense": {
+      "coverage": 87,
+      "support": 66,
+      "joint_em": 45
+    },
+    "hybrid_serial": {
+      "coverage": 91,
+      "support": 67,
+      "joint_em": 45
+    },
+    "hybrid_two_threads": {
+      "coverage": 91,
+      "support": 67,
+      "joint_em": 45
+    }
+  },
+  "database_bytes": 1659428864,
+  "prewarm_seconds": [
+    0.247662,
+    0.2129,
+    0.237179,
+    0.840113
+  ],
+  "parallel_exact_parity": {
+    "initial_ids": 128,
+    "first": 128,
+    "corpus_hits": 128,
+    "arms": 128,
+    "features": 128
+  },
+  "lexical_prewarm_bytes": 380242985,
+  "lexical_prewarm_seconds": [
+    0.270574,
+    0.247794,
+    0.077499,
+    0.280875
+  ],
+  "comparisons": {
+    "hybrid_two_threads_vs_hybrid_serial": {
+      "request": {
+        "hybrid_serial": {
+          "p50_ms": 124.124195,
+          "p95_ms": 175.126677
+        },
+        "hybrid_two_threads": {
+          "p50_ms": 111.53411,
+          "p95_ms": 173.753363
+        },
+        "questions": 128,
+        "median_speedup": 1.112881,
+        "paired_median_saving_ms": 4.635436,
+        "paired_median_saving_ci95_ms": [
+          0.912488,
+          10.552062
+        ],
+        "shared_faster": 82
+      },
+      "initial_search": {
+        "hybrid_serial": {
+          "p50_ms": 49.349011,
+          "p95_ms": 84.934084
+        },
+        "hybrid_two_threads": {
+          "p50_ms": 41.80153,
+          "p95_ms": 86.126956
+        },
+        "questions": 128,
+        "median_speedup": 1.180555,
+        "paired_median_saving_ms": 2.105546,
+        "paired_median_saving_ci95_ms": [
+          0.609426,
+          11.105187
+        ],
+        "shared_faster": 82
+      }
+    },
+    "hybrid_two_threads_vs_dense": {
+      "request": {
+        "dense": {
+          "p50_ms": 75.00908,
+          "p95_ms": 102.77234
+        },
+        "hybrid_two_threads": {
+          "p50_ms": 111.53411,
+          "p95_ms": 173.753363
+        },
+        "questions": 128,
+        "median_speedup": 0.672521,
+        "paired_median_saving_ms": -38.117319,
+        "paired_median_saving_ci95_ms": [
+          -41.446067,
+          -34.366282
+        ],
+        "shared_faster": 3
+      },
+      "initial_search": {
+        "dense": {
+          "p50_ms": 2.935498,
+          "p95_ms": 2.944362
+        },
+        "hybrid_two_threads": {
+          "p50_ms": 41.80153,
+          "p95_ms": 86.126956
+        },
+        "questions": 128,
+        "median_speedup": 0.070225,
+        "paired_median_saving_ms": -38.871178,
+        "paired_median_saving_ci95_ms": [
+          -41.465636,
+          -36.0806
+        ],
+        "shared_faster": 0
+      }
+    }
+  }
+}
