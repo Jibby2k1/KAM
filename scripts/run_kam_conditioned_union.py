@@ -100,6 +100,13 @@ def run(a):
     cases = fixture["rows"][split]
     assert set(sealed["rows"]) == {q["id"] for group in fixture["rows"].values() for q in group}
     assert len(cases) == (3072 if split == "training" else 1024)
+    precomputed = {}
+    if a.precomputed_corpus_hits:
+        moved = load_gzip(a.precomputed_corpus_hits)
+        assert moved["fixture_sha256"] == sealed["fixture_sha256"] and moved["index_sha256"] == index_sha
+        assert moved["pools_sha256"] == digest(a.pools) and moved["fitted_sha256"] == digest(a.fitted)
+        precomputed = moved["rows"]
+        assert set(precomputed) == {q["id"] for q in cases}
     anchors = {}
     if a.anchor_reference:
         reference = load_gzip(a.anchor_reference)
@@ -125,6 +132,13 @@ def run(a):
     encoder = Encoder(a.assets / "encoder", 128)
     reader = Reader(a.assets / "reader")
     index = FullWikiIndex(a.inputs, manifest, cfg)
+    corpus_engine = None
+    if a.corpus_profile_index:
+        from run_kam_fullwiki_coarse import Search
+
+        partition = torch.load(a.corpus_profile_index, weights_only=True, map_location="cpu")
+        assert partition["index_sha256"] == index_sha and partition["source_sha256"] == manifest["source_sha256"]
+        corpus_engine = Search(index, partition)
     pair_indices, original_rows = {}, {}
     if a.live_anchor_profile or a.live_initial_profile:
         from kam_union_relation_features import bitset_relation_features
@@ -151,7 +165,7 @@ def run(a):
         return chosen, pairs, scores, x[winner]
 
     def score_cases(chunk, offset, prompts, output, use_shared=False, *, live_anchor=False, phase=None,
-                    reuse_sentences=False, sentence_counts=None, initial_method=None):
+                    reuse_sentences=False, sentence_counts=None, initial_method=None, corpus_method=None):
         encode_sentences = encoder
         if sentence_counts is not None:
             cache = {}
@@ -207,12 +221,30 @@ def run(a):
             first_slots = first_slots.flatten().tolist()
         if phase is not None:
             anchor_ready = perf_counter()
-        augmented = [f"{c['question']} First retrieved document: {candidate_texts(c)[slot]}"
-                     for c, slot in zip(examples, first_slots, strict=True)]
-        second = adapter(encoder(augmented, "query"))
-        conditioned = (adapted + second) * .5
-        queries = conditioned if a.guard_split else torch.cat((adapted, conditioned))
-        candidates, _ = top_corpus(index, queries, first_ids if a.guard_split else first_ids * 2)
+        if precomputed:
+            selections = [precomputed[q["id"]] for q in chunk]
+            assert first_ids == [row["first"] for row in selections]
+            candidates = [row[key] for key in EXPANDED for row in selections]
+            assert all(len(c) == len(set(c)) == 64 for c in candidates)
+        else:
+            augmented = [f"{c['question']} First retrieved document: {candidate_texts(c)[slot]}"
+                         for c, slot in zip(examples, first_slots, strict=True)]
+            second = adapter(encoder(augmented, "query"))
+            conditioned = (adapted + second) * .5
+            queries = conditioned if a.guard_split else torch.cat((adapted, conditioned))
+            if corpus_method:
+                first, = first_ids
+                if corpus_method == "exact":
+                    ranked, _ = corpus_engine.exact(queries, first)
+                elif corpus_method == "full_rescore":
+                    ranked, _ = corpus_engine.full_rescore(queries, first)
+                else:
+                    implementation, count = corpus_method.split("_")
+                    fn = corpus_engine.fused_probe if implementation == "fused" else corpus_engine.probe
+                    ranked, _ = fn(queries, first, int(count))
+                candidates = [ranked.tolist()]
+            else:
+                candidates, _ = top_corpus(index, queries, first_ids if a.guard_split else first_ids * 2)
 
         if phase is not None:
             search_ready = perf_counter()
@@ -287,13 +319,14 @@ def run(a):
 
     output = []
     def request(case, i, use_shared, *, live_anchor=False, phase=None, reuse_sentences=False,
-                initial_method=None):
+                initial_method=None, corpus_method=None):
         prompts, rows = {}, []
         sentence_counts = dict(requested=0, encoded=0) if a.sentence_reuse_profile or reuse_sentences else None
         torch.cuda.synchronize()
         before = perf_counter()
         score_cases([case], i, prompts, rows, use_shared=use_shared, live_anchor=live_anchor, phase=phase,
-                    reuse_sentences=reuse_sentences, sentence_counts=sentence_counts, initial_method=initial_method)
+                    reuse_sentences=reuse_sentences, sentence_counts=sentence_counts, initial_method=initial_method,
+                    corpus_method=corpus_method)
         before_reader = perf_counter()
         read_answers(prompts)
         torch.cuda.synchronize()
@@ -305,7 +338,36 @@ def run(a):
         return rows[0], (done - before) * 1000
 
     index_profile = {}
-    if a.index_prewarm_rank is not None:
+    if corpus_engine is not None:
+        import gc
+        from random import Random
+
+        from benchmark_kam_article_prewarm import read_index
+
+        bytes_scanned, readiness_seconds = read_index(a.inputs / "lexical" / "articles.sqlite")
+        methods = ["exact", "full_rescore", "probe_64", "probe_256"]
+        if a.corpus_fused:
+            methods += ["fused_64", "fused_256"]
+        for i, case in enumerate(cases[:4]):
+            for method in methods:
+                request(case, i, True, phase={}, initial_method="dense", corpus_method=method, reuse_sentences=True)
+        gc.collect(2)
+        rng = Random(195823 + a.shard)
+        sample = rng.sample(cases[4:], 48)
+        for i, case in enumerate(sample):
+            order = rng.sample(methods, len(methods))
+            outcomes, latencies, details = {}, {}, {}
+            for method in order:
+                details[method] = {}
+                outcomes[method], latencies[method] = request(case, i, True, phase=details[method], initial_method="dense",
+                                                               corpus_method=method, reuse_sentences=True)
+            assert all(item["initial_ids"] == outcomes["exact"]["initial_ids"] for item in outcomes.values())
+            assert all(item["first"] == outcomes["exact"]["first"] for item in outcomes.values())
+            output.append({"id": case["id"], "order": order, "request_ms": latencies, "phases_ms": details,
+                           "records": outcomes})
+        index_profile = {"corpus_profile_partition": digest(a.corpus_profile_index), "document_bytes": bytes_scanned,
+                         "document_readiness_seconds": readiness_seconds}
+    elif a.index_prewarm_rank is not None:
         from os import uname
         from random import Random
 
@@ -472,7 +534,8 @@ def run(a):
             "gpu": torch.cuda.get_device_name(), "seconds": perf_counter() - started, "rows": output} | (
                 {"guard_columns": GUARD_COLUMNS, "split": split} if a.guard_split else {}) | (
                 {"anchor_reference_sha256": digest(a.anchor_reference)} if a.anchor_reference else {}) | (
-                {"serving_cache": "primed" if a.serving_prime else "first_pass"} if a.serving_profile else {}) | index_profile
+                {"serving_cache": "primed" if a.serving_prime else "first_pass"} if a.serving_profile else {}) | (
+                {"corpus_hits_sha256": digest(a.precomputed_corpus_hits)} if precomputed else {}) | index_profile
 
 
 def main():
@@ -483,6 +546,9 @@ def main():
     parser.add_argument("--guard-split", choices=("training", "test"))
     parser.add_argument("--verify-shared-relation", action="store_true")
     parser.add_argument("--anchor-reference", type=Path)
+    parser.add_argument("--precomputed-corpus-hits", type=Path)
+    parser.add_argument("--corpus-profile-index", type=Path)
+    parser.add_argument("--corpus-fused", action="store_true")
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
     live_profiles = parser.add_mutually_exclusive_group()
@@ -499,6 +565,18 @@ def main():
     parser.add_argument("--shards", type=int, required=True)
     a = parser.parse_args()
     assert 0 <= a.shard < a.shards
+    if a.precomputed_corpus_hits and (
+        a.guard_split or a.anchor_reference or a.serving_profile or a.index_prewarm_rank is not None
+        or a.live_anchor_profile or a.live_initial_profile
+    ):
+        parser.error("precomputed corpus hits require the offline three-arm replay")
+    if a.corpus_profile_index and (
+        a.guard_split != "test" or a.shards != 4 or a.anchor_reference or a.serving_profile
+        or a.index_prewarm_rank is not None or a.live_anchor_profile or a.live_initial_profile or a.verify_shared_relation
+    ):
+        parser.error("corpus timing requires the offline-configured test fixture and four live profiling shards")
+    if a.corpus_fused and not a.corpus_profile_index:
+        parser.error("fused corpus timing requires a coarse-partition checkpoint")
     if a.verify_shared_relation and a.guard_split != "test":
         parser.error("shared relation verification needs the two-arm test replay")
     if a.anchor_reference and a.guard_split != "test":
