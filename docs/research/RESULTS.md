@@ -131,3 +131,5 @@ The [equal-token mixed long training](../../reports/nonlinear_retrieval_natural/
 [Native 2Wiki conditioned search](../../reports/nonlinear_retrieval_natural/NATIVE_TWOWIKI.md) recovered both article titles on 826/1,024 questions versus 625 for unconditioned dense search at 128 candidates. On the annotation-incomplete cohort, giving the frozen reader annotated sentences instead of the same article leads raised EM from 135 to 199/512.
 
 [Depth-selective radial updates](../../reports/nonlinear_retrieval_natural/RADIAL_DISPATCH.md) used eager FP32 for short steps and balanced BF16 Flash at 1,025 tokens. The matched continuation took 5.03 versus 16.03 seconds on L4 and 6.48 versus 6.37 on B200. Joint accuracy at depth 512 changed by −0.26 and +0.13 points.
+
+The [frozen HotpotQA pair scorer on 2Wiki](../../reports/nonlinear_retrieval_natural/NATIVE_TWOWIKI_RERANK.md) gained 63 support selections and 16 joint exact matches from conditioned expansion versus equal-depth dense search. The three-policy oracle reached 172 joint against 165 for always conditioned.

@@ -1,0 +1,1042 @@
+{
+  "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+  "fixture_sha256": "74c74aa221f6ff9d6fb9a2e6c63c75daa20baea987ac6dab18dd6d1f7d6c4a06",
+  "groups": {
+    "all": {
+      "counts": {
+        "conditioned128": {
+          "answer_em": 238,
+          "joint": 165,
+          "pool": 826,
+          "shortlisted": 711,
+          "support": 383
+        },
+        "dense128": {
+          "answer_em": 217,
+          "joint": 149,
+          "pool": 625,
+          "shortlisted": 535,
+          "support": 320
+        },
+        "dense64": {
+          "answer_em": 215,
+          "joint": 152,
+          "pool": 590,
+          "shortlisted": 521,
+          "support": 329
+        }
+      },
+      "oracle_policy_choice": {
+        "all_three": {
+          "joint": 172,
+          "support": 403
+        },
+        "dense64_or_conditioned": {
+          "joint": 172,
+          "support": 402
+        }
+      },
+      "paired": {
+        "conditioned128_vs_dense128": {
+          "answer_em": {
+            "bootstrap95": [
+              0.01171875,
+              0.03027344
+            ],
+            "delta": 0.02050781,
+            "losses": 1,
+            "wins": 22
+          },
+          "joint": {
+            "bootstrap95": [
+              0.00683594,
+              0.02441406
+            ],
+            "delta": 0.015625,
+            "losses": 3,
+            "wins": 19
+          },
+          "support": {
+            "bootstrap95": [
+              0.04492188,
+              0.078125
+            ],
+            "delta": 0.06152344,
+            "losses": 10,
+            "wins": 73
+          }
+        },
+        "conditioned128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              0.01367188,
+              0.03222656
+            ],
+            "delta": 0.02246094,
+            "losses": 1,
+            "wins": 24
+          },
+          "joint": {
+            "bootstrap95": [
+              0.00292969,
+              0.02246094
+            ],
+            "delta": 0.01269531,
+            "losses": 7,
+            "wins": 20
+          },
+          "support": {
+            "bootstrap95": [
+              0.03417969,
+              0.0703125
+            ],
+            "delta": 0.05273438,
+            "losses": 19,
+            "wins": 73
+          }
+        },
+        "dense128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.00488281,
+              0.00878906
+            ],
+            "delta": 0.00195312,
+            "losses": 5,
+            "wins": 7
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.00878906,
+              0.00292969
+            ],
+            "delta": -0.00292969,
+            "losses": 7,
+            "wins": 4
+          },
+          "support": {
+            "bootstrap95": [
+              -0.01953125,
+              0.00097656
+            ],
+            "delta": -0.00878906,
+            "losses": 19,
+            "wins": 10
+          }
+        }
+      },
+      "questions": 1024,
+      "stage_counts": {
+        "conditioned128": {
+          "joint": 165,
+          "outside_pool": 198,
+          "outside_shortlist": 115,
+          "pair_rank": 328,
+          "reader": 218
+        },
+        "dense128": {
+          "joint": 149,
+          "outside_pool": 399,
+          "outside_shortlist": 90,
+          "pair_rank": 215,
+          "reader": 171
+        },
+        "dense64": {
+          "joint": 152,
+          "outside_pool": 434,
+          "outside_shortlist": 69,
+          "pair_rank": 192,
+          "reader": 177
+        }
+      }
+    },
+    "exact": {
+      "counts": {
+        "conditioned128": {
+          "answer_em": 143,
+          "joint": 106,
+          "pool": 441,
+          "shortlisted": 407,
+          "support": 222
+        },
+        "dense128": {
+          "answer_em": 129,
+          "joint": 94,
+          "pool": 322,
+          "shortlisted": 300,
+          "support": 182
+        },
+        "dense64": {
+          "answer_em": 126,
+          "joint": 95,
+          "pool": 304,
+          "shortlisted": 284,
+          "support": 180
+        }
+      },
+      "oracle_policy_choice": {
+        "all_three": {
+          "joint": 110,
+          "support": 227
+        },
+        "dense64_or_conditioned": {
+          "joint": 110,
+          "support": 227
+        }
+      },
+      "paired": {
+        "conditioned128_vs_dense128": {
+          "answer_em": {
+            "bootstrap95": [
+              0.01367188,
+              0.04106445
+            ],
+            "delta": 0.02734375,
+            "losses": 0,
+            "wins": 14
+          },
+          "joint": {
+            "bootstrap95": [
+              0.00976562,
+              0.03710938
+            ],
+            "delta": 0.0234375,
+            "losses": 1,
+            "wins": 13
+          },
+          "support": {
+            "bootstrap95": [
+              0.0546875,
+              0.10351562
+            ],
+            "delta": 0.078125,
+            "losses": 2,
+            "wins": 42
+          }
+        },
+        "conditioned128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              0.01953125,
+              0.04882812
+            ],
+            "delta": 0.03320312,
+            "losses": 0,
+            "wins": 17
+          },
+          "joint": {
+            "bootstrap95": [
+              0.00585938,
+              0.0390625
+            ],
+            "delta": 0.02148438,
+            "losses": 4,
+            "wins": 15
+          },
+          "support": {
+            "bootstrap95": [
+              0.05664062,
+              0.109375
+            ],
+            "delta": 0.08203125,
+            "losses": 5,
+            "wins": 47
+          }
+        },
+        "dense128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.00195312,
+              0.015625
+            ],
+            "delta": 0.00585938,
+            "losses": 1,
+            "wins": 4
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.01171875,
+              0.0078125
+            ],
+            "delta": -0.00195312,
+            "losses": 4,
+            "wins": 3
+          },
+          "support": {
+            "bootstrap95": [
+              -0.00976562,
+              0.01757812
+            ],
+            "delta": 0.00390625,
+            "losses": 5,
+            "wins": 7
+          }
+        }
+      },
+      "questions": 512,
+      "stage_counts": {
+        "conditioned128": {
+          "joint": 106,
+          "outside_pool": 71,
+          "outside_shortlist": 34,
+          "pair_rank": 185,
+          "reader": 116
+        },
+        "dense128": {
+          "joint": 94,
+          "outside_pool": 190,
+          "outside_shortlist": 22,
+          "pair_rank": 118,
+          "reader": 88
+        },
+        "dense64": {
+          "joint": 95,
+          "outside_pool": 208,
+          "outside_shortlist": 20,
+          "pair_rank": 104,
+          "reader": 85
+        }
+      }
+    },
+    "exact/dense64_complete": {
+      "counts": {
+        "conditioned128": {
+          "answer_em": 126,
+          "joint": 91,
+          "pool": 304,
+          "shortlisted": 279,
+          "support": 175
+        },
+        "dense128": {
+          "answer_em": 124,
+          "joint": 91,
+          "pool": 304,
+          "shortlisted": 282,
+          "support": 175
+        },
+        "dense64": {
+          "answer_em": 124,
+          "joint": 95,
+          "pool": 304,
+          "shortlisted": 284,
+          "support": 180
+        }
+      },
+      "oracle_policy_choice": {
+        "all_three": {
+          "joint": 95,
+          "support": 180
+        },
+        "dense64_or_conditioned": {
+          "joint": 95,
+          "support": 180
+        }
+      },
+      "paired": {
+        "conditioned128_vs_dense128": {
+          "answer_em": {
+            "bootstrap95": [
+              0.0,
+              0.01644737
+            ],
+            "delta": 0.00657895,
+            "losses": 0,
+            "wins": 2
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.00986842,
+              0.00986842
+            ],
+            "delta": 0.0,
+            "losses": 1,
+            "wins": 1
+          },
+          "support": {
+            "bootstrap95": [
+              -0.01315789,
+              0.01315789
+            ],
+            "delta": 0.0,
+            "losses": 2,
+            "wins": 2
+          }
+        },
+        "conditioned128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              0.0,
+              0.01644737
+            ],
+            "delta": 0.00657895,
+            "losses": 0,
+            "wins": 2
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.02631579,
+              -0.00328947
+            ],
+            "delta": -0.01315789,
+            "losses": 4,
+            "wins": 0
+          },
+          "support": {
+            "bootstrap95": [
+              -0.03289474,
+              -0.00328947
+            ],
+            "delta": -0.01644737,
+            "losses": 5,
+            "wins": 0
+          }
+        },
+        "dense128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.00986842,
+              0.00986842
+            ],
+            "delta": 0.0,
+            "losses": 1,
+            "wins": 1
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.02631579,
+              -0.00328947
+            ],
+            "delta": -0.01315789,
+            "losses": 4,
+            "wins": 0
+          },
+          "support": {
+            "bootstrap95": [
+              -0.03289474,
+              -0.00328947
+            ],
+            "delta": -0.01644737,
+            "losses": 5,
+            "wins": 0
+          }
+        }
+      },
+      "questions": 304,
+      "stage_counts": {
+        "conditioned128": {
+          "joint": 91,
+          "outside_pool": 0,
+          "outside_shortlist": 25,
+          "pair_rank": 104,
+          "reader": 84
+        },
+        "dense128": {
+          "joint": 91,
+          "outside_pool": 0,
+          "outside_shortlist": 22,
+          "pair_rank": 107,
+          "reader": 84
+        },
+        "dense64": {
+          "joint": 95,
+          "outside_pool": 0,
+          "outside_shortlist": 20,
+          "pair_rank": 104,
+          "reader": 85
+        }
+      }
+    },
+    "exact/dense64_incomplete": {
+      "counts": {
+        "conditioned128": {
+          "answer_em": 17,
+          "joint": 15,
+          "pool": 137,
+          "shortlisted": 128,
+          "support": 47
+        },
+        "dense128": {
+          "answer_em": 5,
+          "joint": 3,
+          "pool": 18,
+          "shortlisted": 18,
+          "support": 7
+        },
+        "dense64": {
+          "answer_em": 2,
+          "joint": 0,
+          "pool": 0,
+          "shortlisted": 0,
+          "support": 0
+        }
+      },
+      "oracle_policy_choice": {
+        "all_three": {
+          "joint": 15,
+          "support": 47
+        },
+        "dense64_or_conditioned": {
+          "joint": 15,
+          "support": 47
+        }
+      },
+      "paired": {
+        "conditioned128_vs_dense128": {
+          "answer_em": {
+            "bootstrap95": [
+              0.02884615,
+              0.09134615
+            ],
+            "delta": 0.05769231,
+            "losses": 0,
+            "wins": 12
+          },
+          "joint": {
+            "bootstrap95": [
+              0.02884615,
+              0.09134615
+            ],
+            "delta": 0.05769231,
+            "losses": 0,
+            "wins": 12
+          },
+          "support": {
+            "bootstrap95": [
+              0.13942308,
+              0.24519231
+            ],
+            "delta": 0.19230769,
+            "losses": 0,
+            "wins": 40
+          }
+        },
+        "conditioned128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              0.03846154,
+              0.11057692
+            ],
+            "delta": 0.07211538,
+            "losses": 0,
+            "wins": 15
+          },
+          "joint": {
+            "bootstrap95": [
+              0.03846154,
+              0.11057692
+            ],
+            "delta": 0.07211538,
+            "losses": 0,
+            "wins": 15
+          },
+          "support": {
+            "bootstrap95": [
+              0.17307692,
+              0.28365385
+            ],
+            "delta": 0.22596154,
+            "losses": 0,
+            "wins": 47
+          }
+        },
+        "dense128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              0.0,
+              0.03365385
+            ],
+            "delta": 0.01442308,
+            "losses": 0,
+            "wins": 3
+          },
+          "joint": {
+            "bootstrap95": [
+              0.0,
+              0.03365385
+            ],
+            "delta": 0.01442308,
+            "losses": 0,
+            "wins": 3
+          },
+          "support": {
+            "bootstrap95": [
+              0.01442308,
+              0.0625
+            ],
+            "delta": 0.03365385,
+            "losses": 0,
+            "wins": 7
+          }
+        }
+      },
+      "questions": 208,
+      "stage_counts": {
+        "conditioned128": {
+          "joint": 15,
+          "outside_pool": 71,
+          "outside_shortlist": 9,
+          "pair_rank": 81,
+          "reader": 32
+        },
+        "dense128": {
+          "joint": 3,
+          "outside_pool": 190,
+          "outside_shortlist": 0,
+          "pair_rank": 11,
+          "reader": 4
+        },
+        "dense64": {
+          "joint": 0,
+          "outside_pool": 208,
+          "outside_shortlist": 0,
+          "pair_rank": 0,
+          "reader": 0
+        }
+      }
+    },
+    "partial": {
+      "counts": {
+        "conditioned128": {
+          "answer_em": 95,
+          "joint": 59,
+          "pool": 385,
+          "shortlisted": 304,
+          "support": 161
+        },
+        "dense128": {
+          "answer_em": 88,
+          "joint": 55,
+          "pool": 303,
+          "shortlisted": 235,
+          "support": 138
+        },
+        "dense64": {
+          "answer_em": 89,
+          "joint": 57,
+          "pool": 286,
+          "shortlisted": 237,
+          "support": 149
+        }
+      },
+      "oracle_policy_choice": {
+        "all_three": {
+          "joint": 62,
+          "support": 176
+        },
+        "dense64_or_conditioned": {
+          "joint": 62,
+          "support": 175
+        }
+      },
+      "paired": {
+        "conditioned128_vs_dense128": {
+          "answer_em": {
+            "bootstrap95": [
+              0.00195312,
+              0.02539062
+            ],
+            "delta": 0.01367188,
+            "losses": 1,
+            "wins": 8
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.00195312,
+              0.01953125
+            ],
+            "delta": 0.0078125,
+            "losses": 2,
+            "wins": 6
+          },
+          "support": {
+            "bootstrap95": [
+              0.02148438,
+              0.06835938
+            ],
+            "delta": 0.04492188,
+            "losses": 8,
+            "wins": 31
+          }
+        },
+        "conditioned128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              0.00195312,
+              0.0234375
+            ],
+            "delta": 0.01171875,
+            "losses": 1,
+            "wins": 7
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.00585938,
+              0.015625
+            ],
+            "delta": 0.00390625,
+            "losses": 3,
+            "wins": 5
+          },
+          "support": {
+            "bootstrap95": [
+              0.0,
+              0.046875
+            ],
+            "delta": 0.0234375,
+            "losses": 14,
+            "wins": 26
+          }
+        },
+        "dense128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.01171875,
+              0.0078125
+            ],
+            "delta": -0.00195312,
+            "losses": 4,
+            "wins": 3
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.01171875,
+              0.00390625
+            ],
+            "delta": -0.00390625,
+            "losses": 3,
+            "wins": 1
+          },
+          "support": {
+            "bootstrap95": [
+              -0.03710938,
+              -0.00585938
+            ],
+            "delta": -0.02148438,
+            "losses": 14,
+            "wins": 3
+          }
+        }
+      },
+      "questions": 512,
+      "stage_counts": {
+        "conditioned128": {
+          "joint": 59,
+          "outside_pool": 127,
+          "outside_shortlist": 81,
+          "pair_rank": 143,
+          "reader": 102
+        },
+        "dense128": {
+          "joint": 55,
+          "outside_pool": 209,
+          "outside_shortlist": 68,
+          "pair_rank": 97,
+          "reader": 83
+        },
+        "dense64": {
+          "joint": 57,
+          "outside_pool": 226,
+          "outside_shortlist": 49,
+          "pair_rank": 88,
+          "reader": 92
+        }
+      }
+    },
+    "partial/dense64_complete": {
+      "counts": {
+        "conditioned128": {
+          "answer_em": 87,
+          "joint": 54,
+          "pool": 286,
+          "shortlisted": 229,
+          "support": 136
+        },
+        "dense128": {
+          "answer_em": 85,
+          "joint": 54,
+          "pool": 286,
+          "shortlisted": 228,
+          "support": 135
+        },
+        "dense64": {
+          "answer_em": 85,
+          "joint": 57,
+          "pool": 286,
+          "shortlisted": 237,
+          "support": 149
+        }
+      },
+      "oracle_policy_choice": {
+        "all_three": {
+          "joint": 57,
+          "support": 150
+        },
+        "dense64_or_conditioned": {
+          "joint": 57,
+          "support": 150
+        }
+      },
+      "paired": {
+        "conditioned128_vs_dense128": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.00699301,
+              0.02097902
+            ],
+            "delta": 0.00699301,
+            "losses": 1,
+            "wins": 3
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.01398601,
+              0.01398601
+            ],
+            "delta": 0.0,
+            "losses": 2,
+            "wins": 2
+          },
+          "support": {
+            "bootstrap95": [
+              -0.02097902,
+              0.02797203
+            ],
+            "delta": 0.0034965,
+            "losses": 7,
+            "wins": 8
+          }
+        },
+        "conditioned128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.00699301,
+              0.02097902
+            ],
+            "delta": 0.00699301,
+            "losses": 1,
+            "wins": 3
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.02447552,
+              0.0
+            ],
+            "delta": -0.01048951,
+            "losses": 3,
+            "wins": 0
+          },
+          "support": {
+            "bootstrap95": [
+              -0.07342657,
+              -0.02097902
+            ],
+            "delta": -0.04545455,
+            "losses": 14,
+            "wins": 1
+          }
+        },
+        "dense128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.01748252,
+              0.01748252
+            ],
+            "delta": 0.0,
+            "losses": 3,
+            "wins": 3
+          },
+          "joint": {
+            "bootstrap95": [
+              -0.02447552,
+              0.0
+            ],
+            "delta": -0.01048951,
+            "losses": 3,
+            "wins": 0
+          },
+          "support": {
+            "bootstrap95": [
+              -0.07692308,
+              -0.02447552
+            ],
+            "delta": -0.04895105,
+            "losses": 14,
+            "wins": 0
+          }
+        }
+      },
+      "questions": 286,
+      "stage_counts": {
+        "conditioned128": {
+          "joint": 54,
+          "outside_pool": 0,
+          "outside_shortlist": 57,
+          "pair_rank": 93,
+          "reader": 82
+        },
+        "dense128": {
+          "joint": 54,
+          "outside_pool": 0,
+          "outside_shortlist": 58,
+          "pair_rank": 93,
+          "reader": 81
+        },
+        "dense64": {
+          "joint": 57,
+          "outside_pool": 0,
+          "outside_shortlist": 49,
+          "pair_rank": 88,
+          "reader": 92
+        }
+      }
+    },
+    "partial/dense64_incomplete": {
+      "counts": {
+        "conditioned128": {
+          "answer_em": 8,
+          "joint": 5,
+          "pool": 99,
+          "shortlisted": 75,
+          "support": 25
+        },
+        "dense128": {
+          "answer_em": 3,
+          "joint": 1,
+          "pool": 17,
+          "shortlisted": 7,
+          "support": 3
+        },
+        "dense64": {
+          "answer_em": 4,
+          "joint": 0,
+          "pool": 0,
+          "shortlisted": 0,
+          "support": 0
+        }
+      },
+      "oracle_policy_choice": {
+        "all_three": {
+          "joint": 5,
+          "support": 26
+        },
+        "dense64_or_conditioned": {
+          "joint": 5,
+          "support": 25
+        }
+      },
+      "paired": {
+        "conditioned128_vs_dense128": {
+          "answer_em": {
+            "bootstrap95": [
+              0.00442478,
+              0.04424779
+            ],
+            "delta": 0.02212389,
+            "losses": 0,
+            "wins": 5
+          },
+          "joint": {
+            "bootstrap95": [
+              0.00442478,
+              0.03539823
+            ],
+            "delta": 0.01769912,
+            "losses": 0,
+            "wins": 4
+          },
+          "support": {
+            "bootstrap95": [
+              0.05752212,
+              0.14159292
+            ],
+            "delta": 0.09734513,
+            "losses": 1,
+            "wins": 23
+          }
+        },
+        "conditioned128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              0.00442478,
+              0.03539823
+            ],
+            "delta": 0.01769912,
+            "losses": 0,
+            "wins": 4
+          },
+          "joint": {
+            "bootstrap95": [
+              0.00442478,
+              0.04424779
+            ],
+            "delta": 0.02212389,
+            "losses": 0,
+            "wins": 5
+          },
+          "support": {
+            "bootstrap95": [
+              0.07079646,
+              0.15486726
+            ],
+            "delta": 0.11061947,
+            "losses": 0,
+            "wins": 25
+          }
+        },
+        "dense128_vs_dense64": {
+          "answer_em": {
+            "bootstrap95": [
+              -0.01327434,
+              0.0
+            ],
+            "delta": -0.00442478,
+            "losses": 1,
+            "wins": 0
+          },
+          "joint": {
+            "bootstrap95": [
+              0.0,
+              0.01327434
+            ],
+            "delta": 0.00442478,
+            "losses": 0,
+            "wins": 1
+          },
+          "support": {
+            "bootstrap95": [
+              0.0,
+              0.03097345
+            ],
+            "delta": 0.01327434,
+            "losses": 0,
+            "wins": 3
+          }
+        }
+      },
+      "questions": 226,
+      "stage_counts": {
+        "conditioned128": {
+          "joint": 5,
+          "outside_pool": 127,
+          "outside_shortlist": 24,
+          "pair_rank": 50,
+          "reader": 20
+        },
+        "dense128": {
+          "joint": 1,
+          "outside_pool": 209,
+          "outside_shortlist": 10,
+          "pair_rank": 4,
+          "reader": 2
+        },
+        "dense64": {
+          "joint": 0,
+          "outside_pool": 226,
+          "outside_shortlist": 0,
+          "pair_rank": 0,
+          "reader": 0
+        }
+      }
+    }
+  }
+}

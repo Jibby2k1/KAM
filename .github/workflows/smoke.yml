@@ -518,3 +518,11 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_radial_dispatch.py --b200 "$study"/result-b200-52969191-*.json.gz --l4 "$study"/result-l4-52969192-*.json.gz --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit frozen pair reranking on native 2Wiki
+        run: |
+          base=results/nonlinear_retrieval_natural
+          parent="$base/native_twowiki_v1"
+          study="$base/native_twowiki_rerank_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_native_twowiki_rerank.py --search "$parent"/search-*.json.gz --rerank "$study"/rerank-52969603-*.json.gz --manifest "$parent/manifest.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
