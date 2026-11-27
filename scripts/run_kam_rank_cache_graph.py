@@ -22,7 +22,7 @@ POLICIES = (("eager", "on_the_fly"), ("eager", "cached_uint8"),
             ("shape_graph", "on_the_fly"), ("shape_graph", "cached_uint8"))
 
 
-def merged(banks_by_depth, feature_cache):
+def merged(banks_by_depth, feature_cache=None):
     banks, ranks = {}, {}
     checked = 0
     for depth, (scenes, order, batches, seal) in banks_by_depth.items():
@@ -41,7 +41,8 @@ def merged(banks_by_depth, feature_cache):
             assert all(torch.equal(t, torch.cat(v)) for t, v in zip(proposed, zip(*reference, strict=True), strict=True))
             checked += len(selected)
         banks[depth] = full, repeated, places, seal
-        ranks[depth] = torch.cat(feature_cache[depth])
+        if feature_cache is not None:
+            ranks[depth] = torch.cat(feature_cache[depth])
     return banks, ranks, checked
 
 
