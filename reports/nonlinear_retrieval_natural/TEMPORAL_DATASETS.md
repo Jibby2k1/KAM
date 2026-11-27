@@ -57,6 +57,20 @@ The concurrent audit inferred precedence from vehicle and package identities in 
 
 The inferred and published schedules agreed on every timestamp for 2,274 of the 2,690 cases whose event references were unique. Using the published schedules, 15 cases had simultaneous eligible events with different sets of locations. The release's depth metadata identified the target event and reproduced all 2,690 resolved labels, including those 15. The other ten hypothetical questions named a changed event that occurred more than once. Clock translation preserved the inferred results on every resolved case. The ten reused plans limit independent variation, so use complete-plan holdout and audit label uniqueness when generating further questions.
 
+### Duration changes with the same numbers
+
+Constructed 1,173 pairs from the hard serial static and relative questions across ten plans. Each intervention swapped two duration values on opposite sides of the original target, changing the selected event and location set. The paired sham swapped equally different duration values strictly after both targets. Question wording, event order, the multiset of durations, and the number of edited events stayed fixed. The median duration difference was 35 minutes. An independent cumulative schedule plus the original package replay agreed on the new targets. The reported slice contains eligible cases where both controlled edits could be constructed.
+
+| Frozen E5 selector | Original top one | Sham top one | Intervention top one | Both original and intervention top one |
+| --- | ---: | ---: | ---: | ---: |
+| Individual events and full question | 1 | 1 | 22 | 0 |
+| Individual events and target clause | 5 | 6 | 52 | 0 |
+| Five-event windows and full question | 15 | 14 | 19 | 0 |
+| Five-event windows and target clause | 85 | 82 | 38 | 0 |
+| Individual events with durations masked | 1 | 1 | 16 | 0 |
+
+The best clean selector's top-five counts were 330, 332, and 275 across the three forms. That selector changed its top-one choice on 44 interventions and 22 shams. The independent target came from the sequence's cumulative clock, so local semantic windows cover only part of the required computation. These counts evaluate exact target event retrieval in the edited generated plans. They provide a control for a learned ordered selector and say nothing about natural-text answer decoding. HPG L4 array 52963861 supplied the scores. [Fixture builder](../../scripts/prepare_kam_tempreplay_swaps.py) · [GPU baseline](../../scripts/run_kam_tempreplay_swaps.py) · [Audit and plan-level counts](../../results/nonlinear_retrieval_natural/unseentimeqa_duration_swaps_v1/summary.json)
+
 ## Real revision and abstention
 
 Read four linked observation-by-vintage tables from the Philadelphia Fed archive, totaling **190,764** nonmissing cells. For each question the exact target was the latest cell from the requested series and observation that was available by the vintage cutoff. A separately implemented SQLite lookup agreed on every fixture label. Unavailable questions have no corresponding cell by the cutoff. The numerical target is the archived representation for that edition. Rebasing can change earlier observations.

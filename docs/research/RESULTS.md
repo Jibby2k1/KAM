@@ -113,3 +113,5 @@ A [duration-only serial schedule audit](../../reports/nonlinear_retrieval_natura
 In the [sustained B200 collector replay](../../reports/nonlinear_retrieval_natural/LIVE_GC_SUSTAINED.md), readiness collection shifted all four observed full pauses out of 1,008 cached requests per policy. All policy outcomes matched. Pooled p99 went from 159.91 to 153.75 ms. Adding freezing did not improve p99 consistently across workers.
 
 The [parallel schedule audit](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#parallel-schedules) matched 2,618 of 2,700 released hard parallel answers from text-derived dependencies. Using the authors' dependency schedules, 2,675 had a unique active-event answer, 15 had competing active events, and ten had ambiguous timing interventions.
+
+On [1,173 matched serial duration swaps](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#duration-changes-with-the-same-numbers), none of the tested frozen semantic policies selected both exact events before and after the label-changing edit. The best clean selector reached 330 top-five hits, compared with 275 after the duration swap.

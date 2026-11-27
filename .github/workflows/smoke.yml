@@ -461,3 +461,9 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_gc_sustained.py "$study"/profile-52960822-*.json.gz --fixture "$ref/fixture.json.gz" --reference "$ref/replay.json.gz" --diagnostic "$study/diagnostic-52962277.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit matched temporal duration swaps and retrieval
+        run: |
+          study=results/nonlinear_retrieval_natural/unseentimeqa_duration_swaps_v1
+          output=$(mktemp)
+          python scripts/analyze_kam_tempreplay_swaps.py "$study"/eval-52963861-*.json.gz --manifest "$study/manifest.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
