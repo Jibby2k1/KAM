@@ -1,8 +1,8 @@
 # Optimized dot and radial learning at matched wall time
 
-With CUDA Graph capture enabled for both geometries, dot learned faster at the first elapsed budgets and radial was ahead by the third checkpoint on L4 and B200. Across three B200 seeds at 24 seconds, median joint accuracy on 1,024-record histories reached 79.30% for radial and 47.27% for dot. The corresponding 60-second L4 result was 83.20% and 51.17%.
+With CUDA Graph capture enabled for both geometries, dot learned faster at the first elapsed budgets and radial was ahead by the third checkpoint on L4, B200 and RTX PRO 6000. Across three B200 seeds at 24 seconds, median joint accuracy on 1,024-record histories reached 79.30% for radial and 47.27% for dot. The corresponding 60-second L4 result was 83.20% and 51.17%.
 
-The two geometries start from identical shared parameters within each seed. They replay the same from-scratch short-first curriculum and learning-rate schedule, with the per-depth selective kernel for each geometry. A per-shape CUDA Graph captures each update, including AdamW. Time includes graph preparation and synchronized update blocks. It excludes data preparation and held-out evaluation. The first checkpoint at or just after each budget is used, polling every 48 updates. The 19,200-update control reproduced the earlier captured loss and all held-out flags for all 12 paired geometry and seed replays.
+The two geometries start from identical shared parameters within each seed. They replay the same from-scratch short-first curriculum and learning-rate schedule, with the per-depth selective kernel for each geometry. A per-shape CUDA Graph captures each update, including AdamW. Time includes graph preparation and synchronized update blocks. It excludes data preparation and held-out evaluation. The first checkpoint at or just after each budget is used, polling every 48 updates. The 19,200-update control reproduced the earlier captured loss and all held-out flags for all 18 geometry, device and seed replays.
 
 | GPU | Elapsed budget | Dot depth-1,024 joint | Radial depth-1,024 joint | Dot updates | Radial updates |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -14,7 +14,11 @@ The two geometries start from identical shared parameters within each seed. They
 | B200 | 12 s | 37.50% | 32.81% | 12,000 | 7,536 |
 | B200 | 18 s | 45.31% | 62.11% | 18,384 | 11,328 |
 | B200 | 24 s | 47.27% | 79.30% | 24,768 | 15,168 |
+| RTX PRO 6000 | 6 s | 29.69% | 10.55% | 5,568 | 3,888 |
+| RTX PRO 6000 | 12 s | 37.89% | 28.91% | 11,424 | 7,728 |
+| RTX PRO 6000 | 18 s | 48.44% | 63.28% | 17,376 | 11,568 |
+| RTX PRO 6000 | 24 s | 48.44% | 85.55% | 23,328 | 15,456 |
 
-Each column reports the median across seeds. At the third and fourth checkpoint, every seed's paired radial-minus-dot interval excluded zero on both GPUs. The slowest crossing of a fixed elapsed budget was under 0.18 seconds past the target on L4 and under 0.10 seconds on B200. Dot processed more updates throughout. Measured accuracy and the crossover apply to this position-free synthetic task, the fixed short-first schedule and the selected kernels.
+Each column reports the median across seeds. At the third and fourth checkpoint, every seed's paired radial-minus-dot interval excluded zero on all three GPUs. The slowest crossing of a fixed elapsed budget was under 0.18 seconds past the target on L4 and under 0.10 seconds on B200. Dot processed more updates throughout. Measured accuracy and the crossover apply to this position-free synthetic task, the fixed short-first schedule and the selected kernels.
 
-HPG arrays 52989645 and 52989646. [Joined measurements](../../results/nonlinear_retrieval_natural/captured_wallclock_v1/) · [Graph parity controls](RADIAL_CURRICULUM_CAPTURE.md) · [Earlier noncaptured timing](RADIAL_CURRICULUM_WALLCLOCK.md)
+HPG arrays 52989645, 52989646 and 53007900. [Three-device results](../../results/nonlinear_retrieval_natural/captured_wallclock_v1/summary-three-gpus.json) [Joined measurements](../../results/nonlinear_retrieval_natural/captured_wallclock_v1/) · [Graph parity controls](RADIAL_CURRICULUM_CAPTURE.md) · [Earlier noncaptured timing](RADIAL_CURRICULUM_WALLCLOCK.md)

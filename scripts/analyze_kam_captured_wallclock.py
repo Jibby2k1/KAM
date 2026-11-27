@@ -74,7 +74,7 @@ def compare_device(paths, controls):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    for name in ("l4", "l4-control", "b200", "b200-control"):
+    for name in ("l4", "l4-control", "b200", "b200-control", "rtx6000", "rtx6000-control"):
         p.add_argument("--" + name, type=Path, nargs=3, required=name.startswith("l4"))
     p.add_argument("--output", type=Path, required=True)
     a = p.parse_args()
@@ -82,6 +82,9 @@ def main():
     if a.b200:
         assert a.b200_control
         results["b200"] = compare_device(a.b200, a.b200_control)
+    if a.rtx6000:
+        assert a.rtx6000_control
+        results["rtx6000"] = compare_device(a.rtx6000, a.rtx6000_control)
     a.output.write_text(json.dumps(results, sort_keys=True, indent=2) + "\n")
 
 

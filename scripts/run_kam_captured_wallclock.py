@@ -17,7 +17,8 @@ from run_kam_radial_curriculum_order import CONFIG, state_sha, training_order
 from run_kam_radial_dispatch import assess
 
 STEPS = 38400
-LIMITS = {"NVIDIA L4": (15, 30, 45, 60), "NVIDIA B200": (6, 12, 18, 24)}
+LIMITS = {"NVIDIA L4": (15, 30, 45, 60), "NVIDIA B200": (6, 12, 18, 24),
+          "NVIDIA RTX PRO 6000 Blackwell Server Edition": (6, 12, 18, 24)}
 
 
 def run(seed, rotation, compare_order=False):

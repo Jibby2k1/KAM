@@ -2,6 +2,7 @@
 """Audit exact training equivalence and matched full-curriculum GPU timings."""
 
 import argparse
+import gzip
 import json
 from pathlib import Path
 from statistics import mean, median
@@ -45,19 +46,31 @@ def assess(rows):
     return {"device": rows[0]["device"], "arms": out, "radial_vs_dot_by_seed": paired}
 
 
+def read(path):
+    raw = path.read_bytes()
+    return json.loads(gzip.decompress(raw) if path.suffix == ".gz" else raw)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ("l4", "b200"):
         p.add_argument("--" + name, type=Path, nargs=3, required=True)
+    p.add_argument("--rtx6000", type=Path, nargs=3)
     p.add_argument("--output", type=Path, required=True)
     a = p.parse_args()
-    p1, p2 = [sorted((json.loads(f.read_text()) for f in s), key=lambda x: x["seed"]) for s in (a.l4, a.b200)]
+    p1, p2 = [sorted(map(read, s), key=lambda x: x["seed"]) for s in (a.l4, a.b200)]
     fields = ("seed", "steps", "banks", "order_sha256")
     assert [r["device"] for r in p1] == ["NVIDIA L4"]*3 and [r["device"] for r in p2] == ["NVIDIA B200"]*3
     assert all(all(x[k] == y[k] for k in fields) for x, y in zip(p1, p2, strict=True))
     data = {"updates": p1[0]["steps"], "seeds": [x["seed"] for x in p1],
             "cross_device_rate_bytes_equal": [x["rates_sha256"] == y["rates_sha256"] for x, y in zip(p1, p2, strict=True)],
             "l4": assess(p1), "b200": assess(p2)}
+    if a.rtx6000:
+        p3 = sorted(map(read, a.rtx6000), key=lambda x: x["seed"])
+        assert all("RTX PRO 6000" in r["device"] for r in p3)
+        assert all(all(x[k] == y[k] for k in fields) for x, y in zip(p1, p3, strict=True))
+        data["rtx6000"] = assess(p3)
+        data["l4_rtx6000_rate_bytes_equal"] = [x["rates_sha256"] == y["rates_sha256"] for x, y in zip(p1, p3, strict=True)]
     a.output.write_text(json.dumps(data, sort_keys=True, indent=2) + "\n")
 
 

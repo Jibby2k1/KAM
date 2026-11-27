@@ -13,4 +13,8 @@ Each arm starts from the same untrained state for its seed. Short-first curricul
 
 Times are medians and accuracies are means across seeds. Captured peak allocated memory was 245–248 MB above the measurement baseline, with 245–252 MB across both modes. Different HPG host and allocator states can affect eager dispatch timings, so compare capture with eager within each allocation. Device-to-device parity is not expected with different kernels and numerical hardware. The experiment fixes update budget and does not measure when each geometry reaches a given accuracy.
 
-HPG arrays 52987721 and 52987722. [Measurements and parity checks](../../results/nonlinear_retrieval_natural/curriculum_capture_v1/) · [Training runner](../../scripts/run_kam_curriculum_capture.py) · [Summary script](../../scripts/analyze_kam_curriculum_capture.py) · [Earlier shuffled-depth capture](RADIAL_SHAPE_GRAPHS.md)
+## RTX PRO 6000 replay
+
+The RTX PRO 6000 Blackwell Server Edition preserved all weights, optimizer states, loss and held-out flags in the paired 19,200-update runs. Eager-to-captured timing including setup went from 56.63 to 19.67 seconds for dot and 84.73 to 29.78 seconds for radial. Update-only timing was 56.59 to 19.40 and 84.67 to 29.34 seconds respectively. Three-seed mean joint accuracy at depth 1,024 was 47.79% and 84.90%. The RTX median capture timings here are similar to the B200 timings. Host eager dispatch and per-kernel overhead influence these comparisons. [All three devices](../../results/nonlinear_retrieval_natural/curriculum_capture_v1/summary-three-gpus.json)
+
+HPG arrays 52987721, 52987722 and 53007494. [Measurements and parity checks](../../results/nonlinear_retrieval_natural/curriculum_capture_v1/) · [Training runner](../../scripts/run_kam_curriculum_capture.py) · [Summary script](../../scripts/analyze_kam_curriculum_capture.py) · [Earlier shuffled-depth capture](RADIAL_SHAPE_GRAPHS.md)

@@ -30,3 +30,7 @@ HPG L4 arrays 52997124, 52995223 and 52997414. [Batch-width records](../../resul
 ## RTX PRO 6000 scan replay
 
 The same isolated corpus scan ran in 4.27 ms with FP16 and 3.70 ms with INT8, with a paired −0.56 ms [−0.56, −0.56] at two decimal places. Both policies returned the same top title and candidate set on all 1,024 requests and the same ordered list on 1,020. All complete-pool flags matched. This replay used the same 5.20 million documents, eight-query batches, per-document scales and FP32 rescore. The INT8 bank built in 73 ms at the median. The narrow interval covers repeated isolated scan timings within this device and workload. [HPG RTX PRO 6000 array 53003845](../../results/nonlinear_retrieval_natural/fullwiki_quantized_search_v1/rtx6000-summary.json)
+
+## B200 scan replay
+
+The B200 p50 for an eight-query scan of the same bank moved from 3.60 ms with FP16 to 2.22 ms with INT8 and common FP32 rescoring. The paired reduction was 1.38 ms [1.38, 1.39]. Top titles and candidate sets matched all 1,024 requests, with 1,017 ordered lists identical. All complete-pool flags matched. Median INT8 bank construction was 70 ms. This B200 result isolates corpus search, so the live request change is measured on L4 only. [HPG B200 array 52995224 and three-device comparison](../../results/nonlinear_retrieval_natural/fullwiki_quantized_search_v1/three-device-summary.json)
