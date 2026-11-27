@@ -1,0 +1,789 @@
+{
+  "fixture_sha256": "843e37cc3827a19b6d706929973110939ca8a0c4d465337ff3a0b129802dbfea",
+  "scopes": {
+    "all": {
+      "clusters": 79,
+      "counts": {
+        "gold_text": {
+          "all_facts_visible": 381,
+          "em": 243,
+          "joint": 241,
+          "mean_f1": 0.6797991071428572,
+          "median_body_tokens": 75.0
+        },
+        "lead": {
+          "all_facts_visible": 7,
+          "em": 103,
+          "joint": 4,
+          "mean_f1": 0.30092815170940174,
+          "median_body_tokens": 335.0
+        },
+        "no_evidence": {
+          "all_facts_visible": 0,
+          "em": 141,
+          "joint": 0,
+          "mean_f1": 0.3697544642857143,
+          "median_body_tokens": 0.0
+        },
+        "sentence_center": {
+          "all_facts_visible": 69,
+          "em": 134,
+          "joint": 31,
+          "mean_f1": 0.37629552053410414,
+          "median_body_tokens": 335.0
+        },
+        "stride": {
+          "all_facts_visible": 46,
+          "em": 111,
+          "joint": 16,
+          "mean_f1": 0.3365175090504038,
+          "median_body_tokens": 330.0
+        },
+        "two_centers": {
+          "all_facts_visible": 89,
+          "em": 118,
+          "joint": 33,
+          "mean_f1": 0.35119196942798914,
+          "median_body_tokens": 335.0
+        }
+      },
+      "largest_cluster": 117,
+      "paired": {
+        "gold_text_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 0.9921875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.97395882,
+              1.0
+            ],
+            "wins": 381
+          },
+          "em": {
+            "delta": 0.265625,
+            "losses": 26,
+            "shared_evidence_cluster_bootstrap95": [
+              0.19709026,
+              0.31983297
+            ],
+            "wins": 128
+          },
+          "joint": {
+            "delta": 0.62760417,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.54738903,
+              0.68269142
+            ],
+            "wins": 241
+          }
+        },
+        "sentence_center_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 0.1796875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.1425824,
+              0.24548226
+            ],
+            "wins": 69
+          },
+          "em": {
+            "delta": -0.01822917,
+            "losses": 90,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.11639591,
+              0.04786418
+            ],
+            "wins": 83
+          },
+          "joint": {
+            "delta": 0.08072917,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.05424499,
+              0.10869053
+            ],
+            "wins": 31
+          }
+        },
+        "sentence_center_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.05989583,
+            "losses": 21,
+            "shared_evidence_cluster_bootstrap95": [
+              0.019941,
+              0.125
+            ],
+            "wins": 44
+          },
+          "em": {
+            "delta": 0.05989583,
+            "losses": 32,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.09885057
+            ],
+            "wins": 55
+          },
+          "joint": {
+            "delta": 0.0390625,
+            "losses": 9,
+            "shared_evidence_cluster_bootstrap95": [
+              0.01824317,
+              0.07142348
+            ],
+            "wins": 24
+          }
+        },
+        "two_centers_vs_sentence_center": {
+          "all_facts_visible": {
+            "delta": 0.05208333,
+            "losses": 22,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01590619,
+              0.10208476
+            ],
+            "wins": 42
+          },
+          "em": {
+            "delta": -0.04166667,
+            "losses": 51,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.1016004,
+              -0.00478614
+            ],
+            "wins": 35
+          },
+          "joint": {
+            "delta": 0.00520833,
+            "losses": 18,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03571429,
+              0.02605015
+            ],
+            "wins": 20
+          }
+        },
+        "two_centers_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.11197917,
+            "losses": 24,
+            "shared_evidence_cluster_bootstrap95": [
+              0.04559872,
+              0.1875
+            ],
+            "wins": 67
+          },
+          "em": {
+            "delta": 0.01822917,
+            "losses": 38,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.04850746,
+              0.05503691
+            ],
+            "wins": 45
+          },
+          "joint": {
+            "delta": 0.04427083,
+            "losses": 11,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0090937,
+              0.06896222
+            ],
+            "wins": 28
+          }
+        }
+      },
+      "questions": 384
+    },
+    "comparison_query": {
+      "clusters": 69,
+      "counts": {
+        "gold_text": {
+          "all_facts_visible": 127,
+          "em": 87,
+          "joint": 86,
+          "mean_f1": 0.6828125,
+          "median_body_tokens": 71.5
+        },
+        "lead": {
+          "all_facts_visible": 2,
+          "em": 18,
+          "joint": 1,
+          "mean_f1": 0.14583333333333334,
+          "median_body_tokens": 334.0
+        },
+        "no_evidence": {
+          "all_facts_visible": 0,
+          "em": 58,
+          "joint": 0,
+          "mean_f1": 0.453125,
+          "median_body_tokens": 0.0
+        },
+        "sentence_center": {
+          "all_facts_visible": 35,
+          "em": 27,
+          "joint": 15,
+          "mean_f1": 0.2109375,
+          "median_body_tokens": 334.0
+        },
+        "stride": {
+          "all_facts_visible": 21,
+          "em": 21,
+          "joint": 4,
+          "mean_f1": 0.16800986842105264,
+          "median_body_tokens": 329.0
+        },
+        "two_centers": {
+          "all_facts_visible": 38,
+          "em": 25,
+          "joint": 11,
+          "mean_f1": 0.19613486842105263,
+          "median_body_tokens": 334.0
+        }
+      },
+      "largest_cluster": 12,
+      "paired": {
+        "gold_text_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 0.9921875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.97710033,
+              1.0
+            ],
+            "wins": 127
+          },
+          "em": {
+            "delta": 0.2265625,
+            "losses": 15,
+            "shared_evidence_cluster_bootstrap95": [
+              0.1260708,
+              0.3281186
+            ],
+            "wins": 44
+          },
+          "joint": {
+            "delta": 0.671875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.59829396,
+              0.75
+            ],
+            "wins": 86
+          }
+        },
+        "sentence_center_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 0.2734375,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.19820356,
+              0.35651959
+            ],
+            "wins": 35
+          },
+          "em": {
+            "delta": -0.2421875,
+            "losses": 42,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.3519963,
+              -0.13395874
+            ],
+            "wins": 11
+          },
+          "joint": {
+            "delta": 0.1171875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0640055,
+              0.17163646
+            ],
+            "wins": 15
+          }
+        },
+        "sentence_center_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.109375,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              0.03473136,
+              0.1944377
+            ],
+            "wins": 20
+          },
+          "em": {
+            "delta": 0.046875,
+            "losses": 12,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.04283613,
+              0.13157415
+            ],
+            "wins": 18
+          },
+          "joint": {
+            "delta": 0.0859375,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              0.02522638,
+              0.14414224
+            ],
+            "wins": 13
+          }
+        },
+        "two_centers_vs_sentence_center": {
+          "all_facts_visible": {
+            "delta": 0.0234375,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.06831394,
+              0.11111111
+            ],
+            "wins": 13
+          },
+          "em": {
+            "delta": -0.015625,
+            "losses": 17,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.1147541,
+              0.08458333
+            ],
+            "wins": 15
+          },
+          "joint": {
+            "delta": -0.03125,
+            "losses": 9,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.09352518,
+              0.03076923
+            ],
+            "wins": 5
+          }
+        },
+        "two_centers_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.1328125,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              0.04652808,
+              0.22726318
+            ],
+            "wins": 27
+          },
+          "em": {
+            "delta": 0.03125,
+            "losses": 14,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.04733495,
+              0.11186869
+            ],
+            "wins": 18
+          },
+          "joint": {
+            "delta": 0.0546875,
+            "losses": 3,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00909091,
+              0.1048937
+            ],
+            "wins": 10
+          }
+        }
+      },
+      "questions": 128
+    },
+    "inference_query": {
+      "clusters": 31,
+      "counts": {
+        "gold_text": {
+          "all_facts_visible": 128,
+          "em": 93,
+          "joint": 93,
+          "mean_f1": 0.8643973214285714,
+          "median_body_tokens": 80.0
+        },
+        "lead": {
+          "all_facts_visible": 2,
+          "em": 65,
+          "joint": 2,
+          "mean_f1": 0.6007011217948718,
+          "median_body_tokens": 335.5
+        },
+        "no_evidence": {
+          "all_facts_visible": 0,
+          "em": 22,
+          "joint": 0,
+          "mean_f1": 0.17734375,
+          "median_body_tokens": 0.0
+        },
+        "sentence_center": {
+          "all_facts_visible": 16,
+          "em": 81,
+          "joint": 11,
+          "mean_f1": 0.7148240616023124,
+          "median_body_tokens": 335.5
+        },
+        "stride": {
+          "all_facts_visible": 13,
+          "em": 69,
+          "joint": 9,
+          "mean_f1": 0.6774801587301588,
+          "median_body_tokens": 329.5
+        },
+        "two_centers": {
+          "all_facts_visible": 31,
+          "em": 77,
+          "joint": 19,
+          "mean_f1": 0.7272327065295815,
+          "median_body_tokens": 335.0
+        }
+      },
+      "largest_cluster": 52,
+      "paired": {
+        "gold_text_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 1.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              1.0,
+              1.0
+            ],
+            "wins": 128
+          },
+          "em": {
+            "delta": 0.5546875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.44720906,
+              0.69444444
+            ],
+            "wins": 71
+          },
+          "joint": {
+            "delta": 0.7265625,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.5001087,
+              0.84410472
+            ],
+            "wins": 93
+          }
+        },
+        "sentence_center_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 0.125,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.07060924,
+              0.20481928
+            ],
+            "wins": 16
+          },
+          "em": {
+            "delta": 0.4609375,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              0.33333333,
+              0.61971831
+            ],
+            "wins": 64
+          },
+          "joint": {
+            "delta": 0.0859375,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0312624,
+              0.12173619
+            ],
+            "wins": 11
+          }
+        },
+        "sentence_center_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.0234375,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01960784,
+              0.08180976
+            ],
+            "wins": 9
+          },
+          "em": {
+            "delta": 0.09375,
+            "losses": 13,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02630725,
+              0.17542763
+            ],
+            "wins": 25
+          },
+          "joint": {
+            "delta": 0.015625,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02082796,
+              0.05194245
+            ],
+            "wins": 7
+          }
+        },
+        "two_centers_vs_sentence_center": {
+          "all_facts_visible": {
+            "delta": 0.1171875,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              0.02599134,
+              0.17582418
+            ],
+            "wins": 21
+          },
+          "em": {
+            "delta": -0.03125,
+            "losses": 17,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.12857143,
+              0.04761905
+            ],
+            "wins": 13
+          },
+          "joint": {
+            "delta": 0.0625,
+            "losses": 5,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.1034356
+            ],
+            "wins": 13
+          }
+        },
+        "two_centers_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.140625,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              0.03175025,
+              0.22399211
+            ],
+            "wins": 25
+          },
+          "em": {
+            "delta": 0.0625,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02221612,
+              0.10169492
+            ],
+            "wins": 18
+          },
+          "joint": {
+            "delta": 0.078125,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              0.0,
+              0.125
+            ],
+            "wins": 16
+          }
+        }
+      },
+      "questions": 128
+    },
+    "temporal_query": {
+      "clusters": 59,
+      "counts": {
+        "gold_text": {
+          "all_facts_visible": 126,
+          "em": 63,
+          "joint": 62,
+          "mean_f1": 0.4921875,
+          "median_body_tokens": 74.0
+        },
+        "lead": {
+          "all_facts_visible": 3,
+          "em": 20,
+          "joint": 1,
+          "mean_f1": 0.15625,
+          "median_body_tokens": 336.0
+        },
+        "no_evidence": {
+          "all_facts_visible": 0,
+          "em": 61,
+          "joint": 0,
+          "mean_f1": 0.47879464285714285,
+          "median_body_tokens": 0.0
+        },
+        "sentence_center": {
+          "all_facts_visible": 18,
+          "em": 26,
+          "joint": 5,
+          "mean_f1": 0.203125,
+          "median_body_tokens": 336.0
+        },
+        "stride": {
+          "all_facts_visible": 12,
+          "em": 21,
+          "joint": 3,
+          "mean_f1": 0.1640625,
+          "median_body_tokens": 331.0
+        },
+        "two_centers": {
+          "all_facts_visible": 20,
+          "em": 16,
+          "joint": 3,
+          "mean_f1": 0.13020833333333334,
+          "median_body_tokens": 336.0
+        }
+      },
+      "largest_cluster": 13,
+      "paired": {
+        "gold_text_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 0.984375,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.94546683,
+              1.0
+            ],
+            "wins": 126
+          },
+          "em": {
+            "delta": 0.015625,
+            "losses": 11,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.06248789,
+              0.09821429
+            ],
+            "wins": 13
+          },
+          "joint": {
+            "delta": 0.484375,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.4,
+              0.56603408
+            ],
+            "wins": 62
+          }
+        },
+        "sentence_center_vs_no_evidence": {
+          "all_facts_visible": {
+            "delta": 0.140625,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.08130081,
+              0.21782178
+            ],
+            "wins": 18
+          },
+          "em": {
+            "delta": -0.2734375,
+            "losses": 43,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.37397994,
+              -0.16513761
+            ],
+            "wins": 8
+          },
+          "joint": {
+            "delta": 0.0390625,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.00813008,
+              0.08
+            ],
+            "wins": 5
+          }
+        },
+        "sentence_center_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.046875,
+            "losses": 9,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03999206,
+              0.13708816
+            ],
+            "wins": 15
+          },
+          "em": {
+            "delta": 0.0390625,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02857143,
+              0.10937172
+            ],
+            "wins": 12
+          },
+          "joint": {
+            "delta": 0.015625,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.01960466,
+              0.05940594
+            ],
+            "wins": 4
+          }
+        },
+        "two_centers_vs_sentence_center": {
+          "all_facts_visible": {
+            "delta": 0.015625,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.05071915,
+              0.08035551
+            ],
+            "wins": 8
+          },
+          "em": {
+            "delta": -0.078125,
+            "losses": 17,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.168,
+              0.00666556
+            ],
+            "wins": 7
+          },
+          "joint": {
+            "delta": -0.015625,
+            "losses": 4,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.05982906,
+              0.02116309
+            ],
+            "wins": 2
+          }
+        },
+        "two_centers_vs_stride": {
+          "all_facts_visible": {
+            "delta": 0.0625,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.02484344,
+              0.15788255
+            ],
+            "wins": 15
+          },
+          "em": {
+            "delta": -0.0390625,
+            "losses": 14,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.12121212,
+              0.04378769
+            ],
+            "wins": 9
+          },
+          "joint": {
+            "delta": 0.0,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.03125,
+              0.03124394
+            ],
+            "wins": 2
+          }
+        }
+      },
+      "questions": 128
+    }
+  }
+}

@@ -29,16 +29,18 @@ def sequence(cycles, seed):
     return order
 
 
-def train(model, checkpoint, banks, order, mode):
+def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=None):
     reset(model, checkpoint)
     torch.cuda.empty_cache()
-    phases = torch.linspace(0, pi, len(order), device="cuda")
-    rates = LR * (0.2 + 0.8 * (1 + phases.cos()) / 2)
+    if rates is None:
+        phases = torch.linspace(0, pi, len(order), device="cuda")
+        rates = LR * (0.2 + 0.8 * (1 + phases.cos()) / 2)
+    assert len(rates) == len(order)
     learning_rate = rates[0].clone()
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, fused=True, capturable=True)
-    indexes = {d: banks[d][2] for d in DEPTHS}
+    indexes = {d: data[2] for d, data in banks.items()}
     global_step = torch.zeros(1, dtype=torch.long, device="cuda")
-    cursors = {d: torch.zeros_like(global_step) for d in DEPTHS}
+    cursors = {d: torch.zeros_like(global_step) for d in indexes}
     torch.cuda.synchronize()
     baseline = torch.cuda.memory_allocated()
     reserved = torch.cuda.memory_reserved()
@@ -48,7 +50,7 @@ def train(model, checkpoint, banks, order, mode):
     def step(depth, index, rate):
         scene, perm, _, _ = banks[depth]
         tokens, key, payload = encode(pack(scene, index), perm[index], hide_query_clock=True)
-        kernel = choose(model, DISPATCH, depth)
+        kernel = choose(model, DISPATCH, depth) if kernel_selector is None else kernel_selector(model, depth)
         learning_rate.copy_(rate)
         optimizer.zero_grad(set_to_none=True)
         cost = objective(predict(model, kernel, tokens), key, payload)
@@ -61,12 +63,12 @@ def train(model, checkpoint, banks, order, mode):
     warm.wait_stream(torch.cuda.current_stream())
     with torch.cuda.stream(warm):
         for k in range(3):
-            for depth in DEPTHS:
+            for depth in indexes:
                 step(depth, indexes[depth][k], rates[k])
     torch.cuda.current_stream().wait_stream(warm)
     graphs, output = {}, {}
     if mode == "shape_graph":
-        for depth in DEPTHS:
+        for depth in indexes:
             graph = torch.cuda.CUDAGraph()
             optimizer.zero_grad(set_to_none=True)
             cursor = cursors[depth]
@@ -86,7 +88,7 @@ def train(model, checkpoint, banks, order, mode):
 
     hardware_start = torch.cuda.Event(enable_timing=True)
     hardware_end = torch.cuda.Event(enable_timing=True)
-    by_length = {d: 0 for d in DEPTHS}
+    by_length = {d: 0 for d in indexes}
     started = perf_counter()
     hardware_start.record()
     if mode == "shape_graph":
@@ -104,7 +106,7 @@ def train(model, checkpoint, banks, order, mode):
               "peak_extra_reserved_bytes": torch.cuda.max_memory_reserved() - reserved}
     if mode == "shape_graph":
         assert int(global_step[0]) == len(order)
-        assert all(int(cursors[d][0]) == len(indexes[d]) for d in DEPTHS)
+        assert all(int(cursors[d][0]) == len(indexes[d]) for d in indexes)
     assert torch.isfinite(last)
     assert all(int(v["step"]) == len(order) for v in optimizer.state.values())
     params = {k: x.detach().cpu().clone() for k, x in model.state_dict().items()}

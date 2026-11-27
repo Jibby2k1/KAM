@@ -1,0 +1,557 @@
+{
+  "fixture_sha256": "87017a1d1c3fe8153e775dfebad7911a826b1a988a6e60cbf616f159957fc888",
+  "scopes": {
+    "all": {
+      "counts": {
+        "gold": {
+          "forced_correct": 51,
+          "free_correct": 51,
+          "joint": 51,
+          "support": 74
+        },
+        "no_evidence": {
+          "forced_correct": 28,
+          "free_correct": 28,
+          "joint": 0,
+          "support": 0
+        },
+        "paper_dense": {
+          "forced_correct": 47,
+          "free_correct": 47,
+          "joint": 15,
+          "support": 26
+        },
+        "same_paper_sham": {
+          "forced_correct": 34,
+          "free_correct": 34,
+          "joint": 0,
+          "support": 0
+        }
+      },
+      "paired": {
+        "gold_vs_no_evidence": {
+          "forced_correct": {
+            "delta": 0.31081081,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              0.16666667,
+              0.45333333
+            ],
+            "wins": 30
+          },
+          "free_correct": {
+            "delta": 0.31081081,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              0.16666667,
+              0.45333333
+            ],
+            "wins": 30
+          },
+          "joint": {
+            "delta": 0.68918919,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.58441558,
+              0.79220779
+            ],
+            "wins": 51
+          },
+          "support": {
+            "delta": 1.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              1.0,
+              1.0
+            ],
+            "wins": 74
+          }
+        },
+        "gold_vs_same_paper_sham": {
+          "forced_correct": {
+            "delta": 0.22972973,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              0.09459459,
+              0.36842105
+            ],
+            "wins": 24
+          },
+          "free_correct": {
+            "delta": 0.22972973,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              0.09459459,
+              0.36842105
+            ],
+            "wins": 24
+          },
+          "joint": {
+            "delta": 0.68918919,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.58441558,
+              0.79220779
+            ],
+            "wins": 51
+          },
+          "support": {
+            "delta": 1.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              1.0,
+              1.0
+            ],
+            "wins": 74
+          }
+        },
+        "paper_dense_vs_gold": {
+          "forced_correct": {
+            "delta": -0.05405405,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.15584416,
+              0.05555556
+            ],
+            "wins": 6
+          },
+          "free_correct": {
+            "delta": -0.05405405,
+            "losses": 10,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.15584416,
+              0.05555556
+            ],
+            "wins": 6
+          },
+          "joint": {
+            "delta": -0.48648649,
+            "losses": 36,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.6,
+              -0.37333333
+            ],
+            "wins": 0
+          },
+          "support": {
+            "delta": -0.64864865,
+            "losses": 48,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.75361823,
+              -0.54054054
+            ],
+            "wins": 0
+          }
+        },
+        "paper_dense_vs_no_evidence": {
+          "forced_correct": {
+            "delta": 0.25675676,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              0.11842105,
+              0.39472758
+            ],
+            "wins": 26
+          },
+          "free_correct": {
+            "delta": 0.25675676,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              0.11842105,
+              0.39472758
+            ],
+            "wins": 26
+          },
+          "joint": {
+            "delta": 0.2027027,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.11688312,
+              0.2972973
+            ],
+            "wins": 15
+          },
+          "support": {
+            "delta": 0.35135135,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.24638177,
+              0.45945946
+            ],
+            "wins": 26
+          }
+        }
+      },
+      "paper_clusters": 65,
+      "questions": 74
+    },
+    "no": {
+      "counts": {
+        "gold": {
+          "forced_correct": 18,
+          "free_correct": 18,
+          "joint": 18,
+          "support": 26
+        },
+        "no_evidence": {
+          "forced_correct": 24,
+          "free_correct": 24,
+          "joint": 0,
+          "support": 0
+        },
+        "paper_dense": {
+          "forced_correct": 18,
+          "free_correct": 18,
+          "joint": 4,
+          "support": 9
+        },
+        "same_paper_sham": {
+          "forced_correct": 22,
+          "free_correct": 22,
+          "joint": 0,
+          "support": 0
+        }
+      },
+      "paired": {
+        "gold_vs_no_evidence": {
+          "forced_correct": {
+            "delta": -0.23076923,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.44,
+              -0.03846154
+            ],
+            "wins": 1
+          },
+          "free_correct": {
+            "delta": -0.23076923,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.44,
+              -0.03846154
+            ],
+            "wins": 1
+          },
+          "joint": {
+            "delta": 0.69230769,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.51851852,
+              0.84615385
+            ],
+            "wins": 18
+          },
+          "support": {
+            "delta": 1.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              1.0,
+              1.0
+            ],
+            "wins": 26
+          }
+        },
+        "gold_vs_same_paper_sham": {
+          "forced_correct": {
+            "delta": -0.15384615,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.36,
+              0.04
+            ],
+            "wins": 2
+          },
+          "free_correct": {
+            "delta": -0.15384615,
+            "losses": 6,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.36,
+              0.04
+            ],
+            "wins": 2
+          },
+          "joint": {
+            "delta": 0.69230769,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.51851852,
+              0.84615385
+            ],
+            "wins": 18
+          },
+          "support": {
+            "delta": 1.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              1.0,
+              1.0
+            ],
+            "wins": 26
+          }
+        },
+        "paper_dense_vs_gold": {
+          "forced_correct": {
+            "delta": 0.0,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.15384615,
+              0.15384615
+            ],
+            "wins": 2
+          },
+          "free_correct": {
+            "delta": 0.0,
+            "losses": 2,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.15384615,
+              0.15384615
+            ],
+            "wins": 2
+          },
+          "joint": {
+            "delta": -0.53846154,
+            "losses": 14,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.72,
+              -0.36
+            ],
+            "wins": 0
+          },
+          "support": {
+            "delta": -0.65384615,
+            "losses": 17,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.84,
+              -0.48
+            ],
+            "wins": 0
+          }
+        },
+        "paper_dense_vs_no_evidence": {
+          "forced_correct": {
+            "delta": -0.23076923,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.44,
+              -0.03846154
+            ],
+            "wins": 1
+          },
+          "free_correct": {
+            "delta": -0.23076923,
+            "losses": 7,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.44,
+              -0.03846154
+            ],
+            "wins": 1
+          },
+          "joint": {
+            "delta": 0.15384615,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.03703704,
+              0.30769231
+            ],
+            "wins": 4
+          },
+          "support": {
+            "delta": 0.34615385,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.16,
+              0.52
+            ],
+            "wins": 9
+          }
+        }
+      },
+      "paper_clusters": 25,
+      "questions": 26
+    },
+    "yes": {
+      "counts": {
+        "gold": {
+          "forced_correct": 33,
+          "free_correct": 33,
+          "joint": 33,
+          "support": 48
+        },
+        "no_evidence": {
+          "forced_correct": 4,
+          "free_correct": 4,
+          "joint": 0,
+          "support": 0
+        },
+        "paper_dense": {
+          "forced_correct": 29,
+          "free_correct": 29,
+          "joint": 11,
+          "support": 17
+        },
+        "same_paper_sham": {
+          "forced_correct": 12,
+          "free_correct": 12,
+          "joint": 0,
+          "support": 0
+        }
+      },
+      "paired": {
+        "gold_vs_no_evidence": {
+          "forced_correct": {
+            "delta": 0.60416667,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.46666667,
+              0.73469388
+            ],
+            "wins": 29
+          },
+          "free_correct": {
+            "delta": 0.60416667,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.46666667,
+              0.73469388
+            ],
+            "wins": 29
+          },
+          "joint": {
+            "delta": 0.6875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.5625,
+              0.80851064
+            ],
+            "wins": 33
+          },
+          "support": {
+            "delta": 1.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              1.0,
+              1.0
+            ],
+            "wins": 48
+          }
+        },
+        "gold_vs_same_paper_sham": {
+          "forced_correct": {
+            "delta": 0.4375,
+            "losses": 1,
+            "shared_evidence_cluster_bootstrap95": [
+              0.2826087,
+              0.58695652
+            ],
+            "wins": 22
+          },
+          "free_correct": {
+            "delta": 0.4375,
+            "losses": 1,
+            "shared_evidence_cluster_bootstrap95": [
+              0.2826087,
+              0.58695652
+            ],
+            "wins": 22
+          },
+          "joint": {
+            "delta": 0.6875,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.5625,
+              0.80851064
+            ],
+            "wins": 33
+          },
+          "support": {
+            "delta": 1.0,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              1.0,
+              1.0
+            ],
+            "wins": 48
+          }
+        },
+        "paper_dense_vs_gold": {
+          "forced_correct": {
+            "delta": -0.08333333,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.21568627,
+              0.04444444
+            ],
+            "wins": 4
+          },
+          "free_correct": {
+            "delta": -0.08333333,
+            "losses": 8,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.21568627,
+              0.04444444
+            ],
+            "wins": 4
+          },
+          "joint": {
+            "delta": -0.45833333,
+            "losses": 22,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.59574468,
+              -0.31914894
+            ],
+            "wins": 0
+          },
+          "support": {
+            "delta": -0.64583333,
+            "losses": 31,
+            "shared_evidence_cluster_bootstrap95": [
+              -0.77083333,
+              -0.51111111
+            ],
+            "wins": 0
+          }
+        },
+        "paper_dense_vs_no_evidence": {
+          "forced_correct": {
+            "delta": 0.52083333,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.38461538,
+              0.65306122
+            ],
+            "wins": 25
+          },
+          "free_correct": {
+            "delta": 0.52083333,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.38461538,
+              0.65306122
+            ],
+            "wins": 25
+          },
+          "joint": {
+            "delta": 0.22916667,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.12,
+              0.35294118
+            ],
+            "wins": 11
+          },
+          "support": {
+            "delta": 0.35416667,
+            "losses": 0,
+            "shared_evidence_cluster_bootstrap95": [
+              0.22916667,
+              0.48888889
+            ],
+            "wins": 17
+          }
+        }
+      },
+      "paper_clusters": 44,
+      "questions": 48
+    }
+  }
+}

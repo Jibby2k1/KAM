@@ -1,5 +1,13 @@
 # KAM research results
 
+## Recent controlled and cross-domain results
+
+[From-scratch CUDA Graph capture](../../reports/nonlinear_retrieval_natural/RADIAL_CURRICULUM_CAPTURE.md) preserved complete optimizer trajectories at 19,200 updates. On B200, radial update time fell from 159.38 to 30.04 seconds. Held-out depth-1,024 accuracy was 83.59% for radial and 47.14% for dot at the matched update budget.
+
+[Clock encoding and compaction](../../reports/nonlinear_retrieval_natural/TEMPORAL_CLOCK_ENCODING.md) improved procedural correction lookup with signed-log features for radial or explicit candidate packing for dot. Held-out release archive accuracy remained low without archive-shaped training.
+
+[Scholarly binary evidence](../../reports/nonlinear_retrieval_natural/QASPER_BINARY.md) raised answer accuracy from 34 to 51 of 74 using annotated paragraphs in place of same-paper sham evidence. [News evidence windows](../../reports/nonlinear_retrieval_natural/NEWS_ARTICLE_WINDOWS.md) raised joint exact from 16 to 31 of 384 versus word-stride windows with the same articles.
+
 ## Multi-hop evidence selection
 
 The [held-out HotpotQA supporting-link study](../../reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) compares a question-conditioned pair scorer with one-pass and sequential retrieval on shared dense pools. It reports linked and unlinked gold evidence separately and tests the ranking of supporting links against distractor links directly.
