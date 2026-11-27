@@ -1,0 +1,212 @@
+{
+  "llama3": {
+    "checkpoint": {
+      "adapter_sha256": "93f5e5bb72c1d0c89081969e18f73b78a2170aeaad0a6ce9d61d912e7715eea3",
+      "arm": "kam",
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "protocol": "llama3-preservation-v1",
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "training": {
+        "arm": "kam",
+        "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+        "kl_weight": 4.0,
+        "layers": [
+          7,
+          15,
+          23,
+          31
+        ],
+        "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+        "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+        "new_trainable_parameters": 2162688,
+        "peak_lr": 0.0008,
+        "recipe": "high_lr_kl",
+        "revision": "uf-hpg-2024-04-19",
+        "seed": 731221,
+        "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+        "train_tokens": 1048576
+      }
+    },
+    "combined_evaluation_s": {
+      "full_validation": 406.5497032497078,
+      "shape_validation": 401.1011590063572
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "tasks": {
+      "gpqa": {
+        "n": 198,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "full_validation",
+          "shape_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 4.201022373978049,
+          "shape_validation": 4.200394205749035
+        }
+      },
+      "gsm8k": {
+        "n": 1319,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "full_validation",
+          "shape_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 220.4574972698465,
+          "shape_validation": 216.57826165668666
+        }
+      },
+      "humaneval": {
+        "n": 164,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "full_validation",
+          "shape_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 31.63198519218713,
+          "shape_validation": 30.515416079200804
+        }
+      },
+      "mbpp": {
+        "n": 500,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "shape_validation",
+          "full_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 46.636711516883224,
+          "shape_validation": 46.02132741641253
+        }
+      },
+      "mmlu": {
+        "n": 14042,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "shape_validation",
+          "full_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 103.62248689681292,
+          "shape_validation": 103.78575964830816
+        }
+      }
+    }
+  },
+  "smollm2": {
+    "checkpoint": {
+      "adapter_sha256": "c20fa666226eb9a020632449bb0162b27b43d39252e57b115c8a00fed5e798b1",
+      "arm": "kam",
+      "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+      "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+      "new_trainable_parameters": 1114112,
+      "protocol": "smollm2-preservation-v1",
+      "recipe": "high_lr_kl",
+      "revision": "31b70e2e869a7173562077fd711b654946d38674",
+      "seed": 731221,
+      "training": {
+        "arm": "kam",
+        "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+        "kl_weight": 4.0,
+        "layers": [
+          5,
+          11,
+          17,
+          23
+        ],
+        "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+        "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+        "new_trainable_parameters": 1114112,
+        "peak_lr": 0.0008,
+        "recipe": "high_lr_kl",
+        "revision": "31b70e2e869a7173562077fd711b654946d38674",
+        "seed": 731221,
+        "token_manifest_sha256": "d67fff932816a3af94e238c425238f5d3d5dc7a322632dfcea16e7aebc93118f",
+        "train_tokens": 1048576
+      }
+    },
+    "combined_evaluation_s": {
+      "full_validation": 173.02942681265995,
+      "shape_validation": 168.0342014087364
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "tasks": {
+      "gpqa": {
+        "n": 198,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "full_validation",
+          "shape_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 1.3647279213182628,
+          "shape_validation": 1.357134967111051
+        }
+      },
+      "gsm8k": {
+        "n": 1319,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "full_validation",
+          "shape_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 89.4788694777526,
+          "shape_validation": 86.52442609705031
+        }
+      },
+      "humaneval": {
+        "n": 164,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "full_validation",
+          "shape_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 12.935466384980828,
+          "shape_validation": 11.839357241988182
+        }
+      },
+      "mbpp": {
+        "n": 500,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "shape_validation",
+          "full_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 34.76420816220343,
+          "shape_validation": 34.15509436978027
+        }
+      },
+      "mmlu": {
+        "n": 14042,
+        "optimized_row_mismatches": 0,
+        "order": [
+          "shape_validation",
+          "full_validation"
+        ],
+        "original_row_mismatches": 0,
+        "seconds": {
+          "full_validation": 34.48615486640483,
+          "shape_validation": 34.15818873280659
+        }
+      }
+    }
+  }
+}

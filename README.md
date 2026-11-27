@@ -19,6 +19,7 @@ Move the query, narrow the bandwidth, or change the learned metric in the [atten
 | Area | Question | Evidence |
 | --- | --- | --- |
 | Attention and memory | How do radial context attention and persistent learned supports behave under matched controls? | [Implementation](kam/) and [experimental guide](EXPERIMENTS.md) |
+| Pretrained adapters | How do KAM and dot retain benchmark scores under matched training and KL? | [SmolLM2 and Llama 3](docs/research/GENERAL_BENCHMARKS_FACTORIAL.md) · [Timing and fidelity checks](docs/research/GENERAL_BENCHMARKS_DIAGNOSTICS.md) |
 | Multi-hop retrieval | Can a one-pass pair scorer distinguish useful title mentions from linked distractors? | [HotpotQA study](reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) |
 | Retrieval systems | How do corpus retrieval and serving choices affect latency and evidence recall? | [Corpus and serving findings](docs/research/RESULTS.md#corpus-retrieval-and-serving) |
 | Revision memory | Can a router resolve ambiguous aliases and abstain on unseen identities? | [Revision-memory findings](docs/research/RESULTS.md#revision-memory) |

@@ -14,13 +14,17 @@ root=$1
 mode=()
 if [[ ${KAM_FACTORIAL:-0} == 1 ]]; then mode+=(--factorial); fi
 if [[ ${KAM_LOW_RATE_KL_PILOT:-0} == 1 ]]; then mode+=(--low-rate-kl-pilot); fi
-cache=()
+reuse=()
 if [[ -n ${KAM_TEACHER_CACHE:-} ]]; then
   export CUBLAS_WORKSPACE_CONFIG=:4096:8
-  cache=(--teacher-cache "$KAM_TEACHER_CACHE")
+  reuse+=(--teacher-cache "$KAM_TEACHER_CACHE")
+fi
+if [[ ${KAM_SHARED_TEACHER_PREFIX:-0} == 1 ]]; then
+  export CUBLAS_WORKSPACE_CONFIG=:4096:8
+  reuse+=(--shared-teacher-prefix)
 fi
 export PYTHONPATH="$root/runtime:$root/repo"
 export OMP_NUM_THREADS=4
 cd "$root"
 read -r seed recipe arm < <(python kam_adapter_preservation.py "${mode[@]}" --train "$SLURM_ARRAY_TASK_ID")
-python train_kam_adapter_preservation.py "$root" --seed "$seed" --recipe "$recipe" --arm "$arm" "${cache[@]}"
+python train_kam_adapter_preservation.py "$root" --seed "$seed" --recipe "$recipe" --arm "$arm" "${reuse[@]}"

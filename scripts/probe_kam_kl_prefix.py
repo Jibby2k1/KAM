@@ -3,47 +3,16 @@
 import argparse
 import json
 import math
-from contextlib import ExitStack, contextmanager, nullcontext
+from contextlib import nullcontext
 from pathlib import Path
 from statistics import median
-from unittest.mock import patch
 
 import torch
 
 from kam_adapter_preservation import digest, key, layers_for, load_registered_model, model_identity
 from kam_pretrained_adapters import AdapterStack
+from kam_shared_teacher_prefix import reuse_prefix
 from train_kam_adapter_preservation import BATCHES, KL_STRIDE, LENGTH, STEPS, batch, corpus, layout, losses, optimizer_fingerprint
-
-
-@contextmanager
-def reuse_prefix(model, stack, last):
-    captured = [None] * (last + 1)
-
-    def reuse(index, forward):
-        def run(*args, **kwargs):
-            if not stack.active:
-                output = forward(*args, **kwargs)
-                if isinstance(output, tuple):
-                    assert len(output) == 1
-                    captured[index] = output if index == last else (None,)
-                else:
-                    assert isinstance(output, torch.Tensor)
-                    captured[index] = output if index == last else None
-                return output
-            if index == last:
-                output = captured[index]
-                assert output is not None
-                captured[index] = None
-                return output
-            hidden = args[0] if args else kwargs["hidden_states"]
-            return (hidden,) if isinstance(captured[index], tuple) else hidden
-
-        return run
-
-    with ExitStack() as contexts:
-        for index, layer in enumerate(model.model.layers[:last + 1]):
-            contexts.enter_context(patch.object(layer, "forward", reuse(index, layer.forward)))
-        yield
 
 
 def backward(model, stack, packed, phase, *, teacher_hidden=None):

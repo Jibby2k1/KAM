@@ -38,6 +38,15 @@ The table sums timed optimizer updates and includes the cache build once. It des
 
 The disk-backed replay built one tape per backbone, then loaded it in two independent training jobs. Each job checked the full model and schedule fingerprints and compared four live teacher states before training. The final parameter and AdamW-state fingerprints matched the in-memory reference for all four fits. The measured write was 1.55 s for Llama and 0.73 s for SmolLM2. Loading and live checking took 1.29–2.07 s and 0.49–0.50 s per fit respectively. The training path accepts the cache as an explicit option. [Independent build and training receipts](../../results/general_benchmarks_factorial/diagnostics/persisted-teacher-cache-receipts.json)
 
+Cache construction reduces total GPU work when multiple regularized fits reuse a seed's tape. With two free GPUs and an uncached tape, completion time also includes the build before either fit can start. Using the measured Llama timings, the longer original update stream took 161.00 s, and a new tape plus the longer cached stream took 160.85 s before disk and scheduler costs. A saved tape removes that build from future runs. Shared-prefix computation saves work inside an individual fit with no cache build.
+
+The shared-prefix option was also exercised in four separate training jobs. The final parameter and optimizer fingerprints matched the exact reference for each fit. The table compares both opt-ins using the recorded fit interval, which includes validation. The cold-cache total adds one build and write plus both loads and live checks. It sums work across jobs. Allocating both fits concurrently changes elapsed completion time. [Shared-prefix trainer receipts](../../results/general_benchmarks_factorial/diagnostics/shared-prefix-trainer-receipts.json)
+
+| Backbone | Shared-prefix fit KAM / dot | Saved-cache fit and load KAM / dot | Cold-cache total for both |
+| --- | ---: | ---: | ---: |
+| SmolLM2 | 47.13 s / 45.16 s | 36.82 s / 34.93 s | 86.65 s |
+| Llama 3 | 152.81 s / 151.28 s | 118.99 s / 116.97 s | 285.06 s |
+
 ## Scaling residual output after fitting
 
 We multiplied the four output projections by 0, 0.25, 0.50, 0.75 or 1.00 for the high-rate fits from seed 731221. The frozen backbone and the residual's internal computation were held fixed. Scale zero reproduced all predicted choices from the untouched checkpoint on this panel. At scale 0.25, the four unregularized fits already exceeded 0.02 nats per token on held-out raw-text KL. All four KL-trained fits remained within that cap at scale one. A smaller nonzero post-fit scale could also meet the cap, so the five-point grid alone cannot establish the effect of training with KL at equal drift. [Numeric strength curves](../../results/general_benchmarks_factorial/diagnostics/residual-strength-summary.json) · [Probe](../../scripts/probe_kam_adapter_strength.py)
@@ -80,6 +89,10 @@ For each low-rate seed and backbone, the native unregularized KAM checkpoint set
 | SmolLM2 | 31.77% | 30.00% | 3.59% | 31.13% | 0.042–0.044 |
 | Llama 3 | 62.55% | 74.35% | 52.82% | 70.81% | 0.289–0.321 |
 
+![Strict GSM8K against raw validation KL for the low-rate fits and post-fit scaling.](../../results/general_benchmarks_factorial/diagnostics/low-rate-gsm8k-drift.svg)
+
+The figure shows three-seed means and includes the completed intermediate-KL pilot on Llama. [Figure source](../../scripts/plot_kam_low_rate_tradeoff.py)
+
 At the paired KL target, dot gained 27.55 GSM8K points on SmolLM2 (95% paired item interval +25.09 to +30.05) and 17.99 on Llama (+15.57 to +20.47). The Llama KAM advantage remained at 3.54 points (+1.69 to +5.38). SmolLM2 dot exceeded KAM by 1.14 points (+0.08 to +2.20). This isolates one post-training control for residual strength on a single generation task. [SmolLM2 matched results](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-matched-kl-summary.json) · [Llama matched results](../../results/general_benchmarks_factorial/diagnostics/llama3-low-rate-matched-kl-summary.json) · [Per-item flags](../../results/general_benchmarks_factorial/diagnostics/low-rate-matched-kl-outcomes.json.gz) · [Probe](../../scripts/probe_kam_low_rate_matched_kl.py)
 
 ### Contribution by residual layer
@@ -121,6 +134,12 @@ KAM's residual reads static supports and stores no sequence KV state. Dot's resi
 We preallocated the dot adapter KV cache for the same 32-token continuation and reused warmed buffer capacity. The static and dynamic arms produced identical logits at all measured positions. Static allocation changed request time by −0.28% to +1.56% across the 12 backbone and shape combinations.
 
 The checked KAM path runs device reductions to verify the range of the indices produced by exact top-k. The input width already bounds these generated indices. An opt-in removed those reductions and kept the route's tensor layout and support-width checks. Every measured logit matched the original across 1,782 positions per variant. Median request time improved by 0.53%–5.90% across all 12 shapes. At a 4,096-token input and batch eight, Llama moved from 2,392.83 to 2,380.25 ms and SmolLM2 moved from 1,121.66 to 1,106.12 ms. The default route validation remains available for matching earlier measurements. [Paired timing and parity](../../results/general_benchmarks_factorial/diagnostics/decode-implementation-summary.json) · [Individual timings](../../results/general_benchmarks_factorial/diagnostics/decode-implementation-outcomes.json.gz) · [Router implementation](../../kam/memory/routers.py) · [Figure source](../../scripts/plot_kam_decode_controls.py) · [Llama API parity](../../results/general_benchmarks_factorial/diagnostics/route-api-smoke-llama3.json) · [SmolLM2 API parity](../../results/general_benchmarks_factorial/diagnostics/route-api-smoke-smollm2.json)
+
+The full evaluator also replayed the five fixtures for the seed-731221 high-rate KL KAM checkpoint on each backbone. The optimized path matched all 32,446 benchmark rows, including exact generated program strings. Timings start with the model loaded and include prompt preparation, decoding, and scoring or writing the benchmark rows. CPU code grading is a separate stage. In one paired replay per backbone, total evaluator time moved from 406.55 to 401.10 s for Llama (1.34%) and from 173.03 to 168.03 s for SmolLM2 (2.89%). [Five-benchmark parity and timing](../../results/general_benchmarks_factorial/diagnostics/benchmark-route-validation.json) · [Evaluator probe](../../scripts/probe_kam_benchmark_route_check.py)
+
+### Queue time and device choice
+
+During the two-backbone campaign, the four new SmolLM2 B200 fits took 51.5 s median after allocation and waited 60.7 minutes median from submission. The two SmolLM2 RTX fits took 72 s median after allocation and waited 43 s. The 24 Llama RTX fits waited 11.3 minutes median and occupied their allocations for 165 s median. These groups used different seeds, resources, and submission conditions. For a time-bounded run, the observed queue differences were larger than the differences in fit duration. Keep each seed's matched control block together and budget queue time separately from kernel throughput. [Training allocation receipts](../../results/general_benchmarks_factorial/diagnostics/main-fit-queue.tsv)
 
 ## Independent next-token perplexity
 
@@ -190,6 +209,8 @@ export CUBLAS_WORKSPACE_CONFIG=:4096:8
 python scripts/probe_kam_teacher_hidden_cache.py "$stage_root" --seed 731221 --write-tape "$cache_file"
 python scripts/train_kam_adapter_preservation.py "$fit_root" --seed 731221 --recipe high_lr_kl --arm kam --teacher-cache "$cache_file"
 ```
+
+For per-fit prefix sharing, pass `--shared-teacher-prefix` or set `KAM_SHARED_TEACHER_PREFIX=1` in the Slurm trainer. Each option uses the full KL objective. Pick one per fit.
 
 - [Output-strength outcomes](../../results/general_benchmarks_factorial/diagnostics/residual-strength-outcomes.json.gz) · [Summary script](../../scripts/analyze_kam_adapter_strength.py)
 - [Prompt-cue outcomes](../../results/general_benchmarks_factorial/diagnostics/prompt-drift-outcomes.json.gz) · [Summary script](../../scripts/analyze_kam_prompt_drift.py)

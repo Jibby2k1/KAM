@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 import time
+from contextlib import nullcontext
 from pathlib import Path
 
 import torch
@@ -14,6 +15,7 @@ from kam_adapter_preservation import (
     ARMS, SEEDS, TRAINING_RECIPES, digest, key, layers_for, load_registered_model, model_identity,
 )
 from kam_pretrained_adapters import AdapterStack, mixed_precision
+from kam_shared_teacher_prefix import reuse_prefix
 from train_kam_pretrained import BATCHES, DOMAINS, LENGTH, batch, corpus, layout, save
 
 STEPS = 256
@@ -87,11 +89,11 @@ def validation(model, stack, data, offsets):
             "forward_kl": float(kl / 4)}
 
 
-def train(root, seed, recipe, arm, teacher_cache=None):
+def train(root, seed, recipe, arm, teacher_cache=None, shared_teacher_prefix=False):
     peak, penalty = TRAINING_RECIPES[recipe]
-    if teacher_cache is not None:
+    if teacher_cache is not None or shared_teacher_prefix:
         if not penalty:
-            raise ValueError("A teacher activation cache requires a positive KL weight")
+            raise ValueError("Teacher reuse requires a positive KL weight")
         torch.use_deterministic_algorithms(True)
     model_id, revision, _ = model_identity(root)
     model, tokenizer = load_registered_model(root)
@@ -119,6 +121,8 @@ def train(root, seed, recipe, arm, teacher_cache=None):
         "model_fingerprints": (root / "model-sha256.txt").read_text(),
         "new_trainable_parameters": sum(p.numel() for p in stack.modules.parameters()),
     }
+    if shared_teacher_prefix:
+        identity["shared_teacher_prefix_blocks"] = layers[0] + 1
     tape, cache_setup = None, None
     if teacher_cache is not None:
         setup_started = time.perf_counter()
@@ -161,8 +165,10 @@ def train(root, seed, recipe, arm, teacher_cache=None):
         if tape is not None:
             teacher_hidden = workspace[:, phase::KL_STRIDE]
             teacher_hidden.copy_(tape[i])
-        ce, kl = losses(model, stack, batch(data, [p[i] for p in plan], offsets), penalty, phase,
-                        teacher_hidden=teacher_hidden)
+        context = reuse_prefix(model, stack, layers[0]) if shared_teacher_prefix else nullcontext()
+        with context:
+            ce, kl = losses(model, stack, batch(data, [p[i] for p in plan], offsets), penalty, phase,
+                            teacher_hidden=teacher_hidden)
         objective = ce + penalty * kl
         objective.backward()
         torch.nn.utils.clip_grad_norm_(stack.modules.parameters(), 1.0, error_if_nonfinite=True)
@@ -182,6 +188,8 @@ def train(root, seed, recipe, arm, teacher_cache=None):
     if tape is not None:
         details["cache_load_and_check_s"] = cache_setup
         details["cached_optimizer_sha256"] = optimizer_fingerprint(stack.modules.parameters(), optim)
+    if shared_teacher_prefix:
+        details["shared_prefix_optimizer_sha256"] = optimizer_fingerprint(stack.modules.parameters(), optim)
     (root / f"train-{ident}.json").write_text(json.dumps(details, indent=2) + "\n")
 
 
@@ -191,6 +199,8 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, choices=SEEDS, required=True)
     parser.add_argument("--recipe", choices=TRAINING_RECIPES, required=True)
     parser.add_argument("--arm", choices=ARMS, required=True)
-    parser.add_argument("--teacher-cache", type=Path)
+    reuse = parser.add_mutually_exclusive_group()
+    reuse.add_argument("--teacher-cache", type=Path)
+    reuse.add_argument("--shared-teacher-prefix", action="store_true")
     a = parser.parse_args()
-    train(a.root, a.seed, a.recipe, a.arm, a.teacher_cache)
+    train(a.root, a.seed, a.recipe, a.arm, a.teacher_cache, a.shared_teacher_prefix)
