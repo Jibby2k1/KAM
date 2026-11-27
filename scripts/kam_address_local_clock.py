@@ -10,17 +10,18 @@ def order_positions(values, order, *, descending=False):
     return order.gather(1, ranking)
 
 
-def fields(tokens):
+def fields(tokens, alias=False):
     workspace = tokens[..., :8].argmax(-1)
-    subject = tokens[..., 40:104].argmax(-1)
-    address = workspace * 64 + subject
+    start, size, type_index = (8, 32, 232) if alias else (40, 64, 233)
+    subject = tokens[..., start:start + size].argmax(-1)
+    address = workspace * size + subject
     clocks = tokens[..., -2:]
-    available = tokens[..., 233].bool() & clocks.le(0).all(-1)
+    available = tokens[..., type_index].bool() & clocks.le(0).all(-1)
     return address, clocks, available
 
 
-def local_rank(tokens):
-    address, clocks, available = fields(tokens)
+def local_rank(tokens, alias=False):
+    address, clocks, available = fields(tokens, alias)
     ordinal = torch.arange(tokens.shape[1], device=tokens.device)[None].expand(tokens.shape[0], -1)
     order = order_positions(clocks[..., 1], ordinal, descending=True)
     order = order_positions(clocks[..., 0], order, descending=True)
@@ -52,3 +53,37 @@ def apply_local_clock(raw, recoded, *, sham=False):
     clock = -rank.float().log1p() / log1p(24)
     recoded[..., -1] = torch.where(admitted, clock, recoded[..., -1])
     return recoded
+
+
+def local_features(raw, recoded, *, alias, sham):
+    settings = ((False, 39), (True, 231)) if alias else ((False, 39),)
+    for is_alias, slot in settings:
+        ranks, admitted = local_rank(raw, is_alias)
+        if sham:
+            ranks = shuffled_ranks(ranks, admitted)
+        # The opposite token type uses this coordinate for its own code. The
+        # record type flags disambiguate it without increasing model width.
+        feature = (ranks.float() + 1).reciprocal()
+        recoded[..., slot] = torch.where(admitted, feature, recoded[..., slot])
+    return recoded
+
+
+def typed_address_winners(raw):
+    workspace = raw[:, -1, :8].argmax(1)
+    name = raw[:, -1, 8:40].argmax(1)
+    alias_ranks, aliases = local_rank(raw, alias=True)
+    fact_ranks, facts = local_rank(raw)
+    same_workspace = raw[..., :8].argmax(-1).eq(workspace[:, None])
+    names = raw[..., 8:40].argmax(-1)
+    key_ids = raw[..., 40:104].argmax(-1)
+    values = raw[..., 104:232].argmax(-1)
+    a_winners = same_workspace & aliases & names.eq(name[:, None]) & alias_ranks.eq(0)
+    f_winners = same_workspace & facts & fact_ranks.eq(0)
+    return unique_value(key_ids, a_winners), key_ids, values, f_winners
+
+
+def unique_value(values, mask):
+    highest = values.masked_fill(~mask, -1).amax(dim=-1)
+    nonempty = highest.ge(0)
+    agrees = (~mask | values.eq(highest[:, None])).all(dim=-1)
+    return highest.masked_fill(~(nonempty & agrees), -1)

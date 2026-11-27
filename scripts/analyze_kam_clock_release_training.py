@@ -13,6 +13,7 @@ from analyze_kam_native_musique import compare
 
 MODES = ("reference", "all_fact_clocks", "wrong_address_only")
 TYPED_MODES = ("reference", "address_rank", "address_rank_sham")
+ADDITIVE_MODES = ("reference", "fact_rank_feature", "alias_fact_rank_feature", "alias_fact_sham")
 GEOMETRIES = ("dot", "radial")
 METRICS = ("joint", "numeric_exact")
 
@@ -89,7 +90,23 @@ def synthetic(runs, geometry, modes):
     return frames
 
 
-def compare_sources(runs, geometry, phase, modes):
+def audit_routes(runs, geometry, mode, source, depth):
+    counts = {}
+    for run in runs:
+        arm = run["arms"][f"{geometry}/{mode}"]
+        for trained, diagnostic in zip(arm["archives"][source], arm["route_diagnostics"][source], strict=True):
+            assert all(trained[k] == diagnostic[k] for k in ("depth", "recode", "fixture_sha256"))
+            if trained["depth"] != depth:
+                continue
+            for measured, choices in zip(trained["outcomes"], diagnostic["outcomes"], strict=True):
+                assert all(choices["learned"][:2]) == measured["joint"] and not choices["learned"][2]
+                for name, (key, value, abstain) in choices.items():
+                    counts.setdefault(name, Counter()).update({"n": 1, "key": key, "payload": value,
+                                                                 "joint": key and value, "abstention": abstain})
+    return counts
+
+
+def compare_sources(runs, geometry, phase, modes, additive=False):
     result = {}
     for source, lag in phase.items():
         panels = {}
@@ -101,6 +118,9 @@ def compare_sources(runs, geometry, phase, modes):
                              for m in modes]
                 assert all(x == panels_in[0] for x in panels_in[1:])
             panels[str(d)] = {m: measured(fields["reference"], fields[m], lag) for m in modes}
+            if additive:
+                for m in modes:
+                    panels[str(d)][m]["route_diagnostics"] = audit_routes(runs, geometry, m, source, d)
         result[source] = panels
     return result
 
@@ -126,16 +146,25 @@ def analyze(runs, sources):
     assert all(r.get("phase_mixture_fractions", {}) == fractions for r in runs)
     typed = runs[0].get("typed_local_clock", False)
     assert all(r.get("typed_local_clock", False) == typed for r in runs)
-    modes = ("reference", *sorted(fractions, key=fractions.get)) if fractions else (TYPED_MODES if typed else MODES)
+    additive = runs[0].get("additive_local_clocks", False)
+    assert all(r.get("additive_local_clocks", False) == additive for r in runs)
+    if fractions:
+        modes = ("reference", *sorted(fractions, key=fractions.get))
+    elif typed:
+        modes = TYPED_MODES
+    elif additive:
+        modes = ADDITIVE_MODES
+    else:
+        modes = MODES
     assert all(set(r["arms"]) == {f"{g}/{m}" for g in GEOMETRIES for m in modes} for r in runs)
     phase = {"dallas": None} | {k: lags(v) for k, v in sources.items()}
     outcomes = {}
     for geo in GEOMETRIES:
-        outcomes[geo] = {"procedural": synthetic(runs, geo, modes), "real": compare_sources(runs, geo, phase, modes)}
+        outcomes[geo] = {"procedural": synthetic(runs, geo, modes), "real": compare_sources(runs, geo, phase, modes, additive)}
     return {"domain": runs[0]["training_domain"], "fixture_hashes": runs[0]["fixture_hashes"],
             "phase_mixture_fractions": fractions, "typed_local_clock": typed,
             "cutoff_lag_counts": {k: dict(Counter(p.values())) for k, p in phase.items() if p}, "reference_audit": audit,
-            "outcomes": outcomes}
+            "outcomes": outcomes} | ({"additive_local_clocks": True} if additive else {})
 
 
 def main():

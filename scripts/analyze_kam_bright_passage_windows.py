@@ -54,7 +54,9 @@ def evaluate(fixture, measured, former):
     shams = measured.get("sham_moved_documents", {})
     assert all(0 < n <= measured["documents_with_tail"] for n in shams.values())
     policies = ARMS + tuple(f"{m}_sham/{k}" for m in ("dense", "hybrid") for k in sorted(shams))
-    all_queries = fixture["rows"]
+    # Only fully indexed gold sets are admitted to this study. Local integer
+    # document IDs reproduce the source-ID grouping without publishing names.
+    all_queries = [q | {"gold_docs": q["gold"]} for q in fixture["rows"]]
     original = former["rows"] if former else [None] * len(all_queries)
     score, long_score, long_items = rankings(all_queries, measured["rows"], original, docs, cutoff, policies)
     groups = group_queries(all_queries)

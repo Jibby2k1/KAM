@@ -14,7 +14,7 @@
 
 [Physical clock compaction](../../reports/nonlinear_retrieval_natural/PACKED_CLOCK_INFERENCE.md) reduced a heterogeneous four-request eager FP32 batch from 38.72 to 5.35 ms. Balanced BF16 Flash was faster at its original shape and changed some hard choices after cropping.
 
-[Frozen BRIGHT transfer](../../reports/nonlinear_retrieval_natural/BRIGHT_FROZEN_TRANSFER.md) found hybrid BM25/E5 best on economics and earth science at the same output depth. MuSiQue-trained planning showed no clear gain over direct dense ranking and trailed the hybrid. [Passage-window retrieval](../../reports/nonlinear_retrieval_natural/BRIGHT_PASSAGE_WINDOWS.md) improved hybrid nDCG@10 on all four tested domains and beat length-matched shuffled windows on each domain.
+[Frozen BRIGHT transfer](../../reports/nonlinear_retrieval_natural/BRIGHT_FROZEN_TRANSFER.md) found hybrid BM25/E5 best on economics and earth science at the same output depth. MuSiQue-trained planning showed no clear gain over direct dense ranking and trailed the hybrid. [Passage-window retrieval](../../reports/nonlinear_retrieval_natural/BRIGHT_PASSAGE_WINDOWS.md) improved hybrid nDCG@10 on all four tested domains and beat length-matched shuffled windows on each domain. Exact partial ranking accelerated large batches and was slower than full sort at widths one and eight.
 
 [Extractive MuSiQue bindings](../../reports/nonlinear_retrieval_natural/MUSIQUE_SPAN_BINDINGS.md) raised monitored forced-span accuracy from 80–84 to 321–325 of 508 after tuning. In four-hop chains, a generative fallback gained three to four joint outcomes over the seven-outcome reference. The same fallback lost joint outcomes in three-hop chains.
 
@@ -43,6 +43,8 @@
 [Four-paragraph MuSiQue readout](../../reports/nonlinear_retrieval_natural/MUSIQUE_SCALE_READOUT.md) found 0–2 four-hop joint outcomes with the larger learned decomposer despite 25–29 complete candidate pools. On the fresh 140-question two-hop slice, its greedy assignment reached 21–24 joint outcomes, and the size contrast remained uncertain.
 
 [A one-binding MuSiQue intervention](../../reports/nonlinear_retrieval_natural/MUSIQUE_SINGLE_BINDING.md) raised complete four-hop candidate recovery from 52 to 75 of 160 when the first binding was corrected. Correcting the third raised joint candidate coverage and final subanswer exactness from 7 to 21. Both diagnostics use author templates.
+
+[Address-local temporal rank](../../reports/nonlinear_retrieval_natural/ADDRESS_LOCAL_CLOCK.md) improved mixed radial strict Eurostat unemployment lookup from 2.31% to 78.70% and synthetic depth-512 correction lookup from 39.52% to 82.03%. Dallas release-day accuracy fell from 57.56% to 44.35%.
 
 ## Multi-hop evidence selection
 

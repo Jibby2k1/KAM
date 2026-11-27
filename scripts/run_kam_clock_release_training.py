@@ -18,14 +18,19 @@ PRECISION = 64
 VARIANTS = ("reference", "all_fact_clocks", "wrong_address_only")
 MIXTURES = {"phase_quarter": 16, "phase_half": 32, "phase_three_quarters": 48}
 TYPED_MODES = ("reference", "address_rank", "address_rank_sham")
+ADDITIVE_MODES = ("reference", "fact_rank_feature", "alias_fact_rank_feature", "alias_fact_sham")
 ENCODING = "log_episode_mean"
 
 
 class LocalClockDecoder(ClockDecoder):
     def forward(self, tokens):
-        from kam_address_local_clock import apply_local_clock
+        from kam_address_local_clock import apply_local_clock, local_features
 
-        encoded = apply_local_clock(tokens, recode(tokens, ENCODING), sham=self.mode == "address_rank_sham")
+        encoded = recode(tokens, ENCODING)
+        if self.mode in TYPED_MODES:
+            encoded = apply_local_clock(tokens, encoded, sham=self.mode == "address_rank_sham")
+        else:
+            encoded = local_features(tokens, encoded, alias=self.mode != "fact_rank_feature", sham=self.mode == "alias_fact_sham")
         return self.decoder(encoded)
 
 
@@ -101,6 +106,37 @@ def source_panels(a):
     return inputs, outputs
 
 
+@torch.inference_mode()
+def route_audit(net, panels):
+    from kam_address_local_clock import typed_address_winners, unique_value
+
+    records = []
+    for panel in panels:
+        batches = []
+        raw, k_gold, v_gold = panel["data"]
+        for x, kg, vg in zip(raw.split(32), k_gold.split(32), v_gold.split(32), strict=True):
+            inferred = net(x)
+            learned_key = inferred[:, :64].argmax(-1)
+            learned_value = inferred[:, 64:].argmax(-1)
+            exact_alias, fact_ids, values, mask = typed_address_winners(x)
+            tied_value = unique_value(values, mask & fact_ids.eq(learned_key[:, None]))
+            exact_value = unique_value(values, mask & fact_ids.eq(exact_alias[:, None]))
+            decisions = {
+                "learned": (learned_key, learned_value),
+                "exact": (exact_alias, exact_value),
+                "learned_alias_exact_value": (learned_key, tied_value),
+                "exact_alias_learned_value": (exact_alias, learned_value),
+            }
+            flags = [torch.stack((key.eq(kg), value.eq(vg), key.lt(0) | value.lt(0)), dim=-1)
+                     for key, value in decisions.values()]
+            for row in torch.stack(flags, dim=1).tolist():
+                batches.append(dict(zip(decisions, row, strict=True)))
+        assert len(batches) == len(panel["rows"])
+        records.append({"depth": panel["depth"], "recode": panel["recode"],
+                        "fixture_sha256": panel["fixture_sha256"], "outcomes": batches})
+    return records
+
+
 def run(a):
     torch.set_float32_matmul_precision("highest")
     torch.use_deterministic_algorithms(True)
@@ -118,16 +154,24 @@ def run(a):
     for case, depths in test.items():
         for depth, _, _, hashed in depths:
             assert hashed == ref["results"]["radial/" + ENCODING]["procedural"][case][str(depth)]["fixture_sha256"]
-    policies = ("reference", *MIXTURES) if a.compare_mixtures else (TYPED_MODES if a.typed_clocks else VARIANTS)
+    if a.compare_mixtures:
+        policies = ("reference", *MIXTURES)
+    elif a.typed_clocks:
+        policies = TYPED_MODES
+    elif a.additive_clocks:
+        policies = ADDITIVE_MODES
+    else:
+        policies = VARIANTS
     arms = [(g, t) for g in ("dot", "radial") for t in policies]
     output = {}
     audit = {}
+    use_typed = a.typed_clocks or a.additive_clocks
     for geometry, arm in Random(a.seed + 831557).sample(arms, len(arms)):
         model = make_decoder(geometry + "_without_position", a.seed, "cuda")
         archive_control = ref["results"][geometry + "/" + ENCODING]
         assert state_sha(model, common=True) == archive_control["initial_sha256"]
-        net = LocalClockDecoder(model, arm) if a.typed_clocks and arm != "reference" else ClockDecoder(model, ENCODING)
-        adjustment = None if a.typed_clocks else transform(arm, offsets)
+        net = LocalClockDecoder(model, arm) if use_typed and arm != "reference" else ClockDecoder(model, ENCODING)
+        adjustment = None if use_typed else transform(arm, offsets)
         elapsed = fit(net, training, update, transform=adjustment)
         synthetic = evaluate(net, test)
         result = {k: assess(net, "eager_fp32", panels) for k, panels in archive.items()}
@@ -146,13 +190,15 @@ def run(a):
                                "max_loss_difference": loss_delta}
             print(geometry, "reference replay", audit[geometry], flush=True)
         output[f"{geometry}/{arm}"] = {"fit": elapsed, "archives": result, "procedural": synthetic}
+        if a.additive_clocks:
+            output[f"{geometry}/{arm}"]["route_diagnostics"] = {k: route_audit(net, p) for k, p in archive.items()}
         print(geometry, arm, elapsed["seconds"], flush=True)
     return {"seed": a.seed, "training_domain": a.domain, "reference_sha256": sha256(a.reference.read_bytes()).hexdigest(),
             "device": torch.cuda.get_device_name(), "steps": ref["steps"], "tokens": ref["train_tokens"],
             "schedule": ref["schedule"], "fixture_hashes": hashes, "training_banks": ref["banks"],
             "phase_offset_sha256": seal, "clock": ENCODING, "arms": output, "reference_audit": audit,
             "phase_mixture_fractions": {k: v/PRECISION for k, v in MIXTURES.items()} if a.compare_mixtures else {},
-            "typed_local_clock": a.typed_clocks}
+            "typed_local_clock": a.typed_clocks, "additive_local_clocks": a.additive_clocks}
 
 
 def main():
@@ -162,6 +208,7 @@ def main():
     variant = p.add_mutually_exclusive_group()
     variant.add_argument("--compare-mixtures", action="store_true")
     variant.add_argument("--typed-clocks", action="store_true")
+    variant.add_argument("--additive-clocks", action="store_true")
     for name in ("reference", "dallas", "unemployment", "industry", "later_unemployment", "later_industry", "output"):
         p.add_argument("--" + name.replace("_", "-"), required=name in ("reference", "dallas", "unemployment", "output"), type=Path)
     a = p.parse_args()
