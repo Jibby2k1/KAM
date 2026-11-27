@@ -17,7 +17,6 @@ from run_kam_bitemporal_decoder import encode, fingerprint, make_decoder, pack, 
 from run_kam_bitemporal_noise import generate
 from run_kam_radial_dispatch import DISPATCH, assess, choose
 
-ARM = "radial_without_position"
 CONFIG = ((16, 124, 4096), (48, 42, 4096), (128, 16, 2048), (512, 4, 1024))
 EVALUATION = (20, 128, 512, 1024)
 POLICIES = ("interleaved", "short_first")
@@ -72,7 +71,7 @@ def evaluate(reference, model, held):
     return assess(reference, "eager_fp32", held)
 
 
-def fit(model, reference, banks, held, order):
+def fit(model, reference, banks, held, order, execution):
     optimizer = torch.optim.AdamW(model.parameters(), lr=0.0004, fused=True)
     seen = Counter()
     tokens = 0
@@ -87,7 +86,7 @@ def fit(model, reference, banks, held, order):
         chosen = indices[seen[depth]]
         seen[depth] += 1
         x, entity, fact = encode(pack(scene, chosen), perm[chosen], hide_query_clock=True)
-        path = choose(model, DISPATCH, depth)
+        path = choose(model, DISPATCH, depth) if execution == "selective" else "eager_fp32"
         optimizer.param_groups[0]["lr"] = 0.0004 * min(j / 64, 1)
         optimizer.zero_grad(set_to_none=True)
         loss = objective(predict(model, path, x), entity, fact)
@@ -109,8 +108,9 @@ def fit(model, reference, banks, held, order):
     return checkpoints
 
 
-def state_sha(model):
-    return sha256(b"".join(v.cpu().contiguous().numpy().tobytes() for v in model.state_dict().values())).hexdigest()
+def state_sha(model, *, common=False):
+    return sha256(b"".join(v.cpu().contiguous().numpy().tobytes() for k, v in model.state_dict().items()
+                           if not common or not k.endswith(("raw_metric", "raw_bandwidth")))).hexdigest()
 
 
 def run(a):
@@ -118,16 +118,19 @@ def run(a):
     torch.use_deterministic_algorithms(True)
     assert a.steps >= 3200 and a.steps % 16 == 0
     banks, held = setup(a.seed, a.steps)
-    reference = make_decoder(ARM, a.seed, "cuda")
+    assert a.execution == "eager" or a.geometry == "radial"
+    arm = f"{a.geometry}_without_position"
+    reference = make_decoder(arm, a.seed, "cuda")
     original = state_sha(reference)
+    common = state_sha(reference, common=True)
     baseline = assess(reference, "eager_fp32", held)
     results = {}
     for control in (*POLICIES[a.order:], *POLICIES[:a.order]):
-        model = make_decoder(ARM, a.seed, "cuda")
+        model = make_decoder(arm, a.seed, "cuda")
         assert original == state_sha(model)
         order = training_order(a.steps, control, a.seed)
         digest = sha256(" ".join(map(str, order)).encode()).hexdigest()
-        outcomes = fit(model, reference, banks, held, order)
+        outcomes = fit(model, reference, banks, held, order, a.execution)
         results[control] = {"update_order_sha256": digest, "held_out": outcomes, "final_state_sha256": state_sha(model)}
         print(control, outcomes[str(a.steps)]["elapsed_update_seconds"], flush=True)
     a0, a1 = (r["held_out"] for r in results.values())
@@ -135,6 +138,7 @@ def run(a):
     assert a0[str(a.steps)]["tokens"] == a1[str(a.steps)]["tokens"]
     assert a0[str(a.steps)]["depth_updates"] == a1[str(a.steps)]["depth_updates"]
     return {"config": CONFIG, "device": torch.cuda.get_device_name(), "seed": a.seed, "steps": a.steps,
+            "geometry": a.geometry, "execution": a.execution, "initial_shared_parameter_sha256": common,
             "initial_state_sha256": original, "banks": {str(d): b[-1] for d, b in banks.items()},
             "initial_validation": baseline, "policies": results}
 
@@ -143,6 +147,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, required=True)
     p.add_argument("--steps", type=int, default=9600)
+    p.add_argument("--geometry", choices=("radial", "dot"), default="radial")
+    p.add_argument("--execution", choices=("selective", "eager"), default="selective")
     p.add_argument("--order", type=int, choices=range(2), required=True)
     p.add_argument("--output", type=Path, required=True)
     a = p.parse_args()
