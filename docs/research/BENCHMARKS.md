@@ -85,6 +85,21 @@ The frozen low-rate Llama checkpoints and their untouched reference were evaluat
 
 [Transfer protocol, operator breakdown, and quantity contrasts](GENERAL_BENCHMARKS_DIAGNOSTICS.md#arithmetic-transfer-to-svamp)
 
+### Development-selected KL on MATH-500
+
+The KL weight was selected separately for each backbone on 512 held-out GSM8K development problems and shared between KAM and dot. The fresh test uses the 311 MATH-500 problems with integer labels. Scores are exact match averaged across the same three seeds. Both requires the same item to be correct under both answer formats.
+
+| Backbone and selected KL | Format | Untouched | KAM | Dot |
+| --- | --- | ---: | ---: | ---: |
+| SmolLM2, KL 4 | `####` | 12.22% | 13.72% | 9.43% |
+| SmolLM2, KL 4 | `Answer:` | 8.68% | 9.43% | 9.32% |
+| SmolLM2, KL 4 | Both | 4.18% | 4.82% | 4.50% |
+| Llama 3, KL 0.5 | `####` | 24.44% | 23.26% | 27.33% |
+| Llama 3, KL 0.5 | `Answer:` | 29.26% | 26.26% | 26.26% |
+| Llama 3, KL 0.5 | Both | 19.29% | 18.11% | 21.97% |
+
+[Development selection, paired intervals, and test receipts](MATH_KL_TRANSFER.md)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.
