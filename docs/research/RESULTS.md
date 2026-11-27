@@ -1,5 +1,7 @@
 # KAM research results
 
+The [benchmark scorecard](BENCHMARKS.md) gathers conventional model metrics, matched scores by dataset, and general benchmark coverage.
+
 [November 27 research handoff](../../reports/nonlinear_retrieval_natural/OVERNIGHT_2026-11-27.md) consolidates the frozen 1,024-question HotpotQA comparison, cross-domain evidence and temporal controls, and HPG hardware measurements.
 
 ## Recent controlled and cross-domain results

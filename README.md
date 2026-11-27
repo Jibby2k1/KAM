@@ -2,7 +2,7 @@
 
 [![Kernel Adaptive Memory. A query, four keys, and a learned metric illustrated by elliptical contours.](docs/demo/media/kam-cover.png)](https://www.raulv.dev/KAM/)
 
-[**Start the first-principles course**](https://www.raulv.dev/KAM/) · [**Watch the 30-second explainer**](https://www.raulv.dev/KAM/radial.html#explainer) · [Results and evidence](docs/research/RESULTS.md)
+[**Start the first-principles course**](https://www.raulv.dev/KAM/) · [**Watch the 30-second explainer**](https://www.raulv.dev/KAM/radial.html#explainer) · [Benchmark scorecard](docs/research/BENCHMARKS.md) · [Results and evidence](docs/research/RESULTS.md)
 
 Kernel Adaptive Memory (KAM) studies how attention reads from the current context and from persistent learned supports. The research repository also contains separate experiments on one-pass evidence retrieval and temporal revision memory.
 

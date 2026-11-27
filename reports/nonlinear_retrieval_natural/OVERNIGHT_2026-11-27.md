@@ -2,6 +2,8 @@
 
 8:00 AM Eastern, November 27, 2026
 
+See the [benchmark scorecard](../../docs/research/BENCHMARKS.md) for answer exact match, token F1 where available, and results across the evaluated datasets.
+
 Conditioned expansion raised HotpotQA joint exact match from **308 to 333** on 1,024 fresh questions. Incomplete pools gained 35 joint answers and complete pools lost 10. A separate pair-controlled MuSiQue study found that earlier evidence can guide hard endpoint routing on natural questions. In revision memory, trusted clocks and within-address rank mattered more than adding a static learned support bank. Training order changed the guarded radial decoder's fresh deep correction recovery from **11 to 1,535 of 1,536** at the same token and update budget. On L4, the fused FP32 path reduced representative guarded radial batch time from **39.28 to 1.79 ms**, with every tested hard decision preserved on all three GPUs.
 
 ![Four panels show HotpotQA recovery on complete and incomplete pools, 2Wiki evidence and answer outcomes, four-hop MuSiQue recovery under different information controls, and training times on L4 and B200.](figures/overnight_2026-11-27.png)

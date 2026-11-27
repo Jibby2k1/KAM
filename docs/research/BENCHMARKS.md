@@ -1,0 +1,93 @@
+# KAM benchmark scorecard
+
+November 27, 2026 · [Experiment index](RESULTS.md) · [Dataset sources and splits](DATASET_PORTFOLIO.md)
+
+The archive contains direct evaluations of small KAM checkpoints, retrieval pipelines with frozen pretrained encoders and readers, and deterministic controls. Each row identifies the comparison and evaluation slice. Scores are paired within rows and cover different systems and splits across rows.
+
+## General model benchmarks
+
+| Capability | Benchmark | Primary metric | KAM checkpoint result |
+| --- | --- | --- | --- |
+| Language modeling | Tiny Shakespeare, character level | Validation NLL, bits per character, character perplexity | Development result below. The reported sweep reserved the test split. |
+| Language modeling | [WikiText-103](https://arxiv.org/abs/1609.07843) | Held-out NLL and perplexity at fixed tokenization | No archived score found |
+| Broad knowledge | [MMLU](https://arxiv.org/abs/2009.03300) | Multiple-choice accuracy | No archived score found |
+| Graduate science | [GPQA Diamond](https://arxiv.org/abs/2311.12022) | Multiple-choice accuracy | No archived score found |
+| Mathematical reasoning | [GSM8K](https://arxiv.org/abs/2110.14168) | Final-answer exact match | No archived score found |
+| Code generation | [HumanEval](https://arxiv.org/abs/2107.03374), [MBPP](https://arxiv.org/abs/2108.07732) | Unit-test pass@1, plus pass@k for multiple samples | No archived score found |
+| Repository software engineering | [SWE-bench Verified](https://openai.com/index/introducing-swe-bench-verified/) | Percentage of issues resolved with a specified agent harness | No archived score found |
+
+QASPER measures answers grounded in scientific papers. BRIGHT includes earth science document retrieval. Both are scored below. A general capability comparison requires a pinned text-capable KAM checkpoint and matched dot-attention control, plus fixed benchmark revisions, prompts, and decoding or option-scoring settings.
+
+## Natural QA and conversational memory
+
+**Answer EM** is the fraction of normalized answers that exactly match a reference. **Token F1** measures partial overlap with a reference answer. **Complete evidence** requires every support unit at the study's documented granularity. **Joint EM** here requires both answer EM and complete evidence. Official benchmark joint scores can use different support units and formulas. Counts below are baseline → comparison on the same cohort. A dash marks a metric without a comparable value in the scorecard.
+
+| Dataset and slice | Matched comparison | Answer EM / accuracy | Token F1 | Complete evidence | Joint EM |
+| --- | --- | ---: | ---: | ---: | ---: |
+| [HotpotQA](../../reports/nonlinear_retrieval_natural/CONDITIONED_UNION.md), 1,024 fresh bridge questions | Broad top 64 → conditioned union, same reranker and FLAN-T5-small | **396 → 422** (38.67% → 41.21%) | — | 481 → 511 | 308 → 333 (30.08% → 32.52%) |
+| HotpotQA, originally complete (640) | Same comparison | 351 → 347 | — | 481 → 465 | 308 → 298 |
+| HotpotQA, originally incomplete (384) | Same comparison | 45 → 75 | — | 0 → 46 | 0 → 35 |
+| [2WikiMultiHopQA](../../reports/nonlinear_retrieval_natural/NATIVE_TWOWIKI_RERANK.md), 1,024 native questions | Dense 128 → conditioned 128, frozen HotpotQA heads and reader | **217 → 238** (21.19% → 23.24%) | — | 320 → 383 | 149 → 165 |
+| [MuSiQue](../../reports/nonlinear_retrieval_natural/MUSIQUE_SUBQUERY_ASSIGNMENT.md), 576 questions, three seeds | Direct rank → distinct assignment, same four-passage budget and reader | **48–56 → 70–73** (8.33%–9.72% → 12.15%–12.67%) | — | 61–68 → 84–87 | 22–25 → 38–42 |
+| [IIRC](../../reports/nonlinear_retrieval_natural/IIRC_READER_FORMAT.md), 134 aligned questions | Generic → question-derived answer format with gold article leads supplied | **25 → 42** (18.66% → 31.34%) | — | — | — |
+| [MultiHop-RAG](../../reports/nonlinear_retrieval_natural/NEWS_ARTICLE_WINDOWS.md), 384 news questions | Word-stride → one sentence center per article, annotated articles supplied | **111 → 134** (28.91% → 34.90%) | — | 46 → 69 | 16 → 31 |
+| [QASPER](../../reports/nonlinear_retrieval_natural/QASPER_BINARY.md), 74 binary questions | Always yes → dense top-two paragraphs in supplied paper | **48 → 47** (64.86% → 63.51%) | — | — → 26 | — → 15 |
+| [TimeQA](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#timeqa-prose-and-same-entity-date-collisions), 640 held-out entity contrasts | Dated dense → learned date-aware ranking | **80 → 184** (12.50% → 28.75%) | — | 117 → 261 | 49 → 126 |
+| [TempReason](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#tempreason-fact-text), absolute, 384 noisy cases | Dense top two → time and entity rules, same reader | **147 → 358** (38.28% → 93.23%) | — | 320 → 384¹ | — |
+| TempReason, relative, 384 noisy cases | Same comparison | **110 → 327** (28.65% → 85.16%) | — | 133 → 380¹ | — |
+| [LongMemEval-M](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_READER_BUDGET.md), 470 answerable | Dense prefixes → query windows, fixed 512-token budget | **28 → 41** (5.96% → 8.72%) | **9.97% → 13.56%** | — | 23 → 36 |
+| [TIME-Lite](../../reports/nonlinear_retrieval_natural/TIME_LITE_CONTEXT.md), dialogue, 220 | No context → dense windows, FLAN-T5-base | **63 → 85** (28.64% → 38.64%) | — | — | — |
+| TIME-Lite, news, 210 | Same comparison | **84 → 140** (40.00% → 66.67%) | — | — | — |
+| TIME-Lite, wiki, 66 | Same comparison | **23 → 26** (34.85% → 39.39%) | — | — | — |
+
+¹ TempReason evidence means the selected facts contain an accepted answer string. HotpotQA answer EM was totaled from the exactness flags in the [archived replay](../../results/nonlinear_retrieval_natural/conditioned_union_v1/replay.json.gz). LongMemEval-M F1 comes from its [numerical summary](../../results/nonlinear_retrieval_natural/longmemeval_m_reader_budget_v1/summary.json). MuSiQue ranges are across seeds. Its four-hop joint score was **0/160** for each seed in this comparison. HotpotQA joint EM gained **2.44 percentage points** (95% paired interval **+1.17 to +3.81**) overall and fell **1.56 points** (**−2.66 to −0.63**) on complete pools. Filling the missing QA F1 and official support metrics requires a scorer replay with the corresponding answer text and support units.
+
+## Retrieval and structured memory
+
+Hit@k asks whether a target appears in the first k results. Complete recall@k asks whether every required target is present. Recall@k measures the fraction of relevant targets recovered, and nDCG@k also rewards placing them near the top. Structured exact accuracy checks a discrete answer, such as a count or snapshot.
+
+| Dataset | Metric and comparison | Matched result |
+| --- | --- | --- |
+| [BRIGHT](../../reports/nonlinear_retrieval_natural/BRIGHT_PASSAGE_WINDOWS.md), economics / earth science / psychology / sustainable living (428 total) | Hybrid nDCG@10 on a 0–100 scale, head → multiple windows | 15.79 → 19.05 / 17.79 → 23.01 / 10.61 → 15.01 / 12.19 → 13.48 |
+| BRIGHT, same domains | Recall@64, same comparison | 32.70% → 35.62% / 35.81% → 42.20% / 20.81% → 27.95% / 30.52% → 34.05% |
+| [IIRC](../../reports/nonlinear_retrieval_natural/IIRC_MATCHED_SEQUENTIAL.md), 153 | Complete recall@2, sequential → joint scoring | Neutral 62 → 66, title-aware 65 → 73 |
+| [LongMemEval-S](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#conversational-memory-and-annotation-clocks), 470 answerable | Complete session recall@5, BM25 → E5 | 390 → 430 |
+| [LongMemEval-M](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_M.md), 470 answerable | Complete session recall@5, nested 64 sessions → full | 423 → 350 |
+| [NoLiMa-derived probe](../../reports/nonlinear_retrieval_natural/CROSS_DOMAIN_TRANSFER.md#controlled-reduction-in-lexical-overlap), depth 64 | Dense hit@2, clean → lexical decoy | One-hop 9 → 6/56, two-hop 6 → 3/44. Clean direct control 56/56. |
+| [TimelineQA atomic](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#seeded-lifelogs-and-conflicting-provenance), 576 generated cases | Dense hit@1 at depth 256, authentic → false displayed date | 438 → 312 |
+| [TimelineQA counts](../../reports/nonlinear_retrieval_natural/TIMELINEQA_COUNTS.md), 380 generated cases | Exact count with false dates, displayed → trusted source month | 0 → 380. Dense complete recall@8 under false dates was 97/288 among positive cases. |
+| [BABILong](../../reports/nonlinear_retrieval_natural/BABILONG_REPLAY.md), 64k context, eight windows | Exact denotation plus nonempty witness, E5 → grammar-filtered E5 | QA2 1 → 41/100, QA3 0 → 3/86, QA7 45 → 91/100, QA8 64 → 95/100. Complete structured replay agreed on 1,200/1,200 across tasks and lengths. |
+| [UnSeenTimeQA](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#executable-labels-for-fictional-event-schedules) | Exact answer-set agreement, deterministic schedule replay | 3,600/3,600 easy/medium serial, 2,693/2,700 hard serial, 2,618/2,700 hard parallel from text-derived dependencies |
+| [UnSeenTimeQA duration swaps](../../reports/nonlinear_retrieval_natural/DURATION_POINTER.md), 1,173 pairs | Both event pointers exact, learned dot / radial given typed inputs | 52.77% / 49.53% |
+| [Philadelphia Fed vintages](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#real-revision-and-abstention) | Exact release, dense → semantic identity plus exact date guard | Known canonical 208 → 320/320, known paraphrases 130 → 80/320. Unavailable canonical and paraphrase each 0 → 160/160 correct abstentions. |
+| [Dallas Fed OECD GDP](../../reports/nonlinear_retrieval_natural/TEMPORAL_RELATIVE_CLOCK.md), 584 questions × two recodings × three seeds | Exact address and value, radial signed log → relative mean signed log | 42.44% → 57.56% at depth 48 |
+| [Eurostat unemployment and industrial production](../../reports/nonlinear_retrieval_natural/ADDRESS_LOCAL_CLOCK.md) | Strict archived snapshot accuracy, mixed dot clock → clock plus within-address fact rank | Unemployment 3.01% → 81.37%, industrial production 0.20% → 91.35%, with typed archive inputs |
+| [Eurostat text routing](../../reports/nonlinear_retrieval_natural/EUROSTAT_TEXT_ROUTING.md), 864 answerable authored prompts | Exact snapshot, dense → dense address plus parsed month and exact cutoff | 114 → 864. Separate gates answered 648/864 and refused all 324 tested unsupported or ambiguous prompts. |
+| Project revision memory | Selective correctness under held-out aliases | Conservative registry gate answered 48/192 supported prompts and refused 576/576 unseen-identity prompts. [Registry results](../../results/nonlinear_retrieval_natural/release_registry_sample_v1/summary.json) |
+
+PG-19 supplied the BABILong filler and Wikipedia supplied the indexed QA corpus. Their reported scores apply to the downstream tasks. The [dataset portfolio](DATASET_PORTFOLIO.md) also lists prospective datasets, including RULER.
+
+## Direct model and controlled tasks
+
+| Dataset or task | Conventional metric | Archived result |
+| --- | --- | --- |
+| Tiny Shakespeare | Character NLL, perplexity and bits per character, lower is better | Affine C0 / nonlinear C3 / parameter-matched linear branch at 1,000 updates, three development seeds: **1.5946 / 1.5906 / 1.5891 nats per character**. Exponentiating mean NLL gives **4.93 / 4.91 / 4.90** character perplexity. Dividing mean NLL by ln 2 gives **2.300 / 2.295 / 2.293** bits per character. The archived M4 text study reserved the test split. |
+| [Bundled small-language fixture](../../reports/phase6/PHASE6_TRANSFORMER_COMPARISON.md) | Loss and perplexity | The 256-token operational profile has no comparable held-out score. |
+| [MQAR, variable copy, Dyck-2, reusable regime grammar](../../reports/phase2/PHASE2_RESULTS.md#five-seed-mechanism-language-screen) | Token accuracy and cross-entropy, plus sequence accuracy where recorded | Five-seed architecture tables. Separate length holdouts found 8.26% token accuracy and 0% exact sequence at copy length 80, after training on 8–64. Dyck-2 at depth 16 yielded 42.14% token accuracy and 0% valid outputs. |
+| [Short copy and character smoke fixtures](../../reports/phase3/PHASE2_EVIDENCE_AUDIT.md) | Checkpoint inventory | Legacy artifacts catalogued. No common held-out score established. |
+| [Mackey–Glass and NARMA, stationary and switching](../../reports/phase2/PHASE2_RESULTS.md#paired-stationary-and-switching-evidence) | Held-out MSE, with normalized error in adaptation studies | Five-seed comparisons for all four tasks. No corrected paired improvement passed the reported significance gate. |
+| [Prototype switches and controlled regression](../../reports/phase4/PHASE4_FACTORIAL_REPORT.md) | Held-out MSE by task and regime | Factorial results and [transformer screen](../../reports/phase6/PHASE6_STAGE1_FULL_REPORT.md) |
+| [Procedural bitemporal revision](../../reports/nonlinear_retrieval_natural/GUARDED_CURRICULUM_ORDER.md) | Exact alias and payload at unseen depth 1,024 | Guarded radial, cyclic long → shallow-first, 11 → 1,535/1,536 at equal tokens and updates |
+| [Fixed-key and composed address probes](../../EXPERIMENTS.md) | Exact address and payload | Generated lookup, context and positional controls |
+
+Generalization is the score on a specified held-out condition, such as new articles, entities, countries or sequence lengths. The linked studies report how the held-out sets were formed and how uncertainty was estimated.
+
+## Efficiency at measured quality
+
+| Workload | Efficiency metric | Quality check |
+| --- | --- | --- |
+| [Guarded radial inference](../../reports/nonlinear_retrieval_natural/GUARDED_FP32_SDPA.md), L4, depth 1,024 | Eager → fused FP32 plus crop, **39.28 → 1.79 ms** per measured batch | Tested hard decisions matched across L4, RTX PRO 6000 and B200 |
+| [HotpotQA full requests](../../reports/nonlinear_retrieval_natural/FULLWIKI_SENTENCE_THROUGHPUT.md#confirmation-on-800-different-requests), L4 | Single FP32 → eight requests with FP16 sentence encoding, **10.61 → 19.83 requests/s** | Support, answer EM and joint flags matched on all 800 |
+| [Radial training](../../reports/nonlinear_retrieval_natural/RADIAL_CURRICULUM_CAPTURE.md), B200, 19,200 updates | Eager → CUDA Graph, **159.38 → 30.04 s** excluding setup | Complete optimizer trajectories matched under tested deterministic settings |
+
+Latency p50 and p95 describe typical and tail requests. Throughput measures completed requests or processed tokens per second. Compare at the same workload, hardware, context length and quality target. [Serving and training details](RESULTS.md)
