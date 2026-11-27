@@ -70,7 +70,8 @@ def score_case(rows, generated, source, target):
         row["gold_in_reader"].append(label in row["reader_context_ids"][-1])
 
 
-def replay(arm, current, templates, labels, initial, passage_text, bank, encoder, reader, *, gold_at=None):
+def replay(arm, current, templates, labels, initial, passage_text, bank, encoder, reader, *,
+           gold_at=None, alternate_reader=None, alternate_steps=()):
     pools = [initial[q["id"]].copy() for q in current]
     rows = [{"id": q["id"], "target_ranks": [], "answer_em": [], "reader_context_ids": [],
              "gold_in_reader": [], "unfilled_references": 0} for q in current]
@@ -93,7 +94,8 @@ def replay(arm, current, templates, labels, initial, passage_text, bank, encoder
         prompts = [f"Answer the question with a short answer. Question: {question} Evidence: "
                    + " ".join(passage_text(i) for i in ids)
                    for question, ids in zip(queries, selected, strict=True)]
-        predictions = reader.answers(prompts)
+        source_reader = alternate_reader if step in alternate_steps else reader
+        predictions = source_reader.answers(prompts)
         score_case(rows, predictions, [label["answers"][step] for label in labels], raw_targets)
         for previous, answer, label in zip(histories, predictions, labels, strict=True):
             binding = label["answers"][step] if step == gold_at else answer
@@ -131,6 +133,15 @@ def run(a, articles, fixture):
     base_path = a.assets / f"reader_base_{BASE_REVISION}"
     assert digest(base_path / "model.safetensors") == BASE_WEIGHT
     reader = Reader(base_path)
+    larger = None
+    if a.reader_size:
+        from kam_flan_reader_assets import LARGE_REVISION, LARGE_WEIGHT
+
+        large_path = a.assets / f"reader_large_{LARGE_REVISION}"
+        assert digest(large_path / "model.safetensors") == LARGE_WEIGHT
+        larger = Reader(large_path)
+        assert larger.tokenizer.get_vocab() == reader.tokenizer.get_vocab()
+        models = models | {"google/flan-t5-large": LARGE_REVISION}
 
     @lru_cache(maxsize=8192)
     def passage_text(i):
@@ -149,13 +160,19 @@ def run(a, articles, fixture):
         templates = [source_templates["templates"][q["id"]] for q in cases]
         diagnostics = [analysis_labels["rows"][q["id"]] for q in cases]
         assert all(len(p) == nhops for p in templates)
-        policies = [(arm, None) for arm in ARMS]
+        policies = [(arm, arm, None, ()) for arm in ARMS]
         if a.single_oracle:
-            policies = [("top1", None), *((f"gold_at_{i+1}", i) for i in range(nhops - 1))]
-        for arm, gold_at in policies:
-            reader_arm = "top1" if gold_at is not None else arm
-            for row in replay(reader_arm, cases, templates, diagnostics, initial, passage_text, bank, encoder, reader,
-                              gold_at=gold_at):
+            policies = [("top1", "top1", None, ()),
+                        *((f"gold_at_{i+1}", "top1", i, ()) for i in range(nhops - 1))]
+        if a.reader_size:
+            policies = [("top1", "top1", None, ()), ("large_first", "top1", None, (0,))]
+            if nhops > 2:
+                policies.extend([("large_penultimate", "top1", None, (nhops - 2,)),
+                                 ("large_all_intermediate", "top1", None, tuple(range(nhops - 1)))])
+            policies.append(("large_final", "top1", None, (nhops - 1,)))
+        for arm, context_rule, gold_at, alternate_steps in policies:
+            for row in replay(context_rule, cases, templates, diagnostics, initial, passage_text, bank, encoder, reader,
+                              gold_at=gold_at, alternate_reader=larger, alternate_steps=alternate_steps):
                 answers.setdefault(row["id"], {})[arm] = row
     return {"fixture_sha256": fx, "corpus_sha256": cx, "models": models | {"google/flan-t5-base": BASE_REVISION},
             "templates_sha256": digest(a.templates), "scoring_labels_sha256": digest(a.labels),
@@ -172,7 +189,9 @@ def main():
     for name in ("source", "oracle", "assets", "baseline", "templates"):
         p.add_argument("--" + name, type=Path)
     p.add_argument("--vectors", nargs=4, type=Path)
-    p.add_argument("--single-oracle", action="store_true")
+    diagnostics = p.add_mutually_exclusive_group()
+    diagnostics.add_argument("--single-oracle", action="store_true")
+    diagnostics.add_argument("--reader-size", action="store_true")
     p.add_argument("--shard", default=0, type=int)
     p.add_argument("--shards", default=1, type=int)
     a = p.parse_args()

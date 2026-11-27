@@ -1,0 +1,237 @@
+{
+  "counts": {
+    "baseline": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    },
+    "cached_prompt": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    }
+  },
+  "device": "NVIDIA B200",
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "latency": {
+    "anchor_ms": {
+      "p50_ms": {
+        "baseline": 0.20341994240880013,
+        "cached_prompt": 0.203761737793684
+      },
+      "p95_ms": {
+        "baseline": 0.25222525000572205,
+        "cached_prompt": 0.2532017417252064
+      },
+      "paired_median_delta_95_ms": [
+        -0.0023827888071537018,
+        0.0005038455128669739
+      ],
+      "paired_median_delta_ms": -0.0008717179298400879
+    },
+    "conditioned_search_ms": {
+      "p50_ms": {
+        "baseline": 11.333119589835405,
+        "cached_prompt": 11.14194723777473
+      },
+      "p95_ms": {
+        "baseline": 12.832415150478482,
+        "cached_prompt": 12.933511892333627
+      },
+      "paired_median_delta_95_ms": [
+        -0.012604519724845886,
+        0.029715243726968765
+      ],
+      "paired_median_delta_ms": 0.00991160050034523
+    },
+    "initial_articles_ms": {
+      "p50_ms": {
+        "baseline": 4.165126010775566,
+        "cached_prompt": 4.059907514601946
+      },
+      "p95_ms": {
+        "baseline": 5.535269505344331,
+        "cached_prompt": 5.432948702946305
+      },
+      "paired_median_delta_95_ms": [
+        -0.9781681001186371,
+        0.7849037647247314
+      ],
+      "paired_median_delta_ms": -0.7639508694410324
+    },
+    "initial_encode_ms": {
+      "p50_ms": {
+        "baseline": 4.560989793390036,
+        "cached_prompt": 4.331952892243862
+      },
+      "p95_ms": {
+        "baseline": 5.707920575514436,
+        "cached_prompt": 5.7609680108726025
+      },
+      "paired_median_delta_95_ms": [
+        -0.044119544327259064,
+        0.00261794775724411
+      ],
+      "paired_median_delta_ms": -0.022067688405513763
+    },
+    "initial_search_ms": {
+      "p50_ms": {
+        "baseline": 3.4508900716900826,
+        "cached_prompt": 3.4525180235505104
+      },
+      "p95_ms": {
+        "baseline": 3.483688458800316,
+        "cached_prompt": 3.4737393260002136
+      },
+      "paired_median_delta_95_ms": [
+        -0.0006332993507385254,
+        0.0020721927285194397
+      ],
+      "paired_median_delta_ms": 0.0009932555258274078
+    },
+    "prompt_build_ms": {
+      "p50_ms": {
+        "baseline": 7.038379088044167,
+        "cached_prompt": 4.257490858435631
+      },
+      "p95_ms": {
+        "baseline": 9.795981249772012,
+        "cached_prompt": 6.332812644541264
+      },
+      "paired_median_delta_95_ms": [
+        -3.47350537776947,
+        -2.717448864132166
+      ],
+      "paired_median_delta_ms": -3.287290222942829
+    },
+    "reader_ms": {
+      "p50_ms": {
+        "baseline": 56.41762912273407,
+        "cached_prompt": 56.39382032677531
+      },
+      "p95_ms": {
+        "baseline": 124.06735471449792,
+        "cached_prompt": 125.03368994221091
+      },
+      "paired_median_delta_95_ms": [
+        -0.0935086398385465,
+        0.24436530657112598
+      ],
+      "paired_median_delta_ms": 0.01989351585507393
+    },
+    "remaining_rerank_ms": {
+      "p50_ms": {
+        "baseline": 190.69717824459076,
+        "cached_prompt": 189.70105261541903
+      },
+      "p95_ms": {
+        "baseline": 240.60586574487388,
+        "cached_prompt": 249.59598544519392
+      },
+      "paired_median_delta_95_ms": [
+        -10.783258825540543,
+        5.60340378433466
+      ],
+      "paired_median_delta_ms": -5.883222911506891
+    },
+    "request_ms": {
+      "p50_ms": {
+        "baseline": 280.8866114355624,
+        "cached_prompt": 279.3116120155901
+      },
+      "p95_ms": {
+        "baseline": 365.33397561870515,
+        "cached_prompt": 377.042548218742
+      },
+      "paired_median_delta_95_ms": [
+        -12.247962411493063,
+        5.8290790766477585
+      ],
+      "paired_median_delta_ms": -6.066902540624142
+    },
+    "rerank_prepare_ms": {
+      "p50_ms": {
+        "baseline": 75.5624386947602,
+        "cached_prompt": 80.6596593465656
+      },
+      "p95_ms": {
+        "baseline": 93.65053086075932,
+        "cached_prompt": 98.98264794610425
+      },
+      "paired_median_delta_95_ms": [
+        -0.6985190208069979,
+        0.6972760893404484
+      ],
+      "paired_median_delta_ms": -0.07550884038209915
+    },
+    "rerank_score_ms": {
+      "p50_ms": {
+        "baseline": 105.74884223751724,
+        "cached_prompt": 103.19261206313968
+      },
+      "p95_ms": {
+        "baseline": 141.77308841608465,
+        "cached_prompt": 134.5681686885655
+      },
+      "paired_median_delta_95_ms": [
+        -7.054058834910393,
+        3.3722063526511192
+      ],
+      "paired_median_delta_ms": -3.09651717543602
+    }
+  },
+  "parity": {
+    "all_records": 800,
+    "arms_vs_archive": 800,
+    "baseline_vs_archive": 800,
+    "conditioned_pairs": 800,
+    "initial_order": 800,
+    "initial_set": 800,
+    "prompt_batches": 100,
+    "second_hop": 800
+  },
+  "passage_work": {
+    "baseline": {
+      "passage_requests": 3200,
+      "passage_tokenized": 3200
+    },
+    "cached_prompt": {
+      "passage_requests": 3200,
+      "passage_tokenized": 1777
+    }
+  },
+  "quality": {
+    "answer": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    },
+    "joint": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    },
+    "support": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    }
+  },
+  "requests": 800,
+  "requests_per_second": {
+    "baseline": 28.376487442281714,
+    "cached_prompt": 28.403704489217237
+  }
+}

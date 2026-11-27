@@ -11,6 +11,6 @@ Each arm starts from the same untrained state for its seed. Short-first curricul
 | B200 | Dot | 108.64 s | 18.04 s | 109.21 s | 18.39 s | 47.14% |
 | B200 | Radial | 159.38 s | 30.04 s | 159.52 s | 30.83 s | 83.59% |
 
-Times and accuracy are medians across seeds. Captured peak allocated memory was 245–248 MB above the measurement baseline, with 245–252 MB across both modes. Different HPG host and allocator states can affect eager dispatch timings, so compare capture with eager within each allocation. Device-to-device parity is not expected with different kernels and numerical hardware. The experiment fixes update budget and does not measure when each geometry reaches a given accuracy.
+Times are medians and accuracies are means across seeds. Captured peak allocated memory was 245–248 MB above the measurement baseline, with 245–252 MB across both modes. Different HPG host and allocator states can affect eager dispatch timings, so compare capture with eager within each allocation. Device-to-device parity is not expected with different kernels and numerical hardware. The experiment fixes update budget and does not measure when each geometry reaches a given accuracy.
 
 HPG arrays 52987721 and 52987722. [Measurements and parity checks](../../results/nonlinear_retrieval_natural/curriculum_capture_v1/) · [Training runner](../../scripts/run_kam_curriculum_capture.py) · [Summary script](../../scripts/analyze_kam_curriculum_capture.py) · [Earlier shuffled-depth capture](RADIAL_SHAPE_GRAPHS.md)

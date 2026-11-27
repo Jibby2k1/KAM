@@ -110,16 +110,20 @@ class Reader:
         ).to(device).eval()
         self.device = device
 
-    def prompt(self, case, titles):
-        evidence = [
-            case["context"][i][0] + ". " + " ".join(case["context"][i][1])
-            for i in titles
-        ]
-        words = " ".join(
-            self.tokenizer.decode(self.tokenizer(text, add_special_tokens=False, max_length=192,
-                                                truncation=True).input_ids)
-            for text in evidence
-        )
+    def prompt(self, case, titles, *, passage_cache=None):
+        evidence = []
+        for i in titles:
+            title, sentences = case["context"][i]
+            text = title + ". " + " ".join(sentences)
+            if passage_cache is not None and text in passage_cache:
+                evidence.append(passage_cache[text])
+                continue
+            tokens = self.tokenizer(text, add_special_tokens=False, max_length=192, truncation=True).input_ids
+            decoded = self.tokenizer.decode(tokens)
+            if passage_cache is not None:
+                passage_cache[text] = decoded
+            evidence.append(decoded)
+        words = " ".join(evidence)
         return f"Answer the question with a short answer. Question: {case['question']} Evidence: {words}"
 
     @torch.inference_mode()

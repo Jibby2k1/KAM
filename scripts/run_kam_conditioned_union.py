@@ -138,7 +138,7 @@ def run(a):
         answer_readers["bf16"] = bf16
     sentence_encoders = {"fp32": encoder}
     low_precision = {"bf16": torch.bfloat16, "fp16": torch.float16} if a.compare_sentence_precision else (
-        {"fp16": torch.float16} if a.confirm_fp16_throughput or a.compare_batched_initial or a.compare_reader_precision else {})
+        {"fp16": torch.float16} if a.confirm_fp16_throughput or a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache else {})
     for label, dtype in low_precision.items():
         resident = Encoder(a.assets / "encoder", 128)
         resident.model.to(dtype=dtype)
@@ -180,7 +180,8 @@ def run(a):
 
     def score_cases(chunk, offset, prompts, output, use_shared=False, *, live_anchor=False, phase=None,
                     reuse_sentences=False, sentence_counts=None, initial_method=None, corpus_method=None,
-                    sparse_sentence_bank=False, normalization=None, bucket_sentences=False, sentence_precision="fp32"):
+                    sparse_sentence_bank=False, normalization=None, bucket_sentences=False, sentence_precision="fp32",
+                    cache_reader_passages=False):
         encode_sentences = encoder
         if sentence_counts is not None:
             cache = {}
@@ -204,8 +205,14 @@ def run(a):
                     cache.update(zip(missing, vectors, strict=True))
                 return torch.stack([cache[text] for text in texts])
 
+        detailed = a.compare_prompt_cache
+        if detailed:
+            phase_start = perf_counter()
         if initial_method is not None:
             query = encoder([case["question"] for case in chunk], "query")
+            if detailed:
+                torch.cuda.synchronize()
+                phase["initial_encode_ms"] = (perf_counter() - phase_start) * 1000
             search_start = perf_counter()
             depth = 128 if initial_method == "dense" else 64
             individual = query.split(1)
@@ -219,6 +226,8 @@ def run(a):
             if phase is not None:
                 phase["initial_search_ms"] = (perf_counter() - search_start) * 1000
             examples = [pool_text(index.db, c["question"], ids) for c, ids in zip(chunk, original, strict=True)]
+            if detailed:
+                phase["initial_articles_ms"] = (perf_counter() - search_start) * 1000 - phase["initial_search_ms"]
         else:
             original = [sealed["rows"][c["id"]] for c in chunk]
             examples = [pool_text(index.db, q["question"], ids) for q, ids in zip(chunk, original, strict=True)]
@@ -313,7 +322,16 @@ def run(a):
             plans.append((id_, split, (), query[i], prepared))
             details.append((case, base, variants, contexts, hits, first_ids[i], elapsed))
 
+        if detailed:
+            torch.cuda.synchronize()
+            prepared_at = perf_counter()
+            phase["rerank_prepare_ms"] = (prepared_at - search_ready) * 1000
         scored = flush(plans, encode_sentences)
+        if detailed:
+            torch.cuda.synchronize()
+            phase["rerank_score_ms"] = (perf_counter() - prepared_at) * 1000
+        passage_cache = {} if cache_reader_passages else None
+        passage_requests = prompt_seconds = 0
         if a.compare_sentence_bucketing or a.compare_sentence_precision:
             phase["rerank_through_sentence_ms"] = (perf_counter() - search_ready) * 1000
         for item, plan, detail in zip(scored, plans, details, strict=True):
@@ -327,7 +345,13 @@ def run(a):
                 ranked, example = variants[arm]
                 shortlisted = any({ranked[j], ranked[k]} == gold for j, k in pairs)
                 arms[arm] = {"pair": [ranked[j] for j in chosen], "gold_pair_in_shortlist": shortlisted}
-                prompts.setdefault(reader.prompt(example, chosen), []).append((arms[arm], case["answer"]))
+                if detailed:
+                    before_prompt = perf_counter()
+                    passage_requests += len(chosen)
+                prompt = reader.prompt(example, chosen, passage_cache=passage_cache)
+                if detailed:
+                    prompt_seconds += perf_counter() - before_prompt
+                prompts.setdefault(prompt, []).append((arms[arm], case["answer"]))
             row = {"id": case["id"], "first": first, "corpus_hits": hits, "arms": arms,
                    "pool_hash": sha256(json.dumps(base, separators=(",", ":")).encode()).hexdigest()}
             if initial_method is not None:
@@ -338,6 +362,10 @@ def run(a):
             if a.verify_shared_relation:
                 row["relation_timing_ms"] = elapsed
             output.append(row)
+        if detailed:
+            phase.update(prompt_build_ms=prompt_seconds * 1000, passage_requests=passage_requests,
+                         passage_tokenized=passage_requests if passage_cache is None else len(passage_cache),
+                         prompts_sha256=sha256(json.dumps(list(prompts), ensure_ascii=False).encode()).hexdigest())
         if phase is not None:
             phase.update(anchor_ms=(anchor_ready - original_ready) * 1000,
                          conditioned_search_ms=(search_ready - anchor_ready) * 1000,
@@ -349,18 +377,20 @@ def run(a):
             for arm, truth in requests:
                 arm["exact"] = bool(measure_answer(predicted, truth)["em"])
 
-    def throughput_block(cases, width, precision="fp32", initial_method="dense_rescore", reader_precision="fp32"):
+    def throughput_block(cases, width, precision="fp32", initial_method="dense_rescore", reader_precision="fp32",
+                         cache_reader_passages=False):
         rows, timing = [], []
         counts = dict(requested=0, encoded=0)
         for offset in range(0, len(cases), width):
             prompts, block_rows = {}, []
             sentence_counts = dict(requested=0, encoded=0)
-            phases = {} if a.compare_batched_initial or a.compare_reader_precision else None
+            phases = {} if a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache else None
             torch.cuda.synchronize()
             begin = perf_counter()
             score_cases(cases[offset:offset+width], offset, prompts, block_rows, True, reuse_sentences=True,
                         sentence_counts=sentence_counts, initial_method=initial_method, corpus_method="fused_256",
-                        sparse_sentence_bank=True, sentence_precision=precision, phase=phases)
+                        sparse_sentence_bank=True, sentence_precision=precision, phase=phases,
+                        cache_reader_passages=cache_reader_passages)
             rank_done = perf_counter()
             read_answers(prompts, reader_precision)
             torch.cuda.synchronize()
@@ -369,6 +399,8 @@ def run(a):
                            "reader_ms": (done - rank_done) * 1000})
             if phases is not None:
                 timing[-1]["initial_search_ms"] = phases["initial_search_ms"]
+            if a.compare_prompt_cache:
+                timing[-1].update(phases)
             rows.extend(block_rows)
             for key, value in sentence_counts.items():
                 counts[key] += value
@@ -430,7 +462,8 @@ def run(a):
                            sentence_precision=method if a.compare_sentence_precision else "fp32")
 
         rng = Random(195823 + a.shard)
-        sustained_batch = a.confirm_fp16_throughput or a.compare_batched_initial or a.compare_reader_precision
+        sustained_batch = (a.confirm_fp16_throughput or a.compare_batched_initial
+                           or a.compare_reader_precision or a.compare_prompt_cache)
         if a.compare_request_throughput or sustained_batch:
             sample = rng.sample(cases[4:], 48)
             trial = {str(w): (w, "fp32") for w in (1, 2, 4, 8)}
@@ -440,6 +473,9 @@ def run(a):
                     trial = {"separate": (8, "fp16"), "shared": (8, "fp16", "batched_rescore")}
                 if a.compare_reader_precision:
                     trial = {p: (8, "fp16", "batched_rescore", p) for p in answer_readers}
+                if a.compare_prompt_cache:
+                    trial = {"baseline": (8, "fp16", "batched_rescore", "fp32", False),
+                             "cached_prompt": (8, "fp16", "batched_rescore", "fp32", True)}
                 prior = {q["id"] for q in cases[:4] + sample}
                 eligible = [q for q in cases if q["id"] not in prior]
                 sample = rng.sample(eligible, 200)
@@ -667,6 +703,7 @@ def main():
     coarse_comparison.add_argument("--confirm-fp16-throughput", action="store_true")
     coarse_comparison.add_argument("--compare-batched-initial", action="store_true")
     coarse_comparison.add_argument("--compare-reader-precision", action="store_true")
+    coarse_comparison.add_argument("--compare-prompt-cache", action="store_true")
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
     live_profiles = parser.add_mutually_exclusive_group()
@@ -704,7 +741,7 @@ def main():
     if a.compare_sentence_precision and not a.corpus_profile_index:
         parser.error("sentence precision timing requires a coarse-partition checkpoint")
     if (a.compare_request_throughput or a.confirm_fp16_throughput or a.compare_batched_initial
-            or a.compare_reader_precision) and not a.corpus_profile_index:
+            or a.compare_reader_precision or a.compare_prompt_cache) and not a.corpus_profile_index:
         parser.error("batched request timing requires a coarse-partition checkpoint")
     if a.verify_shared_relation and a.guard_split != "test":
         parser.error("shared relation verification needs the two-arm test replay")
@@ -739,7 +776,7 @@ def main():
     torch.set_float32_matmul_precision("highest")
     if (a.compare_rescored_initial or a.compare_shortlist_text or a.compare_sentence_bucketing
             or a.compare_sentence_precision or a.compare_request_throughput or a.confirm_fp16_throughput
-            or a.compare_batched_initial or a.compare_reader_precision):
+            or a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache):
         torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

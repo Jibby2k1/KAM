@@ -2,6 +2,10 @@
 
 ## Recent controlled and cross-domain results
 
+[Captured equal-time training](../../reports/nonlinear_retrieval_natural/RADIAL_CAPTURED_WALLCLOCK.md) found dot ahead early and radial ahead later on both tested GPUs. On B200 at 24 seconds, median depth-1,024 joint accuracy was 79.30% for radial and 47.27% for dot.
+
+[Matched decomposer scaling](../../reports/nonlinear_retrieval_natural/MUSIQUE_DECOMPOSER_SCALE.md) raised complete paragraph coverage from 264–266 to 284–289 of 576 across three seeds. [Patching reader capacity alone](../../reports/nonlinear_retrieval_natural/MUSIQUE_BINDING_READERS.md) improved first-binding exactness, with mixed downstream effects.
+
 [From-scratch CUDA Graph capture](../../reports/nonlinear_retrieval_natural/RADIAL_CURRICULUM_CAPTURE.md) preserved complete optimizer trajectories at 19,200 updates. On B200, radial update time fell from 159.38 to 30.04 seconds. Held-out depth-1,024 accuracy was 83.59% for radial and 47.14% for dot at the matched update budget.
 
 [Clock encoding and compaction](../../reports/nonlinear_retrieval_natural/TEMPORAL_CLOCK_ENCODING.md) improved procedural correction lookup with signed-log features for radial or explicit candidate packing for dot. Held-out release archive accuracy remained low without archive-shaped training.

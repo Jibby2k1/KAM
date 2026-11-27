@@ -29,7 +29,7 @@ def sequence(cycles, seed):
     return order
 
 
-def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=None):
+def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=None, checkpoint_callback=None):
     reset(model, checkpoint)
     torch.cuda.empty_cache()
     if rates is None:
@@ -91,10 +91,20 @@ def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=
     by_length = {d: 0 for d in indexes}
     started = perf_counter()
     hardware_start.record()
+    executed = len(order)
     if mode == "shape_graph":
-        for depth in order:
+        excluded = 0.
+        for j, depth in enumerate(order, 1):
             graphs[depth].replay()
-        last = output[order[-1]]
+            if checkpoint_callback is not None and j % 48 == 0:
+                torch.cuda.synchronize()
+                paused = perf_counter()
+                if checkpoint_callback(j, setup, paused - started - excluded, output[depth]):
+                    executed = j
+                    break
+                torch.cuda.synchronize()
+                excluded += perf_counter() - paused
+        last = output[order[executed - 1]]
     else:
         for i, depth in enumerate(order):
             last = step(depth, indexes[depth][by_length[depth]], rates[i])
@@ -102,13 +112,15 @@ def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=
     hardware_end.record()
     torch.cuda.synchronize()
     elapsed = perf_counter() - started
+    if mode == "shape_graph":
+        elapsed -= excluded
     memory = {"peak_extra_allocated_bytes": torch.cuda.max_memory_allocated() - baseline,
               "peak_extra_reserved_bytes": torch.cuda.max_memory_reserved() - reserved}
     if mode == "shape_graph":
-        assert int(global_step[0]) == len(order)
-        assert all(int(cursors[d][0]) == len(indexes[d]) for d in indexes)
+        assert int(global_step[0]) == executed
+        assert all(int(cursors[d][0]) == order[:executed].count(d) for d in indexes)
     assert torch.isfinite(last)
-    assert all(int(v["step"]) == len(order) for v in optimizer.state.values())
+    assert all(int(v["step"]) == executed for v in optimizer.state.values())
     params = {k: x.detach().cpu().clone() for k, x in model.state_dict().items()}
     moments = {name: torch.cat([s[name].flatten().cpu() for s in optimizer.state.values()])
                for name in ("exp_avg", "exp_avg_sq")}

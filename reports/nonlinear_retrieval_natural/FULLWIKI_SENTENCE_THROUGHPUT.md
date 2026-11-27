@@ -57,3 +57,11 @@ On B200, sharing the initial matrix scan across eight requests reduced median in
 On the same 800 requests on L4, a resident BF16 reader left all selected pairs unchanged. The paired median reader step fell by 10.70 ms (95% batch interval −11.84 to −9.72). Whole-batch throughput rose from 25.77 to 26.28 requests/s, and p95 rose from 358 to 365 ms. BF16 lost five conditioned answers, including four joint successes, with zero gains. The joint change was −0.50 percentage points (95% paired request interval −1.00 to −0.13). Keep FP32 as the quality-preserving reference. [L4 reader summary](../../results/nonlinear_retrieval_natural/fullwiki_reader_precision_v1/summary.json)
 
 HPG arrays 52988596 and 52989122. [Batch analyzer](../../scripts/analyze_kam_batched_initial.py)
+
+## Exact prompt caching and stage profile
+
+Caching the clipped source passages within each eight-request batch reduced passage tokenization from 3,200 calls to 1,775 on L4 and 1,777 on B200. The 100 prompt batch digests and every decision record matched within each device. Paired median prompt preparation fell by 2.68 ms on L4 and 3.29 ms on B200. Whole-batch medians changed by −1.99 ms (95% interval −3.63 to −0.25) on L4 and −6.07 ms (−12.25 to +5.83) on B200. Aggregate throughput was 26.41 versus 26.18 requests/s on L4 and 28.38 versus 28.40 on B200.
+
+A synchronized phase profile attributed about 100 ms per batch to scoring the prepared rerank candidates and 63–76 ms to preparing them. Median FP32 reading was 56–67 ms. The experiment adds phase barriers to each arm, so compare timings within this pair. Exact cache parity is strong, while the end-to-end throughput benefit was limited. [L4 profile](../../results/nonlinear_retrieval_natural/fullwiki_prompt_cache_v1/l4-summary.json) · [B200 profile](../../results/nonlinear_retrieval_natural/fullwiki_prompt_cache_v1/b200-summary.json)
+
+HPG arrays 52990224 and 52990225.

@@ -30,10 +30,23 @@ def normalized_tmpl(text):
     return " ".join(words(text))
 
 
-def interfaces(assets):
+def model_source(assets, size):
+    if size == "base":
+        from run_kam_musique_bindings import BASE_REVISION
+
+        return assets / f"reader_base_{BASE_REVISION}", BASE_REVISION
+    assert size == "small"
     model_config = json.loads((assets / "revisions.json").read_text())
     assert model_config["google/flan-t5-small"] == MODEL_REVISION
-    reader = assets / "reader"
+    return assets / "reader", MODEL_REVISION
+
+
+def interfaces(assets, size="small"):
+    reader, _ = model_source(assets, size)
+    if size == "base":
+        from run_kam_musique_bindings import BASE_WEIGHT
+
+        assert digest(reader / "model.safetensors") == BASE_WEIGHT
     tokenizer = AutoTokenizer.from_pretrained(reader, local_files_only=True)
     model = AutoModelForSeq2SeqLM.from_pretrained(reader, local_files_only=True, use_safetensors=True).cuda()
     return tokenizer, model
@@ -152,7 +165,8 @@ def fit(a):
     assert [q["id"] for q in valid] == [q["id"] for q in audit["ids"]["validation"]]
     title_keys = lambda rows: {t for row in rows for t in row["support_title_sha256"]}
     assert title_keys(train).isdisjoint(title_keys(valid))
-    tokenizer, model = interfaces(a.assets)
+    tokenizer, model = interfaces(a.assets, a.model_size)
+    _, revision = model_source(a.assets, a.model_size)
     vocab = tokenizer.pad_token_id
     marker = tokenizer.convert_tokens_to_ids(SEPARATOR)
     queries = tokenizer([instruction(q["question"]) for q in train], padding="max_length",
@@ -197,9 +211,11 @@ def fit(a):
     after = summarize(model, tokenizer, valid, a.binding_tokens)
     weights = {k: v.cpu() for k, v in model.state_dict().items()}
     torch.save({"weights": weights, "seed": a.seed, "data_sha256": digest_data,
-                "fixture_sha256": panel["fixture_sha256"], "revision": MODEL_REVISION, "binding_tokens": a.binding_tokens}, a.weights)
+                "fixture_sha256": panel["fixture_sha256"], "revision": revision, "binding_tokens": a.binding_tokens,
+                "model_size": a.model_size}, a.weights)
     result = {"data_sha256": digest_data, "fixture_sha256": panel["fixture_sha256"], "seed": a.seed,
-              "revision": MODEL_REVISION, "seed_per_hop": a.per_hop, "steps": a.steps, "binding_tokens": a.binding_tokens,
+              "revision": revision, "seed_per_hop": a.per_hop, "steps": a.steps, "binding_tokens": a.binding_tokens,
+              "parameters": sum(v.numel() for v in model.parameters()), "model_size": a.model_size,
               "device": torch.cuda.get_device_name(), "training_seconds": training, "total_seconds": perf_counter() - start,
               "validation_base": before, "validation_fit": after, "losses": losses}
     a.output.write_text(json.dumps(result, separators=(",", ":")) + "\n")
@@ -208,14 +224,16 @@ def fit(a):
 def inference(a):
     fixture = json.loads(a.fixture.read_text())
     cases = fixture["rows"]
-    tokenizer, model = interfaces(a.assets)
     weights_hash = None
     binding_tokens = False
+    trained = torch.load(a.weights, map_location="cpu", weights_only=True) if a.weights else None
+    size = trained.get("model_size", "small") if trained else a.model_size
+    tokenizer, model = interfaces(a.assets, size)
+    _, revision = model_source(a.assets, size)
     if a.weights:
         weights_hash = digest(a.weights)
-        trained = torch.load(a.weights, map_location="cpu", weights_only=True)
         source_fixture = a.trained_for or digest(a.fixture)
-        assert trained["fixture_sha256"] == source_fixture and trained["revision"] == MODEL_REVISION
+        assert trained["fixture_sha256"] == source_fixture and trained["revision"] == revision
         if a.trained_for:
             assert fixture["base_fixture_sha256"] == a.trained_for
             assert fixture["decomposer_data_sha256"] == trained["data_sha256"]
@@ -226,10 +244,12 @@ def inference(a):
     depths = [q["hops"] for q in cases] if a.oracle_depth else None
     results = predict(model, tokenizer, prompts, depths=depths, binding_tokens=binding_tokens,
                       enforce_binding_order=a.enforce_binding_order)
-    output = {"weights_sha256": weights_hash, "fixture_sha256": digest(a.fixture), "revision": MODEL_REVISION,
+    output = {"weights_sha256": weights_hash, "fixture_sha256": digest(a.fixture), "revision": revision,
               "shard": a.shard, "shards": a.shards, "device": torch.cuda.get_device_name(),
               "rows": [{"id": q["id"], "steps": s, "valid": v}
                        for q, (s, v) in zip(cases, results, strict=True)]}
+    if size != "small":
+        output["model_size"] = size
     if a.oracle_depth:
         output["oracle_depth"] = True
     if binding_tokens:
@@ -249,6 +269,7 @@ def main():
     p.add_argument("--oracle-depth", action="store_true")
     p.add_argument("--binding-tokens", action="store_true")
     p.add_argument("--enforce-binding-order", action="store_true")
+    p.add_argument("--model-size", choices=("small", "base"), default="small")
     p.add_argument("--trained-for")
     p.add_argument("--per-hop", type=int, default=6)
     p.add_argument("--shard", type=int, default=0)

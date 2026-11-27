@@ -21,12 +21,12 @@ FORK = 9600
 MODES = ("eager", "shape_graph")
 
 
-def runtime(seed):
-    order = order_for(seed)[:STEPS]
-    banks, holdout = setup(seed, STEPS)
-    step = torch.arange(1, STEPS + 1, dtype=torch.float32, device="cuda")
+def runtime(seed, steps=STEPS):
+    order = order_for(seed)[:steps]
+    banks, holdout = setup(seed, steps)
+    step = torch.arange(1, steps + 1, dtype=torch.float32, device="cuda")
     warm = (step / 64).clamp(max=1)
-    cosine = ((step - FORK) / (STEPS - FORK)).clamp(min=0) * pi
+    cosine = ((step - FORK) / (STEPS - FORK)).clamp(min=0, max=1) * pi
     return banks, holdout, order, .0004 * warm * (.1 + .9 * (1 + cosine.cos()) / 2)
 
 

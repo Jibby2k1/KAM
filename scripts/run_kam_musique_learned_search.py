@@ -26,7 +26,9 @@ def search(a, paragraphs, fixture):
     revisions = json.loads((a.assets / "revisions.json").read_text())
     learned = json.loads(gzip.decompress(a.generated.read_bytes()))
     assert learned["fixture_sha256"] == fixture_hash and learned["shards"] == 1
-    assert learned["revision"] == revisions["google/flan-t5-small"]
+    family = learned.get("model_size", "small")
+    expected_revision = {"small": revisions["google/flan-t5-small"], "base": BASE_REVISION}
+    assert learned["revision"] == expected_revision[family]
     assert [q["id"] for q in learned["rows"]] == [q["id"] for q in fixture["rows"]]
     predicted = {q["id"]: q for q in learned["rows"]}
     archived = json.loads(gzip.decompress(a.baseline.read_bytes()))
