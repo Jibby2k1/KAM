@@ -12,12 +12,21 @@ import torch
 from run_kam_bitemporal_decoder import encode, make_decoder, pack, record_order
 from run_kam_radial_archive_training import archive_panels, assess
 from run_kam_radial_curriculum_order import state_sha
-from run_kam_temporal_clock_encoding import ClockDecoder, SCHEDULE, banks, evaluate, exposure_order, fit, holdout_panels
+from run_kam_temporal_clock_encoding import ClockDecoder, SCHEDULE, banks, evaluate, exposure_order, fit, holdout_panels, recode
 
 PRECISION = 64
 VARIANTS = ("reference", "all_fact_clocks", "wrong_address_only")
 MIXTURES = {"phase_quarter": 16, "phase_half": 32, "phase_three_quarters": 48}
+TYPED_MODES = ("reference", "address_rank", "address_rank_sham")
 ENCODING = "log_episode_mean"
+
+
+class LocalClockDecoder(ClockDecoder):
+    def forward(self, tokens):
+        from kam_address_local_clock import apply_local_clock
+
+        encoded = apply_local_clock(tokens, recode(tokens, ENCODING), sham=self.mode == "address_rank_sham")
+        return self.decoder(encoded)
 
 
 def cutoffs(training, seed):
@@ -109,7 +118,7 @@ def run(a):
     for case, depths in test.items():
         for depth, _, _, hashed in depths:
             assert hashed == ref["results"]["radial/" + ENCODING]["procedural"][case][str(depth)]["fixture_sha256"]
-    policies = ("reference", *MIXTURES) if a.compare_mixtures else VARIANTS
+    policies = ("reference", *MIXTURES) if a.compare_mixtures else (TYPED_MODES if a.typed_clocks else VARIANTS)
     arms = [(g, t) for g in ("dot", "radial") for t in policies]
     output = {}
     audit = {}
@@ -117,8 +126,9 @@ def run(a):
         model = make_decoder(geometry + "_without_position", a.seed, "cuda")
         archive_control = ref["results"][geometry + "/" + ENCODING]
         assert state_sha(model, common=True) == archive_control["initial_sha256"]
-        net = ClockDecoder(model, ENCODING)
-        elapsed = fit(net, training, update, transform=transform(arm, offsets))
+        net = LocalClockDecoder(model, arm) if a.typed_clocks and arm != "reference" else ClockDecoder(model, ENCODING)
+        adjustment = None if a.typed_clocks else transform(arm, offsets)
+        elapsed = fit(net, training, update, transform=adjustment)
         synthetic = evaluate(net, test)
         result = {k: assess(net, "eager_fp32", panels) for k, panels in archive.items()}
         if arm == "reference":
@@ -141,14 +151,17 @@ def run(a):
             "device": torch.cuda.get_device_name(), "steps": ref["steps"], "tokens": ref["train_tokens"],
             "schedule": ref["schedule"], "fixture_hashes": hashes, "training_banks": ref["banks"],
             "phase_offset_sha256": seal, "clock": ENCODING, "arms": output, "reference_audit": audit,
-            "phase_mixture_fractions": {k: v/PRECISION for k, v in MIXTURES.items()} if a.compare_mixtures else {}}
+            "phase_mixture_fractions": {k: v/PRECISION for k, v in MIXTURES.items()} if a.compare_mixtures else {},
+            "typed_local_clock": a.typed_clocks}
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", required=True, type=int)
     p.add_argument("--domain", choices=("mixed", "archive_shaped"), required=True)
-    p.add_argument("--compare-mixtures", action="store_true")
+    variant = p.add_mutually_exclusive_group()
+    variant.add_argument("--compare-mixtures", action="store_true")
+    variant.add_argument("--typed-clocks", action="store_true")
     for name in ("reference", "dallas", "unemployment", "industry", "later_unemployment", "later_industry", "output"):
         p.add_argument("--" + name.replace("_", "-"), required=name in ("reference", "dallas", "unemployment", "output"), type=Path)
     a = p.parse_args()

@@ -12,6 +12,7 @@ from analyze_kam_clock_archive_controls import estimate
 from analyze_kam_native_musique import compare
 
 MODES = ("reference", "all_fact_clocks", "wrong_address_only")
+TYPED_MODES = ("reference", "address_rank", "address_rank_sham")
 GEOMETRIES = ("dot", "radial")
 METRICS = ("joint", "numeric_exact")
 
@@ -123,14 +124,16 @@ def analyze(runs, sources):
     assert len({r["training_domain"] for r in runs}) == 1
     fractions = runs[0].get("phase_mixture_fractions", {})
     assert all(r.get("phase_mixture_fractions", {}) == fractions for r in runs)
-    modes = ("reference", *sorted(fractions, key=fractions.get)) if fractions else MODES
+    typed = runs[0].get("typed_local_clock", False)
+    assert all(r.get("typed_local_clock", False) == typed for r in runs)
+    modes = ("reference", *sorted(fractions, key=fractions.get)) if fractions else (TYPED_MODES if typed else MODES)
     assert all(set(r["arms"]) == {f"{g}/{m}" for g in GEOMETRIES for m in modes} for r in runs)
     phase = {"dallas": None} | {k: lags(v) for k, v in sources.items()}
     outcomes = {}
     for geo in GEOMETRIES:
         outcomes[geo] = {"procedural": synthetic(runs, geo, modes), "real": compare_sources(runs, geo, phase, modes)}
     return {"domain": runs[0]["training_domain"], "fixture_hashes": runs[0]["fixture_hashes"],
-            "phase_mixture_fractions": fractions,
+            "phase_mixture_fractions": fractions, "typed_local_clock": typed,
             "cutoff_lag_counts": {k: dict(Counter(p.values())) for k, p in phase.items() if p}, "reference_audit": audit,
             "outcomes": outcomes}
 

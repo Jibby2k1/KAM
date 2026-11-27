@@ -1,4 +1,4 @@
-# Physical clock compaction on L4 and RTX PRO 6000
+# Physical clock compaction on three GPUs
 
 Removing a causally inaccessible suffix from a position-free radial decoder reduced depth-1,024 eager FP32 time from 38.72 to 5.35 ms for heterogeneous four-request batches. The same change made balanced BF16 Flash attention slower on this panel and changed two decisions among 192. Physical compaction benefits depend on the baseline kernel and the variation in admitted lengths within a batch.
 
@@ -20,3 +20,5 @@ HPG L4 array 52993078. [Per-seed timings, decision checks and fixture hashes](..
 On an RTX PRO 6000, the same heterogeneously cropped depth-1,024 eager FP32 batch of four ran at 7.04 ms full, 1.28 ms with batch-max crop, and 3.97 ms with length buckets. Both crop modes preserved all 192 decisions in this panel. Their additional peak allocations were 241.8 and 69.9 MB respectively, down from 1,101.7 MB. Batch-maximum crop was fastest on this GPU, while length bucketing was fastest on L4 for the same panel. The allocation columns count live CUDA allocations above resident inputs and weights.
 
 Balanced BF16 Flash was fastest on the full shape at 1.14 ms on RTX. Batch-max crop took 1.18 ms and buckets took 4.35 ms, each matching 190/192 paired decisions. An inference service that tunes shapes should verify its decisions on the actual GPU and kernel. [HPG RTX PRO 6000 array 53003844](../../results/nonlinear_retrieval_natural/packed_clock_inference_v1/rtx6000-summary.json)
+
+On B200, the matching eager FP32 panel ran at 3.61 ms full, 1.68 ms batch-max and 5.91 ms bucketed. Both crop strategies matched 192/192. Full BF16 Flash took 1.66 ms, compared with 1.73 ms batch-max (192/192) and 6.35 ms bucketed (186/192). B200 and RTX favor batch-maximum cropping over length bucketing in eager mode on these inputs. B200 hardware does not recover BF16 parity under arbitrary shape changes. [All three devices and input hashes](../../results/nonlinear_retrieval_natural/packed_clock_inference_v1/three-device-summary.json)

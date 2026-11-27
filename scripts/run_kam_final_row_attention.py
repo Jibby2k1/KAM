@@ -39,12 +39,16 @@ def hard_read(attention, inputs, k):
     return attention.output(update.transpose(1, 2).reshape(n, 1, attention.d_model)), retained
 
 
-def last_output(model, tokens, mode):
+def prefix(model, tokens):
     # With one final readout and no later mixing, other rows cannot affect the result of the last block.
     assert not model.use_memory and model.no_positions and model.regression_pool == "last"
     hidden = model.input_layer(tokens)
     for block in model.blocks[:-1]:
         hidden, _, _ = block(hidden)
+    return hidden
+
+
+def terminal_output(model, hidden, mode):
     tail = model.blocks[-1]
     assert tail.context.window is None and tail.context.relative_bias is None and tail.context.dropout.p == 0
     encoded = tail.context_norm(hidden)
@@ -56,6 +60,10 @@ def last_output(model, tokens, mode):
     hidden = hidden[:, -1:, :] + mixed
     hidden = hidden + tail.ffn(tail.ffn_norm(hidden))
     return model.readout(model.final_norm(hidden[:, 0])), mass
+
+
+def last_output(model, tokens, mode):
+    return terminal_output(model, prefix(model, tokens), mode)
 
 
 def infer(networks, tokens, mode):

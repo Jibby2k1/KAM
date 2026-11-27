@@ -18,3 +18,24 @@ Values are percentages for exact key and snapshot at depth 48. For archive-shape
 All control fits reproduced their archived loss samples, all held-out procedural decision flags, and the full unemployment readout. The study used the same tested cutoffs for comparisons. Later dates and mixtures of release phases need separate validation.
 
 HPG L4 arrays 53002568 and 53002569. [Matched training and outcome records](../../results/nonlinear_retrieval_natural/clock_release_training_v3/) · [Industrial production fixture and source digest](../../results/nonlinear_retrieval_natural/eurostat_industry_v1/) · [Official industrial production vintages](https://ec.europa.eu/eurostat/databrowser/view/ei_is_m_vtg/default/table?lang=en)
+
+## Cutoff mixtures and later vintages
+
+Three further arms apply the same fractional jitter to 25%, 50% or 75% of otherwise identical archive-shaped episodes. The rest retain their original timestamps, sampled by a seeded nested mask. A separate fixture created before scoring covers January through June 2025 at 120- and 270-day cutoffs. It contains 72 questions per indicator, from 36 country-months. The original panel contains 576 questions per indicator from 2021–24 at 90 and 365 days. Independent SQL verifies the selected publication and payload. The later observations use the same official release tables. They are disjoint in dated observations and have only two calendar quarters.
+
+| Depth-48 strict accuracy | Reference | 25% jitter | 50% jitter | 75% jitter |
+| --- | ---: | ---: | ---: | ---: |
+| Archive-shaped dot, Dallas | 54.88 | 48.46 | 47.23 | 49.03 |
+| Archive-shaped dot, unemployment 2021–24 | 9.64 | 29.95 | 42.13 | 48.50 |
+| Archive-shaped dot, industry 2021–24 | 5.41 | 91.55 | 91.75 | 92.53 |
+| Archive-shaped dot, unemployment 2025 | 7.87 | 65.51 | 82.87 | 86.57 |
+| Archive-shaped dot, industry 2025 | 19.91 | 81.48 | 81.94 | 83.56 |
+| Mixed radial, Dallas | 57.56 | 53.05 | 52.34 | 45.86 |
+| Mixed radial, unemployment 2021–24 | 2.31 | 14.00 | 19.82 | 21.64 |
+| Mixed radial, industry 2021–24 | 0.23 | 58.48 | 69.24 | 74.71 |
+| Mixed radial, unemployment 2025 | 0.00 | 10.42 | 19.44 | 25.69 |
+| Mixed radial, industry 2025 | 0.00 | 40.28 | 48.84 | 56.25 |
+
+Industrial production recovered strongly even at the smallest jitter fraction in archive-shaped dot. Unemployment continued to improve over the tested fractions. None of the twelve mixtures matched its corresponding Dallas release-day control, with differences of −3.65 to −17.04 points. For example, archive-shaped dot at 50% improved original unemployment by 32.49 points [27.58, 37.64] and dropped Dallas by 7.65 points [5.01, 10.24]. The 2025 values quantify transfer to a different schedule and later dates, with limited evidence about variation between years. The earlier 100% augmentation results use the original panels and a separate experiment; the later table stops at 75%.
+
+HPG L4 arrays 53003488/89. [Outcome records, later fixtures and source manifests](../../results/nonlinear_retrieval_natural/clock_release_mixture_v1/)

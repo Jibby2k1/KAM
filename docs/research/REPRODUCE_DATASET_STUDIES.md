@@ -104,3 +104,33 @@ Run `scripts/run_kam_timelineqa.py` on eight independent shards with the pinned 
 ## Data lineage
 
 Most source corpora are obtained directly from the dataset authors or registered dataset hosts. The archive and narrative reports use compact derived results. The external corpora, workbook binaries, raw conversation text, and generated narratives are acquired or regenerated upstream. The full task names and citations are in the [dataset portfolio](DATASET_PORTFOLIO.md).
+
+## Audit later cutoff, passage-window and precision controls
+
+The numeric analyses run without a GPU. From the repository root, with NumPy installed, use the immutable result records.
+
+```bash
+archive=results/nonlinear_retrieval_natural
+scratch=$(mktemp -d)
+study="$archive/clock_release_mixture_v1"
+python scripts/analyze_kam_clock_release_training.py \
+  --unemployment "$archive/eurostat_vintages_v1/fixture.json.gz" \
+  --industry "$archive/eurostat_industry_v1/fixture.json.gz" \
+  --later-unemployment "$study/later-unemployment.json.gz" \
+  --later-industry "$study/later-industry.json.gz" \
+  --measurement "$study"/train-53003489-*.json.gz --output "$scratch/cutoff.json"
+diff -u "$study/summary-53003489.json" "$scratch/cutoff.json"
+
+study="$archive/bright_passage_windows_v2/psychology"
+python scripts/analyze_kam_bright_passage_windows.py --manifest "$study/manifest.json" \
+  --measurement "$study/rank-53003539-0.json.gz" --reference "$study/rank-53003100-0.json.gz" \
+  --output "$scratch/bright.json"
+diff -u "$study/summary.json" "$scratch/bright.json"
+
+study="$archive/precision_margin_fallback_v1"
+python scripts/analyze_kam_precision_margin_fallback.py --measurement "$study"/timing-*.json.gz \
+  --output "$scratch/precision.json"
+diff -u "$study/summary.json" "$scratch/precision.json"
+```
+
+Use the [Eurostat fixture builder](../../scripts/prepare_kam_eurostat_vintages.py) with the indicator and cutoff settings in each manifest to verify archived labels against SQLite. The [release-phase driver](../../slurm/nonlinear_retrieval_clock_release_training.sbatch) uses the same synthetic banks and update order as the original Eurostat replay. `--compare-mixtures` activates fixed seeded mixtures. The [passage window driver](../../slurm/nonlinear_retrieval_bright_passage_windows.sbatch) shares the original BRIGHT source revision, per-domain shortlists and frozen E5 bank. Its `--sham` search option reassigns additional vectors among similar-length documents.
