@@ -5,8 +5,10 @@ import argparse
 from collections import Counter, deque
 from datetime import datetime
 import gzip
+from hashlib import sha256
 import json
 from pathlib import Path
+from random import Random
 from time import perf_counter
 
 from audit_kam_natural_data import digest
@@ -31,6 +33,19 @@ SCALE_VARIANTS = {
     k: CONTEXT_VARIANTS[k] for k in ("dense_512_prefix", "dense_512_window", "dense_1024_window",
                                     "oracle_512_prefix", "oracle_1024_prefix")
 } | {"no_history": ("no_history", 512, False, 20)}
+
+
+TIMELINE_VARIANTS = {
+    "dense_rank_undated": ("dense", False, "rank"),
+    "dense_rank_dated": ("dense", True, "rank"),
+    "dense_ascending": ("dense", True, "ascending"),
+    "dense_descending": ("dense", True, "descending"),
+    "dense_shuffled": ("dense", True, "shuffled"),
+    "oracle_rank_undated": ("oracle_marked", False, "rank"),
+    "oracle_rank_dated": ("oracle_marked", True, "rank"),
+    "oracle_ascending": ("oracle_marked", True, "ascending"),
+    "oracle_descending": ("oracle_marked", True, "descending"),
+}
 
 
 def read(path):
@@ -102,7 +117,25 @@ def window_start(tokens, width, query):
     return start
 
 
-def token_prompt(tokenizer, item, positions, bank, dated, context_limit=MAX_INPUT, window=False):
+
+def prompt_order(item, positions, method):
+    order = list(range(len(positions)))
+    if method in ("ascending", "descending"):
+        def key(i):
+            slot, turn = positions[i]
+            day = item["dates"][slot]
+            return (day if method == "ascending" else -day, slot, turn)
+
+        order.sort(key=key)
+    elif method == "shuffled":
+        Random(f"longmemeval-timeline:{item['id']}").shuffle(order)
+    else:
+        assert method == "rank"
+    return order
+
+
+def token_prompt(tokenizer, item, positions, bank, dated, context_limit=MAX_INPUT, window=False,
+                 *, ordering="rank", audit=None):
     def ids(text):
         return tokenizer(text, add_special_tokens=False).input_ids
 
@@ -133,10 +166,18 @@ def token_prompt(tokenizer, item, positions, bank, dated, context_limit=MAX_INPU
 
         query_terms = set(ids(" ".join(x for x in dict.fromkeys(words(item["question"])) if len(x) >= 4)))
     shifted = 0
-    for label, body, length in zip(labels, details, quotas, strict=True):
+    retained = []
+    for body, length in zip(details, quotas, strict=True):
         start = window_start(body, length, query_terms)
         shifted += bool(start)
-        tokens += label[int(dated)] + body[start:start + length]
+        retained.append(body[start:start + length])
+    order = prompt_order(item, positions, ordering)
+    for i in order:
+        tokens += labels[i][int(dated)] + retained[i]
+    if audit is not None:
+        audit["body_sha256"] = sha256(json.dumps(retained, separators=(",", ":")).encode()).hexdigest()
+        audit["prompt_order"] = [list(positions[i]) for i in order]
+        audit["dated"] = dated
     tokens.append(tokenizer.eos_token_id)
     assert len(tokens) <= context_limit
     return tokens, [sum(quotas), sum(map(len, details)), sum(n < len(s) for n, s in zip(quotas, details, strict=True)), shifted]
@@ -179,7 +220,8 @@ def run(a):
     reader = Reader(model_path)
     readers = {"base": reader}
     weights = {"base": {"revision": BASE_REVISION, "sha256": BASE_WEIGHT}}
-    if a.compare_reader_size:
+    compares_readers = a.compare_reader_size or a.compare_timeline_order
+    if compares_readers:
         from kam_flan_reader_assets import LARGE_REVISION, LARGE_WEIGHT
 
         large_path = a.assets / f"reader_large_{LARGE_REVISION}"
@@ -193,11 +235,19 @@ def run(a):
         variants = CONTEXT_VARIANTS
     if a.compare_reader_size:
         variants = SCALE_VARIANTS
+    if a.compare_timeline_order:
+        variants = {arm: (rules[0], 1024, rules[0] == "dense", 20) for arm, rules in TIMELINE_VARIANTS.items()}
     for q, groups in planned:
         panel = {"id": q["id"], "arms": {}}
         for arm, (evidence, limit, window, output_length) in variants.items():
             positions = groups[evidence]
-            tokens, content = token_prompt(reader.tokenizer, q, positions, bank, arm.endswith("_dated"), limit, window)
+            prompt_info = {}
+            if a.compare_timeline_order:
+                _, dated, sort_method = TIMELINE_VARIANTS[arm]
+            else:
+                dated, sort_method = arm.endswith("_dated"), "rank"
+            tokens, content = token_prompt(reader.tokenizer, q, positions, bank, dated, limit, window,
+                                           ordering=sort_method, audit=prompt_info if a.compare_timeline_order else None)
             key = (output_length, tuple(tokens))
             prompts.setdefault(key, [])
             marked_ids = {q["source_session_ids"][slot] for slot, turn in positions
@@ -205,12 +255,12 @@ def run(a):
             got = {"retained_turn_tokens": content[0], "original_turn_tokens": content[1],
                    "clipped_turns": content[2], "prompt_tokens": len(tokens),
                    "marked_support": set(q["gold_ids"]) <= marked_ids,
-                   "turns": [list(pair) for pair in positions]}
-            if a.compare_context_budget or a.compare_reader_size:
+                   "turns": [list(pair) for pair in positions]} | prompt_info
+            if a.compare_context_budget or compares_readers:
                 got["shifted_turns"] = content[3]
             panel["arms"][arm] = got
             prompts[key].append((q["id"], got))
-        if not a.compare_context_budget and not a.compare_reader_size:
+        if not a.compare_context_budget and not compares_readers:
             for arm in ("dense", "oracle_marked"):
                 assert panel["arms"][arm]["retained_turn_tokens"] == panel["arms"][arm + "_dated"]["retained_turn_tokens"]
         panels.append(panel)
@@ -237,7 +287,7 @@ def run(a):
                         abstain = norm in (["unknown"], ["i", "don", "t", "know"], ["cannot", "answer"])
                         for qid, pointer in prompts[cap, tokens]:
                             scored = measure_answer(answer, answers["answers"][qid]) | {"abstained": abstain}
-                            if a.compare_reader_size:
+                            if compares_readers:
                                 pointer.setdefault("readers", {})[size] = scored
                             else:
                                 pointer.update(scored)
@@ -247,7 +297,7 @@ def run(a):
                "reader_revision": BASE_REVISION, "reader_weights_sha256": BASE_WEIGHT, "device": torch.cuda.get_device_name(),
                "shard": a.shard, "shards": a.shards, "unique_prompts": len(prompts), "arms": list(variants),
                "elapsed_seconds": perf_counter() - start, "rows": panels}
-    if a.compare_reader_size:
+    if compares_readers:
         payload.update(weights=weights, prediction_seconds=prediction_seconds)
     a.output.write_bytes(gzip.compress(json.dumps(payload, separators=(",", ":")).encode(), mtime=0))
 
@@ -261,6 +311,7 @@ def main():
     options = p.add_mutually_exclusive_group()
     options.add_argument("--compare-context-budget", action="store_true")
     options.add_argument("--compare-reader-size", action="store_true")
+    options.add_argument("--compare-timeline-order", action="store_true")
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)
     a = p.parse_args()

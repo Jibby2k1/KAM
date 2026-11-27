@@ -15,3 +15,5 @@ Both readers receive identical prompt token IDs, sorted and batched in the same 
 At the 1,024-token dense window, the paired joint gain was +5.74 percentage points (95% shared-evidence cluster interval +3.19 to +8.32). The temporal slice gained and lost two cases each. Median inference time per shard across all six prompt arms was 15.85 seconds for base and 48.55 for large on L4. Larger capacity improved general reading on these prompts at about 3.1× this readout cost. The evidence and temporal outcome differences remain distinct. Abstention moved in both directions across the prompts.
 
 HPG array 52990304. [Matched records and category labels](../../results/nonlinear_retrieval_natural/longmemeval_m_reader_size_v1/) · [Prompt budget diagnostic](LONGMEMEVAL_READER_BUDGET.md) · [Reader checkpoint](https://huggingface.co/google/flan-t5-large)
+
+[Matched chronological prompts](LONGMEMEVAL_TIMELINE_ORDER.md) test the same retained turn text with and without reordered dates.

@@ -2,6 +2,8 @@
 
 ## Recent controlled and cross-domain results
 
+[LongMemEval chronological packing](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_TIMELINE_ORDER.md) held the retained text and source sessions fixed. For the larger reader, adding dates raised overall joint exact from 52 to 58 of 470, with eight joint answers among 127 temporal questions in both arms. Chronological order did not improve the temporal result.
+
 [A mixed clock curriculum](../../reports/nonlinear_retrieval_natural/TEMPORAL_CLOCK_CURRICULUM.md) achieved 79.82% on synthetic corrections and 81.25% on the earlier release archive with signed-log radial addressing, both at 48 records. [Fixed-prompt LongMemEval reader scaling](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_READER_SIZE.md) raised joint exact match from 25 to 52 with 1,024-token query windows, while both readers reached 8 of 127 temporal joint matches.
 
 [Captured equal-time training](../../reports/nonlinear_retrieval_natural/RADIAL_CAPTURED_WALLCLOCK.md) found dot ahead early and radial ahead later on both tested GPUs. On B200 at 24 seconds, median depth-1,024 joint accuracy was 79.30% for radial and 47.27% for dot.
