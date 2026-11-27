@@ -130,13 +130,14 @@ def plan_case(row, split, query, supplied, donor_keys, donors, donor_words, adap
     return row["id"], split, tuple(gold), query[0], result
 
 
-def rank_variant(mode, variant, graph, lexical, bank, adapted, query_terms, heads, pairs, reader_context=None):
+def rank_variant(mode, variant, graph, lexical, bank, adapted, query_terms, heads, pairs, reader_context=None,
+                 *, shortlist=SHORTLIST):
     given, no_coverage, active = heads
     base, common, affinity = prepared(adapted, bank, graph.unsqueeze(0).to(adapted.device), pairs)
     inputs = torch.cat((common[0], lexical.to(adapted.device)), -1)
     scores = torch.stack((given(base[0], inputs), no_coverage(base[0], inputs * active)))
     scores = (scores - scores.mean(1, keepdim=True)) / scores.std(1, keepdim=True).clamp_min(1e-6)
-    ranks = scores.argsort(dim=1, descending=True, stable=True)[:, :SHORTLIST]
+    ranks = scores.argsort(dim=1, descending=True, stable=True)[:, :shortlist]
     indices = ranks.flatten().unique(sorted=True)
     selected = pairs[:, indices].T
     lookup = {value: i for i, value in enumerate(indices.tolist())}

@@ -1,0 +1,650 @@
+{
+  "fixture_sha256": "b48adefb28f4e544abd874753df1262617f14894e59ce0815c362833ab212b97",
+  "pools_sha256": "5dac15b5560c9659e269928a0d24e98bc1a2ba1d76511099b6faba223e6b004c",
+  "config_sha256": "cac61f83763fd7bf48b8730b1ccbf61f055fdf0dbfea6e5cd8b6d33fc077cf01",
+  "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+  "fitted_sha256": "0abfd208cecf86133ffeaf581996b7a6bb6686ed28d9f0ac73eaef8966d3636a",
+  "heads_sha256": "f476f677f019a476bdbe323ce6cfbf463bfe63c3056a38e20ec9487b15eb573b",
+  "ablations_sha256": "087da737c27ff6c13d174d08536e9551effef58696f589c7567c7dcdaac03966",
+  "baseline_sha256": "95a0c2d6f53ffa7369efb251328540b66c5ba24f46c491b80238b354b4848833",
+  "models": {
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+  },
+  "indexed_documents": 5201800,
+  "b200_reference_sha256": "d2932a05a4e722bcd616784c1806e5e56d83f48f4a125c91f8e6c4c1461dfabe",
+  "replay_gpus": [
+    "NVIDIA L4",
+    "NVIDIA L4",
+    "NVIDIA L4",
+    "NVIDIA L4"
+  ],
+  "original_16_replay_parity": {
+    "pair": 1024,
+    "gold_pair_in_shortlist": 1024,
+    "exact": 1024,
+    "complete_row": 1024
+  },
+  "cohorts": {
+    "all": {
+      "questions": 1024,
+      "totals": {
+        "16": {
+          "shortlist": 695,
+          "support": 543,
+          "joint_em": 340
+        },
+        "32": {
+          "shortlist": 717,
+          "support": 545,
+          "joint_em": 343
+        },
+        "64": {
+          "shortlist": 737,
+          "support": 545,
+          "joint_em": 343
+        }
+      },
+      "paired": {
+        "32_vs_16": {
+          "shortlist": {
+            "delta": 0.02148438,
+            "bootstrap95": [
+              0.01367188,
+              0.03125
+            ],
+            "wins": 22,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.00195312,
+            "bootstrap95": [
+              -0.00195312,
+              0.00585938
+            ],
+            "wins": 3,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.00292969,
+            "bootstrap95": [
+              0.0,
+              0.00683594
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        },
+        "64_vs_16": {
+          "shortlist": {
+            "delta": 0.04101562,
+            "bootstrap95": [
+              0.02929688,
+              0.05371094
+            ],
+            "wins": 42,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.00195312,
+            "bootstrap95": [
+              -0.00195312,
+              0.00585938
+            ],
+            "wins": 3,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.00292969,
+            "bootstrap95": [
+              0.0,
+              0.00683594
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        }
+      },
+      "work": {
+        "16": {
+          "candidate_pairs": {
+            "mean": 26.895508,
+            "median": 27.0
+          },
+          "candidate_documents": {
+            "mean": 26.009766,
+            "median": 26.0
+          },
+          "distinct_sentences": {
+            "mean": 72.777344,
+            "median": 72.0
+          }
+        },
+        "32": {
+          "candidate_pairs": {
+            "mean": 54.645508,
+            "median": 56.0
+          },
+          "candidate_documents": {
+            "mean": 45.068359,
+            "median": 45.0
+          },
+          "distinct_sentences": {
+            "mean": 120.227539,
+            "median": 118.5
+          }
+        },
+        "64": {
+          "candidate_pairs": {
+            "mean": 108.53125,
+            "median": 110.0
+          },
+          "candidate_documents": {
+            "mean": 73.167969,
+            "median": 73.0
+          },
+          "distinct_sentences": {
+            "mean": 185.84082,
+            "median": 183.0
+          }
+        }
+      }
+    },
+    "complete": {
+      "questions": 659,
+      "totals": {
+        "16": {
+          "shortlist": 597,
+          "support": 474,
+          "joint_em": 296
+        },
+        "32": {
+          "shortlist": 615,
+          "support": 476,
+          "joint_em": 299
+        },
+        "64": {
+          "shortlist": 630,
+          "support": 476,
+          "joint_em": 299
+        }
+      },
+      "paired": {
+        "32_vs_16": {
+          "shortlist": {
+            "delta": 0.02731411,
+            "bootstrap95": [
+              0.01517451,
+              0.04097117
+            ],
+            "wins": 18,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0030349,
+            "bootstrap95": [
+              -0.0030349,
+              0.0091047
+            ],
+            "wins": 3,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.00455235,
+            "bootstrap95": [
+              0.0,
+              0.01062215
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        },
+        "64_vs_16": {
+          "shortlist": {
+            "delta": 0.05007587,
+            "bootstrap95": [
+              0.03338392,
+              0.06676783
+            ],
+            "wins": 33,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0030349,
+            "bootstrap95": [
+              -0.0030349,
+              0.0091047
+            ],
+            "wins": 3,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.00455235,
+            "bootstrap95": [
+              0.0,
+              0.01062215
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        }
+      },
+      "work": {
+        "16": {
+          "candidate_pairs": {
+            "mean": 26.298938,
+            "median": 27
+          },
+          "candidate_documents": {
+            "mean": 25.107739,
+            "median": 25
+          },
+          "distinct_sentences": {
+            "mean": 72.358118,
+            "median": 72
+          }
+        },
+        "32": {
+          "candidate_pairs": {
+            "mean": 53.860395,
+            "median": 55
+          },
+          "candidate_documents": {
+            "mean": 44.254932,
+            "median": 44
+          },
+          "distinct_sentences": {
+            "mean": 121.188164,
+            "median": 119
+          }
+        },
+        "64": {
+          "candidate_pairs": {
+            "mean": 107.185129,
+            "median": 109
+          },
+          "candidate_documents": {
+            "mean": 72.520486,
+            "median": 73
+          },
+          "distinct_sentences": {
+            "mean": 188.468892,
+            "median": 186
+          }
+        }
+      }
+    },
+    "incomplete": {
+      "questions": 365,
+      "totals": {
+        "16": {
+          "shortlist": 98,
+          "support": 69,
+          "joint_em": 44
+        },
+        "32": {
+          "shortlist": 102,
+          "support": 69,
+          "joint_em": 44
+        },
+        "64": {
+          "shortlist": 107,
+          "support": 69,
+          "joint_em": 44
+        }
+      },
+      "paired": {
+        "32_vs_16": {
+          "shortlist": {
+            "delta": 0.0109589,
+            "bootstrap95": [
+              0.00273973,
+              0.02191781
+            ],
+            "wins": 4,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        },
+        "64_vs_16": {
+          "shortlist": {
+            "delta": 0.02465753,
+            "bootstrap95": [
+              0.0109589,
+              0.04109589
+            ],
+            "wins": 9,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "wins": 0,
+            "losses": 0
+          }
+        }
+      },
+      "work": {
+        "16": {
+          "candidate_pairs": {
+            "mean": 27.972603,
+            "median": 29
+          },
+          "candidate_documents": {
+            "mean": 27.638356,
+            "median": 28
+          },
+          "distinct_sentences": {
+            "mean": 73.534247,
+            "median": 73
+          }
+        },
+        "32": {
+          "candidate_pairs": {
+            "mean": 56.063014,
+            "median": 58
+          },
+          "candidate_documents": {
+            "mean": 46.536986,
+            "median": 47
+          },
+          "distinct_sentences": {
+            "mean": 118.493151,
+            "median": 116
+          }
+        },
+        "64": {
+          "candidate_pairs": {
+            "mean": 110.961644,
+            "median": 115
+          },
+          "candidate_documents": {
+            "mean": 74.336986,
+            "median": 74
+          },
+          "distinct_sentences": {
+            "mean": 181.09589,
+            "median": 180
+          }
+        }
+      }
+    },
+    "covered": {
+      "questions": 780,
+      "totals": {
+        "16": {
+          "shortlist": 695,
+          "support": 543,
+          "joint_em": 340
+        },
+        "32": {
+          "shortlist": 717,
+          "support": 545,
+          "joint_em": 343
+        },
+        "64": {
+          "shortlist": 737,
+          "support": 545,
+          "joint_em": 343
+        }
+      },
+      "paired": {
+        "32_vs_16": {
+          "shortlist": {
+            "delta": 0.02820513,
+            "bootstrap95": [
+              0.01666667,
+              0.04102564
+            ],
+            "wins": 22,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0025641,
+            "bootstrap95": [
+              -0.0025641,
+              0.00769231
+            ],
+            "wins": 3,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.00384615,
+            "bootstrap95": [
+              0.0,
+              0.00897436
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        },
+        "64_vs_16": {
+          "shortlist": {
+            "delta": 0.05384615,
+            "bootstrap95": [
+              0.03846154,
+              0.07051282
+            ],
+            "wins": 42,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.0025641,
+            "bootstrap95": [
+              -0.0025641,
+              0.00769231
+            ],
+            "wins": 3,
+            "losses": 1
+          },
+          "joint_em": {
+            "delta": 0.00384615,
+            "bootstrap95": [
+              0.0,
+              0.00897436
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        }
+      },
+      "work": {
+        "16": {
+          "candidate_pairs": {
+            "mean": 26.442308,
+            "median": 27.0
+          },
+          "candidate_documents": {
+            "mean": 25.474359,
+            "median": 26.0
+          },
+          "distinct_sentences": {
+            "mean": 72.852564,
+            "median": 72.0
+          }
+        },
+        "32": {
+          "candidate_pairs": {
+            "mean": 53.974359,
+            "median": 55.0
+          },
+          "candidate_documents": {
+            "mean": 44.773077,
+            "median": 45.0
+          },
+          "distinct_sentences": {
+            "mean": 121.728205,
+            "median": 119.0
+          }
+        },
+        "64": {
+          "candidate_pairs": {
+            "mean": 107.017949,
+            "median": 109.0
+          },
+          "candidate_documents": {
+            "mean": 73.080769,
+            "median": 73.0
+          },
+          "distinct_sentences": {
+            "mean": 188.951282,
+            "median": 186.0
+          }
+        }
+      }
+    },
+    "covered_not_shortlisted_at_16": {
+      "questions": 85,
+      "totals": {
+        "16": {
+          "shortlist": 0,
+          "support": 0,
+          "joint_em": 0
+        },
+        "32": {
+          "shortlist": 22,
+          "support": 3,
+          "joint_em": 3
+        },
+        "64": {
+          "shortlist": 42,
+          "support": 3,
+          "joint_em": 3
+        }
+      },
+      "paired": {
+        "32_vs_16": {
+          "shortlist": {
+            "delta": 0.25882353,
+            "bootstrap95": [
+              0.16470588,
+              0.35294118
+            ],
+            "wins": 22,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.03529412,
+            "bootstrap95": [
+              0.0,
+              0.08235294
+            ],
+            "wins": 3,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.03529412,
+            "bootstrap95": [
+              0.0,
+              0.08235294
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        },
+        "64_vs_16": {
+          "shortlist": {
+            "delta": 0.49411765,
+            "bootstrap95": [
+              0.38823529,
+              0.6
+            ],
+            "wins": 42,
+            "losses": 0
+          },
+          "support": {
+            "delta": 0.03529412,
+            "bootstrap95": [
+              0.0,
+              0.08235294
+            ],
+            "wins": 3,
+            "losses": 0
+          },
+          "joint_em": {
+            "delta": 0.03529412,
+            "bootstrap95": [
+              0.0,
+              0.08235294
+            ],
+            "wins": 3,
+            "losses": 0
+          }
+        }
+      },
+      "work": {
+        "16": {
+          "candidate_pairs": {
+            "mean": 25.870588,
+            "median": 26
+          },
+          "candidate_documents": {
+            "mean": 24.952941,
+            "median": 26
+          },
+          "distinct_sentences": {
+            "mean": 75.035294,
+            "median": 74
+          }
+        },
+        "32": {
+          "candidate_pairs": {
+            "mean": 51.729412,
+            "median": 53
+          },
+          "candidate_documents": {
+            "mean": 42.023529,
+            "median": 41
+          },
+          "distinct_sentences": {
+            "mean": 121.858824,
+            "median": 118
+          }
+        },
+        "64": {
+          "candidate_pairs": {
+            "mean": 103.529412,
+            "median": 105
+          },
+          "candidate_documents": {
+            "mean": 68.317647,
+            "median": 68
+          },
+          "distinct_sentences": {
+            "mean": 190.011765,
+            "median": 187
+          }
+        }
+      }
+    }
+  }
+}

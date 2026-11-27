@@ -83,3 +83,5 @@ A [HotpotQA expansion stage audit](../../reports/nonlinear_retrieval_natural/EXP
 On 134 aligned IIRC cases with the two gold linked articles fixed, the [frozen reader](../../reports/nonlinear_retrieval_natural/IIRC_FIXED_ARTICLE_READER.md) reached 25 exact answers with article leads, 26 with oracle linked windows, and 38 with annotated source and linked spans. Most gains were on single-span answers.
 
 Training on separate IIRC articles raised pair recovery to 56/153 with a [hyperlink-context independent ranker](../../reports/nonlinear_retrieval_natural/IIRC_IN_DOMAIN_PAIR.md), 66 with a link-neutral pair head, and 73 with title features. The matched primary pair gain over independent ranking was 6.54 points, with a paired interval reaching zero.
+
+On the frozen hybrid HotpotQA unions, [widening the shortlist](../../reports/nonlinear_retrieval_natural/HOTPOT_SHORTLIST_DEPTH.md) from 16 to 64 proposals per head admitted 42 more gold pairs and added three joint exact matches. The mean distinct sentence count rose from 72.78 to 185.84.
