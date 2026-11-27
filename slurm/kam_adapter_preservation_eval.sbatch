@@ -11,6 +11,8 @@
 set -euo pipefail
 module load pytorch/2.8.0
 root=$1
+mode=()
+if [[ ${KAM_FACTORIAL:-0} == 1 ]]; then mode+=(--factorial); fi
 export PYTHONPATH="$root/runtime:$root/repo"
 export OMP_NUM_THREADS=4
-python "$root/eval_kam_adapter_preservation.py" "$root" "$SLURM_ARRAY_TASK_ID"
+python "$root/eval_kam_adapter_preservation.py" "$root" "$SLURM_ARRAY_TASK_ID" "${mode[@]}"

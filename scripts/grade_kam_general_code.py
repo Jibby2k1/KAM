@@ -93,7 +93,7 @@ def main(args):
         return
     generation = json.loads(args.generation.read_text())
     metadata = generation["metadata"]
-    full_program = metadata.get("protocol") in {"qwen-pretrained-v1", "smollm2-preservation-v1"}
+    full_program = metadata.get("protocol") in {"qwen-pretrained-v1", "smollm2-preservation-v1", "llama3-preservation-v1"}
     allowed_arms = ("kam", "dot", "pretrained") if full_program else ARMS
     assert metadata["task"] == args.task and metadata["arm"] in allowed_arms
     assert digest(source) == metadata["source_sha256"]

@@ -35,6 +35,22 @@ These are newly trained, approximately 10M-parameter models. Each saw the same 1
 
 [Longer-context protocol, diagnostics, and training metrics](GENERAL_BENCHMARKS_LONG.md) · [Machine-readable results](../../results/general_benchmarks_long/summary.json)
 
+### Learning-rate × KL factorial
+
+The three seeds and five benchmarks were held fixed across all conditions within each backbone. Adapter cells list KAM / dot.
+
+**Llama 3 8B Instruct**
+
+| Benchmark | Untouched | High LR KAM / dot | High LR + KL KAM / dot | Low LR KAM / dot | Low LR + KL KAM / dot |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| HumanEval | 47.56% | 44.11% / 47.97% | 51.02% / 49.80% | 49.59% / 48.58% | 49.59% / 50.00% |
+| MBPP | 49.20% | 41.67% / 46.13% | 48.73% / 49.27% | 49.20% / 46.93% | 48.80% / 48.27% |
+| GPQA Diamond | 29.80% | 28.28% / 29.63% | 28.62% / 29.46% | 28.28% / 27.61% | 28.79% / 28.45% |
+| MMLU | 61.19% | 60.42% / 60.03% | 61.24% / 61.09% | 61.25% / 59.83% | 61.31% / 61.15% |
+| GSM8K | 62.55% | 48.98% / 57.47% | 64.42% / 63.08% | 74.35% / 52.82% | 62.75% / 65.30% |
+
+[Factorial report, interactions, and reproducibility records](GENERAL_BENCHMARKS_FACTORIAL.md)
+
 ### Preserving pretrained scores on HiPerGator
 
 SmolLM2-1.7B-Instruct is the shared backbone and untouched reference. KAM and dot each add 1,114,112 trainable parameters. Every cell reports paired means from three seeds in KAM / dot order.

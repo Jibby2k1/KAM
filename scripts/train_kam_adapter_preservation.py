@@ -11,7 +11,7 @@ import torch
 from torch.nn import functional as F
 
 from kam_adapter_preservation import (
-    ARMS, MODEL_ID, RECIPES, REVISION, SEEDS, digest, key, layers_for, load_registered_model,
+    ARMS, FACTORIAL_RECIPES, SEEDS, digest, key, layers_for, load_registered_model, model_identity,
 )
 from kam_pretrained_adapters import AdapterStack, mixed_precision
 from train_kam_pretrained import BATCHES, DOMAINS, LENGTH, batch, corpus, layout, save
@@ -64,7 +64,8 @@ def validation(model, stack, data, offsets):
 
 
 def train(root, seed, recipe, arm):
-    peak, penalty = RECIPES[recipe]
+    peak, penalty = FACTORIAL_RECIPES[recipe]
+    model_id, revision, _ = model_identity(root)
     model, tokenizer = load_registered_model(root)
     layers = layers_for(model)
     stack = AdapterStack(model, arm, seed=seed, layers=layers)
@@ -84,7 +85,7 @@ def train(root, seed, recipe, arm):
     offsets = torch.arange(LENGTH + 1, device="cuda")
     identity = {
         "arm": arm, "recipe": recipe, "seed": seed, "peak_lr": peak, "kl_weight": penalty,
-        "model": MODEL_ID, "revision": REVISION, "layers": layers,
+        "model": model_id, "revision": revision, "layers": layers,
         "train_tokens": STEPS * LENGTH * sum(BATCHES),
         "exposure_sha256": exposure, "token_manifest_sha256": digest(path),
         "model_fingerprints": (root / "model-sha256.txt").read_text(),
@@ -131,7 +132,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("root", type=Path)
     parser.add_argument("--seed", type=int, choices=SEEDS, required=True)
-    parser.add_argument("--recipe", choices=RECIPES, required=True)
+    parser.add_argument("--recipe", choices=FACTORIAL_RECIPES, required=True)
     parser.add_argument("--arm", choices=ARMS, required=True)
     a = parser.parse_args()
     train(a.root, a.seed, a.recipe, a.arm)

@@ -10,9 +10,11 @@
 set -euo pipefail
 module load pytorch/2.8.0
 root=$1
+mode=()
+if [[ ${KAM_FACTORIAL:-0} == 1 ]]; then mode+=(--factorial); fi
 export PYTHONPATH="$root/runtime:$root/repo"
 cd "$root"
-read -r seed recipe arm < <(python kam_adapter_preservation.py "$SLURM_ARRAY_TASK_ID")
+read -r seed recipe arm < <(python kam_adapter_preservation.py "${mode[@]}" "$SLURM_ARRAY_TASK_ID")
 ident="$seed-$recipe-$arm"
 for task in humaneval mbpp; do
  python grade_kam_general_code.py --task "$task" --data "$root/data" --image "$root/python.sif" \

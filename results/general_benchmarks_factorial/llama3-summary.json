@@ -1,0 +1,5612 @@
+{
+  "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "revision": "uf-hpg-2024-04-19",
+  "seeds": [
+    731201,
+    731211,
+    731221
+  ],
+  "tasks": {
+    "gpqa": {
+      "cache_checks": {
+        "0-untouched-pretrained": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01999354548752308,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.018988491967320442,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.234375,
+          "mean_abs": 0.020095642656087875,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.16015625,
+          "mean_abs": 0.01881318911910057,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016835469752550125,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016937047243118286,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.020544132217764854,
+          "same_argmax": 2
+        },
+        "731201-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.01759599894285202,
+          "same_argmax": 2
+        },
+        "731201-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.46875,
+          "mean_abs": 0.04664240777492523,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.017856445163488388,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01742934063076973,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1572265625,
+          "mean_abs": 0.018801432102918625,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.020922742784023285,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016805218532681465,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.01526638399809599,
+          "same_argmax": 2
+        },
+        "731211-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016927996650338173,
+          "same_argmax": 2
+        },
+        "731211-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.018032800406217575,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.021125933155417442,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.016536928713321686,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1328125,
+          "mean_abs": 0.018559196963906288,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.109375,
+          "mean_abs": 0.01741044968366623,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.015112310647964478,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.107421875,
+          "mean_abs": 0.017084628343582153,
+          "same_argmax": 2
+        },
+        "731221-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.020250169560313225,
+          "same_argmax": 2
+        },
+        "731221-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.16796875,
+          "mean_abs": 0.024701803922653198,
+          "same_argmax": 2
+        }
+      },
+      "contrasts": {
+        "dot:kl-at-high-lr": {
+          "delta_by_seed": [
+            -0.020202020202020204,
+            0.015151515151515152,
+            0.0
+          ],
+          "mean_delta": -0.0016835016835016834,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.045454545454545456,
+            0.04208754208754209
+          ]
+        },
+        "dot:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            -0.025252525252525252,
+            0.010101010101010102,
+            -0.015151515151515152
+          ],
+          "mean_delta": -0.010101010101010102,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.03367003367003367,
+            0.011784511784511785
+          ]
+        },
+        "dot:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            0.005050505050505051,
+            0.005050505050505051,
+            0.015151515151515152
+          ],
+          "mean_delta": 0.008417508417508417,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.03872053872053872,
+            0.05555555555555555
+          ]
+        },
+        "dot:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            -0.025252525252525252,
+            -0.005050505050505051,
+            -0.005050505050505051
+          ],
+          "mean_delta": -0.011784511784511785,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.05723905723905724,
+            0.03198653198653199
+          ]
+        },
+        "dot:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            -0.030303030303030304,
+            -0.010101010101010102,
+            -0.020202020202020204
+          ],
+          "mean_delta": -0.020202020202020204,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04377104377104377,
+            0.0
+          ]
+        },
+        "high_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            -0.005050505050505051,
+            -0.015151515151515152,
+            -0.005050505050505051
+          ],
+          "mean_delta": -0.008417508417508417,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.025252525252525252,
+            0.005050505050505051
+          ]
+        },
+        "kam:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.020202020202020204,
+            -0.005050505050505051,
+            -0.005050505050505051
+          ],
+          "mean_delta": 0.003367003367003367,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04713804713804714,
+            0.05218855218855219
+          ]
+        },
+        "kam:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            0.015151515151515152,
+            -0.020202020202020204,
+            0.0
+          ],
+          "mean_delta": -0.0016835016835016834,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04882154882154882,
+            0.045454545454545456
+          ]
+        },
+        "kam:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            0.005050505050505051,
+            0.015151515151515152,
+            -0.005050505050505051
+          ],
+          "mean_delta": 0.005050505050505051,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.02356902356902357,
+            0.03367003367003367
+          ]
+        },
+        "kam:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.025252525252525252,
+            -0.005050505050505051,
+            -0.005050505050505051
+          ],
+          "mean_delta": 0.005050505050505051,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04713804713804714,
+            0.05555555555555555
+          ]
+        },
+        "kam:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            0.020202020202020204,
+            -0.020202020202020204,
+            0.0
+          ],
+          "mean_delta": 0.0,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04713804713804714,
+            0.045454545454545456
+          ]
+        },
+        "lower_lr:kam-minus-dot": {
+          "delta_by_seed": [
+            0.005050505050505051,
+            -0.005050505050505051,
+            0.020202020202020204
+          ],
+          "mean_delta": 0.006734006734006734,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.03535353535353535,
+            0.04882154882154882
+          ]
+        },
+        "lower_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            0.005050505050505051,
+            0.005050505050505051,
+            0.0
+          ],
+          "mean_delta": 0.003367003367003367,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.011784511784511785,
+            0.016835016835016835
+          ]
+        },
+        "reference:kam-minus-dot": {
+          "delta_by_seed": [
+            -0.045454545454545456,
+            0.005050505050505051,
+            0.0
+          ],
+          "mean_delta": -0.013468013468013467,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.045454545454545456,
+            0.018518518518518517
+          ]
+        }
+      },
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "max_prompt_tokens": 2795,
+      "n": 198,
+      "per_checkpoint": {
+        "0-untouched-pretrained": {
+          "answer_letter_counts": {
+            "A": 161,
+            "B": 15,
+            "C": 8,
+            "D": 14
+          },
+          "correct": 59,
+          "n": 198,
+          "score": 0.29797979797979796
+        },
+        "731201-high_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 156,
+            "B": 20,
+            "C": 8,
+            "D": 14
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731201-high_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 152,
+            "B": 23,
+            "C": 8,
+            "D": 15
+          },
+          "correct": 56,
+          "n": 198,
+          "score": 0.2828282828282828
+        },
+        "731201-lower_lr-dot": {
+          "answer_letter_counts": {
+            "A": 122,
+            "B": 51,
+            "C": 9,
+            "D": 16
+          },
+          "correct": 55,
+          "n": 198,
+          "score": 0.2777777777777778
+        },
+        "731201-lower_lr-kam": {
+          "answer_letter_counts": {
+            "A": 157,
+            "B": 26,
+            "C": 4,
+            "D": 11
+          },
+          "correct": 56,
+          "n": 198,
+          "score": 0.2828282828282828
+        },
+        "731201-lower_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 158,
+            "B": 19,
+            "C": 8,
+            "D": 13
+          },
+          "correct": 56,
+          "n": 198,
+          "score": 0.2828282828282828
+        },
+        "731201-lower_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 153,
+            "B": 22,
+            "C": 7,
+            "D": 16
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731201-reference-dot": {
+          "answer_letter_counts": {
+            "A": 121,
+            "B": 53,
+            "C": 9,
+            "D": 15
+          },
+          "correct": 61,
+          "n": 198,
+          "score": 0.30808080808080807
+        },
+        "731201-reference-kam": {
+          "answer_letter_counts": {
+            "A": 58,
+            "B": 83,
+            "C": 25,
+            "D": 32
+          },
+          "correct": 52,
+          "n": 198,
+          "score": 0.26262626262626265
+        },
+        "731211-high_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 161,
+            "B": 17,
+            "C": 7,
+            "D": 13
+          },
+          "correct": 60,
+          "n": 198,
+          "score": 0.30303030303030304
+        },
+        "731211-high_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 154,
+            "B": 21,
+            "C": 8,
+            "D": 15
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731211-lower_lr-dot": {
+          "answer_letter_counts": {
+            "A": 102,
+            "B": 60,
+            "C": 12,
+            "D": 24
+          },
+          "correct": 55,
+          "n": 198,
+          "score": 0.2777777777777778
+        },
+        "731211-lower_lr-kam": {
+          "answer_letter_counts": {
+            "A": 158,
+            "B": 25,
+            "C": 5,
+            "D": 10
+          },
+          "correct": 54,
+          "n": 198,
+          "score": 0.2727272727272727
+        },
+        "731211-lower_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 158,
+            "B": 19,
+            "C": 8,
+            "D": 13
+          },
+          "correct": 56,
+          "n": 198,
+          "score": 0.2828282828282828
+        },
+        "731211-lower_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 157,
+            "B": 20,
+            "C": 7,
+            "D": 14
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731211-reference-dot": {
+          "answer_letter_counts": {
+            "A": 111,
+            "B": 50,
+            "C": 13,
+            "D": 24
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731211-reference-kam": {
+          "answer_letter_counts": {
+            "A": 129,
+            "B": 38,
+            "C": 7,
+            "D": 24
+          },
+          "correct": 58,
+          "n": 198,
+          "score": 0.29292929292929293
+        },
+        "731221-high_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 158,
+            "B": 24,
+            "C": 6,
+            "D": 10
+          },
+          "correct": 58,
+          "n": 198,
+          "score": 0.29292929292929293
+        },
+        "731221-high_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 157,
+            "B": 17,
+            "C": 8,
+            "D": 16
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731221-lower_lr-dot": {
+          "answer_letter_counts": {
+            "A": 111,
+            "B": 62,
+            "C": 5,
+            "D": 20
+          },
+          "correct": 54,
+          "n": 198,
+          "score": 0.2727272727272727
+        },
+        "731221-lower_lr-kam": {
+          "answer_letter_counts": {
+            "A": 139,
+            "B": 33,
+            "C": 10,
+            "D": 16
+          },
+          "correct": 58,
+          "n": 198,
+          "score": 0.29292929292929293
+        },
+        "731221-lower_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 158,
+            "B": 20,
+            "C": 6,
+            "D": 14
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731221-lower_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 157,
+            "B": 19,
+            "C": 6,
+            "D": 16
+          },
+          "correct": 57,
+          "n": 198,
+          "score": 0.2878787878787879
+        },
+        "731221-reference-dot": {
+          "answer_letter_counts": {
+            "A": 112,
+            "B": 58,
+            "C": 10,
+            "D": 18
+          },
+          "correct": 58,
+          "n": 198,
+          "score": 0.29292929292929293
+        },
+        "731221-reference-kam": {
+          "answer_letter_counts": {
+            "A": 99,
+            "B": 64,
+            "C": 18,
+            "D": 17
+          },
+          "correct": 58,
+          "n": 198,
+          "score": 0.29292929292929293
+        }
+      },
+      "sandbox_sha256": null,
+      "seed_means": {
+        "high_lr_kl-dot": {
+          "correct_by_seed": [
+            57,
+            60,
+            58
+          ],
+          "max": 0.30303030303030304,
+          "mean": 0.2946127946127946,
+          "min": 0.2878787878787879,
+          "retention": {
+            "lost_correct_by_seed": [
+              3,
+              1,
+              4
+            ],
+            "newly_correct_by_seed": [
+              1,
+              2,
+              3
+            ],
+            "retained_correct_by_seed": [
+              56,
+              58,
+              55
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.010101010101010102,
+              0.005050505050505051,
+              -0.005050505050505051
+            ],
+            "mean_delta": -0.003367003367003367,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.021885521885521887,
+              0.011784511784511785
+            ]
+          }
+        },
+        "high_lr_kl-kam": {
+          "correct_by_seed": [
+            56,
+            57,
+            57
+          ],
+          "max": 0.2878787878787879,
+          "mean": 0.28619528619528617,
+          "min": 0.2828282828282828,
+          "retention": {
+            "lost_correct_by_seed": [
+              4,
+              3,
+              2
+            ],
+            "newly_correct_by_seed": [
+              1,
+              1,
+              0
+            ],
+            "retained_correct_by_seed": [
+              55,
+              56,
+              57
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.015151515151515152,
+              -0.010101010101010102,
+              -0.010101010101010102
+            ],
+            "mean_delta": -0.011784511784511785,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.030303030303030304,
+              0.003367003367003367
+            ]
+          }
+        },
+        "lower_lr-dot": {
+          "correct_by_seed": [
+            55,
+            55,
+            54
+          ],
+          "max": 0.2777777777777778,
+          "mean": 0.2760942760942761,
+          "min": 0.2727272727272727,
+          "retention": {
+            "lost_correct_by_seed": [
+              15,
+              18,
+              19
+            ],
+            "newly_correct_by_seed": [
+              11,
+              14,
+              14
+            ],
+            "retained_correct_by_seed": [
+              44,
+              41,
+              40
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.020202020202020204,
+              -0.020202020202020204,
+              -0.025252525252525252
+            ],
+            "mean_delta": -0.021885521885521887,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.0723905723905724,
+              0.02861952861952862
+            ]
+          }
+        },
+        "lower_lr-kam": {
+          "correct_by_seed": [
+            56,
+            54,
+            58
+          ],
+          "max": 0.29292929292929293,
+          "mean": 0.2828282828282828,
+          "min": 0.2727272727272727,
+          "retention": {
+            "lost_correct_by_seed": [
+              8,
+              7,
+              9
+            ],
+            "newly_correct_by_seed": [
+              5,
+              2,
+              8
+            ],
+            "retained_correct_by_seed": [
+              51,
+              52,
+              50
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.015151515151515152,
+              -0.025252525252525252,
+              -0.005050505050505051
+            ],
+            "mean_delta": -0.015151515151515152,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.045454545454545456,
+              0.013468013468013467
+            ]
+          }
+        },
+        "lower_lr_kl-dot": {
+          "correct_by_seed": [
+            56,
+            56,
+            57
+          ],
+          "max": 0.2878787878787879,
+          "mean": 0.28451178451178455,
+          "min": 0.2828282828282828,
+          "retention": {
+            "lost_correct_by_seed": [
+              3,
+              3,
+              3
+            ],
+            "newly_correct_by_seed": [
+              0,
+              0,
+              1
+            ],
+            "retained_correct_by_seed": [
+              56,
+              56,
+              56
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.015151515151515152,
+              -0.015151515151515152,
+              -0.010101010101010102
+            ],
+            "mean_delta": -0.013468013468013467,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.03198653198653199,
+              0.0
+            ]
+          }
+        },
+        "lower_lr_kl-kam": {
+          "correct_by_seed": [
+            57,
+            57,
+            57
+          ],
+          "max": 0.2878787878787879,
+          "mean": 0.2878787878787879,
+          "min": 0.2878787878787879,
+          "retention": {
+            "lost_correct_by_seed": [
+              3,
+              3,
+              3
+            ],
+            "newly_correct_by_seed": [
+              1,
+              1,
+              1
+            ],
+            "retained_correct_by_seed": [
+              56,
+              56,
+              56
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.010101010101010102,
+              -0.010101010101010102,
+              -0.010101010101010102
+            ],
+            "mean_delta": -0.010101010101010102,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.030303030303030304,
+              0.008417508417508417
+            ]
+          }
+        },
+        "reference-dot": {
+          "correct_by_seed": [
+            61,
+            57,
+            58
+          ],
+          "max": 0.30808080808080807,
+          "mean": 0.29629629629629634,
+          "min": 0.2878787878787879,
+          "retention": {
+            "lost_correct_by_seed": [
+              13,
+              15,
+              14
+            ],
+            "newly_correct_by_seed": [
+              15,
+              13,
+              13
+            ],
+            "retained_correct_by_seed": [
+              46,
+              44,
+              45
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.010101010101010102,
+              -0.010101010101010102,
+              -0.005050505050505051
+            ],
+            "mean_delta": -0.0016835016835016834,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.050505050505050504,
+              0.045454545454545456
+            ]
+          }
+        },
+        "reference-kam": {
+          "correct_by_seed": [
+            52,
+            58,
+            58
+          ],
+          "max": 0.29292929292929293,
+          "mean": 0.2828282828282828,
+          "min": 0.26262626262626265,
+          "retention": {
+            "lost_correct_by_seed": [
+              32,
+              13,
+              22
+            ],
+            "newly_correct_by_seed": [
+              25,
+              12,
+              21
+            ],
+            "retained_correct_by_seed": [
+              27,
+              46,
+              37
+            ],
+            "untouched_correct": 59
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.03535353535353535,
+              -0.005050505050505051,
+              -0.005050505050505051
+            ],
+            "mean_delta": -0.015151515151515152,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.06902356902356903,
+              0.03872053872053872
+            ]
+          }
+        }
+      },
+      "source_sha256": "41d1213cd7a4998605a26c2798500652572007161b3a92817ba46b35befcd305",
+      "untouched": {
+        "answer_letter_counts": {
+          "A": 161,
+          "B": 15,
+          "C": 8,
+          "D": 14
+        },
+        "correct": 59,
+        "n": 198,
+        "score": 0.29797979797979796
+      }
+    },
+    "gsm8k": {
+      "cache_checks": {
+        "0-untouched-pretrained": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01999354548752308,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.018988491967320442,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.234375,
+          "mean_abs": 0.020095642656087875,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.16015625,
+          "mean_abs": 0.01881318911910057,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016835469752550125,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016937047243118286,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.020544132217764854,
+          "same_argmax": 2
+        },
+        "731201-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.01759599894285202,
+          "same_argmax": 2
+        },
+        "731201-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.46875,
+          "mean_abs": 0.04664240777492523,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.017856445163488388,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01742934063076973,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1572265625,
+          "mean_abs": 0.018801432102918625,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.020922742784023285,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016805218532681465,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.01526638399809599,
+          "same_argmax": 2
+        },
+        "731211-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016927996650338173,
+          "same_argmax": 2
+        },
+        "731211-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.018032800406217575,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.021125933155417442,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.016536928713321686,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1328125,
+          "mean_abs": 0.018559196963906288,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.109375,
+          "mean_abs": 0.01741044968366623,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.015112310647964478,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.107421875,
+          "mean_abs": 0.017084628343582153,
+          "same_argmax": 2
+        },
+        "731221-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.020250169560313225,
+          "same_argmax": 2
+        },
+        "731221-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.16796875,
+          "mean_abs": 0.024701803922653198,
+          "same_argmax": 2
+        }
+      },
+      "contrasts": {
+        "dot:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.037149355572403335,
+            0.0621683093252464,
+            0.06899166034874905
+          ],
+          "mean_delta": 0.056103108415466264,
+          "paired_item_bootstrap95_given_seeds": [
+            0.03007328784432651,
+            0.08238564569118019
+          ]
+        },
+        "dot:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            -0.07657316148597422,
+            -0.05913570887035633,
+            -0.07050796057619409
+          ],
+          "mean_delta": -0.06873894364417488,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.09021986353297953,
+            -0.047510740459944405
+          ]
+        },
+        "dot:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            0.11372251705837756,
+            0.12130401819560273,
+            0.13949962092494314
+          ],
+          "mean_delta": 0.12484205205964115,
+          "paired_item_bootstrap95_given_seeds": [
+            0.09830679807935304,
+            0.1518827394490776
+          ]
+        },
+        "dot:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.04094010614101592,
+            0.10310841546626232,
+            0.09097801364670205
+          ],
+          "mean_delta": 0.07834217841799343,
+          "paired_item_bootstrap95_given_seeds": [
+            0.05256507455142785,
+            0.10437199898913319
+          ]
+        },
+        "dot:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            -0.07278241091736164,
+            -0.01819560272934041,
+            -0.04852160727824109
+          ],
+          "mean_delta": -0.04649987364164771,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.0639373262572656,
+            -0.029315137730603992
+          ]
+        },
+        "high_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            0.0037907505686125853,
+            0.01819560272934041,
+            0.01819560272934041
+          ],
+          "mean_delta": 0.013393985342431134,
+          "paired_item_bootstrap95_given_seeds": [
+            0.003032600454890068,
+            0.023755370229972202
+          ]
+        },
+        "kam:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.20090978013646701,
+            0.03790750568612585,
+            0.22441243366186506
+          ],
+          "mean_delta": 0.1544099064948193,
+          "paired_item_bootstrap95_given_seeds": [
+            0.1278746525145312,
+            0.18043972706595907
+          ]
+        },
+        "kam:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            0.32297194844579225,
+            0.17589082638362397,
+            0.312357846853677
+          ],
+          "mean_delta": 0.2704068738943644,
+          "paired_item_bootstrap95_given_seeds": [
+            0.24740965377811475,
+            0.2934040940106141
+          ]
+        },
+        "kam:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            -0.12206216830932524,
+            -0.1379833206974981,
+            -0.08794541319181198
+          ],
+          "mean_delta": -0.11599696739954511,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.13874147081122062,
+            -0.09350518069244378
+          ]
+        },
+        "kam:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.2001516300227445,
+            0.008339651250947688,
+            0.2047005307050796
+          ],
+          "mean_delta": 0.13773060399292394,
+          "paired_item_bootstrap95_given_seeds": [
+            0.11043719989891332,
+            0.16426585797321203
+          ]
+        },
+        "kam:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            0.32221379833206976,
+            0.1463229719484458,
+            0.2926459438968916
+          ],
+          "mean_delta": 0.25372757139246904,
+          "paired_item_bootstrap95_given_seeds": [
+            0.23351023502653526,
+            0.2744503411675512
+          ]
+        },
+        "lower_lr:kam-minus-dot": {
+          "delta_by_seed": [
+            0.2350265352539803,
+            0.20697498104624715,
+            0.20394238059135708
+          ],
+          "mean_delta": 0.21531463229719486,
+          "paired_item_bootstrap95_given_seeds": [
+            0.1938337124083902,
+            0.23730098559514784
+          ]
+        },
+        "lower_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            -0.000758150113722517,
+            -0.052312357846853674,
+            -0.02350265352539803
+          ],
+          "mean_delta": -0.02552438716199141,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.039423805913570885,
+            -0.011877685114986101
+          ]
+        },
+        "reference:kam-minus-dot": {
+          "delta_by_seed": [
+            -0.1599696739954511,
+            0.04245640636846096,
+            -0.1372251705837756
+          ],
+          "mean_delta": -0.08491281273692192,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.10285569876168815,
+            -0.06696992671215567
+          ]
+        }
+      },
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "max_prompt_tokens": 217,
+      "n": 1319,
+      "per_checkpoint": {
+        "0-untouched-pretrained": {
+          "correct": 825,
+          "n": 1319,
+          "parsed_numeric": 1033,
+          "score": 0.6254738438210766
+        },
+        "731201-high_lr_kl-dot": {
+          "correct": 832,
+          "n": 1319,
+          "parsed_numeric": 1060,
+          "score": 0.6307808946171342
+        },
+        "731201-high_lr_kl-kam": {
+          "correct": 837,
+          "n": 1319,
+          "parsed_numeric": 1044,
+          "score": 0.6345716451857468
+        },
+        "731201-lower_lr-dot": {
+          "correct": 687,
+          "n": 1319,
+          "parsed_numeric": 1312,
+          "score": 0.5208491281273692
+        },
+        "731201-lower_lr-kam": {
+          "correct": 997,
+          "n": 1319,
+          "parsed_numeric": 1300,
+          "score": 0.7558756633813495
+        },
+        "731201-lower_lr_kl-dot": {
+          "correct": 837,
+          "n": 1319,
+          "parsed_numeric": 1067,
+          "score": 0.6345716451857468
+        },
+        "731201-lower_lr_kl-kam": {
+          "correct": 836,
+          "n": 1319,
+          "parsed_numeric": 1049,
+          "score": 0.6338134950720242
+        },
+        "731201-reference-dot": {
+          "correct": 783,
+          "n": 1319,
+          "parsed_numeric": 1315,
+          "score": 0.5936315390447309
+        },
+        "731201-reference-kam": {
+          "correct": 572,
+          "n": 1319,
+          "parsed_numeric": 1289,
+          "score": 0.4336618650492798
+        },
+        "731211-high_lr_kl-dot": {
+          "correct": 819,
+          "n": 1319,
+          "parsed_numeric": 1025,
+          "score": 0.6209249431387415
+        },
+        "731211-high_lr_kl-kam": {
+          "correct": 843,
+          "n": 1319,
+          "parsed_numeric": 1052,
+          "score": 0.6391205458680819
+        },
+        "731211-lower_lr-dot": {
+          "correct": 713,
+          "n": 1319,
+          "parsed_numeric": 1315,
+          "score": 0.5405610310841547
+        },
+        "731211-lower_lr-kam": {
+          "correct": 986,
+          "n": 1319,
+          "parsed_numeric": 1293,
+          "score": 0.7475360121304018
+        },
+        "731211-lower_lr_kl-dot": {
+          "correct": 873,
+          "n": 1319,
+          "parsed_numeric": 1117,
+          "score": 0.6618650492797574
+        },
+        "731211-lower_lr_kl-kam": {
+          "correct": 804,
+          "n": 1319,
+          "parsed_numeric": 1006,
+          "score": 0.6095526914329037
+        },
+        "731211-reference-dot": {
+          "correct": 737,
+          "n": 1319,
+          "parsed_numeric": 1314,
+          "score": 0.558756633813495
+        },
+        "731211-reference-kam": {
+          "correct": 793,
+          "n": 1319,
+          "parsed_numeric": 1301,
+          "score": 0.601213040181956
+        },
+        "731221-high_lr_kl-dot": {
+          "correct": 845,
+          "n": 1319,
+          "parsed_numeric": 1072,
+          "score": 0.640636846095527
+        },
+        "731221-high_lr_kl-kam": {
+          "correct": 869,
+          "n": 1319,
+          "parsed_numeric": 1087,
+          "score": 0.6588324488248674
+        },
+        "731221-lower_lr-dot": {
+          "correct": 690,
+          "n": 1319,
+          "parsed_numeric": 1317,
+          "score": 0.5231235784685367
+        },
+        "731221-lower_lr-kam": {
+          "correct": 959,
+          "n": 1319,
+          "parsed_numeric": 1294,
+          "score": 0.7270659590598939
+        },
+        "731221-lower_lr_kl-dot": {
+          "correct": 874,
+          "n": 1319,
+          "parsed_numeric": 1109,
+          "score": 0.6626231993934799
+        },
+        "731221-lower_lr_kl-kam": {
+          "correct": 843,
+          "n": 1319,
+          "parsed_numeric": 1058,
+          "score": 0.6391205458680819
+        },
+        "731221-reference-dot": {
+          "correct": 754,
+          "n": 1319,
+          "parsed_numeric": 1312,
+          "score": 0.5716451857467779
+        },
+        "731221-reference-kam": {
+          "correct": 573,
+          "n": 1319,
+          "parsed_numeric": 1313,
+          "score": 0.43442001516300227
+        }
+      },
+      "sandbox_sha256": null,
+      "seed_means": {
+        "high_lr_kl-dot": {
+          "correct_by_seed": [
+            832,
+            819,
+            845
+          ],
+          "max": 0.640636846095527,
+          "mean": 0.6307808946171342,
+          "min": 0.6209249431387415,
+          "retention": {
+            "lost_correct_by_seed": [
+              62,
+              55,
+              63
+            ],
+            "newly_correct_by_seed": [
+              69,
+              49,
+              83
+            ],
+            "retained_correct_by_seed": [
+              763,
+              770,
+              762
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.00530705079605762,
+              -0.004548900682335102,
+              0.015163002274450341
+            ],
+            "mean_delta": 0.00530705079605762,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.00859236795552186,
+              0.0192064695476371
+            ]
+          }
+        },
+        "high_lr_kl-kam": {
+          "correct_by_seed": [
+            837,
+            843,
+            869
+          ],
+          "max": 0.6588324488248674,
+          "mean": 0.6441748799595653,
+          "min": 0.6345716451857468,
+          "retention": {
+            "lost_correct_by_seed": [
+              56,
+              61,
+              55
+            ],
+            "newly_correct_by_seed": [
+              68,
+              79,
+              99
+            ],
+            "retained_correct_by_seed": [
+              769,
+              764,
+              770
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.009097801364670205,
+              0.013646702047005308,
+              0.03335860500379075
+            ],
+            "mean_delta": 0.018701036138488752,
+            "paired_item_bootstrap95_given_seeds": [
+              0.004043467273186757,
+              0.03361132170836492
+            ]
+          }
+        },
+        "lower_lr-dot": {
+          "correct_by_seed": [
+            687,
+            713,
+            690
+          ],
+          "max": 0.5405610310841547,
+          "mean": 0.5281779125600202,
+          "min": 0.5208491281273692,
+          "retention": {
+            "lost_correct_by_seed": [
+              316,
+              302,
+              331
+            ],
+            "newly_correct_by_seed": [
+              178,
+              190,
+              196
+            ],
+            "retained_correct_by_seed": [
+              509,
+              523,
+              494
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.10462471569370735,
+              -0.08491281273692192,
+              -0.1023502653525398
+            ],
+            "mean_delta": -0.09729593126105636,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.12635835228708617,
+              -0.06798079353045236
+            ]
+          }
+        },
+        "lower_lr-kam": {
+          "correct_by_seed": [
+            997,
+            986,
+            959
+          ],
+          "max": 0.7558756633813495,
+          "mean": 0.743492544857215,
+          "min": 0.7270659590598939,
+          "retention": {
+            "lost_correct_by_seed": [
+              74,
+              99,
+              105
+            ],
+            "newly_correct_by_seed": [
+              246,
+              260,
+              239
+            ],
+            "retained_correct_by_seed": [
+              751,
+              726,
+              720
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.13040181956027294,
+              0.12206216830932524,
+              0.10159211523881728
+            ],
+            "mean_delta": 0.11801870103613848,
+            "paired_item_bootstrap95_given_seeds": [
+              0.09401061410159212,
+              0.14227950467525904
+            ]
+          }
+        },
+        "lower_lr_kl-dot": {
+          "correct_by_seed": [
+            837,
+            873,
+            874
+          ],
+          "max": 0.6626231993934799,
+          "mean": 0.6530199646196614,
+          "min": 0.6345716451857468,
+          "retention": {
+            "lost_correct_by_seed": [
+              62,
+              54,
+              67
+            ],
+            "newly_correct_by_seed": [
+              74,
+              102,
+              116
+            ],
+            "retained_correct_by_seed": [
+              763,
+              771,
+              758
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.009097801364670205,
+              0.03639120545868082,
+              0.037149355572403335
+            ],
+            "mean_delta": 0.027546120798584785,
+            "paired_item_bootstrap95_given_seeds": [
+              0.011372251705837756,
+              0.04397270659590599
+            ]
+          }
+        },
+        "lower_lr_kl-kam": {
+          "correct_by_seed": [
+            836,
+            804,
+            843
+          ],
+          "max": 0.6391205458680819,
+          "mean": 0.6274955774576699,
+          "min": 0.6095526914329037,
+          "retention": {
+            "lost_correct_by_seed": [
+              56,
+              70,
+              40
+            ],
+            "newly_correct_by_seed": [
+              67,
+              49,
+              58
+            ],
+            "retained_correct_by_seed": [
+              769,
+              755,
+              785
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.008339651250947688,
+              -0.01592115238817286,
+              0.013646702047005308
+            ],
+            "mean_delta": 0.0020217336365933787,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.011372251705837756,
+              0.015415718979024514
+            ]
+          }
+        },
+        "reference-dot": {
+          "correct_by_seed": [
+            783,
+            737,
+            754
+          ],
+          "max": 0.5936315390447309,
+          "mean": 0.574677786201668,
+          "min": 0.558756633813495,
+          "retention": {
+            "lost_correct_by_seed": [
+              260,
+              280,
+              269
+            ],
+            "newly_correct_by_seed": [
+              218,
+              192,
+              198
+            ],
+            "retained_correct_by_seed": [
+              565,
+              545,
+              556
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.03184230477634572,
+              -0.0667172100075815,
+              -0.053828658074298714
+            ],
+            "mean_delta": -0.05079605761940864,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.0785948951225676,
+              -0.02249178670710134
+            ]
+          }
+        },
+        "reference-kam": {
+          "correct_by_seed": [
+            572,
+            793,
+            573
+          ],
+          "max": 0.601213040181956,
+          "mean": 0.489764973464746,
+          "min": 0.4336618650492798,
+          "retention": {
+            "lost_correct_by_seed": [
+              410,
+              249,
+              397
+            ],
+            "newly_correct_by_seed": [
+              157,
+              217,
+              145
+            ],
+            "retained_correct_by_seed": [
+              415,
+              576,
+              428
+            ],
+            "untouched_correct": 825
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.19181197877179681,
+              -0.024260803639120546,
+              -0.1910538286580743
+            ],
+            "mean_delta": -0.13570887035633056,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.16426585797321203,
+              -0.1068991660348749
+            ]
+          }
+        }
+      },
+      "source_sha256": "ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59",
+      "untouched": {
+        "correct": 825,
+        "n": 1319,
+        "parsed_numeric": 1033,
+        "score": 0.6254738438210766
+      }
+    },
+    "humaneval": {
+      "cache_checks": {
+        "0-untouched-pretrained": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01999354548752308,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.018988491967320442,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.234375,
+          "mean_abs": 0.020095642656087875,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.16015625,
+          "mean_abs": 0.01881318911910057,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016835469752550125,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016937047243118286,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.020544132217764854,
+          "same_argmax": 2
+        },
+        "731201-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.01759599894285202,
+          "same_argmax": 2
+        },
+        "731201-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.46875,
+          "mean_abs": 0.04664240777492523,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.017856445163488388,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01742934063076973,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1572265625,
+          "mean_abs": 0.018801432102918625,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.020922742784023285,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016805218532681465,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.01526638399809599,
+          "same_argmax": 2
+        },
+        "731211-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016927996650338173,
+          "same_argmax": 2
+        },
+        "731211-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.018032800406217575,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.021125933155417442,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.016536928713321686,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1328125,
+          "mean_abs": 0.018559196963906288,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.109375,
+          "mean_abs": 0.01741044968366623,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.015112310647964478,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.107421875,
+          "mean_abs": 0.017084628343582153,
+          "same_argmax": 2
+        },
+        "731221-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.020250169560313225,
+          "same_argmax": 2
+        },
+        "731221-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.16796875,
+          "mean_abs": 0.024701803922653198,
+          "same_argmax": 2
+        }
+      },
+      "contrasts": {
+        "dot:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.018292682926829267,
+            -0.006097560975609756,
+            0.042682926829268296
+          ],
+          "mean_delta": 0.018292682926829267,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.028455284552845527,
+            0.06300813008130081
+          ]
+        },
+        "dot:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            -0.006097560975609756,
+            -0.024390243902439025,
+            0.042682926829268296
+          ],
+          "mean_delta": 0.0040650406504065045,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04878048780487805,
+            0.054878048780487805
+          ]
+        },
+        "dot:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            0.024390243902439025,
+            0.018292682926829267,
+            0.0
+          ],
+          "mean_delta": 0.014227642276422764,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04065040650406504,
+            0.06707317073170732
+          ]
+        },
+        "dot:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.024390243902439025,
+            0.0,
+            0.036585365853658534
+          ],
+          "mean_delta": 0.02032520325203252,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.02032520325203252,
+            0.06300813008130081
+          ]
+        },
+        "dot:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            0.0,
+            -0.018292682926829267,
+            0.036585365853658534
+          ],
+          "mean_delta": 0.006097560975609756,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.036585365853658534,
+            0.0508130081300813
+          ]
+        },
+        "high_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            0.018292682926829267,
+            0.024390243902439025,
+            -0.006097560975609756
+          ],
+          "mean_delta": 0.012195121951219513,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.01016260162601626,
+            0.036585365853658534
+          ]
+        },
+        "kam:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.054878048780487805,
+            0.11585365853658537,
+            0.036585365853658534
+          ],
+          "mean_delta": 0.06910569105691057,
+          "paired_item_bootstrap95_given_seeds": [
+            0.024390243902439025,
+            0.11382113821138211
+          ]
+        },
+        "kam:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            0.06707317073170732,
+            0.12195121951219512,
+            0.018292682926829267
+          ],
+          "mean_delta": 0.06910569105691057,
+          "paired_item_bootstrap95_given_seeds": [
+            0.022357723577235773,
+            0.11788617886178862
+          ]
+        },
+        "kam:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            -0.012195121951219513,
+            -0.006097560975609756,
+            0.018292682926829267
+          ],
+          "mean_delta": 0.0,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04065040650406504,
+            0.04065040650406504
+          ]
+        },
+        "kam:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.042682926829268296,
+            0.07926829268292683,
+            0.042682926829268296
+          ],
+          "mean_delta": 0.054878048780487805,
+          "paired_item_bootstrap95_given_seeds": [
+            0.006097560975609756,
+            0.1016260162601626
+          ]
+        },
+        "kam:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            0.054878048780487805,
+            0.08536585365853659,
+            0.024390243902439025
+          ],
+          "mean_delta": 0.054878048780487805,
+          "paired_item_bootstrap95_given_seeds": [
+            0.01016260162601626,
+            0.09959349593495935
+          ]
+        },
+        "lower_lr:kam-minus-dot": {
+          "delta_by_seed": [
+            0.036585365853658534,
+            0.006097560975609756,
+            -0.012195121951219513
+          ],
+          "mean_delta": 0.01016260162601626,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.04065040650406504,
+            0.06097560975609756
+          ]
+        },
+        "lower_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            0.0,
+            -0.018292682926829267,
+            0.006097560975609756
+          ],
+          "mean_delta": -0.0040650406504065045,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.032520325203252036,
+            0.022357723577235773
+          ]
+        },
+        "reference:kam-minus-dot": {
+          "delta_by_seed": [
+            -0.018292682926829267,
+            -0.0975609756097561,
+            0.0
+          ],
+          "mean_delta": -0.03861788617886179,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.07723577235772358,
+            -0.0020325203252032522
+          ]
+        }
+      },
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "max_prompt_tokens": 430,
+      "n": 164,
+      "per_checkpoint": {
+        "0-untouched-pretrained": {
+          "correct": 78,
+          "n": 164,
+          "score": 0.47560975609756095,
+          "unit_test_outcomes": {
+            "failed_tests": 47,
+            "passed": 78,
+            "syntax_error": 39
+          }
+        },
+        "731201-high_lr_kl-dot": {
+          "correct": 80,
+          "n": 164,
+          "score": 0.4878048780487805,
+          "unit_test_outcomes": {
+            "failed_tests": 49,
+            "passed": 80,
+            "syntax_error": 35
+          }
+        },
+        "731201-high_lr_kl-kam": {
+          "correct": 83,
+          "n": 164,
+          "score": 0.5060975609756098,
+          "unit_test_outcomes": {
+            "failed_tests": 49,
+            "passed": 83,
+            "syntax_error": 32
+          }
+        },
+        "731201-lower_lr-dot": {
+          "correct": 77,
+          "n": 164,
+          "score": 0.4695121951219512,
+          "unit_test_outcomes": {
+            "failed_tests": 59,
+            "passed": 77,
+            "syntax_error": 28
+          }
+        },
+        "731201-lower_lr-kam": {
+          "correct": 83,
+          "n": 164,
+          "score": 0.5060975609756098,
+          "unit_test_outcomes": {
+            "failed_tests": 55,
+            "passed": 83,
+            "syntax_error": 26
+          }
+        },
+        "731201-lower_lr_kl-dot": {
+          "correct": 81,
+          "n": 164,
+          "score": 0.49390243902439024,
+          "unit_test_outcomes": {
+            "failed_tests": 50,
+            "passed": 81,
+            "syntax_error": 33
+          }
+        },
+        "731201-lower_lr_kl-kam": {
+          "correct": 81,
+          "n": 164,
+          "score": 0.49390243902439024,
+          "unit_test_outcomes": {
+            "failed_tests": 51,
+            "passed": 81,
+            "syntax_error": 32
+          }
+        },
+        "731201-reference-dot": {
+          "correct": 77,
+          "n": 164,
+          "score": 0.4695121951219512,
+          "unit_test_outcomes": {
+            "failed_tests": 59,
+            "passed": 77,
+            "syntax_error": 28
+          }
+        },
+        "731201-reference-kam": {
+          "correct": 74,
+          "n": 164,
+          "score": 0.45121951219512196,
+          "unit_test_outcomes": {
+            "failed_tests": 69,
+            "passed": 74,
+            "syntax_error": 21
+          }
+        },
+        "731211-high_lr_kl-dot": {
+          "correct": 82,
+          "n": 164,
+          "score": 0.5,
+          "unit_test_outcomes": {
+            "failed_tests": 51,
+            "passed": 82,
+            "syntax_error": 31
+          }
+        },
+        "731211-high_lr_kl-kam": {
+          "correct": 86,
+          "n": 164,
+          "score": 0.524390243902439,
+          "unit_test_outcomes": {
+            "failed_tests": 46,
+            "passed": 86,
+            "syntax_error": 32
+          }
+        },
+        "731211-lower_lr-dot": {
+          "correct": 80,
+          "n": 164,
+          "score": 0.4878048780487805,
+          "unit_test_outcomes": {
+            "failed_tests": 56,
+            "passed": 80,
+            "syntax_error": 28
+          }
+        },
+        "731211-lower_lr-kam": {
+          "correct": 81,
+          "n": 164,
+          "score": 0.49390243902439024,
+          "unit_test_outcomes": {
+            "failed_tests": 57,
+            "passed": 81,
+            "syntax_error": 26
+          }
+        },
+        "731211-lower_lr_kl-dot": {
+          "correct": 83,
+          "n": 164,
+          "score": 0.5060975609756098,
+          "unit_test_outcomes": {
+            "failed_tests": 48,
+            "passed": 83,
+            "syntax_error": 33
+          }
+        },
+        "731211-lower_lr_kl-kam": {
+          "correct": 80,
+          "n": 164,
+          "score": 0.4878048780487805,
+          "unit_test_outcomes": {
+            "failed_tests": 51,
+            "passed": 80,
+            "syntax_error": 33
+          }
+        },
+        "731211-reference-dot": {
+          "correct": 83,
+          "n": 164,
+          "score": 0.5060975609756098,
+          "unit_test_outcomes": {
+            "failed_tests": 59,
+            "passed": 83,
+            "syntax_error": 22
+          }
+        },
+        "731211-reference-kam": {
+          "correct": 67,
+          "n": 164,
+          "score": 0.40853658536585363,
+          "unit_test_outcomes": {
+            "failed_tests": 58,
+            "passed": 67,
+            "syntax_error": 39
+          }
+        },
+        "731221-high_lr_kl-dot": {
+          "correct": 83,
+          "n": 164,
+          "score": 0.5060975609756098,
+          "unit_test_outcomes": {
+            "failed_tests": 45,
+            "passed": 83,
+            "syntax_error": 36
+          }
+        },
+        "731221-high_lr_kl-kam": {
+          "correct": 82,
+          "n": 164,
+          "score": 0.5,
+          "unit_test_outcomes": {
+            "failed_tests": 46,
+            "passed": 82,
+            "syntax_error": 36
+          }
+        },
+        "731221-lower_lr-dot": {
+          "correct": 82,
+          "n": 164,
+          "score": 0.5,
+          "unit_test_outcomes": {
+            "failed_tests": 56,
+            "passed": 82,
+            "syntax_error": 26
+          }
+        },
+        "731221-lower_lr-kam": {
+          "correct": 80,
+          "n": 164,
+          "score": 0.4878048780487805,
+          "unit_test_outcomes": {
+            "failed_tests": 57,
+            "passed": 80,
+            "syntax_error": 27
+          }
+        },
+        "731221-lower_lr_kl-dot": {
+          "correct": 82,
+          "n": 164,
+          "score": 0.5,
+          "unit_test_outcomes": {
+            "failed_tests": 42,
+            "passed": 82,
+            "syntax_error": 40
+          }
+        },
+        "731221-lower_lr_kl-kam": {
+          "correct": 83,
+          "n": 164,
+          "score": 0.5060975609756098,
+          "unit_test_outcomes": {
+            "failed_tests": 47,
+            "passed": 83,
+            "syntax_error": 34
+          }
+        },
+        "731221-reference-dot": {
+          "correct": 76,
+          "n": 164,
+          "score": 0.4634146341463415,
+          "unit_test_outcomes": {
+            "failed_tests": 56,
+            "passed": 76,
+            "syntax_error": 32
+          }
+        },
+        "731221-reference-kam": {
+          "correct": 76,
+          "n": 164,
+          "score": 0.4634146341463415,
+          "unit_test_outcomes": {
+            "failed_tests": 62,
+            "passed": 76,
+            "syntax_error": 26
+          }
+        }
+      },
+      "sandbox_sha256": "76fd174ec7c8158794e4c4f584353f7789c21138ca12b9c807e86384fef32886",
+      "seed_means": {
+        "high_lr_kl-dot": {
+          "correct_by_seed": [
+            80,
+            82,
+            83
+          ],
+          "max": 0.5060975609756098,
+          "mean": 0.49796747967479676,
+          "min": 0.4878048780487805,
+          "retention": {
+            "lost_correct_by_seed": [
+              4,
+              5,
+              4
+            ],
+            "newly_correct_by_seed": [
+              6,
+              9,
+              9
+            ],
+            "retained_correct_by_seed": [
+              74,
+              73,
+              74
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.012195121951219513,
+              0.024390243902439025,
+              0.03048780487804878
+            ],
+            "mean_delta": 0.022357723577235773,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.014227642276422764,
+              0.05894308943089431
+            ]
+          }
+        },
+        "high_lr_kl-kam": {
+          "correct_by_seed": [
+            83,
+            86,
+            82
+          ],
+          "max": 0.524390243902439,
+          "mean": 0.5101626016260162,
+          "min": 0.5,
+          "retention": {
+            "lost_correct_by_seed": [
+              5,
+              4,
+              3
+            ],
+            "newly_correct_by_seed": [
+              10,
+              12,
+              7
+            ],
+            "retained_correct_by_seed": [
+              73,
+              74,
+              75
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.03048780487804878,
+              0.04878048780487805,
+              0.024390243902439025
+            ],
+            "mean_delta": 0.034552845528455285,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.0040650406504065045,
+              0.07317073170731707
+            ]
+          }
+        },
+        "lower_lr-dot": {
+          "correct_by_seed": [
+            77,
+            80,
+            82
+          ],
+          "max": 0.5,
+          "mean": 0.48577235772357724,
+          "min": 0.4695121951219512,
+          "retention": {
+            "lost_correct_by_seed": [
+              17,
+              16,
+              14
+            ],
+            "newly_correct_by_seed": [
+              16,
+              18,
+              18
+            ],
+            "retained_correct_by_seed": [
+              61,
+              62,
+              64
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.006097560975609756,
+              0.012195121951219513,
+              0.024390243902439025
+            ],
+            "mean_delta": 0.01016260162601626,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.054878048780487805,
+              0.07520325203252033
+            ]
+          }
+        },
+        "lower_lr-kam": {
+          "correct_by_seed": [
+            83,
+            81,
+            80
+          ],
+          "max": 0.5060975609756098,
+          "mean": 0.4959349593495935,
+          "min": 0.4878048780487805,
+          "retention": {
+            "lost_correct_by_seed": [
+              8,
+              12,
+              12
+            ],
+            "newly_correct_by_seed": [
+              13,
+              15,
+              14
+            ],
+            "retained_correct_by_seed": [
+              70,
+              66,
+              66
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.03048780487804878,
+              0.018292682926829267,
+              0.012195121951219513
+            ],
+            "mean_delta": 0.02032520325203252,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.032520325203252036,
+              0.07317073170731707
+            ]
+          }
+        },
+        "lower_lr_kl-dot": {
+          "correct_by_seed": [
+            81,
+            83,
+            82
+          ],
+          "max": 0.5060975609756098,
+          "mean": 0.5,
+          "min": 0.49390243902439024,
+          "retention": {
+            "lost_correct_by_seed": [
+              4,
+              5,
+              4
+            ],
+            "newly_correct_by_seed": [
+              7,
+              10,
+              8
+            ],
+            "retained_correct_by_seed": [
+              74,
+              73,
+              74
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.018292682926829267,
+              0.03048780487804878,
+              0.024390243902439025
+            ],
+            "mean_delta": 0.024390243902439025,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.014227642276422764,
+              0.06504065040650407
+            ]
+          }
+        },
+        "lower_lr_kl-kam": {
+          "correct_by_seed": [
+            81,
+            80,
+            83
+          ],
+          "max": 0.5060975609756098,
+          "mean": 0.4959349593495935,
+          "min": 0.4878048780487805,
+          "retention": {
+            "lost_correct_by_seed": [
+              5,
+              5,
+              3
+            ],
+            "newly_correct_by_seed": [
+              8,
+              7,
+              8
+            ],
+            "retained_correct_by_seed": [
+              73,
+              73,
+              75
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.018292682926829267,
+              0.012195121951219513,
+              0.03048780487804878
+            ],
+            "mean_delta": 0.02032520325203252,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.018292682926829267,
+              0.05894308943089431
+            ]
+          }
+        },
+        "reference-dot": {
+          "correct_by_seed": [
+            77,
+            83,
+            76
+          ],
+          "max": 0.5060975609756098,
+          "mean": 0.4796747967479675,
+          "min": 0.4634146341463415,
+          "retention": {
+            "lost_correct_by_seed": [
+              17,
+              12,
+              14
+            ],
+            "newly_correct_by_seed": [
+              16,
+              17,
+              12
+            ],
+            "retained_correct_by_seed": [
+              61,
+              66,
+              64
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.006097560975609756,
+              0.03048780487804878,
+              -0.012195121951219513
+            ],
+            "mean_delta": 0.0040650406504065045,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.052845528455284556,
+              0.06097560975609756
+            ]
+          }
+        },
+        "reference-kam": {
+          "correct_by_seed": [
+            74,
+            67,
+            76
+          ],
+          "max": 0.4634146341463415,
+          "mean": 0.44105691056910573,
+          "min": 0.40853658536585363,
+          "retention": {
+            "lost_correct_by_seed": [
+              17,
+              20,
+              14
+            ],
+            "newly_correct_by_seed": [
+              13,
+              9,
+              12
+            ],
+            "retained_correct_by_seed": [
+              61,
+              58,
+              64
+            ],
+            "untouched_correct": 78
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.024390243902439025,
+              -0.06707317073170732,
+              -0.012195121951219513
+            ],
+            "mean_delta": -0.034552845528455285,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.08943089430894309,
+              0.018292682926829267
+            ]
+          }
+        }
+      },
+      "source_sha256": "2f2871a15fbc95b6c683043359f4ed8e144c5a1c4f24f25f66bc51f598dfcfb6",
+      "untouched": {
+        "correct": 78,
+        "n": 164,
+        "score": 0.47560975609756095,
+        "unit_test_outcomes": {
+          "failed_tests": 47,
+          "passed": 78,
+          "syntax_error": 39
+        }
+      }
+    },
+    "mbpp": {
+      "cache_checks": {
+        "0-untouched-pretrained": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01999354548752308,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.018988491967320442,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.234375,
+          "mean_abs": 0.020095642656087875,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.16015625,
+          "mean_abs": 0.01881318911910057,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016835469752550125,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016937047243118286,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.020544132217764854,
+          "same_argmax": 2
+        },
+        "731201-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.01759599894285202,
+          "same_argmax": 2
+        },
+        "731201-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.46875,
+          "mean_abs": 0.04664240777492523,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.017856445163488388,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01742934063076973,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1572265625,
+          "mean_abs": 0.018801432102918625,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.020922742784023285,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016805218532681465,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.01526638399809599,
+          "same_argmax": 2
+        },
+        "731211-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016927996650338173,
+          "same_argmax": 2
+        },
+        "731211-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.018032800406217575,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.021125933155417442,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.016536928713321686,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1328125,
+          "mean_abs": 0.018559196963906288,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.109375,
+          "mean_abs": 0.01741044968366623,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.015112310647964478,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.107421875,
+          "mean_abs": 0.017084628343582153,
+          "same_argmax": 2
+        },
+        "731221-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.020250169560313225,
+          "same_argmax": 2
+        },
+        "731221-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.16796875,
+          "mean_abs": 0.024701803922653198,
+          "same_argmax": 2
+        }
+      },
+      "contrasts": {
+        "dot:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.026,
+            0.044,
+            0.024
+          ],
+          "mean_delta": 0.03133333333333333,
+          "paired_item_bootstrap95_given_seeds": [
+            0.008666666666666666,
+            0.054
+          ]
+        },
+        "dot:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            0.014,
+            0.022,
+            0.018
+          ],
+          "mean_delta": 0.018,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.002,
+            0.03866666666666667
+          ]
+        },
+        "dot:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            0.012,
+            0.022,
+            0.006
+          ],
+          "mean_delta": 0.013333333333333334,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.012666666666666666,
+            0.03933333333333333
+          ]
+        },
+        "dot:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.022,
+            0.032,
+            0.01
+          ],
+          "mean_delta": 0.021333333333333333,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.0020166666666666514,
+            0.04466666666666667
+          ]
+        },
+        "dot:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            0.01,
+            0.01,
+            0.004
+          ],
+          "mean_delta": 0.008,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.008666666666666666,
+            0.024666666666666667
+          ]
+        },
+        "high_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            0.014,
+            -0.018,
+            -0.012
+          ],
+          "mean_delta": -0.005333333333333333,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.017333333333333333,
+            0.006666666666666667
+          ]
+        },
+        "kam:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.09,
+            0.084,
+            0.038
+          ],
+          "mean_delta": 0.07066666666666667,
+          "paired_item_bootstrap95_given_seeds": [
+            0.043333333333333335,
+            0.098
+          ]
+        },
+        "kam:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            0.098,
+            0.098,
+            0.028
+          ],
+          "mean_delta": 0.07466666666666667,
+          "paired_item_bootstrap95_given_seeds": [
+            0.048666666666666664,
+            0.102
+          ]
+        },
+        "kam:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            -0.008,
+            -0.014,
+            0.01
+          ],
+          "mean_delta": -0.004,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.023333333333333334,
+            0.015333333333333332
+          ]
+        },
+        "kam:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.07,
+            0.1,
+            0.044
+          ],
+          "mean_delta": 0.07133333333333333,
+          "paired_item_bootstrap95_given_seeds": [
+            0.044,
+            0.09934999999999854
+          ]
+        },
+        "kam:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            0.078,
+            0.114,
+            0.034
+          ],
+          "mean_delta": 0.07533333333333334,
+          "paired_item_bootstrap95_given_seeds": [
+            0.05,
+            0.1
+          ]
+        },
+        "lower_lr:kam-minus-dot": {
+          "delta_by_seed": [
+            0.018,
+            0.046,
+            0.004
+          ],
+          "mean_delta": 0.02266666666666667,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.0006666666666666666,
+            0.04666666666666667
+          ]
+        },
+        "lower_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            -0.002,
+            0.01,
+            0.008
+          ],
+          "mean_delta": 0.005333333333333333,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.011333333333333334,
+            0.021333333333333333
+          ]
+        },
+        "reference:kam-minus-dot": {
+          "delta_by_seed": [
+            -0.05,
+            -0.058,
+            -0.026
+          ],
+          "mean_delta": -0.04466666666666667,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.06933333333333333,
+            -0.020666666666666667
+          ]
+        }
+      },
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "max_prompt_tokens": 1072,
+      "n": 500,
+      "per_checkpoint": {
+        "0-untouched-pretrained": {
+          "correct": 246,
+          "n": 500,
+          "score": 0.492,
+          "unit_test_outcomes": {
+            "failed_tests": 253,
+            "no_definition": 1,
+            "passed": 246
+          }
+        },
+        "731201-high_lr_kl-dot": {
+          "correct": 247,
+          "n": 500,
+          "score": 0.494,
+          "unit_test_outcomes": {
+            "failed_tests": 250,
+            "no_definition": 1,
+            "passed": 247,
+            "syntax_error": 2
+          }
+        },
+        "731201-high_lr_kl-kam": {
+          "correct": 254,
+          "n": 500,
+          "score": 0.508,
+          "unit_test_outcomes": {
+            "failed_tests": 244,
+            "no_definition": 1,
+            "passed": 254,
+            "syntax_error": 1
+          }
+        },
+        "731201-lower_lr-dot": {
+          "correct": 239,
+          "n": 500,
+          "score": 0.478,
+          "unit_test_outcomes": {
+            "failed_tests": 253,
+            "passed": 239,
+            "syntax_error": 8
+          }
+        },
+        "731201-lower_lr-kam": {
+          "correct": 248,
+          "n": 500,
+          "score": 0.496,
+          "unit_test_outcomes": {
+            "failed_tests": 251,
+            "passed": 248,
+            "syntax_error": 1
+          }
+        },
+        "731201-lower_lr_kl-dot": {
+          "correct": 245,
+          "n": 500,
+          "score": 0.49,
+          "unit_test_outcomes": {
+            "failed_tests": 254,
+            "passed": 245,
+            "syntax_error": 1
+          }
+        },
+        "731201-lower_lr_kl-kam": {
+          "correct": 244,
+          "n": 500,
+          "score": 0.488,
+          "unit_test_outcomes": {
+            "failed_tests": 255,
+            "no_definition": 1,
+            "passed": 244
+          }
+        },
+        "731201-reference-dot": {
+          "correct": 234,
+          "n": 500,
+          "score": 0.468,
+          "unit_test_outcomes": {
+            "failed_tests": 261,
+            "passed": 234,
+            "syntax_error": 5
+          }
+        },
+        "731201-reference-kam": {
+          "correct": 209,
+          "n": 500,
+          "score": 0.418,
+          "unit_test_outcomes": {
+            "failed_tests": 254,
+            "passed": 209,
+            "syntax_error": 37
+          }
+        },
+        "731211-high_lr_kl-dot": {
+          "correct": 244,
+          "n": 500,
+          "score": 0.488,
+          "unit_test_outcomes": {
+            "failed_tests": 254,
+            "no_definition": 1,
+            "passed": 244,
+            "syntax_error": 1
+          }
+        },
+        "731211-high_lr_kl-kam": {
+          "correct": 235,
+          "n": 500,
+          "score": 0.47,
+          "unit_test_outcomes": {
+            "failed_tests": 262,
+            "no_definition": 1,
+            "passed": 235,
+            "syntax_error": 2
+          }
+        },
+        "731211-lower_lr-dot": {
+          "correct": 227,
+          "n": 500,
+          "score": 0.454,
+          "unit_test_outcomes": {
+            "failed_tests": 267,
+            "no_definition": 1,
+            "passed": 227,
+            "syntax_error": 5
+          }
+        },
+        "731211-lower_lr-kam": {
+          "correct": 250,
+          "n": 500,
+          "score": 0.5,
+          "unit_test_outcomes": {
+            "failed_tests": 247,
+            "no_definition": 1,
+            "passed": 250,
+            "syntax_error": 2
+          }
+        },
+        "731211-lower_lr_kl-dot": {
+          "correct": 238,
+          "n": 500,
+          "score": 0.476,
+          "unit_test_outcomes": {
+            "failed_tests": 261,
+            "passed": 238,
+            "syntax_error": 1
+          }
+        },
+        "731211-lower_lr_kl-kam": {
+          "correct": 243,
+          "n": 500,
+          "score": 0.486,
+          "unit_test_outcomes": {
+            "failed_tests": 256,
+            "no_definition": 1,
+            "passed": 243
+          }
+        },
+        "731211-reference-dot": {
+          "correct": 222,
+          "n": 500,
+          "score": 0.444,
+          "unit_test_outcomes": {
+            "failed_tests": 259,
+            "passed": 222,
+            "syntax_error": 19
+          }
+        },
+        "731211-reference-kam": {
+          "correct": 193,
+          "n": 500,
+          "score": 0.386,
+          "unit_test_outcomes": {
+            "failed_tests": 265,
+            "passed": 193,
+            "syntax_error": 42
+          }
+        },
+        "731221-high_lr_kl-dot": {
+          "correct": 248,
+          "n": 500,
+          "score": 0.496,
+          "unit_test_outcomes": {
+            "failed_tests": 251,
+            "no_definition": 1,
+            "passed": 248
+          }
+        },
+        "731221-high_lr_kl-kam": {
+          "correct": 242,
+          "n": 500,
+          "score": 0.484,
+          "unit_test_outcomes": {
+            "failed_tests": 256,
+            "no_definition": 1,
+            "passed": 242,
+            "syntax_error": 1
+          }
+        },
+        "731221-lower_lr-dot": {
+          "correct": 238,
+          "n": 500,
+          "score": 0.476,
+          "unit_test_outcomes": {
+            "failed_tests": 254,
+            "passed": 238,
+            "syntax_error": 8
+          }
+        },
+        "731221-lower_lr-kam": {
+          "correct": 240,
+          "n": 500,
+          "score": 0.48,
+          "unit_test_outcomes": {
+            "failed_tests": 260,
+            "passed": 240
+          }
+        },
+        "731221-lower_lr_kl-dot": {
+          "correct": 241,
+          "n": 500,
+          "score": 0.482,
+          "unit_test_outcomes": {
+            "failed_tests": 259,
+            "passed": 241
+          }
+        },
+        "731221-lower_lr_kl-kam": {
+          "correct": 245,
+          "n": 500,
+          "score": 0.49,
+          "unit_test_outcomes": {
+            "failed_tests": 254,
+            "no_definition": 1,
+            "passed": 245
+          }
+        },
+        "731221-reference-dot": {
+          "correct": 236,
+          "n": 500,
+          "score": 0.472,
+          "unit_test_outcomes": {
+            "failed_tests": 252,
+            "passed": 236,
+            "syntax_error": 12
+          }
+        },
+        "731221-reference-kam": {
+          "correct": 223,
+          "n": 500,
+          "score": 0.446,
+          "unit_test_outcomes": {
+            "failed_tests": 251,
+            "no_definition": 1,
+            "passed": 223,
+            "syntax_error": 25
+          }
+        }
+      },
+      "sandbox_sha256": "76fd174ec7c8158794e4c4f584353f7789c21138ca12b9c807e86384fef32886",
+      "seed_means": {
+        "high_lr_kl-dot": {
+          "correct_by_seed": [
+            247,
+            244,
+            248
+          ],
+          "max": 0.496,
+          "mean": 0.49266666666666664,
+          "min": 0.488,
+          "retention": {
+            "lost_correct_by_seed": [
+              17,
+              19,
+              12
+            ],
+            "newly_correct_by_seed": [
+              18,
+              17,
+              14
+            ],
+            "retained_correct_by_seed": [
+              229,
+              227,
+              234
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.002,
+              -0.004,
+              0.004
+            ],
+            "mean_delta": 0.0006666666666666666,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.018666666666666668,
+              0.019333333333333334
+            ]
+          }
+        },
+        "high_lr_kl-kam": {
+          "correct_by_seed": [
+            254,
+            235,
+            242
+          ],
+          "max": 0.508,
+          "mean": 0.48733333333333334,
+          "min": 0.47,
+          "retention": {
+            "lost_correct_by_seed": [
+              8,
+              23,
+              16
+            ],
+            "newly_correct_by_seed": [
+              16,
+              12,
+              12
+            ],
+            "retained_correct_by_seed": [
+              238,
+              223,
+              230
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.016,
+              -0.022,
+              -0.008
+            ],
+            "mean_delta": -0.004666666666666667,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.02266666666666667,
+              0.013333333333333334
+            ]
+          }
+        },
+        "lower_lr-dot": {
+          "correct_by_seed": [
+            239,
+            227,
+            238
+          ],
+          "max": 0.478,
+          "mean": 0.4693333333333333,
+          "min": 0.454,
+          "retention": {
+            "lost_correct_by_seed": [
+              32,
+              42,
+              36
+            ],
+            "newly_correct_by_seed": [
+              25,
+              23,
+              28
+            ],
+            "retained_correct_by_seed": [
+              214,
+              204,
+              210
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.014,
+              -0.038,
+              -0.016
+            ],
+            "mean_delta": -0.02266666666666667,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.050666666666666665,
+              0.004666666666666667
+            ]
+          }
+        },
+        "lower_lr-kam": {
+          "correct_by_seed": [
+            248,
+            250,
+            240
+          ],
+          "max": 0.5,
+          "mean": 0.492,
+          "min": 0.48,
+          "retention": {
+            "lost_correct_by_seed": [
+              22,
+              19,
+              23
+            ],
+            "newly_correct_by_seed": [
+              24,
+              23,
+              17
+            ],
+            "retained_correct_by_seed": [
+              224,
+              227,
+              223
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.004,
+              0.008,
+              -0.012
+            ],
+            "mean_delta": 0.0,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.023333333333333334,
+              0.02268333333333188
+            ]
+          }
+        },
+        "lower_lr_kl-dot": {
+          "correct_by_seed": [
+            245,
+            238,
+            241
+          ],
+          "max": 0.49,
+          "mean": 0.48266666666666663,
+          "min": 0.476,
+          "retention": {
+            "lost_correct_by_seed": [
+              21,
+              24,
+              21
+            ],
+            "newly_correct_by_seed": [
+              20,
+              16,
+              16
+            ],
+            "retained_correct_by_seed": [
+              225,
+              222,
+              225
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.002,
+              -0.016,
+              -0.01
+            ],
+            "mean_delta": -0.009333333333333334,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.03266666666666666,
+              0.013333333333333334
+            ]
+          }
+        },
+        "lower_lr_kl-kam": {
+          "correct_by_seed": [
+            244,
+            243,
+            245
+          ],
+          "max": 0.49,
+          "mean": 0.488,
+          "min": 0.486,
+          "retention": {
+            "lost_correct_by_seed": [
+              12,
+              15,
+              12
+            ],
+            "newly_correct_by_seed": [
+              10,
+              12,
+              11
+            ],
+            "retained_correct_by_seed": [
+              234,
+              231,
+              234
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.004,
+              -0.006,
+              -0.002
+            ],
+            "mean_delta": -0.004,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.021333333333333333,
+              0.013333333333333334
+            ]
+          }
+        },
+        "reference-dot": {
+          "correct_by_seed": [
+            234,
+            222,
+            236
+          ],
+          "max": 0.472,
+          "mean": 0.4613333333333333,
+          "min": 0.444,
+          "retention": {
+            "lost_correct_by_seed": [
+              38,
+              46,
+              31
+            ],
+            "newly_correct_by_seed": [
+              26,
+              22,
+              21
+            ],
+            "retained_correct_by_seed": [
+              208,
+              200,
+              215
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.024,
+              -0.048,
+              -0.02
+            ],
+            "mean_delta": -0.030666666666666665,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.05733333333333333,
+              -0.004666666666666667
+            ]
+          }
+        },
+        "reference-kam": {
+          "correct_by_seed": [
+            209,
+            193,
+            223
+          ],
+          "max": 0.446,
+          "mean": 0.4166666666666667,
+          "min": 0.386,
+          "retention": {
+            "lost_correct_by_seed": [
+              57,
+              77,
+              48
+            ],
+            "newly_correct_by_seed": [
+              20,
+              24,
+              25
+            ],
+            "retained_correct_by_seed": [
+              189,
+              169,
+              198
+            ],
+            "untouched_correct": 246
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.074,
+              -0.106,
+              -0.046
+            ],
+            "mean_delta": -0.07533333333333334,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.10533333333333333,
+              -0.04533333333333334
+            ]
+          }
+        }
+      },
+      "source_sha256": "566fd53060ffba5766dace1d1e2f4c38906781526de222b0dfbdbc325b696c77",
+      "untouched": {
+        "correct": 246,
+        "n": 500,
+        "score": 0.492,
+        "unit_test_outcomes": {
+          "failed_tests": 253,
+          "no_definition": 1,
+          "passed": 246
+        }
+      }
+    },
+    "mmlu": {
+      "cache_checks": {
+        "0-untouched-pretrained": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01999354548752308,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.018988491967320442,
+          "same_argmax": 2
+        },
+        "731201-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.234375,
+          "mean_abs": 0.020095642656087875,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.16015625,
+          "mean_abs": 0.01881318911910057,
+          "same_argmax": 2
+        },
+        "731201-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016835469752550125,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.016937047243118286,
+          "same_argmax": 2
+        },
+        "731201-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.020544132217764854,
+          "same_argmax": 2
+        },
+        "731201-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.01759599894285202,
+          "same_argmax": 2
+        },
+        "731201-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.46875,
+          "mean_abs": 0.04664240777492523,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.017856445163488388,
+          "same_argmax": 2
+        },
+        "731211-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.15625,
+          "mean_abs": 0.01742934063076973,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1572265625,
+          "mean_abs": 0.018801432102918625,
+          "same_argmax": 2
+        },
+        "731211-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.020922742784023285,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016805218532681465,
+          "same_argmax": 2
+        },
+        "731211-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.140625,
+          "mean_abs": 0.01526638399809599,
+          "same_argmax": 2
+        },
+        "731211-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1015625,
+          "mean_abs": 0.016927996650338173,
+          "same_argmax": 2
+        },
+        "731211-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.018032800406217575,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.021125933155417442,
+          "same_argmax": 2
+        },
+        "731221-high_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.12890625,
+          "mean_abs": 0.016536928713321686,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-dot": {
+          "cases": 2,
+          "max_abs": 0.1328125,
+          "mean_abs": 0.018559196963906288,
+          "same_argmax": 2
+        },
+        "731221-lower_lr-kam": {
+          "cases": 2,
+          "max_abs": 0.109375,
+          "mean_abs": 0.01741044968366623,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-dot": {
+          "cases": 2,
+          "max_abs": 0.125,
+          "mean_abs": 0.015112310647964478,
+          "same_argmax": 2
+        },
+        "731221-lower_lr_kl-kam": {
+          "cases": 2,
+          "max_abs": 0.107421875,
+          "mean_abs": 0.017084628343582153,
+          "same_argmax": 2
+        },
+        "731221-reference-dot": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.020250169560313225,
+          "same_argmax": 2
+        },
+        "731221-reference-kam": {
+          "cases": 2,
+          "max_abs": 0.16796875,
+          "mean_abs": 0.024701803922653198,
+          "same_argmax": 2
+        }
+      },
+      "contrasts": {
+        "dot:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.008260931491240565,
+            0.016165788349238,
+            0.007263922518159807
+          ],
+          "mean_delta": 0.010563547452879457,
+          "paired_item_bootstrap95_given_seeds": [
+            0.00645682001614205,
+            0.014647130038456009
+          ]
+        },
+        "dot:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            -0.007762427004700185,
+            0.008118501637943313,
+            -0.00847457627118644
+          ],
+          "mean_delta": -0.002706167212647771,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.005744670749655794,
+            0.0004035512510088781
+          ]
+        },
+        "dot:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            0.016023358495940748,
+            0.008047286711294687,
+            0.015738498789346248
+          ],
+          "mean_delta": 0.013269714665527227,
+          "paired_item_bootstrap95_given_seeds": [
+            0.00847457627118644,
+            0.01804170820870716
+          ]
+        },
+        "dot:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.00897308075772682,
+            0.01552485400940037,
+            0.009186725537672696
+          ],
+          "mean_delta": 0.011228220101599962,
+          "paired_item_bootstrap95_given_seeds": [
+            0.00705027773821393,
+            0.01533494753833737
+          ]
+        },
+        "dot:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            -0.00705027773821393,
+            0.007477567298105683,
+            -0.00655177325167355
+          ],
+          "mean_delta": -0.002041494563927266,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.0048663533209894125,
+            0.0007121492664862555
+          ]
+        },
+        "high_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            0.00256373735935052,
+            7.121492664862555e-05,
+            0.0017803731662156387
+          ],
+          "mean_delta": 0.0014717751507382613,
+          "paired_item_bootstrap95_given_seeds": [
+            4.747661776575037e-05,
+            0.0028729288325499173
+          ]
+        },
+        "kam:kl-at-high-lr": {
+          "delta_by_seed": [
+            0.007691212078051559,
+            0.010539809143996581,
+            0.0063381284717276744
+          ],
+          "mean_delta": 0.008189716564591939,
+          "paired_item_bootstrap95_given_seeds": [
+            0.003608222950197028,
+            0.012653112092294493
+          ]
+        },
+        "kam:kl-high-minus-low-interaction": {
+          "delta_by_seed": [
+            0.0036319612590799033,
+            0.009898874804158951,
+            0.009471585244267198
+          ],
+          "mean_delta": 0.007667473769168685,
+          "paired_item_bootstrap95_given_seeds": [
+            0.0036556995679627785,
+            0.01163177135260884
+          ]
+        },
+        "kam:kl-minus-lower-lr": {
+          "delta_by_seed": [
+            0.0040592508189716565,
+            0.00064093433983763,
+            -0.0031334567725395243
+          ],
+          "mean_delta": 0.0005222427954232541,
+          "paired_item_bootstrap95_given_seeds": [
+            -0.0023500925794046434,
+            0.0033945781702511514
+          ]
+        },
+        "kam:lower-lr-kl-minus-reference": {
+          "delta_by_seed": [
+            0.008617006124483692,
+            0.010611024070645207,
+            0.007477567298105683
+          ],
+          "mean_delta": 0.008901865831078194,
+          "paired_item_bootstrap95_given_seeds": [
+            0.004367848834449034,
+            0.013459621136590228
+          ]
+        },
+        "kam:lower-lr-minus-reference": {
+          "delta_by_seed": [
+            0.004557755305512035,
+            0.009970089730807577,
+            0.010611024070645207
+          ],
+          "mean_delta": 0.00837962303565494,
+          "paired_item_bootstrap95_given_seeds": [
+            0.004415325452214784,
+            0.01227270569244647
+          ]
+        },
+        "lower_lr:kam-minus-dot": {
+          "delta_by_seed": [
+            0.01474148981626549,
+            0.008189716564591939,
+            0.01986896453496653
+          ],
+          "mean_delta": 0.014266723638607986,
+          "paired_item_bootstrap95_given_seeds": [
+            0.009875136495276077,
+            0.01858709585529127
+          ]
+        },
+        "lower_lr_kl:kam-minus-dot": {
+          "delta_by_seed": [
+            0.0027773821392963966,
+            0.0007833641931348811,
+            0.0009970089730807576
+          ],
+          "mean_delta": 0.0015192517685040118,
+          "paired_item_bootstrap95_given_seeds": [
+            0.00011869154441437592,
+            0.0029435503014765226
+          ]
+        },
+        "reference:kam-minus-dot": {
+          "delta_by_seed": [
+            0.0031334567725395243,
+            0.005697194131890044,
+            0.002706167212647771
+          ],
+          "mean_delta": 0.0038456060390257797,
+          "paired_item_bootstrap95_given_seeds": [
+            0.00045043441105255716,
+            0.0071452309737454305
+          ]
+        }
+      },
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "max_prompt_tokens": 1000,
+      "n": 14042,
+      "per_checkpoint": {
+        "0-untouched-pretrained": {
+          "answer_letter_counts": {
+            "A": 4668,
+            "B": 4034,
+            "C": 2634,
+            "D": 2706
+          },
+          "correct": 8593,
+          "n": 14042,
+          "score": 0.6119498646916394
+        },
+        "731201-high_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 4512,
+            "B": 4307,
+            "C": 2615,
+            "D": 2608
+          },
+          "correct": 8575,
+          "n": 14042,
+          "score": 0.6106679960119641
+        },
+        "731201-high_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 4551,
+            "B": 4255,
+            "C": 2546,
+            "D": 2690
+          },
+          "correct": 8611,
+          "n": 14042,
+          "score": 0.6132317333713146
+        },
+        "731201-lower_lr-dot": {
+          "answer_letter_counts": {
+            "A": 3507,
+            "B": 5409,
+            "C": 2440,
+            "D": 2686
+          },
+          "correct": 8360,
+          "n": 14042,
+          "score": 0.5953567867825096
+        },
+        "731201-lower_lr-kam": {
+          "answer_letter_counts": {
+            "A": 4283,
+            "B": 4520,
+            "C": 2540,
+            "D": 2699
+          },
+          "correct": 8567,
+          "n": 14042,
+          "score": 0.6100982765987751
+        },
+        "731201-lower_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 4603,
+            "B": 4221,
+            "C": 2569,
+            "D": 2649
+          },
+          "correct": 8585,
+          "n": 14042,
+          "score": 0.6113801452784504
+        },
+        "731201-lower_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 4405,
+            "B": 4352,
+            "C": 2594,
+            "D": 2691
+          },
+          "correct": 8624,
+          "n": 14042,
+          "score": 0.6141575274177468
+        },
+        "731201-reference-dot": {
+          "answer_letter_counts": {
+            "A": 3966,
+            "B": 5018,
+            "C": 2440,
+            "D": 2618
+          },
+          "correct": 8459,
+          "n": 14042,
+          "score": 0.6024070645207236
+        },
+        "731201-reference-kam": {
+          "answer_letter_counts": {
+            "A": 3018,
+            "B": 5453,
+            "C": 2633,
+            "D": 2938
+          },
+          "correct": 8503,
+          "n": 14042,
+          "score": 0.6055405212932631
+        },
+        "731211-high_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 4559,
+            "B": 4219,
+            "C": 2620,
+            "D": 2644
+          },
+          "correct": 8600,
+          "n": 14042,
+          "score": 0.6124483691781798
+        },
+        "731211-high_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 4437,
+            "B": 4325,
+            "C": 2591,
+            "D": 2689
+          },
+          "correct": 8601,
+          "n": 14042,
+          "score": 0.6125195841048283
+        },
+        "731211-lower_lr-dot": {
+          "answer_letter_counts": {
+            "A": 3441,
+            "B": 5196,
+            "C": 2615,
+            "D": 2790
+          },
+          "correct": 8478,
+          "n": 14042,
+          "score": 0.6037601481270475
+        },
+        "731211-lower_lr-kam": {
+          "answer_letter_counts": {
+            "A": 4334,
+            "B": 4416,
+            "C": 2592,
+            "D": 2700
+          },
+          "correct": 8593,
+          "n": 14042,
+          "score": 0.6119498646916394
+        },
+        "731211-lower_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 4559,
+            "B": 4266,
+            "C": 2561,
+            "D": 2656
+          },
+          "correct": 8591,
+          "n": 14042,
+          "score": 0.6118074348383421
+        },
+        "731211-lower_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 4511,
+            "B": 4268,
+            "C": 2593,
+            "D": 2670
+          },
+          "correct": 8602,
+          "n": 14042,
+          "score": 0.612590799031477
+        },
+        "731211-reference-dot": {
+          "answer_letter_counts": {
+            "A": 3834,
+            "B": 4924,
+            "C": 2535,
+            "D": 2749
+          },
+          "correct": 8373,
+          "n": 14042,
+          "score": 0.5962825808289417
+        },
+        "731211-reference-kam": {
+          "answer_letter_counts": {
+            "A": 3907,
+            "B": 4619,
+            "C": 2506,
+            "D": 3010
+          },
+          "correct": 8453,
+          "n": 14042,
+          "score": 0.6019797749608318
+        },
+        "731221-high_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 4677,
+            "B": 4216,
+            "C": 2551,
+            "D": 2598
+          },
+          "correct": 8559,
+          "n": 14042,
+          "score": 0.6095285571855861
+        },
+        "731221-high_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 4572,
+            "B": 4241,
+            "C": 2576,
+            "D": 2653
+          },
+          "correct": 8584,
+          "n": 14042,
+          "score": 0.6113089303518018
+        },
+        "731221-lower_lr-dot": {
+          "answer_letter_counts": {
+            "A": 3366,
+            "B": 5587,
+            "C": 2362,
+            "D": 2727
+          },
+          "correct": 8365,
+          "n": 14042,
+          "score": 0.5957128614157527
+        },
+        "731221-lower_lr-kam": {
+          "answer_letter_counts": {
+            "A": 3933,
+            "B": 4625,
+            "C": 2671,
+            "D": 2813
+          },
+          "correct": 8644,
+          "n": 14042,
+          "score": 0.6155818259507193
+        },
+        "731221-lower_lr_kl-dot": {
+          "answer_letter_counts": {
+            "A": 4533,
+            "B": 4279,
+            "C": 2571,
+            "D": 2659
+          },
+          "correct": 8586,
+          "n": 14042,
+          "score": 0.6114513602050989
+        },
+        "731221-lower_lr_kl-kam": {
+          "answer_letter_counts": {
+            "A": 4533,
+            "B": 4211,
+            "C": 2624,
+            "D": 2674
+          },
+          "correct": 8600,
+          "n": 14042,
+          "score": 0.6124483691781798
+        },
+        "731221-reference-dot": {
+          "answer_letter_counts": {
+            "A": 3875,
+            "B": 5026,
+            "C": 2397,
+            "D": 2744
+          },
+          "correct": 8457,
+          "n": 14042,
+          "score": 0.6022646346674263
+        },
+        "731221-reference-kam": {
+          "answer_letter_counts": {
+            "A": 3489,
+            "B": 5004,
+            "C": 2720,
+            "D": 2829
+          },
+          "correct": 8495,
+          "n": 14042,
+          "score": 0.604970801880074
+        }
+      },
+      "sandbox_sha256": null,
+      "seed_means": {
+        "high_lr_kl-dot": {
+          "correct_by_seed": [
+            8575,
+            8600,
+            8559
+          ],
+          "max": 0.6124483691781798,
+          "mean": 0.6108816407919101,
+          "min": 0.6095285571855861,
+          "retention": {
+            "lost_correct_by_seed": [
+              154,
+              126,
+              164
+            ],
+            "newly_correct_by_seed": [
+              136,
+              133,
+              130
+            ],
+            "retained_correct_by_seed": [
+              8439,
+              8467,
+              8429
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.00128186867967526,
+              0.0004985044865403788,
+              -0.002421307506053269
+            ],
+            "mean_delta": -0.0010682238997293833,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.0030147652281251485,
+              0.0008783174286663818
+            ]
+          }
+        },
+        "high_lr_kl-kam": {
+          "correct_by_seed": [
+            8611,
+            8601,
+            8584
+          ],
+          "max": 0.6132317333713146,
+          "mean": 0.6123534159426482,
+          "min": 0.6113089303518018,
+          "retention": {
+            "lost_correct_by_seed": [
+              150,
+              146,
+              134
+            ],
+            "newly_correct_by_seed": [
+              168,
+              154,
+              125
+            ],
+            "retained_correct_by_seed": [
+              8443,
+              8447,
+              8459
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.00128186867967526,
+              0.0005697194131890044,
+              -0.00064093433983763
+            ],
+            "mean_delta": 0.0004035512510088781,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.0016379433129183876,
+              0.002421307506053269
+            ]
+          }
+        },
+        "lower_lr-dot": {
+          "correct_by_seed": [
+            8360,
+            8478,
+            8365
+          ],
+          "max": 0.6037601481270475,
+          "mean": 0.5982765987751032,
+          "min": 0.5953567867825096,
+          "retention": {
+            "lost_correct_by_seed": [
+              899,
+              805,
+              927
+            ],
+            "newly_correct_by_seed": [
+              666,
+              690,
+              699
+            ],
+            "retained_correct_by_seed": [
+              7694,
+              7788,
+              7666
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.016593077909129752,
+              -0.008189716564591939,
+              -0.016237003275886626
+            ],
+            "mean_delta": -0.013673265916536106,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.018800740635237147,
+              -0.008498314580069315
+            ]
+          }
+        },
+        "lower_lr-kam": {
+          "correct_by_seed": [
+            8567,
+            8593,
+            8644
+          ],
+          "max": 0.6155818259507193,
+          "mean": 0.6125433224137112,
+          "min": 0.6100982765987751,
+          "retention": {
+            "lost_correct_by_seed": [
+              375,
+              372,
+              389
+            ],
+            "newly_correct_by_seed": [
+              349,
+              372,
+              440
+            ],
+            "retained_correct_by_seed": [
+              8218,
+              8221,
+              8204
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.0018515880928642644,
+              0.0,
+              0.0036319612590799033
+            ],
+            "mean_delta": 0.0005934577220718796,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.002824858757062147,
+              0.004035512510088781
+            ]
+          }
+        },
+        "lower_lr_kl-dot": {
+          "correct_by_seed": [
+            8585,
+            8591,
+            8586
+          ],
+          "max": 0.6118074348383421,
+          "mean": 0.6115463134406305,
+          "min": 0.6113801452784504,
+          "retention": {
+            "lost_correct_by_seed": [
+              126,
+              142,
+              131
+            ],
+            "newly_correct_by_seed": [
+              118,
+              140,
+              124
+            ],
+            "retained_correct_by_seed": [
+              8467,
+              8451,
+              8462
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.0005697194131890044,
+              -0.0001424298532972511,
+              -0.0004985044865403788
+            ],
+            "mean_delta": -0.0004035512510088781,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.002468784123819019,
+              0.001661681621801263
+            ]
+          }
+        },
+        "lower_lr_kl-kam": {
+          "correct_by_seed": [
+            8624,
+            8602,
+            8600
+          ],
+          "max": 0.6141575274177468,
+          "mean": 0.6130655652091345,
+          "min": 0.6124483691781798,
+          "retention": {
+            "lost_correct_by_seed": [
+              129,
+              118,
+              103
+            ],
+            "newly_correct_by_seed": [
+              160,
+              127,
+              110
+            ],
+            "retained_correct_by_seed": [
+              8464,
+              8475,
+              8490
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              0.002207662726107392,
+              0.00064093433983763,
+              0.0004985044865403788
+            ],
+            "mean_delta": 0.0011157005174951336,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.0008308408109006315,
+              0.003062241845890899
+            ]
+          }
+        },
+        "reference-dot": {
+          "correct_by_seed": [
+            8459,
+            8373,
+            8457
+          ],
+          "max": 0.6024070645207236,
+          "mean": 0.6003180933390305,
+          "min": 0.5962825808289417,
+          "retention": {
+            "lost_correct_by_seed": [
+              676,
+              803,
+              728
+            ],
+            "newly_correct_by_seed": [
+              542,
+              583,
+              592
+            ],
+            "retained_correct_by_seed": [
+              7917,
+              7790,
+              7865
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.009542800170915824,
+              -0.015667283862697622,
+              -0.009685230024213076
+            ],
+            "mean_delta": -0.01163177135260884,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.016189526658120876,
+              -0.007121492664862555
+            ]
+          }
+        },
+        "reference-kam": {
+          "correct_by_seed": [
+            8503,
+            8453,
+            8495
+          ],
+          "max": 0.6055405212932631,
+          "mean": 0.6041636993780563,
+          "min": 0.6019797749608318,
+          "retention": {
+            "lost_correct_by_seed": [
+              934,
+              794,
+              809
+            ],
+            "newly_correct_by_seed": [
+              844,
+              654,
+              711
+            ],
+            "retained_correct_by_seed": [
+              7659,
+              7799,
+              7784
+            ],
+            "untouched_correct": 8593
+          },
+          "vs_untouched": {
+            "delta_by_seed": [
+              -0.0064093433983762995,
+              -0.009970089730807577,
+              -0.006979062811565304
+            ],
+            "mean_delta": -0.00778616531358306,
+            "paired_item_bootstrap95_given_seeds": [
+              -0.01277121017898685,
+              -0.002824858757062147
+            ]
+          }
+        }
+      },
+      "source_sha256": "74a41822ce7d3def56e1682f958469c04642a5336a5ce912fa375fdb90fb25d7",
+      "untouched": {
+        "answer_letter_counts": {
+          "A": 4668,
+          "B": 4034,
+          "C": 2634,
+          "D": 2706
+        },
+        "correct": 8593,
+        "n": 14042,
+        "score": 0.6119498646916394
+      }
+    }
+  },
+  "training": {
+    "731201-high_lr_kl-dot": {
+      "adapter_sha256": "32e233dd1800a8b12938aaa67bf0f6a27529a9497c456ba3bf3ddda1bd361848",
+      "arm": "dot",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37683064832,
+      "peak_lr": 0.0008,
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 78.73625618033111,
+          "forward_kl": 0.021646350622177124,
+          "nll": {
+            "code": 1.3076239824295044,
+            "math": 0.8315128684043884,
+            "wiki": 2.3073086738586426
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 157.74192219600081,
+          "forward_kl": 0.01984921097755432,
+          "nll": {
+            "code": 1.2996559143066406,
+            "math": 0.7903459668159485,
+            "wiki": 2.2933380603790283
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731201-high_lr_kl-kam": {
+      "adapter_sha256": "77c0007f5961c2a5f0145ad5a97254df7373877ff3aed2de815a83456ce267f3",
+      "arm": "kam",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37688262144,
+      "peak_lr": 0.0008,
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 79.82289277203381,
+          "forward_kl": 0.01712804287672043,
+          "nll": {
+            "code": 1.3193130493164062,
+            "math": 0.8569527864456177,
+            "wiki": 2.3280930519104004
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 160.18477447330952,
+          "forward_kl": 0.017941851168870926,
+          "nll": {
+            "code": 1.3064296245574951,
+            "math": 0.8266993165016174,
+            "wiki": 2.310962677001953
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731201-lower_lr-dot": {
+      "adapter_sha256": "1af2e777c64e8ccfac5d4c362c0c1de7802caedaf72a94c403d9b95d1b881909",
+      "arm": "dot",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35508809216,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.338593708351254,
+          "forward_kl": 0.9385687112808228,
+          "nll": {
+            "code": 1.2462542057037354,
+            "math": 0.4065312445163727,
+            "wiki": 2.156275749206543
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 106.81692209281027,
+          "forward_kl": 1.036081075668335,
+          "nll": {
+            "code": 1.2381399869918823,
+            "math": 0.38994157314300537,
+            "wiki": 2.133857250213623
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731201-lower_lr-kam": {
+      "adapter_sha256": "e201ea87c161d795714528983e35ba6761644760c59c459d467aff1826fd5e29",
+      "arm": "kam",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35514006528,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 54.245960069820285,
+          "forward_kl": 0.15997670590877533,
+          "nll": {
+            "code": 1.3328568935394287,
+            "math": 1.1751577854156494,
+            "wiki": 2.309807538986206
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 108.78525247983634,
+          "forward_kl": 0.20976167917251587,
+          "nll": {
+            "code": 1.3248469829559326,
+            "math": 1.0318537950515747,
+            "wiki": 2.290071487426758
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731201-lower_lr_kl-dot": {
+      "adapter_sha256": "99a3f92a19ab18491d3bfad43a5b433829a0e647e192705789e3c54b2a26ee2d",
+      "arm": "dot",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37683064832,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 78.95133290626109,
+          "forward_kl": 0.019919542595744133,
+          "nll": {
+            "code": 1.3246517181396484,
+            "math": 0.8601602911949158,
+            "wiki": 2.3355984687805176
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 158.20523986406624,
+          "forward_kl": 0.018936429172754288,
+          "nll": {
+            "code": 1.3092982769012451,
+            "math": 0.832646369934082,
+            "wiki": 2.327549457550049
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731201-lower_lr_kl-kam": {
+      "adapter_sha256": "e7293baf19cb4f4755b1d6bc2e537f8fde4413aa030ffdb0ae741023a7a5fc99",
+      "arm": "kam",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37688262144,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 80.1820398196578,
+          "forward_kl": 0.011425873264670372,
+          "nll": {
+            "code": 1.377516508102417,
+            "math": 1.3679134845733643,
+            "wiki": 2.3764419555664062
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 160.7578809671104,
+          "forward_kl": 0.012205678038299084,
+          "nll": {
+            "code": 1.3727753162384033,
+            "math": 1.2594258785247803,
+            "wiki": 2.369154930114746
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731201-reference-dot": {
+      "adapter_sha256": "1cc4ebc273d28b68544521c5e3741bca722a6568a7ef5c555170eb9f61e0a97f",
+      "arm": "dot",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35508809216,
+      "peak_lr": 0.0008,
+      "recipe": "reference",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.20983372069895,
+          "forward_kl": 0.9816930294036865,
+          "nll": {
+            "code": 1.233866810798645,
+            "math": 0.3901500105857849,
+            "wiki": 2.1249353885650635
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 106.52080213092268,
+          "forward_kl": 1.138587236404419,
+          "nll": {
+            "code": 1.221569538116455,
+            "math": 0.3672618269920349,
+            "wiki": 2.1026852130889893
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731201-reference-kam": {
+      "adapter_sha256": "6d10fbff4ef3a9e0d37d298e0c53062b28c8bd25a05d4d6bbda86052ca6e82f4",
+      "arm": "kam",
+      "exposure_sha256": "107950a8484f06e654c92affc63391ec57c32c3f7a055189b6828bf06c535f5a",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35514006528,
+      "peak_lr": 0.0008,
+      "recipe": "reference",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731201,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.975805308669806,
+          "forward_kl": 0.848274827003479,
+          "nll": {
+            "code": 1.2834279537200928,
+            "math": 0.4167368710041046,
+            "wiki": 2.167105197906494
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 108.15031402371824,
+          "forward_kl": 0.9123480319976807,
+          "nll": {
+            "code": 1.2760095596313477,
+            "math": 0.39906710386276245,
+            "wiki": 2.149171829223633
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-high_lr_kl-dot": {
+      "adapter_sha256": "b7e145d51e197ba910de9aa0fef9a59baee1e9185bf9b514dc72d88b8af5923d",
+      "arm": "dot",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37683064832,
+      "peak_lr": 0.0008,
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 79.59556693956256,
+          "forward_kl": 0.023296600207686424,
+          "nll": {
+            "code": 1.3089475631713867,
+            "math": 0.8290250301361084,
+            "wiki": 2.309079170227051
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 159.43845273554325,
+          "forward_kl": 0.021077033132314682,
+          "nll": {
+            "code": 1.2906696796417236,
+            "math": 0.7814281582832336,
+            "wiki": 2.29681396484375
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-high_lr_kl-kam": {
+      "adapter_sha256": "bf39ef832e888e1f4b6bf1203fd536f76d856d6798a1e6a24bb7c395cde0a430",
+      "arm": "kam",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37688262144,
+      "peak_lr": 0.0008,
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 79.42252152971923,
+          "forward_kl": 0.019212793558835983,
+          "nll": {
+            "code": 1.31439208984375,
+            "math": 0.8656740188598633,
+            "wiki": 2.318579912185669
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 159.2551898676902,
+          "forward_kl": 0.018378552049398422,
+          "nll": {
+            "code": 1.3076295852661133,
+            "math": 0.8239001631736755,
+            "wiki": 2.311100721359253
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-lower_lr-dot": {
+      "adapter_sha256": "16696975c8896bea63165b3d1aba4cc8915cc29a3894dcbdea388010aa657842",
+      "arm": "dot",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35508809216,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.33175231330097,
+          "forward_kl": 0.9078091979026794,
+          "nll": {
+            "code": 1.25209641456604,
+            "math": 0.41582825779914856,
+            "wiki": 2.150115489959717
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 106.8531633708626,
+          "forward_kl": 0.9737023711204529,
+          "nll": {
+            "code": 1.2356607913970947,
+            "math": 0.39860936999320984,
+            "wiki": 2.1327590942382812
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-lower_lr-kam": {
+      "adapter_sha256": "baa5bf4939e6f3c91dc5f88ae492efe4455571a767bbfd7a774064b72fc1fb3c",
+      "arm": "kam",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35514006528,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.75481303408742,
+          "forward_kl": 0.15985730290412903,
+          "nll": {
+            "code": 1.3341329097747803,
+            "math": 1.1874003410339355,
+            "wiki": 2.310729742050171
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 107.75190221518278,
+          "forward_kl": 0.2077818512916565,
+          "nll": {
+            "code": 1.3331218957901,
+            "math": 1.0577521324157715,
+            "wiki": 2.2912731170654297
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-lower_lr_kl-dot": {
+      "adapter_sha256": "3868902d840fd7c7a24034ef06aaa02d9f8c354ee9417385cc20a09c0df0ec37",
+      "arm": "dot",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37683064832,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 79.38311458751559,
+          "forward_kl": 0.01962100714445114,
+          "nll": {
+            "code": 1.3122448921203613,
+            "math": 0.8492424488067627,
+            "wiki": 2.337991952896118
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 159.28387033380568,
+          "forward_kl": 0.01950206607580185,
+          "nll": {
+            "code": 1.2990849018096924,
+            "math": 0.8246657848358154,
+            "wiki": 2.3273966312408447
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-lower_lr_kl-kam": {
+      "adapter_sha256": "3af7e0ef07faba2713c1b6b10d8d845bf42ba4618c9f99da657934b8eab290e4",
+      "arm": "kam",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37688262144,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 80.00432874634862,
+          "forward_kl": 0.012406129390001297,
+          "nll": {
+            "code": 1.379538893699646,
+            "math": 1.3699626922607422,
+            "wiki": 2.376620292663574
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 160.41226524487138,
+          "forward_kl": 0.012494186870753765,
+          "nll": {
+            "code": 1.3746232986450195,
+            "math": 1.2848960161209106,
+            "wiki": 2.3680195808410645
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-reference-dot": {
+      "adapter_sha256": "95ed161eb6cc8c02ccd7ec8a7d1a84f23d771bcdb737d3736359cdbeb6f68b0d",
+      "arm": "dot",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35508809216,
+      "peak_lr": 0.0008,
+      "recipe": "reference",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.52023581601679,
+          "forward_kl": 0.9978681206703186,
+          "nll": {
+            "code": 1.2437772750854492,
+            "math": 0.3908962905406952,
+            "wiki": 2.1263487339019775
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 107.10928709618747,
+          "forward_kl": 1.0853430032730103,
+          "nll": {
+            "code": 1.2265384197235107,
+            "math": 0.37307724356651306,
+            "wiki": 2.106938123703003
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731211-reference-kam": {
+      "adapter_sha256": "7ee03e40b25624da5a0bab8560e3f5381b42c6c8557ada3eece31c80634d7190",
+      "arm": "kam",
+      "exposure_sha256": "9cf1fb2124b724ba9583409ac1dd60b0552d31f8b280a1068186eeca72dde26c",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35514006528,
+      "peak_lr": 0.0008,
+      "recipe": "reference",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731211,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 54.00946911610663,
+          "forward_kl": 0.8124781847000122,
+          "nll": {
+            "code": 1.2937843799591064,
+            "math": 0.44988104701042175,
+            "wiki": 2.170325517654419
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 108.20270409993827,
+          "forward_kl": 0.9021216630935669,
+          "nll": {
+            "code": 1.28053879737854,
+            "math": 0.42146623134613037,
+            "wiki": 2.1533215045928955
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-high_lr_kl-dot": {
+      "adapter_sha256": "3fcf91a7f5d07dfcdfed716723697336834e5982e6656fde52136e3a9a1bf3ec",
+      "arm": "dot",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37683064832,
+      "peak_lr": 0.0008,
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 78.70947712473571,
+          "forward_kl": 0.024843942373991013,
+          "nll": {
+            "code": 1.302230954170227,
+            "math": 0.8105437755584717,
+            "wiki": 2.303903341293335
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 157.74782549776137,
+          "forward_kl": 0.019474156200885773,
+          "nll": {
+            "code": 1.2975813150405884,
+            "math": 0.7808470726013184,
+            "wiki": 2.298330783843994
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-high_lr_kl-kam": {
+      "adapter_sha256": "93f5e5bb72c1d0c89081969e18f73b78a2170aeaad0a6ce9d61d912e7715eea3",
+      "arm": "kam",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37688262144,
+      "peak_lr": 0.0008,
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 80.09787063486874,
+          "forward_kl": 0.017201866954565048,
+          "nll": {
+            "code": 1.3130311965942383,
+            "math": 0.8532171845436096,
+            "wiki": 2.3218705654144287
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 160.48355218023062,
+          "forward_kl": 0.017876315861940384,
+          "nll": {
+            "code": 1.3036925792694092,
+            "math": 0.8233579397201538,
+            "wiki": 2.303988456726074
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-lower_lr-dot": {
+      "adapter_sha256": "e79380aca6eef45bc7fc92ce96bd1666a4dc52dfcbe7c78e8e085ea5de60d33c",
+      "arm": "dot",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35508809216,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.351079009473324,
+          "forward_kl": 0.8713195323944092,
+          "nll": {
+            "code": 1.242407202720642,
+            "math": 0.4115947484970093,
+            "wiki": 2.153876781463623
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 106.98163866624236,
+          "forward_kl": 0.9724596738815308,
+          "nll": {
+            "code": 1.232865810394287,
+            "math": 0.39527469873428345,
+            "wiki": 2.135091781616211
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-lower_lr-kam": {
+      "adapter_sha256": "a9adb7590f27cf84dffc1a39678228adc92297ded33c651aa4ff1409cc24d829",
+      "arm": "kam",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35514006528,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 54.22241119667888,
+          "forward_kl": 0.15953011810779572,
+          "nll": {
+            "code": 1.334794521331787,
+            "math": 1.1627485752105713,
+            "wiki": 2.310995578765869
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 108.74857092276216,
+          "forward_kl": 0.210856631398201,
+          "nll": {
+            "code": 1.3310030698776245,
+            "math": 0.9619439840316772,
+            "wiki": 2.29081654548645
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-lower_lr_kl-dot": {
+      "adapter_sha256": "921dfa2e125c84b0238efad17344dcbc8f1a961fd5d42b029fcaf7112fdb786e",
+      "arm": "dot",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37683064832,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 78.87371720001101,
+          "forward_kl": 0.017148813232779503,
+          "nll": {
+            "code": 1.3271548748016357,
+            "math": 0.8884392976760864,
+            "wiki": 2.339951753616333
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 158.1412955597043,
+          "forward_kl": 0.01835940033197403,
+          "nll": {
+            "code": 1.3077523708343506,
+            "math": 0.8295236825942993,
+            "wiki": 2.3301656246185303
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-lower_lr_kl-kam": {
+      "adapter_sha256": "2d7c121358e8fc11afcfb9fadff91131d749fa9da83e2cfc5d54717c04e4adc7",
+      "arm": "kam",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 4.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 37688262144,
+      "peak_lr": 8e-05,
+      "recipe": "lower_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 80.10905383527279,
+          "forward_kl": 0.01039743423461914,
+          "nll": {
+            "code": 1.3812003135681152,
+            "math": 1.380995273590088,
+            "wiki": 2.3790998458862305
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 160.89779492095113,
+          "forward_kl": 0.011958149261772633,
+          "nll": {
+            "code": 1.375604271888733,
+            "math": 1.2607240676879883,
+            "wiki": 2.36971378326416
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-reference-dot": {
+      "adapter_sha256": "18f0bd6091dc9a12f8e08ab1f65005731891415b1f52d1178ade2581152f81d1",
+      "arm": "dot",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35508809216,
+      "peak_lr": 0.0008,
+      "recipe": "reference",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 53.121353667229414,
+          "forward_kl": 1.0777393579483032,
+          "nll": {
+            "code": 1.2372496128082275,
+            "math": 0.38753193616867065,
+            "wiki": 2.119884490966797
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 106.51046324521303,
+          "forward_kl": 1.094604253768921,
+          "nll": {
+            "code": 1.2258533239364624,
+            "math": 0.3676370084285736,
+            "wiki": 2.1007089614868164
+          },
+          "step": 256
+        }
+      ]
+    },
+    "731221-reference-kam": {
+      "adapter_sha256": "63660c97ba367f063414d79d816b9f8891758e227881f4e1a8e1c091e7ab8ffc",
+      "arm": "kam",
+      "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "kl_weight": 0.0,
+      "layers": [
+        7,
+        15,
+        23,
+        31
+      ],
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "peak_gpu_bytes": 35514006528,
+      "peak_lr": 0.0008,
+      "recipe": "reference",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+      "train_tokens": 1048576,
+      "training": [
+        {
+          "elapsed_s": 54.05510943941772,
+          "forward_kl": 0.8875718116760254,
+          "nll": {
+            "code": 1.2453416585922241,
+            "math": 0.4185343384742737,
+            "wiki": 2.1632513999938965
+          },
+          "step": 128
+        },
+        {
+          "elapsed_s": 108.26870462670922,
+          "forward_kl": 0.9684788584709167,
+          "nll": {
+            "code": 1.2382111549377441,
+            "math": 0.39995676279067993,
+            "wiki": 2.1479902267456055
+          },
+          "step": 256
+        }
+      ]
+    }
+  }
+}
