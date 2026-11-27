@@ -1,0 +1,1524 @@
+{
+  "discordant_support": {
+    "frozen_only": 44,
+    "refit_only": 86
+  },
+  "fixture_sha256": "74c74aa221f6ff9d6fb9a2e6c63c75daa20baea987ac6dab18dd6d1f7d6c4a06",
+  "runtime": {
+    "base": {
+      "decode_seconds": [
+        13.515624261461198,
+        14.119959592819214,
+        13.525117255747318,
+        14.374531283043325
+      ],
+      "parameters": 247577856,
+      "prompts": [
+        794,
+        783,
+        786,
+        785
+      ],
+      "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+    },
+    "base_bf16": {
+      "decode_seconds": [
+        6.672604785300791,
+        6.951821071095765,
+        6.642451863735914,
+        7.317875420674682
+      ],
+      "parameters": 247577856,
+      "prompts": [
+        794,
+        783,
+        786,
+        785
+      ],
+      "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+    },
+    "small": {
+      "decode_seconds": [
+        4.219869251362979,
+        4.562330754473805,
+        4.443310499191284,
+        4.882674880092964
+      ],
+      "parameters": 76961152,
+      "prompts": [
+        794,
+        783,
+        786,
+        785
+      ],
+      "revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    }
+  },
+  "scopes": {
+    "all": {
+      "arms": {
+        "frozen": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 226,
+            "base_bf16": 230,
+            "small": 238
+          },
+          "joint": {
+            "base": 160,
+            "base_bf16": 162,
+            "small": 165
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.00097656,
+                0.0078125
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 4
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03417969,
+                0.01855469
+              ],
+              "delta": -0.0078125,
+              "losses": 97,
+              "wins": 89
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03808594,
+                0.01464844
+              ],
+              "delta": -0.01171875,
+              "losses": 100,
+              "wins": 88
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00488281
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.0234375,
+                0.01855469
+              ],
+              "delta": -0.00292969,
+              "losses": 61,
+              "wins": 58
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.02539062,
+                0.015625
+              ],
+              "delta": -0.00488281,
+              "losses": 62,
+              "wins": 57
+            }
+          },
+          "support": 383
+        },
+        "gold_annotations": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 431,
+            "base_bf16": 434,
+            "small": 407
+          },
+          "joint": {
+            "base": 431,
+            "base_bf16": 434,
+            "small": 407
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00097656,
+                0.00683594
+              ],
+              "delta": 0.00292969,
+              "losses": 1,
+              "wins": 4
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.00588379,
+                0.05859375
+              ],
+              "delta": 0.02636719,
+              "losses": 138,
+              "wins": 165
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.00878906,
+                0.05566406
+              ],
+              "delta": 0.0234375,
+              "losses": 139,
+              "wins": 163
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00097656,
+                0.00683594
+              ],
+              "delta": 0.00292969,
+              "losses": 1,
+              "wins": 4
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.00588379,
+                0.05859375
+              ],
+              "delta": 0.02636719,
+              "losses": 138,
+              "wins": 165
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.00878906,
+                0.05566406
+              ],
+              "delta": 0.0234375,
+              "losses": 139,
+              "wins": 163
+            }
+          },
+          "support": 1024
+        },
+        "gold_native": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 333,
+            "base_bf16": 334,
+            "small": 320
+          },
+          "joint": {
+            "base": 333,
+            "base_bf16": 334,
+            "small": 320
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00390625,
+                0.00585938
+              ],
+              "delta": 0.00097656,
+              "losses": 3,
+              "wins": 4
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.01660156,
+                0.04296875
+              ],
+              "delta": 0.01367188,
+              "losses": 117,
+              "wins": 131
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.01757812,
+                0.04199219
+              ],
+              "delta": 0.01269531,
+              "losses": 119,
+              "wins": 132
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00390625,
+                0.00585938
+              ],
+              "delta": 0.00097656,
+              "losses": 3,
+              "wins": 4
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.01660156,
+                0.04296875
+              ],
+              "delta": 0.01367188,
+              "losses": 117,
+              "wins": 131
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.01757812,
+                0.04199219
+              ],
+              "delta": 0.01269531,
+              "losses": 119,
+              "wins": 132
+            }
+          },
+          "support": 1024
+        },
+        "refit": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 235,
+            "base_bf16": 237,
+            "small": 242
+          },
+          "joint": {
+            "base": 158,
+            "base_bf16": 160,
+            "small": 162
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00488281
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03222656,
+                0.02246094
+              ],
+              "delta": -0.00488281,
+              "losses": 98,
+              "wins": 93
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03417969,
+                0.01953125
+              ],
+              "delta": -0.00683594,
+              "losses": 99,
+              "wins": 92
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00488281
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.0234375,
+                0.01953125
+              ],
+              "delta": -0.00195312,
+              "losses": 61,
+              "wins": 59
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.02441406,
+                0.01757812
+              ],
+              "delta": -0.00390625,
+              "losses": 62,
+              "wins": 58
+            }
+          },
+          "support": 425
+        }
+      },
+      "questions": 1024
+    },
+    "exact": {
+      "arms": {
+        "frozen": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 122,
+            "base_bf16": 124,
+            "small": 143
+          },
+          "joint": {
+            "base": 98,
+            "base_bf16": 99,
+            "small": 106
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.07617188,
+                0.00195312
+              ],
+              "delta": -0.03710938,
+              "losses": 63,
+              "wins": 44
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.08007812,
+                -0.00195312
+              ],
+              "delta": -0.04101562,
+              "losses": 65,
+              "wins": 44
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.046875,
+                0.01953125
+              ],
+              "delta": -0.01367188,
+              "losses": 40,
+              "wins": 33
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.04882812,
+                0.015625
+              ],
+              "delta": -0.015625,
+              "losses": 41,
+              "wins": 33
+            }
+          },
+          "support": 222
+        },
+        "gold_annotations": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 213,
+            "base_bf16": 214,
+            "small": 208
+          },
+          "joint": {
+            "base": 213,
+            "base_bf16": 214,
+            "small": 208
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03320312,
+                0.05664062
+              ],
+              "delta": 0.01171875,
+              "losses": 71,
+              "wins": 77
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03515625,
+                0.0546875
+              ],
+              "delta": 0.00976562,
+              "losses": 71,
+              "wins": 76
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03320312,
+                0.05664062
+              ],
+              "delta": 0.01171875,
+              "losses": 71,
+              "wins": 77
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03515625,
+                0.0546875
+              ],
+              "delta": 0.00976562,
+              "losses": 71,
+              "wins": 76
+            }
+          },
+          "support": 512
+        },
+        "gold_native": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 189,
+            "base_bf16": 191,
+            "small": 185
+          },
+          "joint": {
+            "base": 189,
+            "base_bf16": 191,
+            "small": 185
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03320312,
+                0.05859375
+              ],
+              "delta": 0.01171875,
+              "losses": 68,
+              "wins": 74
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03710938,
+                0.05273438
+              ],
+              "delta": 0.0078125,
+              "losses": 69,
+              "wins": 73
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03320312,
+                0.05859375
+              ],
+              "delta": 0.01171875,
+              "losses": 68,
+              "wins": 74
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03710938,
+                0.05273438
+              ],
+              "delta": 0.0078125,
+              "losses": 69,
+              "wins": 73
+            }
+          },
+          "support": 512
+        },
+        "refit": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 131,
+            "base_bf16": 132,
+            "small": 145
+          },
+          "joint": {
+            "base": 98,
+            "base_bf16": 99,
+            "small": 103
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.06445312,
+                0.01367188
+              ],
+              "delta": -0.02539062,
+              "losses": 60,
+              "wins": 47
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.06640625,
+                0.01171875
+              ],
+              "delta": -0.02734375,
+              "losses": 61,
+              "wins": 47
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.04101562,
+                0.0234375
+              ],
+              "delta": -0.0078125,
+              "losses": 39,
+              "wins": 35
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.04296875,
+                0.02148438
+              ],
+              "delta": -0.00976562,
+              "losses": 40,
+              "wins": 35
+            }
+          },
+          "support": 239
+        }
+      },
+      "questions": 512
+    },
+    "frozen_only": {
+      "arms": {
+        "frozen": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 19,
+            "base_bf16": 19,
+            "small": 18
+          },
+          "joint": {
+            "base": 19,
+            "base_bf16": 19,
+            "small": 18
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.11363636,
+                0.15909091
+              ],
+              "delta": 0.02272727,
+              "losses": 5,
+              "wins": 6
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.11363636,
+                0.15909091
+              ],
+              "delta": 0.02272727,
+              "losses": 5,
+              "wins": 6
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.11363636,
+                0.15909091
+              ],
+              "delta": 0.02272727,
+              "losses": 5,
+              "wins": 6
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.11363636,
+                0.15909091
+              ],
+              "delta": 0.02272727,
+              "losses": 5,
+              "wins": 6
+            }
+          },
+          "support": 44
+        },
+        "gold_annotations": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 23,
+            "base_bf16": 23,
+            "small": 19
+          },
+          "joint": {
+            "base": 23,
+            "base_bf16": 23,
+            "small": 19
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.09090909,
+                0.27272727
+              ],
+              "delta": 0.09090909,
+              "losses": 7,
+              "wins": 11
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.09090909,
+                0.27272727
+              ],
+              "delta": 0.09090909,
+              "losses": 7,
+              "wins": 11
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.09090909,
+                0.27272727
+              ],
+              "delta": 0.09090909,
+              "losses": 7,
+              "wins": 11
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.09090909,
+                0.27272727
+              ],
+              "delta": 0.09090909,
+              "losses": 7,
+              "wins": 11
+            }
+          },
+          "support": 44
+        },
+        "gold_native": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 16,
+            "base_bf16": 17,
+            "small": 19
+          },
+          "joint": {
+            "base": 16,
+            "base_bf16": 17,
+            "small": 19
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.06818182
+              ],
+              "delta": 0.02272727,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.20454545,
+                0.09147727
+              ],
+              "delta": -0.04545455,
+              "losses": 7,
+              "wins": 5
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.22727273,
+                0.09090909
+              ],
+              "delta": -0.06818182,
+              "losses": 8,
+              "wins": 5
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.06818182
+              ],
+              "delta": 0.02272727,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.20454545,
+                0.09147727
+              ],
+              "delta": -0.04545455,
+              "losses": 7,
+              "wins": 5
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.22727273,
+                0.09090909
+              ],
+              "delta": -0.06818182,
+              "losses": 8,
+              "wins": 5
+            }
+          },
+          "support": 44
+        },
+        "refit": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 18,
+            "base_bf16": 18,
+            "small": 10
+          },
+          "joint": {
+            "base": 0,
+            "base_bf16": 0,
+            "small": 0
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                0.04545455,
+                0.31818182
+              ],
+              "delta": 0.18181818,
+              "losses": 2,
+              "wins": 10
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                0.04545455,
+                0.31818182
+              ],
+              "delta": 0.18181818,
+              "losses": 2,
+              "wins": 10
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            }
+          },
+          "support": 0
+        }
+      },
+      "questions": 44
+    },
+    "partial": {
+      "arms": {
+        "frozen": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 104,
+            "base_bf16": 106,
+            "small": 95
+          },
+          "joint": {
+            "base": 62,
+            "base_bf16": 63,
+            "small": 59
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.01171875,
+                0.05664062
+              ],
+              "delta": 0.02148438,
+              "losses": 34,
+              "wins": 45
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.015625,
+                0.05273438
+              ],
+              "delta": 0.01757812,
+              "losses": 35,
+              "wins": 44
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.01757812,
+                0.03515625
+              ],
+              "delta": 0.0078125,
+              "losses": 21,
+              "wins": 25
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.01953125,
+                0.03125
+              ],
+              "delta": 0.00585938,
+              "losses": 21,
+              "wins": 24
+            }
+          },
+          "support": 161
+        },
+        "gold_annotations": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 218,
+            "base_bf16": 220,
+            "small": 199
+          },
+          "joint": {
+            "base": 218,
+            "base_bf16": 220,
+            "small": 199
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00390625,
+                0.01171875
+              ],
+              "delta": 0.00390625,
+              "losses": 1,
+              "wins": 3
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.00585938,
+                0.08789062
+              ],
+              "delta": 0.04101562,
+              "losses": 67,
+              "wins": 88
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.00976562,
+                0.08398438
+              ],
+              "delta": 0.03710938,
+              "losses": 68,
+              "wins": 87
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00390625,
+                0.01171875
+              ],
+              "delta": 0.00390625,
+              "losses": 1,
+              "wins": 3
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.00585938,
+                0.08789062
+              ],
+              "delta": 0.04101562,
+              "losses": 67,
+              "wins": 88
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.00976562,
+                0.08398438
+              ],
+              "delta": 0.03710938,
+              "losses": 68,
+              "wins": 87
+            }
+          },
+          "support": 512
+        },
+        "gold_native": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 144,
+            "base_bf16": 143,
+            "small": 135
+          },
+          "joint": {
+            "base": 144,
+            "base_bf16": 143,
+            "small": 135
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00585938
+              ],
+              "delta": -0.00195312,
+              "losses": 3,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.0234375,
+                0.0546875
+              ],
+              "delta": 0.015625,
+              "losses": 49,
+              "wins": 57
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.0234375,
+                0.05668945
+              ],
+              "delta": 0.01757812,
+              "losses": 50,
+              "wins": 59
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00585938
+              ],
+              "delta": -0.00195312,
+              "losses": 3,
+              "wins": 2
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.0234375,
+                0.0546875
+              ],
+              "delta": 0.015625,
+              "losses": 49,
+              "wins": 57
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.0234375,
+                0.05668945
+              ],
+              "delta": 0.01757812,
+              "losses": 50,
+              "wins": 59
+            }
+          },
+          "support": 512
+        },
+        "refit": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 104,
+            "base_bf16": 105,
+            "small": 97
+          },
+          "joint": {
+            "base": 60,
+            "base_bf16": 61,
+            "small": 59
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.01953125,
+                0.05078125
+              ],
+              "delta": 0.015625,
+              "losses": 38,
+              "wins": 46
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.02148438,
+                0.04882812
+              ],
+              "delta": 0.01367188,
+              "losses": 38,
+              "wins": 45
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.02148438,
+                0.03125
+              ],
+              "delta": 0.00390625,
+              "losses": 22,
+              "wins": 24
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.0234375,
+                0.02734375
+              ],
+              "delta": 0.00195312,
+              "losses": 22,
+              "wins": 23
+            }
+          },
+          "support": 186
+        }
+      },
+      "questions": 512
+    },
+    "refit_only": {
+      "arms": {
+        "frozen": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 8,
+            "base_bf16": 9,
+            "small": 7
+          },
+          "joint": {
+            "base": 0,
+            "base_bf16": 0,
+            "small": 0
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.03488372
+              ],
+              "delta": 0.01162791,
+              "losses": 0,
+              "wins": 1
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.04651163,
+                0.09302326
+              ],
+              "delta": 0.02325581,
+              "losses": 4,
+              "wins": 6
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.06976744,
+                0.08139535
+              ],
+              "delta": 0.01162791,
+              "losses": 5,
+              "wins": 6
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            }
+          },
+          "support": 0
+        },
+        "gold_annotations": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 33,
+            "base_bf16": 33,
+            "small": 28
+          },
+          "joint": {
+            "base": 33,
+            "base_bf16": 33,
+            "small": 28
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03488372,
+                0.15116279
+              ],
+              "delta": 0.05813953,
+              "losses": 6,
+              "wins": 11
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03488372,
+                0.15116279
+              ],
+              "delta": 0.05813953,
+              "losses": 6,
+              "wins": 11
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.03488372,
+                0.15116279
+              ],
+              "delta": 0.05813953,
+              "losses": 6,
+              "wins": 11
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.03488372,
+                0.15116279
+              ],
+              "delta": 0.05813953,
+              "losses": 6,
+              "wins": 11
+            }
+          },
+          "support": 86
+        },
+        "gold_native": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 19,
+            "base_bf16": 19,
+            "small": 15
+          },
+          "joint": {
+            "base": 19,
+            "base_bf16": 19,
+            "small": 15
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.02325581,
+                0.12790698
+              ],
+              "delta": 0.04651163,
+              "losses": 4,
+              "wins": 8
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.02325581,
+                0.12790698
+              ],
+              "delta": 0.04651163,
+              "losses": 4,
+              "wins": 8
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.02325581,
+                0.12790698
+              ],
+              "delta": 0.04651163,
+              "losses": 4,
+              "wins": 8
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.02325581,
+                0.12790698
+              ],
+              "delta": 0.04651163,
+              "losses": 4,
+              "wins": 8
+            }
+          },
+          "support": 86
+        },
+        "refit": {
+          "archived_em_mismatches": 0,
+          "exact": {
+            "base": 17,
+            "base_bf16": 17,
+            "small": 15
+          },
+          "joint": {
+            "base": 17,
+            "base_bf16": 17,
+            "small": 15
+          },
+          "paired_em": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.04680233,
+                0.10465116
+              ],
+              "delta": 0.02325581,
+              "losses": 5,
+              "wins": 7
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.04680233,
+                0.10465116
+              ],
+              "delta": 0.02325581,
+              "losses": 5,
+              "wins": 7
+            }
+          },
+          "paired_joint": {
+            "base_bf16_vs_base": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "base_bf16_vs_small": {
+              "bootstrap95": [
+                -0.04680233,
+                0.10465116
+              ],
+              "delta": 0.02325581,
+              "losses": 5,
+              "wins": 7
+            },
+            "base_vs_small": {
+              "bootstrap95": [
+                -0.04680233,
+                0.10465116
+              ],
+              "delta": 0.02325581,
+              "losses": 5,
+              "wins": 7
+            }
+          },
+          "support": 86
+        }
+      },
+      "questions": 86
+    }
+  }
+}
