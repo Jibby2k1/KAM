@@ -1,0 +1,1665 @@
+{
+  "domains": {
+    "TIME-Lite-Dial": {
+      "base": {
+        "device": "NVIDIA L4",
+        "fixture": "cede97c9a9eaf4b4bbe61ae5a6cad413d37e591c212a16e9bd965c1204e61348",
+        "largest_shared_source_cluster": 8,
+        "max_windows": 4,
+        "metrics": {
+          "closed_book": {
+            "correct": 63,
+            "mean_accuracy_per_rotation": 0.2943181818181818,
+            "n": 220,
+            "packed_body_tokens": 0,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 10,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 3,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 8,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 10,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 3,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 12,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 7,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 10,
+                "n": 30
+              }
+            },
+            "reader_seconds": 3.0209645004943013,
+            "rotation_consistent": 105,
+            "unrotated_correct": 66,
+            "vs_dense": {
+              "change": -0.1,
+              "source_cluster_bootstrap95": [
+                -0.17272727272727273,
+                -0.027149321266968326
+              ]
+            }
+          },
+          "dense": {
+            "correct": 85,
+            "mean_accuracy_per_rotation": 0.3723484848484849,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 4,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 14,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 5,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 6,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 13,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 12,
+                "n": 30
+              }
+            },
+            "reader_seconds": 45.481923904269934,
+            "rotation_consistent": 91,
+            "unrotated_correct": 79,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "dense_chronological": {
+            "changed_order": 208,
+            "correct": 92,
+            "mean_accuracy_per_rotation": 0.38939393939393935,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 6,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 17,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 4,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 6,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 16,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 12,
+                "n": 30
+              }
+            },
+            "reader_seconds": 45.33802391309291,
+            "rotation_consistent": 101,
+            "unrotated_correct": 84,
+            "vs_dense": {
+              "change": 0.031818181818181815,
+              "source_cluster_bootstrap95": [
+                0.0045662100456621,
+                0.058823529411764705
+              ]
+            }
+          },
+          "dense_date_masked": {
+            "correct": 81,
+            "mean_accuracy_per_rotation": 0.3628787878787879,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 5,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 14,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 5,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 1,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 13,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 12,
+                "n": 30
+              }
+            },
+            "reader_seconds": 45.4438505936414,
+            "rotation_consistent": 107,
+            "unrotated_correct": 74,
+            "vs_dense": {
+              "change": -0.01818181818181818,
+              "source_cluster_bootstrap95": [
+                -0.0410958904109589,
+                0.004608294930875576
+              ]
+            }
+          },
+          "dense_dates_rotated": {
+            "changed_panels": {
+              "better": 0,
+              "n": 219,
+              "worse": 3
+            },
+            "correct": 82,
+            "mean_accuracy_per_rotation": 0.375,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 4,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 12,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 5,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 5,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 13,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 12,
+                "n": 30
+              }
+            },
+            "reader_seconds": 45.4280155505985,
+            "rotation_consistent": 91,
+            "unrotated_correct": 79,
+            "vs_dense": {
+              "change": -0.013636363636363636,
+              "source_cluster_bootstrap95": [
+                -0.027906976744186046,
+                0.0
+              ]
+            }
+          },
+          "prefix": {
+            "correct": 78,
+            "mean_accuracy_per_rotation": 0.3446969696969697,
+            "n": 220,
+            "packed_body_tokens": 641223,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 14,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 12,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 18,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 5,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 5,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 9,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 8,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 7,
+                "n": 30
+              }
+            },
+            "reader_seconds": 44.44533406663686,
+            "rotation_consistent": 68,
+            "unrotated_correct": 66,
+            "vs_dense": {
+              "change": -0.031818181818181815,
+              "source_cluster_bootstrap95": [
+                -0.09547643869891576,
+                0.0319634703196347
+              ]
+            }
+          }
+        },
+        "queries": 220,
+        "reader_model": {
+          "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+          "sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8"
+        },
+        "reader_token_budget": 1024,
+        "source_clusters": 30,
+        "source_contexts": 30,
+        "time_encode_rank_seconds": 6.121171224862337
+      },
+      "large": {
+        "device": "NVIDIA L4",
+        "fixture": "cede97c9a9eaf4b4bbe61ae5a6cad413d37e591c212a16e9bd965c1204e61348",
+        "largest_shared_source_cluster": 8,
+        "max_windows": 4,
+        "metrics": {
+          "closed_book": {
+            "correct": 71,
+            "mean_accuracy_per_rotation": 0.32462121212121214,
+            "n": 220,
+            "packed_body_tokens": 0,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 12,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 14,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 8,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 10,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 2,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 7,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 7,
+                "n": 30
+              }
+            },
+            "reader_seconds": 10.001815610565245,
+            "rotation_consistent": 123,
+            "unrotated_correct": 69,
+            "vs_dense": {
+              "change": -0.08181818181818182,
+              "source_cluster_bootstrap95": [
+                -0.14220183486238533,
+                -0.02262443438914027
+              ]
+            }
+          },
+          "dense": {
+            "correct": 89,
+            "mean_accuracy_per_rotation": 0.4098484848484848,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 21,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 13,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 7,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 2,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 13,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 12,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 11,
+                "n": 30
+              }
+            },
+            "reader_seconds": 150.8627411806956,
+            "rotation_consistent": 149,
+            "unrotated_correct": 86,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "dense_chronological": {
+            "changed_order": 208,
+            "correct": 89,
+            "mean_accuracy_per_rotation": 0.4151515151515151,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 21,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 14,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 9,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 6,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 3,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 14,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 11,
+                "n": 30
+              }
+            },
+            "reader_seconds": 150.867778387852,
+            "rotation_consistent": 140,
+            "unrotated_correct": 91,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                -0.03211379106244451,
+                0.03225806451612903
+              ]
+            }
+          },
+          "dense_date_masked": {
+            "correct": 92,
+            "mean_accuracy_per_rotation": 0.4140151515151515,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 22,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 16,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 7,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 3,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 12,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 10,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 12,
+                "n": 30
+              }
+            },
+            "reader_seconds": 150.85266163479537,
+            "rotation_consistent": 148,
+            "unrotated_correct": 90,
+            "vs_dense": {
+              "change": 0.013636363636363636,
+              "source_cluster_bootstrap95": [
+                -0.01834862385321101,
+                0.04932735426008968
+              ]
+            }
+          },
+          "dense_dates_rotated": {
+            "changed_panels": {
+              "better": 2,
+              "n": 219,
+              "worse": 1
+            },
+            "correct": 90,
+            "mean_accuracy_per_rotation": 0.4117424242424243,
+            "n": 220,
+            "packed_body_tokens": 652365,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 21,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 13,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 7,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 3,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 13,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 12,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 11,
+                "n": 30
+              }
+            },
+            "reader_seconds": 150.99930442217737,
+            "rotation_consistent": 146,
+            "unrotated_correct": 92,
+            "vs_dense": {
+              "change": 0.004545454545454545,
+              "source_cluster_bootstrap95": [
+                -0.009174311926605505,
+                0.018433179723502304
+              ]
+            }
+          },
+          "prefix": {
+            "correct": 73,
+            "mean_accuracy_per_rotation": 0.3352272727272727,
+            "n": 220,
+            "packed_body_tokens": 641223,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 11,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 15,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 5,
+                "n": 30
+              },
+              "Extract": {
+                "correct": 3,
+                "n": 10
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 11,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 7,
+                "n": 30
+              }
+            },
+            "reader_seconds": 145.5395818753168,
+            "rotation_consistent": 122,
+            "unrotated_correct": 72,
+            "vs_dense": {
+              "change": -0.07272727272727272,
+              "source_cluster_bootstrap95": [
+                -0.13902648868495152,
+                -0.00904977375565611
+              ]
+            }
+          }
+        },
+        "queries": 220,
+        "reader_model": {
+          "revision": "0613663d0d48ea86ba8cb3d7a44f0f65dc596a2a",
+          "sha256": "a9dd06ce490f139af36e9eb77dd3758b4fd07a08a73d5a1abe5ff2591e2d388e"
+        },
+        "reader_token_budget": 1024,
+        "source_clusters": 30,
+        "source_contexts": 30,
+        "time_encode_rank_seconds": 6.008268451318145
+      },
+      "large_vs_base": {
+        "closed_book": {
+          "gain": 0.03636363636363636,
+          "reader_time_ratio": 3.3108020994383454,
+          "source_cluster_bootstrap95": [
+            -0.031818181818181815,
+            0.1036036036036036
+          ]
+        },
+        "dense": {
+          "gain": 0.01818181818181818,
+          "reader_time_ratio": 3.31698240158509,
+          "source_cluster_bootstrap95": [
+            -0.040913760896637605,
+            0.0787037037037037
+          ]
+        },
+        "dense_chronological": {
+          "gain": -0.013636363636363636,
+          "reader_time_ratio": 3.327621395168124,
+          "source_cluster_bootstrap95": [
+            -0.06818960149439601,
+            0.041474654377880185
+          ]
+        },
+        "dense_date_masked": {
+          "gain": 0.05,
+          "reader_time_ratio": 3.319539600279889,
+          "source_cluster_bootstrap95": [
+            -0.008929572389493913,
+            0.1076354381287115
+          ]
+        },
+        "dense_dates_rotated": {
+          "gain": 0.03636363636363636,
+          "reader_time_ratio": 3.323924732173074,
+          "source_cluster_bootstrap95": [
+            -0.0273972602739726,
+            0.10091743119266056
+          ]
+        },
+        "prefix": {
+          "gain": -0.022727272727272728,
+          "reader_time_ratio": 3.2745750466654027,
+          "source_cluster_bootstrap95": [
+            -0.1095890410958904,
+            0.05804222053171035
+          ]
+        }
+      }
+    },
+    "TIME-Lite-News": {
+      "base": {
+        "device": "NVIDIA L4",
+        "fixture": "eb477efc870acd4a5e45004cf640b0238994e7d0369da961eeda367d5d4d1623",
+        "largest_shared_source_cluster": 7,
+        "max_windows": 4,
+        "metrics": {
+          "closed_book": {
+            "correct": 84,
+            "mean_accuracy_per_rotation": 0.3869047619047619,
+            "n": 210,
+            "packed_body_tokens": 0,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 9,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 10,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 15,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 11,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 19,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 10,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 10,
+                "n": 30
+              }
+            },
+            "reader_seconds": 3.144843148998916,
+            "rotation_consistent": 100,
+            "unrotated_correct": 79,
+            "vs_dense": {
+              "change": -0.26666666666666666,
+              "source_cluster_bootstrap95": [
+                -0.34196891191709844,
+                -0.192703459224599
+              ]
+            }
+          },
+          "dense": {
+            "correct": 140,
+            "mean_accuracy_per_rotation": 0.6,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 19,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 19,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 16,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 20,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 25,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 18,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 23,
+                "n": 30
+              }
+            },
+            "reader_seconds": 42.04122447036207,
+            "rotation_consistent": 96,
+            "unrotated_correct": 139,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "dense_chronological": {
+            "changed_order": 192,
+            "correct": 144,
+            "mean_accuracy_per_rotation": 0.6202380952380953,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 19,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 20,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 17,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 25,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 19,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 23,
+                "n": 30
+              }
+            },
+            "reader_seconds": 42.13781928271055,
+            "rotation_consistent": 100,
+            "unrotated_correct": 141,
+            "vs_dense": {
+              "change": 0.01904761904761905,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.04145077720207254
+              ]
+            }
+          },
+          "dense_date_masked": {
+            "correct": 142,
+            "mean_accuracy_per_rotation": 0.6111111111111112,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 19,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 18,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 20,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 25,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 17,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 23,
+                "n": 30
+              }
+            },
+            "reader_seconds": 42.08221188094467,
+            "rotation_consistent": 107,
+            "unrotated_correct": 134,
+            "vs_dense": {
+              "change": 0.009523809523809525,
+              "source_cluster_bootstrap95": [
+                -0.012660921088068947,
+                0.032432432432432434
+              ]
+            }
+          },
+          "dense_dates_rotated": {
+            "changed_panels": {
+              "better": 1,
+              "n": 152,
+              "worse": 1
+            },
+            "correct": 140,
+            "mean_accuracy_per_rotation": 0.6015873015873016,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 19,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 19,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 17,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 20,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 25,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 18,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 22,
+                "n": 30
+              }
+            },
+            "reader_seconds": 41.94802516140044,
+            "rotation_consistent": 96,
+            "unrotated_correct": 138,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                -0.01363949124270225,
+                0.0136986301369863
+              ]
+            }
+          },
+          "prefix": {
+            "correct": 133,
+            "mean_accuracy_per_rotation": 0.5884920634920635,
+            "n": 210,
+            "packed_body_tokens": 605722,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 17,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 17,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 15,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 25,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 16,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 22,
+                "n": 30
+              }
+            },
+            "reader_seconds": 40.56700665317476,
+            "rotation_consistent": 105,
+            "unrotated_correct": 131,
+            "vs_dense": {
+              "change": -0.03333333333333333,
+              "source_cluster_bootstrap95": [
+                -0.08290274826293546,
+                0.013888888888888888
+              ]
+            }
+          }
+        },
+        "queries": 210,
+        "reader_model": {
+          "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+          "sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8"
+        },
+        "reader_token_budget": 1024,
+        "source_clusters": 53,
+        "source_contexts": 208,
+        "time_encode_rank_seconds": 2.270772123709321
+      },
+      "large": {
+        "device": "NVIDIA L4",
+        "fixture": "eb477efc870acd4a5e45004cf640b0238994e7d0369da961eeda367d5d4d1623",
+        "largest_shared_source_cluster": 7,
+        "max_windows": 4,
+        "metrics": {
+          "closed_book": {
+            "correct": 95,
+            "mean_accuracy_per_rotation": 0.4452380952380952,
+            "n": 210,
+            "packed_body_tokens": 0,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 12,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 7,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 15,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 14,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 25,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 11,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 11,
+                "n": 30
+              }
+            },
+            "reader_seconds": 10.596601076424122,
+            "rotation_consistent": 120,
+            "unrotated_correct": 93,
+            "vs_dense": {
+              "change": -0.1380952380952381,
+              "source_cluster_bootstrap95": [
+                -0.22171121593291404,
+                -0.0545416508178015
+              ]
+            }
+          },
+          "dense": {
+            "correct": 124,
+            "mean_accuracy_per_rotation": 0.5742063492063492,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 6,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 13,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 19,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 24,
+                "n": 30
+              }
+            },
+            "reader_seconds": 137.56646273192018,
+            "rotation_consistent": 124,
+            "unrotated_correct": 116,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "dense_chronological": {
+            "changed_order": 192,
+            "correct": 130,
+            "mean_accuracy_per_rotation": 0.5900793650793651,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 21,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 7,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 14,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 22,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 21,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 24,
+                "n": 30
+              }
+            },
+            "reader_seconds": 137.42237934842706,
+            "rotation_consistent": 132,
+            "unrotated_correct": 124,
+            "vs_dense": {
+              "change": 0.02857142857142857,
+              "source_cluster_bootstrap95": [
+                0.004328537841468876,
+                0.05780574992394277
+              ]
+            }
+          },
+          "dense_date_masked": {
+            "correct": 125,
+            "mean_accuracy_per_rotation": 0.5698412698412698,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 7,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 15,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 16,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 22,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 24,
+                "n": 30
+              }
+            },
+            "reader_seconds": 137.5617568604648,
+            "rotation_consistent": 124,
+            "unrotated_correct": 115,
+            "vs_dense": {
+              "change": 0.004761904761904762,
+              "source_cluster_bootstrap95": [
+                -0.028985507246376812,
+                0.03684210526315789
+              ]
+            }
+          },
+          "dense_dates_rotated": {
+            "changed_panels": {
+              "better": 3,
+              "n": 152,
+              "worse": 0
+            },
+            "correct": 127,
+            "mean_accuracy_per_rotation": 0.580952380952381,
+            "n": 210,
+            "packed_body_tokens": 617003,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 20,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 7,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 14,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 20,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 21,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 24,
+                "n": 30
+              }
+            },
+            "reader_seconds": 137.51555478014052,
+            "rotation_consistent": 125,
+            "unrotated_correct": 119,
+            "vs_dense": {
+              "change": 0.014285714285714285,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.031581328887830405
+              ]
+            }
+          },
+          "prefix": {
+            "correct": 119,
+            "mean_accuracy_per_rotation": 0.5380952380952381,
+            "n": 210,
+            "packed_body_tokens": 605722,
+            "per_family": {
+              "Co_temporality": {
+                "correct": 19,
+                "n": 30
+              },
+              "Counterfactual": {
+                "correct": 6,
+                "n": 30
+              },
+              "Duration_Compare": {
+                "correct": 14,
+                "n": 30
+              },
+              "Explicit_Reasoning": {
+                "correct": 19,
+                "n": 30
+              },
+              "Order_Compare": {
+                "correct": 22,
+                "n": 30
+              },
+              "Order_Reasoning": {
+                "correct": 18,
+                "n": 30
+              },
+              "Relative_Reasoning": {
+                "correct": 21,
+                "n": 30
+              }
+            },
+            "reader_seconds": 133.97534295730293,
+            "rotation_consistent": 124,
+            "unrotated_correct": 111,
+            "vs_dense": {
+              "change": -0.023809523809523808,
+              "source_cluster_bootstrap95": [
+                -0.08955894181785681,
+                0.043072602454753334
+              ]
+            }
+          }
+        },
+        "queries": 210,
+        "reader_model": {
+          "revision": "0613663d0d48ea86ba8cb3d7a44f0f65dc596a2a",
+          "sha256": "a9dd06ce490f139af36e9eb77dd3758b4fd07a08a73d5a1abe5ff2591e2d388e"
+        },
+        "reader_token_budget": 1024,
+        "source_clusters": 53,
+        "source_contexts": 208,
+        "time_encode_rank_seconds": 2.2925750128924847
+      },
+      "large_vs_base": {
+        "closed_book": {
+          "gain": 0.05238095238095238,
+          "reader_time_ratio": 3.369516562311634,
+          "source_cluster_bootstrap95": [
+            -0.014354066985645933,
+            0.11353959904724094
+          ]
+        },
+        "dense": {
+          "gain": -0.0761904761904762,
+          "reader_time_ratio": 3.272180210376623,
+          "source_cluster_bootstrap95": [
+            -0.14635265159991048,
+            -0.009259259259259259
+          ]
+        },
+        "dense_chronological": {
+          "gain": -0.06666666666666667,
+          "reader_time_ratio": 3.2612598774140276,
+          "source_cluster_bootstrap95": [
+            -0.13020893895348837,
+            -0.005101393349217869
+          ]
+        },
+        "dense_date_masked": {
+          "gain": -0.08095238095238096,
+          "reader_time_ratio": 3.268881332797871,
+          "source_cluster_bootstrap95": [
+            -0.13931188651337906,
+            -0.025506966746089346
+          ]
+        },
+        "dense_dates_rotated": {
+          "gain": -0.06190476190476191,
+          "reader_time_ratio": 3.278236681012555,
+          "source_cluster_bootstrap95": [
+            -0.1319820898381381,
+            0.00505179344465057
+          ]
+        },
+        "prefix": {
+          "gain": -0.06666666666666667,
+          "reader_time_ratio": 3.3025691075192523,
+          "source_cluster_bootstrap95": [
+            -0.13934902783072817,
+            0.005128865979381433
+          ]
+        }
+      }
+    },
+    "TIME-Lite-Wiki": {
+      "base": {
+        "device": "NVIDIA L4",
+        "fixture": "ea72520627666c0291340ed9243d66bba4cfe11b88abee2ad2d33ce8867dd76d",
+        "largest_shared_source_cluster": 3,
+        "max_windows": 4,
+        "metrics": {
+          "closed_book": {
+            "correct": 23,
+            "mean_accuracy_per_rotation": 0.39141414141414144,
+            "n": 66,
+            "packed_body_tokens": 0,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 12,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 1,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 10,
+                "n": 30
+              }
+            },
+            "reader_seconds": 0.7169665368273854,
+            "rotation_consistent": 23,
+            "unrotated_correct": 29,
+            "vs_dense": {
+              "change": -0.045454545454545456,
+              "source_cluster_bootstrap95": [
+                -0.15384615384615385,
+                0.06060606060606061
+              ]
+            }
+          },
+          "dense": {
+            "correct": 26,
+            "mean_accuracy_per_rotation": 0.3813131313131313,
+            "n": 66,
+            "packed_body_tokens": 172901,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 7,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 9,
+                "n": 30
+              }
+            },
+            "reader_seconds": 10.937955922447145,
+            "rotation_consistent": 23,
+            "unrotated_correct": 26,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "dense_chronological": {
+            "changed_order": 62,
+            "correct": 24,
+            "mean_accuracy_per_rotation": 0.39393939393939387,
+            "n": 66,
+            "packed_body_tokens": 172901,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 5,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 9,
+                "n": 30
+              }
+            },
+            "reader_seconds": 10.935326896607876,
+            "rotation_consistent": 20,
+            "unrotated_correct": 25,
+            "vs_dense": {
+              "change": -0.030303030303030304,
+              "source_cluster_bootstrap95": [
+                -0.08823529411764706,
+                0.030303030303030304
+              ]
+            }
+          },
+          "prefix": {
+            "correct": 23,
+            "mean_accuracy_per_rotation": 0.35353535353535354,
+            "n": 66,
+            "packed_body_tokens": 175833,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 5,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 8,
+                "n": 30
+              }
+            },
+            "reader_seconds": 11.32298472803086,
+            "rotation_consistent": 23,
+            "unrotated_correct": 22,
+            "vs_dense": {
+              "change": -0.045454545454545456,
+              "source_cluster_bootstrap95": [
+                -0.09836642807665666,
+                0.0
+              ]
+            }
+          }
+        },
+        "queries": 66,
+        "reader_model": {
+          "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+          "sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8"
+        },
+        "reader_token_budget": 1024,
+        "source_clusters": 30,
+        "source_contexts": 30,
+        "time_encode_rank_seconds": 0.5604897197335958
+      },
+      "large": {
+        "device": "NVIDIA L4",
+        "fixture": "ea72520627666c0291340ed9243d66bba4cfe11b88abee2ad2d33ce8867dd76d",
+        "largest_shared_source_cluster": 3,
+        "max_windows": 4,
+        "metrics": {
+          "closed_book": {
+            "correct": 26,
+            "mean_accuracy_per_rotation": 0.36237373737373735,
+            "n": 66,
+            "packed_body_tokens": 0,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 3,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 13,
+                "n": 30
+              }
+            },
+            "reader_seconds": 2.420283980667591,
+            "rotation_consistent": 50,
+            "unrotated_correct": 26,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                -0.08113738738738738,
+                0.0833686440677961
+              ]
+            }
+          },
+          "dense": {
+            "correct": 26,
+            "mean_accuracy_per_rotation": 0.41414141414141414,
+            "n": 66,
+            "packed_body_tokens": 172901,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 5,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              }
+            },
+            "reader_seconds": 36.513955572620034,
+            "rotation_consistent": 50,
+            "unrotated_correct": 30,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "dense_chronological": {
+            "changed_order": 62,
+            "correct": 26,
+            "mean_accuracy_per_rotation": 0.4292929292929293,
+            "n": 66,
+            "packed_body_tokens": 172901,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 10,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 4,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 12,
+                "n": 30
+              }
+            },
+            "reader_seconds": 36.57092539407313,
+            "rotation_consistent": 50,
+            "unrotated_correct": 31,
+            "vs_dense": {
+              "change": 0.0,
+              "source_cluster_bootstrap95": [
+                -0.0967741935483871,
+                0.08955223880597014
+              ]
+            }
+          },
+          "prefix": {
+            "correct": 29,
+            "mean_accuracy_per_rotation": 0.4684343434343434,
+            "n": 66,
+            "packed_body_tokens": 175833,
+            "per_family": {
+              "Duration_Compare": {
+                "correct": 13,
+                "n": 28
+              },
+              "Extract": {
+                "correct": 5,
+                "n": 8
+              },
+              "Order_Compare": {
+                "correct": 11,
+                "n": 30
+              }
+            },
+            "reader_seconds": 37.47371720708907,
+            "rotation_consistent": 44,
+            "unrotated_correct": 32,
+            "vs_dense": {
+              "change": 0.045454545454545456,
+              "source_cluster_bootstrap95": [
+                -0.03333333333333333,
+                0.140625
+              ]
+            }
+          }
+        },
+        "queries": 66,
+        "reader_model": {
+          "revision": "0613663d0d48ea86ba8cb3d7a44f0f65dc596a2a",
+          "sha256": "a9dd06ce490f139af36e9eb77dd3758b4fd07a08a73d5a1abe5ff2591e2d388e"
+        },
+        "reader_token_budget": 1024,
+        "source_clusters": 30,
+        "source_contexts": 30,
+        "time_encode_rank_seconds": 0.5395734515041113
+      },
+      "large_vs_base": {
+        "closed_book": {
+          "gain": 0.045454545454545456,
+          "reader_time_ratio": 3.375727954302407,
+          "source_cluster_bootstrap95": [
+            -0.07575757575757576,
+            0.18310446009389664
+          ]
+        },
+        "dense": {
+          "gain": 0.0,
+          "reader_time_ratio": 3.3382796412339886,
+          "source_cluster_bootstrap95": [
+            -0.07575757575757576,
+            0.07352941176470588
+          ]
+        },
+        "dense_chronological": {
+          "gain": 0.030303030303030304,
+          "reader_time_ratio": 3.3442919210231734,
+          "source_cluster_bootstrap95": [
+            -0.029850746268656716,
+            0.09090909090909091
+          ]
+        },
+        "prefix": {
+          "gain": 0.09090909090909091,
+          "reader_time_ratio": 3.3095264285149297,
+          "source_cluster_bootstrap95": [
+            0.015151515151515152,
+            0.16666666666666666
+          ]
+        }
+      }
+    }
+  },
+  "source_revision": "cd93b48ffeb8491f6d46359a8e2bf79495cb0ad3"
+}

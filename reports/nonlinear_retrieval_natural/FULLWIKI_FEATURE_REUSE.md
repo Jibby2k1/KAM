@@ -17,4 +17,8 @@ In the feature study, batch p95 fell from 363.51 to 336.47 ms. All 100 digests o
 
 On the same 800 requests, the B200 runs also matched all 100 feature and prompt digests and every recorded selection and decision. Both arms matched the previously archived B200 decisions. Throughput rose from 28.95 to 32.60 requests per second. Median request time fell from 273.77 to 243.74 ms, with a paired difference of −29.29 ms [−37.76, −22.79]. Reranker preparation moved from 74.31 to 48.29 ms. The measured p95 fell from 347.24 to 315.11 ms. These figures compare two arms on the same GPU. Host and GPU phases can both influence the measured crossover.
 
-HPG arrays 52992772, 52992773 and 52993386. [Feature reuse results](../../results/nonlinear_retrieval_natural/fullwiki_feature_reuse_v1/) · [Second-hop batching results](../../results/nonlinear_retrieval_natural/fullwiki_second_batch_v1/) · [Shared initial corpus scans](FULLWIKI_SENTENCE_THROUGHPUT.md#sharing-the-initial-scan)
+## B200 batched second-hop replay
+
+Sharing the posting-score launch reduced B200 conditioned encoding and search from 10.77 to 8.52 ms at p50, with a paired median reduction of 2.09 ms [2.07, 2.14]. Across warmed eight-request batches, the entire request p50 moved from 265.83 to 260.23 ms and the paired median changed by −6.56 ms [−13.60, +4.47]. Batch p95 rose from 350.13 to 359.98 ms. All 800 ordered second-hop lists, prompt identities, evidence decisions and answer outcomes matched. The staged gain was larger on B200 than L4, with no clear B200 end-to-end latency improvement.
+
+HPG arrays 52992772, 52992773, 52993386 and 52993387. [Feature reuse results](../../results/nonlinear_retrieval_natural/fullwiki_feature_reuse_v1/) · [Second-hop batching results](../../results/nonlinear_retrieval_natural/fullwiki_second_batch_v1/) · [Shared initial corpus scans](FULLWIKI_SENTENCE_THROUGHPUT.md#sharing-the-initial-scan)

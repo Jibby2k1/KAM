@@ -44,6 +44,8 @@
 
 [A one-binding MuSiQue intervention](../../reports/nonlinear_retrieval_natural/MUSIQUE_SINGLE_BINDING.md) raised complete four-hop candidate recovery from 52 to 75 of 160 when the first binding was corrected. Correcting the third raised joint candidate coverage and final subanswer exactness from 7 to 21. Both diagnostics use author templates.
 
+[TIME-Lite context and chronology](../../reports/nonlinear_retrieval_natural/TIME_LITE_CONTEXT.md) compared retrieved context, ordering, date visibility and reader scale on 496 authored multiple-choice questions across dialogue, news and wiki. Fixed-content chronological order improved two of four dated reader settings.
+
 [Address-local temporal rank](../../reports/nonlinear_retrieval_natural/ADDRESS_LOCAL_CLOCK.md) improved mixed radial strict Eurostat unemployment lookup from 2.31% to 78.70% and synthetic depth-512 correction lookup from 39.52% to 82.03%. Dallas release-day accuracy fell from 57.56% to 44.35% when rank replaced time. Keeping both features in mixed dot improved Dallas from 57.08% to 61.24%, Eurostat unemployment from 3.01% to 81.37%, and depth-512 corrections from 30.92% to 99.02%. Typed exact joins recovered every measured archive lookup. [Clock resolution](../../reports/nonlinear_retrieval_natural/REVISION_CLOCK_RESOLUTION.md) changes that boundary. Week-only dates identify 290/576 unemployment snapshots and 556/576 industrial-production snapshots, even with a complete address history.
 
 ## Multi-hop evidence selection
