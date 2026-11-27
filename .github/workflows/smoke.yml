@@ -499,3 +499,10 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_cross_dataset_wikipedia.py --coverage "$study/coverage-52967153.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit mixed long and short radial training
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/radial_mixed_long_training_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_radial_mixed_long_training.py --b200 "$study"/train-b200-52966868-*.json.gz --l4 "$study"/train-l4-52966869-*.json.gz --short-root "$base/radial_archive_training_v1" --output "$output"
+          diff -u "$study/summary.json" "$output"

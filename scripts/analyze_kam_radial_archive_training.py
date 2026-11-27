@@ -15,6 +15,7 @@ TOPICS = {"earlier": 160, "later": 32}
 DEPTHS = (16, 48)
 OUTPUTS = ("joint", "numeric_exact", "unbound")
 EVALS = ("common_fp32_eval", "native_eval")
+SHORT = [[16, 159], [48, 33]]
 
 
 def fingerprint_panels(panels, cohort):
@@ -34,8 +35,8 @@ def fingerprint_panels(panels, cohort):
     return result, identities[(16, 0)]
 
 
-def inspect(run):
-    assert run["schedule"] == [[16, 159], [48, 33]] and run["bank_count"] == 16_384
+def inspect(run, *, schedule=None):
+    assert run["schedule"] == (SHORT if schedule is None else schedule) and run["bank_count"] == 16_384
     assert tuple(run["modes"]) == (*MODES[run["order"]:], *MODES[:run["order"]])
     base = run["modes"]["eager_fp32"]
     assert base["common_fp32_eval"] == base["native_eval"]
@@ -68,7 +69,7 @@ def inspect(run):
     return metrics, stamp
 
 
-def summarize(runs):
+def summarize(runs, *, schedule=None):
     by_gpu, anchors = {}, {}
     for hardware in ("b200", "l4"):
         records = {r["seed"]: r for r in runs[hardware]}
@@ -77,7 +78,7 @@ def summarize(runs):
         assert all(r["device"] == ("NVIDIA B200" if hardware == "b200" else "NVIDIA L4") for r in records.values())
         seeds = {}
         for s in SEEDS:
-            seeds[str(s)], stamp = inspect(records[s])
+            seeds[str(s)], stamp = inspect(records[s], schedule=schedule)
             assert anchors.setdefault(s, stamp) == stamp
         totals = {}
         for mode in MODES:

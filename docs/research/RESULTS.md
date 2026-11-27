@@ -125,3 +125,5 @@ In [matched from-scratch radial precision training](../../reports/nonlinear_retr
 Coupled [clock and position scaling](../../reports/nonlinear_retrieval_natural/DURATION_COORDINATES.md) raised exact paired duration-swap recovery from 51.27% to 62.92%. The wide normalized curriculum recovered 23.63% at 256 events, compared with 20.12% for a suffix-mean control.
 
 A [cross-dataset index audit](../../reports/nonlinear_retrieval_natural/CROSS_DATASET_WIKIPEDIA.md) found every supporting title for 10,096/12,576 2Wiki and 2,046/2,417 MuSiQue questions. Complete exact annotation coverage was 2,488 and 150 respectively, with sentence and paragraph units as released by each dataset.
+
+The [equal-token mixed long training](../../reports/nonlinear_retrieval_natural/RADIAL_MIXED_LONG_TRAINING.md) used 1,025-token updates and reduced L4 wall time from 31.69 to 13.89 seconds versus eager BF16, with a smaller B200 gain. All arms had low generated long-depth joint accuracy, and archive accuracy fell versus their shorter curricula.
