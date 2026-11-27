@@ -1,5 +1,226 @@
 {
   "devices": {
+    "NVIDIA B200": {
+      "archive_input_tensor_parity": {
+        "dallas": 7008,
+        "industry": 6912,
+        "later_industry": 864,
+        "later_unemployment": 864,
+        "unemployment": 6912
+      },
+      "panels": {
+        "1024/future_distractors": {
+          "batch": 4,
+          "metadata_bytes_at_timed_size": 131136,
+          "paired_fused_reductions": {
+            "dot": {
+              "layout": "batch_max",
+              "median_difference_ms": 0.03878085408359766,
+              "per_seed_differences_ms": [
+                0.04238891415297985,
+                0.03878085408359766,
+                -0.3440666478127241
+              ]
+            },
+            "radial": {
+              "layout": "full",
+              "median_difference_ms": 0.04196842201054096,
+              "per_seed_differences_ms": [
+                0.028126058168709278,
+                0.04196842201054096,
+                0.5593025125563145
+              ]
+            }
+          },
+          "wall_ms": {
+            "dot/packed": 1.4855640474706888,
+            "dot/reference": 1.516455435194075,
+            "prepare_packed": 0.5156134720891714,
+            "prepare_reconstruct": 0.5337960319593549,
+            "prepare_reference": 0.5785489920526743,
+            "radial/packed": 1.9603115506470203,
+            "radial/reference": 2.009715070016682,
+            "rank_packed": 0.2958874683827162,
+            "rank_reference": 0.3581349737942219
+          }
+        },
+        "1024/standard": {
+          "batch": 4,
+          "metadata_bytes_at_timed_size": 131136,
+          "paired_fused_reductions": {
+            "dot": {
+              "layout": "batch_max",
+              "median_difference_ms": 0.03869237843900919,
+              "per_seed_differences_ms": [
+                0.03943906631320715,
+                0.03413658123463392,
+                0.03869237843900919
+              ]
+            },
+            "radial": {
+              "layout": "full",
+              "median_difference_ms": 0.015839352272450924,
+              "per_seed_differences_ms": [
+                0.04617939703166485,
+                0.015839352272450924,
+                -0.49618538469076157
+              ]
+            }
+          },
+          "wall_ms": {
+            "dot/packed": 1.4812679728493094,
+            "dot/reference": 1.5204010996967554,
+            "prepare_packed": 0.5283440696075559,
+            "prepare_reconstruct": 0.542978523299098,
+            "prepare_reference": 0.5636404966935515,
+            "radial/packed": 1.968667027540505,
+            "radial/reference": 1.9845063798129559,
+            "rank_packed": 0.30466949101537466,
+            "rank_reference": 0.35455706529319286
+          }
+        },
+        "128/future_distractors": {
+          "batch": 16,
+          "metadata_bytes_at_timed_size": 65792,
+          "paired_fused_reductions": {
+            "dot": {
+              "layout": "batch_max",
+              "median_difference_ms": 0.03227347042411566,
+              "per_seed_differences_ms": [
+                0.03551505506038666,
+                0.03227347042411566,
+                0.029282993637025356
+              ]
+            },
+            "radial": {
+              "layout": "full",
+              "median_difference_ms": 0.04084501415491104,
+              "per_seed_differences_ms": [
+                0.0486765056848526,
+                0.030819326639175415,
+                0.04084501415491104
+              ]
+            }
+          },
+          "wall_ms": {
+            "dot/packed": 1.4598844572901726,
+            "dot/reference": 1.4953995123505592,
+            "prepare_packed": 0.5039415555074811,
+            "prepare_reconstruct": 0.5261005135253072,
+            "prepare_reference": 0.5532929208129644,
+            "radial/packed": 1.9438060699030757,
+            "radial/reference": 1.974625396542251,
+            "rank_packed": 0.2905665896832943,
+            "rank_reference": 0.33840141259133816
+          }
+        },
+        "128/standard": {
+          "batch": 16,
+          "metadata_bytes_at_timed_size": 65792,
+          "paired_fused_reductions": {
+            "dot": {
+              "layout": "batch_max",
+              "median_difference_ms": 0.04065141547471285,
+              "per_seed_differences_ms": [
+                0.045903027057647705,
+                0.03770797047764063,
+                0.04065141547471285
+              ]
+            },
+            "radial": {
+              "layout": "full",
+              "median_difference_ms": 0.04913390148431063,
+              "per_seed_differences_ms": [
+                0.05698460154235363,
+                0.038757920265197754,
+                0.04913390148431063
+              ]
+            }
+          },
+          "wall_ms": {
+            "dot/packed": 1.4645078917965293,
+            "dot/reference": 1.5036500990390778,
+            "prepare_packed": 0.5104115698486567,
+            "prepare_reconstruct": 0.5249554524198174,
+            "prepare_reference": 0.55184296797961,
+            "radial/packed": 1.9465956138446927,
+            "radial/reference": 1.9853535341098905,
+            "rank_packed": 0.29137416277080774,
+            "rank_reference": 0.3399025881662965
+          }
+        },
+        "512/future_distractors": {
+          "batch": 8,
+          "metadata_bytes_at_timed_size": 131200,
+          "paired_fused_reductions": {
+            "dot": {
+              "layout": "batch_max",
+              "median_difference_ms": 0.03920355811715126,
+              "per_seed_differences_ms": [
+                0.03920355811715126,
+                0.03771099727600813,
+                0.04772550892084837
+              ]
+            },
+            "radial": {
+              "layout": "full",
+              "median_difference_ms": 0.039239879697561264,
+              "per_seed_differences_ms": [
+                0.03976793959736824,
+                0.038504949770867825,
+                0.039239879697561264
+              ]
+            }
+          },
+          "wall_ms": {
+            "dot/packed": 1.4706155052408576,
+            "dot/reference": 1.5083265025168657,
+            "prepare_packed": 0.5113575607538223,
+            "prepare_reconstruct": 0.5287595558911562,
+            "prepare_reference": 0.5562265869230032,
+            "radial/packed": 1.9516624743118882,
+            "radial/reference": 1.990167424082756,
+            "rank_packed": 0.29296998400241137,
+            "rank_reference": 0.3421389264985919
+          }
+        },
+        "512/standard": {
+          "batch": 8,
+          "metadata_bytes_at_timed_size": 131200,
+          "paired_fused_reductions": {
+            "dot": {
+              "layout": "batch_max",
+              "median_difference_ms": 0.04271336365491152,
+              "per_seed_differences_ms": [
+                0.04271336365491152,
+                0.04120892845094204,
+                0.044501968659460545
+              ]
+            },
+            "radial": {
+              "layout": "full",
+              "median_difference_ms": 0.05089351907372475,
+              "per_seed_differences_ms": [
+                0.05089351907372475,
+                0.046966131776571274,
+                0.05155627150088549
+              ]
+            }
+          },
+          "wall_ms": {
+            "dot/packed": 1.4679415617138147,
+            "dot/reference": 1.5091504901647568,
+            "prepare_packed": 0.511458027176559,
+            "prepare_reconstruct": 0.5261020269244909,
+            "prepare_reference": 0.5566225154325366,
+            "radial/packed": 1.9367060158401728,
+            "radial/reference": 1.983672147616744,
+            "rank_packed": 0.29248103965073824,
+            "rank_reference": 0.34001353196799755
+          }
+        }
+      }
+    },
     "NVIDIA L4": {
       "archive_input_tensor_parity": {
         "dallas": 7008,

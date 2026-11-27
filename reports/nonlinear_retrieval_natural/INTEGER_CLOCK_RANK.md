@@ -1,6 +1,6 @@
 # Packed integer sorting for address-local clock rank
 
-Packing the address, eligibility and two integer clocks into one stable sort key sped up rank preparation on L4 and RTX PRO 6000. At depth 1,024 on L4, rank alone fell from 0.357 to 0.276 ms. The fused radial forward including clock preprocessing moved from 1.805 to 1.782 ms. The whole-path benefit was small after the larger attention optimization.
+Packing the address, eligibility and two integer clocks into one stable sort key sped up rank preparation on L4, RTX PRO 6000 and B200. At depth 1,024 on L4, rank alone fell from 0.357 to 0.276 ms. The fused radial forward including clock preprocessing moved from 1.805 to 1.782 ms. The whole-path benefit was small after the larger attention optimization.
 
 Packing preserves lexicographic direction across four fields. Address is the high field, followed by eligibility, reverse effective time, and reverse publication time. Each clock uses a signed 22-bit range. Equal-time pairs share their earliest within-address rank. The prototype assumes integer ticks from a trusted source with sufficient range and precision. The full input uses the original numerical offsets for normalization. General clocks still use stable multi-key sorting. A separate timed arm reconstructs ticks from the synthetic float inputs, whose grid is known.
 
@@ -13,4 +13,6 @@ Packing preserves lexicographic direction across four fields. Address is the hig
 
 Each device verified both alias and fact preprocessing on 22,560 archive comparisons, including candidate depths, query symbolizations and fits. All prepared tensors were identical. In a separate synthetic sweep, all 2,304 paired fused outputs per GPU also matched bitwise. The typed metadata requires a separate integer tensor, adding about 131 KB to a depth-1,024 batch of four in the prototype. The table reports medians of three synchronized seed measurements, each using 28 repeats with fixed GPU-ready inputs. The timing excludes the cost of building or transferring metadata.
 
-HPG L4 and RTX arrays 53018018 and 53018019. [Measured timing and parity](../../results/nonlinear_retrieval_natural/integer_clock_rank_v1/) · [Fused FP32 reference](GUARDED_FP32_SDPA.md)
+B200 preserved every prepared tensor and fused readout. Rank-only time fell from 0.358 to 0.296 ms, and full radial time moved from 2.010 to 1.960 ms in the padded fused layout. The median paired full radial saving was 0.042 ms across three seeds. One dot timing pair was slower with packing. Each GPU had identical input fixture hashes.
+
+HPG arrays 53018018, 53018019 and 53018020. [Measured timing and parity](../../results/nonlinear_retrieval_natural/integer_clock_rank_v1/) · [Fused FP32 reference](GUARDED_FP32_SDPA.md)
