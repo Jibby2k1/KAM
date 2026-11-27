@@ -10,7 +10,7 @@ from time import perf_counter
 import tantivy
 import torch
 
-from audit_kam_natural_data import digest, stable
+from audit_kam_natural_data import digest, stable, words
 from prepare_kam_native_musique import canonical_paragraph
 from prepare_kam_natural_router import title_key
 from run_kam_fullwiki_native_compare import reciprocal_rank_fusion
@@ -77,6 +77,64 @@ def open_both(items, questions, ranked, encoder, bank, reader, articles, ordered
     return example
 
 
+def rerank_open(items, questions, question_vectors, encoder, bank, reader, articles, fixed):
+    tokenizer = reader.tokenizer
+    intro = tokenizer("Candidate passages:", add_special_tokens=False).input_ids
+    rows = fixed["rows"]
+    assert [i[0]["question"] for i in items] == [r["question"] for r in rows]
+    controls = [row["systems"]["dense/conditioned_search"] for row in rows]
+    anchors = [r["selected"][0] for r in controls]
+    pools = [r["pool"] for r in controls]
+    positions = torch.tensor(pools, dtype=torch.long, device="cuda")
+
+    def text(i):
+        return articles[i]["title"] + ". " + articles[i]["body"]
+
+    descriptions = tokenizer.batch_decode(tokenizer([text(i) for i in anchors], add_special_tokens=False,
+                                                      max_length=128, truncation=True).input_ids)
+    update = encoder([q+" Previous evidence: "+doc for q,doc in zip(questions,descriptions,strict=True)], "query")
+    reference = (update @ bank.T).gather(1, positions)
+    original = (question_vectors @ bank.T).gather(1, positions)
+    similarity = (bank[anchors] @ bank.T).gather(1, positions)
+    ignore = positions.eq(torch.tensor(anchors, device="cuda")[:, None])
+    baseline = reference.masked_fill(ignore, -torch.inf)
+    order = baseline.argsort(dim=-1, descending=True, stable=True)
+    in_top_eight = torch.zeros_like(ignore).scatter_(1, order[:, :8], True)
+    mentions = []
+    for passage, pool in zip(descriptions, pools, strict=True):
+        body = " " + " ".join(words(passage)) + " "
+        titles = [words(articles[i]["title"]) for i in pool]
+        mentions.append([len(tokens) >= 2 and (" " + " ".join(tokens) + " ") in body for tokens in titles])
+    mentioned = torch.tensor(mentions, dtype=torch.bool, device="cuda") & ~ignore
+    temperature = (reference.amax(1, keepdim=True) - reference.amin(1, keepdim=True) + 1)
+    policies = {
+        "conditioned": reference, "question_blend": .75*reference + .25*original,
+        "subtract_anchor": reference - .25*similarity,
+        "favor_mentioned": reference + temperature*mentioned,
+        "favor_mentioned_top_eight": reference + temperature*(mentioned & in_top_eight),
+    }
+    manifest = [{k: r[k] for k in ("question", "family", "pair", "annotated_route")} | {
+        "anchor": c["selected"][0], "pool": c["pool"], "results": {}} for r,c in zip(rows,controls,strict=True)]
+    for mode, scores in policies.items():
+        slots = scores.masked_fill(ignore, -torch.inf).argmax(-1, keepdim=True)
+        choices = positions.gather(1, slots)[:, 0].tolist()
+        if mode == "conditioned":
+            assert choices == [r["selected"][1] for r in controls]
+        prompts = []
+        for q, second in zip(questions, choices, strict=True):
+            desc = tokenizer(text(second), add_special_tokens=False, max_length=160, truncation=True).input_ids
+            ids = tuple(tokenized_question(tokenizer, q) + intro + desc + [tokenizer.eos_token_id])
+            prompts.append((ids, (1,)*len(ids)))
+        answer = read_packed(reader, prompts)
+        for i, (row, first, second, raw) in enumerate(zip(manifest, anchors, choices, answer, strict=True)):
+            answer_exact = exact(raw, items[i][1])
+            if mode == "conditioned":
+                assert answer_exact == controls[i]["exact_answer_second_only"]
+            row["results"][mode] = {"selected": [first, second], "answer_exact": answer_exact,
+                                   "mentioned_second": bool(mentioned[i, pools[i].index(second)])}
+    return manifest
+
+
 @torch.inference_mode()
 def run(a):
     torch.set_float32_matmul_precision("highest")
@@ -129,6 +187,11 @@ def run(a):
     if a.fully_open:
         outcomes = open_both(items, questions, ranked, encoder, bank, reader, articles, ordered_pairs, article_map)
         return provenance | {"rows": outcomes}
+    if a.rerank_frozen:
+        fixed = unpack(a.rerank_frozen)
+        assert all(fixed[k] == provenance[k] for k in ("fixture_sha256", "corpus_sha256", "models", "shard"))
+        revised = rerank_open(items, questions, answers, encoder, bank, reader, articles, fixed)
+        return provenance | {"open_reference_sha256": digest(a.rerank_frozen), "rows": revised}
     doc_tags = [x for item in items for x in item[4]]
     doc_features = encoder(doc_tags, "passage").view(len(items), 2, -1)
     visible_truth = [item[-1] for item in items]
@@ -178,6 +241,7 @@ def main():
     p.add_argument("--vectors", type=Path, nargs=4, required=True)
     p.add_argument("--shard", type=int, required=True)
     p.add_argument("--fully-open", action="store_true")
+    p.add_argument("--rerank-frozen", type=Path)
     a = p.parse_args()
     out = run(a)
     a.output.write_bytes(gzip.compress(json.dumps(out, separators=(",", ":"), allow_nan=False).encode(), mtime=0))

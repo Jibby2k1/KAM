@@ -92,3 +92,21 @@ On dense search with the identical second-only readout, conditioned corpus retri
 The dense conditioned route partitions the 168 cases into 40 incomplete pools, 11 complete pools with a nonannotated anchor, 57 complete pools with an annotated anchor and a missed second passage, 17 selected pairs with an inexact terminal readout, and 43 joint successes. Among the 68 complete pools that lose a support at selection, 57 already have a usable anchor. That makes ranking the second passage the largest measured selection target on this slice.
 
 HPG L4 array 53020278. [Fully open candidate lists and paired results](../../results/nonlinear_retrieval_natural/musique_open_both_v1/)
+
+## Reranking the frozen second-passage choices
+
+Giving priority to candidate titles explicitly mentioned in the first passage increased the dense conditioned pair count from 60 to 70 and the joint count from 43 to 52. This exploratory check follows the same cohort's error audit. It freezes all 128 available candidates, the selected anchor, and the terminal-only reader for every arm. The conditioned reference reproduced both the original selected documents and all 168 answer flags.
+
+A title mention is a normalized token-phrase match of at least two words within the first passage's encoded 128-token window. The hard preference selects the highest conditioned score among mentioned candidates when any are present. A shortlist preference only considers mentions among the top eight. The question blend adds one quarter original-query score. The anchor score adjustment subtracts one quarter of the candidate's cosine similarity to the first passage, testing whether redundant content dominates the conditioned score.
+
+| Frozen second-passage policy | Both supports selected | Joint exact match | Selected titles mentioned |
+| --- | ---: | ---: | ---: |
+| Conditioned E5 | 60 | 43 | 48 |
+| Favor mentioned titles | 70 | 52 | 76 |
+| Favor mentions among top eight | 68 | 50 | 67 |
+| Subtract anchor similarity | 68 | 49 | 51 |
+| Blend original question | 46 | 33 | 43 |
+
+The unrestricted mention preference gained ten joint answers and lost one, a paired 5.36 percentage points [0.74, 9.68]. The shortlist preference gained seven without a loss on this cohort. Those intervals resample relation families and describe this diagnostic panel. Fresh coverage and naturally linked distractors should guide whether to adopt the preference elsewhere.
+
+HPG L4 array 53021468. [Case-level ranking and recovery](../../results/nonlinear_retrieval_natural/musique_open_rerank_v1/)

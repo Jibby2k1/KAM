@@ -73,13 +73,51 @@ def audit(measurements, references):
     return {k:runs[0][k] for k in keys} | {"questions":len(cases), "families":len(clusters), "candidate_budget":128, "results":results}
 
 
+def audit_rerank(measurements, references):
+    prior = {unpack(p)["shard"]: p for p in references}
+    current = list(map(unpack, measurements))
+    assert len(current) == 4 and {r["shard"] for r in current} == set(prior) == set(range(4))
+    rows = []
+    for r in current:
+        assert r["device"] == "NVIDIA L4"
+        path = prior[r["shard"]]
+        initial = unpack(path)
+        assert r["open_reference_sha256"] == sha256(path.read_bytes()).hexdigest()
+        assert all(r[k] == initial[k] for k in ("fixture_sha256", "corpus_sha256", "source_sha256", "models"))
+        for a, b in zip(r["rows"], initial["rows"], strict=True):
+            assert all(a[k] == b[k] for k in ("question", "pair", "family", "annotated_route"))
+            baseline = b["systems"]["dense/conditioned_search"]
+            replay = a["results"]["conditioned"]
+            assert a["pool"] == baseline["pool"] and len(set(a["pool"])) == 128
+            assert replay["selected"] == baseline["selected"]
+            assert replay["answer_exact"] == baseline["exact_answer_second_only"]
+            assert all(v["selected"][0] == a["anchor"] and len(set(v["selected"])) == 2
+                       and set(v["selected"]) <= set(a["pool"]) for v in a["results"].values())
+            rows.append(a)
+    assert len(rows) == len({q["question"] for q in rows}) == 168
+    family = groups(rows, "family")
+    outcomes = {}
+    for tag in rows[0]["results"]:
+        records = [r["results"][tag] for r in rows]
+        pair = [set(x["selected"]) == set(r["annotated_route"]) for r, x in zip(rows, records, strict=True)]
+        joint = [p and x["answer_exact"] for p, x in zip(pair, records, strict=True)]
+        baseline = [set(r["results"]["conditioned"]["selected"]) == set(r["annotated_route"])
+                    and r["results"]["conditioned"]["answer_exact"] for r in rows]
+        outcomes[tag] = {"correct_pair": sum(pair), "joint": sum(joint),
+                         "selected_title_mentioned": sum(x["mentioned_second"] for x in records),
+                         "vs_conditioned_joint": compare(joint, baseline, family)}
+    return {"questions": len(rows), "families": len(family), "baseline_replayed": len(rows), "outcomes": outcomes}
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--measurements", type=Path, nargs=4, required=True)
     p.add_argument("--references", type=Path, nargs=4, required=True)
+    p.add_argument("--rerank", action="store_true")
     p.add_argument("--output", type=Path, required=True)
     a = p.parse_args()
-    a.output.write_text(json.dumps(audit(a.measurements,a.references),indent=2,sort_keys=True)+"\n")
+    summarize = audit_rerank if a.rerank else audit
+    a.output.write_text(json.dumps(summarize(a.measurements, a.references), indent=2, sort_keys=True) + "\n")
 
 
 if __name__ == "__main__":

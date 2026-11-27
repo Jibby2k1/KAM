@@ -20,6 +20,9 @@ mode=()
 if [[ "${KAM_OPEN_BOTH:-0}" == 1 ]]; then
     mode+=(--fully-open)
 fi
+if [[ "${KAM_OPEN_RERANK:-0}" == 1 ]]; then
+    mode+=(--rerank-frozen "$root/musique_open_both_v1/open-53020278-$i.json.gz")
+fi
 python -u "$work/run_kam_musique_open_premise.py" --fixture "$fixed/fixture.json.gz" --assets "$root/assets" \
   --previous "$fixed/endpoints-53018115-$i.json.gz" --native-fixture "$native/fixture.json" --corpus "$native/corpus.jsonl.gz" \
   --lexical "$native/lexical" --vectors "$native"/embedding-{0,1,2,3}.pt --shard "$i" --output "$work/open-$SLURM_ARRAY_JOB_ID-$i.json.gz" "${mode[@]}"
