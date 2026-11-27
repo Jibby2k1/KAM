@@ -394,3 +394,18 @@ jobs:
           for key in ("cohorts", "rows"):
               assert expected[key] == refit[key], key
           PY
+      - name: Audit exact lexical prewarm and thread parity
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/lexical_prewarm_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_lexical_prewarm.py "$study"/prewarm-[01].json --fixture "$base/dense_hybrid_anchor_v1/fixture.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
+      - name: Audit B200 garbage collection traces
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/live_anchor_reuse_gc_v1"
+          ref="$base/broad_anchor_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_live_gc_trace.py "$study"/profile-52955880-*.json.gz --fixture "$ref/fixture.json.gz" --reference "$ref/replay.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"

@@ -358,7 +358,27 @@ def run(a):
             timings, records, phases = {}, {}, {}
             for arm in arms:
                 phases[arm] = {}
-                records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
+                if a.trace_gc:
+                    import gc
+
+                    events, gc_start = [], 0.0
+
+                    def observe_gc(event, info):
+                        nonlocal gc_start
+                        if event == "start":
+                            gc_start = perf_counter()
+                        else:
+                            events.append({"generation": info["generation"], "collected": info["collected"],
+                                           "ms": (perf_counter() - gc_start) * 1000})
+
+                    gc.callbacks.append(observe_gc)
+                    try:
+                        records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
+                    finally:
+                        gc.callbacks.remove(observe_gc)
+                    records[arm]["gc_events"] = events
+                else:
+                    records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
             output.append({"id": case["id"], "order": arms, "timing_ms": timings,
                            "phase_ms": phases, "records": records})
         index_profile = {"prewarm_seconds": seconds, "database_bytes": database_bytes}
@@ -405,6 +425,7 @@ def main():
     live_profiles.add_argument("--live-anchor-profile", action="store_true")
     live_profiles.add_argument("--live-initial-profile", action="store_true")
     parser.add_argument("--sentence-reuse-profile", action="store_true")
+    parser.add_argument("--trace-gc", action="store_true")
     parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
     parser.add_argument("--index-prewarm-jobdir", type=Path)
     parser.add_argument("--shard", type=int, required=True)
@@ -426,6 +447,8 @@ def main():
         or a.shards != 1 or not a.index_prewarm_jobdir
     ):
         parser.error("the shared-index crossover needs two independent full-cohort affinity workers")
+    if a.trace_gc and not a.sentence_reuse_profile:
+        parser.error("garbage collector tracing requires the sentence reuse profile")
     if a.sentence_reuse_profile and not a.live_anchor_profile:
         parser.error("sentence reuse timing requires the live anchor profile")
     if (a.live_anchor_profile or a.live_initial_profile) and (

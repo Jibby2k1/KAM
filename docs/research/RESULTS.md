@@ -93,3 +93,5 @@ With the same supervision and fixed IIRC representations, the [matched neutral j
 The [live first-search benchmark](../../reports/nonlinear_retrieval_natural/LIVE_DENSE_HYBRID_TIMING.md) timed the complete expanded request on B200 at equal depth 64. Dense and hybrid medians were 83.65 and 229.05 ms, with a +142.32 ms paired hybrid overhead. All 128 archived decisions matched per arm.
 
 With IIRC first hops fixed, [second-hop query re-encoding](../../reports/nonlinear_retrieval_natural/IIRC_DYNAMIC_SECOND_HOP.md) left neutral pair recovery at 62/153 and moved title-aware recovery from 65 to 63. The extra encoding pass gave no exact-recovery gain on this cohort.
+
+[Exact lexical prewarming and threading](../../reports/nonlinear_retrieval_natural/LEXICAL_PREWARM.md) reduced CPU search p50 from 150.64 to 58.22 ms, preserving all ordered candidates. The [B200 collection trace](../../reports/nonlinear_retrieval_natural/LIVE_SENTENCE_REUSE_GC.md) found 83–113 ms generation-2 pauses on all four recurring sentence-reuse tail spikes.
