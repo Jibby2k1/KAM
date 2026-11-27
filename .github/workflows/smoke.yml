@@ -473,3 +473,10 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_duration_index.py --apple "$study/index-apple.json" --hpg "$study/index-hpg.json" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit matched learned event pointers and duration controls
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/duration_pointer_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_duration_pointer.py "$study"/pointer-52964534-*.json.gz --manifest "$base/unseentimeqa_duration_swaps_v1/manifest.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"
