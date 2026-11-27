@@ -1,0 +1,62 @@
+{
+  "arm": "kam",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+  "model_fingerprints": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670  config.json\nc0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539  tokenizer.json\ndd924a11b4c220f385b51ffa522daea7c9f3d850e31b162bb5661df483c6d3ee  model.safetensors\n",
+  "token_manifest_sha256": "b897bab163d9e44fee9c81a576a8fa0cbb26ff8eb433068ae511e8856f822a8d",
+  "exposure_sha256": "db441c39c92875c823aa91871ddbdf2790f747700e48f4f6af6b3f6e7aed0ce3",
+  "train_tokens": 2097152,
+  "new_trainable_parameters": 851968,
+  "training": [
+    {
+      "step": 128,
+      "validation_nll": {
+        "wiki": 2.2855148315429688,
+        "code": 1.398093342781067,
+        "math": 0.5531376600265503
+      },
+      "elapsed_s": 6.9415796501562
+    },
+    {
+      "step": 256,
+      "validation_nll": {
+        "wiki": 2.2419583797454834,
+        "code": 1.3933262825012207,
+        "math": 0.4018879532814026
+      },
+      "elapsed_s": 13.777478897944093
+    },
+    {
+      "step": 384,
+      "validation_nll": {
+        "wiki": 2.2292277812957764,
+        "code": 1.3884202241897583,
+        "math": 0.37847399711608887
+      },
+      "elapsed_s": 20.582122831139714
+    },
+    {
+      "step": 512,
+      "validation_nll": {
+        "wiki": 2.2246928215026855,
+        "code": 1.3864022493362427,
+        "math": 0.3713192343711853
+      },
+      "elapsed_s": 27.388971040956676
+    }
+  ],
+  "test_nll": {
+    "wiki": 2.1572675704956055,
+    "code": 1.4395325183868408,
+    "math": 0.3799814283847809
+  },
+  "untouched_test_nll": {
+    "wiki": 2.348055362701416,
+    "code": 1.5164692401885986,
+    "math": 1.0607566833496094
+  },
+  "adapter_sha256": "d721c7fb9f213583cf1e6686c668769be9332f0b4a1caaa17a2799eb730e1bba",
+  "gpu": "NVIDIA B200",
+  "torch": "2.8.0+cu128",
+  "peak_gpu_bytes": 13059943424
+}

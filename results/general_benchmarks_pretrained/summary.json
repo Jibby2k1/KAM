@@ -1,0 +1,535 @@
+{
+  "checkpoints": {
+    "dot": {
+      "adapter_sha256": "7d4d458bcdfde5c19560d2507aba17c3d6f767ee44a77d78b1a34bcf2bf2789e",
+      "arm": "dot",
+      "context_tokens": 4096,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "model_fingerprints": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670  config.json\nc0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539  tokenizer.json\ndd924a11b4c220f385b51ffa522daea7c9f3d850e31b162bb5661df483c6d3ee  model.safetensors\n",
+      "new_trainable_parameters": 851968,
+      "protocol": "qwen-pretrained-v1",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "total_backbone_parameters": 1543714304,
+      "training": {
+        "arm": "dot",
+        "exposure_sha256": "db441c39c92875c823aa91871ddbdf2790f747700e48f4f6af6b3f6e7aed0ce3",
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "model_fingerprints": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670  config.json\nc0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539  tokenizer.json\ndd924a11b4c220f385b51ffa522daea7c9f3d850e31b162bb5661df483c6d3ee  model.safetensors\n",
+        "new_trainable_parameters": 851968,
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "token_manifest_sha256": "b897bab163d9e44fee9c81a576a8fa0cbb26ff8eb433068ae511e8856f822a8d",
+        "train_tokens": 2097152
+      }
+    },
+    "kam": {
+      "adapter_sha256": "d721c7fb9f213583cf1e6686c668769be9332f0b4a1caaa17a2799eb730e1bba",
+      "arm": "kam",
+      "context_tokens": 4096,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "model_fingerprints": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670  config.json\nc0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539  tokenizer.json\ndd924a11b4c220f385b51ffa522daea7c9f3d850e31b162bb5661df483c6d3ee  model.safetensors\n",
+      "new_trainable_parameters": 851968,
+      "protocol": "qwen-pretrained-v1",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "total_backbone_parameters": 1543714304,
+      "training": {
+        "arm": "kam",
+        "exposure_sha256": "db441c39c92875c823aa91871ddbdf2790f747700e48f4f6af6b3f6e7aed0ce3",
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "model_fingerprints": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670  config.json\nc0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539  tokenizer.json\ndd924a11b4c220f385b51ffa522daea7c9f3d850e31b162bb5661df483c6d3ee  model.safetensors\n",
+        "new_trainable_parameters": 851968,
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "token_manifest_sha256": "b897bab163d9e44fee9c81a576a8fa0cbb26ff8eb433068ae511e8856f822a8d",
+        "train_tokens": 2097152
+      }
+    },
+    "pretrained": {
+      "adapter_sha256": null,
+      "arm": "pretrained",
+      "context_tokens": 4096,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "model_fingerprints": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670  config.json\nc0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539  tokenizer.json\ndd924a11b4c220f385b51ffa522daea7c9f3d850e31b162bb5661df483c6d3ee  model.safetensors\n",
+      "new_trainable_parameters": 0,
+      "protocol": "qwen-pretrained-v1",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "total_backbone_parameters": 1543714304,
+      "training": {}
+    }
+  },
+  "tasks": {
+    "gpqa": {
+      "arms": {
+        "dot": {
+          "answer_letter_counts": {
+            "A": 139,
+            "B": 10,
+            "C": 32,
+            "D": 17
+          },
+          "correct": 58,
+          "n": 198,
+          "score": 0.29292929292929293
+        },
+        "kam": {
+          "answer_letter_counts": {
+            "A": 116,
+            "B": 28,
+            "C": 43,
+            "D": 11
+          },
+          "correct": 47,
+          "n": 198,
+          "score": 0.23737373737373738
+        },
+        "pretrained": {
+          "answer_letter_counts": {
+            "A": 90,
+            "B": 36,
+            "C": 54,
+            "D": 18
+          },
+          "correct": 60,
+          "n": 198,
+          "score": 0.30303030303030304
+        }
+      },
+      "cache_checks": {
+        "dot": {
+          "cases": 2,
+          "max_abs": 0.25,
+          "mean_abs": 0.051466748118400574,
+          "same_argmax": 2
+        },
+        "kam": {
+          "cases": 2,
+          "max_abs": 0.21875,
+          "mean_abs": 0.029781315475702286,
+          "same_argmax": 2
+        },
+        "pretrained": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.028575172647833824,
+          "same_argmax": 2
+        }
+      },
+      "device": {
+        "dot": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "kam": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "pretrained": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "paired": {
+        "dot_vs_pretrained": {
+          "delta": -0.010101010101010102,
+          "dot_only": 19,
+          "item_bootstrap95_descriptive": [
+            -0.0707070707070707,
+            0.050505050505050504
+          ],
+          "kam_only": 17
+        },
+        "kam_vs_dot": {
+          "delta": -0.05555555555555555,
+          "dot_only": 18,
+          "item_bootstrap95_descriptive": [
+            -0.10606060606060606,
+            -0.005050505050505051
+          ],
+          "kam_only": 7
+        },
+        "kam_vs_pretrained": {
+          "delta": -0.06565656565656566,
+          "dot_only": 27,
+          "item_bootstrap95_descriptive": [
+            -0.12626262626262627,
+            -0.005050505050505051
+          ],
+          "kam_only": 14
+        }
+      },
+      "prompt_token_quantiles": [
+        90.0,
+        229.5,
+        474.15,
+        2817.0
+      ],
+      "sandbox_sha256": null,
+      "source_sha256": "41d1213cd7a4998605a26c2798500652572007161b3a92817ba46b35befcd305"
+    },
+    "gsm8k": {
+      "arms": {
+        "dot": {
+          "correct": 217,
+          "n": 1319,
+          "parsed_numeric": 1283,
+          "score": 0.1645185746777862
+        },
+        "kam": {
+          "correct": 228,
+          "n": 1319,
+          "parsed_numeric": 1191,
+          "score": 0.1728582259287339
+        },
+        "pretrained": {
+          "correct": 290,
+          "n": 1319,
+          "parsed_numeric": 651,
+          "score": 0.21986353297952996
+        }
+      },
+      "cache_checks": {
+        "dot": {
+          "cases": 2,
+          "max_abs": 0.25,
+          "mean_abs": 0.051466748118400574,
+          "same_argmax": 2
+        },
+        "kam": {
+          "cases": 2,
+          "max_abs": 0.21875,
+          "mean_abs": 0.029781315475702286,
+          "same_argmax": 2
+        },
+        "pretrained": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.028575172647833824,
+          "same_argmax": 2
+        }
+      },
+      "device": {
+        "dot": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "kam": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "pretrained": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "paired": {
+        "dot_vs_pretrained": {
+          "delta": -0.05534495830174375,
+          "dot_only": 233,
+          "item_bootstrap95_descriptive": [
+            -0.0841546626231994,
+            -0.02577710386656558
+          ],
+          "kam_only": 160
+        },
+        "kam_vs_dot": {
+          "delta": 0.008339651250947688,
+          "dot_only": 134,
+          "item_bootstrap95_descriptive": [
+            -0.01592115238817286,
+            0.032600454890068235
+          ],
+          "kam_only": 145
+        },
+        "kam_vs_pretrained": {
+          "delta": -0.04700530705079606,
+          "dot_only": 224,
+          "item_bootstrap95_descriptive": [
+            -0.0758150113722517,
+            -0.01819560272934041
+          ],
+          "kam_only": 162
+        }
+      },
+      "prompt_token_quantiles": [
+        74.0,
+        108.0,
+        156.0,
+        239.0
+      ],
+      "sandbox_sha256": null,
+      "source_sha256": "ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59"
+    },
+    "humaneval": {
+      "arms": {
+        "dot": {
+          "correct": 69,
+          "n": 164,
+          "score": 0.42073170731707316,
+          "unit_test_outcomes": {
+            "failed_tests": 71,
+            "passed": 69,
+            "syntax_error": 24
+          }
+        },
+        "kam": {
+          "correct": 78,
+          "n": 164,
+          "score": 0.47560975609756095,
+          "unit_test_outcomes": {
+            "failed_tests": 60,
+            "passed": 78,
+            "syntax_error": 26
+          }
+        },
+        "pretrained": {
+          "correct": 83,
+          "n": 164,
+          "score": 0.5060975609756098,
+          "unit_test_outcomes": {
+            "failed_tests": 49,
+            "passed": 83,
+            "syntax_error": 32
+          }
+        }
+      },
+      "cache_checks": {
+        "dot": {
+          "cases": 2,
+          "max_abs": 0.25,
+          "mean_abs": 0.051466748118400574,
+          "same_argmax": 2
+        },
+        "kam": {
+          "cases": 2,
+          "max_abs": 0.21875,
+          "mean_abs": 0.029781315475702286,
+          "same_argmax": 2
+        },
+        "pretrained": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.028575172647833824,
+          "same_argmax": 2
+        }
+      },
+      "device": {
+        "dot": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "kam": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "pretrained": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "paired": {
+        "dot_vs_pretrained": {
+          "delta": -0.08536585365853659,
+          "dot_only": 23,
+          "item_bootstrap95_descriptive": [
+            -0.1524390243902439,
+            -0.018292682926829267
+          ],
+          "kam_only": 9
+        },
+        "kam_vs_dot": {
+          "delta": 0.054878048780487805,
+          "dot_only": 9,
+          "item_bootstrap95_descriptive": [
+            -0.006097560975609756,
+            0.11585365853658537
+          ],
+          "kam_only": 18
+        },
+        "kam_vs_pretrained": {
+          "delta": -0.03048780487804878,
+          "dot_only": 14,
+          "item_bootstrap95_descriptive": [
+            -0.08536585365853659,
+            0.024390243902439025
+          ],
+          "kam_only": 9
+        }
+      },
+      "prompt_token_quantiles": [
+        96.0,
+        176.0,
+        331.7,
+        449.0
+      ],
+      "sandbox_sha256": "76fd174ec7c8158794e4c4f584353f7789c21138ca12b9c807e86384fef32886",
+      "source_sha256": "2f2871a15fbc95b6c683043359f4ed8e144c5a1c4f24f25f66bc51f598dfcfb6"
+    },
+    "mbpp": {
+      "arms": {
+        "dot": {
+          "correct": 209,
+          "n": 500,
+          "score": 0.418,
+          "unit_test_outcomes": {
+            "failed_tests": 260,
+            "no_definition": 9,
+            "passed": 209,
+            "syntax_error": 22
+          }
+        },
+        "kam": {
+          "correct": 167,
+          "n": 500,
+          "score": 0.334,
+          "unit_test_outcomes": {
+            "failed_tests": 190,
+            "passed": 167,
+            "syntax_error": 143
+          }
+        },
+        "pretrained": {
+          "correct": 241,
+          "n": 500,
+          "score": 0.482,
+          "unit_test_outcomes": {
+            "failed_tests": 248,
+            "passed": 241,
+            "syntax_error": 11
+          }
+        }
+      },
+      "cache_checks": {
+        "dot": {
+          "cases": 2,
+          "max_abs": 0.25,
+          "mean_abs": 0.051466748118400574,
+          "same_argmax": 2
+        },
+        "kam": {
+          "cases": 2,
+          "max_abs": 0.21875,
+          "mean_abs": 0.029781315475702286,
+          "same_argmax": 2
+        },
+        "pretrained": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.028575172647833824,
+          "same_argmax": 2
+        }
+      },
+      "device": {
+        "dot": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "kam": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "pretrained": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "paired": {
+        "dot_vs_pretrained": {
+          "delta": -0.064,
+          "dot_only": 65,
+          "item_bootstrap95_descriptive": [
+            -0.102,
+            -0.026
+          ],
+          "kam_only": 33
+        },
+        "kam_vs_dot": {
+          "delta": -0.084,
+          "dot_only": 78,
+          "item_bootstrap95_descriptive": [
+            -0.126,
+            -0.044
+          ],
+          "kam_only": 36
+        },
+        "kam_vs_pretrained": {
+          "delta": -0.148,
+          "dot_only": 102,
+          "item_bootstrap95_descriptive": [
+            -0.19,
+            -0.106
+          ],
+          "kam_only": 28
+        }
+      },
+      "prompt_token_quantiles": [
+        76.0,
+        95.0,
+        150.0,
+        1784.0
+      ],
+      "sandbox_sha256": "76fd174ec7c8158794e4c4f584353f7789c21138ca12b9c807e86384fef32886",
+      "source_sha256": "566fd53060ffba5766dace1d1e2f4c38906781526de222b0dfbdbc325b696c77"
+    },
+    "mmlu": {
+      "arms": {
+        "dot": {
+          "answer_letter_counts": {
+            "A": 5551,
+            "B": 2150,
+            "C": 3137,
+            "D": 3204
+          },
+          "correct": 7771,
+          "n": 14042,
+          "score": 0.5534111949864692
+        },
+        "kam": {
+          "answer_letter_counts": {
+            "A": 5694,
+            "B": 2861,
+            "C": 2841,
+            "D": 2646
+          },
+          "correct": 7646,
+          "n": 14042,
+          "score": 0.544509329155391
+        },
+        "pretrained": {
+          "answer_letter_counts": {
+            "A": 3957,
+            "B": 3703,
+            "C": 3266,
+            "D": 3116
+          },
+          "correct": 8109,
+          "n": 14042,
+          "score": 0.5774818401937046
+        }
+      },
+      "cache_checks": {
+        "dot": {
+          "cases": 2,
+          "max_abs": 0.25,
+          "mean_abs": 0.051466748118400574,
+          "same_argmax": 2
+        },
+        "kam": {
+          "cases": 2,
+          "max_abs": 0.21875,
+          "mean_abs": 0.029781315475702286,
+          "same_argmax": 2
+        },
+        "pretrained": {
+          "cases": 2,
+          "max_abs": 0.1875,
+          "mean_abs": 0.028575172647833824,
+          "same_argmax": 2
+        }
+      },
+      "device": {
+        "dot": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "kam": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "pretrained": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "paired": {
+        "dot_vs_pretrained": {
+          "delta": -0.024070645207235435,
+          "dot_only": 1163,
+          "item_bootstrap95_descriptive": [
+            -0.030195128899017234,
+            -0.01780373166215639
+          ],
+          "kam_only": 825
+        },
+        "kam_vs_dot": {
+          "delta": -0.008901865831078194,
+          "dot_only": 946,
+          "item_bootstrap95_descriptive": [
+            -0.01474148981626549,
+            -0.003062241845890899
+          ],
+          "kam_only": 821
+        },
+        "kam_vs_pretrained": {
+          "delta": -0.03297251103831363,
+          "dot_only": 1262,
+          "item_bootstrap95_descriptive": [
+            -0.039239424583392676,
+            -0.026634382566585957
+          ],
+          "kam_only": 799
+        }
+      },
+      "prompt_token_quantiles": [
+        71.0,
+        122.0,
+        360.0,
+        1045.0
+      ],
+      "sandbox_sha256": null,
+      "source_sha256": "74a41822ce7d3def56e1682f958469c04642a5336a5ce912fa375fdb90fb25d7"
+    }
+  }
+}

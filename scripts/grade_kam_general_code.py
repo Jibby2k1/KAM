@@ -7,6 +7,7 @@ import os
 import secrets
 import subprocess
 import tempfile
+import textwrap
 from pathlib import Path
 
 from run_kam_general_benchmarks import ARMS, digest, load_cases
@@ -39,14 +40,15 @@ def check_isolation(image):
         raise RuntimeError(f"Isolation preflight failed: {result.stderr.decode(errors='replace')}")
 
 
-def get_program(task, case, completion):
+def get_program(task, case, completion, *, full_program=False):
     if task == "humaneval":
-        return case["prompt"] + completion, case["test"] + "\ncheck(" + case["entry_point"] + ")\n"
+        program = completion if full_program else case["prompt"] + completion
+        return program, case["test"] + "\ncheck(" + case["entry_point"] + ")\n"
     return completion, "\n".join(case["test_list"]) + "\n"
 
 
-def evaluate(task, case, completion, image):
-    program, tests = get_program(task, case, completion)
+def evaluate(task, case, completion, image, *, full_program=False):
+    program, tests = get_program(task, case, completion, full_program=full_program)
     try:
         tree = ast.parse(program)
     except (ValueError, SyntaxError):
@@ -91,13 +93,17 @@ def main(args):
         return
     generation = json.loads(args.generation.read_text())
     metadata = generation["metadata"]
-    assert metadata["task"] == args.task and metadata["arm"] in ARMS
+    full_program = metadata.get("protocol") == "qwen-pretrained-v1"
+    allowed_arms = ("kam", "dot", "pretrained") if full_program else ARMS
+    assert metadata["task"] == args.task and metadata["arm"] in allowed_arms
     assert digest(source) == metadata["source_sha256"]
     rows = []
     for index, row in enumerate(generation["records"]):
         assert index == row["index"]
-        outcome = evaluate(args.task, cases[index], row["completion"], args.image)
-        rows.append({"index": index, "prompt_bytes": row["prompt_bytes"],
+        completion = textwrap.dedent(row["completion"]) if full_program else row["completion"]
+        outcome = evaluate(args.task, cases[index], completion, args.image, full_program=full_program)
+        length_key = "prompt_tokens" if full_program else "prompt_bytes"
+        rows.append({"index": index, length_key: row[length_key],
                      "correct": outcome == "passed", "outcome": outcome})
     assert len(rows) == len(cases)
     metadata["sandbox_sha256"] = digest(args.image)

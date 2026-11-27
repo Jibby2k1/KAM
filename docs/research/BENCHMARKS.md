@@ -35,6 +35,20 @@ These are newly trained, approximately 10M-parameter models. Each saw the same 1
 
 [Longer-context protocol, diagnostics, and training metrics](GENERAL_BENCHMARKS_LONG.md) · [Machine-readable results](../../results/general_benchmarks_long/summary.json)
 
+### Shared pretrained backbone
+
+Both adapters start from the same frozen Qwen2.5-1.5B-Instruct weights. Each adds 851,968 trainable parameters and trains on the same 2,097,152 subword tokens. The untouched checkpoint uses the same Qwen prompts and scoring.
+
+| Benchmark | Metric | Untouched Qwen | KAM adapter | Dot adapter |
+| --- | --- | ---: | ---: | ---: |
+| HumanEval | Pass@1 | 50.61% (83/164) | 47.56% (78/164) | 42.07% (69/164) |
+| MBPP | Pass@1 | 48.20% (241/500) | 33.40% (167/500) | 41.80% (209/500) |
+| GPQA Diamond | Accuracy | 30.30% (60/198) | 23.74% (47/198) | 29.29% (58/198) |
+| MMLU | Accuracy | 57.75% (8,109/14,042) | 54.45% (7,646/14,042) | 55.34% (7,771/14,042) |
+| GSM8K | Strict exact match | 21.99% (290/1,319) | 17.29% (228/1,319) | 16.45% (217/1,319) |
+
+[Pretrained adapter report and protocol](GENERAL_BENCHMARKS_PRETRAINED.md) · [Numeric summary](../../results/general_benchmarks_pretrained/summary.json)
+
 ## Natural QA and conversational memory
 
 **Answer EM** is the fraction of normalized answers that exactly match a reference. **Token F1** measures partial overlap with a reference answer. **Complete evidence** requires every support unit at the study's documented granularity. **Joint EM** here requires both answer EM and complete evidence. Official benchmark joint scores can use different support units and formulas. Counts below are baseline → comparison on the same cohort. A dash marks a metric without a comparable value in the scorecard.
