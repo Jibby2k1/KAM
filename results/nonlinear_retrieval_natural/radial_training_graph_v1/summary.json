@@ -1,0 +1,506 @@
+{
+  "b200_constant": {
+    "checkpoint_sha256": "3e1196f8f88c42e812a05580a52438f167135ff9129e5086af59c14d6ffd777f",
+    "cycles": 256,
+    "device": "NVIDIA B200",
+    "policies": {
+      "eager_fp32": {
+        "comparisons": [
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729801
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729823
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729839
+          }
+        ],
+        "median_seconds": {
+          "graph": 1.6277347363065928,
+          "regular": 5.342896653339267
+        },
+        "paired_speedup_vs_eager": {
+          "graph": [
+            3.4223332727771694,
+            3.2700946811589575,
+            3.2337882801997435
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "graph": 0.14227648731321096,
+            "regular": 0.2694854158908129
+          },
+          "729823": {
+            "graph": 0.3537562396377325,
+            "regular": 0.06650900188833475
+          },
+          "729839": {
+            "graph": 0.16532071912661195,
+            "regular": 0.28458956349641085
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "graph": 1.6214333986863494,
+            "regular": 5.549085469916463
+          },
+          "729823": {
+            "graph": 1.6338660418987274,
+            "regular": 5.342896653339267
+          },
+          "729839": {
+            "graph": 1.6277347363065928,
+            "regular": 5.26374951354228
+          }
+        }
+      },
+      "fp32_short_flash_long": {
+        "comparisons": [
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729801
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729823
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729839
+          }
+        ],
+        "median_seconds": {
+          "graph": 1.2039834486786276,
+          "regular": 5.776289225555956
+        },
+        "paired_speedup_vs_eager": {
+          "graph": [
+            5.154203265504395,
+            4.772212761680314,
+            4.474332246056586
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "graph": 0.2062619561329484,
+            "regular": 0.14366923365741968
+          },
+          "729823": {
+            "graph": 0.25816770270466805,
+            "regular": 0.07539520971477032
+          },
+          "729839": {
+            "graph": 0.15975313470698893,
+            "regular": 0.15760468249209225
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "graph": 1.200072162784636,
+            "regular": 6.185415860265493
+          },
+          "729823": {
+            "graph": 1.2104006074368954,
+            "regular": 5.776289225555956
+          },
+          "729839": {
+            "graph": 1.2039834486786276,
+            "regular": 5.387021968141198
+          }
+        }
+      }
+    },
+    "update_tokens": 3151872
+  },
+  "l4_constant": {
+    "checkpoint_sha256": "3e1196f8f88c42e812a05580a52438f167135ff9129e5086af59c14d6ffd777f",
+    "cycles": 256,
+    "device": "NVIDIA L4",
+    "policies": {
+      "eager_fp32": {
+        "comparisons": [
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729801
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729823
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729839
+          }
+        ],
+        "median_seconds": {
+          "graph": 10.391082560643554,
+          "regular": 10.690194464288652
+        },
+        "paired_speedup_vs_eager": {
+          "graph": [
+            1.031222072494083,
+            1.0261955270881964,
+            1.0308695206286116
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "graph": 0.24040781194344163,
+            "regular": 0.21034559747204185
+          },
+          "729823": {
+            "graph": 0.3330873022787273,
+            "regular": 0.13502997485920787
+          },
+          "729839": {
+            "graph": 0.26420421758666635,
+            "regular": 0.23233530158177018
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "graph": 10.318320475984365,
+            "regular": 10.64047982590273
+          },
+          "729823": {
+            "graph": 10.417307600844651,
+            "regular": 10.690194464288652
+          },
+          "729839": {
+            "graph": 10.391082560643554,
+            "regular": 10.711850298102945
+          }
+        }
+      },
+      "fp32_short_flash_long": {
+        "comparisons": [
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729801
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729823
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729839
+          }
+        ],
+        "median_seconds": {
+          "graph": 2.777490746229887,
+          "regular": 4.003615519963205
+        },
+        "paired_speedup_vs_eager": {
+          "graph": [
+            1.4029284321710476,
+            1.4340872030591842,
+            1.5136118171805986
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "graph": 0.1424476047977805,
+            "regular": 0.09041863400489092
+          },
+          "729823": {
+            "graph": 0.193259472027421,
+            "regular": 0.05337377963587642
+          },
+          "729839": {
+            "graph": 0.17196549056097865,
+            "regular": 0.10123243927955627
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "graph": 2.7596675725653768,
+            "regular": 3.8716161008924246
+          },
+          "729823": {
+            "graph": 2.791751792654395,
+            "regular": 4.003615519963205
+          },
+          "729839": {
+            "graph": 2.777490746229887,
+            "regular": 4.204042815603316
+          }
+        }
+      }
+    },
+    "update_tokens": 3151872
+  },
+  "l4_cosine": {
+    "checkpoint_sha256": "3e1196f8f88c42e812a05580a52438f167135ff9129e5086af59c14d6ffd777f",
+    "cycles": 256,
+    "device": "NVIDIA L4",
+    "policies": {
+      "eager_fp32": {
+        "comparisons": [
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729801
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729823
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729839
+          }
+        ],
+        "median_seconds": {
+          "cursor": 10.374339031521231,
+          "graph": 10.377639977261424,
+          "regular": 10.640522386413068
+        },
+        "paired_speedup_vs_eager": {
+          "cursor": [
+            1.0277255574550301,
+            1.0259230385127716,
+            1.025401740355704
+          ],
+          "graph": [
+            1.0277535069214463,
+            1.025331617759688,
+            1.0272489381296341
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "cursor": 0.24320482276380062,
+            "graph": 0.2453428478911519,
+            "regular": 0.22199759911745787
+          },
+          "729823": {
+            "cursor": 0.24140673130750656,
+            "graph": 0.3292836635373533,
+            "regular": 0.13533874275162816
+          },
+          "729839": {
+            "cursor": 0.3195481118746102,
+            "graph": 0.24715805053710938,
+            "regular": 0.13469597045332193
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "cursor": 10.492256535217166,
+            "graph": 10.491971201263368,
+            "regular": 10.783160196617246
+          },
+          "729823": {
+            "cursor": 10.371657509356737,
+            "graph": 10.377639977261424,
+            "regular": 10.640522386413068
+          },
+          "729839": {
+            "cursor": 10.374339031521231,
+            "graph": 10.355683907866478,
+            "regular": 10.63786529796198
+          }
+        }
+      },
+      "fp32_short_flash_long": {
+        "comparisons": [
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729801
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729823
+          },
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729839
+          }
+        ],
+        "median_seconds": {
+          "cursor": 2.776470245793462,
+          "graph": 2.780035423114896,
+          "regular": 4.088386714458466
+        },
+        "paired_speedup_vs_eager": {
+          "cursor": [
+            1.4203875256858458,
+            1.5626336112107437,
+            1.4513966260832993
+          ],
+          "graph": [
+            1.421569246888867,
+            1.560629656201366,
+            1.455256283829997
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "cursor": 0.15126988664269447,
+            "graph": 0.17998292576521635,
+            "regular": 0.09307620115578175
+          },
+          "729823": {
+            "cursor": 0.15361927868798375,
+            "graph": 0.19439400639384985,
+            "regular": 0.05599130084738135
+          },
+          "729839": {
+            "cursor": 0.1981982747092843,
+            "graph": 0.14142143772915006,
+            "regular": 0.0528575973585248
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "cursor": 2.878360053524375,
+            "graph": 2.875967332161963,
+            "regular": 4.088386714458466
+          },
+          "729823": {
+            "cursor": 2.776470245793462,
+            "graph": 2.780035423114896,
+            "regular": 4.338605726603419
+          },
+          "729839": {
+            "cursor": 2.7734823441132903,
+            "graph": 2.76612646272406,
+            "regular": 4.02542291674763
+          }
+        }
+      }
+    },
+    "update_tokens": 3151872
+  },
+  "l4_nondeterministic": {
+    "checkpoint_sha256": "3e1196f8f88c42e812a05580a52438f167135ff9129e5086af59c14d6ffd777f",
+    "cycles": 256,
+    "device": "NVIDIA L4",
+    "policies": {
+      "eager_fp32": {
+        "comparisons": [
+          {
+            "all_held_out_equal": true,
+            "eager_repeat_weight_l2": 0.0,
+            "graph_repeat_weight_l2": 0.0,
+            "graph_weight_l2": 0.0,
+            "seed": 729801
+          }
+        ],
+        "median_seconds": {
+          "graph": 9.976582739967853,
+          "regular": 10.237210900522768
+        },
+        "paired_speedup_vs_eager": {
+          "graph": [
+            1.0261239912851918
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "graph": 0.2368726716376841,
+            "regular": 0.2220067959278822
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "graph": 9.976582739967853,
+            "regular": 10.237210900522768
+          }
+        }
+      },
+      "fp32_short_flash_long": {
+        "comparisons": [
+          {
+            "all_held_out_equal": false,
+            "eager_repeat_weight_l2": 0.009964254684746265,
+            "graph_repeat_weight_l2": 0.0073442235589027405,
+            "graph_weight_l2": 0.007347599137574434,
+            "seed": 729801
+          }
+        ],
+        "median_seconds": {
+          "graph": 2.6252584932371974,
+          "regular": 3.9469508877955377
+        },
+        "paired_speedup_vs_eager": {
+          "graph": [
+            1.5034522878273087
+          ]
+        },
+        "setup_by_seed": {
+          "729801": {
+            "graph": 0.14654533891007304,
+            "regular": 0.09651474794372916
+          }
+        },
+        "timing_by_seed": {
+          "729801": {
+            "graph": 2.6252584932371974,
+            "regular": 3.9469508877955377
+          }
+        }
+      }
+    },
+    "update_tokens": 3151872
+  }
+}
