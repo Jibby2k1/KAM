@@ -1,0 +1,79 @@
+{
+  "contrast": {
+    "matched-minus-kam": {
+      "delta_by_seed": [
+        -0.06368460955269144,
+        -0.04927975739196361,
+        0.006823351023502654
+      ],
+      "mean_delta": -0.03538033864038413,
+      "paired_item_bootstrap95_given_seeds": [
+        -0.053828658074298714,
+        -0.01693201920646955
+      ]
+    },
+    "matched-minus-unscaled": {
+      "delta_by_seed": [
+        0.17134192570128887,
+        0.15769522365428354,
+        0.21076573161485973
+      ],
+      "mean_delta": 0.1799342936568107,
+      "paired_item_bootstrap95_given_seeds": [
+        0.15567349001769018,
+        0.2047005307050796
+      ]
+    },
+    "matched-minus-untouched": {
+      "delta_by_seed": [
+        0.0667172100075815,
+        0.07278241091736164,
+        0.10841546626231995
+      ],
+      "mean_delta": 0.08263836239575435,
+      "paired_item_bootstrap95_given_seeds": [
+        0.06141015921152388,
+        0.10411928228455901
+      ]
+    }
+  },
+  "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "n": 1319,
+  "seed_details": {
+    "731201": {
+      "dot_matched_correct": 913,
+      "dot_matched_parse_count": 1165,
+      "dot_residual_scale": 0.30126953125,
+      "dot_unscaled_correct": 687,
+      "kam_native_correct": 997,
+      "validation_dot_matched": 0.20917493104934692,
+      "validation_dot_unscaled": 1.036081075668335,
+      "validation_kam_target": 0.20976167917251587
+    },
+    "731211": {
+      "dot_matched_correct": 921,
+      "dot_matched_parse_count": 1179,
+      "dot_residual_scale": 0.28857421875,
+      "dot_unscaled_correct": 713,
+      "kam_native_correct": 986,
+      "validation_dot_matched": 0.2076764702796936,
+      "validation_dot_unscaled": 0.9737023711204529,
+      "validation_kam_target": 0.2077818512916565
+    },
+    "731221": {
+      "dot_matched_correct": 968,
+      "dot_matched_parse_count": 1246,
+      "dot_residual_scale": 0.32080078125,
+      "dot_unscaled_correct": 690,
+      "kam_native_correct": 959,
+      "validation_dot_matched": 0.2101108729839325,
+      "validation_dot_unscaled": 0.9724596738815308,
+      "validation_kam_target": 0.210856631398201
+    }
+  },
+  "seeds": [
+    731201,
+    731211,
+    731221
+  ]
+}

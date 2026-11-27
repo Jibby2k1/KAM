@@ -15,6 +15,20 @@ KL_CAP = 0.01
 BISECTION_STEPS = 11
 
 
+def largest_scale_under_cap(sample, cap):
+    lower, upper = 0.0, 1.0
+    assert sample(lower) <= cap
+    if sample(upper) <= cap:
+        return upper
+    for _ in range(BISECTION_STEPS):
+        midpoint = (lower + upper) / 2
+        if sample(midpoint) <= cap:
+            lower = midpoint
+        else:
+            upper = midpoint
+    return lower
+
+
 def measure(root, index):
     seed, recipe, arm = FACTORIAL_TRAIN_RUNS[index]
     assert recipe in ("reference", "high_lr_kl")
@@ -33,19 +47,9 @@ def measure(root, index):
         grid[scale] = validation(model, stack, data, offsets)
         return grid[scale]["forward_kl"]
 
-    lower, upper = 0.0, 1.0
-    assert sample(lower) <= KL_CAP
-    if sample(upper) <= KL_CAP:
-        lower = upper
-    else:
-        for _ in range(BISECTION_STEPS):
-            midpoint = (lower + upper) / 2
-            if sample(midpoint) <= KL_CAP:
-                lower = midpoint
-            else:
-                upper = midpoint
-    assert lower == max(x for x, record in grid.items() if record["forward_kl"] <= KL_CAP)
-    sample(lower)
+    selected = largest_scale_under_cap(sample, KL_CAP)
+    assert selected == max(x for x, record in grid.items() if record["forward_kl"] <= KL_CAP)
+    sample(selected)
     panels = fixtures(root, tokenizer)
     treated = {task: predict(model, stack, tokenizer, panel) for task, panel in panels.items()}
     stack.active = False
@@ -53,7 +57,7 @@ def measure(root, index):
     for panel in panels.values():
         del panel["encoded"]
     result = {
-        **metadata, "gpu": torch.cuda.get_device_name(), "kl_cap": KL_CAP, "scale": lower,
+        **metadata, "gpu": torch.cuda.get_device_name(), "kl_cap": KL_CAP, "scale": selected,
         "sampled_validation": [{"scale": x, **record} for x, record in sorted(grid.items())],
         "panels": panels, "choices": treated, "untouched": reference,
     }
@@ -61,7 +65,7 @@ def measure(root, index):
     temp = path.with_suffix(".tmp")
     temp.write_text(json.dumps(result, separators=(",", ":")))
     temp.replace(path)
-    print(checkpoint, lower, grid[lower]["forward_kl"], flush=True)
+    print(checkpoint, selected, grid[selected]["forward_kl"], flush=True)
 
 
 if __name__ == "__main__":

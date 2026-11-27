@@ -1,0 +1,106 @@
+{
+  "contrast": {
+    "matched-minus-kam": {
+      "delta_by_seed": [
+        0.00530705079605762,
+        0.016679302501895376,
+        0.004548900682335102
+      ],
+      "mean_delta": 0.008845084660096033,
+      "paired_item_bootstrap95_given_seeds": [
+        -0.0020217336365933787,
+        0.019459186252211273
+      ]
+    },
+    "matched-minus-uniform": {
+      "delta_by_seed": [
+        -0.0075815011372251705,
+        0.0,
+        0.0
+      ],
+      "mean_delta": -0.0025271670457417236,
+      "paired_item_bootstrap95_given_seeds": [
+        -0.01061410159211524,
+        0.005559767500631791
+      ]
+    },
+    "matched-minus-unscaled": {
+      "delta_by_seed": [
+        0.27748294162244125,
+        0.27369219105382864,
+        0.2676269901440485
+      ],
+      "mean_delta": 0.27293404094010615,
+      "paired_item_bootstrap95_given_seeds": [
+        0.2486732373009856,
+        0.29744756128380084
+      ]
+    },
+    "matched-minus-untouched": {
+      "delta_by_seed": [
+        -0.009855951478392721,
+        -0.006065200909780136,
+        -0.01061410159211524
+      ],
+      "mean_delta": -0.008845084660096033,
+      "paired_item_bootstrap95_given_seeds": [
+        -0.020975486479656306,
+        0.0027798837503158957
+      ]
+    }
+  },
+  "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+  "n": 1319,
+  "seed_details": {
+    "731201": {
+      "active_layers": [
+        5,
+        11
+      ],
+      "dot_matched_correct": 406,
+      "dot_matched_parse_count": 1204,
+      "dot_residual_scale": 0.04931640625,
+      "dot_unscaled_correct": 40,
+      "kam_native_correct": 399,
+      "uniform_matched_correct": 416,
+      "validation_dot_matched": 0.004758073482662439,
+      "validation_dot_unscaled": 0.3257787525653839,
+      "validation_kam_target": 0.004801026079803705
+    },
+    "731211": {
+      "active_layers": [
+        5,
+        11
+      ],
+      "dot_matched_correct": 411,
+      "dot_matched_parse_count": 1196,
+      "dot_residual_scale": 0.05029296875,
+      "dot_unscaled_correct": 50,
+      "kam_native_correct": 389,
+      "uniform_matched_correct": 411,
+      "validation_dot_matched": 0.004513788502663374,
+      "validation_dot_unscaled": 0.2900056838989258,
+      "validation_kam_target": 0.004690584726631641
+    },
+    "731221": {
+      "active_layers": [
+        5,
+        11
+      ],
+      "dot_matched_correct": 405,
+      "dot_matched_parse_count": 1190,
+      "dot_residual_scale": 0.05419921875,
+      "dot_unscaled_correct": 52,
+      "kam_native_correct": 399,
+      "uniform_matched_correct": 405,
+      "validation_dot_matched": 0.005279891192913055,
+      "validation_dot_unscaled": 0.3023622930049896,
+      "validation_kam_target": 0.005300151649862528
+    }
+  },
+  "seeds": [
+    731201,
+    731211,
+    731221
+  ]
+}

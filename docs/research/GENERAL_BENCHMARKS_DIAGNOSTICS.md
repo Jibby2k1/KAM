@@ -19,6 +19,25 @@ A deterministic training replay started from the same zero-output adapters and r
 
 The full 256-step RTX replay also matched every recorded loss and parameter or optimizer-state fingerprint. Summed timed updates fell from 160.18 to 148.55 seconds for KAM and from 158.96 to 147.41 for dot. This comparison covers the training updates. Validation, checkpoint writes and the trace hash transfers sit outside the GPU timing. [Full KAM replay](../../results/general_benchmarks_factorial/diagnostics/kl-prefix-optimizer-full-kam.json) · [Full dot replay](../../results/general_benchmarks_factorial/diagnostics/kl-prefix-optimizer-full-dot.json)
 
+### Coarsening teacher distributions
+
+We kept the teacher's top 16, 64, 256 or 1,024 token probabilities and grouped the remaining probability into one class. The coarsened KL was checked against the exact KL on four held-out batches per high-rate KL arm in seed 731221. With 1,024 retained token probabilities, the worst relative L2 difference in the combined cross-entropy plus KL gradient was 12.27% for Llama and 3.61% for SmolLM2. Gradient cosines stayed above 0.992 and 0.999 respectively. The experiment measured gradients at the frozen fitted weights.
+
+Storing 1,024 FP32 values and 32-bit indices plus the tail mass uses 8,196 bytes per teacher position. The Llama teacher's 4,096-dimensional BF16 final state uses 8,192 bytes and can be passed through the unchanged vocabulary head. The gradient discrepancy and the similar storage size motivate testing a cache of final hidden activations. [Per-batch KL, tail mass and gradients](../../results/general_benchmarks_factorial/diagnostics/kl-compression-gradients.json) · [Probe](../../scripts/probe_kam_kl_compression.py)
+
+### Exact frozen-teacher activation caching
+
+We cached the frozen teacher's BF16 final states at the rotating KL positions on the original 256-batch seed-731221 schedule. The cached path reconstructs the original strided view for the vocabulary head, then computes full-vocabulary KL. The original and cached paths produced bitwise-identical teacher logits at four inspected phases. Every optimizer update had identical losses and parameter and AdamW-state fingerprints for both adapters on both backbones.
+
+| Backbone, RTX PRO 6000 | Cache memory | Cached KAM / dot update saving | Two original fits | Two cached fits plus cache build | Total saving |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| SmolLM2 | 1 GiB | 29.1% / 30.2% | 95.69 s | 81.74 s | 14.6% |
+| Llama 3 | 2 GiB | 29.9% / 30.2% | 320.58 s | 272.19 s | 15.1% |
+
+The table sums timed optimizer updates and includes the cache build once. It describes GPU work on the matched pair. Validation, disk transfer and scheduling are outside these timings. Cache reuse requires the same model weights, token windows, KL positions and precision. [Timing summary](../../results/general_benchmarks_factorial/diagnostics/teacher-hidden-cache-summary.json) · [SmolLM2 trace](../../results/general_benchmarks_factorial/diagnostics/smollm2-teacher-hidden-cache.json) · [Llama trace](../../results/general_benchmarks_factorial/diagnostics/llama3-teacher-hidden-cache.json) · [Cache probe](../../scripts/probe_kam_teacher_hidden_cache.py)
+
+The disk-backed replay built one tape per backbone, then loaded it in two independent training jobs. Each job checked the full model and schedule fingerprints and compared four live teacher states before training. The final parameter and AdamW-state fingerprints matched the in-memory reference for all four fits. The measured write was 1.55 s for Llama and 0.73 s for SmolLM2. Loading and live checking took 1.29–2.07 s and 0.49–0.50 s per fit respectively. The training path accepts the cache as an explicit option. [Independent build and training receipts](../../results/general_benchmarks_factorial/diagnostics/persisted-teacher-cache-receipts.json)
+
 ## Scaling residual output after fitting
 
 We multiplied the four output projections by 0, 0.25, 0.50, 0.75 or 1.00 for the high-rate fits from seed 731221. The frozen backbone and the residual's internal computation were held fixed. Scale zero reproduced all predicted choices from the untouched checkpoint on this panel. At scale 0.25, the four unregularized fits already exceeded 0.02 nats per token on held-out raw-text KL. All four KL-trained fits remained within that cap at scale one. A smaller nonzero post-fit scale could also meet the cap, so the five-point grid alone cannot establish the effect of training with KL at equal drift. [Numeric strength curves](../../results/general_benchmarks_factorial/diagnostics/residual-strength-summary.json) · [Probe](../../scripts/probe_kam_adapter_strength.py)
@@ -52,6 +71,30 @@ For each high-rate fit, we selected the largest measured residual scale from a b
 
 Shrinkage kept more of the untouched MMLU choices in all four architecture–backbone pairs at this cap. Training KL yielded lower raw-text NLL on all three calibration domains and allowed much larger residual amplitudes. The same raw-text drift budget can therefore correspond to different degrees of language adaptation and answer retention. These panel scores provide a descriptive comparison after calibration on another stream. [SmolLM2 cap results](../../results/general_benchmarks_factorial/diagnostics/smollm2-matched-drift-summary.json) · [Llama cap results](../../results/general_benchmarks_factorial/diagnostics/llama3-matched-drift-summary.json) · [Probe](../../scripts/probe_kam_matched_drift.py)
 
+### Matching dot to KAM's low-rate drift
+
+For each low-rate seed and backbone, the native unregularized KAM checkpoint set the raw validation KL target. We shrank its unregularized dot counterpart to the largest measured scale under that target. The target and search used raw validation text. The held-out arithmetic evaluation retained the original 384-token protocol.
+
+| Backbone | Untouched | Native KAM | Native dot | Shrunk dot | Dot scale range |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| SmolLM2 | 31.77% | 30.00% | 3.59% | 31.13% | 0.042–0.044 |
+| Llama 3 | 62.55% | 74.35% | 52.82% | 70.81% | 0.289–0.321 |
+
+At the paired KL target, dot gained 27.55 GSM8K points on SmolLM2 (95% paired item interval +25.09 to +30.05) and 17.99 on Llama (+15.57 to +20.47). The Llama KAM advantage remained at 3.54 points (+1.69 to +5.38). SmolLM2 dot exceeded KAM by 1.14 points (+0.08 to +2.20). This isolates one post-training control for residual strength on a single generation task. [SmolLM2 matched results](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-matched-kl-summary.json) · [Llama matched results](../../results/general_benchmarks_factorial/diagnostics/llama3-low-rate-matched-kl-summary.json) · [Per-item flags](../../results/general_benchmarks_factorial/diagnostics/low-rate-matched-kl-outcomes.json.gz) · [Probe](../../scripts/probe_kam_low_rate_matched_kl.py)
+
+### Contribution by residual layer
+
+We measured full, single-layer and leave-one-layer-out KL on the frozen low-rate checkpoints. Removing Llama dot's earliest adapter, at zero-based layer 7, reduced mean validation KL by 0.443 nats from 0.994. Removing SmolLM2 dot's second adapter, at layer 11, reduced it by 0.194 nats from 0.399. Even after the largest single removal, the dot KL exceeded the paired KAM mean of 0.209 and 0.0049 nats respectively. The sums of the single-layer KL values also fell below the full-stack KL in both dot arms. The tests describe interventions on the complete trained stacks. [Layer effects and activation ratios](../../results/general_benchmarks_factorial/diagnostics/layer-drift-summary.json) · [Outcomes](../../results/general_benchmarks_factorial/diagnostics/layer-drift-outcomes.json.gz) · [Probe](../../scripts/probe_kam_layer_drift.py)
+
+We then calibrated only the first two or last two dot residuals, using the same KAM KL cap. The remaining two residuals were zeroed, and the benchmark protocol was fixed.
+
+| Backbone | All four residuals | First two only | Last two only |
+| --- | ---: | ---: | ---: |
+| SmolLM2 | 31.13% | 30.88% | 29.24% |
+| Llama 3 | 70.81% | 69.50% | 70.26% |
+
+Uniform scaling had the highest measured GSM8K mean on both backbones. Relative to uniform, retaining only the last two SmolLM2 layers reduced score by 1.90 points (95% paired item interval −3.36 to −0.45). The other contrasts included zero. These tests keep the same fitted weights and calibration stream when changing which layers are active. [Layer-selection outcomes](../../results/general_benchmarks_factorial/diagnostics/layer-matched-kl-outcomes.json.gz) · [Summarizer](../../scripts/summarize_kam_low_rate_matched_kl.py)
+
 ## GSM8K decoding budget
 
 Doubling the Llama GSM8K budget from 384 to 768 tokens preserved the original score for untouched Llama and for all three low-rate dot checkpoints. Untouched Llama emitted an end-of-sequence token for all 1,319 items within the original budget. Low-rate KAM gained one additional correct answer in one seed, moving that seed from 959 to 960 of 1,319. The short prefixes reproduced all official correctness and marker flags. The original decoding limit explains very little of the measured strict score gap on this comparison.
@@ -73,9 +116,11 @@ KAM's residual reads static supports and stores no sequence KV state. Dot's resi
 
 ### Cache allocation and index validation controls
 
+![Matched RTX PRO 6000 request-time effects at three input lengths and two batch sizes on both backbones.](../../results/general_benchmarks_factorial/diagnostics/decode-implementation-effects.svg)
+
 We preallocated the dot adapter KV cache for the same 32-token continuation and reused warmed buffer capacity. The static and dynamic arms produced identical logits at all measured positions. Static allocation changed request time by −0.28% to +1.56% across the 12 backbone and shape combinations.
 
-The checked KAM path runs device reductions to verify the range of the indices produced by exact top-k. The input width already bounds these generated indices. An opt-in removed those reductions and kept the route's tensor layout and support-width checks. Every measured logit matched the original across 1,782 positions per variant. Median request time improved by 0.53%–5.90% across all 12 shapes. At a 4,096-token input and batch eight, Llama moved from 2,392.83 to 2,380.25 ms and SmolLM2 moved from 1,121.66 to 1,106.12 ms. The default route validation remains available for matching earlier measurements. [Paired timing and parity](../../results/general_benchmarks_factorial/diagnostics/decode-implementation-summary.json) · [Individual timings](../../results/general_benchmarks_factorial/diagnostics/decode-implementation-outcomes.json.gz) · [Router implementation](../../kam/memory/routers.py) · [Llama API parity](../../results/general_benchmarks_factorial/diagnostics/route-api-smoke-llama3.json) · [SmolLM2 API parity](../../results/general_benchmarks_factorial/diagnostics/route-api-smoke-smollm2.json)
+The checked KAM path runs device reductions to verify the range of the indices produced by exact top-k. The input width already bounds these generated indices. An opt-in removed those reductions and kept the route's tensor layout and support-width checks. Every measured logit matched the original across 1,782 positions per variant. Median request time improved by 0.53%–5.90% across all 12 shapes. At a 4,096-token input and batch eight, Llama moved from 2,392.83 to 2,380.25 ms and SmolLM2 moved from 1,121.66 to 1,106.12 ms. The default route validation remains available for matching earlier measurements. [Paired timing and parity](../../results/general_benchmarks_factorial/diagnostics/decode-implementation-summary.json) · [Individual timings](../../results/general_benchmarks_factorial/diagnostics/decode-implementation-outcomes.json.gz) · [Router implementation](../../kam/memory/routers.py) · [Figure source](../../scripts/plot_kam_decode_controls.py) · [Llama API parity](../../results/general_benchmarks_factorial/diagnostics/route-api-smoke-llama3.json) · [SmolLM2 API parity](../../results/general_benchmarks_factorial/diagnostics/route-api-smoke-smollm2.json)
 
 ## Independent next-token perplexity
 
@@ -137,6 +182,14 @@ The same 1,000 SVAMP items were evaluated with `Answer:` as the requested marker
 ## Reproduce
 
 The [cluster jobs](../../slurm/) use the same registered backbones, frozen benchmark plus corpus fixtures, and checkpoint checksums as the factorial report. The compressed JSON archives contain numeric outcomes, indexed by model and run or task. They can be expanded as per-run JSON files for the linked analyzers.
+
+Build a reusable teacher tape on the same GPU model and software environment as its consumers. Use a prepared scratch root for the model and token streams and a separate output root for new fits. The training command checks the tape lineage and the live teacher states. The Slurm trainer maps `KAM_TEACHER_CACHE` to the same option and sets the deterministic CUDA workspace.
+
+```sh
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
+python scripts/probe_kam_teacher_hidden_cache.py "$stage_root" --seed 731221 --write-tape "$cache_file"
+python scripts/train_kam_adapter_preservation.py "$fit_root" --seed 731221 --recipe high_lr_kl --arm kam --teacher-cache "$cache_file"
+```
 
 - [Output-strength outcomes](../../results/general_benchmarks_factorial/diagnostics/residual-strength-outcomes.json.gz) · [Summary script](../../scripts/analyze_kam_adapter_strength.py)
 - [Prompt-cue outcomes](../../results/general_benchmarks_factorial/diagnostics/prompt-drift-outcomes.json.gz) · [Summary script](../../scripts/analyze_kam_prompt_drift.py)

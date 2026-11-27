@@ -1,0 +1,79 @@
+{
+  "contrast": {
+    "matched-minus-kam": {
+      "delta_by_seed": [
+        0.01288855193328279,
+        0.016679302501895376,
+        0.004548900682335102
+      ],
+      "mean_delta": 0.011372251705837756,
+      "paired_item_bootstrap95_given_seeds": [
+        0.000758150113722517,
+        0.021986353297952996
+      ]
+    },
+    "matched-minus-unscaled": {
+      "delta_by_seed": [
+        0.2850644427596664,
+        0.27369219105382864,
+        0.2676269901440485
+      ],
+      "mean_delta": 0.2754612079858479,
+      "paired_item_bootstrap95_given_seeds": [
+        0.25094768764215314,
+        0.3004801617386909
+      ]
+    },
+    "matched-minus-untouched": {
+      "delta_by_seed": [
+        -0.002274450341167551,
+        -0.006065200909780136,
+        -0.01061410159211524
+      ],
+      "mean_delta": -0.006317917614354309,
+      "paired_item_bootstrap95_given_seeds": [
+        -0.01819560272934041,
+        0.005559767500631791
+      ]
+    }
+  },
+  "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+  "n": 1319,
+  "seed_details": {
+    "731201": {
+      "dot_matched_correct": 416,
+      "dot_matched_parse_count": 1209,
+      "dot_residual_scale": 0.04150390625,
+      "dot_unscaled_correct": 40,
+      "kam_native_correct": 399,
+      "validation_dot_matched": 0.004750644322484732,
+      "validation_dot_unscaled": 0.40403085947036743,
+      "validation_kam_target": 0.004801026079803705
+    },
+    "731211": {
+      "dot_matched_correct": 411,
+      "dot_matched_parse_count": 1193,
+      "dot_residual_scale": 0.04150390625,
+      "dot_unscaled_correct": 50,
+      "kam_native_correct": 389,
+      "validation_dot_matched": 0.004653688985854387,
+      "validation_dot_unscaled": 0.3951147794723511,
+      "validation_kam_target": 0.004690584726631641
+    },
+    "731221": {
+      "dot_matched_correct": 405,
+      "dot_matched_parse_count": 1202,
+      "dot_residual_scale": 0.0439453125,
+      "dot_unscaled_correct": 52,
+      "kam_native_correct": 399,
+      "validation_dot_matched": 0.005216390825808048,
+      "validation_dot_unscaled": 0.39850735664367676,
+      "validation_kam_target": 0.005300151649862528
+    }
+  },
+  "seeds": [
+    731201,
+    731211,
+    731221
+  ]
+}

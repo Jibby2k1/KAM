@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Verify and time shared frozen-prefix activations for forward KL."""
 import argparse
-import hashlib
 import json
 import math
 from contextlib import ExitStack, contextmanager, nullcontext
@@ -13,7 +12,7 @@ import torch
 
 from kam_adapter_preservation import digest, key, layers_for, load_registered_model, model_identity
 from kam_pretrained_adapters import AdapterStack
-from train_kam_adapter_preservation import BATCHES, LENGTH, STEPS, batch, corpus, layout, losses
+from train_kam_adapter_preservation import BATCHES, KL_STRIDE, LENGTH, STEPS, batch, corpus, layout, losses, optimizer_fingerprint
 
 
 @contextmanager
@@ -47,9 +46,9 @@ def reuse_prefix(model, stack, last):
         yield
 
 
-def backward(model, stack, packed, phase):
+def backward(model, stack, packed, phase, *, teacher_hidden=None):
     stack.modules.zero_grad(set_to_none=True)
-    ce, kl = losses(model, stack, packed, 4, phase)
+    ce, kl = losses(model, stack, packed, 4, phase, teacher_hidden=teacher_hidden)
     (ce + 4 * kl).backward()
     return torch.stack((ce.detach(), kl.detach()))
 
@@ -96,12 +95,15 @@ def timed(model, stack, samples, first_layer, share):
             "peak_gpu_bytes": torch.cuda.max_memory_allocated()}
 
 
-def optimizer_trace(model, stack, samples, first_layer, initial, share):
+def optimizer_trace(model, stack, samples, first_layer, initial, share, *, teacher_tape=None):
     stack.modules.load_state_dict(initial)
     parameters = list(stack.modules.parameters())
     optimizer = torch.optim.AdamW(parameters, lr=8e-4, weight_decay=.01, fused=True)
     context = reuse_prefix(model, stack, first_layer) if share else nullcontext()
     trace, timings = [], []
+    if teacher_tape is not None:
+        workspace = teacher_tape.new_empty((len(samples[0]), LENGTH, teacher_tape.size(-1)))
+        assert not share
     with context:
         for step, packed in enumerate(samples, start=1):
             progress = max(0, (step - 16) / (STEPS - 16))
@@ -109,18 +111,20 @@ def optimizer_trace(model, stack, samples, first_layer, initial, share):
             start = torch.cuda.Event(enable_timing=True)
             end = torch.cuda.Event(enable_timing=True)
             start.record()
-            ce, kl = backward(model, stack, packed, (step - 1) % 4)
+            phase = (step - 1) % KL_STRIDE
+            selected = None
+            if teacher_tape is not None:
+                # Restore the same strided shape passed to the vocabulary head.
+                selected = workspace[:, phase::KL_STRIDE]
+                selected.copy_(teacher_tape[step-1])
+            ce, kl = backward(model, stack, packed, phase, teacher_hidden=selected)
             torch.nn.utils.clip_grad_norm_(parameters, 1.0, error_if_nonfinite=True)
             optimizer.step()
             end.record()
             end.synchronize()
             timings.append(start.elapsed_time(end))
-            state = hashlib.sha256()
-            for parameter in parameters:
-                for tensor in (parameter, *(optimizer.state[parameter][name]
-                                             for name in ("step", "exp_avg", "exp_avg_sq"))):
-                    state.update(tensor.detach().cpu().contiguous().numpy().tobytes())
-            trace.append({"step": step, "ce": float(ce), "kl": float(kl), "state_sha256": state.hexdigest()})
+            trace.append({"step": step, "ce": float(ce), "kl": float(kl),
+                          "state_sha256": optimizer_fingerprint(parameters, optimizer)})
     return trace, timings
 
 
