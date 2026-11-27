@@ -105,3 +105,5 @@ In source-held-out IIRC folds, a [four-link anchor beam](../../reports/nonlinear
 A [B200 collector readiness trial](../../reports/nonlinear_retrieval_natural/LIVE_GC_READINESS.md) moved four observed generation-2 pauses out of the short request window. Readiness collection took 87–142 ms per worker. Additional freezing showed no clear paired median improvement over collection alone.
 
 [Radial attention backward checks](../../reports/nonlinear_retrieval_natural/RADIAL_BACKWARD.md) met FP32 numerical tolerances on both HPG devices. At 1,025 tokens and batch 32, BF16 FlashAttention accelerated the full step by 3.08× on B200 and 18.99× on L4. Its depth-512 accuracy after a matched continuation rose 3.32 points on B200 and fell 4.69 on L4.
+
+A [duration-only serial schedule audit](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#executable-labels-for-fictional-event-schedules) reproduced the published answer sets for 2,693 of 2,700 hard UnSeenTimeQA records. The remaining seven had repeated event descriptions in hypothetical queries.
