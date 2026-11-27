@@ -21,6 +21,20 @@ The five general benchmarks use the first preregistered pair of TinyStories V2 c
 
 QASPER measures answers grounded in scientific papers. BRIGHT includes earth science document retrieval. Both are scored below.
 
+### Longer context and broader data
+
+These are newly trained, approximately 10M-parameter models. Each saw the same 134.2M bytes at a 2,048-byte context. The training mixture included prose, Python, and arithmetic. Earlier 128-byte scores use TinyStories checkpoints.
+
+| Benchmark | Metric | KAM, 128 B | Dot, 128 B | KAM, 2,048 B | Dot, 2,048 B | Full 2,048-byte prompts |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| HumanEval | Pass@1 | 0.00% (0/164) | 0.00% (0/164) | 0.00% (0/164) | 0.00% (0/164) | 164/164 |
+| MBPP | Pass@1 | 0.00% (0/500) | 0.00% (0/500) | 0.00% (0/500) | 0.00% (0/500) | 500/500 |
+| GPQA Diamond | Accuracy | 26.26% (52/198) | 23.74% (47/198) | 23.74% (47/198) | 26.26% (52/198) | 197/198 |
+| MMLU | Accuracy | 24.20% (3,398/14,042) | 24.60% (3,454/14,042) | 23.09% (3,242/14,042) | 22.92% (3,218/14,042) | 13,840/14,042 |
+| GSM8K | Strict answer EM | 0.00% (0/1,319) | 0.00% (0/1,319) | 0.23% (3/1,319) | 0.68% (9/1,319) | 1,319/1,319 |
+
+[Longer-context protocol, diagnostics, and training metrics](GENERAL_BENCHMARKS_LONG.md) · [Machine-readable results](../../results/general_benchmarks_long/summary.json)
+
 ## Natural QA and conversational memory
 
 **Answer EM** is the fraction of normalized answers that exactly match a reference. **Token F1** measures partial overlap with a reference answer. **Complete evidence** requires every support unit at the study's documented granularity. **Joint EM** here requires both answer EM and complete evidence. Official benchmark joint scores can use different support units and formulas. Counts below are baseline → comparison on the same cohort. A dash marks a metric without a comparable value in the scorecard.

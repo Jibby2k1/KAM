@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Score the registered TinyStories checkpoint pair on five text test sets."""
+"""Score a registered checkpoint pair on five text test sets."""
 import argparse
 import csv
 import hashlib
@@ -28,18 +28,21 @@ def digest(path):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
-def load_model(root, arm):
+def load_model(root, arm, pair_id=PAIR):
     with (root / "manifest.jsonl").open() as stream:
         rows = [json.loads(line) for line in stream]
-    pair = {row["architecture"]: row for row in rows if row.get("pair_id") == PAIR}
+    pair = {row["architecture"]: row for row in rows if row.get("pair_id") == pair_id}
     for key in ("corpus_id", "data_seed", "minimum_tokens", "sequence_length",
                 "batch_size", "training_seed", "precision", "target_parameter_budget"):
         assert pair[ARMS[0]][key] == pair[ARMS[1]][key], key
+    assert pair[ARMS[0]].get("corpus_sha256") == pair[ARMS[1]].get("corpus_sha256")
     row = pair[arm]
     path = root / "checkpoints" / f"{row['row_id']}_seed{row['training_seed']}_final.pt"
     checkpoint = torch.load(path, map_location="cpu", weights_only=True)
     assert checkpoint["row"] == row
-    assert checkpoint["metrics"]["tokens"] == 50_001_920
+    tokens_per_step = row["batch_size"] * row["sequence_length"]
+    expected = ((row["minimum_tokens"] + tokens_per_step - 1) // tokens_per_step) * tokens_per_step
+    assert checkpoint["metrics"]["tokens"] == expected
     model, _ = build_baseline(
         arm, scale=row["scale"], vocab_size=256, max_seq_len=row["sequence_length"],
         num_supports=row["num_supports"], top_k=row["top_k"],
@@ -47,11 +50,15 @@ def load_model(root, arm):
     )
     model.load_state_dict(checkpoint["model"])
     info = {
-        "arm": arm, "row_id": row["row_id"], "pair": PAIR, "sha256": digest(path),
+        "arm": arm, "row_id": row["row_id"], "pair": pair_id, "sha256": digest(path),
         "tokens": checkpoint["metrics"]["tokens"], "seed": row["training_seed"],
         "context_bytes": row["sequence_length"], "parameters": sum(p.numel() for p in model.parameters()),
         "validation_loss": checkpoint["metrics"]["validation_loss"], "data_seed": row["data_seed"],
     }
+    if pair_id != PAIR:
+        torch.backends.mha.set_fastpath_enabled(False)
+        info["corpus_sha256"] = row["corpus_sha256"]
+        info["exposure_sha256"] = checkpoint["metrics"]["exposure_sha256"]
     return model.to("cuda").eval(), info
 
 
@@ -153,7 +160,7 @@ def numerical_answer(text):
 
 def run(args):
     source, cases = load_cases(args.data, args.task)
-    model, metadata = load_model(args.checkpoints, args.arm)
+    model, metadata = load_model(args.checkpoints, args.arm, args.pair)
     context = metadata["context_bytes"]
     records = []
     prompts = [make_prompt(args.task, row, i) for i, row in enumerate(cases)]
@@ -198,6 +205,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--task", choices=EXPECTED, required=True)
     parser.add_argument("--arm", choices=ARMS, required=True)
+    parser.add_argument("--pair", default=PAIR)
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--checkpoints", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)

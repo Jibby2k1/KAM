@@ -66,6 +66,8 @@ def summarize(root):
         assert metadata[0].get("sandbox_sha256") == metadata[1].get("sandbox_sha256")
         for key in ("source_sha256", "pair", "tokens", "seed", "data_seed", "context_bytes"):
             assert metadata[0][key] == metadata[1][key], key
+        for key in ("corpus_sha256", "exposure_sha256"):
+            assert metadata[0].get(key) == metadata[1].get(key), key
         assert [row["prompt_bytes"] for row in left] == [row["prompt_bytes"] for row in right]
         width = metadata[0]["context_bytes"]
         retained = [sum(row["prompt_bytes"] <= width for row in rows) for rows in [left, right]]
