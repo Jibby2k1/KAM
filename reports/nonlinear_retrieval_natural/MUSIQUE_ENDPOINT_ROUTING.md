@@ -89,4 +89,6 @@ The initial BM25, dense or hybrid ranking is fully open. No annotated premise, e
 
 On dense search with the identical second-only readout, conditioned corpus retrieval gained 15.48 points over same-pool sequential [5.33, 24.44], with 28 gains and two losses. Reading just the second selected passage increased the dense conditioned count from 35 to 43 [0.00, 10.32 points]. The fixed pair score of 109 endpoint-and-answer matches still required the small two-endpoint candidate set. Here both retrieval stages are open. The cohort remains filtered for clear bound entities and plausible competing endpoints, so this comparison measures transfer within that controlled slice.
 
+The dense conditioned route partitions the 168 cases into 40 incomplete pools, 11 complete pools with a nonannotated anchor, 57 complete pools with an annotated anchor and a missed second passage, 17 selected pairs with an inexact terminal readout, and 43 joint successes. Among the 68 complete pools that lose a support at selection, 57 already have a usable anchor. That makes ranking the second passage the largest measured selection target on this slice.
+
 HPG L4 array 53020278. [Fully open candidate lists and paired results](../../results/nonlinear_retrieval_natural/musique_open_both_v1/)

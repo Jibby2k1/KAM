@@ -53,7 +53,20 @@ def audit(measurements, references):
                            "both_text_joint": [r["exact_answer_both"] and hit for r,hit in zip(rows,strict,strict=True)],
                            "terminal_joint": [r["exact_answer_second_only"] and hit for r,hit in zip(rows,strict,strict=True)]}
         scores = variants[name]
+        measured = outcomes[name]
+        kept_anchor = [r["selected"][0] in g for r, g in zip(measured, labels, strict=True)]
+        pools_full = scores["coverage"]
+        headroom = {
+            "incomplete_pool": sum(not a for a in pools_full),
+            "complete_pool_unannotated_anchor": sum(a and not b for a, b in zip(pools_full, kept_anchor, strict=True)),
+            "complete_pool_annotated_anchor_wrong_second": sum(a and b and not pair
+                for a, b, pair in zip(pools_full, kept_anchor, scores["selected"], strict=True)),
+            "selected_pair_wrong_terminal_readout": sum(a and not b for a, b in zip(scores["selected"], scores["terminal_exact"], strict=True)),
+            "joint_terminal_success": sum(scores["terminal_joint"]),
+        }
+        assert sum(headroom.values()) == len(cases)
         results[name] = {"counts": {m: sum(v) for m,v in scores.items()},
+                         "headroom": headroom,
                          "vs_direct": {m: compare(v,variants[family+"/direct"][m],clusters) for m,v in scores.items()},
                          "vs_same_pool": {m: compare(v,variants[family+"/same_pool"][m],clusters) for m,v in scores.items()},
                          "terminal_vs_both_joint": compare(scores["terminal_joint"],scores["both_text_joint"],clusters)}
