@@ -1,0 +1,78 @@
+{
+  "corpus_content_sha256": "b7a19982bc0c8d3350fe1c97209098d50b934ef1174512a879ac0e5865ca83e6",
+  "countries": {
+    "HU": "Hungary",
+    "IE": "Ireland",
+    "PT": "Portugal",
+    "RO": "Romania",
+    "SI": "Slovenia",
+    "SK": "Slovakia"
+  },
+  "countries_development": [
+    "HU",
+    "IE",
+    "PT"
+  ],
+  "countries_test": [
+    "RO",
+    "SI",
+    "SK"
+  ],
+  "dates": {
+    "days_after_month_end": [
+      90,
+      365
+    ]
+  },
+  "documents": 27332,
+  "fixture_sha256": "33c6a64ed475dfc3c13af61095649555a48e15e601eb7246e663c9b85dfbb672",
+  "questions": {
+    "development": {
+      "canonical": 72,
+      "country_code": 72,
+      "missing_indicator": 36,
+      "paraphrase": 72,
+      "relative": 72,
+      "unsupported_country": 36,
+      "unsupported_indicator": 36
+    },
+    "test": {
+      "canonical": 216,
+      "country_code": 216,
+      "missing_indicator": 108,
+      "paraphrase": 216,
+      "relative": 216,
+      "unsupported_country": 108,
+      "unsupported_indicator": 108
+    }
+  },
+  "sources": {
+    "industry": {
+      "cells": 13591,
+      "dataset": "ei_is_m_vtg",
+      "fixed_dimensions": {
+        "freq": "M",
+        "nace_r2": "B-D",
+        "s_adj": "SCA",
+        "unit": "RT1"
+      },
+      "source_sha256": "f39e475937afb8eda7410058cf774312899a1770ac04cecc8ea1ac8b78ccfac9",
+      "updated": "2026-11-19T23:00:00+0100",
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ei_is_m_vtg"
+    },
+    "unemployment": {
+      "cells": 13741,
+      "dataset": "ei_lm_m_vtg",
+      "fixed_dimensions": {
+        "age": "TOTAL",
+        "freq": "M",
+        "s_adj": "SA",
+        "sex": "T",
+        "unit": "PC_ACT"
+      },
+      "source_sha256": "43ce9212b1a16edd4eb5a4e20b23686f92107553aea5841e3ac184b26fbc7d0f",
+      "updated": "2026-11-19T23:00:00+0100",
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ei_lm_m_vtg"
+    }
+  }
+}
