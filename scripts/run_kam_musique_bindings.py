@@ -2,6 +2,7 @@
 """Read intermediate answers under fixed author-supplied MuSiQue templates."""
 
 import argparse
+from collections import defaultdict
 import gzip
 from functools import lru_cache, partial
 from hashlib import sha256
@@ -71,27 +72,70 @@ def score_case(rows, generated, source, target):
         row["gold_in_reader"].append(label in row["reader_context_ids"][-1])
 
 
+def fused_ranks(primary, alternate):
+    scores = defaultdict(float)
+    for rank in (primary, alternate):
+        for i, doc in enumerate(rank, 1):
+            scores[doc] += 1 / (60 + i)
+    preference = {doc: i for i, doc in enumerate(primary)}
+    return sorted(scores, key=lambda doc: (-scores[doc], preference.get(doc, DEPTH), doc))
+
+
+def alternative_queries(policy, prompts, templates, histories, step):
+    if policy == "reference":
+        return None
+    replacements = [""] * len(templates) if policy == "unbound" else policy.answers(prompts)
+    result = []
+    for path, history, value in zip(templates, histories, replacements, strict=True):
+        ref = str(step + 1)
+        if ref not in REFERENCE.findall(path[-1]) or (not value and policy != "unbound"):
+            result.append(None)
+            continue
+        query = REFERENCE.sub(lambda m: value if m[1] == ref else history[int(m[1]) - 1], path[-1])
+        result.append(" ".join(query.split()))
+    return result
+
+
 def replay(arm, current, templates, labels, initial, passage_text, bank, encoder, reader, *,
-           gold_at=None, alternate_reader=None, alternate_steps=()):
+           gold_at=None, alternate_reader=None, alternate_steps=(), final_branch=None, final_labels=None):
     pools = [initial[q["id"]].copy() for q in current]
     rows = [{"id": q["id"], "target_ranks": [], "answer_em": [], "reader_context_ids": [],
              "gold_in_reader": [], "unfilled_references": 0} for q in current]
     histories = [[] for _ in current]
+    final_alternatives = None
+    distinct = [[] for _ in current]
     for step, add in enumerate(BUDGETS[current[0]["hops"]]):
         queries = binding_queries(templates, histories, step)
         assert all(q for q in queries)
         updated = encoder(queries, "query")
         ranks = (updated @ bank.T).argsort(dim=-1, descending=True, stable=True)[:, :DEPTH].tolist()
         raw_targets = [label["targets"][step] for label in labels]
+        extra_ranks = {}
+        if final_alternatives is not None:
+            indexes = [i for i, (q, other) in enumerate(zip(queries, final_alternatives, strict=True))
+                       if other and " ".join(q.split()) != other]
+            if indexes:
+                extra = encoder([final_alternatives[i] for i in indexes], "query")
+                extra_order = (extra @ bank.T).argsort(dim=-1, descending=True, stable=True)[:, :DEPTH].tolist()
+                extra_ranks = dict(zip(indexes, extra_order, strict=True))
         selected = []
-        for pool, row, rank, target, template, previous in zip(pools, rows, ranks, raw_targets, templates, histories, strict=True):
-            pool.extend(ranked_additions(rank, pool, add))
+        for i, (pool, row, rank, target, template, previous) in enumerate(
+            zip(pools, rows, ranks, raw_targets, templates, histories, strict=True)
+        ):
+            partner = extra_ranks.get(i)
+            candidate_rank = fused_ranks(rank, partner) if partner else rank
+            pool.extend(ranked_additions(candidate_rank, pool, add))
             row["target_ranks"].append(rank.index(target) + 1 if target in rank else None)
             row["unfilled_references"] += sum(previous[int(i)-1] == "unknown" for i in REFERENCE.findall(template[step]))
             # Only this labeled diagnostic gives the reader the target paragraph.
             evidence = [target] if arm == "gold_paragraph" else rank[:1 if arm == "top1" else 3]
             selected.append(evidence)
             row["reader_context_ids"].append(evidence)
+            if final_branch:
+                distinct[i].extend(ranked_additions(candidate_rank, distinct[i], 1))
+                if step == len(template) - 1:
+                    row["alternative_search"] = partner is not None
+                    row["alternate_final_rank"] = partner.index(target) + 1 if partner and target in partner else None
         prompts = [f"Answer the question with a short answer. Question: {question} Evidence: "
                    + " ".join(passage_text(i) for i in ids)
                    for question, ids in zip(queries, selected, strict=True)]
@@ -101,6 +145,21 @@ def replay(arm, current, templates, labels, initial, passage_text, bank, encoder
         for previous, answer, label in zip(histories, predictions, labels, strict=True):
             binding = label["answers"][step] if step == gold_at else answer
             previous.append(" ".join(binding.split()) or "unknown")
+        if final_branch and step == len(templates[0]) - 2:
+            final_alternatives = alternative_queries(final_branch, prompts, templates, histories, step)
+    if final_branch:
+        from run_kam_musique_final_reader import LIMIT, PASSAGE_CAP
+        from run_kam_natural_feasibility import measure_answer
+
+        evidence = [choice + ranked_additions(pool, choice, LIMIT - len(choice)) for choice, pool in zip(distinct, pools, strict=True)]
+        prompts = [f"Answer the question with a short answer. Question: {q['question']} Evidence: "
+                   + " ".join(passage_text(i, PASSAGE_CAP) for i in ids)
+                   for q, ids in zip(current, evidence, strict=True)]
+        exact = reader.answers(prompts)
+        for row, ids, answer, pool in zip(rows, evidence, exact, pools, strict=True):
+            assert len(ids) == len(set(ids)) == LIMIT and set(ids) <= set(pool)
+            row["fixed_evidence_ids"] = ids
+            row["fixed_answer_em"] = max(measure_answer(answer, label)["em"] for label in final_labels[row["id"]])
     for row, pool in zip(rows, pools, strict=True):
         row["pool"] = pool
         assert len(pool) == len(set(pool)) == DEPTH
@@ -139,6 +198,9 @@ def run(a, articles, fixture):
     analysis_labels = json.loads(a.labels.read_text())
     assert source_templates["fixture_sha256"] == analysis_labels["fixture_sha256"] == fx
     assert analysis_labels["templates_sha256"] == digest(a.templates)
+    branch_labels = json.loads(a.branch_labels.read_text()) if a.branch_labels else None
+    if branch_labels:
+        assert branch_labels["fixture_sha256"] == fx
     encoder = Encoder(a.assets / "encoder", 128)
     base_path = a.assets / f"reader_base_{BASE_REVISION}"
     assert digest(base_path / "model.safetensors") == BASE_WEIGHT
@@ -160,15 +222,16 @@ def run(a, articles, fixture):
         models = models | {"google/flan-t5-large": LARGE_REVISION}
 
     @lru_cache(maxsize=8192)
-    def passage_text(i):
+    def passage_text(i, cap=128):
         passage = articles[i]
         data = reader.tokenizer(passage["title"] + ". " + passage["body"], add_special_tokens=False,
-                                truncation=True, max_length=128)
+                                truncation=True, max_length=cap)
         return reader.tokenizer.decode(data.input_ids)
 
     questions = fixture["rows"][a.shard::a.shards]
     assert list(initial) == [q["id"] for q in questions]
     answers = {}
+    timings = {}
     for nhops in BUDGETS:
         cases = [q for q in questions if q["hops"] == nhops]
         if not cases:
@@ -192,16 +255,27 @@ def run(a, articles, fixture):
                 policies.extend([("span_penultimate", "top1", None, span, (nhops - 2,)),
                                  ("span_all_intermediate", "top1", None, span, tuple(range(nhops - 1)))])
             policies.append(("span_confident_fallback", "top1", None, span_mixed, tuple(range(nhops - 1))))
+        if a.branch:
+            policies = [baseline, ("branch_unbound", "top1", None, None, ()), ("branch_span", "top1", None, None, ())]
+        branches = {"top1": "reference", "branch_unbound": "unbound", "branch_span": trained} if a.branch else {}
         for arm, context_rule, gold_at, active, alternate_steps in policies:
+            if a.branch:
+                torch.cuda.synchronize()
+                branch_start = perf_counter()
             for row in replay(context_rule, cases, templates, diagnostics, initial, passage_text, bank, encoder, reader,
-                              gold_at=gold_at, alternate_reader=active, alternate_steps=alternate_steps):
+                              gold_at=gold_at, alternate_reader=active, alternate_steps=alternate_steps,
+                              final_branch=branches.get(arm), final_labels=branch_labels["answers"] if branch_labels else None):
                 answers.setdefault(row["id"], {})[arm] = row
+            if a.branch:
+                torch.cuda.synchronize()
+                timings.setdefault(nhops, {})[arm] = perf_counter() - branch_start
     return {"fixture_sha256": fx, "corpus_sha256": cx, "models": models | {"google/flan-t5-base": BASE_REVISION},
             "templates_sha256": digest(a.templates), "scoring_labels_sha256": digest(a.labels),
             "baseline_sha256": digest(a.baseline), "elapsed_seconds": perf_counter() - start,
             "shard": a.shard, "shards": a.shards, "device": torch.cuda.get_device_name(),
             "rows": [{"id": q["id"], "arms": answers[q["id"]]} for q in questions]} | (
-                {"span_checkpoint_sha256": digest(a.span_checkpoint)} if a.span_checkpoint else {})
+                {"span_checkpoint_sha256": digest(a.span_checkpoint)} if a.span_checkpoint else {}) | (
+                {"branch_labels_sha256": digest(a.branch_labels), "branch_seconds": timings} if a.branch else {})
 
 
 def main():
@@ -216,10 +290,13 @@ def main():
     diagnostics.add_argument("--single-oracle", action="store_true")
     diagnostics.add_argument("--reader-size", action="store_true")
     diagnostics.add_argument("--span-checkpoint", type=Path)
+    p.add_argument("--branch", action="store_true", help="Compare a second final-step query at the same retained depth.")
+    p.add_argument("--branch-labels", type=Path)
     p.add_argument("--shard", default=0, type=int)
     p.add_argument("--shards", default=1, type=int)
     a = p.parse_args()
     assert 0 <= a.shard < a.shards
+    assert a.branch == bool(a.branch_labels) and (not a.branch or a.span_checkpoint)
     articles, fixture = corpus_and_fixture(a)
     if a.mode == "freeze":
         freeze(a, articles, fixture)

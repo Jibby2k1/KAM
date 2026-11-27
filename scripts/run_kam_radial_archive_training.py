@@ -71,17 +71,21 @@ def fit(net, mode, banks, steps):
             "peak_extra_allocated_bytes": torch.cuda.max_memory_allocated() - resident, "sampled_losses": losses}
 
 
-def archive_panels(fixture, seed):
+def archive_panels(fixture, seed, intervention=None):
     questions = published_questions(fixture, "test")
     panels = []
     for depth, _ in SCHEDULE:
         for recode in (0, 1):
             stamp = seed + 1952767 + 1909 * recode + depth
             scenes, rows = archive_scene(questions, depth, stamp, "cpu")
+            changed = None
+            if intervention:
+                scenes, changed = intervention(scenes, stamp)
             order = record_order(len(rows), depth, stamp + 10249, "cpu")
             data = encode(scenes, order, hide_query_clock=True)
             panels.append({"depth": depth, "recode": recode, "data": tuple(z.to("cuda") for z in data),
-                           "fixture_sha256": fingerprint(scenes, order), "rows": rows})
+                           "fixture_sha256": fingerprint(scenes, order), "rows": rows} | (
+                           {"changed": changed} if changed is not None else {}))
     return panels
 
 

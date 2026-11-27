@@ -2,9 +2,15 @@
 
 ## Recent controlled and cross-domain results
 
+[Relative signed-log clocks](../../reports/nonlinear_retrieval_natural/TEMPORAL_RELATIVE_CLOCK.md) raised independent Dallas revision accuracy from 42.44% to 57.56% and preserved all 3,504 outcomes when publication units were tripled. [Token-matched deeper training](../../reports/nonlinear_retrieval_natural/TEMPORAL_LONG_EXPOSURE.md) reduced deep correction accuracy, with partial recovery by delaying long examples.
+
+[Physical clock compaction](../../reports/nonlinear_retrieval_natural/PACKED_CLOCK_INFERENCE.md) reduced a heterogeneous four-request eager FP32 batch from 38.72 to 5.35 ms. Balanced BF16 Flash was faster at its original shape and changed some hard choices after cropping.
+
 [Frozen BRIGHT transfer](../../reports/nonlinear_retrieval_natural/BRIGHT_FROZEN_TRANSFER.md) found hybrid BM25/E5 best on economics and earth science at the same output depth. MuSiQue-trained planning showed no clear gain over direct dense ranking and trailed the hybrid.
 
 [Extractive MuSiQue bindings](../../reports/nonlinear_retrieval_natural/MUSIQUE_SPAN_BINDINGS.md) raised monitored forced-span accuracy from 80–84 to 321–325 of 508 after tuning. In four-hop chains, a generative fallback gained three to four joint outcomes over the seven-outcome reference. The same fallback lost joint outcomes in three-hop chains.
+
+[A second late binding](../../reports/nonlinear_retrieval_natural/MUSIQUE_LATE_BINDING_BRANCH.md) preserved all four-hop joint outcomes across three seed replays at the same four-paragraph readout budget. Removing the late reference from the alternative query reduced joint outcomes at two and three hops.
 
 [BABILong executable retrieval](../../reports/nonlinear_retrieval_natural/BABILONG_REPLAY.md) reproduced all 1,200 source answers with complete structured input. At eight windows the 64k QA3 slice reached zero joint answers with unrestricted E5 and three with event-grammar filtering.
 
