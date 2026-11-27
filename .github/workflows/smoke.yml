@@ -447,3 +447,9 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_radial_backward.py --b200 "$study/benchmark-b200-52960411.json.gz" --l4 "$study/benchmark-l4-52960412.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit fixed-width BF16 feature precision
+        run: |
+          study=results/nonlinear_retrieval_natural/radial_precision_v1
+          output=$(mktemp)
+          python scripts/analyze_kam_radial_precision.py --b200 "$study/benchmark-b200-52961065.json.gz" --l4 "$study/benchmark-l4-52961066.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"

@@ -1,0 +1,1948 @@
+{
+  "b200": {
+    "device": "NVIDIA B200",
+    "mean_accuracy_across_seeds": {
+      "128": {
+        "augmented_flash_bf16": 0.96419271,
+        "balanced_flash_bf16": 0.96354167,
+        "balanced_split_flash_bf16": 0.96419271,
+        "eager_bf16": 0.96614583,
+        "eager_fp32": 0.96419271,
+        "split_flash_bf16": 0.95833333
+      },
+      "20": {
+        "augmented_flash_bf16": 0.99544271,
+        "balanced_flash_bf16": 0.99479167,
+        "balanced_split_flash_bf16": 0.99544271,
+        "eager_bf16": 0.99348958,
+        "eager_fp32": 0.99544271,
+        "split_flash_bf16": 0.99479167
+      },
+      "512": {
+        "augmented_flash_bf16": 0.9140625,
+        "balanced_flash_bf16": 0.90169271,
+        "balanced_split_flash_bf16": 0.91145833,
+        "eager_bf16": 0.90299479,
+        "eager_fp32": 0.90885417,
+        "split_flash_bf16": 0.89583333
+      }
+    },
+    "per_seed": {
+      "829114": {
+        "128": {
+          "correct": {
+            "augmented_flash_bf16": 495,
+            "balanced_flash_bf16": 493,
+            "balanced_split_flash_bf16": 493,
+            "eager_bf16": 495,
+            "eager_fp32": 493,
+            "split_flash_bf16": 489
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.6826076507568359,
+            "balanced_flash_bf16": 1.0075488090515137,
+            "balanced_split_flash_bf16": 0.5071895718574524,
+            "eager_bf16": 1.7304872274398804,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.3723728060722351
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.01171875
+              ],
+              "delta": 0.0,
+              "losses": 5,
+              "wins": 5
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.00585938
+              ],
+              "delta": -0.00390625,
+              "losses": 4,
+              "wins": 2
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.00585938
+              ],
+              "delta": -0.00390625,
+              "losses": 4,
+              "wins": 2
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.02734375,
+                0.00390625
+              ],
+              "delta": -0.01171875,
+              "losses": 11,
+              "wins": 5
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.015625,
+                0.0078125
+              ],
+              "delta": -0.00390625,
+              "losses": 6,
+              "wins": 4
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.00585938
+              ],
+              "delta": -0.00390625,
+              "losses": 5,
+              "wins": 3
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.02539062,
+                0.00195312
+              ],
+              "delta": -0.01171875,
+              "losses": 10,
+              "wins": 4
+            }
+          }
+        },
+        "20": {
+          "correct": {
+            "augmented_flash_bf16": 509,
+            "balanced_flash_bf16": 506,
+            "balanced_split_flash_bf16": 510,
+            "eager_bf16": 507,
+            "eager_fp32": 508,
+            "split_flash_bf16": 506
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.02452007867395878,
+            "balanced_flash_bf16": 0.03045537881553173,
+            "balanced_split_flash_bf16": 0.03568485006690025,
+            "eager_bf16": 0.03889210894703865,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.03999082371592522
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.01171875
+              ],
+              "delta": 0.00390625,
+              "losses": 1,
+              "wins": 3
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00390625
+              ],
+              "delta": -0.00195312,
+              "losses": 2,
+              "wins": 1
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.01367188
+              ],
+              "delta": 0.00585938,
+              "losses": 0,
+              "wins": 3
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00585938
+              ],
+              "delta": -0.00195312,
+              "losses": 3,
+              "wins": 2
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.0
+              ],
+              "delta": -0.00585938,
+              "losses": 3,
+              "wins": 0
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.00976562
+              ],
+              "delta": 0.00195312,
+              "losses": 1,
+              "wins": 2
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.0
+              ],
+              "delta": -0.00585938,
+              "losses": 3,
+              "wins": 0
+            }
+          }
+        },
+        "512": {
+          "correct": {
+            "augmented_flash_bf16": 471,
+            "balanced_flash_bf16": 471,
+            "balanced_split_flash_bf16": 467,
+            "eager_bf16": 466,
+            "eager_fp32": 472,
+            "split_flash_bf16": 452
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.047743313014507294,
+            "balanced_flash_bf16": 0.034798894077539444,
+            "balanced_split_flash_bf16": 0.03948841616511345,
+            "eager_bf16": 0.0787980929017067,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.02596198581159115
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.02539062
+              ],
+              "delta": 0.00976562,
+              "losses": 5,
+              "wins": 10
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.02539062
+              ],
+              "delta": 0.00976562,
+              "losses": 7,
+              "wins": 12
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.015625,
+                0.01953125
+              ],
+              "delta": 0.00195312,
+              "losses": 10,
+              "wins": 11
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.05078125,
+                -0.00390625
+              ],
+              "delta": -0.02734375,
+              "losses": 27,
+              "wins": 13
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01757812,
+                0.01757812
+              ],
+              "delta": 0.0,
+              "losses": 10,
+              "wins": 10
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.02539062,
+                0.00976562
+              ],
+              "delta": -0.0078125,
+              "losses": 13,
+              "wins": 9
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.06054688,
+                -0.01367188
+              ],
+              "delta": -0.03710938,
+              "losses": 29,
+              "wins": 10
+            }
+          }
+        }
+      },
+      "829128": {
+        "128": {
+          "correct": {
+            "augmented_flash_bf16": 495,
+            "balanced_flash_bf16": 496,
+            "balanced_split_flash_bf16": 492,
+            "eager_bf16": 496,
+            "eager_fp32": 497,
+            "split_flash_bf16": 491
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.2753949463367462,
+            "balanced_flash_bf16": 1.1129072904586792,
+            "balanced_split_flash_bf16": 0.4080822765827179,
+            "eager_bf16": 0.5115956664085388,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.2553982436656952
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.00976562
+              ],
+              "delta": -0.00195312,
+              "losses": 5,
+              "wins": 4
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.01171875
+              ],
+              "delta": 0.0,
+              "losses": 5,
+              "wins": 5
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.01953125,
+                0.00390625
+              ],
+              "delta": -0.0078125,
+              "losses": 6,
+              "wins": 2
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.02539062,
+                0.00585938
+              ],
+              "delta": -0.00976562,
+              "losses": 10,
+              "wins": 5
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.015625
+              ],
+              "delta": 0.00195312,
+              "losses": 6,
+              "wins": 7
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.01757812,
+                0.00585938
+              ],
+              "delta": -0.00585938,
+              "losses": 6,
+              "wins": 3
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.02148438,
+                0.00585938
+              ],
+              "delta": -0.0078125,
+              "losses": 9,
+              "wins": 5
+            }
+          }
+        },
+        "20": {
+          "correct": {
+            "augmented_flash_bf16": 510,
+            "balanced_flash_bf16": 512,
+            "balanced_split_flash_bf16": 510,
+            "eager_bf16": 511,
+            "eager_fp32": 511,
+            "split_flash_bf16": 512
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.2208385467529297,
+            "balanced_flash_bf16": 1.0741750001907349,
+            "balanced_split_flash_bf16": 0.38965392112731934,
+            "eager_bf16": 0.18999189138412476,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.19800280034542084
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00390625
+              ],
+              "delta": -0.00195312,
+              "losses": 2,
+              "wins": 1
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00390625
+              ],
+              "delta": -0.00195312,
+              "losses": 2,
+              "wins": 1
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            }
+          }
+        },
+        "512": {
+          "correct": {
+            "augmented_flash_bf16": 471,
+            "balanced_flash_bf16": 453,
+            "balanced_split_flash_bf16": 466,
+            "eager_bf16": 459,
+            "eager_fp32": 468,
+            "split_flash_bf16": 456
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.23295144736766815,
+            "balanced_flash_bf16": 0.18767693638801575,
+            "balanced_split_flash_bf16": 0.1323598176240921,
+            "eager_bf16": 0.07663445174694061,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.17419156432151794
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                0.00195312,
+                0.04492188
+              ],
+              "delta": 0.0234375,
+              "losses": 10,
+              "wins": 22
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.03125,
+                0.00585938
+              ],
+              "delta": -0.01171875,
+              "losses": 15,
+              "wins": 9
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.0059082,
+                0.03515625
+              ],
+              "delta": 0.01367188,
+              "losses": 12,
+              "wins": 19
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.02734375,
+                0.015625
+              ],
+              "delta": -0.00585938,
+              "losses": 17,
+              "wins": 14
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.05664062,
+                -0.015625
+              ],
+              "delta": -0.03515625,
+              "losses": 24,
+              "wins": 6
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.02739258,
+                0.0078125
+              ],
+              "delta": -0.00976562,
+              "losses": 14,
+              "wins": 9
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.04882812,
+                -0.00976562
+              ],
+              "delta": -0.02929688,
+              "losses": 21,
+              "wins": 6
+            }
+          }
+        }
+      },
+      "829162": {
+        "128": {
+          "correct": {
+            "augmented_flash_bf16": 491,
+            "balanced_flash_bf16": 491,
+            "balanced_split_flash_bf16": 496,
+            "eager_bf16": 493,
+            "eager_fp32": 491,
+            "split_flash_bf16": 492
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.10995390266180038,
+            "balanced_flash_bf16": 0.47867780923843384,
+            "balanced_split_flash_bf16": 0.39882534742355347,
+            "eager_bf16": 0.47496744990348816,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.12352970987558365
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.00585938
+              ],
+              "delta": -0.00390625,
+              "losses": 4,
+              "wins": 2
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.015625,
+                0.0078125
+              ],
+              "delta": -0.00390625,
+              "losses": 6,
+              "wins": 4
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.01757812
+              ],
+              "delta": 0.00585938,
+              "losses": 3,
+              "wins": 6
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.0078125
+              ],
+              "delta": -0.00195312,
+              "losses": 4,
+              "wins": 3
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.01171875
+              ],
+              "delta": 0.0,
+              "losses": 4,
+              "wins": 4
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00195312,
+                0.02148438
+              ],
+              "delta": 0.00976562,
+              "losses": 2,
+              "wins": 7
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.01171875
+              ],
+              "delta": 0.00195312,
+              "losses": 3,
+              "wins": 4
+            }
+          }
+        },
+        "20": {
+          "correct": {
+            "augmented_flash_bf16": 510,
+            "balanced_flash_bf16": 510,
+            "balanced_split_flash_bf16": 509,
+            "eager_bf16": 508,
+            "eager_fp32": 510,
+            "split_flash_bf16": 510
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.15504996478557587,
+            "balanced_flash_bf16": 0.3129281997680664,
+            "balanced_split_flash_bf16": 0.22163954377174377,
+            "eager_bf16": 0.5247241854667664,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.05471173673868179
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00976562
+              ],
+              "delta": 0.00390625,
+              "losses": 0,
+              "wins": 2
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.00585938
+              ],
+              "delta": 0.0,
+              "losses": 1,
+              "wins": 1
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.0
+              ],
+              "delta": -0.00195312,
+              "losses": 1,
+              "wins": 0
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.00585938
+              ],
+              "delta": 0.0,
+              "losses": 1,
+              "wins": 1
+            }
+          }
+        },
+        "512": {
+          "correct": {
+            "augmented_flash_bf16": 462,
+            "balanced_flash_bf16": 461,
+            "balanced_split_flash_bf16": 467,
+            "eager_bf16": 462,
+            "eager_fp32": 456,
+            "split_flash_bf16": 468
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.1844942420721054,
+            "balanced_flash_bf16": 0.11267949640750885,
+            "balanced_split_flash_bf16": 0.0801839530467987,
+            "eager_bf16": 0.25281623005867004,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.10842672735452652
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.01953125,
+                0.01953125
+              ],
+              "delta": 0.0,
+              "losses": 12,
+              "wins": 12
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01953125,
+                0.015625
+              ],
+              "delta": -0.00195312,
+              "losses": 11,
+              "wins": 10
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.02734375
+              ],
+              "delta": 0.00976562,
+              "losses": 9,
+              "wins": 14
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.03125
+              ],
+              "delta": 0.01171875,
+              "losses": 9,
+              "wins": 15
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01953125,
+                0.015625
+              ],
+              "delta": -0.00195312,
+              "losses": 11,
+              "wins": 10
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.03125
+              ],
+              "delta": 0.00976562,
+              "losses": 12,
+              "wins": 17
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.03125
+              ],
+              "delta": 0.01171875,
+              "losses": 11,
+              "wins": 17
+            }
+          }
+        }
+      }
+    },
+    "timing": {
+      "128/16": {
+        "augmented_flash_bf16": {
+          "final_repeated_loss": 0.00014497220399789512,
+          "p50_ms": 5.915231943130493,
+          "p50_overhead_vs_original_flash": 1.0,
+          "p50_speedup_vs_eager_bf16": 1.056911,
+          "p95_ms": 5.945312023162842,
+          "peak_extra_allocated_bytes": 41599488,
+          "tokens_per_second": 695154.4824502391
+        },
+        "balanced_flash_bf16": {
+          "final_repeated_loss": 0.00014471160829998553,
+          "p50_ms": 5.842959880828857,
+          "p50_overhead_vs_original_flash": 0.987782,
+          "p50_speedup_vs_eager_bf16": 1.069984,
+          "p95_ms": 5.872096061706543,
+          "peak_extra_allocated_bytes": 41349120,
+          "tokens_per_second": 703752.9067231399
+        },
+        "balanced_split_flash_bf16": {
+          "final_repeated_loss": 0.00014106128946878016,
+          "p50_ms": 6.012383937835693,
+          "p50_overhead_vs_original_flash": 1.016424,
+          "p50_speedup_vs_eager_bf16": 1.039832,
+          "p95_ms": 6.045695781707764,
+          "peak_extra_allocated_bytes": 41349120,
+          "tokens_per_second": 683921.7259768371
+        },
+        "eager_bf16": {
+          "final_repeated_loss": 0.00014466718130279332,
+          "p50_ms": 6.2518720626831055,
+          "p50_overhead_vs_original_flash": 1.056911,
+          "p50_speedup_vs_eager_bf16": 1.0,
+          "p95_ms": 6.282976150512695,
+          "peak_extra_allocated_bytes": 173706240,
+          "tokens_per_second": 657722.9922128732
+        },
+        "eager_fp32": {
+          "final_repeated_loss": 0.00014112851931713521,
+          "p50_ms": 5.538976192474365,
+          "p50_overhead_vs_original_flash": 0.936392,
+          "p50_speedup_vs_eager_bf16": 1.128705,
+          "p95_ms": 5.559232234954834,
+          "peak_extra_allocated_bytes": 176987648,
+          "tokens_per_second": 742375.4602135402
+        },
+        "split_flash_bf16": {
+          "final_repeated_loss": 0.00014071869372855872,
+          "p50_ms": 6.1185760498046875,
+          "p50_overhead_vs_original_flash": 1.034376,
+          "p50_speedup_vs_eager_bf16": 1.021785,
+          "p95_ms": 6.143263816833496,
+          "peak_extra_allocated_bytes": 41599488,
+          "tokens_per_second": 672051.7922027397
+        }
+      },
+      "512/16": {
+        "augmented_flash_bf16": {
+          "final_repeated_loss": 0.00025059637846425176,
+          "p50_ms": 5.967775821685791,
+          "p50_overhead_vs_original_flash": 1.0,
+          "p50_speedup_vs_eager_bf16": 1.719826,
+          "p95_ms": 5.996960163116455,
+          "peak_extra_allocated_bytes": 169505792,
+          "tokens_per_second": 2748092.503811125
+        },
+        "balanced_flash_bf16": {
+          "final_repeated_loss": 0.0002510508056730032,
+          "p50_ms": 5.900815963745117,
+          "p50_overhead_vs_original_flash": 0.98878,
+          "p50_speedup_vs_eager_bf16": 1.739342,
+          "p95_ms": 5.926239967346191,
+          "peak_extra_allocated_bytes": 164782080,
+          "tokens_per_second": 2779276.645935469
+        },
+        "balanced_split_flash_bf16": {
+          "final_repeated_loss": 0.00025061878841370344,
+          "p50_ms": 6.052095890045166,
+          "p50_overhead_vs_original_flash": 1.014129,
+          "p50_speedup_vs_eager_bf16": 1.695865,
+          "p95_ms": 6.083903789520264,
+          "peak_extra_allocated_bytes": 164782080,
+          "tokens_per_second": 2709805.0490203993
+        },
+        "eager_bf16": {
+          "final_repeated_loss": 0.0002597362326923758,
+          "p50_ms": 10.263535976409912,
+          "p50_overhead_vs_original_flash": 1.719826,
+          "p50_speedup_vs_eager_bf16": 1.0,
+          "p95_ms": 10.271231651306152,
+          "peak_extra_allocated_bytes": 2399098368,
+          "tokens_per_second": 1597889.8537204296
+        },
+        "eager_fp32": {
+          "final_repeated_loss": 0.00025543797528371215,
+          "p50_ms": 9.894479751586914,
+          "p50_overhead_vs_original_flash": 1.657984,
+          "p50_speedup_vs_eager_bf16": 1.037299,
+          "p95_ms": 9.90060806274414,
+          "peak_extra_allocated_bytes": 2300355584,
+          "tokens_per_second": 1657489.8743281278
+        },
+        "split_flash_bf16": {
+          "final_repeated_loss": 0.00025166026898659766,
+          "p50_ms": 6.1842241287231445,
+          "p50_overhead_vs_original_flash": 1.03627,
+          "p50_speedup_vs_eager_bf16": 1.659632,
+          "p95_ms": 6.200511932373047,
+          "peak_extra_allocated_bytes": 169505792,
+          "tokens_per_second": 2651909.0606417116
+        }
+      },
+      "512/32": {
+        "augmented_flash_bf16": {
+          "final_repeated_loss": 0.0003900400479324162,
+          "p50_ms": 6.012736082077026,
+          "p50_overhead_vs_original_flash": 1.0,
+          "p50_speedup_vs_eager_bf16": 3.119748,
+          "p95_ms": 6.059936046600342,
+          "peak_extra_allocated_bytes": 329253888,
+          "tokens_per_second": 5455087.260152892
+        },
+        "balanced_flash_bf16": {
+          "final_repeated_loss": 0.00039487527101300657,
+          "p50_ms": 5.938287973403931,
+          "p50_overhead_vs_original_flash": 0.987618,
+          "p50_speedup_vs_eager_bf16": 3.158861,
+          "p95_ms": 5.966303825378418,
+          "peak_extra_allocated_bytes": 319807488,
+          "tokens_per_second": 5523477.498380474
+        },
+        "balanced_split_flash_bf16": {
+          "final_repeated_loss": 0.0003879145660903305,
+          "p50_ms": 6.091264009475708,
+          "p50_overhead_vs_original_flash": 1.01306,
+          "p50_speedup_vs_eager_bf16": 3.079529,
+          "p95_ms": 6.135039806365967,
+          "peak_extra_allocated_bytes": 319807488,
+          "tokens_per_second": 5384760.855706726
+        },
+        "eager_bf16": {
+          "final_repeated_loss": 0.0003962281043641269,
+          "p50_ms": 18.75822353363037,
+          "p50_overhead_vs_original_flash": 3.119748,
+          "p50_speedup_vs_eager_bf16": 1.0,
+          "p95_ms": 18.768447875976562,
+          "peak_extra_allocated_bytes": 4804690944,
+          "tokens_per_second": 1748566.4322740939
+        },
+        "eager_fp32": {
+          "final_repeated_loss": 0.0003881730081047863,
+          "p50_ms": 18.682479858398438,
+          "p50_overhead_vs_original_flash": 3.107151,
+          "p50_speedup_vs_eager_bf16": 1.004054,
+          "p95_ms": 18.68662452697754,
+          "peak_extra_allocated_bytes": 4608136704,
+          "tokens_per_second": 1755655.5793772333
+        },
+        "split_flash_bf16": {
+          "final_repeated_loss": 0.0003796128439716995,
+          "p50_ms": 6.198623895645142,
+          "p50_overhead_vs_original_flash": 1.030916,
+          "p50_speedup_vs_eager_bf16": 3.026192,
+          "p95_ms": 6.237599849700928,
+          "peak_extra_allocated_bytes": 329778688,
+          "tokens_per_second": 5291497.040664738
+        }
+      }
+    },
+    "torch": "2.8.0+cu128"
+  },
+  "l4": {
+    "device": "NVIDIA L4",
+    "mean_accuracy_across_seeds": {
+      "128": {
+        "augmented_flash_bf16": 0.9609375,
+        "balanced_flash_bf16": 0.96354167,
+        "balanced_split_flash_bf16": 0.96549479,
+        "eager_bf16": 0.95833333,
+        "eager_fp32": 0.96419271,
+        "split_flash_bf16": 0.96028646
+      },
+      "20": {
+        "augmented_flash_bf16": 0.99544271,
+        "balanced_flash_bf16": 0.99609375,
+        "balanced_split_flash_bf16": 0.99674479,
+        "eager_bf16": 0.99544271,
+        "eager_fp32": 0.99544271,
+        "split_flash_bf16": 0.99544271
+      },
+      "512": {
+        "augmented_flash_bf16": 0.89583333,
+        "balanced_flash_bf16": 0.89192708,
+        "balanced_split_flash_bf16": 0.91080729,
+        "eager_bf16": 0.88932292,
+        "eager_fp32": 0.90885417,
+        "split_flash_bf16": 0.89713542
+      }
+    },
+    "per_seed": {
+      "829114": {
+        "128": {
+          "correct": {
+            "augmented_flash_bf16": 490,
+            "balanced_flash_bf16": 494,
+            "balanced_split_flash_bf16": 493,
+            "eager_bf16": 495,
+            "eager_fp32": 493,
+            "split_flash_bf16": 495
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.6826248168945312,
+            "balanced_flash_bf16": 1.0076079368591309,
+            "balanced_split_flash_bf16": 0.507168173789978,
+            "eager_bf16": 1.7304704189300537,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.37231698632240295
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.02148438,
+                0.00195312
+              ],
+              "delta": -0.00976562,
+              "losses": 7,
+              "wins": 2
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01367188,
+                0.00976562
+              ],
+              "delta": -0.00195312,
+              "losses": 5,
+              "wins": 4
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.015625,
+                0.0078125
+              ],
+              "delta": -0.00390625,
+              "losses": 5,
+              "wins": 3
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.0078125
+              ],
+              "delta": 0.0,
+              "losses": 2,
+              "wins": 2
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.01757812
+              ],
+              "delta": 0.0078125,
+              "losses": 1,
+              "wins": 5
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.02148438
+              ],
+              "delta": 0.00585938,
+              "losses": 6,
+              "wins": 9
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00195312,
+                0.0234375
+              ],
+              "delta": 0.00976562,
+              "losses": 3,
+              "wins": 8
+            }
+          }
+        },
+        "20": {
+          "correct": {
+            "augmented_flash_bf16": 508,
+            "balanced_flash_bf16": 509,
+            "balanced_split_flash_bf16": 509,
+            "eager_bf16": 509,
+            "eager_fp32": 508,
+            "split_flash_bf16": 508
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.064593605697155,
+            "balanced_flash_bf16": 0.05890186131000519,
+            "balanced_split_flash_bf16": 0.061370085924863815,
+            "eager_bf16": 0.06687619537115097,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.030257131904363632
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.0
+              ],
+              "delta": -0.00195312,
+              "losses": 1,
+              "wins": 0
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.00585938
+              ],
+              "delta": 0.0,
+              "losses": 1,
+              "wins": 1
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.00585938
+              ],
+              "delta": 0.0,
+              "losses": 1,
+              "wins": 1
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00585938
+              ],
+              "delta": -0.00195312,
+              "losses": 3,
+              "wins": 2
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.00976562
+              ],
+              "delta": 0.00195312,
+              "losses": 1,
+              "wins": 2
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.0078125
+              ],
+              "delta": 0.00195312,
+              "losses": 1,
+              "wins": 2
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.0078125
+              ],
+              "delta": 0.0,
+              "losses": 2,
+              "wins": 2
+            }
+          }
+        },
+        "512": {
+          "correct": {
+            "augmented_flash_bf16": 463,
+            "balanced_flash_bf16": 462,
+            "balanced_split_flash_bf16": 465,
+            "eager_bf16": 458,
+            "eager_fp32": 472,
+            "split_flash_bf16": 464
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.0479326955974102,
+            "balanced_flash_bf16": 0.03467031940817833,
+            "balanced_split_flash_bf16": 0.03941784426569939,
+            "eager_bf16": 0.07844705134630203,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.026035930961370468
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.02734375
+              ],
+              "delta": 0.00976562,
+              "losses": 8,
+              "wins": 13
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.02734375
+              ],
+              "delta": 0.0078125,
+              "losses": 11,
+              "wins": 15
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.03125
+              ],
+              "delta": 0.01367188,
+              "losses": 7,
+              "wins": 14
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.02929688
+              ],
+              "delta": 0.01171875,
+              "losses": 7,
+              "wins": 13
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.02148438,
+                0.01757812
+              ],
+              "delta": -0.00195312,
+              "losses": 13,
+              "wins": 12
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.015625,
+                0.0234375
+              ],
+              "delta": 0.00390625,
+              "losses": 11,
+              "wins": 13
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.015625,
+                0.01953125
+              ],
+              "delta": 0.00195312,
+              "losses": 11,
+              "wins": 12
+            }
+          }
+        }
+      },
+      "829128": {
+        "128": {
+          "correct": {
+            "augmented_flash_bf16": 498,
+            "balanced_flash_bf16": 496,
+            "balanced_split_flash_bf16": 498,
+            "eager_bf16": 487,
+            "eager_fp32": 497,
+            "split_flash_bf16": 489
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.27544450759887695,
+            "balanced_flash_bf16": 1.1130541563034058,
+            "balanced_split_flash_bf16": 0.40809953212738037,
+            "eager_bf16": 0.511569082736969,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.2554034888744354
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                0.0078125,
+                0.03710938
+              ],
+              "delta": 0.02148438,
+              "losses": 2,
+              "wins": 13
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.00585938,
+                0.03125
+              ],
+              "delta": 0.01757812,
+              "losses": 1,
+              "wins": 10
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.0078125,
+                0.03710938
+              ],
+              "delta": 0.02148438,
+              "losses": 2,
+              "wins": 13
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.01953125
+              ],
+              "delta": 0.00390625,
+              "losses": 8,
+              "wins": 10
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01757812,
+                0.00976562
+              ],
+              "delta": -0.00390625,
+              "losses": 7,
+              "wins": 5
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.00585938
+              ],
+              "delta": 0.0,
+              "losses": 1,
+              "wins": 1
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.03125,
+                -0.00390625
+              ],
+              "delta": -0.01757812,
+              "losses": 11,
+              "wins": 2
+            }
+          }
+        },
+        "20": {
+          "correct": {
+            "augmented_flash_bf16": 511,
+            "balanced_flash_bf16": 512,
+            "balanced_split_flash_bf16": 512,
+            "eager_bf16": 511,
+            "eager_fp32": 511,
+            "split_flash_bf16": 512
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.2532155215740204,
+            "balanced_flash_bf16": 0.5441210269927979,
+            "balanced_split_flash_bf16": 0.1519445925951004,
+            "eager_bf16": 0.1735730767250061,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.48793062567710876
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                0.0,
+                0.00585938
+              ],
+              "delta": 0.00195312,
+              "losses": 0,
+              "wins": 1
+            }
+          }
+        },
+        "512": {
+          "correct": {
+            "augmented_flash_bf16": 461,
+            "balanced_flash_bf16": 461,
+            "balanced_split_flash_bf16": 469,
+            "eager_bf16": 440,
+            "eager_fp32": 468,
+            "split_flash_bf16": 454
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.23320293426513672,
+            "balanced_flash_bf16": 0.18726323544979095,
+            "balanced_split_flash_bf16": 0.13152144849300385,
+            "eager_bf16": 0.07654271274805069,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.17419099807739258
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                0.01757812,
+                0.06640625
+              ],
+              "delta": 0.04101562,
+              "losses": 11,
+              "wins": 32
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                0.01953125,
+                0.06445312
+              ],
+              "delta": 0.04101562,
+              "losses": 8,
+              "wins": 29
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.03320312,
+                0.08007812
+              ],
+              "delta": 0.05664062,
+              "losses": 7,
+              "wins": 36
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                0.00390625,
+                0.05273438
+              ],
+              "delta": 0.02734375,
+              "losses": 13,
+              "wins": 27
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01953125,
+                0.01953125
+              ],
+              "delta": 0.0,
+              "losses": 13,
+              "wins": 13
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00195312,
+                0.03320312
+              ],
+              "delta": 0.015625,
+              "losses": 7,
+              "wins": 15
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.03320312,
+                0.00585938
+              ],
+              "delta": -0.01367188,
+              "losses": 17,
+              "wins": 10
+            }
+          }
+        }
+      },
+      "829162": {
+        "128": {
+          "correct": {
+            "augmented_flash_bf16": 488,
+            "balanced_flash_bf16": 490,
+            "balanced_split_flash_bf16": 492,
+            "eager_bf16": 490,
+            "eager_fp32": 491,
+            "split_flash_bf16": 491
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.1101546660065651,
+            "balanced_flash_bf16": 0.478449285030365,
+            "balanced_split_flash_bf16": 0.3983723521232605,
+            "eager_bf16": 0.4747779071331024,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.12328306585550308
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.01953125,
+                0.01171875
+              ],
+              "delta": -0.00390625,
+              "losses": 9,
+              "wins": 7
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01757812,
+                0.01757812
+              ],
+              "delta": 0.0,
+              "losses": 11,
+              "wins": 11
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.015625
+              ],
+              "delta": 0.00390625,
+              "losses": 3,
+              "wins": 5
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.015625
+              ],
+              "delta": 0.00195312,
+              "losses": 6,
+              "wins": 7
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.01171875,
+                0.01953125
+              ],
+              "delta": 0.00390625,
+              "losses": 8,
+              "wins": 10
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.01953125
+              ],
+              "delta": 0.0078125,
+              "losses": 3,
+              "wins": 7
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.015625
+              ],
+              "delta": 0.00585938,
+              "losses": 2,
+              "wins": 5
+            }
+          }
+        },
+        "20": {
+          "correct": {
+            "augmented_flash_bf16": 510,
+            "balanced_flash_bf16": 509,
+            "balanced_split_flash_bf16": 510,
+            "eager_bf16": 509,
+            "eager_fp32": 510,
+            "split_flash_bf16": 509
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.3682596683502197,
+            "balanced_flash_bf16": 0.2639564871788025,
+            "balanced_split_flash_bf16": 0.35939282178878784,
+            "eager_bf16": 0.8093879222869873,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.4610002040863037
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.00585938,
+                0.00976562
+              ],
+              "delta": 0.00195312,
+              "losses": 2,
+              "wins": 3
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00976562
+              ],
+              "delta": 0.0,
+              "losses": 3,
+              "wins": 3
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.00976562
+              ],
+              "delta": 0.00195312,
+              "losses": 1,
+              "wins": 2
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00976562
+              ],
+              "delta": 0.0,
+              "losses": 3,
+              "wins": 3
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00390625
+              ],
+              "delta": -0.00195312,
+              "losses": 2,
+              "wins": 1
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.0078125,
+                0.0078125
+              ],
+              "delta": 0.0,
+              "losses": 2,
+              "wins": 2
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00976562,
+                0.00390625
+              ],
+              "delta": -0.00195312,
+              "losses": 2,
+              "wins": 1
+            }
+          }
+        },
+        "512": {
+          "correct": {
+            "augmented_flash_bf16": 452,
+            "balanced_flash_bf16": 447,
+            "balanced_split_flash_bf16": 465,
+            "eager_bf16": 468,
+            "eager_fp32": 456,
+            "split_flash_bf16": 460
+          },
+          "gradient_relative_l2": {
+            "augmented_flash_bf16": 0.17967000603675842,
+            "balanced_flash_bf16": 0.11106612533330917,
+            "balanced_split_flash_bf16": 0.07981348037719727,
+            "eager_bf16": 0.25351622700691223,
+            "eager_fp32": 0.0,
+            "split_flash_bf16": 0.10781637579202652
+          },
+          "paired_vs_eager_bf16": {
+            "augmented_flash_bf16": {
+              "bootstrap95": [
+                -0.0546875,
+                -0.00976562
+              ],
+              "delta": -0.03125,
+              "losses": 25,
+              "wins": 9
+            },
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.06445312,
+                -0.01757812
+              ],
+              "delta": -0.04101562,
+              "losses": 30,
+              "wins": 9
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                -0.02148438,
+                0.00976562
+              ],
+              "delta": -0.00585938,
+              "losses": 10,
+              "wins": 7
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.03320312,
+                0.00195312
+              ],
+              "delta": -0.015625,
+              "losses": 15,
+              "wins": 7
+            }
+          },
+          "paired_vs_original_flash": {
+            "balanced_flash_bf16": {
+              "bootstrap95": [
+                -0.03125,
+                0.01367188
+              ],
+              "delta": -0.00976562,
+              "losses": 20,
+              "wins": 15
+            },
+            "balanced_split_flash_bf16": {
+              "bootstrap95": [
+                0.00585938,
+                0.04492188
+              ],
+              "delta": 0.02539062,
+              "losses": 7,
+              "wins": 20
+            },
+            "split_flash_bf16": {
+              "bootstrap95": [
+                -0.00390625,
+                0.03515625
+              ],
+              "delta": 0.015625,
+              "losses": 10,
+              "wins": 18
+            }
+          }
+        }
+      }
+    },
+    "timing": {
+      "128/16": {
+        "augmented_flash_bf16": {
+          "final_repeated_loss": 0.00014397398626897484,
+          "p50_ms": 4.185152053833008,
+          "p50_overhead_vs_original_flash": 1.0,
+          "p50_speedup_vs_eager_bf16": 1.323077,
+          "p95_ms": 4.245503902435303,
+          "peak_extra_allocated_bytes": 41599488,
+          "tokens_per_second": 982521.0523077624
+        },
+        "balanced_flash_bf16": {
+          "final_repeated_loss": 0.00014656655548606068,
+          "p50_ms": 4.1631200313568115,
+          "p50_overhead_vs_original_flash": 0.994736,
+          "p50_speedup_vs_eager_bf16": 1.330079,
+          "p95_ms": 4.231167793273926,
+          "peak_extra_allocated_bytes": 41349120,
+          "tokens_per_second": 987720.740461055
+        },
+        "balanced_split_flash_bf16": {
+          "final_repeated_loss": 0.0001407634117640555,
+          "p50_ms": 4.28544020652771,
+          "p50_overhead_vs_original_flash": 1.023963,
+          "p50_speedup_vs_eager_bf16": 1.292115,
+          "p95_ms": 4.314112186431885,
+          "peak_extra_allocated_bytes": 41349120,
+          "tokens_per_second": 959528.030221138
+        },
+        "eager_bf16": {
+          "final_repeated_loss": 0.00014672346878796816,
+          "p50_ms": 5.537280082702637,
+          "p50_overhead_vs_original_flash": 1.323077,
+          "p50_speedup_vs_eager_bf16": 1.0,
+          "p95_ms": 5.568511962890625,
+          "peak_extra_allocated_bytes": 173706240,
+          "tokens_per_second": 742602.8552980499
+        },
+        "eager_fp32": {
+          "final_repeated_loss": 0.00014112851931713521,
+          "p50_ms": 6.25817608833313,
+          "p50_overhead_vs_original_flash": 1.495328,
+          "p50_speedup_vs_eager_bf16": 0.884807,
+          "p95_ms": 6.304768085479736,
+          "peak_extra_allocated_bytes": 176987648,
+          "tokens_per_second": 657060.4505146218
+        },
+        "split_flash_bf16": {
+          "final_repeated_loss": 0.0001417096209479496,
+          "p50_ms": 4.349456071853638,
+          "p50_overhead_vs_original_flash": 1.039259,
+          "p50_speedup_vs_eager_bf16": 1.273097,
+          "p95_ms": 4.4113922119140625,
+          "peak_extra_allocated_bytes": 41599488,
+          "tokens_per_second": 945405.570735552
+        }
+      },
+      "512/16": {
+        "augmented_flash_bf16": {
+          "final_repeated_loss": 0.0002514453080948442,
+          "p50_ms": 6.016511917114258,
+          "p50_overhead_vs_original_flash": 1.0,
+          "p50_speedup_vs_eager_bf16": 19.298706,
+          "p95_ms": 6.047743797302246,
+          "peak_extra_allocated_bytes": 169505792,
+          "tokens_per_second": 2725831.881650464
+        },
+        "balanced_flash_bf16": {
+          "final_repeated_loss": 0.00024749053409323096,
+          "p50_ms": 5.924864053726196,
+          "p50_overhead_vs_original_flash": 0.984767,
+          "p50_speedup_vs_eager_bf16": 19.597226,
+          "p95_ms": 5.964799880981445,
+          "peak_extra_allocated_bytes": 164782080,
+          "tokens_per_second": 2767995.999787692
+        },
+        "balanced_split_flash_bf16": {
+          "final_repeated_loss": 0.00025374017423018813,
+          "p50_ms": 5.917183876037598,
+          "p50_overhead_vs_original_flash": 0.983491,
+          "p50_speedup_vs_eager_bf16": 19.622662,
+          "p95_ms": 5.972991943359375,
+          "peak_extra_allocated_bytes": 164782080,
+          "tokens_per_second": 2771588.705636464
+        },
+        "eager_bf16": {
+          "final_repeated_loss": 0.00025523651856929064,
+          "p50_ms": 116.11089706420898,
+          "p50_overhead_vs_original_flash": 19.298706,
+          "p50_speedup_vs_eager_bf16": 1.0,
+          "p95_ms": 116.25062561035156,
+          "peak_extra_allocated_bytes": 2399098368,
+          "tokens_per_second": 141244.2795178031
+        },
+        "eager_fp32": {
+          "final_repeated_loss": 0.00025543797528371215,
+          "p50_ms": 119.8950424194336,
+          "p50_overhead_vs_original_flash": 19.927666,
+          "p50_speedup_vs_eager_bf16": 0.968438,
+          "p95_ms": 119.96466827392578,
+          "peak_extra_allocated_bytes": 2300355584,
+          "tokens_per_second": 136786.306331393
+        },
+        "split_flash_bf16": {
+          "final_repeated_loss": 0.00024926275364123285,
+          "p50_ms": 6.094848155975342,
+          "p50_overhead_vs_original_flash": 1.01302,
+          "p50_speedup_vs_eager_bf16": 19.050663,
+          "p95_ms": 6.171648025512695,
+          "peak_extra_allocated_bytes": 168474624,
+          "tokens_per_second": 2690797.142160394
+        }
+      },
+      "512/32": {
+        "augmented_flash_bf16": {
+          "final_repeated_loss": 0.000389979308238253,
+          "p50_ms": 12.720639705657959,
+          "p50_overhead_vs_original_flash": 1.0,
+          "p50_speedup_vs_eager_bf16": 18.185994,
+          "p95_ms": 13.031423568725586,
+          "peak_extra_allocated_bytes": 329253888,
+          "tokens_per_second": 2578486.6766889896
+        },
+        "balanced_flash_bf16": {
+          "final_repeated_loss": 0.0003881563898175955,
+          "p50_ms": 11.967487812042236,
+          "p50_overhead_vs_original_flash": 0.940793,
+          "p50_speedup_vs_eager_bf16": 19.330496,
+          "p95_ms": 12.232704162597656,
+          "peak_extra_allocated_bytes": 319807488,
+          "tokens_per_second": 2740759.0059958226
+        },
+        "balanced_split_flash_bf16": {
+          "final_repeated_loss": 0.0003869342617690563,
+          "p50_ms": 12.105728149414062,
+          "p50_overhead_vs_original_flash": 0.95166,
+          "p50_speedup_vs_eager_bf16": 19.109753,
+          "p95_ms": 12.277759552001953,
+          "peak_extra_allocated_bytes": 319807488,
+          "tokens_per_second": 2709461.1406408935
+        },
+        "eager_bf16": {
+          "final_repeated_loss": 0.0004090012807864696,
+          "p50_ms": 231.33747100830078,
+          "p50_overhead_vs_original_flash": 18.185994,
+          "p50_speedup_vs_eager_bf16": 1.0,
+          "p95_ms": 231.5141143798828,
+          "peak_extra_allocated_bytes": 4804690944,
+          "tokens_per_second": 141784.20753472782
+        },
+        "eager_fp32": {
+          "final_repeated_loss": 0.0003881730081047863,
+          "p50_ms": 239.94525146484375,
+          "p50_overhead_vs_original_flash": 18.862672,
+          "p50_speedup_vs_eager_bf16": 0.964126,
+          "p95_ms": 240.15890502929688,
+          "peak_extra_allocated_bytes": 4608136704,
+          "tokens_per_second": 136697.85002936717
+        },
+        "split_flash_bf16": {
+          "final_repeated_loss": 0.00038235780084505677,
+          "p50_ms": 12.34227180480957,
+          "p50_overhead_vs_original_flash": 0.970256,
+          "p50_speedup_vs_eager_bf16": 18.743508,
+          "p95_ms": 12.636159896850586,
+          "peak_extra_allocated_bytes": 329778688,
+          "tokens_per_second": 2657533.436204055
+        }
+      }
+    },
+    "torch": "2.8.0+cu128"
+  }
+}

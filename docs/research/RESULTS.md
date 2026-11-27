@@ -107,3 +107,5 @@ A [B200 collector readiness trial](../../reports/nonlinear_retrieval_natural/LIV
 [Radial attention backward checks](../../reports/nonlinear_retrieval_natural/RADIAL_BACKWARD.md) met FP32 numerical tolerances on both HPG devices. At 1,025 tokens and batch 32, BF16 FlashAttention accelerated the full step by 3.08× on B200 and 18.99× on L4. Its depth-512 accuracy after a matched continuation rose 3.32 points on B200 and fell 4.69 on L4.
 
 A [duration-only serial schedule audit](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#executable-labels-for-fictional-event-schedules) reproduced the published answer sets for 2,693 of 2,700 hard UnSeenTimeQA records. The remaining seven had repeated event descriptions in hypothetical queries.
+
+[BF16 radial feature precision](../../reports/nonlinear_retrieval_natural/RADIAL_BF16_PRECISION.md) reduced gradient relative error at depth 512 across three seeds on both GPUs. The combined encoding retained 3.08× B200 and 19.11× L4 speedups over eager BF16. Relative to original Flash, its mean depth-512 accuracy changed −0.26 points on B200 and +1.50 on L4.
