@@ -44,6 +44,19 @@ The event-retrieval probe used 600 questions spanning ten distinct initial world
 
 The duration-only hard serial audit reconstructed the schedule from a single named event's clock and the ordered event durations. It matched the complete published answer set on all 900 static and 900 relative questions. For 900 hypothetical questions, it matched 893 and abstained on seven whose changed event description matched multiple records. On those 893 resolved cases, ignoring the duration intervention gave 408 exact matches and 140 abstentions. A common clock shift preserved the answer and inferred event indices on every resolved case, and the target's index relative to the named event agreed with author depth throughout. Each question type spans ten distinct initial worlds and ten distinct action sequences. This provides an executable test for duration changes and clock translation within those serial schedules. [Replay script](../../scripts/audit_kam_unseentimeqa_serial.py) · [Source revision and file hashes](../../results/nonlinear_retrieval_natural/unseentimeqa_hard_serial_v1/summary.json) · [Author dataset revision](https://github.com/nurakib/UnSeenTimeQA/tree/84f910fcd32f2b21d6e34d9efb98e94eb04844bb/data/hard_serial)
 
+### Parallel schedules
+
+The concurrent audit inferred precedence from vehicle and package identities in the narrated actions. It allowed matching load or unload actions on the same vehicle to start together, then assigned each group its first eligible start. When a query matched exactly one distinct set of locations across active package events, that set was returned. A separate diagnostic reconstructed the authors' ten published plan schedules by reading the start-time formulas and applying them to the durations in each question. This diagnostic used the published dependency schedules as extra information. [Audit script](../../scripts/audit_kam_unseentimeqa_parallel.py) · [Source fingerprints and per-plan counts](../../results/nonlinear_retrieval_natural/unseentimeqa_hard_parallel_v1/summary.json) · [Author source](https://github.com/nurakib/UnSeenTimeQA/tree/84f910fcd32f2b21d6e34d9efb98e94eb04844bb/data_generation)
+
+| Schedule and answer rule | Static, 900 | Relative, 900 | Hypothetical, 900 |
+| --- | ---: | ---: | ---: |
+| Serial schedule control | 70 | 75 | 75 |
+| Inferred concurrent schedule, unique active-event answer | 870 | 885 | 863 |
+| Published plan schedule, unique active-event answer | 894 | 891 | 890 |
+| Published plan schedule with annotated target event | 900 | 900 | 890 |
+
+The inferred and published schedules agreed on every timestamp for 2,274 of the 2,690 cases whose event references were unique. Using the published schedules, 15 cases had simultaneous eligible events with different sets of locations. The release's depth metadata identified the target event and reproduced all 2,690 resolved labels, including those 15. The other ten hypothetical questions named a changed event that occurred more than once. Clock translation preserved the inferred results on every resolved case. The ten reused plans limit independent variation, so use complete-plan holdout and audit label uniqueness when generating further questions.
+
 ## Real revision and abstention
 
 Read four linked observation-by-vintage tables from the Philadelphia Fed archive, totaling **190,764** nonmissing cells. For each question the exact target was the latest cell from the requested series and observation that was available by the vintage cutoff. A separately implemented SQLite lookup agreed on every fixture label. Unavailable questions have no corresponding cell by the cutoff. The numerical target is the archived representation for that edition. Rebasing can change earlier observations.

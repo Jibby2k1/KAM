@@ -32,25 +32,23 @@ def arguments(text):
 
 
 def serial_events(texts, change=None, delta=0):
+    signatures = [arguments(text) for text in texts]
+    if change is not None and signatures.count(change) != 1:
+        raise ValueError("ambiguous_changed_event")
     out = []
-    matches = 0
-    for text in texts:
+    for text, signature in zip(texts, signatures, strict=True):
         durations = DURATION.findall(text)
         if len(durations) != 1 or int(durations[0]) < 1 or clocks(text):
             raise ValueError("event_duration")
         start = out[-1].end if out else 0
-        signature = arguments(text)
         duration = int(durations[0])
         if signature == change:
             duration += delta
-            matches += 1
         if duration < 0:
             raise ValueError("negative_changed_duration")
         out.append(Event(start, start + duration, *signature))
     if not out:
         raise ValueError("empty_events")
-    if change is not None and matches != 1:
-        raise ValueError("ambiguous_changed_event")
     return out
 
 
