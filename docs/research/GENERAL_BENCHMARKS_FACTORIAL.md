@@ -117,7 +117,7 @@ Low-rate KAM increased Llama's strict GSM8K exact match from 62.55% to 74.35%. T
 
 For Llama with high-rate KL, KAM and dot were within 1.34 points of each other on all five benchmarks. Held-out next-token KL dropped roughly 50-fold for both architectures, while the median fit took about 48% longer and peak allocated GPU memory grew by about 2.0 GiB. The result measures preservation under this training mixture and decoding protocol at a fixed token budget.
 
-High-rate KL increased MMLU and strict GSM8K in all four architecture–backbone combinations. The magnitude depended on the backbone, and the coding response depended on both task and backbone. At the lower rate, KAM's GSM8K response to KL was +0.51 points on SmolLM2 and −11.60 on Llama. The paired observations at the tested rates and KL weight support choosing a recipe by backbone and target metric.
+High-rate KL increased MMLU and strict GSM8K in all four architecture–backbone combinations. The magnitude depended on the backbone, and the coding response depended on both task and backbone. At the lower rate, KAM's GSM8K response to KL was +0.51 points on SmolLM2 and −11.60 on Llama. The paired observations at the tested rates and KL weight support choosing a recipe by backbone and target metric. [Format and decoding checks, held-out perplexity, and GPU efficiency](GENERAL_BENCHMARKS_DIAGNOSTICS.md)
 
 ## Reproduce
 

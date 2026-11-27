@@ -61,6 +61,21 @@ The three seeds and five benchmarks were held fixed across all conditions within
 
 [Factorial report, interactions, and reproducibility records](GENERAL_BENCHMARKS_FACTORIAL.md)
 
+### Held-out next-token perplexity
+
+Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.
+
+| Backbone and source | Untouched | KAM | Dot |
+| --- | ---: | ---: | ---: |
+| SmolLM2, WikiText-103 | 11.58 | 10.96 | 10.46 |
+| SmolLM2, CodeSearchNet Python | 4.60 | 4.45 | 4.31 |
+| SmolLM2, synthetic arithmetic | 3.79 | 2.56 | 2.10 |
+| Llama 3, WikiText-103 | 10.17 | 8.88 | 8.74 |
+| Llama 3, CodeSearchNet Python | 5.00 | 4.10 | 4.04 |
+| Llama 3, synthetic arithmetic | 6.00 | 2.26 | 2.20 |
+
+[All recipes, matched-drift controls, and efficiency measurements](GENERAL_BENCHMARKS_DIAGNOSTICS.md)
+
 ### Preserving pretrained scores on HiPerGator
 
 SmolLM2-1.7B-Instruct is the shared backbone and untouched reference. KAM and dot each add 1,114,112 trainable parameters. Every cell reports paired means from three seeds in KAM / dot order.

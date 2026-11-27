@@ -43,6 +43,15 @@ class ResidualAdapter(nn.Module):
         self.cache_enabled = False
         self.cache = None
 
+    def append_dot_cache(self, k, v):
+        old = self.cache[0].size(-2) if self.cache is not None else 0
+        if old:
+            k = torch.cat((self.cache[0], k), dim=-2)
+            v = torch.cat((self.cache[1], v), dim=-2)
+        if self.cache_enabled:
+            self.cache = (k, v)
+        return old, k, v
+
     def forward(self, x):
         z = self.down(F.rms_norm(x, (x.shape[-1],)))
         if self.arm == "kam":
@@ -51,12 +60,7 @@ class ResidualAdapter(nn.Module):
         else:
             q, k, v = (r.unflatten(-1, (HEADS, WIDTH // HEADS)).transpose(1, 2)
                        for r in self.qkv(z).chunk(3, dim=-1))
-            old = self.cache[0].size(-2) if self.cache is not None else 0
-            if old:
-                k = torch.cat((self.cache[0], k), dim=-2)
-                v = torch.cat((self.cache[1], v), dim=-2)
-            if self.cache_enabled:
-                self.cache = (k, v)
+            old, k, v = self.append_dot_cache(k, v)
             mask = None
             if self.mask is not None:
                 mask = self.mask[:, None, None, :k.size(-2)]

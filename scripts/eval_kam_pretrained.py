@@ -70,21 +70,25 @@ def cache_check(model, stack, tokenizer):
             "same_argmax": int((full.argmax(-1) == last.argmax(-1)).sum()), "cases": len(rows)}
 
 
-def generate(model, stack, tokenizer, rows, task):
+def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=None):
     x, mask = pad(rows, tokenizer.pad_token_id)
     outputs = [[] for _ in rows]
     done = [False] * len(rows)
+    limit = LIMIT[task] if max_new_tokens is None else max_new_tokens
+    finished = ["budget"] * len(rows) if trace is not None else None
     stop = model.generation_config.eos_token_id
     stop = {stop} if isinstance(stop, int) else set(stop)
     stack.reset()
     logits, past = next_logits(model, stack, x, mask, use_cache=True)
-    for step in range(LIMIT[task]):
+    for step in range(limit):
         tokens = logits.argmax(-1).tolist()
         for j, token in enumerate(tokens):
             if done[j]:
                 continue
             if token in stop:
                 done[j] = True
+                if finished is not None:
+                    finished[j] = "eos"
             else:
                 outputs[j].append(token)
         if (step + 1) % 16 == 0:
@@ -95,12 +99,16 @@ def generate(model, stack, tokenizer, rows, task):
                         done[j] = bool(re.search(r"####\s*-?\d[\d,.]*\s*\n", decoded))
                     else:
                         done[j] = decoded.count("```") >= 2
-        if all(done) or step + 1 == LIMIT[task]:
+                    if done[j] and finished is not None:
+                        finished[j] = "pattern"
+        if all(done) or step + 1 == limit:
             break
         token = torch.tensor(tokens, device=x.device).unsqueeze(1)
         mask = torch.cat((mask, torch.ones_like(token, dtype=torch.bool)), dim=1)
         logits, past = next_logits(model, stack, token, mask, past, use_cache=True)
     stack.reset()
+    if trace is not None:
+        trace.extend(zip(outputs, finished, strict=True))
     decoded = tokenizer.batch_decode(outputs, skip_special_tokens=True)
     if task != "gsm8k":
         decoded = [m.group(1) if (m := CODE_BLOCK.search(s)) else s for s in decoded]
@@ -131,7 +139,7 @@ def evaluate(args):
                args.task, args.batch, model, tokenizer, stack, metadata)
 
 
-def score_task(data, output_path, task, batch_size, model, tokenizer, stack, metadata):
+def score_task(data, output_path, task, batch_size, model, tokenizer, stack, metadata, *, numeric_audit=None):
     source, cases = load_cases(data, task)
     parity = cache_check(model, stack, tokenizer)
     prompts = [question(task, case, i) for i, case in enumerate(cases)]
@@ -160,6 +168,8 @@ def score_task(data, output_path, task, batch_size, model, tokenizer, stack, met
                 assert gold is not None
                 answer = numerical_answer(output)
                 row.update(correct=answer == gold, parsed=answer is not None)
+                if numeric_audit is not None:
+                    row.update(numeric_audit(output, gold, answer))
             elif task in ("humaneval", "mbpp"):
                 row["completion"] = output
             else:

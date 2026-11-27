@@ -1,0 +1,163 @@
+{
+  "mmlu-batch-shape-0-untouched-pretrained": {
+    "comparisons": {
+      "float32_scores": {
+        "median_production_margin_changed": 0.020654678344726562,
+        "median_production_margin_stable": 0.4281482696533203,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 0,
+        "packing_choice_changes": 45,
+        "production_correct": 850,
+        "production_matches_original": 1963,
+        "production_tied_max": 0,
+        "repacked_correct": 849,
+        "repacked_matches_original": 1952
+      },
+      "native_scores": {
+        "median_production_margin_changed": 0.125,
+        "median_production_margin_stable": 0.5,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 31,
+        "packing_choice_changes": 68,
+        "production_correct": 844,
+        "production_matches_original": 2048,
+        "production_tied_max": 182,
+        "repacked_correct": 855,
+        "repacked_matches_original": 1980
+      }
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "metadata": {
+      "adapter_sha256": null,
+      "arm": "pretrained",
+      "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+      "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+      "new_trainable_parameters": 0,
+      "protocol": "smollm2-preservation-v1",
+      "recipe": "untouched",
+      "revision": "31b70e2e869a7173562077fd711b654946d38674",
+      "seed": 0,
+      "training": {}
+    }
+  },
+  "mmlu-batch-shape-731221-high_lr_kl-dot": {
+    "comparisons": {
+      "float32_scores": {
+        "median_production_margin_changed": 0.014556884765625,
+        "median_production_margin_stable": 0.3848915100097656,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 0,
+        "packing_choice_changes": 43,
+        "production_correct": 857,
+        "production_matches_original": 1957,
+        "production_tied_max": 0,
+        "repacked_correct": 854,
+        "repacked_matches_original": 1951
+      },
+      "native_scores": {
+        "median_production_margin_changed": 0.125,
+        "median_production_margin_stable": 0.375,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 36,
+        "packing_choice_changes": 81,
+        "production_correct": 852,
+        "production_matches_original": 2048,
+        "production_tied_max": 178,
+        "repacked_correct": 853,
+        "repacked_matches_original": 1967
+      }
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "metadata": {
+      "adapter_sha256": "7bb00582d47f32f0e1d704c1d0e82d7d94a0b595e2cbdeb6a8731dc842bf714b",
+      "arm": "dot",
+      "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+      "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+      "new_trainable_parameters": 1114112,
+      "protocol": "smollm2-preservation-v1",
+      "recipe": "high_lr_kl",
+      "revision": "31b70e2e869a7173562077fd711b654946d38674",
+      "seed": 731221,
+      "training": {
+        "arm": "dot",
+        "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+        "kl_weight": 4.0,
+        "layers": [
+          5,
+          11,
+          17,
+          23
+        ],
+        "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+        "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+        "new_trainable_parameters": 1114112,
+        "peak_lr": 0.0008,
+        "recipe": "high_lr_kl",
+        "revision": "31b70e2e869a7173562077fd711b654946d38674",
+        "seed": 731221,
+        "token_manifest_sha256": "d67fff932816a3af94e238c425238f5d3d5dc7a322632dfcea16e7aebc93118f",
+        "train_tokens": 1048576
+      }
+    }
+  },
+  "mmlu-batch-shape-731221-high_lr_kl-kam": {
+    "comparisons": {
+      "float32_scores": {
+        "median_production_margin_changed": 0.01700878143310547,
+        "median_production_margin_stable": 0.43218421936035156,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 0,
+        "packing_choice_changes": 38,
+        "production_correct": 856,
+        "production_matches_original": 1943,
+        "production_tied_max": 0,
+        "repacked_correct": 859,
+        "repacked_matches_original": 1937
+      },
+      "native_scores": {
+        "median_production_margin_changed": 0.0,
+        "median_production_margin_stable": 0.5,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 48,
+        "packing_choice_changes": 86,
+        "production_correct": 866,
+        "production_matches_original": 2048,
+        "production_tied_max": 188,
+        "repacked_correct": 857,
+        "repacked_matches_original": 1962
+      }
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "metadata": {
+      "adapter_sha256": "c20fa666226eb9a020632449bb0162b27b43d39252e57b115c8a00fed5e798b1",
+      "arm": "kam",
+      "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+      "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+      "new_trainable_parameters": 1114112,
+      "protocol": "smollm2-preservation-v1",
+      "recipe": "high_lr_kl",
+      "revision": "31b70e2e869a7173562077fd711b654946d38674",
+      "seed": 731221,
+      "training": {
+        "arm": "kam",
+        "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+        "kl_weight": 4.0,
+        "layers": [
+          5,
+          11,
+          17,
+          23
+        ],
+        "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+        "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+        "new_trainable_parameters": 1114112,
+        "peak_lr": 0.0008,
+        "recipe": "high_lr_kl",
+        "revision": "31b70e2e869a7173562077fd711b654946d38674",
+        "seed": 731221,
+        "token_manifest_sha256": "d67fff932816a3af94e238c425238f5d3d5dc7a322632dfcea16e7aebc93118f",
+        "train_tokens": 1048576
+      }
+    }
+  }
+}

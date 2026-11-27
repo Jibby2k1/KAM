@@ -1,0 +1,163 @@
+{
+  "mmlu-batch-shape-0-untouched-pretrained": {
+    "comparisons": {
+      "float32_scores": {
+        "median_production_margin_changed": 0.07164955139160156,
+        "median_production_margin_stable": 4.462091445922852,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 0,
+        "packing_choice_changes": 12,
+        "production_correct": 1281,
+        "production_matches_original": 2037,
+        "production_tied_max": 0,
+        "repacked_correct": 1277,
+        "repacked_matches_original": 2031
+      },
+      "native_scores": {
+        "median_production_margin_changed": 0.125,
+        "median_production_margin_stable": 4.5,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 7,
+        "packing_choice_changes": 15,
+        "production_correct": 1280,
+        "production_matches_original": 2048,
+        "production_tied_max": 20,
+        "repacked_correct": 1275,
+        "repacked_matches_original": 2033
+      }
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "metadata": {
+      "adapter_sha256": null,
+      "arm": "pretrained",
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 0,
+      "protocol": "llama3-preservation-v1",
+      "recipe": "untouched",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 0,
+      "training": {}
+    }
+  },
+  "mmlu-batch-shape-731221-high_lr_kl-dot": {
+    "comparisons": {
+      "float32_scores": {
+        "median_production_margin_changed": 0.05536842346191406,
+        "median_production_margin_stable": 3.57763671875,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 0,
+        "packing_choice_changes": 15,
+        "production_correct": 1278,
+        "production_matches_original": 2033,
+        "production_tied_max": 0,
+        "repacked_correct": 1277,
+        "repacked_matches_original": 2026
+      },
+      "native_scores": {
+        "median_production_margin_changed": 0.0,
+        "median_production_margin_stable": 3.625,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 9,
+        "packing_choice_changes": 15,
+        "production_correct": 1277,
+        "production_matches_original": 2048,
+        "production_tied_max": 27,
+        "repacked_correct": 1273,
+        "repacked_matches_original": 2033
+      }
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "metadata": {
+      "adapter_sha256": "3fcf91a7f5d07dfcdfed716723697336834e5982e6656fde52136e3a9a1bf3ec",
+      "arm": "dot",
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "protocol": "llama3-preservation-v1",
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "training": {
+        "arm": "dot",
+        "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+        "kl_weight": 4.0,
+        "layers": [
+          7,
+          15,
+          23,
+          31
+        ],
+        "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+        "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+        "new_trainable_parameters": 2162688,
+        "peak_lr": 0.0008,
+        "recipe": "high_lr_kl",
+        "revision": "uf-hpg-2024-04-19",
+        "seed": 731221,
+        "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+        "train_tokens": 1048576
+      }
+    }
+  },
+  "mmlu-batch-shape-731221-high_lr_kl-kam": {
+    "comparisons": {
+      "float32_scores": {
+        "median_production_margin_changed": 0.05798053741455078,
+        "median_production_margin_stable": 3.6482372283935547,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 0,
+        "packing_choice_changes": 14,
+        "production_correct": 1280,
+        "production_matches_original": 2036,
+        "production_tied_max": 0,
+        "repacked_correct": 1279,
+        "repacked_matches_original": 2028
+      },
+      "native_scores": {
+        "median_production_margin_changed": 0.125,
+        "median_production_margin_stable": 3.625,
+        "n": 2048,
+        "packing_changes_with_tied_production_max": 7,
+        "packing_choice_changes": 16,
+        "production_correct": 1275,
+        "production_matches_original": 2048,
+        "production_tied_max": 26,
+        "repacked_correct": 1278,
+        "repacked_matches_original": 2032
+      }
+    },
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "metadata": {
+      "adapter_sha256": "93f5e5bb72c1d0c89081969e18f73b78a2170aeaad0a6ce9d61d912e7715eea3",
+      "arm": "kam",
+      "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+      "new_trainable_parameters": 2162688,
+      "protocol": "llama3-preservation-v1",
+      "recipe": "high_lr_kl",
+      "revision": "uf-hpg-2024-04-19",
+      "seed": 731221,
+      "training": {
+        "arm": "kam",
+        "exposure_sha256": "29a6ff33a5eff080b98c362b80502aa76359578a5d9eb8e5e529a7c7fd3c983d",
+        "kl_weight": 4.0,
+        "layers": [
+          7,
+          15,
+          23,
+          31
+        ],
+        "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+        "model_fingerprints": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441  config.json\nc05a3c2174e9edd5be19dc5a0748c42a9037bec2811ce062728bfd71f8702d78  tokenizer.json\n146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b  model.safetensors.index.json\nd8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c  model-00001-of-00004.safetensors\n8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c  model-00002-of-00004.safetensors\n3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921  model-00003-of-00004.safetensors\n67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46  model-00004-of-00004.safetensors\n",
+        "new_trainable_parameters": 2162688,
+        "peak_lr": 0.0008,
+        "recipe": "high_lr_kl",
+        "revision": "uf-hpg-2024-04-19",
+        "seed": 731221,
+        "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90",
+        "train_tokens": 1048576
+      }
+    }
+  }
+}
