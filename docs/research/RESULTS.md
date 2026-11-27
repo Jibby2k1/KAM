@@ -81,3 +81,5 @@ With gold IIRC article identities supplied, a [matched text-window audit](../../
 A [HotpotQA expansion stage audit](../../reports/nonlinear_retrieval_natural/EXPANSION_STAGE_HEADROOM.md) found 244 unresolved coverage misses, 237 ranking misses despite coverage, and 203 inexact answers after recovering both supports. An oracle over the four existing B200 policies reaches 361 joint matches versus 340 for hybrid expansion.
 
 On 134 aligned IIRC cases with the two gold linked articles fixed, the [frozen reader](../../reports/nonlinear_retrieval_natural/IIRC_FIXED_ARTICLE_READER.md) reached 25 exact answers with article leads, 26 with oracle linked windows, and 38 with annotated source and linked spans. Most gains were on single-span answers.
+
+Training on separate IIRC articles raised pair recovery to 56/153 with a [hyperlink-context independent ranker](../../reports/nonlinear_retrieval_natural/IIRC_IN_DOMAIN_PAIR.md), 66 with a link-neutral pair head, and 73 with title features. The matched primary pair gain over independent ranking was 6.54 points, with a paired interval reaching zero.

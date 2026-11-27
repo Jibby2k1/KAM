@@ -297,3 +297,28 @@ jobs:
           output=$(mktemp)
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_iirc_reader.py "$study/replay.json.gz" --visibility "$base/iirc_visibility_v1/replay.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Refit IIRC pair heads and audit the locked held-out replay
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/iirc_pair_fit_v1"
+          reference="$base/iirc_pair_v1/replay.json.gz"
+          export OPENBLAS_NUM_THREADS=1
+          output=$(mktemp -d)
+          python scripts/fit_kam_iirc_pairs.py fit --train "$study/train-features.json.gz" --output "$output/fit.json"
+          python scripts/fit_kam_iirc_pairs.py evaluate --dev "$study/dev-features.json.gz" --lock "$study/fit.json" --reference "$reference" --output "$output/summary.json"
+          diff -u "$study/summary.json" "$output/summary.json"
+          python scripts/fit_kam_iirc_pairs.py evaluate --dev "$study/dev-features.json.gz" --lock "$output/fit.json" --reference "$reference" --output "$output/refit-summary.json"
+          python - "$study" "$output" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          import numpy as np
+          saved, replay = map(Path, sys.argv[1:])
+          expected, actual = (json.loads((p / "fit.json").read_text()) for p in (saved, replay))
+          for arm, values in expected["arms"].items():
+              np.testing.assert_allclose(actual["arms"][arm]["coef"], values["coef"], rtol=2e-5, atol=2e-6)
+          expected = json.loads((saved / "summary.json").read_text())
+          refit = json.loads((replay / "refit-summary.json").read_text())
+          for key in ("groups", "rows"):
+              assert expected[key] == refit[key], key
+          PY
