@@ -103,3 +103,5 @@ In source-held-out IIRC folds, a [four-link anchor beam](../../reports/nonlinear
 [Exact sparse IIRC beam scoring](../../reports/nonlinear_retrieval_natural/IIRC_SPARSE_BEAM_TIMING.md) reduced mean scored pair rows from 101.18 to 47.22 but increased median latency on both tested CPUs. All four-link selections matched.
 
 A [B200 collector readiness trial](../../reports/nonlinear_retrieval_natural/LIVE_GC_READINESS.md) moved four observed generation-2 pauses out of the short request window. Readiness collection took 87–142 ms per worker. Additional freezing showed no clear paired median improvement over collection alone.
+
+[Radial attention backward checks](../../reports/nonlinear_retrieval_natural/RADIAL_BACKWARD.md) met FP32 numerical tolerances on both HPG devices. At 1,025 tokens and batch 32, BF16 FlashAttention accelerated the full step by 3.08× on B200 and 18.99× on L4. Its depth-512 accuracy after a matched continuation rose 3.32 points on B200 and fell 4.69 on L4.

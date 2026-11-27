@@ -17,7 +17,7 @@ from run_kam_bitemporal_noise import generate
 
 
 def augmented_forward(attention, inputs, return_weights=False):
-    assert not attention.training and not return_weights
+    assert not return_weights and (not attention.training or attention.dropout.p == 0)
     assert attention.relative_bias is None and attention.window is None
     score = attention.score
     assert score.score_type == "rbf"
@@ -54,7 +54,7 @@ def make_variants(checkpoint, device):
 
 def predict(model, name, inputs):
     with torch.autocast("cuda", torch.bfloat16, enabled=name.endswith("bf16")):
-        if name == "augmented_flash_bf16":
+        if name.endswith("_flash_bf16"):
             with sdpa_kernel(SDPBackend.FLASH_ATTENTION):
                 return model(inputs)
         if name == "augmented_math_fp32":

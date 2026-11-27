@@ -1,0 +1,326 @@
+{
+  "b200": {
+    "depths": {
+      "128": {
+        "agrees_with_fp32": {
+          "augmented_flash_bf16": 501,
+          "augmented_math_fp32": 512,
+          "eager_bf16": 501,
+          "eager_fp32": 512
+        },
+        "correct": {
+          "augmented_flash_bf16": 502,
+          "augmented_math_fp32": 495,
+          "eager_bf16": 499,
+          "eager_fp32": 495
+        },
+        "flash_bf16_vs_eager_bf16_timing": {
+          "1": {
+            "p50_speedup": 1.04018,
+            "p95_speedup": 1.021333,
+            "peak_extra_saved_bytes": 7779840
+          },
+          "16": {
+            "p50_speedup": 0.920073,
+            "p95_speedup": 1.097326,
+            "peak_extra_saved_bytes": 132644864
+          },
+          "32": {
+            "p50_speedup": 1.040372,
+            "p95_speedup": 1.054027,
+            "peak_extra_saved_bytes": 260956160
+          }
+        },
+        "fp32_tolerances_met": true,
+        "paired_accuracy": {
+          "augmented_flash_bf16_vs_eager_bf16": {
+            "bootstrap95": [
+              -0.00390625,
+              0.015625
+            ],
+            "delta": 0.00585938,
+            "losses": 2,
+            "wins": 5
+          },
+          "augmented_math_fp32_vs_eager_fp32": {
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "delta": 0.0,
+            "losses": 0,
+            "wins": 0
+          }
+        }
+      },
+      "20": {
+        "agrees_with_fp32": {
+          "augmented_flash_bf16": 510,
+          "augmented_math_fp32": 512,
+          "eager_bf16": 511,
+          "eager_fp32": 512
+        },
+        "correct": {
+          "augmented_flash_bf16": 512,
+          "augmented_math_fp32": 510,
+          "eager_bf16": 511,
+          "eager_fp32": 510
+        },
+        "flash_bf16_vs_eager_bf16_timing": {
+          "1": {
+            "p50_speedup": 0.995469,
+            "p95_speedup": 1.030804,
+            "peak_extra_saved_bytes": 69632
+          },
+          "16": {
+            "p50_speedup": 1.051354,
+            "p95_speedup": 1.016106,
+            "peak_extra_saved_bytes": 1272832
+          },
+          "32": {
+            "p50_speedup": 1.065139,
+            "p95_speedup": 1.030651,
+            "peak_extra_saved_bytes": 1689088
+          }
+        },
+        "fp32_tolerances_met": true,
+        "paired_accuracy": {
+          "augmented_flash_bf16_vs_eager_bf16": {
+            "bootstrap95": [
+              0.0,
+              0.00585938
+            ],
+            "delta": 0.00195312,
+            "losses": 0,
+            "wins": 1
+          },
+          "augmented_math_fp32_vs_eager_fp32": {
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "delta": 0.0,
+            "losses": 0,
+            "wins": 0
+          }
+        }
+      },
+      "512": {
+        "agrees_with_fp32": {
+          "augmented_flash_bf16": 463,
+          "augmented_math_fp32": 512,
+          "eager_bf16": 463,
+          "eager_fp32": 512
+        },
+        "correct": {
+          "augmented_flash_bf16": 476,
+          "augmented_math_fp32": 451,
+          "eager_bf16": 459,
+          "eager_fp32": 451
+        },
+        "flash_bf16_vs_eager_bf16_timing": {
+          "1": {
+            "p50_speedup": 1.060545,
+            "p95_speedup": 1.025971,
+            "peak_extra_saved_bytes": 140734976
+          },
+          "16": {
+            "p50_speedup": 1.671565,
+            "p95_speedup": 1.596822,
+            "peak_extra_saved_bytes": 2231414272
+          },
+          "32": {
+            "p50_speedup": 3.080188,
+            "p95_speedup": 2.997711,
+            "peak_extra_saved_bytes": 4475437056
+          }
+        },
+        "fp32_tolerances_met": true,
+        "paired_accuracy": {
+          "augmented_flash_bf16_vs_eager_bf16": {
+            "bootstrap95": [
+              0.015625,
+              0.05083008
+            ],
+            "delta": 0.03320312,
+            "losses": 3,
+            "wins": 20
+          },
+          "augmented_math_fp32_vs_eager_fp32": {
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "delta": 0.0,
+            "losses": 0,
+            "wins": 0
+          }
+        }
+      }
+    },
+    "device": "NVIDIA B200",
+    "torch": "2.8.0+cu128"
+  },
+  "l4": {
+    "depths": {
+      "128": {
+        "agrees_with_fp32": {
+          "augmented_flash_bf16": 501,
+          "augmented_math_fp32": 512,
+          "eager_bf16": 506,
+          "eager_fp32": 512
+        },
+        "correct": {
+          "augmented_flash_bf16": 489,
+          "augmented_math_fp32": 495,
+          "eager_bf16": 499,
+          "eager_fp32": 495
+        },
+        "flash_bf16_vs_eager_bf16_timing": {
+          "1": {
+            "p50_speedup": 1.042594,
+            "p95_speedup": 1.052534,
+            "peak_extra_saved_bytes": 7779840
+          },
+          "16": {
+            "p50_speedup": 1.413793,
+            "p95_speedup": 1.316332,
+            "peak_extra_saved_bytes": 132644864
+          },
+          "32": {
+            "p50_speedup": 3.416131,
+            "p95_speedup": 3.279684,
+            "peak_extra_saved_bytes": 260956160
+          }
+        },
+        "fp32_tolerances_met": true,
+        "paired_accuracy": {
+          "augmented_flash_bf16_vs_eager_bf16": {
+            "bootstrap95": [
+              -0.03320312,
+              -0.0078125
+            ],
+            "delta": -0.01953125,
+            "losses": 11,
+            "wins": 1
+          },
+          "augmented_math_fp32_vs_eager_fp32": {
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "delta": 0.0,
+            "losses": 0,
+            "wins": 0
+          }
+        }
+      },
+      "20": {
+        "agrees_with_fp32": {
+          "augmented_flash_bf16": 512,
+          "augmented_math_fp32": 512,
+          "eager_bf16": 511,
+          "eager_fp32": 512
+        },
+        "correct": {
+          "augmented_flash_bf16": 510,
+          "augmented_math_fp32": 510,
+          "eager_bf16": 511,
+          "eager_fp32": 510
+        },
+        "flash_bf16_vs_eager_bf16_timing": {
+          "1": {
+            "p50_speedup": 1.055487,
+            "p95_speedup": 1.028846,
+            "peak_extra_saved_bytes": 69632
+          },
+          "16": {
+            "p50_speedup": 1.060513,
+            "p95_speedup": 1.097426,
+            "peak_extra_saved_bytes": 1272832
+          },
+          "32": {
+            "p50_speedup": 1.042777,
+            "p95_speedup": 1.049393,
+            "peak_extra_saved_bytes": 1689088
+          }
+        },
+        "fp32_tolerances_met": true,
+        "paired_accuracy": {
+          "augmented_flash_bf16_vs_eager_bf16": {
+            "bootstrap95": [
+              -0.00585938,
+              0.0
+            ],
+            "delta": -0.00195312,
+            "losses": 1,
+            "wins": 0
+          },
+          "augmented_math_fp32_vs_eager_fp32": {
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "delta": 0.0,
+            "losses": 0,
+            "wins": 0
+          }
+        }
+      },
+      "512": {
+        "agrees_with_fp32": {
+          "augmented_flash_bf16": 471,
+          "augmented_math_fp32": 512,
+          "eager_bf16": 472,
+          "eager_fp32": 512
+        },
+        "correct": {
+          "augmented_flash_bf16": 441,
+          "augmented_math_fp32": 451,
+          "eager_bf16": 465,
+          "eager_fp32": 451
+        },
+        "flash_bf16_vs_eager_bf16_timing": {
+          "1": {
+            "p50_speedup": 1.257128,
+            "p95_speedup": 1.163708,
+            "peak_extra_saved_bytes": 140734976
+          },
+          "16": {
+            "p50_speedup": 20.196081,
+            "p95_speedup": 20.049656,
+            "peak_extra_saved_bytes": 2231414272
+          },
+          "32": {
+            "p50_speedup": 18.993898,
+            "p95_speedup": 18.66667,
+            "peak_extra_saved_bytes": 4475437056
+          }
+        },
+        "fp32_tolerances_met": true,
+        "paired_accuracy": {
+          "augmented_flash_bf16_vs_eager_bf16": {
+            "bootstrap95": [
+              -0.06835938,
+              -0.02734375
+            ],
+            "delta": -0.046875,
+            "losses": 27,
+            "wins": 3
+          },
+          "augmented_math_fp32_vs_eager_fp32": {
+            "bootstrap95": [
+              0.0,
+              0.0
+            ],
+            "delta": 0.0,
+            "losses": 0,
+            "wins": 0
+          }
+        }
+      }
+    },
+    "device": "NVIDIA L4",
+    "torch": "2.8.0+cu128"
+  }
+}
