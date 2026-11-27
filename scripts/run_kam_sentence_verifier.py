@@ -6,6 +6,7 @@ from collections import Counter
 from itertools import islice
 from pathlib import Path
 from time import perf_counter
+from typing import NamedTuple
 
 import torch
 import numpy as np
@@ -64,34 +65,46 @@ def contains(tokens, phrase):
                                 if token == phrase[0])
 
 
-def sentence_columns(question, bank, scores, pair):
-    i, j = pair
+class DocumentTerms(NamedTuple):
+    title: tuple
+    title_words: set
+    sentences: list
+    overlaps: list
+    semantic: list
+    best_lexical: int
+    best_semantic: int
+
+
+def document_terms(question, bank, similarities, i):
+    title, sentences = bank[i]
+    overlaps = [question.intersection(sentence) for sentence in sentences]
+    semantic = similarities[i]
+    best_lexical = max(range(len(overlaps)), key=lambda j: len(overlaps[j]))
+    best_semantic = max(range(len(semantic)), key=semantic.__getitem__)
+    return DocumentTerms(title, set(title), sentences, overlaps, semantic, best_lexical, best_semantic)
+
+
+def sentence_columns(question, bank, scores, pair, *, document_cache=None):
     norms = max(len(question), 1)
-    titles = (bank[i][0], bank[j][0])
-    e = [bank[d][1] for d in pair]
-    q_overlap = [[question.intersection(sentence) for sentence in doc] for doc in e]
-    semantic = [scores[d] for d in pair]
-    lexical_max = [max(map(len, hit)) for hit in q_overlap]
-    best_lexical = [max(range(len(hit)), key=lambda idx: len(hit[idx])) for hit in q_overlap]
-    best_semantic = [max(range(len(v)), key=v.__getitem__) for v in semantic]
-    a, b = best_lexical
-    c, d = best_semantic
-    cross = [(direction, idx) for direction, doc in enumerate(e) for idx, tokens in enumerate(doc)
-             if contains(tokens, titles[1 - direction])]
-    cross_lex = max((len(q_overlap[k][idx] - set(titles[1 - k])) for k, idx in cross), default=0)
-    cross_semantic = max((semantic[k][idx] for k, idx in cross), default=0.)
-    cross_gap = max((semantic[k][idx] - max(semantic[k]) for k, idx in cross), default=0.)
-    max_semantic = [max(v) for v in semantic]
+    docs = [document_terms(question, bank, scores, i) if document_cache is None else document_cache[i] for i in pair]
+    left, right = docs
+    lexical_max = [len(doc.overlaps[doc.best_lexical]) for doc in docs]
+    max_semantic = [doc.semantic[doc.best_semantic] for doc in docs]
+    cross = [(k, i) for k, doc in enumerate(docs) for i, tokens in enumerate(doc.sentences)
+             if contains(tokens, docs[1-k].title)]
+    cross_lex = max((len(docs[k].overlaps[i] - docs[1-k].title_words) for k, i in cross), default=0)
+    cross_semantic = max((docs[k].semantic[i] for k, i in cross), default=0.)
+    cross_gap = max((docs[k].semantic[i] - max_semantic[k] for k, i in cross), default=0.)
     return [
         min(lexical_max) / norms,
         max(lexical_max) / norms,
-        len(q_overlap[0][a] | q_overlap[1][b]) / norms,
-        min(len(q_overlap[0][0]), len(q_overlap[1][0])) / norms,
+        len(left.overlaps[left.best_lexical] | right.overlaps[right.best_lexical]) / norms,
+        min(len(left.overlaps[0]), len(right.overlaps[0])) / norms,
         cross_lex / norms,
         min(len(cross), 3),
         min(max_semantic),
         max(max_semantic),
-        len(q_overlap[0][c] | q_overlap[1][d]) / norms,
+        len(left.overlaps[left.best_semantic] | right.overlaps[right.best_semantic]) / norms,
         cross_semantic,
         cross_gap,
     ]
@@ -175,7 +188,7 @@ def requested_sentences(plans):
     return sentences
 
 
-def flush(plans, enc):
+def flush(plans, enc, *, share_document_terms=False):
     sentences = requested_sentences(plans)
     if sentences:
         vectors = enc([" ".join(s) for s in sentences], "passage", max_length=96)
@@ -189,7 +202,8 @@ def flush(plans, enc):
         for mode, bank, question, selected, columns, winners in variants:
             scores = {d: [similarities[sentences[s]] for s in bank[d][1]]
                       for d in {i for pair in selected for i in pair}}
-            features = [base + sentence_columns(question, bank, scores, pair)
+            cache = {i: document_terms(question, bank, scores, i) for i in scores} if share_document_terms else None
+            features = [base + sentence_columns(question, bank, scores, pair, document_cache=cache)
                         for base, pair in zip(columns, selected, strict=True)]
             gold_index = next((i for i, pair in enumerate(selected) if tuple(pair) == gold), -1)
             output[mode] = {"gold": gold_index, "winners": winners,

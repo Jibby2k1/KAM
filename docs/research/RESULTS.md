@@ -64,6 +64,8 @@ The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_
 
 ## Corpus retrieval and serving
 
+[Exact reranker feature reuse](../../reports/nonlinear_retrieval_natural/FULLWIKI_FEATURE_REUSE.md) improved L4 throughput from 25.27 to 27.67 requests per second with every feature, prompt and decision record unchanged. A batched posting-score launch preserved the conditioned rankings with little effect on request time.
+
 At matched isolated latency on two independent HotpotQA cohorts (512 questions total), exact dense retrieval put both gold documents in the candidate pool for 349 questions, compared with 302 for hybrid and 266 for BM25. Joint exact match was 85, 89, and 91 respectively. Paired intervals covered zero. The change in rank from pool coverage to downstream joint exact match identifies pair selection as a separate bottleneck. [L4 aggregate](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_threads_l4/summary.json) · [Independent replication](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_replicate_l4/summary.json)
 
 On an RTX GPU, FP32 lexical pruning in the hybrid pipeline reduced p95 latency from 240–253 ms to 78–80 ms across two traces offered at about 32 requests per second. Joint exact match was 53 versus 52 for the exact pipeline on the 384-question replication. Fifteen answers changed and the paired interval covered zero. [Replication results](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/hybrid_replicate_v1/summary.json)

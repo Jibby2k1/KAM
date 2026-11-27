@@ -9,9 +9,16 @@ ROWS = 32
 
 @triton.jit
 def posting_scores(bank, ids, offsets, selected, query, output, exclude,
-                   dim: tl.constexpr, stride: tl.constexpr, rows: tl.constexpr, cols: tl.constexpr):
+                   dim: tl.constexpr, stride: tl.constexpr, rows: tl.constexpr, cols: tl.constexpr,
+                   probes: tl.constexpr, batched: tl.constexpr = False):
     list_position = tl.program_id(0)
     tile = tl.program_id(1)
+    if batched:
+        batch = tl.program_id(2)
+        selected += batch * probes
+        output += batch * probes * stride
+        query += batch * dim
+        exclude = tl.load(exclude + batch)
     key = tl.load(selected + list_position)
     start = tl.load(offsets + key)
     stop = tl.load(offsets + key + 1)
@@ -38,8 +45,26 @@ def shortlist(values, row_ids, offsets, selected, q, blocked, count, max_list):
     scores = torch.empty((len(selected), stride), dtype=torch.float32, device=values.device)
     posting_scores[(len(selected), stride // ROWS)](
         values, row_ids, offsets, selected, q, scores, blocked, dim, stride, ROWS, triton.next_power_of_2(dim),
-        num_warps=4,
+        len(selected), num_warps=4,
     )
     top = scores.flatten().topk(count).indices
     locations = selected[top // stride]
+    return row_ids[offsets[locations] + top % stride]
+
+
+
+def batch_shortlist(values, row_ids, offsets, selected, queries, blocked, count, max_list):
+    dim = values.shape[1]
+    batch, probes = selected.shape
+    assert selected.is_contiguous() and blocked.shape == (batch,) and blocked.is_contiguous()
+    assert values.is_contiguous() and row_ids.is_contiguous() and queries.is_contiguous()
+    assert values.dtype == queries.dtype == torch.float16 and queries.shape == (batch, dim)
+    stride = triton.cdiv(max_list, ROWS) * ROWS
+    scores = torch.empty((batch, probes * stride), dtype=torch.float32, device=values.device)
+    posting_scores[(probes, stride // ROWS, batch)](
+        values, row_ids, offsets, selected, queries, scores, blocked, dim, stride, ROWS,
+        triton.next_power_of_2(dim), probes, batched=True, num_warps=4,
+    )
+    top = scores.topk(count, dim=-1).indices
+    locations = selected.gather(1, top // stride)
     return row_ids[offsets[locations] + top % stride]

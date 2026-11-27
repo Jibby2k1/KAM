@@ -129,6 +129,17 @@ class Search:
         return self.rescore(q, ids), scanned
 
 
+    def fused_probe_batch(self, queries, exclude, probes):
+        from kam_coarse_scores import batch_shortlist
+
+        points = [q for q in queries.split(1)]
+        lists = torch.stack([(self.centroids @ q[0]).topk(probes).indices for q in points])
+        blocked = torch.as_tensor(exclude, device=queries.device, dtype=torch.long)
+        shortlist = batch_shortlist(self.posting_bank, self.posting_ids, self.offsets_gpu, lists,
+                                    queries.half().contiguous(), blocked, RESCORE, self.max_list)
+        return torch.stack([self.rescore(q, candidates) for q, candidates in zip(points, shortlist, strict=True)])
+
+
 @torch.inference_mode()
 def replay(a, index, cfg, manifest):
     init = perf_counter()

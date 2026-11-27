@@ -6,8 +6,10 @@ import torch
 from audit_kam_natural_data import words
 from run_kam_fullwiki_support_links import STOP
 
+BYTE_COUNTS = np.array([i.bit_count() for i in range(256)], dtype=np.uint8)
 
-def bitset_relation_features(example, pairs):
+
+def bitset_relation_features(example, pairs, *, vectorized=False):
     """Return the existing exact title edges and five lexical relation features."""
     question = set(words(example["question"])) - STOP
     scale = max(len(question), 1)
@@ -41,10 +43,21 @@ def bitset_relation_features(example, pairs):
                 node = node.get(body[end]) if end < len(body) else None
     left, right = pairs
     sizes = [mask.bit_count() for mask in coverage]
-    content = torch.tensor([((coverage[i] | coverage[j]).bit_count() / scale,
-                             min(sizes[i], sizes[j]) / scale,
-                             (coverage[i] & coverage[j]).bit_count() / scale)
-                            for i, j in zip(left.tolist(), right.tolist(), strict=True)])
+    if vectorized and len(bit) <= 64:
+        masks = np.asarray(coverage, dtype=np.uint64)
+        ends = left.numpy(), right.numpy()
+        a, b = (masks[indices] for indices in ends)
+        lengths = np.asarray(sizes)
+        either = BYTE_COUNTS[(a | b).view(np.uint8).reshape(-1, 8)].sum(axis=1)
+        both = BYTE_COUNTS[(a & b).view(np.uint8).reshape(-1, 8)].sum(axis=1)
+        minimum = np.minimum(lengths[ends[0]], lengths[ends[1]])
+        content = torch.as_tensor(np.column_stack((either, minimum, both)) / scale,
+                                  dtype=torch.get_default_dtype())
+    else:
+        content = torch.tensor([((coverage[i] | coverage[j]).bit_count() / scale,
+                                 min(sizes[i], sizes[j]) / scale,
+                                 (coverage[i] & coverage[j]).bit_count() / scale)
+                                for i, j in zip(left.tolist(), right.tolist(), strict=True)])
     local = torch.as_tensor(local_counts / scale, dtype=torch.get_default_dtype())
     fwd, rev = local[left, right], local[right, left]
     return torch.from_numpy(graph), torch.cat((content, torch.stack((torch.maximum(fwd, rev), fwd + rev), -1)), -1)
