@@ -35,6 +35,20 @@ These are newly trained, approximately 10M-parameter models. Each saw the same 1
 
 [Longer-context protocol, diagnostics, and training metrics](GENERAL_BENCHMARKS_LONG.md) · [Machine-readable results](../../results/general_benchmarks_long/summary.json)
 
+### Preserving pretrained scores on HiPerGator
+
+SmolLM2-1.7B-Instruct is the shared backbone and untouched reference. KAM and dot each add 1,114,112 trainable parameters. Every cell reports paired means from three seeds in KAM / dot order.
+
+| Benchmark | Untouched | Reference KAM / dot | Lower LR KAM / dot | Lower LR + KL KAM / dot |
+| --- | ---: | ---: | ---: | ---: |
+| HumanEval | 28.66% | 30.89% / 29.07% | 28.05% / 27.03% | 27.64% / 28.46% |
+| MBPP | 38.00% | 36.87% / 32.33% | 37.20% / 33.67% | 38.13% / 37.07% |
+| GPQA Diamond | 25.76% | 24.92% / 24.41% | 26.77% / 23.74% | 26.26% / 23.06% |
+| MMLU | 42.50% | 38.45% / 39.16% | 42.50% / 36.51% | 42.54% / 42.09% |
+| GSM8K | 31.77% | 12.31% / 6.92% | 30.00% / 3.59% | 30.50% / 27.29% |
+
+[Preservation report and full protocol](GENERAL_BENCHMARKS_PRESERVATION.md) · [Numeric summary](../../results/general_benchmarks_preservation/summary.json)
+
 ### Shared pretrained backbone
 
 UF Research Computing prohibits Qwen use on HiPerGator. These historical scores are retained for audit. [UF policy](https://docs.rc.ufl.edu/training/new_user_training/#prohibition-on-large-language-models-from-countries-of-concern)

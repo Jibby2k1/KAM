@@ -1,4 +1,7 @@
 """Parameter-matched residual KAM and causal dot-attention adapters."""
+import json
+import os
+import socket
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -68,22 +71,24 @@ class ResidualAdapter(nn.Module):
 
 
 class AdapterStack:
-    def __init__(self, model, arm):
+    def __init__(self, model, arm, *, seed=SEED, layers=LAYERS):
         self.modules = nn.ModuleList()
         self.handles = []
         if arm == "pretrained":
             return
-        for index in LAYERS:
-            adapter = ResidualAdapter(model.config.hidden_size, arm, SEED + index)
+        self.active = True
+        for index in layers:
+            adapter = ResidualAdapter(model.config.hidden_size, arm, seed + index)
             self.modules.append(adapter)
             self.handles.append(model.model.layers[index].register_forward_hook(self.hook(adapter)))
         self.modules.cuda()
-        expected = len(LAYERS) * (2 * model.config.hidden_size * WIDTH + 4 * WIDTH**2)
+        expected = len(layers) * (2 * model.config.hidden_size * WIDTH + 4 * WIDTH**2)
         assert sum(p.numel() for p in self.modules.parameters()) == expected
 
-    @staticmethod
-    def hook(adapter):
+    def hook(self, adapter):
         def apply(_layer, _inputs, output):
+            if not self.active:
+                return output
             if isinstance(output, tuple):
                 return (adapter(output[0]), *output[1:])
             return adapter(output)
@@ -105,6 +110,12 @@ class AdapterStack:
 
 
 def load_model(root: Path):
+    config = json.loads((root / "model" / "config.json").read_text())
+    cluster = os.environ.get("SLURM_CLUSTER_NAME", "").lower()
+    on_hpg = (str(root.resolve()).startswith("/blue/") or socket.getfqdn().endswith(".rc.ufl.edu")
+              or "hipergator" in cluster or cluster.startswith("hpg"))
+    if on_hpg and config["model_type"].startswith("qwen"):
+        raise RuntimeError("Qwen checkpoints are prohibited on UF HiPerGator.")
     tokenizer = AutoTokenizer.from_pretrained(root / "model", local_files_only=True)
     model = AutoModelForCausalLM.from_pretrained(
         root / "model", dtype=torch.bfloat16, local_files_only=True, attn_implementation="sdpa"

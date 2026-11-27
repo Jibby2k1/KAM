@@ -108,7 +108,6 @@ def generate(model, stack, tokenizer, rows, task):
 
 
 def evaluate(args):
-    source, cases = load_cases(args.root / "data", args.task)
     model, tokenizer = load_model(args.root)
     stack = AdapterStack(model, args.arm)
     fingerprint = (args.root / "model-sha256.txt").read_text()
@@ -123,8 +122,19 @@ def evaluate(args):
         stack.modules.load_state_dict(checkpoint["adapter"])
         adapter_sha = sha(adapter_path)
     stack.modules.eval()
+    metadata = {
+        "protocol": "qwen-pretrained-v1", "arm": args.arm, "model": MODEL_ID, "revision": REVISION,
+        "model_fingerprints": fingerprint, "adapter_sha256": adapter_sha, "training": identity,
+        "new_trainable_parameters": sum(p.numel() for p in stack.modules.parameters()),
+    }
+    score_task(args.root / "data", args.root / f"{args.task}-{args.arm}.json",
+               args.task, args.batch, model, tokenizer, stack, metadata)
+
+
+def score_task(data, output_path, task, batch_size, model, tokenizer, stack, metadata):
+    source, cases = load_cases(data, task)
     parity = cache_check(model, stack, tokenizer)
-    prompts = [question(args.task, case, i) for i, case in enumerate(cases)]
+    prompts = [question(task, case, i) for i, case in enumerate(cases)]
     texts = [tokenizer.apply_chat_template([{"role": "user", "content": raw}],
                                            tokenize=False, add_generation_prompt=True) for raw, _ in prompts]
     encodings = tokenizer(texts, add_special_tokens=False)["input_ids"]
@@ -134,44 +144,40 @@ def evaluate(args):
     letters = [tokenizer.encode(letter, add_special_tokens=False) for letter in LETTERS]
     assert all(len(ids) == 1 for ids in letters)
     records = []
-    for start in range(0, len(order), args.batch):
-        indices = order[start:start+args.batch]
+    for start in range(0, len(order), batch_size):
+        indices = order[start:start+batch_size]
         rows = [encodings[i] for i in indices]
-        if args.task in LIMIT:
-            outputs = generate(model, stack, tokenizer, rows, args.task)
+        if task in LIMIT:
+            outputs = generate(model, stack, tokenizer, rows, task)
         else:
             x, mask = pad(rows, tokenizer.pad_token_id)
             logits, _ = next_logits(model, stack, x, mask)
             outputs = logits[:, [ids[0] for ids in letters]].argmax(-1).tolist()
         for i, output in zip(indices, outputs, strict=True):
             row = {"index": i, "prompt_tokens": lengths[i]}
-            if args.task == "gsm8k":
+            if task == "gsm8k":
                 gold = numerical_answer(cases[i]["answer"])
                 assert gold is not None
                 answer = numerical_answer(output)
                 row.update(correct=answer == gold, parsed=answer is not None)
-            elif args.task in ("humaneval", "mbpp"):
+            elif task in ("humaneval", "mbpp"):
                 row["completion"] = output
             else:
                 row.update(correct=output == prompts[i][1], choice=output)
-                if args.task == "mmlu":
+                if task == "mmlu":
                     row["subject"] = cases[i]["subject"]
             records.append(row)
-        if start % (args.batch * 5) == 0:
-            print(args.task, args.arm, start + len(indices), len(cases), flush=True)
+        if start % (batch_size * 5) == 0:
+            print(task, metadata["arm"], start + len(indices), len(cases), flush=True)
     metadata = {
-        "protocol": "qwen-pretrained-v1", "task": args.task, "arm": args.arm,
-        "source_sha256": sha(source), "model": MODEL_ID, "revision": REVISION,
-        "model_fingerprints": fingerprint, "adapter_sha256": adapter_sha,
-        "cache_check": parity, "training": identity, "gpu": torch.cuda.get_device_name(),
-        "new_trainable_parameters": sum(p.numel() for p in stack.modules.parameters()),
-        "total_backbone_parameters": sum(p.numel() for p in model.parameters()), "context_tokens": CONTEXT,
+        **metadata, "task": task, "source_sha256": sha(source), "cache_check": parity,
+        "gpu": torch.cuda.get_device_name(), "context_tokens": CONTEXT,
+        "total_backbone_parameters": sum(p.numel() for p in model.parameters()),
     }
-    output = args.root / f"{args.task}-{args.arm}.json"
-    temporary = output.with_suffix(".tmp")
+    temporary = output_path.with_suffix(".tmp")
     temporary.write_text(json.dumps({"metadata": metadata,
                                      "records": sorted(records, key=lambda row: row["index"])}))
-    temporary.replace(output)
+    temporary.replace(output_path)
 
 
 if __name__ == "__main__":
