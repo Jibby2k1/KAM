@@ -18,6 +18,20 @@ A fixed sample of 65,536 eligible Wikipedia vectors trained 2,048 spherical cent
 
 The fused Triton kernel reads vector tiles directly from the packed posting lists. It preserved the complete ordered top 64 for all 1,024 queries at each tested probe width relative to the gathered-vector implementation. In the same allocation as its gathered counterpart, the fused 256-list median was 2.63 ms versus 7.22 ms and the fused 64-list median was 0.96 ms versus 1.99 ms. Offline search timing includes the list selection, FP32 rescoring, and transfer of the ordered ranks. The benchmark had the full and packed FP16 banks and the FP32 vectors resident together. [Triton API](https://triton-lang.org/main/python-api/triton.language.html)
 
+## B200 search-only replay
+
+Using the same partition, candidate membership matched between L4 and B200 for every query and every gathered search policy. Exact ordered ranks matched on 1,021 of 1,024 queries across devices. Full scan plus rescoring matched exact candidate membership on all B200 questions, with three ordering differences within the B200 run.
+
+| B200 search policy | Search p50 | Search p95 | Complete originally incomplete pools, 384 |
+| --- | ---: | ---: | ---: |
+| All rows, FP32 | 2.98 ms | 2.99 ms | 77 |
+| FP16 full scan and FP32 rescore | 1.57 ms | 1.59 ms | 77 |
+| 16 posting lists | 0.37 ms | 0.63 ms | 58 |
+| 64 posting lists | 0.57 ms | 0.64 ms | 70 |
+| 256 posting lists | 1.64 ms | 1.84 ms | 76 |
+
+The full-scan rescore was slightly faster than gathered probe 256 on B200 and kept the extra complete pool. This reverses their search-only latency ordering on L4. B200 results in this table are for the gathered implementation and resident index. HPG array 52976442 ran the B200 replay. The downstream request profiles below used L4.
+
 ## Fixed downstream quality
 
 | Conditioned additions | Support / joint EM, all 1,024 | Originally complete, 640 | Originally incomplete, 384 |

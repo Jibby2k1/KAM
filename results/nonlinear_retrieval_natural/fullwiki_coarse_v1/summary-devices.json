@@ -1,0 +1,921 @@
+{
+  "b200": {
+    "coarse_index_gpu_bytes": 4018935328,
+    "device": "NVIDIA B200",
+    "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+    "full_exact_bytes": 8038393344,
+    "full_half_bytes": 4019196672,
+    "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+    "indexed": 5201800,
+    "partition_sha256": "725fd66994e63220b9d70560653871f5dca332b326d889d2c23560a162415d87",
+    "scopes": {
+      "all": {
+        "metrics": {
+          "exact": {
+            "complete": 717,
+            "identical_order_vs_exact": 1024,
+            "identical_sets_vs_exact": 1024,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 2.97632,
+            "p95_ms": 2.99376,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 717,
+            "identical_order_vs_exact": 1021,
+            "identical_sets_vs_exact": 1024,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 1.56797,
+            "p95_ms": 1.59037,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 698,
+            "identical_order_vs_exact": 34,
+            "identical_sets_vs_exact": 34,
+            "mean_overlap_vs_archive": 0.7534332275390625,
+            "mean_overlap_vs_exact": 0.7534332275390625,
+            "p50_ms": 0.37319,
+            "p95_ms": 0.62829,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.02832031,
+                -0.00976562
+              ],
+              "delta": -0.01855469,
+              "losses": 21,
+              "wins": 2
+            },
+            "scanned_max": 79085,
+            "scanned_median": 44395.0
+          },
+          "probe_256": {
+            "complete": 716,
+            "identical_order_vs_exact": 574,
+            "identical_sets_vs_exact": 576,
+            "mean_overlap_vs_archive": 0.981689453125,
+            "mean_overlap_vs_exact": 0.981689453125,
+            "p50_ms": 1.63891,
+            "p95_ms": 1.83831,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.00292969,
+                0.0
+              ],
+              "delta": -0.00097656,
+              "losses": 1,
+              "wins": 0
+            },
+            "scanned_max": 793788,
+            "scanned_median": 660452.0
+          },
+          "probe_64": {
+            "complete": 710,
+            "identical_order_vs_exact": 169,
+            "identical_sets_vs_exact": 171,
+            "mean_overlap_vs_archive": 0.9136505126953125,
+            "mean_overlap_vs_exact": 0.9136505126953125,
+            "p50_ms": 0.57027,
+            "p95_ms": 0.64382,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.01269531,
+                -0.00097656
+              ],
+              "delta": -0.00683594,
+              "losses": 8,
+              "wins": 1
+            },
+            "scanned_max": 249463,
+            "scanned_median": 166390.0
+          }
+        },
+        "queries": 1024
+      },
+      "incomplete": {
+        "metrics": {
+          "exact": {
+            "complete": 77,
+            "identical_order_vs_exact": 384,
+            "identical_sets_vs_exact": 384,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 2.97611,
+            "p95_ms": 2.99414,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 77,
+            "identical_order_vs_exact": 383,
+            "identical_sets_vs_exact": 384,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 1.56848,
+            "p95_ms": 1.59242,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 58,
+            "identical_order_vs_exact": 12,
+            "identical_sets_vs_exact": 12,
+            "mean_overlap_vs_archive": 0.7548014322916666,
+            "mean_overlap_vs_exact": 0.7548014322916666,
+            "p50_ms": 0.37469,
+            "p95_ms": 0.64931,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.07552083,
+                -0.02604167
+              ],
+              "delta": -0.04947917,
+              "losses": 21,
+              "wins": 2
+            },
+            "scanned_max": 79085,
+            "scanned_median": 44721.5
+          },
+          "probe_256": {
+            "complete": 76,
+            "identical_order_vs_exact": 221,
+            "identical_sets_vs_exact": 222,
+            "mean_overlap_vs_archive": 0.9815673828125,
+            "mean_overlap_vs_exact": 0.9815673828125,
+            "p50_ms": 1.64205,
+            "p95_ms": 1.89518,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.0078125,
+                0.0
+              ],
+              "delta": -0.00260417,
+              "losses": 1,
+              "wins": 0
+            },
+            "scanned_max": 793788,
+            "scanned_median": 660898.0
+          },
+          "probe_64": {
+            "complete": 70,
+            "identical_order_vs_exact": 69,
+            "identical_sets_vs_exact": 70,
+            "mean_overlap_vs_archive": 0.9139404296875,
+            "mean_overlap_vs_exact": 0.9139404296875,
+            "p50_ms": 0.57062,
+            "p95_ms": 0.6401,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.03385417,
+                -0.00520833
+              ],
+              "delta": -0.01822917,
+              "losses": 8,
+              "wins": 1
+            },
+            "scanned_max": 231041,
+            "scanned_median": 168111.5
+          }
+        },
+        "queries": 384
+      },
+      "incomplete_with_gold_anchor": {
+        "metrics": {
+          "exact": {
+            "complete": 63,
+            "identical_order_vs_exact": 138,
+            "identical_sets_vs_exact": 138,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 2.97546,
+            "p95_ms": 2.99364,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 63,
+            "identical_order_vs_exact": 138,
+            "identical_sets_vs_exact": 138,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 1.56727,
+            "p95_ms": 1.59102,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 45,
+            "identical_order_vs_exact": 5,
+            "identical_sets_vs_exact": 5,
+            "mean_overlap_vs_archive": 0.7358469202898551,
+            "mean_overlap_vs_exact": 0.7358469202898551,
+            "p50_ms": 0.36992,
+            "p95_ms": 0.63099,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.1884058,
+                -0.07246377
+              ],
+              "delta": -0.13043478,
+              "losses": 19,
+              "wins": 1
+            },
+            "scanned_max": 76881,
+            "scanned_median": 45799.5
+          },
+          "probe_256": {
+            "complete": 62,
+            "identical_order_vs_exact": 73,
+            "identical_sets_vs_exact": 73,
+            "mean_overlap_vs_archive": 0.9790534420289855,
+            "mean_overlap_vs_exact": 0.9790534420289855,
+            "p50_ms": 1.64233,
+            "p95_ms": 1.84563,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.02173913,
+                0.0
+              ],
+              "delta": -0.00724638,
+              "losses": 1,
+              "wins": 0
+            },
+            "scanned_max": 762130,
+            "scanned_median": 668611.0
+          },
+          "probe_64": {
+            "complete": 56,
+            "identical_order_vs_exact": 19,
+            "identical_sets_vs_exact": 19,
+            "mean_overlap_vs_archive": 0.901947463768116,
+            "mean_overlap_vs_exact": 0.901947463768116,
+            "p50_ms": 0.56987,
+            "p95_ms": 0.62889,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.08695652,
+                -0.01449275
+              ],
+              "delta": -0.05072464,
+              "losses": 7,
+              "wins": 0
+            },
+            "scanned_max": 231041,
+            "scanned_median": 172400.5
+          }
+        },
+        "queries": 138
+      },
+      "incomplete_without_gold_anchor": {
+        "metrics": {
+          "exact": {
+            "complete": 14,
+            "identical_order_vs_exact": 246,
+            "identical_sets_vs_exact": 246,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 2.97645,
+            "p95_ms": 2.99431,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 14,
+            "identical_order_vs_exact": 245,
+            "identical_sets_vs_exact": 246,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 1.56925,
+            "p95_ms": 1.5924,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 13,
+            "identical_order_vs_exact": 7,
+            "identical_sets_vs_exact": 7,
+            "mean_overlap_vs_archive": 0.7654344512195121,
+            "mean_overlap_vs_exact": 0.7654344512195121,
+            "p50_ms": 0.40143,
+            "p95_ms": 0.65428,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.0203252,
+                0.00813008
+              ],
+              "delta": -0.00406504,
+              "losses": 2,
+              "wins": 1
+            },
+            "scanned_max": 79085,
+            "scanned_median": 43777.5
+          },
+          "probe_256": {
+            "complete": 14,
+            "identical_order_vs_exact": 148,
+            "identical_sets_vs_exact": 149,
+            "mean_overlap_vs_archive": 0.9829776422764228,
+            "mean_overlap_vs_exact": 0.9829776422764228,
+            "p50_ms": 1.64116,
+            "p95_ms": 1.9912,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 793788,
+            "scanned_median": 657668.0
+          },
+          "probe_64": {
+            "complete": 14,
+            "identical_order_vs_exact": 50,
+            "identical_sets_vs_exact": 51,
+            "mean_overlap_vs_archive": 0.9206681910569106,
+            "mean_overlap_vs_exact": 0.9206681910569106,
+            "p50_ms": 0.57078,
+            "p95_ms": 0.68008,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.01219512,
+                0.01219512
+              ],
+              "delta": 0.0,
+              "losses": 1,
+              "wins": 1
+            },
+            "scanned_max": 227657,
+            "scanned_median": 165347.5
+          }
+        },
+        "queries": 246
+      }
+    }
+  },
+  "cross_device_rank": {
+    "exact": {
+      "identical_order": 1021,
+      "identical_set": 1024
+    },
+    "full_rescore": {
+      "identical_order": 1022,
+      "identical_set": 1024
+    },
+    "probe_16": {
+      "identical_order": 1021,
+      "identical_set": 1024
+    },
+    "probe_256": {
+      "identical_order": 1022,
+      "identical_set": 1024
+    },
+    "probe_64": {
+      "identical_order": 1020,
+      "identical_set": 1024
+    }
+  },
+  "fused": {
+    "device": "NVIDIA L4",
+    "partition_sha256": "725fd66994e63220b9d70560653871f5dca332b326d889d2c23560a162415d87",
+    "probes": {
+      "256": {
+        "fused": {
+          "p50_ms": 2.63391,
+          "p95_ms": 2.80961
+        },
+        "gathered": {
+          "p50_ms": 7.22431,
+          "p95_ms": 7.80622
+        },
+        "n_identical_orders": 1024,
+        "n_identical_sets": 1024,
+        "p50_paired_fused_minus_gathered_ms": -4.597691353410482
+      },
+      "64": {
+        "fused": {
+          "p50_ms": 0.96132,
+          "p95_ms": 1.08175
+        },
+        "gathered": {
+          "p50_ms": 1.98977,
+          "p95_ms": 2.3379
+        },
+        "n_identical_orders": 1024,
+        "n_identical_sets": 1024,
+        "p50_paired_fused_minus_gathered_ms": -1.03767029941082
+      }
+    },
+    "queries": 1024
+  },
+  "l4": {
+    "coarse_index_gpu_bytes": 4018935328,
+    "device": "NVIDIA L4",
+    "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+    "full_exact_bytes": 8038393344,
+    "full_half_bytes": 4019196672,
+    "index_sha256": "f2fd76c51213620335cd423d1bc3226ec261ecb2cec4e1de48eb87e34cbd132d",
+    "indexed": 5201800,
+    "partition_sha256": "725fd66994e63220b9d70560653871f5dca332b326d889d2c23560a162415d87",
+    "scopes": {
+      "all": {
+        "metrics": {
+          "exact": {
+            "complete": 717,
+            "identical_order_vs_exact": 1024,
+            "identical_sets_vs_exact": 1024,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 32.61279,
+            "p95_ms": 32.75126,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 717,
+            "identical_order_vs_exact": 1022,
+            "identical_sets_vs_exact": 1024,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 16.12848,
+            "p95_ms": 16.18709,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 698,
+            "identical_order_vs_exact": 34,
+            "identical_sets_vs_exact": 34,
+            "mean_overlap_vs_archive": 0.7534332275390625,
+            "mean_overlap_vs_exact": 0.7534332275390625,
+            "p50_ms": 0.53251,
+            "p95_ms": 0.73554,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.02832031,
+                -0.00976562
+              ],
+              "delta": -0.01855469,
+              "losses": 21,
+              "wins": 2
+            },
+            "scanned_max": 79085,
+            "scanned_median": 44395.0
+          },
+          "probe_256": {
+            "complete": 716,
+            "identical_order_vs_exact": 574,
+            "identical_sets_vs_exact": 576,
+            "mean_overlap_vs_archive": 0.981689453125,
+            "mean_overlap_vs_exact": 0.981689453125,
+            "p50_ms": 7.24416,
+            "p95_ms": 7.86703,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.00292969,
+                0.0
+              ],
+              "delta": -0.00097656,
+              "losses": 1,
+              "wins": 0
+            },
+            "scanned_max": 793788,
+            "scanned_median": 660452.0
+          },
+          "probe_64": {
+            "complete": 710,
+            "identical_order_vs_exact": 170,
+            "identical_sets_vs_exact": 171,
+            "mean_overlap_vs_archive": 0.9136505126953125,
+            "mean_overlap_vs_exact": 0.9136505126953125,
+            "p50_ms": 2.00255,
+            "p95_ms": 2.35543,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.01269531,
+                -0.00097656
+              ],
+              "delta": -0.00683594,
+              "losses": 8,
+              "wins": 1
+            },
+            "scanned_max": 249463,
+            "scanned_median": 166390.0
+          }
+        },
+        "queries": 1024
+      },
+      "incomplete": {
+        "metrics": {
+          "exact": {
+            "complete": 77,
+            "identical_order_vs_exact": 384,
+            "identical_sets_vs_exact": 384,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 32.61336,
+            "p95_ms": 32.74722,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 77,
+            "identical_order_vs_exact": 383,
+            "identical_sets_vs_exact": 384,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 16.12967,
+            "p95_ms": 16.18689,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 58,
+            "identical_order_vs_exact": 12,
+            "identical_sets_vs_exact": 12,
+            "mean_overlap_vs_archive": 0.7548014322916666,
+            "mean_overlap_vs_exact": 0.7548014322916666,
+            "p50_ms": 0.53363,
+            "p95_ms": 0.75357,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.07552083,
+                -0.02604167
+              ],
+              "delta": -0.04947917,
+              "losses": 21,
+              "wins": 2
+            },
+            "scanned_max": 79085,
+            "scanned_median": 44721.5
+          },
+          "probe_256": {
+            "complete": 76,
+            "identical_order_vs_exact": 221,
+            "identical_sets_vs_exact": 222,
+            "mean_overlap_vs_archive": 0.9815673828125,
+            "mean_overlap_vs_exact": 0.9815673828125,
+            "p50_ms": 7.25851,
+            "p95_ms": 7.9304,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.0078125,
+                0.0
+              ],
+              "delta": -0.00260417,
+              "losses": 1,
+              "wins": 0
+            },
+            "scanned_max": 793788,
+            "scanned_median": 660898.0
+          },
+          "probe_64": {
+            "complete": 70,
+            "identical_order_vs_exact": 70,
+            "identical_sets_vs_exact": 70,
+            "mean_overlap_vs_archive": 0.9139404296875,
+            "mean_overlap_vs_exact": 0.9139404296875,
+            "p50_ms": 2.02382,
+            "p95_ms": 2.39305,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.03385417,
+                -0.00520833
+              ],
+              "delta": -0.01822917,
+              "losses": 8,
+              "wins": 1
+            },
+            "scanned_max": 231041,
+            "scanned_median": 168111.5
+          }
+        },
+        "queries": 384
+      },
+      "incomplete_with_gold_anchor": {
+        "metrics": {
+          "exact": {
+            "complete": 63,
+            "identical_order_vs_exact": 138,
+            "identical_sets_vs_exact": 138,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 32.60904,
+            "p95_ms": 32.74666,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 63,
+            "identical_order_vs_exact": 138,
+            "identical_sets_vs_exact": 138,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 16.1339,
+            "p95_ms": 16.19402,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 45,
+            "identical_order_vs_exact": 5,
+            "identical_sets_vs_exact": 5,
+            "mean_overlap_vs_archive": 0.7358469202898551,
+            "mean_overlap_vs_exact": 0.7358469202898551,
+            "p50_ms": 0.54414,
+            "p95_ms": 0.78023,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.1884058,
+                -0.07246377
+              ],
+              "delta": -0.13043478,
+              "losses": 19,
+              "wins": 1
+            },
+            "scanned_max": 76881,
+            "scanned_median": 45799.5
+          },
+          "probe_256": {
+            "complete": 62,
+            "identical_order_vs_exact": 73,
+            "identical_sets_vs_exact": 73,
+            "mean_overlap_vs_archive": 0.9790534420289855,
+            "mean_overlap_vs_exact": 0.9790534420289855,
+            "p50_ms": 7.3461,
+            "p95_ms": 8.01383,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.02173913,
+                0.0
+              ],
+              "delta": -0.00724638,
+              "losses": 1,
+              "wins": 0
+            },
+            "scanned_max": 762130,
+            "scanned_median": 668611.0
+          },
+          "probe_64": {
+            "complete": 56,
+            "identical_order_vs_exact": 19,
+            "identical_sets_vs_exact": 19,
+            "mean_overlap_vs_archive": 0.901947463768116,
+            "mean_overlap_vs_exact": 0.901947463768116,
+            "p50_ms": 2.05982,
+            "p95_ms": 2.44279,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.08695652,
+                -0.01449275
+              ],
+              "delta": -0.05072464,
+              "losses": 7,
+              "wins": 0
+            },
+            "scanned_max": 231041,
+            "scanned_median": 172400.5
+          }
+        },
+        "queries": 138
+      },
+      "incomplete_without_gold_anchor": {
+        "metrics": {
+          "exact": {
+            "complete": 14,
+            "identical_order_vs_exact": 246,
+            "identical_sets_vs_exact": 246,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 32.61794,
+            "p95_ms": 32.74439,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "full_rescore": {
+            "complete": 14,
+            "identical_order_vs_exact": 245,
+            "identical_sets_vs_exact": 246,
+            "mean_overlap_vs_archive": 1.0,
+            "mean_overlap_vs_exact": 1.0,
+            "p50_ms": 16.1279,
+            "p95_ms": 16.18632,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 5233329,
+            "scanned_median": 5233329.0
+          },
+          "probe_16": {
+            "complete": 13,
+            "identical_order_vs_exact": 7,
+            "identical_sets_vs_exact": 7,
+            "mean_overlap_vs_archive": 0.7654344512195121,
+            "mean_overlap_vs_exact": 0.7654344512195121,
+            "p50_ms": 0.5165,
+            "p95_ms": 0.74072,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.0203252,
+                0.00813008
+              ],
+              "delta": -0.00406504,
+              "losses": 2,
+              "wins": 1
+            },
+            "scanned_max": 79085,
+            "scanned_median": 43777.5
+          },
+          "probe_256": {
+            "complete": 14,
+            "identical_order_vs_exact": 148,
+            "identical_sets_vs_exact": 149,
+            "mean_overlap_vs_archive": 0.9829776422764228,
+            "mean_overlap_vs_exact": 0.9829776422764228,
+            "p50_ms": 7.23292,
+            "p95_ms": 7.87699,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                0.0,
+                0.0
+              ],
+              "delta": 0.0,
+              "losses": 0,
+              "wins": 0
+            },
+            "scanned_max": 793788,
+            "scanned_median": 657668.0
+          },
+          "probe_64": {
+            "complete": 14,
+            "identical_order_vs_exact": 51,
+            "identical_sets_vs_exact": 51,
+            "mean_overlap_vs_archive": 0.9206681910569106,
+            "mean_overlap_vs_exact": 0.9206681910569106,
+            "p50_ms": 2.00329,
+            "p95_ms": 2.35688,
+            "paired_complete_vs_exact": {
+              "bootstrap95": [
+                -0.01219512,
+                0.01219512
+              ],
+              "delta": 0.0,
+              "losses": 1,
+              "wins": 1
+            },
+            "scanned_max": 227657,
+            "scanned_median": 165347.5
+          }
+        },
+        "queries": 246
+      }
+    }
+  }
+}

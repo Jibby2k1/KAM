@@ -151,3 +151,9 @@ At a [matched L4 update-time budget](../../reports/nonlinear_retrieval_natural/R
 [Deterministic B200 CUDA Graph capture](../../reports/nonlinear_retrieval_natural/RADIAL_TRAINING_GRAPH.md) reduced the 768-update selective radial loop from 5.78 to 1.20 seconds, with matching parameters, AdamW moments, and decisions over three seeds.
 
 At an equal 512-token budget on [LongMemEval-M](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_READER_BUDGET.md), query-matched turn windows raised joint exact matches from 23 to 36 of 470. Longer prefixes did not match the short-window result.
+
+In the [B200 exactness replay](../../reports/nonlinear_retrieval_natural/FULLWIKI_COARSE.md#b200-search-only-replay), full scan plus rescore kept all exact candidate sets and took 1.57 ms median, versus 1.64 ms for gathered probe 256. Candidate sets for each method matched across B200 and L4.
+
+At [equal continuation updates](../../reports/nonlinear_retrieval_natural/RADIAL_CURRICULUM_RATE.md), cosine decay increased deep procedural joint accuracy from 44.14% to 50.91% for dot and from 75.91% to 79.69% for radial.
+
+Under [same-effective revision stress](../../reports/nonlinear_retrieval_natural/TEMPORAL_CORRECTION_CURRICULUM.md), both geometries stayed near one percent joint accuracy on corrected 1,024-record histories even after matched training on that distribution.

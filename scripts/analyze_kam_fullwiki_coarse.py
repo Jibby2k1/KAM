@@ -80,9 +80,9 @@ def analyze(args, files):
     return result
 
 
-def audit_fused(args):
-    compared = analyze(args, args.fused)
-    chunks = list(map(unpack, args.fused))
+def audit_fused(args, files):
+    compared = analyze(args, files)
+    chunks = list(map(unpack, files))
     rows = [r["methods"] for c in chunks for r in c["rows"]]
     matched = {}
     for n in (64, 256):
@@ -98,6 +98,15 @@ def audit_fused(args):
             "queries": len(rows), "probes": matched}
 
 
+def cross_device_rank(files_a, files_b):
+    a, b = ({r["id"]: r["methods"] for c in map(unpack, files) for r in c["rows"]}
+            for files in (files_a, files_b))
+    assert a.keys() == b.keys()
+    return {arm: {"identical_order": sum(a[q][arm]["ranks"] == b[q][arm]["ranks"] for q in a),
+                  "identical_set": sum(set(a[q][arm]["ranks"]) == set(b[q][arm]["ranks"]) for q in a)}
+            for arm in ARMS}
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ("fixture", "pools", "reference", "output"):
@@ -105,14 +114,19 @@ def main():
     p.add_argument("--l4", type=Path, nargs=4, required=True)
     p.add_argument("--b200", type=Path, nargs=4)
     p.add_argument("--fused", type=Path, nargs=4)
+    p.add_argument("--b200-fused", type=Path, nargs=4)
     a = p.parse_args()
     result = {"l4": analyze(a, a.l4)}
     if a.b200:
         result["b200"] = analyze(a, a.b200)
         assert result["l4"]["partition_sha256"] == result["b200"]["partition_sha256"]
+        result["cross_device_rank"] = cross_device_rank(a.l4, a.b200)
     if a.fused:
-        result["fused"] = audit_fused(a)
+        result["fused"] = audit_fused(a, a.fused)
         assert result["l4"]["partition_sha256"] == result["fused"]["partition_sha256"]
+    if a.b200_fused:
+        result["b200_fused"] = audit_fused(a, a.b200_fused)
+        assert result["l4"]["partition_sha256"] == result["b200_fused"]["partition_sha256"]
     a.output.write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
 
 
