@@ -1,0 +1,106 @@
+{
+  "counts": {
+    "separate": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    },
+    "shared": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    }
+  },
+  "device": "NVIDIA L4",
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "latency": {
+    "initial_search_ms": {
+      "p50_ms": {
+        "separate": 129.28811460733414,
+        "shared": 23.350053001195192
+      },
+      "p95_ms": {
+        "separate": 131.22984943911433,
+        "shared": 25.38311490789056
+      },
+      "paired_median_delta_95_ms": [
+        -105.92821054160595,
+        -105.78609630465508
+      ],
+      "paired_median_delta_ms": -105.84179731085896
+    },
+    "reader_ms": {
+      "p50_ms": {
+        "separate": 69.57293534651399,
+        "shared": 68.85888753458858
+      },
+      "p95_ms": {
+        "separate": 110.52468488924205,
+        "shared": 109.72170536406338
+      },
+      "paired_median_delta_95_ms": [
+        -0.2559293061494827,
+        0.16357935965061188
+      ],
+      "paired_median_delta_ms": -0.04701688885688782
+    },
+    "request_ms": {
+      "p50_ms": {
+        "separate": 423.37612621486187,
+        "shared": 315.662928391248
+      },
+      "p95_ms": {
+        "separate": 470.7648021169007,
+        "shared": 374.2110437713563
+      },
+      "paired_median_delta_95_ms": [
+        -110.83405278623104,
+        -108.16099122166634
+      ],
+      "paired_median_delta_ms": -109.68308011069894
+    }
+  },
+  "parity": {
+    "all_records": 800,
+    "arms_vs_archive": 800,
+    "conditioned_pairs": 800,
+    "initial_order": 800,
+    "initial_set": 800,
+    "second_hop": 800,
+    "separate_vs_archive": 800
+  },
+  "quality": {
+    "answer": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    },
+    "joint": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    },
+    "support": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    }
+  },
+  "requests": 800,
+  "requests_per_second": {
+    "separate": 18.819913711947756,
+    "shared": 24.868007595754236
+  }
+}

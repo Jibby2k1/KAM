@@ -133,7 +133,7 @@ def run(a):
     reader = Reader(a.assets / "reader")
     sentence_encoders = {"fp32": encoder}
     low_precision = {"bf16": torch.bfloat16, "fp16": torch.float16} if a.compare_sentence_precision else (
-        {"fp16": torch.float16} if a.confirm_fp16_throughput else {})
+        {"fp16": torch.float16} if a.confirm_fp16_throughput or a.compare_batched_initial else {})
     for label, dtype in low_precision.items():
         resident = Encoder(a.assets / "encoder", 128)
         resident.model.to(dtype=dtype)
@@ -204,7 +204,9 @@ def run(a):
             search_start = perf_counter()
             depth = 128 if initial_method == "dense" else 64
             individual = query.split(1)
-            if initial_method == "dense_rescore":
+            if initial_method == "batched_rescore":
+                original = corpus_engine.full_rescore_batch(query).tolist()
+            elif initial_method == "dense_rescore":
                 original = [corpus_engine.full_rescore(q, exclude=None)[0].tolist() for q in individual]
             else:
                 original = [index.search(initial_method, c["question"], q, depth)[:64]
@@ -341,23 +343,26 @@ def run(a):
             for arm, truth in requests:
                 arm["exact"] = bool(measure_answer(predicted, truth)["em"])
 
-    def throughput_block(cases, width, precision="fp32"):
+    def throughput_block(cases, width, precision="fp32", initial_method="dense_rescore"):
         rows, timing = [], []
         counts = dict(requested=0, encoded=0)
         for offset in range(0, len(cases), width):
             prompts, block_rows = {}, []
             sentence_counts = dict(requested=0, encoded=0)
+            phases = {} if a.compare_batched_initial else None
             torch.cuda.synchronize()
             begin = perf_counter()
             score_cases(cases[offset:offset+width], offset, prompts, block_rows, True, reuse_sentences=True,
-                        sentence_counts=sentence_counts, initial_method="dense_rescore", corpus_method="fused_256",
-                        sparse_sentence_bank=True, sentence_precision=precision)
+                        sentence_counts=sentence_counts, initial_method=initial_method, corpus_method="fused_256",
+                        sparse_sentence_bank=True, sentence_precision=precision, phase=phases)
             rank_done = perf_counter()
             read_answers(prompts)
             torch.cuda.synchronize()
             done = perf_counter()
             timing.append({"size": len(block_rows), "request_ms": (done - begin) * 1000,
                            "reader_ms": (done - rank_done) * 1000})
+            if phases is not None:
+                timing[-1]["initial_search_ms"] = phases["initial_search_ms"]
             rows.extend(block_rows)
             for key, value in sentence_counts.items():
                 counts[key] += value
@@ -419,11 +424,13 @@ def run(a):
                            sentence_precision=method if a.compare_sentence_precision else "fp32")
 
         rng = Random(195823 + a.shard)
-        if a.compare_request_throughput or a.confirm_fp16_throughput:
+        if a.compare_request_throughput or a.confirm_fp16_throughput or a.compare_batched_initial:
             sample = rng.sample(cases[4:], 48)
             trial = {str(w): (w, "fp32") for w in (1, 2, 4, 8)}
-            if a.confirm_fp16_throughput:
+            if a.confirm_fp16_throughput or a.compare_batched_initial:
                 trial = {f"{p}/{w}": (w, p) for p in ("fp32", "fp16") for w in (1, 8)}
+                if a.compare_batched_initial:
+                    trial = {"separate": (8, "fp16"), "shared": (8, "fp16", "batched_rescore")}
                 prior = {q["id"] for q in cases[:4] + sample}
                 eligible = [q for q in cases if q["id"] not in prior]
                 sample = rng.sample(eligible, 200)
@@ -458,7 +465,7 @@ def run(a):
                          "document_readiness_seconds": readiness_seconds}
         if a.compare_rescored_initial or a.compare_shortlist_text or a.compare_sentence_bucketing or a.compare_sentence_precision:
             index_profile["search_modes"] = methods
-        if a.confirm_fp16_throughput:
+        if a.confirm_fp16_throughput or a.compare_batched_initial:
             index_profile["batch_policies"] = trial
     elif a.index_prewarm_rank is not None:
         from os import uname
@@ -649,6 +656,7 @@ def main():
     coarse_comparison.add_argument("--compare-sentence-precision", action="store_true")
     coarse_comparison.add_argument("--compare-request-throughput", action="store_true")
     coarse_comparison.add_argument("--confirm-fp16-throughput", action="store_true")
+    coarse_comparison.add_argument("--compare-batched-initial", action="store_true")
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
     live_profiles = parser.add_mutually_exclusive_group()
@@ -685,7 +693,7 @@ def main():
         parser.error("sentence bucketing timing requires a coarse-partition checkpoint")
     if a.compare_sentence_precision and not a.corpus_profile_index:
         parser.error("sentence precision timing requires a coarse-partition checkpoint")
-    if (a.compare_request_throughput or a.confirm_fp16_throughput) and not a.corpus_profile_index:
+    if (a.compare_request_throughput or a.confirm_fp16_throughput or a.compare_batched_initial) and not a.corpus_profile_index:
         parser.error("batched request timing requires a coarse-partition checkpoint")
     if a.verify_shared_relation and a.guard_split != "test":
         parser.error("shared relation verification needs the two-arm test replay")
@@ -719,7 +727,8 @@ def main():
         parser.error("live timing uses the fixed four-shard warm-request design")
     torch.set_float32_matmul_precision("highest")
     if (a.compare_rescored_initial or a.compare_shortlist_text or a.compare_sentence_bucketing
-            or a.compare_sentence_precision or a.compare_request_throughput or a.confirm_fp16_throughput):
+            or a.compare_sentence_precision or a.compare_request_throughput or a.confirm_fp16_throughput
+            or a.compare_batched_initial):
         torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

@@ -16,6 +16,7 @@ from audit_kam_natural_data import digest, words
 
 REFERENCE = re.compile(r"#(\d+)\b")
 SEPARATOR = "<extra_id_0>"
+ATOMIC_REFERENCES = {i: f"<extra_id_{i}>" for i in (1, 2, 3)}
 HOPS = (2, 3, 4)
 TOKEN_CAP = 160
 MODEL_REVISION = "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
@@ -38,7 +39,7 @@ def interfaces(assets):
     return tokenizer, model
 
 
-def structure(tokens, tokenizer):
+def structure(tokens, tokenizer, binding_tokens=False):
     marker = tokenizer.convert_tokens_to_ids(SEPARATOR)
     end = tokenizer.eos_token_id
     items = [[]]
@@ -51,7 +52,20 @@ def structure(tokens, tokenizer):
             items.append([])
         else:
             items[-1].append(token)
-    steps = [" ".join(tokenizer.decode(r, skip_special_tokens=True).split()) for r in items]
+    symbolic = {tokenizer.convert_tokens_to_ids(value): f"#{i}" for i, value in ATOMIC_REFERENCES.items()} if binding_tokens else {}
+
+    def decode(row):
+        if not symbolic:
+            return " ".join(tokenizer.decode(row, skip_special_tokens=True).split())
+        fragments, start = [], 0
+        for i, token in enumerate(row):
+            if token in symbolic:
+                fragments.extend((tokenizer.decode(row[start:i], skip_special_tokens=True), symbolic[token]))
+                start = i + 1
+        fragments.append(tokenizer.decode(row[start:], skip_special_tokens=True))
+        return " ".join(" ".join(fragments).split())
+
+    steps = [decode(row) for row in items]
     valid = finished and len(steps) in HOPS
     valid &= all(part and all(1 <= int(i) <= n for i in REFERENCE.findall(part))
                  for n, part in enumerate(steps))
@@ -81,22 +95,40 @@ class RequiredBoundaries(LogitsProcessor):
         return scores
 
 
+class BackwardReferences(LogitsProcessor):
+    """Admit a binding token only after the referenced step is complete."""
+
+    def __init__(self, tokenizer):
+        self.separator = tokenizer.convert_tokens_to_ids(SEPARATOR)
+        self.tokens = {i: tokenizer.convert_tokens_to_ids(symbol) for i, symbol in ATOMIC_REFERENCES.items()}
+
+    def __call__(self, input_ids, scores):
+        steps = (input_ids == self.separator).sum(1)
+        for i, token in self.tokens.items():
+            scores[:, token].masked_fill_(steps < i, -torch.inf)
+        return scores
+
+
 @torch.inference_mode()
-def predict(model, tokenizer, questions, batch=32, depths=None):
+def predict(model, tokenizer, questions, batch=32, depths=None, *, binding_tokens=False, enforce_binding_order=False):
     model.eval()
     outputs = []
     for start in range(0, len(questions), batch):
         text = list(map(instruction, questions[start:start+batch]))
         value = tokenizer(text, padding=True, truncation=True, max_length=TOKEN_CAP, return_tensors="pt").to("cuda")
-        constraint = (LogitsProcessorList([RequiredBoundaries(tokenizer, depths[start:start+batch], "cuda")])
-                      if depths is not None else None)
-        sample = model.generate(**value, max_new_tokens=TOKEN_CAP, do_sample=False, logits_processor=constraint)
-        outputs.extend(structure(t, tokenizer) for t in sample.tolist())
+        constraints = LogitsProcessorList()
+        if depths is not None:
+            constraints.append(RequiredBoundaries(tokenizer, depths[start:start+batch], "cuda"))
+        if enforce_binding_order:
+            assert binding_tokens
+            constraints.append(BackwardReferences(tokenizer))
+        sample = model.generate(**value, max_new_tokens=TOKEN_CAP, do_sample=False, logits_processor=constraints)
+        outputs.extend(structure(t, tokenizer, binding_tokens) for t in sample.tolist())
     return outputs
 
 
-def summarize(model, tokenizer, rows):
-    predicted = predict(model, tokenizer, [q["question"] for q in rows])
+def summarize(model, tokenizer, rows, binding_tokens=False):
+    predicted = predict(model, tokenizer, [q["question"] for q in rows], binding_tokens=binding_tokens)
     metrics = {h: {"cases": 0, "valid": 0, "same_length": 0, "same_references": 0, "exact": 0} for h in HOPS}
     for sample, (steps, valid) in zip(rows, predicted, strict=True):
         gold = sample["steps"]
@@ -125,12 +157,15 @@ def fit(a):
     marker = tokenizer.convert_tokens_to_ids(SEPARATOR)
     queries = tokenizer([instruction(q["question"]) for q in train], padding="max_length",
                         max_length=TOKEN_CAP, truncation=True, return_tensors="pt").to("cuda")
-    tokens = tokenizer([" " + f" {SEPARATOR} ".join(q["steps"]) for q in train], padding="max_length",
+    plans = [" " + f" {SEPARATOR} ".join(q["steps"]) for q in train]
+    if a.binding_tokens:
+        plans = [REFERENCE.sub(lambda m: f" {ATOMIC_REFERENCES[int(m[1])]} ", plan) for plan in plans]
+    tokens = tokenizer(plans, padding="max_length",
                        max_length=TOKEN_CAP, truncation=True, return_tensors="pt").input_ids
     assert (tokens == marker).sum(1).tolist() == [len(q["steps"]) - 1 for q in train]
-    assert all(structure(row, tokenizer)[1] for row in tokens.tolist())
+    assert all(structure(row, tokenizer, a.binding_tokens)[1] for row in tokens.tolist())
     target = tokens.masked_fill(tokens == vocab, -100).cuda()
-    before = summarize(model, tokenizer, valid)
+    before = summarize(model, tokenizer, valid, a.binding_tokens)
     lr = 0.00015
     opt = torch.optim.AdamW(model.parameters(), lr=lr, fused=True)
     rng = Random(a.seed + 13507)
@@ -159,12 +194,12 @@ def fit(a):
             print(point, flush=True)
     torch.cuda.synchronize()
     training = perf_counter() - training
-    after = summarize(model, tokenizer, valid)
+    after = summarize(model, tokenizer, valid, a.binding_tokens)
     weights = {k: v.cpu() for k, v in model.state_dict().items()}
     torch.save({"weights": weights, "seed": a.seed, "data_sha256": digest_data,
-                "fixture_sha256": panel["fixture_sha256"], "revision": MODEL_REVISION}, a.weights)
+                "fixture_sha256": panel["fixture_sha256"], "revision": MODEL_REVISION, "binding_tokens": a.binding_tokens}, a.weights)
     result = {"data_sha256": digest_data, "fixture_sha256": panel["fixture_sha256"], "seed": a.seed,
-              "revision": MODEL_REVISION, "seed_per_hop": a.per_hop, "steps": a.steps,
+              "revision": MODEL_REVISION, "seed_per_hop": a.per_hop, "steps": a.steps, "binding_tokens": a.binding_tokens,
               "device": torch.cuda.get_device_name(), "training_seconds": training, "total_seconds": perf_counter() - start,
               "validation_base": before, "validation_fit": after, "losses": losses}
     a.output.write_text(json.dumps(result, separators=(",", ":")) + "\n")
@@ -175,6 +210,7 @@ def inference(a):
     cases = fixture["rows"]
     tokenizer, model = interfaces(a.assets)
     weights_hash = None
+    binding_tokens = False
     if a.weights:
         weights_hash = digest(a.weights)
         trained = torch.load(a.weights, map_location="cpu", weights_only=True)
@@ -184,16 +220,20 @@ def inference(a):
             assert fixture["base_fixture_sha256"] == a.trained_for
             assert fixture["decomposer_data_sha256"] == trained["data_sha256"]
         model.load_state_dict(trained["weights"])
+        binding_tokens = trained.get("binding_tokens", False)
     cases = cases[a.shard::a.shards]
     prompts = [q["question"] for q in cases]
     depths = [q["hops"] for q in cases] if a.oracle_depth else None
-    results = predict(model, tokenizer, prompts, depths=depths)
+    results = predict(model, tokenizer, prompts, depths=depths, binding_tokens=binding_tokens,
+                      enforce_binding_order=a.enforce_binding_order)
     output = {"weights_sha256": weights_hash, "fixture_sha256": digest(a.fixture), "revision": MODEL_REVISION,
               "shard": a.shard, "shards": a.shards, "device": torch.cuda.get_device_name(),
               "rows": [{"id": q["id"], "steps": s, "valid": v}
                        for q, (s, v) in zip(cases, results, strict=True)]}
     if a.oracle_depth:
         output["oracle_depth"] = True
+    if binding_tokens:
+        output.update(binding_tokens=True, enforce_binding_order=a.enforce_binding_order)
     a.output.write_bytes(gzip.compress(json.dumps(output, separators=(",", ":")).encode(), mtime=0))
 
 
@@ -207,6 +247,8 @@ def main():
     p.add_argument("--seed", type=int, default=106331)
     p.add_argument("--steps", type=int, default=480)
     p.add_argument("--oracle-depth", action="store_true")
+    p.add_argument("--binding-tokens", action="store_true")
+    p.add_argument("--enforce-binding-order", action="store_true")
     p.add_argument("--trained-for")
     p.add_argument("--per-hop", type=int, default=6)
     p.add_argument("--shard", type=int, default=0)

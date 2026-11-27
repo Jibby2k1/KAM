@@ -105,6 +105,11 @@ class Search:
             scores[exclude] = -torch.inf
         return self.rescore(q, scores.topk(RESCORE).indices), len(self.full_half)
 
+    def full_rescore_batch(self, queries):
+        scores = distance(queries, self.full_half).masked_fill_(~self.mask, -torch.inf)
+        shortlist = scores.topk(RESCORE, dim=-1).indices
+        return torch.stack([self.rescore(q, ids) for q, ids in zip(queries.split(1), shortlist, strict=True)])
+
     def probe(self, q, exclude, probes):
         lists = (self.centroids @ q[0]).topk(probes).indices.tolist()
         ranges = [(self.offsets[i], self.offsets[i + 1]) for i in lists]

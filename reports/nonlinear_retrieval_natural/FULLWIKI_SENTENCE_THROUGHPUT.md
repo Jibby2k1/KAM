@@ -43,3 +43,9 @@ An additional 800 requests from the frozen 1,024-question panel excluded every r
 The combined policy gave a 1.89× median paired speedup for the eight-request groups [1.86, 1.90]. Each FP16 arm reproduced 797 of 800 ordered conditioned pairs from single-request FP32. Complete support, answer EM, and joint EM agreed on every request. The raw guard values changed, so these results establish parity for the measured pipeline decisions and outcomes. The incremental effects of precision and batching are separately visible in the four arms.
 
 [Timing and exactness records](../../results/nonlinear_retrieval_natural/fullwiki_coarse_v1/) · [First-hop optimization](FULLWIKI_REQUEST_OPTIMIZATION.md)
+
+## Sharing the initial scan
+
+On the same 800 questions, single-GPU batches of eight used one matrix multiply against the resident half-precision corpus, followed by the same FP32 shortlist rescoring per query. A randomized replay compared it with eight separate searches and kept FP16 sentence encoding fixed. Initial retrieval fell from 129.29 to 23.35 ms at the median per eight requests. Median batch completion was 423.38 versus 315.66 ms, with paired median change −109.68 ms [−110.83, −108.16]. Throughput rose from 18.82 to 24.87 requests per second within this run. All 800 complete numerical decision records matched, including both candidate rankings. These results compare two eight-request operating points directly.
+
+HPG array 52987401 ran the L4 shared scan. [Batch and stage measurements](../../results/nonlinear_retrieval_natural/fullwiki_coarse_v1/shared-initial-summary.json)
