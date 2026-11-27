@@ -16,10 +16,65 @@ from prepare_kam_natural_router import title_key
 from run_kam_fullwiki_native_compare import reciprocal_rank_fusion
 from run_kam_hotpot_pool_scaling import Reader
 from run_kam_musique_endpoint_pairs import build_prompts, exact, route_prompts
-from run_kam_musique_reader_composition import read_packed, unpack
+from run_kam_musique_reader_composition import read_packed, tokenized_question, unpack
 from run_kam_musique_reader_windows import READERS
 from run_kam_native_musique import COMPONENT_DEPTH, corpus_and_fixture, lexical_rank
 from run_kam_natural_feasibility import Encoder
+
+
+def open_both(items, questions, ranked, encoder, bank, reader, articles, ordered_pairs, article_map):
+    tokenizer = reader.tokenizer
+    render = lambda i: articles[i]["title"] + ". " + articles[i]["body"]
+    prior = tokenizer("Candidate passages:", add_special_tokens=False).input_ids
+    separator = tokenizer(" ; ", add_special_tokens=False).input_ids
+    selected = {}
+    for family in ("dense", "hybrid", "bm25"):
+        initial = ranked[family]
+        first = [p[0] for p in initial]
+        old_masks = torch.tensor([r[:128] for r in initial], device="cuda")
+        text = tokenizer.batch_decode(tokenizer([render(i) for i in first], add_special_tokens=False,
+                                                max_length=128, truncation=True).input_ids)
+        update = encoder([q+" Previous evidence: "+p for q,p in zip(questions, text, strict=True)], "query")
+        conditioned = update @ bank.T
+        confirmed = conditioned.gather(1, old_masks).argsort(dim=-1, descending=True, stable=True)
+        shared = old_masks.gather(1, confirmed).tolist()
+        fresh = conditioned.argsort(dim=-1, descending=True, stable=True)[:, :192].tolist()
+        selected[family] = {
+            "direct": [(r[:128], r[:2]) for r in initial],
+            "same_pool": [(r[:128], [a, next(p for p in q if p != a)]) for a, q, r in zip(first, shared, initial, strict=True)],
+            "conditioned_search": [],
+        }
+        for original, proposals in zip(initial, fresh, strict=True):
+            basis = original[:64]
+            banned = set(basis)
+            extension = [k for k in proposals if k not in banned][:64]
+            anchor = basis[0]
+            assert len(extension) == 64
+            second = next(p for p in proposals if p != anchor)
+            assert second in basis + extension
+            selected[family]["conditioned_search"].append((basis + extension, [anchor, second]))
+    example = []
+    for item in items:
+        row = item[0]
+        q = next(q for q in ordered_pairs[row["pair"]] if q["id"] == row["question"])
+        gold = [article_map[d["id"]] for d in q["evidence"]]
+        example.append({k: row[k] for k in ("question", "family", "pair")} | {"annotated_route": gold, "systems": {}})
+    for family, variants in selected.items():
+        for name, proposals in variants.items():
+            prompts = []
+            for i, (_, route) in enumerate(proposals):
+                q = tokenized_question(tokenizer, questions[i])
+                tokens = [tokenizer(render(x), add_special_tokens=False, max_length=160, truncation=True).input_ids for x in route]
+                for view in (tokens[0] + separator + tokens[1], tokens[1]):
+                    ids = tuple(q + prior + view + [tokenizer.eos_token_id])
+                    prompts.append((ids, (1,)*len(ids)))
+            answers = read_packed(reader, prompts)
+            for i, ((pool, route), row) in enumerate(zip(proposals, example, strict=True)):
+                found = [row["annotated_route"][j] in pool for j in (0,1)]
+                hit = [exact(x, items[i][1]) for x in answers[2*i:2*i+2]]
+                row["systems"][family+"/"+name] = {"pool": pool, "selected": route, "contains_both": all(found),
+                                                      "exact_answer_both": hit[0], "exact_answer_second_only": hit[1]}
+    return example
 
 
 @torch.inference_mode()
@@ -69,6 +124,11 @@ def run(a):
     sem = (answers @ bank.T).argsort(dim=-1, descending=True, stable=True)[:, :COMPONENT_DEPTH].tolist()
     lex = [lexical_rank(index, searcher, q) for q in questions]
     ranked = {"dense": sem, "bm25": lex, "hybrid": [reciprocal_rank_fusion(a_, b, 128, 60) for a_, b in zip(lex, sem, strict=True)]}
+    provenance = {"fixture_sha256": digest(a.fixture), "prior_sha256": digest(a.previous), "corpus_sha256": native["corpus_sha256"],
+                  "models": models, "source_sha256": fixture["source_sha256"], "device": torch.cuda.get_device_name(), "shard": a.shard}
+    if a.fully_open:
+        outcomes = open_both(items, questions, ranked, encoder, bank, reader, articles, ordered_pairs, article_map)
+        return provenance | {"rows": outcomes}
     doc_tags = [x for item in items for x in item[4]]
     doc_features = encoder(doc_tags, "passage").view(len(items), 2, -1)
     visible_truth = [item[-1] for item in items]
@@ -108,9 +168,7 @@ def run(a):
                                                          "premise_correct": trail[slot] == gold, "endpoint_correct": choice == visible_truth[i],
                                                          "answer_exact": exact(answer, items[i][1]), "foil_answer": exact(answer, items[i][2])}
             print(mode, width, duration, flush=True)
-    return {"fixture_sha256": digest(a.fixture), "prior_sha256": digest(a.previous), "corpus_sha256": native["corpus_sha256"],
-            "models": models, "source_sha256": fixture["source_sha256"], "device": torch.cuda.get_device_name(),
-            "shard": a.shard, "rows": exposed}
+    return provenance | {"rows": exposed}
 
 
 def main():
@@ -119,6 +177,7 @@ def main():
         p.add_argument("--" + name, type=Path, required=True)
     p.add_argument("--vectors", type=Path, nargs=4, required=True)
     p.add_argument("--shard", type=int, required=True)
+    p.add_argument("--fully-open", action="store_true")
     a = p.parse_args()
     out = run(a)
     a.output.write_bytes(gzip.compress(json.dumps(out, separators=(",", ":"), allow_nan=False).encode(), mtime=0))

@@ -1,0 +1,1365 @@
+{
+  "candidate_budget": 128,
+  "corpus_sha256": "f41323ccb8e8e2665822f1ec706f5b060266027475365cbc76f49d080fb6c0bf",
+  "device": "NVIDIA L4",
+  "families": 35,
+  "fixture_sha256": "45571b33a2467743d04d994d900be21ff6df173f86930eca114d5f323642e275",
+  "models": {
+    "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab",
+    "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52"
+  },
+  "questions": 168,
+  "results": {
+    "bm25/conditioned_search": {
+      "counts": {
+        "both_text_exact": 34,
+        "both_text_joint": 31,
+        "coverage": 115,
+        "ordered_both": 49,
+        "selected": 50,
+        "terminal_exact": 40,
+        "terminal_joint": 35
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.02380952,
+        "losses": 3,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.02666489,
+          0.07257772
+        ],
+        "wins": 7
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.1547619,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.07258065,
+            0.22950579
+          ],
+          "wins": 29
+        },
+        "both_text_joint": {
+          "delta": 0.16666667,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.08667391,
+            0.24019118
+          ],
+          "wins": 28
+        },
+        "coverage": {
+          "delta": 0.45238095,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.33823529,
+            0.54866543
+          ],
+          "wins": 77
+        },
+        "ordered_both": {
+          "delta": 0.26785714,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.15178854,
+            0.375
+          ],
+          "wins": 47
+        },
+        "selected": {
+          "delta": 0.26785714,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.15178854,
+            0.375
+          ],
+          "wins": 47
+        },
+        "terminal_exact": {
+          "delta": 0.21428571,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.11764706,
+            0.30499219
+          ],
+          "wins": 37
+        },
+        "terminal_joint": {
+          "delta": 0.19642857,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.10169492,
+            0.28675851
+          ],
+          "wins": 33
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": 0.11309524,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03703704,
+            0.18748422
+          ],
+          "wins": 20
+        },
+        "both_text_joint": {
+          "delta": 0.11904762,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04666667,
+            0.18931427
+          ],
+          "wins": 20
+        },
+        "coverage": {
+          "delta": 0.45238095,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.33823529,
+            0.54866543
+          ],
+          "wins": 77
+        },
+        "ordered_both": {
+          "delta": 0.19047619,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.07746782,
+            0.29568834
+          ],
+          "wins": 34
+        },
+        "selected": {
+          "delta": 0.19047619,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.07746782,
+            0.29568834
+          ],
+          "wins": 34
+        },
+        "terminal_exact": {
+          "delta": 0.14880952,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.06578947,
+            0.22480402
+          ],
+          "wins": 25
+        },
+        "terminal_joint": {
+          "delta": 0.14285714,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.05932413,
+            0.21982759
+          ],
+          "wins": 24
+        }
+      }
+    },
+    "bm25/direct": {
+      "counts": {
+        "both_text_exact": 8,
+        "both_text_joint": 3,
+        "coverage": 39,
+        "ordered_both": 4,
+        "selected": 5,
+        "terminal_exact": 4,
+        "terminal_joint": 2
+      },
+      "terminal_vs_both_joint": {
+        "delta": -0.00595238,
+        "losses": 1,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.02238806,
+          0.0
+        ],
+        "wins": 0
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "both_text_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "selected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": -0.04166667,
+          "losses": 10,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.08535671,
+            0.0
+          ],
+          "wins": 3
+        },
+        "both_text_joint": {
+          "delta": -0.04761905,
+          "losses": 8,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.08441046,
+            -0.01898734
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": -0.07738095,
+          "losses": 14,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.12345679,
+            -0.03637366
+          ],
+          "wins": 1
+        },
+        "selected": {
+          "delta": -0.07738095,
+          "losses": 14,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.12345679,
+            -0.03637366
+          ],
+          "wins": 1
+        },
+        "terminal_exact": {
+          "delta": -0.06547619,
+          "losses": 12,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.11666667,
+            -0.02325853
+          ],
+          "wins": 1
+        },
+        "terminal_joint": {
+          "delta": -0.05357143,
+          "losses": 9,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.09183248,
+            -0.02469136
+          ],
+          "wins": 0
+        }
+      }
+    },
+    "bm25/same_pool": {
+      "counts": {
+        "both_text_exact": 15,
+        "both_text_joint": 11,
+        "coverage": 39,
+        "ordered_both": 17,
+        "selected": 18,
+        "terminal_exact": 15,
+        "terminal_joint": 11
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.0,
+        "losses": 1,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.01923077,
+          0.01754386
+        ],
+        "wins": 1
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.04166667,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.08535671
+          ],
+          "wins": 10
+        },
+        "both_text_joint": {
+          "delta": 0.04761905,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.01898734,
+            0.08441046
+          ],
+          "wins": 8
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.07738095,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03637366,
+            0.12345679
+          ],
+          "wins": 14
+        },
+        "selected": {
+          "delta": 0.07738095,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03637366,
+            0.12345679
+          ],
+          "wins": 14
+        },
+        "terminal_exact": {
+          "delta": 0.06547619,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.02325853,
+            0.11666667
+          ],
+          "wins": 12
+        },
+        "terminal_joint": {
+          "delta": 0.05357143,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.02469136,
+            0.09183248
+          ],
+          "wins": 9
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "both_text_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "selected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        }
+      }
+    },
+    "dense/conditioned_search": {
+      "counts": {
+        "both_text_exact": 38,
+        "both_text_joint": 35,
+        "coverage": 128,
+        "ordered_both": 60,
+        "selected": 60,
+        "terminal_exact": 47,
+        "terminal_joint": 43
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.04761905,
+        "losses": 2,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.1031746
+        ],
+        "wins": 10
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.19642857,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.11363636,
+            0.27272727
+          ],
+          "wins": 33
+        },
+        "both_text_joint": {
+          "delta": 0.18452381,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.10294497,
+            0.26063495
+          ],
+          "wins": 31
+        },
+        "coverage": {
+          "delta": 0.42857143,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.27272727,
+            0.55801711
+          ],
+          "wins": 75
+        },
+        "ordered_both": {
+          "delta": 0.30952381,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.17361866,
+            0.43548387
+          ],
+          "wins": 54
+        },
+        "selected": {
+          "delta": 0.30952381,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.17361866,
+            0.43548387
+          ],
+          "wins": 54
+        },
+        "terminal_exact": {
+          "delta": 0.23809524,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.13157895,
+            0.33888774
+          ],
+          "wins": 41
+        },
+        "terminal_joint": {
+          "delta": 0.2202381,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.10714286,
+            0.32638134
+          ],
+          "wins": 38
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": 0.10714286,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03571429,
+            0.17707544
+          ],
+          "wins": 20
+        },
+        "both_text_joint": {
+          "delta": 0.11904762,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04629868,
+            0.18548039
+          ],
+          "wins": 22
+        },
+        "coverage": {
+          "delta": 0.42857143,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.27272727,
+            0.55801711
+          ],
+          "wins": 75
+        },
+        "ordered_both": {
+          "delta": 0.20833333,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.09421269,
+            0.3099159
+          ],
+          "wins": 37
+        },
+        "selected": {
+          "delta": 0.20833333,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.09421269,
+            0.3099159
+          ],
+          "wins": 37
+        },
+        "terminal_exact": {
+          "delta": 0.14285714,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04495659,
+            0.22844828
+          ],
+          "wins": 26
+        },
+        "terminal_joint": {
+          "delta": 0.1547619,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.05333929,
+            0.2444357
+          ],
+          "wins": 28
+        }
+      }
+    },
+    "dense/direct": {
+      "counts": {
+        "both_text_exact": 5,
+        "both_text_joint": 4,
+        "coverage": 56,
+        "ordered_both": 8,
+        "selected": 8,
+        "terminal_exact": 7,
+        "terminal_joint": 6
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.01190476,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.03424658
+        ],
+        "wins": 2
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "both_text_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "selected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": -0.08928571,
+          "losses": 15,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.13636364,
+            -0.0517282
+          ],
+          "wins": 0
+        },
+        "both_text_joint": {
+          "delta": -0.06547619,
+          "losses": 11,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.11029412,
+            -0.03289654
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": -0.10119048,
+          "losses": 19,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.17120205,
+            -0.04705882
+          ],
+          "wins": 2
+        },
+        "selected": {
+          "delta": -0.10119048,
+          "losses": 19,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.17120205,
+            -0.04705882
+          ],
+          "wins": 2
+        },
+        "terminal_exact": {
+          "delta": -0.0952381,
+          "losses": 17,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.15,
+            -0.05172414
+          ],
+          "wins": 1
+        },
+        "terminal_joint": {
+          "delta": -0.06547619,
+          "losses": 12,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.11333019,
+            -0.02778558
+          ],
+          "wins": 1
+        }
+      }
+    },
+    "dense/same_pool": {
+      "counts": {
+        "both_text_exact": 20,
+        "both_text_joint": 15,
+        "coverage": 56,
+        "ordered_both": 25,
+        "selected": 25,
+        "terminal_exact": 23,
+        "terminal_joint": 17
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.01190476,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.03448276
+        ],
+        "wins": 2
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.08928571,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0517282,
+            0.13636364
+          ],
+          "wins": 15
+        },
+        "both_text_joint": {
+          "delta": 0.06547619,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03289654,
+            0.11029412
+          ],
+          "wins": 11
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.10119048,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04705882,
+            0.17120205
+          ],
+          "wins": 19
+        },
+        "selected": {
+          "delta": 0.10119048,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04705882,
+            0.17120205
+          ],
+          "wins": 19
+        },
+        "terminal_exact": {
+          "delta": 0.0952381,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.05172414,
+            0.15
+          ],
+          "wins": 17
+        },
+        "terminal_joint": {
+          "delta": 0.06547619,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.02778558,
+            0.11333019
+          ],
+          "wins": 12
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "both_text_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "selected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        }
+      }
+    },
+    "hybrid/conditioned_search": {
+      "counts": {
+        "both_text_exact": 40,
+        "both_text_joint": 36,
+        "coverage": 123,
+        "ordered_both": 59,
+        "selected": 60,
+        "terminal_exact": 49,
+        "terminal_joint": 43
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.04166667,
+        "losses": 3,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.01204461,
+          0.0987634
+        ],
+        "wins": 10
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.19047619,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.09183967,
+            0.28275947
+          ],
+          "wins": 34
+        },
+        "both_text_joint": {
+          "delta": 0.19642857,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.10145542,
+            0.28494624
+          ],
+          "wins": 33
+        },
+        "coverage": {
+          "delta": 0.41071429,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.24457354,
+            0.55881127
+          ],
+          "wins": 70
+        },
+        "ordered_both": {
+          "delta": 0.30952381,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.16438581,
+            0.43747159
+          ],
+          "wins": 54
+        },
+        "selected": {
+          "delta": 0.30952381,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.1642925,
+            0.43748687
+          ],
+          "wins": 55
+        },
+        "terminal_exact": {
+          "delta": 0.23809524,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.12211087,
+            0.34342692
+          ],
+          "wins": 43
+        },
+        "terminal_joint": {
+          "delta": 0.22619048,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.10606061,
+            0.33333333
+          ],
+          "wins": 39
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": 0.11904762,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03424658,
+            0.20228602
+          ],
+          "wins": 22
+        },
+        "both_text_joint": {
+          "delta": 0.11904762,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03424658,
+            0.20228602
+          ],
+          "wins": 22
+        },
+        "coverage": {
+          "delta": 0.41071429,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.24457354,
+            0.55881127
+          ],
+          "wins": 70
+        },
+        "ordered_both": {
+          "delta": 0.19642857,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.06756757,
+            0.31643904
+          ],
+          "wins": 36
+        },
+        "selected": {
+          "delta": 0.19642857,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.06756757,
+            0.31643904
+          ],
+          "wins": 36
+        },
+        "terminal_exact": {
+          "delta": 0.1547619,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04255643,
+            0.25301028
+          ],
+          "wins": 28
+        },
+        "terminal_joint": {
+          "delta": 0.1547619,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04255643,
+            0.25301028
+          ],
+          "wins": 28
+        }
+      }
+    },
+    "hybrid/direct": {
+      "counts": {
+        "both_text_exact": 8,
+        "both_text_joint": 3,
+        "coverage": 54,
+        "ordered_both": 7,
+        "selected": 8,
+        "terminal_exact": 9,
+        "terminal_joint": 5
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.01190476,
+        "losses": 0,
+        "shared_evidence_cluster_bootstrap95": [
+          0.0,
+          0.03424658
+        ],
+        "wins": 2
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "both_text_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "selected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": -0.07142857,
+          "losses": 14,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.11904762,
+            -0.02702703
+          ],
+          "wins": 2
+        },
+        "both_text_joint": {
+          "delta": -0.07738095,
+          "losses": 13,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.12307692,
+            -0.04494382
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": -0.11309524,
+          "losses": 21,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.19165441,
+            -0.05682178
+          ],
+          "wins": 2
+        },
+        "selected": {
+          "delta": -0.11309524,
+          "losses": 22,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.19479618,
+            -0.05063291
+          ],
+          "wins": 3
+        },
+        "terminal_exact": {
+          "delta": -0.08333333,
+          "losses": 17,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.14166274,
+            -0.035
+          ],
+          "wins": 3
+        },
+        "terminal_joint": {
+          "delta": -0.07142857,
+          "losses": 13,
+          "shared_evidence_cluster_bootstrap95": [
+            -0.12307692,
+            -0.03370976
+          ],
+          "wins": 1
+        }
+      }
+    },
+    "hybrid/same_pool": {
+      "counts": {
+        "both_text_exact": 20,
+        "both_text_joint": 16,
+        "coverage": 54,
+        "ordered_both": 26,
+        "selected": 27,
+        "terminal_exact": 23,
+        "terminal_joint": 17
+      },
+      "terminal_vs_both_joint": {
+        "delta": 0.00595238,
+        "losses": 1,
+        "shared_evidence_cluster_bootstrap95": [
+          -0.01327143,
+          0.03125
+        ],
+        "wins": 2
+      },
+      "vs_direct": {
+        "both_text_exact": {
+          "delta": 0.07142857,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.02702703,
+            0.11904762
+          ],
+          "wins": 14
+        },
+        "both_text_joint": {
+          "delta": 0.07738095,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.04494382,
+            0.12307692
+          ],
+          "wins": 13
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.11309524,
+          "losses": 2,
+          "shared_evidence_cluster_bootstrap95": [
+            0.05682178,
+            0.19165441
+          ],
+          "wins": 21
+        },
+        "selected": {
+          "delta": 0.11309524,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.05063291,
+            0.19479618
+          ],
+          "wins": 22
+        },
+        "terminal_exact": {
+          "delta": 0.08333333,
+          "losses": 3,
+          "shared_evidence_cluster_bootstrap95": [
+            0.035,
+            0.14166274
+          ],
+          "wins": 17
+        },
+        "terminal_joint": {
+          "delta": 0.07142857,
+          "losses": 1,
+          "shared_evidence_cluster_bootstrap95": [
+            0.03370976,
+            0.12307692
+          ],
+          "wins": 13
+        }
+      },
+      "vs_same_pool": {
+        "both_text_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "both_text_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "coverage": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "ordered_both": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "selected": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_exact": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        },
+        "terminal_joint": {
+          "delta": 0.0,
+          "losses": 0,
+          "shared_evidence_cluster_bootstrap95": [
+            0.0,
+            0.0
+          ],
+          "wins": 0
+        }
+      }
+    }
+  },
+  "source_sha256": "98f839bf2fd5319f5c688aed77901a6d5c30b3b9f9f691ab9a8ecafb045ee0cd"
+}

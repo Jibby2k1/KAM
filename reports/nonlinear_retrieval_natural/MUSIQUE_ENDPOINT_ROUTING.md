@@ -68,3 +68,25 @@ The first step queries the same native bank of 101,748 paragraphs with frozen E5
 Dense top-one gained 22.02 points [8.16, 31.47] over original-question endpoint scoring and was three questions below the true-earlier control [−4.76, 0.00 points]. The margin-selected beam had more earlier passages available and chose the annotated one less often. A complete open-corpus comparison would also generate the endpoint candidates and evaluate reachability.
 
 HPG L4 array 53019537. [Corpus checksum, paired first-hop and complete-chain outcomes](../../results/nonlinear_retrieval_natural/musique_endpoint_open_v1/)
+
+## Searching for both evidence passages
+
+Conditioned corpus search also helped when both evidence passages had to be retrieved from the native corpus. Dense search with one conditioned hop selected both annotated passages for 60 of 168 questions, compared with 25 for same-pool sequential ranking and eight from the direct top two. Reading the second selected passage gave 43 joint answers, versus 17 and six. The candidate budget was 128 in every arm.
+
+The initial BM25, dense or hybrid ranking is fully open. No annotated premise, endpoint candidates, intermediate answer or final answer is used in search. The direct route takes its top two. The sequential route fixes the same leading passage and uses that passage to reformulate the query. The same-pool sequential arm selects the second document within the initial top 128. The corpus sequential arm keeps the first 64 and adds the first 64 distinct new paragraphs from the conditioned rank. Every arm uses the same FLAN-T5-large reader and per-passage limit of 160 tokens. It either reads the two selected passages or only the second one. Joint exact requires both selected IDs and an exact answer in either readout.
+
+| Search | Both supports available | Both selected | Joint, both read | Joint, second read |
+| --- | ---: | ---: | ---: | ---: |
+| Dense, direct | 56 | 8 | 4 | 6 |
+| Dense, same-pool sequential | 56 | 25 | 15 | 17 |
+| Dense, conditioned corpus search | 128 | 60 | 35 | 43 |
+| Hybrid, direct | 54 | 8 | 3 | 5 |
+| Hybrid, same-pool sequential | 54 | 27 | 16 | 17 |
+| Hybrid, conditioned corpus search | 123 | 60 | 36 | 43 |
+| BM25, direct | 39 | 5 | 3 | 2 |
+| BM25, same-pool sequential | 39 | 18 | 11 | 11 |
+| BM25, conditioned corpus search | 115 | 50 | 31 | 35 |
+
+On dense search with the identical second-only readout, conditioned corpus retrieval gained 15.48 points over same-pool sequential [5.33, 24.44], with 28 gains and two losses. Reading just the second selected passage increased the dense conditioned count from 35 to 43 [0.00, 10.32 points]. The fixed pair score of 109 endpoint-and-answer matches still required the small two-endpoint candidate set. Here both retrieval stages are open. The cohort remains filtered for clear bound entities and plausible competing endpoints, so this comparison measures transfer within that controlled slice.
+
+HPG L4 array 53020278. [Fully open candidate lists and paired results](../../results/nonlinear_retrieval_natural/musique_open_both_v1/)
