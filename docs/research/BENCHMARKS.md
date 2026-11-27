@@ -59,7 +59,21 @@ The three seeds and five benchmarks were held fixed across all conditions within
 | MMLU | 61.19% | 60.42% / 60.03% | 61.24% / 61.09% | 61.25% / 59.83% | 61.31% / 61.15% |
 | GSM8K | 62.55% | 48.98% / 57.47% | 64.42% / 63.08% | 74.35% / 52.82% | 62.75% / 65.30% |
 
-[Factorial report, interactions, and reproducibility records](GENERAL_BENCHMARKS_FACTORIAL.md) · [Intermediate KL pilot at the lower learning rate](GENERAL_BENCHMARKS_DIAGNOSTICS.md#intermediate-kl-at-the-lower-learning-rate)
+[Factorial report, interactions, and reproducibility records](GENERAL_BENCHMARKS_FACTORIAL.md)
+
+### Intermediate KL at the lower learning rate
+
+The same three seeds were evaluated at learning rate 0.00008 and KL weight 0.5. Cells list KAM / dot.
+
+| Benchmark | SmolLM2-1.7B-Instruct | Llama 3 8B Instruct |
+| --- | ---: | ---: |
+| HumanEval | 28.25% / 25.41% | 52.03% / 50.00% |
+| MBPP | 38.13% / 35.20% | 48.33% / 48.93% |
+| GPQA Diamond | 26.43% / 23.40% | 27.95% / 30.81% |
+| MMLU | 42.41% / 39.42% | 61.40% / 60.57% |
+| GSM8K | 30.02% / 9.58% | 73.36% / 71.49% |
+
+[Paired comparisons to KL weights 0 and 4](GENERAL_BENCHMARKS_DIAGNOSTICS.md#intermediate-kl-at-the-lower-learning-rate) · [GSM8K answer-format sensitivity](GENERAL_BENCHMARKS_DIAGNOSTICS.md#switching-the-requested-gsm8k-marker)
 
 ### Independent arithmetic transfer
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the GSM8K decoding budget and SVAMP arithmetic transfer experiments."""
+"""Verify GSM8K decoding controls and SVAMP arithmetic transfer experiments."""
 import argparse
 import json
 from collections import Counter
@@ -118,17 +118,30 @@ def compare_scaling(root, primary):
             "contrasts": comparisons}
 
 
-def compare_answer_format(root, official):
+def compare_answer_format(root, official, task="svamp", pilot=None):
     outcomes, flags = {}, {}
-    for ident in (*RUNS, *(key(*run) for run in LOW_RATE_KL_RUNS)):
-        original = official(f"svamp-{ident}")
-        alternate = json.loads((root / f"svamp-answer-format-{ident}.json").read_text())
-        for field in ("model", "revision", "adapter_sha256", "model_fingerprints", "gpu", "source_sha256",
-                      "source_revision", "generation_budget"):
+    pilot_ids = [key(*run) for run in LOW_RATE_KL_RUNS]
+    n = 1000 if task == "svamp" else 1319
+    for ident in (*RUNS, *pilot_ids):
+        read = pilot if pilot is not None and ident in pilot_ids else official
+        original = read(f"{task}-{ident}")
+        alternate = json.loads((root / f"{task}-answer-format-{ident}.json").read_text())
+        fields = ("model", "revision", "adapter_sha256", "model_fingerprints", "source_sha256")
+        if task == "svamp":
+            fields += ("gpu", "source_revision", "generation_budget")
+        else:
+            assert alternate["metadata"]["generation_budget"] == 384
+            assert alternate["metadata"]["original_prompt_order"] is True
+            if "gpu" in alternate["metadata"]:
+                fields += ("gpu",)
+        for field in fields:
             assert alternate["metadata"][field] == original["metadata"][field]
         rows = alternate["records"]
-        assert len(rows) == 1000
-        assert [(r["id"], r["type"]) for r in original["records"]] == [(r["id"], r["type"]) for r in rows]
+        assert len(rows) == n
+        identity = ("id", "type") if task == "svamp" else ("index",)
+        assert [tuple(r[field] for field in identity) for r in original["records"]] == [
+            tuple(r[field] for field in identity) for r in rows
+        ]
         old = np.array([row["correct"] for row in original["records"]])
         new = np.array([row["correct"] for row in rows])
         any_format = np.array([row["any_marker_correct"] for row in rows])
@@ -141,18 +154,28 @@ def compare_answer_format(root, official):
                            **{mode: int(values.sum()) for mode, values in flags[ident].items()}}
     comparisons = {}
     for recipe in ("lower_lr", LOW_RATE_KL_RECIPE):
+        by_arm = {}
         for arm in ARMS:
             scored = {mode: np.stack([flags[key(seed, recipe, arm)][mode] for seed in SEEDS])
                       for mode in ("hash", "answer", "either", "both_requested")}
+            by_arm[arm] = scored
             comparisons[f"{recipe}:{arm}:answer-minus-hash"] = difference(scored["answer"], scored["hash"])
             for mode in ("answer", "either", "both_requested"):
                 comparisons[f"{recipe}:{arm}:{mode}-minus-untouched"] = difference(scored[mode], flags[BASE][mode][None, :])
-    return {"task": "svamp-answer-format", "n": 1000, "per_checkpoint": outcomes, "contrasts": comparisons}
+        if task == "gsm8k":
+            kam, dot = by_arm["kam"], by_arm["dot"]
+            for mode in kam:
+                comparisons[f"{recipe}:{mode}:kam-minus-dot"] = difference(kam[mode], dot[mode])
+            comparisons[f"{recipe}:change-in-kam-minus-dot"] = difference(
+                kam["answer"].astype(np.int8) + dot["hash"],
+                dot["answer"].astype(np.int8) + kam["hash"],
+            )
+    return {"task": f"{task}-answer-format", "n": n, "per_checkpoint": outcomes, "contrasts": comparisons}
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=("budget", "svamp", "svamp-scaling", "svamp-answer-format"))
+    parser.add_argument("mode", choices=("budget", "svamp", "svamp-scaling", "svamp-answer-format", "gsm8k-answer-format"))
     parser.add_argument("input", type=Path)
     parser.add_argument("primary", type=Path)
     parser.add_argument("output", type=Path)
@@ -167,5 +190,6 @@ if __name__ == "__main__":
     elif args.mode == "svamp-scaling":
         outcome = compare_scaling(args.input, primary)
     else:
-        outcome = compare_answer_format(args.input, primary)
+        pilot = read_archive(args.pilot) if args.pilot else None
+        outcome = compare_answer_format(args.input, primary, args.mode.split("-", 1)[0], pilot)
     args.output.write_text(json.dumps(outcome, sort_keys=True, indent=2) + "\n")

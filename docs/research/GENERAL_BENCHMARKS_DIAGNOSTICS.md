@@ -91,7 +91,7 @@ For each low-rate seed and backbone, the native unregularized KAM checkpoint set
 
 ![Strict GSM8K against raw validation KL for the low-rate fits and post-fit scaling.](../../results/general_benchmarks_factorial/diagnostics/low-rate-gsm8k-drift.svg)
 
-The figure shows three-seed means and includes the completed intermediate-KL pilot on Llama. [Figure source](../../scripts/plot_kam_low_rate_tradeoff.py)
+The figure shows three-seed means and includes the intermediate-KL fits for both backbones. [Figure source](../../scripts/plot_kam_low_rate_tradeoff.py)
 
 At the paired KL target, dot gained 27.55 GSM8K points on SmolLM2 (95% paired item interval +25.09 to +30.05) and 17.99 on Llama (+15.57 to +20.47). The Llama KAM advantage remained at 3.54 points (+1.69 to +5.38). SmolLM2 dot exceeded KAM by 1.14 points (+0.08 to +2.20). This isolates one post-training control for residual strength on a single generation task. [SmolLM2 matched results](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-matched-kl-summary.json) · [Llama matched results](../../results/general_benchmarks_factorial/diagnostics/llama3-low-rate-matched-kl-summary.json) · [Per-item flags](../../results/general_benchmarks_factorial/diagnostics/low-rate-matched-kl-outcomes.json.gz) · [Probe](../../scripts/probe_kam_low_rate_matched_kl.py)
 
@@ -127,6 +127,22 @@ The table partitions the net change in correct Llama GSM8K outcomes by whether e
 Low-rate KAM's strict gain came from items marked only by KAM. Most of dot's intermediate-KL improvement occurred where both dot recipes already produced marked numbers. The decomposition describes observed output and scoring behavior. Strict verification requires a parseable marker.
 
 The Llama KAM gain appeared in the two-, three-, and four-or-more-calculation reference groups. On the 515 items with at least four calculator annotations, strict exact match rose from 52.62% to 66.08%. Reference calculator annotations describe the released solutions, and the groups reflect those annotations. [Llama structure and marker analysis](../../results/general_benchmarks_factorial/diagnostics/llama3-gsm8k-reference-structure.json) · [SmolLM2 analysis](../../results/general_benchmarks_factorial/diagnostics/smollm2-gsm8k-reference-structure.json) · [Numeric descriptors](../../results/general_benchmarks_factorial/diagnostics/gsm8k-reference-descriptors.json) · [Extraction](../../scripts/audit_kam_gsm8k_reference_structure.py) · [Analysis](../../scripts/summarize_kam_gsm8k_reference_structure.py)
+
+### Switching the requested GSM8K marker
+
+We evaluated the same 1,319 questions with `Answer:` in place of `####`, keeping the frozen Llama checkpoints, RTX PRO 6000 partition, original item groups and greedy 384-token limit. Generation ended at the requested marker, an end-of-sequence token, or the token limit. The scorer compared the marked number to the original label with the same exact string comparison. The new format required a line containing the marker and number.
+
+| Llama checkpoint | Strict `####` exact match | Strict `Answer:` exact match | Correct in both runs |
+| --- | ---: | ---: | ---: |
+| Untouched | 62.55% | 56.56% | 53.98% |
+| Low rate, KAM | 74.35% | 62.42% | 58.76% |
+| Low rate, dot | 52.82% | 51.50% | 44.96% |
+| Low rate + KL 0.5, KAM | 73.36% | 58.91% | 55.47% |
+| Low rate + KL 0.5, dot | 71.49% | 63.13% | 58.81% |
+
+Without KL, KAM's lead over untouched fell from 11.80 to 5.86 points with the new marker. Its lead over dot fell from 21.53 to 10.92 points, with a paired change of −10.61 points (95% item interval conditional on the three seeds −12.64 to −8.62). KAM still led dot in all three seeds for this recipe.
+
+With KL weight 0.5, the mean KAM lead of 1.87 points became a dot lead of 4.22 points (95% paired item interval 2.17 to 6.27). Dot led in all three seeds and also answered more items correctly under both markers. Accepting a legacy `####` answer when `Answer:` was absent changed only the unregularized dot mean, from 51.50% to 51.55%. These results quantify sensitivity to the two answer protocols, which change the prompt, stop pattern and extraction together. [Format summary](../../results/general_benchmarks_factorial/diagnostics/llama3-gsm8k-answer-format-summary.json) · [Per-item flags](../../results/general_benchmarks_factorial/diagnostics/llama3-gsm8k-answer-format-outcomes.json.gz) · [Scheduler receipts](../../results/general_benchmarks_factorial/diagnostics/gsm8k-answer-format-scheduler.tsv) · [Probe](../../scripts/probe_kam_gsm8k_answer_format.py) · [Slurm driver](../../slurm/kam_gsm8k_answer_format.sbatch)
 
 ## Cached inference by input length
 
@@ -176,7 +192,9 @@ The production BF16 replay reproduced all 2,048 recorded choices for each untouc
 
 ## Intermediate KL at the lower learning rate
 
-The Llama pilot added KL weight 0.5 at the fixed lower rate of 0.00008. It used the same three seeds, frozen backbone, exposure, architecture sizes, GPU model and five benchmark fixtures. The weights 0 and 4 are the previously measured low-rate endpoints. This comparison was motivated by the original GSM8K interaction.
+The follow-up added KL weight 0.5 at the fixed lower rate of 0.00008. Both backbones use the same three seeds and five benchmark fixtures. Each seed retains its frozen backbone, matched adapter sizes, training exposure and training GPU. The weights 0 and 4 are the previously measured low-rate endpoints.
+
+### Llama 3 8B Instruct
 
 | Benchmark | KL weight 0 KAM / dot | KL weight 0.5 KAM / dot | KL weight 4 KAM / dot |
 | --- | ---: | ---: | ---: |
@@ -187,6 +205,18 @@ The Llama pilot added KL weight 0.5 at the fixed lower rate of 0.00008. It used 
 | GSM8K | 74.35% / 52.82% | 73.36% / 71.49% | 62.75% / 65.30% |
 
 At weight 0.5, dot recovered 18.68 GSM8K points relative to weight zero (95% paired item interval +16.55 to +20.82). KAM changed by −0.99 points (−2.38 to +0.43). The remaining KAM–dot gap averaged +1.87 points and varied across seeds (+6.07, +0.30, −0.76). Raw validation KL fell from 0.209 to 0.084 nats per token for KAM and from 0.994 to 0.148 for dot. The reduced KL weight still requires the teacher pass. [Pilot summary](../../results/general_benchmarks_factorial/diagnostics/llama3-low-rate-kl05-summary.json) · [Outcomes](../../results/general_benchmarks_factorial/diagnostics/llama3-low-rate-kl05-outcomes.json.gz) · [Scheduler receipts](../../results/general_benchmarks_factorial/diagnostics/low-rate-kl-pilot-scheduler.tsv) · [Paired replay](../../scripts/summarize_kam_low_rate_kl_pilot.py)
+
+### SmolLM2-1.7B-Instruct
+
+| Benchmark | KL weight 0 KAM / dot | KL weight 0.5 KAM / dot | KL weight 4 KAM / dot |
+| --- | ---: | ---: | ---: |
+| HumanEval | 28.05% / 27.03% | 28.25% / 25.41% | 27.64% / 28.46% |
+| MBPP | 37.20% / 33.67% | 38.13% / 35.20% | 38.13% / 37.07% |
+| GPQA Diamond | 26.77% / 23.74% | 26.43% / 23.40% | 26.26% / 23.06% |
+| MMLU | 42.50% / 36.51% | 42.41% / 39.42% | 42.54% / 42.09% |
+| GSM8K | 30.00% / 3.59% | 30.02% / 9.58% | 30.50% / 27.29% |
+
+At weight 0.5, dot gained 5.99 GSM8K points relative to weight zero (95% paired item interval +4.62 to +7.35), and trailed its weight-four counterpart by 17.72 points. KAM changed by 0.03 points relative to weight zero. Dot's mean validation KL fell from 0.399 to 0.094 nats per token, with a mean net gain of 79 correct answers on questions where both dot outputs contained the required marker. SmolLM2 needed the stronger measured KL setting for the larger recovery of strict GSM8K. Within each seed, both adapters used the same training GPU as their controls, B200 for the first two seeds and RTX PRO 6000 for the third. [Pilot summary](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-kl05-summary.json) · [Outcomes](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-kl05-outcomes.json.gz) · [Scheduler receipts](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-kl-pilot-scheduler.tsv) · [Marker partition](../../results/general_benchmarks_factorial/diagnostics/smollm2-gsm8k-reference-structure.json)
 
 ## Arithmetic transfer to SVAMP
 
