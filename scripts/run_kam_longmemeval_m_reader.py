@@ -203,6 +203,8 @@ def run(a):
     from run_kam_longmemeval_m import iter_bank
     from run_kam_musique_bindings import BASE_REVISION, BASE_WEIGHT
     from run_kam_natural_feasibility import batches, measure_answer, normalized_answer
+    if a.typed_temporal_audit:
+        from kam_temporal_denotations import denotation
 
     start = perf_counter()
     torch.set_float32_matmul_precision("highest")
@@ -287,6 +289,8 @@ def run(a):
 
     answers = read(a.labels)
     assert answers["fixture_sha256"] == fx and set(answers["answers"]) == {q["id"] for q in fixture["rows"]}
+    questions = {q["id"]: q["question"] for q in cases if q["kind"] == "temporal-reasoning" and not q["id"].endswith("_abs")}
+    targets = {i: denotation(answers["answers"][i], q) for i, q in questions.items()} if a.typed_temporal_audit else {}
     prediction_seconds = {}
     names = tuple(readers)
     order = names if a.shard % 2 == 0 else tuple(reversed(names))
@@ -298,6 +302,8 @@ def run(a):
             for cap in sorted({length for length, _ in prompts}):
                 sorted_input = sorted((tokens for length, tokens in prompts if length == cap), key=len)
                 for group in batches(sorted_input, 16):
+                    if a.typed_temporal_audit and not any(targets.get(qid) for prompt in group for qid, _ in prompts[cap, prompt]):
+                        continue
                     inputs = reader.tokenizer.pad({"input_ids": [list(tokens) for tokens in group]},
                                                   padding=True, return_tensors="pt").to("cuda")
                     output = active.model.generate(**inputs, max_new_tokens=cap, do_sample=False)
@@ -307,6 +313,9 @@ def run(a):
                         abstain = norm in (["unknown"], ["i", "don", "t", "know"], ["cannot", "answer"])
                         for qid, pointer in prompts[cap, tokens]:
                             scored = measure_answer(answer, answers["answers"][qid]) | {"abstained": abstain}
+                            if targets.get(qid):
+                                result = denotation(answer, questions[qid])
+                                scored |= {"typed_kind": targets[qid][0], "typed_exact": result == targets[qid]}
                             if compares_readers:
                                 pointer.setdefault("readers", {})[size] = scored
                             else:
@@ -317,6 +326,8 @@ def run(a):
                "reader_revision": BASE_REVISION, "reader_weights_sha256": BASE_WEIGHT, "device": torch.cuda.get_device_name(),
                "shard": a.shard, "shards": a.shards, "unique_prompts": len(prompts), "arms": list(variants),
                "elapsed_seconds": perf_counter() - start, "rows": panels}
+    if a.typed_temporal_audit:
+        payload["rows"] = [r for r in panels if targets.get(r["id"])]
     if compares_readers:
         payload.update(weights=weights, prediction_seconds=prediction_seconds)
     a.output.write_bytes(gzip.compress(json.dumps(payload, separators=(",", ":")).encode(), mtime=0))
@@ -333,9 +344,12 @@ def main():
     options.add_argument("--compare-reader-size", action="store_true")
     options.add_argument("--compare-timeline-order", action="store_true")
     options.add_argument("--compare-relative-clock", action="store_true")
+    p.add_argument("--typed-temporal-audit", action="store_true")
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)
     a = p.parse_args()
+    if a.typed_temporal_audit and not a.compare_relative_clock:
+        p.error("typed date and duration scoring replays the relative-clock study")
     (prepare_labels if a.mode == "labels" else run)(a)
 
 
