@@ -1,0 +1,2770 @@
+{
+  "b200": {
+    "means": {
+      "augmented_flash_bf16": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.871875,
+              "numeric_exact": 0.88645833,
+              "unbound": 0.00625
+            },
+            "48": {
+              "joint": 0.88125,
+              "numeric_exact": 0.8890625,
+              "unbound": 0.00625
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.83333333,
+              "numeric_exact": 0.8671875,
+              "unbound": 0.00260417
+            },
+            "48": {
+              "joint": 0.82552083,
+              "numeric_exact": 0.84635417,
+              "unbound": 0.0078125
+            }
+          }
+        },
+        "mean_training_seconds": 18.636169,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.87239583,
+              "numeric_exact": 0.8859375,
+              "unbound": 0.00625
+            },
+            "48": {
+              "joint": 0.88072917,
+              "numeric_exact": 0.8890625,
+              "unbound": 0.00572917
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.82552083,
+              "numeric_exact": 0.859375,
+              "unbound": 0.00260417
+            },
+            "48": {
+              "joint": 0.8203125,
+              "numeric_exact": 0.83854167,
+              "unbound": 0.0078125
+            }
+          }
+        }
+      },
+      "balanced_split_flash_bf16": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.86927083,
+              "numeric_exact": 0.88854167,
+              "unbound": 0.00364583
+            },
+            "48": {
+              "joint": 0.87916667,
+              "numeric_exact": 0.89114583,
+              "unbound": 0.00520833
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.8515625,
+              "numeric_exact": 0.86979167,
+              "unbound": 0.0078125
+            },
+            "48": {
+              "joint": 0.83072917,
+              "numeric_exact": 0.84895833,
+              "unbound": 0.00520833
+            }
+          }
+        },
+        "mean_training_seconds": 18.836826,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.8671875,
+              "numeric_exact": 0.88645833,
+              "unbound": 0.00416667
+            },
+            "48": {
+              "joint": 0.87916667,
+              "numeric_exact": 0.89166667,
+              "unbound": 0.00520833
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84895833,
+              "numeric_exact": 0.8671875,
+              "unbound": 0.0078125
+            },
+            "48": {
+              "joint": 0.83333333,
+              "numeric_exact": 0.8515625,
+              "unbound": 0.00520833
+            }
+          }
+        }
+      },
+      "eager_bf16": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.86510417,
+              "numeric_exact": 0.8828125,
+              "unbound": 0.0046875
+            },
+            "48": {
+              "joint": 0.88020833,
+              "numeric_exact": 0.89427083,
+              "unbound": 0.0046875
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84375,
+              "numeric_exact": 0.875,
+              "unbound": 0.00260417
+            },
+            "48": {
+              "joint": 0.81510417,
+              "numeric_exact": 0.84895833,
+              "unbound": 0.00260417
+            }
+          }
+        },
+        "mean_training_seconds": 19.633892,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.86614583,
+              "numeric_exact": 0.88229167,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.88020833,
+              "numeric_exact": 0.89427083,
+              "unbound": 0.0046875
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84114583,
+              "numeric_exact": 0.86979167,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.81510417,
+              "numeric_exact": 0.84895833,
+              "unbound": 0.00260417
+            }
+          }
+        }
+      },
+      "eager_fp32": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.87760417,
+              "numeric_exact": 0.89114583,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.88385417,
+              "numeric_exact": 0.89635417,
+              "unbound": 0.00520833
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84375,
+              "numeric_exact": 0.87239583,
+              "unbound": 0.01302083
+            },
+            "48": {
+              "joint": 0.8515625,
+              "numeric_exact": 0.875,
+              "unbound": 0.0
+            }
+          }
+        },
+        "mean_training_seconds": 16.846063,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.87760417,
+              "numeric_exact": 0.89114583,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.88385417,
+              "numeric_exact": 0.89635417,
+              "unbound": 0.00520833
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84375,
+              "numeric_exact": 0.87239583,
+              "unbound": 0.01302083
+            },
+            "48": {
+              "joint": 0.8515625,
+              "numeric_exact": 0.875,
+              "unbound": 0.0
+            }
+          }
+        }
+      }
+    },
+    "seeds": {
+      "931121": {
+        "augmented_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 572,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 563,
+                "n": 640,
+                "numeric_exact": 570,
+                "unbound": 5
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 99,
+                "n": 128,
+                "numeric_exact": 101,
+                "unbound": 1
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 572,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 562,
+                "n": 640,
+                "numeric_exact": 569,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 97,
+                "n": 128,
+                "numeric_exact": 99,
+                "unbound": 1
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 19.14469049917534,
+            "peak_extra_allocated_bytes": 68114944,
+            "sampled_losses": [
+              {
+                "loss": 6.290538787841797,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.7062087059021,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.6916403770446777,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.08608093857765198,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.002707752864807844,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 706033.874
+        },
+        "balanced_split_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 568,
+                "n": 640,
+                "numeric_exact": 575,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 567,
+                "n": 640,
+                "numeric_exact": 574,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 112,
+                "n": 128,
+                "numeric_exact": 114,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 104,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 2
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 573,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 573,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 111,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 104,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 2
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 19.051122350152582,
+            "peak_extra_allocated_bytes": 67072512,
+            "sampled_losses": [
+              {
+                "loss": 6.291428565979004,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.711508274078369,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 1.0579544305801392,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.0807172954082489,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.004641994833946228,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 709501.5061
+        },
+        "eager_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 568,
+                "n": 640,
+                "numeric_exact": 574,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 573,
+                "n": 640,
+                "numeric_exact": 577,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 569,
+                "n": 640,
+                "numeric_exact": 574,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 573,
+                "n": 640,
+                "numeric_exact": 577,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 20.418959781061858,
+            "peak_extra_allocated_bytes": 69097472,
+            "sampled_losses": [
+              {
+                "loss": 6.290765762329102,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.708444595336914,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.6727482080459595,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.03324383497238159,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0025870949029922485,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 661972.9969
+        },
+        "eager_fp32": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 568,
+                "n": 640,
+                "numeric_exact": 578,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 571,
+                "n": 640,
+                "numeric_exact": 578,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 102,
+                "n": 128,
+                "numeric_exact": 105,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 568,
+                "n": 640,
+                "numeric_exact": 578,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 571,
+                "n": 640,
+                "numeric_exact": 578,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 102,
+                "n": 128,
+                "numeric_exact": 105,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 17.037103302776814,
+            "peak_extra_allocated_bytes": 98860544,
+            "sampled_losses": [
+              {
+                "loss": 6.290648937225342,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.706481456756592,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.8459674119949341,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.05850958079099655,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.003253181464970112,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 793374.3055
+        }
+      },
+      "931157": {
+        "augmented_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 555,
+                "n": 640,
+                "numeric_exact": 566,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 563,
+                "n": 640,
+                "numeric_exact": 564,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 1
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 555,
+                "n": 640,
+                "numeric_exact": 566,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 563,
+                "n": 640,
+                "numeric_exact": 564,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 2
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 18.96217594202608,
+            "peak_extra_allocated_bytes": 68114944,
+            "sampled_losses": [
+              {
+                "loss": 6.48116397857666,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.639928817749023,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.98890221118927,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.06604893505573273,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0027377144433557987,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 712829.5846
+        },
+        "balanced_split_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 547,
+                "n": 640,
+                "numeric_exact": 565,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 560,
+                "n": 640,
+                "numeric_exact": 569,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 545,
+                "n": 640,
+                "numeric_exact": 563,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 561,
+                "n": 640,
+                "numeric_exact": 571,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 19.828738209907897,
+            "peak_extra_allocated_bytes": 67072512,
+            "sampled_losses": [
+              {
+                "loss": 6.479766845703125,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.642701148986816,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.9181392192840576,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.0839356780052185,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.002612830838188529,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 681677.2634
+        },
+        "eager_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 537,
+                "n": 640,
+                "numeric_exact": 553,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 567,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 1
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 539,
+                "n": 640,
+                "numeric_exact": 554,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 567,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 1
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 20.137984198052436,
+            "peak_extra_allocated_bytes": 85355520,
+            "sampled_losses": [
+              {
+                "loss": 6.481848239898682,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.6467180252075195,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7848820090293884,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.12058481574058533,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.002615464385598898,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 671209.1869
+        },
+        "eager_fp32": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 557,
+                "n": 640,
+                "numeric_exact": 565,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 112,
+                "n": 128,
+                "numeric_exact": 116,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 557,
+                "n": 640,
+                "numeric_exact": 565,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 112,
+                "n": 128,
+                "numeric_exact": 116,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 17.015912305912934,
+            "peak_extra_allocated_bytes": 81850368,
+            "sampled_losses": [
+              {
+                "loss": 6.479803085327148,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.644957542419434,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7690341472625732,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.12099896371364594,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0032774340361356735,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 794362.3449
+        }
+      },
+      "931187": {
+        "augmented_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 553,
+                "n": 640,
+                "numeric_exact": 564,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 573,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 105,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 114,
+                "unbound": 1
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 554,
+                "n": 640,
+                "numeric_exact": 563,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 574,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 104,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 114,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 17.801639404147863,
+            "peak_extra_allocated_bytes": 84142592,
+            "sampled_losses": [
+              {
+                "loss": 6.60477876663208,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.384183883666992,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 1.058883786201477,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.21514707803726196,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.007051749620586634,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 759300.8539
+        },
+        "balanced_split_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 554,
+                "n": 640,
+                "numeric_exact": 566,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 561,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 554,
+                "n": 640,
+                "numeric_exact": 566,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 561,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 17.630617134273052,
+            "peak_extra_allocated_bytes": 67072512,
+            "sampled_losses": [
+              {
+                "loss": 6.604755401611328,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.370350360870361,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.9535415172576904,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.10506688058376312,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0069845919497311115,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 766666.2997
+        },
+        "eager_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 561,
+                "n": 640,
+                "numeric_exact": 573,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 555,
+                "n": 640,
+                "numeric_exact": 566,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 561,
+                "n": 640,
+                "numeric_exact": 573,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 18.344730632845312,
+            "peak_extra_allocated_bytes": 68233216,
+            "sampled_losses": [
+              {
+                "loss": 6.605074405670166,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.373443603515625,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7517449259757996,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.11183673143386841,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0028268620371818542,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 736821.9393
+        },
+        "eager_fp32": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 560,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 570,
+                "n": 640,
+                "numeric_exact": 575,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 113,
+                "n": 128,
+                "numeric_exact": 115,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 560,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 570,
+                "n": 640,
+                "numeric_exact": 575,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 113,
+                "n": 128,
+                "numeric_exact": 115,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 16.485174101311713,
+            "peak_extra_allocated_bytes": 80506368,
+            "sampled_losses": [
+              {
+                "loss": 6.604805946350098,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.383484840393066,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.853127121925354,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.3017682731151581,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0026186539325863123,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 819936.7454
+        }
+      }
+    }
+  },
+  "l4": {
+    "means": {
+      "augmented_flash_bf16": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.8796875,
+              "numeric_exact": 0.89375,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.87760417,
+              "numeric_exact": 0.890625,
+              "unbound": 0.00677083
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84114583,
+              "numeric_exact": 0.85677083,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.82291667,
+              "numeric_exact": 0.84895833,
+              "unbound": 0.00260417
+            }
+          }
+        },
+        "mean_training_seconds": 14.769124,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.88072917,
+              "numeric_exact": 0.89427083,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.87760417,
+              "numeric_exact": 0.890625,
+              "unbound": 0.00677083
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84114583,
+              "numeric_exact": 0.85677083,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.82291667,
+              "numeric_exact": 0.84895833,
+              "unbound": 0.00260417
+            }
+          }
+        }
+      },
+      "balanced_split_flash_bf16": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.86770833,
+              "numeric_exact": 0.88177083,
+              "unbound": 0.00416667
+            },
+            "48": {
+              "joint": 0.88802083,
+              "numeric_exact": 0.89895833,
+              "unbound": 0.00364583
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84375,
+              "numeric_exact": 0.86197917,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.83333333,
+              "numeric_exact": 0.86197917,
+              "unbound": 0.00520833
+            }
+          }
+        },
+        "mean_training_seconds": 14.836346,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.86875,
+              "numeric_exact": 0.88229167,
+              "unbound": 0.0046875
+            },
+            "48": {
+              "joint": 0.8890625,
+              "numeric_exact": 0.89947917,
+              "unbound": 0.00364583
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.84375,
+              "numeric_exact": 0.86197917,
+              "unbound": 0.00520833
+            },
+            "48": {
+              "joint": 0.83333333,
+              "numeric_exact": 0.86197917,
+              "unbound": 0.00520833
+            }
+          }
+        }
+      },
+      "eager_bf16": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.8765625,
+              "numeric_exact": 0.890625,
+              "unbound": 0.00677083
+            },
+            "48": {
+              "joint": 0.88072917,
+              "numeric_exact": 0.89322917,
+              "unbound": 0.0046875
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.83854167,
+              "numeric_exact": 0.88020833,
+              "unbound": 0.01041667
+            },
+            "48": {
+              "joint": 0.83072917,
+              "numeric_exact": 0.8515625,
+              "unbound": 0.0
+            }
+          }
+        },
+        "mean_training_seconds": 15.337339,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.87708333,
+              "numeric_exact": 0.8921875,
+              "unbound": 0.00677083
+            },
+            "48": {
+              "joint": 0.87864583,
+              "numeric_exact": 0.89166667,
+              "unbound": 0.0046875
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.83854167,
+              "numeric_exact": 0.88020833,
+              "unbound": 0.01041667
+            },
+            "48": {
+              "joint": 0.83072917,
+              "numeric_exact": 0.8515625,
+              "unbound": 0.0
+            }
+          }
+        }
+      },
+      "eager_fp32": {
+        "common_fp32_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.87447917,
+              "numeric_exact": 0.89270833,
+              "unbound": 0.0046875
+            },
+            "48": {
+              "joint": 0.88541667,
+              "numeric_exact": 0.89427083,
+              "unbound": 0.003125
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.8359375,
+              "numeric_exact": 0.86197917,
+              "unbound": 0.0078125
+            },
+            "48": {
+              "joint": 0.8359375,
+              "numeric_exact": 0.84895833,
+              "unbound": 0.0
+            }
+          }
+        },
+        "mean_training_seconds": 13.230641,
+        "native_eval": {
+          "earlier": {
+            "16": {
+              "joint": 0.87447917,
+              "numeric_exact": 0.89270833,
+              "unbound": 0.0046875
+            },
+            "48": {
+              "joint": 0.88541667,
+              "numeric_exact": 0.89427083,
+              "unbound": 0.003125
+            }
+          },
+          "later": {
+            "16": {
+              "joint": 0.8359375,
+              "numeric_exact": 0.86197917,
+              "unbound": 0.0078125
+            },
+            "48": {
+              "joint": 0.8359375,
+              "numeric_exact": 0.84895833,
+              "unbound": 0.0
+            }
+          }
+        }
+      }
+    },
+    "seeds": {
+      "931121": {
+        "augmented_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 579,
+                "n": 640,
+                "numeric_exact": 584,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 564,
+                "n": 640,
+                "numeric_exact": 571,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 580,
+                "n": 640,
+                "numeric_exact": 585,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 563,
+                "n": 640,
+                "numeric_exact": 571,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 13.910756786353886,
+            "peak_extra_allocated_bytes": 68114944,
+            "sampled_losses": [
+              {
+                "loss": 6.292773723602295,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.710224628448486,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7662441730499268,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.045591648668050766,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.005975988227874041,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 971679.7014
+        },
+        "balanced_split_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 569,
+                "n": 640,
+                "numeric_exact": 573,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 577,
+                "n": 640,
+                "numeric_exact": 579,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 102,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 2
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 569,
+                "n": 640,
+                "numeric_exact": 573,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 576,
+                "n": 640,
+                "numeric_exact": 578,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 102,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 2
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 14.21974421851337,
+            "peak_extra_allocated_bytes": 67072512,
+            "sampled_losses": [
+              {
+                "loss": 6.292268753051758,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.707491874694824,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7392654418945312,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.09246758371591568,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.002910905983299017,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 950565.6215
+        },
+        "eager_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 572,
+                "n": 640,
+                "numeric_exact": 575,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 573,
+                "n": 640,
+                "numeric_exact": 582,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 114,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 571,
+                "n": 640,
+                "numeric_exact": 576,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 570,
+                "n": 640,
+                "numeric_exact": 580,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 114,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 14.7854034435004,
+            "peak_extra_allocated_bytes": 69097472,
+            "sampled_losses": [
+              {
+                "loss": 6.29084587097168,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.707355976104736,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.6225788593292236,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.2151278555393219,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0029961736872792244,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 914198.9295
+        },
+        "eager_fp32": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 572,
+                "n": 640,
+                "numeric_exact": 581,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 569,
+                "n": 640,
+                "numeric_exact": 569,
+                "unbound": 1
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 101,
+                "n": 128,
+                "numeric_exact": 103,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 572,
+                "n": 640,
+                "numeric_exact": 581,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 569,
+                "n": 640,
+                "numeric_exact": 569,
+                "unbound": 1
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 101,
+                "n": 128,
+                "numeric_exact": 103,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 12.823458617553115,
+            "peak_extra_allocated_bytes": 98860544,
+            "sampled_losses": [
+              {
+                "loss": 6.2906494140625,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.706480979919434,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.8868260979652405,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.09982732683420181,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.007991495542228222,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 1054068.2045
+        }
+      },
+      "931157": {
+        "augmented_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 548,
+                "n": 640,
+                "numeric_exact": 560,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 567,
+                "unbound": 7
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 105,
+                "n": 128,
+                "numeric_exact": 107,
+                "unbound": 1
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 549,
+                "n": 640,
+                "numeric_exact": 560,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 567,
+                "unbound": 7
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 109,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 105,
+                "n": 128,
+                "numeric_exact": 107,
+                "unbound": 1
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 15.998671471141279,
+            "peak_extra_allocated_bytes": 68114944,
+            "sampled_losses": [
+              {
+                "loss": 6.480311393737793,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.642022132873535,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 1.1378023624420166,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.09738409519195557,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0030055821407586336,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 844870.1521
+        },
+        "balanced_split_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 545,
+                "n": 640,
+                "numeric_exact": 554,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 563,
+                "n": 640,
+                "numeric_exact": 572,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 112,
+                "n": 128,
+                "numeric_exact": 114,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 547,
+                "n": 640,
+                "numeric_exact": 555,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 574,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 112,
+                "n": 128,
+                "numeric_exact": 114,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 15.823878144845366,
+            "peak_extra_allocated_bytes": 67072512,
+            "sampled_losses": [
+              {
+                "loss": 6.480254173278809,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.646853446960449,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 1.1410883665084839,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.10301192849874496,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0026770669501274824,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 854202.7357
+        },
+        "eager_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 555,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 555,
+                "n": 640,
+                "numeric_exact": 562,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 104,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 569,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 555,
+                "n": 640,
+                "numeric_exact": 562,
+                "unbound": 4
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 104,
+                "n": 128,
+                "numeric_exact": 106,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 16.367403247393668,
+            "peak_extra_allocated_bytes": 85355520,
+            "sampled_losses": [
+              {
+                "loss": 6.481273651123047,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.640749931335449,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.9095029234886169,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.07542910426855087,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0027203462086617947,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 825836.5604
+        },
+        "eager_fp32": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 546,
+                "n": 640,
+                "numeric_exact": 559,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 565,
+                "n": 640,
+                "numeric_exact": 577,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 546,
+                "n": 640,
+                "numeric_exact": 559,
+                "unbound": 3
+              },
+              "48": {
+                "joint": 565,
+                "n": 640,
+                "numeric_exact": 577,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 110,
+                "unbound": 2
+              },
+              "48": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 112,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 13.828763603232801,
+            "peak_extra_allocated_bytes": 81850368,
+            "sampled_losses": [
+              {
+                "loss": 6.479803085327148,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.644957542419434,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.823655903339386,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.1086011677980423,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.002660329919308424,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 977440.962
+        }
+      },
+      "931187": {
+        "augmented_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 562,
+                "n": 640,
+                "numeric_exact": 572,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 565,
+                "n": 640,
+                "numeric_exact": 572,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 562,
+                "n": 640,
+                "numeric_exact": 572,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 572,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 107,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 1
+              },
+              "48": {
+                "joint": 108,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 14.397942449897528,
+            "peak_extra_allocated_bytes": 84142592,
+            "sampled_losses": [
+              {
+                "loss": 6.608541965484619,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.382575511932373,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7751817107200623,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.18739983439445496,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.0032220666762441397,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 938800.8076
+        },
+        "balanced_split_flash_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 552,
+                "n": 640,
+                "numeric_exact": 566,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 565,
+                "n": 640,
+                "numeric_exact": 575,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 104,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 552,
+                "n": 640,
+                "numeric_exact": 566,
+                "unbound": 5
+              },
+              "48": {
+                "joint": 565,
+                "n": 640,
+                "numeric_exact": 575,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 104,
+                "n": 128,
+                "numeric_exact": 108,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 14.465415388345718,
+            "peak_extra_allocated_bytes": 67072512,
+            "sampled_losses": [
+              {
+                "loss": 6.606304168701172,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.37792444229126,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.804488480091095,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.15308383107185364,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.004139747470617294,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 934421.8356
+        },
+        "eager_bf16": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 556,
+                "n": 640,
+                "numeric_exact": 567,
+                "unbound": 6
+              },
+              "48": {
+                "joint": 563,
+                "n": 640,
+                "numeric_exact": 571,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 557,
+                "n": 640,
+                "numeric_exact": 568,
+                "unbound": 6
+              },
+              "48": {
+                "joint": 562,
+                "n": 640,
+                "numeric_exact": 570,
+                "unbound": 3
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 103,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 109,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 14.859210426919162,
+            "peak_extra_allocated_bytes": 68233216,
+            "sampled_losses": [
+              {
+                "loss": 6.605436325073242,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.403590202331543,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7723541259765625,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.25949814915657043,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.007117722183465958,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 909658.0243
+        },
+        "eager_fp32": {
+          "common_fp32_eval": {
+            "earlier": {
+              "16": {
+                "joint": 561,
+                "n": 640,
+                "numeric_exact": 574,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 571,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              }
+            }
+          },
+          "native_eval": {
+            "earlier": {
+              "16": {
+                "joint": 561,
+                "n": 640,
+                "numeric_exact": 574,
+                "unbound": 4
+              },
+              "48": {
+                "joint": 566,
+                "n": 640,
+                "numeric_exact": 571,
+                "unbound": 2
+              }
+            },
+            "later": {
+              "16": {
+                "joint": 106,
+                "n": 128,
+                "numeric_exact": 113,
+                "unbound": 0
+              },
+              "48": {
+                "joint": 110,
+                "n": 128,
+                "numeric_exact": 111,
+                "unbound": 0
+              }
+            }
+          },
+          "training": {
+            "elapsed_seconds": 13.03970124013722,
+            "peak_extra_allocated_bytes": 80506368,
+            "sampled_losses": [
+              {
+                "loss": 6.604805946350098,
+                "step": 100,
+                "tokens": 422400
+              },
+              {
+                "loss": 4.383484840393066,
+                "step": 400,
+                "tokens": 1689600
+              },
+              {
+                "loss": 0.7933987379074097,
+                "step": 800,
+                "tokens": 3379200
+              },
+              {
+                "loss": 0.19323506951332092,
+                "step": 1600,
+                "tokens": 6758400
+              },
+              {
+                "loss": 0.006184869445860386,
+                "step": 3200,
+                "tokens": 13516800
+              }
+            ],
+            "steps": 3200,
+            "tokens": 13516800
+          },
+          "training_tokens_per_second": 1036588.1665
+        }
+      }
+    }
+  }
+}
