@@ -20,13 +20,7 @@ def fields(tokens, alias=False):
     return address, clocks, available
 
 
-def local_rank(tokens, alias=False):
-    address, clocks, available = fields(tokens, alias)
-    ordinal = torch.arange(tokens.shape[1], device=tokens.device)[None].expand(tokens.shape[0], -1)
-    order = order_positions(clocks[..., 1], ordinal, descending=True)
-    order = order_positions(clocks[..., 0], order, descending=True)
-    order = order_positions(available.long(), order, descending=True)
-    order = order_positions(address, order)
+def rank_from_order(address, clocks, order, ordinal):
     by_key = address.gather(1, order)
     cut = torch.cat((torch.ones_like(by_key[:, :1], dtype=torch.bool), by_key[:, 1:].ne(by_key[:, :-1])), dim=1)
     blocks = torch.where(cut, ordinal, 0).cummax(dim=1).values
@@ -37,7 +31,17 @@ def local_rank(tokens, alias=False):
     # The sort order is a permutation. Gathering its inverse has the same
     # result as scattering and avoids deterministic CUDA scatter in a graph.
     inverse = order.argsort(dim=1)
-    return (ties - blocks).gather(1, inverse), available
+    return (ties - blocks).gather(1, inverse)
+
+
+def local_rank(tokens, alias=False):
+    address, clocks, available = fields(tokens, alias)
+    ordinal = torch.arange(tokens.shape[1], device=tokens.device)[None].expand(tokens.shape[0], -1)
+    order = order_positions(clocks[..., 1], ordinal, descending=True)
+    order = order_positions(clocks[..., 0], order, descending=True)
+    order = order_positions(available.long(), order, descending=True)
+    order = order_positions(address, order)
+    return rank_from_order(address, clocks, order, ordinal), available
 
 
 def shuffled_ranks(ranks, available):
