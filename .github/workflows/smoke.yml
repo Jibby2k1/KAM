@@ -368,3 +368,29 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_live_initial_profile.py "$study"/profile-52955747-*.json.gz --study "$base/dense_hybrid_anchor_v1" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Refit the dynamic IIRC second-hop heads and audit held-out decisions
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/iirc_conditioned_fit_v1"
+          static="$base/iirc_pair_fit_v1"
+          reference="$base/iirc_sequential_fit_v1/summary.json"
+          export OPENBLAS_NUM_THREADS=1
+          output=$(mktemp -d)
+          python scripts/fit_kam_iirc_conditioned.py fit --static "$static/train-features.json.gz" --conditioned "$study/train-features.json.gz" --output "$output/fit.json"
+          python scripts/fit_kam_iirc_conditioned.py evaluate --static "$static/dev-features.json.gz" --conditioned "$study/dev-features.json.gz" --model "$study/fit.json" --reference "$reference" --output "$output/summary.json"
+          diff -u "$study/summary.json" "$output/summary.json"
+          python scripts/fit_kam_iirc_conditioned.py evaluate --static "$static/dev-features.json.gz" --conditioned "$study/dev-features.json.gz" --model "$output/fit.json" --reference "$reference" --output "$output/refit.json"
+          python - "$study" "$output" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          import numpy as np
+          saved, replay = map(Path, sys.argv[1:])
+          expected, actual = (json.loads((p / "fit.json").read_text()) for p in (saved, replay))
+          for arm, values in expected["models"].items():
+              np.testing.assert_allclose(actual["models"][arm]["coef"], values["coef"], rtol=2e-5, atol=2e-6)
+          expected = json.loads((saved / "summary.json").read_text())
+          refit = json.loads((replay / "refit.json").read_text())
+          for key in ("cohorts", "rows"):
+              assert expected[key] == refit[key], key
+          PY

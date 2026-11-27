@@ -91,3 +91,5 @@ With the same gold articles and frozen reader, a [question-derived IIRC answer f
 With the same supervision and fixed IIRC representations, the [matched neutral joint and conditional heads](../../reports/nonlinear_retrieval_natural/IIRC_MATCHED_SEQUENTIAL.md) recovered 66 and 62 of 153 pairs. Title-aware joint and conditional heads recovered 73 and 65. The first hop selected a gold article on 91 questions.
 
 The [live first-search benchmark](../../reports/nonlinear_retrieval_natural/LIVE_DENSE_HYBRID_TIMING.md) timed the complete expanded request on B200 at equal depth 64. Dense and hybrid medians were 83.65 and 229.05 ms, with a +142.32 ms paired hybrid overhead. All 128 archived decisions matched per arm.
+
+With IIRC first hops fixed, [second-hop query re-encoding](../../reports/nonlinear_retrieval_natural/IIRC_DYNAMIC_SECOND_HOP.md) left neutral pair recovery at 62/153 and moved title-aware recovery from 65 to 63. The extra encoding pass gave no exact-recovery gain on this cohort.
