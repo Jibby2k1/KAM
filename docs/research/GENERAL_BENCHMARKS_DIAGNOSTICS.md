@@ -218,6 +218,19 @@ At weight 0.5, dot recovered 18.68 GSM8K points relative to weight zero (95% pai
 
 At weight 0.5, dot gained 5.99 GSM8K points relative to weight zero (95% paired item interval +4.62 to +7.35), and trailed its weight-four counterpart by 17.72 points. KAM changed by 0.03 points relative to weight zero. Dot's mean validation KL fell from 0.399 to 0.094 nats per token, with a mean net gain of 79 correct answers on questions where both dot outputs contained the required marker. SmolLM2 needed the stronger measured KL setting for the larger recovery of strict GSM8K. Within each seed, both adapters used the same training GPU as their controls, B200 for the first two seeds and RTX PRO 6000 for the third. [Pilot summary](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-kl05-summary.json) · [Outcomes](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-kl05-outcomes.json.gz) · [Scheduler receipts](../../results/general_benchmarks_factorial/diagnostics/smollm2-low-rate-kl-pilot-scheduler.tsv) · [Marker partition](../../results/general_benchmarks_factorial/diagnostics/smollm2-gsm8k-reference-structure.json)
 
+### What changes from KL weight 0.5 to 4
+
+At the lower learning rate, moving to KL weight 4 changed strict GSM8K differently across the backbones. The table partitions the mean change in correct counts per seed by whether each run emitted the required marker.
+
+| Backbone and adapter | Both marked | Only weight 4 marked | Only weight 0.5 marked | Total change |
+| --- | ---: | ---: | ---: | ---: |
+| SmolLM2 KAM | +4.3 | +6.3 | −4.3 | +6.3 |
+| SmolLM2 dot | +222.7 | +18.3 | −7.3 | +233.7 |
+| Llama 3 KAM | +8.0 | +6.7 | −154.7 | −140.0 |
+| Llama 3 dot | +38.3 | +9.0 | −129.0 | −81.7 |
+
+Both Llama arms gained correct answers on items with both outputs marked. The items marked only at weight 0.5 accounted for the net loss of strict credit. SmolLM2 dot's improvement came predominantly from items with both outputs marked, even as its overall marker rate fell from 94.82% to 92.27%. The partition uses the same test questions and seeds and conditions on observed model outputs. [SmolLM2 paired counts](../../results/general_benchmarks_factorial/diagnostics/smollm2-gsm8k-reference-structure.json) · [Llama paired counts](../../results/general_benchmarks_factorial/diagnostics/llama3-gsm8k-reference-structure.json)
+
 ## Arithmetic transfer to SVAMP
 
 The frozen Llama checkpoints were evaluated on all 1,000 items from the authors' arithmetic challenge. The prompt reused the 384-token, marked-answer GSM8K protocol. The scorer compared the number after the mark to the item's exact decimal label. The test inputs were pinned by source revision and SHA-256. No exact normalized full prompt matched the separately frozen Wikipedia, Python, or arithmetic adapter training streams. [SVAMP paper](https://aclanthology.org/2021.naacl-main.168/) · [Pinned source](https://github.com/arkilpatel/SVAMP/blob/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json) · [Overlap audit](../../results/general_benchmarks_factorial/diagnostics/svamp-source-overlap.json)

@@ -63,6 +63,9 @@ def summarize(structure, primary, calibrated, pilot=None):
         if pilot:
             for arm in ARMS:
                 comparisons[f"intermediate-kl-effect:{arm}"] = (f"{LOW_RATE_KL_RECIPE}-{arm}", f"lower_lr-{arm}")
+                comparisons[f"strong-minus-intermediate-kl:{arm}"] = (
+                    f"lower_lr_kl-{arm}", f"{LOW_RATE_KL_RECIPE}-{arm}",
+                )
         summary[tag] = {
             "n": int(mask.sum()), "condition_scores": scores,
             "contrasts": {name: difference(values[a][:, mask], values[b][:, mask])
