@@ -12,6 +12,6 @@ set -euo pipefail
 module load pytorch/2.8.0
 root=$1
 shift
-export PYTHONPATH="$root/runtime:$root/repo:$root"
+export PYTHONPATH="${KAM_ROUTE_PROBE_CODE:+$KAM_ROUTE_PROBE_CODE:}$root/runtime:$root/repo:$root"
 export OMP_NUM_THREADS=4
 python "$root/probe_kam_adapter_decode.py" "$root" "$SLURM_ARRAY_TASK_ID" "$@"

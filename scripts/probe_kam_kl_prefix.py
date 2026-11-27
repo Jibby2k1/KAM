@@ -124,7 +124,7 @@ def optimizer_trace(model, stack, samples, first_layer, initial, share):
     return trace, timings
 
 
-def replay_optimizer(root, output, arm):
+def replay_optimizer(root, output, arm, steps):
     model, _ = load_registered_model(root)
     model_id, revision, _ = model_identity(root)
     layers = layers_for(model)
@@ -135,7 +135,7 @@ def replay_optimizer(root, output, arm):
     data = corpus(root, "train", manifest)
     windows = [positions.cuda() for positions in layout(data, STEPS, seed + 1)]
     offsets = torch.arange(LENGTH + 1, device="cuda")
-    samples = [batch(data, [positions[index] for positions in windows], offsets) for index in range(64)]
+    samples = [batch(data, [positions[index] for positions in windows], offsets) for index in range(steps)]
     torch.use_deterministic_algorithms(True)
     # Exclude initialization and first-kernel overhead from the timed traces.
     backward(model, stack, samples[0], 0)
@@ -143,7 +143,8 @@ def replay_optimizer(root, output, arm):
         backward(model, stack, samples[0], 0)
     plain, plain_ms = optimizer_trace(model, stack, samples, layers[0], initial, False)
     shared, shared_ms = optimizer_trace(model, stack, samples, layers[0], initial, True)
-    assert plain == shared
+    for original, optimized in zip(plain, shared, strict=True):
+        assert original == optimized, ("optimizer state diverged", original["step"])
     result = {"steps": len(plain), "model": model_id, "revision": revision, "arm": arm, "seed": seed,
               "tokens_per_batch": LENGTH * sum(BATCHES), "gpu": torch.cuda.get_device_name(),
               "deterministic": True, "plain_ms": plain_ms, "shared_ms": shared_ms,
@@ -204,6 +205,11 @@ if __name__ == "__main__":
     parser.add_argument("output", type=Path)
     parser.add_argument("--arm", choices=("kam", "dot"), required=True)
     parser.add_argument("--optimizer-replay", action="store_true")
+    parser.add_argument("--optimizer-steps", type=int, default=64)
     options = parser.parse_args()
-    measure = replay_optimizer if options.optimizer_replay else run
-    measure(options.root, options.output, options.arm)
+    if options.optimizer_replay:
+        if not 1 <= options.optimizer_steps <= STEPS:
+            parser.error(f"--optimizer-steps must be between 1 and {STEPS}")
+        replay_optimizer(options.root, options.output, options.arm, options.optimizer_steps)
+    else:
+        run(options.root, options.output, options.arm)

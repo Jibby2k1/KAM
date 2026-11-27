@@ -22,7 +22,7 @@ class RouteResult:
     num_supports: int
     diagnostics: dict[str, float] = field(default_factory=dict)
 
-    def validate(self, tokens: int | None = None, top_k: int | None = None) -> None:
+    def _validate_layout(self, tokens: int | None = None, top_k: int | None = None) -> None:
         if self.indices.ndim != 2 or self.weights.shape != self.indices.shape:
             raise ValueError("route indices and weights must both have shape [tokens, top_k]")
         if self.scores.shape != self.indices.shape:
@@ -33,6 +33,8 @@ class RouteResult:
             raise ValueError("route top_k does not match requested top_k")
         if self.indices.dtype not in (torch.int64, torch.long):
             raise ValueError("route indices must be int64")
+    def validate(self, tokens: int | None = None, top_k: int | None = None) -> None:
+        self._validate_layout(tokens, top_k)
         if self.indices.numel() and (self.indices.min() < 0 or self.indices.max() >= self.num_supports):
             raise ValueError("route indices contain an invalid support")
 

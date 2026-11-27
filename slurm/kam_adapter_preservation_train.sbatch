@@ -13,6 +13,7 @@ module load pytorch/2.8.0
 root=$1
 mode=()
 if [[ ${KAM_FACTORIAL:-0} == 1 ]]; then mode+=(--factorial); fi
+if [[ ${KAM_LOW_RATE_KL_PILOT:-0} == 1 ]]; then mode+=(--low-rate-kl-pilot); fi
 export PYTHONPATH="$root/runtime:$root/repo"
 export OMP_NUM_THREADS=4
 cd "$root"

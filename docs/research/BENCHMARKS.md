@@ -59,7 +59,17 @@ The three seeds and five benchmarks were held fixed across all conditions within
 | MMLU | 61.19% | 60.42% / 60.03% | 61.24% / 61.09% | 61.25% / 59.83% | 61.31% / 61.15% |
 | GSM8K | 62.55% | 48.98% / 57.47% | 64.42% / 63.08% | 74.35% / 52.82% | 62.75% / 65.30% |
 
-[Factorial report, interactions, and reproducibility records](GENERAL_BENCHMARKS_FACTORIAL.md)
+[Factorial report, interactions, and reproducibility records](GENERAL_BENCHMARKS_FACTORIAL.md) · [Intermediate KL pilot at the lower learning rate](GENERAL_BENCHMARKS_DIAGNOSTICS.md#intermediate-kl-at-the-lower-learning-rate)
+
+### Independent arithmetic transfer
+
+The frozen low-rate Llama checkpoints and their untouched reference were evaluated on all 1,000 SVAMP problems. Scores use strict marked numeric exact match. Adapter cells average the same three seeds.
+
+| Untouched | KL weight 0, KAM / dot | KL weight 0.5, KAM / dot |
+| ---: | ---: | ---: |
+| 80.90% | 80.57% / 62.93% | 80.00% / 77.43% |
+
+[Transfer protocol, operator breakdown, and quantity contrasts](GENERAL_BENCHMARKS_DIAGNOSTICS.md#arithmetic-transfer-to-svamp)
 
 ### Held-out next-token perplexity
 

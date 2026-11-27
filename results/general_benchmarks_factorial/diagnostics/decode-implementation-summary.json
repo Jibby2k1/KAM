@@ -1,0 +1,726 @@
+{
+  "llama3": {
+    "2048x1": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 2129920,
+          "backbone_cache_bytes": 272629760,
+          "decode_ms": 436.42019899562,
+          "peak_extra_bytes": 518373376,
+          "prefill_ms": 98.86966180056334,
+          "request_ms": 535.2812772616744
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 2129920,
+          "backbone_cache_bytes": 272629760,
+          "decode_ms": 438.8975379988551,
+          "peak_extra_bytes": 516014080,
+          "prefill_ms": 98.94220996648073,
+          "request_ms": 537.8397479653358
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 272629760,
+          "decode_ms": 451.93039579316974,
+          "peak_extra_bytes": 515915776,
+          "prefill_ms": 98.9760011434555,
+          "request_ms": 551.0284197516739
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 272629760,
+          "decode_ms": 428.0821578577161,
+          "peak_extra_bytes": 515915776,
+          "prefill_ms": 98.66175940260291,
+          "request_ms": 526.8099871464074
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 272629760,
+          "decode_ms": 422.0799063332379,
+          "peak_extra_bytes": 512770048,
+          "prefill_ms": 97.98084618523717,
+          "request_ms": 520.1133508235216
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        },
+        "kam_shape_check": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -0.4779675307811537,
+        "kam_shape_check": 4.395133125108286
+      }
+    },
+    "2048x8": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 17039360,
+          "backbone_cache_bytes": 2181038080,
+          "decode_ms": 570.3468229621649,
+          "peak_extra_bytes": 4124278784,
+          "prefill_ms": 818.8256546854973,
+          "request_ms": 1389.1186267137527
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 17039360,
+          "backbone_cache_bytes": 2181038080,
+          "decode_ms": 571.2975654751062,
+          "peak_extra_bytes": 4105404416,
+          "prefill_ms": 819.0324436873198,
+          "request_ms": 1390.305383130908
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 2181038080,
+          "decode_ms": 574.0707609802485,
+          "peak_extra_bytes": 4105306112,
+          "prefill_ms": 817.5998385995626,
+          "request_ms": 1391.8180000036955
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 2181038080,
+          "decode_ms": 559.0539760887623,
+          "peak_extra_bytes": 4105306112,
+          "prefill_ms": 817.5955004990101,
+          "request_ms": 1376.6494765877724
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 2181038080,
+          "decode_ms": 552.4855051189661,
+          "peak_extra_bytes": 4102160384,
+          "prefill_ms": 810.3160057216883,
+          "request_ms": 1362.8878705203533
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        },
+        "kam_shape_check": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -0.0854323305679694,
+        "kam_shape_check": 1.0898352669589606
+      }
+    },
+    "256x1": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 294912,
+          "backbone_cache_bytes": 37748736,
+          "decode_ms": 419.8394510895014,
+          "peak_extra_bytes": 67635200,
+          "prefill_ms": 21.65571227669716,
+          "request_ms": 441.4595291018486
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 294912,
+          "backbone_cache_bytes": 37748736,
+          "decode_ms": 420.57950608432293,
+          "peak_extra_bytes": 67340288,
+          "prefill_ms": 21.664956584572792,
+          "request_ms": 442.24728271365166
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 37748736,
+          "decode_ms": 438.2125325500965,
+          "peak_extra_bytes": 67241984,
+          "prefill_ms": 22.09998108446598,
+          "request_ms": 460.3805784136057
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 37748736,
+          "decode_ms": 419.37060095369816,
+          "peak_extra_bytes": 67241984,
+          "prefill_ms": 21.62002958357334,
+          "request_ms": 440.9565757960081
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 37748736,
+          "decode_ms": 414.1098763793707,
+          "peak_extra_bytes": 64096256,
+          "prefill_ms": 21.34951390326023,
+          "request_ms": 435.42175740003586
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        },
+        "kam_shape_check": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -0.17844299644085293,
+        "kam_shape_check": 4.21911860064329
+      }
+    },
+    "256x8": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 2359296,
+          "backbone_cache_bytes": 301989888,
+          "decode_ms": 478.5692300647497,
+          "peak_extra_bytes": 518373376,
+          "prefill_ms": 103.55571284890175,
+          "request_ms": 582.2943076491356
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 2359296,
+          "backbone_cache_bytes": 301989888,
+          "decode_ms": 478.0329708009958,
+          "peak_extra_bytes": 516014080,
+          "prefill_ms": 102.5603711605072,
+          "request_ms": 580.6877464056015
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 301989888,
+          "decode_ms": 493.0680450052023,
+          "peak_extra_bytes": 515915776,
+          "prefill_ms": 102.86463983356953,
+          "request_ms": 595.9395635873079
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 301989888,
+          "decode_ms": 476.8568370491266,
+          "peak_extra_bytes": 515915776,
+          "prefill_ms": 102.57425345480442,
+          "request_ms": 579.4812776148319
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 301989888,
+          "decode_ms": 469.7787184268236,
+          "peak_extra_bytes": 512770048,
+          "prefill_ms": 101.88844986259937,
+          "request_ms": 571.667168289423
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        },
+        "kam_shape_check": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": 0.27590193179461986,
+        "kam_shape_check": 2.7617374274337414
+      }
+    },
+    "4096x1": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 4227072,
+          "backbone_cache_bytes": 541065216,
+          "decode_ms": 462.84011472016573,
+          "peak_extra_bytes": 1034420224,
+          "prefill_ms": 197.56617862731218,
+          "request_ms": 660.3889968246222
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 4227072,
+          "backbone_cache_bytes": 541065216,
+          "decode_ms": 467.3658097162843,
+          "peak_extra_bytes": 1028784128,
+          "prefill_ms": 197.60920200496912,
+          "request_ms": 664.8985678330064
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 541065216,
+          "decode_ms": 457.4028057977557,
+          "peak_extra_bytes": 1028685824,
+          "prefill_ms": 196.809446439147,
+          "request_ms": 654.1659021750093
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 541065216,
+          "decode_ms": 442.53856781870127,
+          "peak_extra_bytes": 1028685824,
+          "prefill_ms": 196.55325077474117,
+          "request_ms": 639.0570569783449
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 541065216,
+          "decode_ms": 436.49307172745466,
+          "peak_extra_bytes": 1025540096,
+          "prefill_ms": 195.25510258972645,
+          "request_ms": 631.7320996895432
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        },
+        "kam_shape_check": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -0.6828658608892368,
+        "kam_shape_check": 2.309635085905515
+      }
+    },
+    "4096x8": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 33816576,
+          "backbone_cache_bytes": 4328521728,
+          "decode_ms": 708.7770123034716,
+          "peak_extra_bytes": 8245313536,
+          "prefill_ms": 1699.8273134231567,
+          "request_ms": 2408.624842762947
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 33816576,
+          "backbone_cache_bytes": 4328521728,
+          "decode_ms": 710.3785071521997,
+          "peak_extra_bytes": 8207564800,
+          "prefill_ms": 1697.271540760994,
+          "request_ms": 2407.73287974298
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 4328521728,
+          "decode_ms": 699.6555905789137,
+          "peak_extra_bytes": 8207466496,
+          "prefill_ms": 1693.2834591716528,
+          "request_ms": 2392.83487200737
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 4328521728,
+          "decode_ms": 685.081223025918,
+          "peak_extra_bytes": 8207466496,
+          "prefill_ms": 1695.1825004070997,
+          "request_ms": 2380.2513144910336
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 4328521728,
+          "decode_ms": 678.9967976510525,
+          "peak_extra_bytes": 8204320768,
+          "prefill_ms": 1678.318791091442,
+          "request_ms": 2357.3155887424946
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        },
+        "kam_shape_check": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": 0.037032044348750404,
+        "kam_shape_check": 0.525884910135066
+      }
+    }
+  },
+  "smollm2": {
+    "2048x1": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 2129920,
+          "backbone_cache_bytes": 408944640,
+          "decode_ms": 187.9384145140648,
+          "peak_extra_bytes": 541442048,
+          "prefill_ms": 32.70122967660427,
+          "request_ms": 220.65219283103943
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 2129920,
+          "backbone_cache_bytes": 408944640,
+          "decode_ms": 190.4642190784216,
+          "peak_extra_bytes": 539082752,
+          "prefill_ms": 32.729532569646835,
+          "request_ms": 223.16382452845573
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 408944640,
+          "decode_ms": 193.44533793628216,
+          "peak_extra_bytes": 538984448,
+          "prefill_ms": 32.72182121872902,
+          "request_ms": 226.1966336518526
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 408944640,
+          "decode_ms": 184.96421724557877,
+          "peak_extra_bytes": 538984448,
+          "prefill_ms": 32.34986029565334,
+          "request_ms": 217.31720305979252
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 408944640,
+          "decode_ms": 169.04719360172749,
+          "peak_extra_bytes": 537411584,
+          "prefill_ms": 31.92274086177349,
+          "request_ms": 200.98222233355045
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        },
+        "kam_shape_check": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -1.1382763367049575,
+        "kam_shape_check": 3.925536135841323
+      }
+    },
+    "2048x8": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 17039360,
+          "backbone_cache_bytes": 3271557120,
+          "decode_ms": 389.10104148089886,
+          "peak_extra_bytes": 4319838208,
+          "prefill_ms": 247.41637520492077,
+          "request_ms": 636.5174166858196
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 17039360,
+          "backbone_cache_bytes": 3271557120,
+          "decode_ms": 390.11844620108604,
+          "peak_extra_bytes": 4300963840,
+          "prefill_ms": 247.88549169898033,
+          "request_ms": 638.6332660913467
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 3271557120,
+          "decode_ms": 391.35598205029964,
+          "peak_extra_bytes": 4300865536,
+          "prefill_ms": 246.72258831560612,
+          "request_ms": 638.0785703659058
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 3271557120,
+          "decode_ms": 375.97297690808773,
+          "peak_extra_bytes": 4300865536,
+          "prefill_ms": 246.69753946363926,
+          "request_ms": 622.7477826178074
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 3271557120,
+          "decode_ms": 368.74003894627094,
+          "peak_extra_bytes": 4299292672,
+          "prefill_ms": 242.54021048545837,
+          "request_ms": 611.2802494317293
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        },
+        "kam_shape_check": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -0.33241029232848884,
+        "kam_shape_check": 2.402648899383497
+      }
+    },
+    "256x1": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 294912,
+          "backbone_cache_bytes": 56623104,
+          "decode_ms": 190.14905393123627,
+          "peak_extra_bytes": 71360000,
+          "prefill_ms": 7.925895974040031,
+          "request_ms": 198.04674200713634
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 294912,
+          "backbone_cache_bytes": 56623104,
+          "decode_ms": 190.31712785363197,
+          "peak_extra_bytes": 71093760,
+          "prefill_ms": 7.942011579871178,
+          "request_ms": 198.26491177082062
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 56623104,
+          "decode_ms": 193.33059899508953,
+          "peak_extra_bytes": 70995456,
+          "prefill_ms": 8.355049416422844,
+          "request_ms": 201.71501114964485
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 56623104,
+          "decode_ms": 185.8343370258808,
+          "peak_extra_bytes": 70995456,
+          "prefill_ms": 7.896708324551582,
+          "request_ms": 193.74167546629906
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 56623104,
+          "decode_ms": 166.4018016308546,
+          "peak_extra_bytes": 69422592,
+          "prefill_ms": 7.663898169994354,
+          "request_ms": 174.0664765238762
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        },
+        "kam_shape_check": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -0.11016074360687966,
+        "kam_shape_check": 3.9527725962995808
+      }
+    },
+    "256x8": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 2359296,
+          "backbone_cache_bytes": 452984832,
+          "decode_ms": 221.36343084275723,
+          "peak_extra_bytes": 541442048,
+          "prefill_ms": 31.27962537109852,
+          "request_ms": 252.6440266519785
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 2359296,
+          "backbone_cache_bytes": 452984832,
+          "decode_ms": 221.32326010614634,
+          "peak_extra_bytes": 539082752,
+          "prefill_ms": 31.301487237215042,
+          "request_ms": 252.62457691133022
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 452984832,
+          "decode_ms": 233.5482407361269,
+          "peak_extra_bytes": 538984448,
+          "prefill_ms": 31.633448787033558,
+          "request_ms": 265.18168952316046
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 452984832,
+          "decode_ms": 219.61793769150972,
+          "peak_extra_bytes": 538984448,
+          "prefill_ms": 31.329099088907242,
+          "request_ms": 250.94605423510075
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 452984832,
+          "decode_ms": 212.24479470402002,
+          "peak_extra_bytes": 537411584,
+          "prefill_ms": 30.871087685227394,
+          "request_ms": 243.1084718555212
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        },
+        "kam_shape_check": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": 0.0076984763526799505,
+        "kam_shape_check": 5.368257255490638
+      }
+    },
+    "4096x1": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 4227072,
+          "backbone_cache_bytes": 811597824,
+          "decode_ms": 213.6736512184143,
+          "peak_extra_bytes": 1082785792,
+          "prefill_ms": 64.81965258717537,
+          "request_ms": 278.4011270850897
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 4227072,
+          "backbone_cache_bytes": 811597824,
+          "decode_ms": 217.78125502169132,
+          "peak_extra_bytes": 1076494336,
+          "prefill_ms": 64.97533433139324,
+          "request_ms": 282.75658935308456
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 811597824,
+          "decode_ms": 207.02545158565044,
+          "peak_extra_bytes": 1076396032,
+          "prefill_ms": 64.10058587789536,
+          "request_ms": 271.3259570300579
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 811597824,
+          "decode_ms": 191.12957082688808,
+          "peak_extra_bytes": 1076396032,
+          "prefill_ms": 63.73044103384018,
+          "request_ms": 255.3140502423048
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 811597824,
+          "decode_ms": 185.37509813904762,
+          "peak_extra_bytes": 1074823168,
+          "prefill_ms": 63.03888559341431,
+          "request_ms": 248.47986362874508
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        },
+        "kam_shape_check": {
+          "greedy_matches": 33,
+          "max_abs_logit_difference": 0.0,
+          "positions": 33
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -1.5644556879482963,
+        "kam_shape_check": 5.901354578463458
+      }
+    },
+    "4096x8": {
+      "medians": {
+        "dot": {
+          "adapter_cache_bytes": 33816576,
+          "backbone_cache_bytes": 6492782592,
+          "decode_ms": 622.1988890320063,
+          "peak_extra_bytes": 8638005248,
+          "prefill_ms": 513.090468943119,
+          "request_ms": 1135.0567415356636
+        },
+        "dot_static": {
+          "adapter_cache_bytes": 33816576,
+          "backbone_cache_bytes": 6492782592,
+          "decode_ms": 623.456422239542,
+          "peak_extra_bytes": 8600256512,
+          "prefill_ms": 513.197110965848,
+          "request_ms": 1136.6376783698797
+        },
+        "kam": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 6492782592,
+          "decode_ms": 613.2327932864428,
+          "peak_extra_bytes": 8600158208,
+          "prefill_ms": 508.4280166774988,
+          "request_ms": 1121.6580849140882
+        },
+        "kam_shape_check": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 6492782592,
+          "decode_ms": 597.9584958404303,
+          "peak_extra_bytes": 8600158208,
+          "prefill_ms": 508.1738978624344,
+          "request_ms": 1106.1150580644608
+        },
+        "pretrained": {
+          "adapter_cache_bytes": 0,
+          "backbone_cache_bytes": 6492782592,
+          "decode_ms": 591.2327263504267,
+          "peak_extra_bytes": 8598585344,
+          "prefill_ms": 498.8974742591381,
+          "request_ms": 1090.2321320027113
+        }
+      },
+      "parity": {
+        "dot_static": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        },
+        "kam_shape_check": {
+          "greedy_matches": 264,
+          "max_abs_logit_difference": 0.0,
+          "positions": 264
+        }
+      },
+      "percent_time_saved": {
+        "dot_static": -0.1392826258251434,
+        "kam_shape_check": 1.3857187906614166
+      }
+    }
+  }
+}

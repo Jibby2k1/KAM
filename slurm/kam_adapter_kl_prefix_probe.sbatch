@@ -23,7 +23,7 @@ case "$kind" in
     python "$root/probe_kam_kl_prefix.py" "$root" "$root/kl-prefix${gpu_suffix}-$arm.json" --arm "$arm"
     ;;
   optimizer)
-    python "$root/probe_kam_kl_prefix.py" "$root" "$root/kl-prefix-optimizer${gpu_suffix}-$arm.json" --arm "$arm" --optimizer-replay
+    python "$root/probe_kam_kl_prefix.py" "$root" "$root/kl-prefix-optimizer${gpu_suffix}-$arm.json" --arm "$arm" --optimizer-replay --optimizer-steps "${4:-64}"
     ;;
   *) exit 2 ;;
 esac

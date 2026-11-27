@@ -9,6 +9,7 @@ from pathlib import Path
 import torch
 
 from eval_kam_pretrained import next_logits
+from kam.memory.routers import ExactTopKRouter
 from kam_adapter_preservation import ARMS, digest, key, layers_for, load_registered_model, model_identity
 from kam_pretrained_adapters import WIDTH, AdapterStack
 from train_kam_adapter_preservation import corpus
@@ -67,14 +68,19 @@ def append_static_cache(module, slots, capacity, keys, values):
     return old, *module.cache
 
 
-def profile(root, index, include_static):
+def profile(root, index, include_static, include_shape_check):
     length, batch_size = SHAPES[index]
     model, _ = load_registered_model(root)
     model_id, revision, _ = model_identity(root)
     ident = 731221
     layers = layers_for(model)
-    arms = (*ARM_ORDER, "dot_static") if include_static else ARM_ORDER
-    stacks = {arm: AdapterStack(model, arm.removesuffix("_static"), seed=ident, layers=layers)
+    variants = {}
+    if include_static:
+        variants["dot_static"] = "dot"
+    if include_shape_check:
+        variants["kam_shape_check"] = "kam"
+    arms = (*ARM_ORDER, *variants)
+    stacks = {arm: AdapterStack(model, variants.get(arm, arm), seed=ident, layers=layers)
               for arm in arms}
     weights = {}
     for arm in ARMS:
@@ -86,15 +92,22 @@ def profile(root, index, include_static):
         stacks[arm].modules.load_state_dict(data["adapter"])
         stacks[arm].modules.eval()
         weights[arm] = digest(path)
-        if include_static and arm == "dot":
-            stacks["dot_static"].modules.load_state_dict(data["adapter"])
-            stacks["dot_static"].modules.eval()
+        for variant, origin in variants.items():
+            if origin == arm:
+                stacks[variant].modules.load_state_dict(data["adapter"])
+                stacks[variant].modules.eval()
     file = root / "token-manifest.json"
     tokens = corpus(root, "validation", json.loads(file.read_text()))[0]
     total = length + DECODE_TOKENS
     if include_static:
         for module in stacks["dot_static"].modules:
             module.append_dot_cache = partial(append_static_cache, module, [None, None], total)
+    if include_shape_check:
+        for module in stacks["kam_shape_check"].modules:
+            original = module.router
+            assert original.tie_breaking == "legacy"
+            module.router = ExactTopKRouter(original.top_k, original.metric, original.temperature,
+                                            validate_generated_indices=False)
     rng = torch.Generator().manual_seed(84671)
     offsets = torch.randint(0, len(tokens) - max(x[0] for x in SHAPES) - DECODE_TOKENS,
                             (batch_size,), generator=rng).cuda()
@@ -119,24 +132,24 @@ def profile(root, index, include_static):
             if trial >= 2:
                 scores[arm].append(row)
     assert len({row["backbone_cache_bytes"] for rows in scores.values() for row in rows}) == 1
-    parity = None
-    if include_static:
+    parity = {}
+    for variant, origin in variants.items():
         baseline, candidate = [], []
-        for arm, trace in zip(("dot", "dot_static"), (baseline, candidate), strict=True):
+        for arm, trace in zip((origin, variant), (baseline, candidate), strict=True):
             activate(arm)
             request(model, stacks[arm], prompt, continuation, masks, trace)
         pairs = list(zip(baseline, candidate, strict=True))
-        parity = {"positions": len(pairs) * batch_size,
-                  "greedy_matches": sum(int((a.argmax(-1) == b.argmax(-1)).sum()) for a, b in pairs),
-                  "max_abs_logit_difference": max(float((a-b).abs().max()) for a, b in pairs)}
+        parity[variant] = {"positions": len(pairs) * batch_size,
+                           "greedy_matches": sum(int((a.argmax(-1) == b.argmax(-1)).sum()) for a, b in pairs),
+                           "max_abs_logit_difference": max(float((a-b).abs().max()) for a, b in pairs)}
     payload = {
         "model": model_id, "revision": revision, "seed": ident, "length": length,
         "batch": batch_size, "decode_tokens": DECODE_TOKENS,
         "gpu": torch.cuda.get_device_name(), "torch": str(torch.__version__),
         "model_fingerprints": (root / "model-sha256.txt").read_text(), "adapter_sha256": weights,
-        "token_manifest_sha256": digest(file), "requests": scores, "static_dot_parity": parity,
+        "token_manifest_sha256": digest(file), "requests": scores, "implementation_parity": parity,
     }
-    mode = "static-" if include_static else ""
+    mode = "route-check-" if include_shape_check else ("static-" if include_static else "")
     output = root / f"decode-profile-{mode}{length}-{batch_size}.json"
     temp = output.with_suffix(".tmp")
     temp.write_text(json.dumps(payload, indent=2) + "\n")
@@ -149,5 +162,6 @@ if __name__ == "__main__":
     parser.add_argument("root", type=Path)
     parser.add_argument("index", type=int, choices=range(len(SHAPES)))
     parser.add_argument("--static-dot", action="store_true")
+    parser.add_argument("--compare-range-check", action="store_true")
     args = parser.parse_args()
-    profile(args.root, args.index, args.static_dot)
+    profile(args.root, args.index, args.static_dot, args.compare_range_check)

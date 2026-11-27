@@ -1,0 +1,400 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+  "revision": "31b70e2e869a7173562077fd711b654946d38674",
+  "seed": 731221,
+  "length": 4096,
+  "batch": 8,
+  "decode_tokens": 32,
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "torch": "2.8.0+cu128",
+  "model_fingerprints": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea  config.json\n9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c  tokenizer.json\nf55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8  model.safetensors\n",
+  "adapter_sha256": {
+    "kam": "c20fa666226eb9a020632449bb0162b27b43d39252e57b115c8a00fed5e798b1",
+    "dot": "7bb00582d47f32f0e1d704c1d0e82d7d94a0b595e2cbdeb6a8731dc842bf714b"
+  },
+  "token_manifest_sha256": "d67fff932816a3af94e238c425238f5d3d5dc7a322632dfcea16e7aebc93118f",
+  "requests": {
+    "pretrained": [
+      {
+        "prefill_ms": 498.1436072848737,
+        "decode_ms": 598.3213097788393,
+        "request_ms": 1096.464917063713,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 498.5579140484333,
+        "decode_ms": 596.5195130556822,
+        "request_ms": 1095.0774271041155,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 496.75995390862226,
+        "decode_ms": 592.6555809564888,
+        "request_ms": 1089.415534865111,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 496.9770680181682,
+        "decode_ms": 594.5348730310798,
+        "request_ms": 1091.511941049248,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 496.72551173716784,
+        "decode_ms": 591.1158658564091,
+        "request_ms": 1087.841377593577,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 496.90156476572156,
+        "decode_ms": 593.8666169531643,
+        "request_ms": 1090.768181718886,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 497.06366704776883,
+        "decode_ms": 593.686749227345,
+        "request_ms": 1090.7504162751138,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 497.03984102234244,
+        "decode_ms": 593.9386747777462,
+        "request_ms": 1090.9785158000886,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 496.8212451785803,
+        "decode_ms": 590.9606036730111,
+        "request_ms": 1087.7818488515913,
+        "peak_extra_bytes": 8598585344,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      }
+    ],
+    "kam": [
+      {
+        "prefill_ms": 507.4719567783177,
+        "decode_ms": 633.97725392133,
+        "request_ms": 1141.4492106996477,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 507.40210292860866,
+        "decode_ms": 616.4067159406841,
+        "request_ms": 1123.8088188692927,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.3426229171455,
+        "decode_ms": 616.1078200675547,
+        "request_ms": 1122.4504429847002,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.5939980559051,
+        "decode_ms": 628.6122151650488,
+        "request_ms": 1135.206213220954,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.82912673801184,
+        "decode_ms": 629.0089269168675,
+        "request_ms": 1135.8380536548793,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.8110008724034,
+        "decode_ms": 626.0437150485814,
+        "request_ms": 1132.8547159209847,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.84332894161344,
+        "decode_ms": 627.2550518624485,
+        "request_ms": 1134.098380804062,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.6563398577273,
+        "decode_ms": 614.3968189135194,
+        "request_ms": 1121.0531587712467,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.29884703084826,
+        "decode_ms": 613.0531458184123,
+        "request_ms": 1119.3519928492606,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      }
+    ],
+    "dot": [
+      {
+        "prefill_ms": 512.5470329076052,
+        "decode_ms": 630.487821996212,
+        "request_ms": 1143.0348549038172,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 511.3932127133012,
+        "decode_ms": 623.824056237936,
+        "request_ms": 1135.2172689512372,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.9501928091049,
+        "decode_ms": 626.5025888569653,
+        "request_ms": 1137.4527816660702,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 511.07418769970536,
+        "decode_ms": 624.5728018693626,
+        "request_ms": 1135.646989569068,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.875160805881,
+        "decode_ms": 624.6783388778567,
+        "request_ms": 1135.5534996837378,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.54870523512363,
+        "decode_ms": 621.8034122139215,
+        "request_ms": 1132.3521174490452,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.921198874712,
+        "decode_ms": 624.6905880980194,
+        "request_ms": 1135.6117869727314,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.69368002936244,
+        "decode_ms": 621.7570938169956,
+        "request_ms": 1132.450773846358,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.598317719996,
+        "decode_ms": 622.2181911580265,
+        "request_ms": 1132.8165088780224,
+        "peak_extra_bytes": 8638005248,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      }
+    ],
+    "dot_static": [
+      {
+        "prefill_ms": 511.8607501499355,
+        "decode_ms": 631.9121662527323,
+        "request_ms": 1143.7729164026678,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 512.232574634254,
+        "decode_ms": 630.601451266557,
+        "request_ms": 1142.834025900811,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 511.14081824198365,
+        "decode_ms": 626.3057049363852,
+        "request_ms": 1137.4465231783688,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.96435356885195,
+        "decode_ms": 625.9522694163024,
+        "request_ms": 1136.9166229851544,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.8721060678363,
+        "decode_ms": 623.6838973127306,
+        "request_ms": 1134.5560033805668,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.64703054726124,
+        "decode_ms": 623.346553184092,
+        "request_ms": 1133.9935837313533,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 511.00181974470615,
+        "decode_ms": 625.8183191530406,
+        "request_ms": 1136.8201388977468,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 510.6325591914356,
+        "decode_ms": 623.3601938001812,
+        "request_ms": 1133.9927529916167,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      },
+      {
+        "prefill_ms": 511.01384684443474,
+        "decode_ms": 625.7611638866365,
+        "request_ms": 1136.7750107310712,
+        "peak_extra_bytes": 8600256512,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 33816576
+      }
+    ],
+    "kam_shape_check": [
+      {
+        "prefill_ms": 507.50108901411295,
+        "decode_ms": 605.6346651166677,
+        "request_ms": 1113.1357541307807,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 507.50081008300185,
+        "decode_ms": 604.9671988002956,
+        "request_ms": 1112.4680088832974,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 507.0034880191088,
+        "decode_ms": 599.5300719514489,
+        "request_ms": 1106.5335599705577,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.2960428185761,
+        "decode_ms": 601.2248592451215,
+        "request_ms": 1107.5209020636976,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.1221527867019,
+        "decode_ms": 598.1080620549619,
+        "request_ms": 1104.2302148416638,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.0503170825541,
+        "decode_ms": 598.1025830842555,
+        "request_ms": 1104.1529001668096,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.45809434354305,
+        "decode_ms": 600.7729046978056,
+        "request_ms": 1107.2309990413487,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.55480893328786,
+        "decode_ms": 600.8624378591776,
+        "request_ms": 1107.4172467924654,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      },
+      {
+        "prefill_ms": 506.44231121987104,
+        "decode_ms": 600.834536831826,
+        "request_ms": 1107.276848051697,
+        "peak_extra_bytes": 8600158208,
+        "backbone_cache_bytes": 6492782592,
+        "adapter_cache_bytes": 0
+      }
+    ]
+  },
+  "implementation_parity": {
+    "dot_static": {
+      "positions": 264,
+      "greedy_matches": 264,
+      "max_abs_logit_difference": 0.0
+    },
+    "kam_shape_check": {
+      "positions": 264,
+      "greedy_matches": 264,
+      "max_abs_logit_difference": 0.0
+    }
+  }
+}

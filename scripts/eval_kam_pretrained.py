@@ -70,12 +70,13 @@ def cache_check(model, stack, tokenizer):
             "same_argmax": int((full.argmax(-1) == last.argmax(-1)).sum()), "cases": len(rows)}
 
 
-def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=None):
+def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=None, numeric_stop_pattern=None):
     x, mask = pad(rows, tokenizer.pad_token_id)
     outputs = [[] for _ in rows]
     done = [False] * len(rows)
     limit = LIMIT[task] if max_new_tokens is None else max_new_tokens
     finished = ["budget"] * len(rows) if trace is not None else None
+    number_stop = numeric_stop_pattern or re.compile(r"####\s*-?\d[\d,.]*\s*\n")
     stop = model.generation_config.eos_token_id
     stop = {stop} if isinstance(stop, int) else set(stop)
     stack.reset()
@@ -96,7 +97,7 @@ def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=
                 if not done[j]:
                     decoded = tokenizer.decode(out, skip_special_tokens=True)
                     if task == "gsm8k":
-                        done[j] = bool(re.search(r"####\s*-?\d[\d,.]*\s*\n", decoded))
+                        done[j] = bool(number_stop.search(decoded))
                     else:
                         done[j] = decoded.count("```") >= 2
                     if done[j] and finished is not None:

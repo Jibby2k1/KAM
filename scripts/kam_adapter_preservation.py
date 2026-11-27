@@ -21,6 +21,9 @@ PROTOCOL = "smollm2-preservation-v1"
 FACTORIAL_RECIPES = {**RECIPES, "high_lr_kl": (8e-4, 4.0)}
 FACTORIAL_TRAIN_RUNS = (*TRAIN_RUNS, *((seed, "high_lr_kl", arm) for seed in SEEDS for arm in ARMS))
 FACTORIAL_RUNS = (*FACTORIAL_TRAIN_RUNS, RUNS[-1])
+LOW_RATE_KL_RECIPE = "lower_lr_kl05"
+LOW_RATE_KL_RUNS = tuple((seed, LOW_RATE_KL_RECIPE, arm) for seed in SEEDS for arm in ARMS)
+TRAINING_RECIPES = {**FACTORIAL_RECIPES, LOW_RATE_KL_RECIPE: (8e-5, .5)}
 
 
 def key(seed, recipe, arm):
@@ -70,7 +73,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("index", type=int)
     parser.add_argument("--train", action="store_true")
-    parser.add_argument("--factorial", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--factorial", action="store_true")
+    mode.add_argument("--low-rate-kl-pilot", action="store_true")
     args = parser.parse_args()
-    fit, evaluation = (FACTORIAL_TRAIN_RUNS, FACTORIAL_RUNS) if args.factorial else (TRAIN_RUNS, RUNS)
+    if args.low_rate_kl_pilot:
+        fit, evaluation = LOW_RATE_KL_RUNS, LOW_RATE_KL_RUNS
+    elif args.factorial:
+        fit, evaluation = FACTORIAL_TRAIN_RUNS, FACTORIAL_RUNS
+    else:
+        fit, evaluation = TRAIN_RUNS, RUNS
     print(*(fit if args.train else evaluation)[args.index])

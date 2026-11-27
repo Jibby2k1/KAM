@@ -29,7 +29,9 @@ def pairwise_scores(query: Tensor, keys: Tensor, metric: Metric = "dot") -> Tens
     raise ValueError(f"unknown routing metric: {metric}")
 
 
-def _make_route(scores: Tensor, top_k: int, temperature: float, num_supports: int) -> RouteResult:
+def _make_route(
+    scores: Tensor, top_k: int, temperature: float, num_supports: int, *, check_index_range: bool = True
+) -> RouteResult:
     if scores.ndim != 2:
         raise ValueError("scores must have shape [tokens, supports]")
     k = min(int(top_k), scores.shape[-1])
@@ -38,7 +40,13 @@ def _make_route(scores: Tensor, top_k: int, temperature: float, num_supports: in
     values, indices = torch.topk(scores, k=k, dim=-1)
     weights = torch.softmax(values / max(float(temperature), 1e-8), dim=-1)
     route = RouteResult(indices=indices.long(), weights=weights, scores=values, num_supports=num_supports)
-    route.validate(tokens=scores.shape[0], top_k=k)
+    if check_index_range:
+        route.validate(tokens=scores.shape[0], top_k=k)
+    else:
+        # topk generates indices bounded by the scored width on every device.
+        if scores.shape[-1] > num_supports:
+            raise ValueError("Top-k input width exceeds the number of supports")
+        route._validate_layout(tokens=scores.shape[0], top_k=k)
     return route
 
 
@@ -80,7 +88,15 @@ def _make_support_id_route(
 
 
 class ExactTopKRouter(nn.Module):
-    def __init__(self, top_k: int = 4, metric: Metric = "dot", temperature: float = 1.0, tie_breaking: str = "legacy") -> None:
+    def __init__(
+        self,
+        top_k: int = 4,
+        metric: Metric = "dot",
+        temperature: float = 1.0,
+        tie_breaking: str = "legacy",
+        *,
+        validate_generated_indices: bool = True,
+    ) -> None:
         super().__init__()
         if tie_breaking not in {"legacy", "support_id"}:
             raise ValueError("tie_breaking must be legacy or support_id")
@@ -88,6 +104,7 @@ class ExactTopKRouter(nn.Module):
         self.metric = metric
         self.temperature = temperature
         self.tie_breaking = tie_breaking
+        self.validate_generated_indices = validate_generated_indices
 
     def forward(self, query: Tensor, keys: Tensor, support_ids: Tensor | None = None) -> RouteResult:
         scores = pairwise_scores(query, keys, self.metric)
@@ -95,7 +112,10 @@ class ExactTopKRouter(nn.Module):
             if support_ids is None:
                 raise ValueError("support_ids are required for support_id tie breaking")
             return _make_support_id_route(scores, support_ids, self.top_k, self.temperature, keys.shape[0])
-        return _make_route(scores, self.top_k, self.temperature, keys.shape[0])
+        return _make_route(
+            scores, self.top_k, self.temperature, keys.shape[0],
+            check_index_range=self.validate_generated_indices,
+        )
 
     route = forward
 

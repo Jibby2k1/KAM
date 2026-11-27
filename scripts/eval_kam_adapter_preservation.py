@@ -7,7 +7,7 @@ import torch
 
 from eval_kam_pretrained import EXPECTED, score_task
 from kam_adapter_preservation import (
-    FACTORIAL_RUNS, RUNS, digest, key, layers_for, load_registered_model, model_identity,
+    FACTORIAL_RUNS, LOW_RATE_KL_RUNS, RUNS, digest, key, layers_for, load_registered_model, model_identity,
 )
 from kam_pretrained_adapters import AdapterStack
 
@@ -37,8 +37,8 @@ def load_checkpoint(root, seed, recipe, arm):
     return model, tokenizer, stack, metadata
 
 
-def evaluate(root, index, factorial):
-    seed, recipe, arm = (FACTORIAL_RUNS if factorial else RUNS)[index]
+def evaluate(root, run):
+    seed, recipe, arm = run
     model, tokenizer, stack, metadata = load_checkpoint(root, seed, recipe, arm)
     ident = key(seed, recipe, arm)
     for task in EXPECTED:
@@ -51,6 +51,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("root", type=Path)
     parser.add_argument("index", type=int)
-    parser.add_argument("--factorial", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--factorial", action="store_true")
+    mode.add_argument("--low-rate-kl-pilot", action="store_true")
     a = parser.parse_args()
-    evaluate(a.root, a.index, a.factorial)
+    if a.low_rate_kl_pilot:
+        runs = LOW_RATE_KL_RUNS
+    elif a.factorial:
+        runs = FACTORIAL_RUNS
+    else:
+        runs = RUNS
+    evaluate(a.root, runs[a.index])
