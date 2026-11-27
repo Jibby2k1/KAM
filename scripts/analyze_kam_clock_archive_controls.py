@@ -14,6 +14,7 @@ GEOMETRIES = ("dot", "radial")
 RESULTS = ("joint", "numeric_exact")
 OUTLIERS = ("future_outlier", "old_wrong_entity_outlier")
 UNIT_PANELS = ("external", "external_clock_times_3", "external_raw_units")
+PHASE_PANELS = ("target_release_snapped", "all_releases_snapped")
 
 
 def uniform_replay(current, baseline, archive_sections):
@@ -22,7 +23,7 @@ def uniform_replay(current, baseline, archive_sections):
     for seed, source in current.items():
         old = baseline[seed]
         assert all(source[k] == old[k] for k in ("device", "steps", "schedule", "train_tokens", "banks"))
-        assert all(source["archive_sha256"][k] == old["archive_sha256"][k] for k in archive_sections)
+        assert all(source["archive_sha256"].get(k) == old["archive_sha256"].get(k) for k in archive_sections)
         common = source["results"].keys() & old["results"].keys()
         assert len(common) >= 4
         for key in sorted(common):
@@ -58,13 +59,13 @@ def changed_rows(records, key, depth):
     return changed
 
 
-def summary(current, variants, panels, *, months=False, perturbation=False):
+def summary(current, variants, panels, *, months=False, changed_conditions=()):
     result = {}
     for geo in GEOMETRIES:
         for depth in (16, 48):
             variants_data = {k: {panel: indexed(current, geo, k, panel, depth) for panel in panels} for k in variants}
             assert len({frozenset(table) for v in variants_data.values() for table in v.values()}) == 1
-            test_counts = {k: changed_rows(current, k, depth) for k in OUTLIERS} if perturbation else {}
+            test_counts = {k: changed_rows(current, k, depth) for k in changed_conditions}
             schemes = {}
             for mode, arm in variants_data.items():
                 scheme = {}
@@ -89,7 +90,7 @@ def summary(current, variants, panels, *, months=False, perturbation=False):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("mode", choices=("outliers", "monthly"))
+    p.add_argument("mode", choices=("outliers", "monthly", "phase"))
     p.add_argument("--domain", choices=("archive_shaped", "mixed"), default="mixed")
     p.add_argument("--reference", nargs=3, type=Path, required=True)
     p.add_argument("--measurement", nargs=3, type=Path, required=True)
@@ -98,10 +99,12 @@ def main():
     a = p.parse_args()
     runs, old = list(split_inputs(v, a.domain) for v in (a.measurement, a.reference))
     archives = ("earlier", "later")
+    changed_conditions = ()
     if a.mode == "outliers":
         archives += ("external",)
         variants = ("signed_log", "log_episode_mean", "log_episode_median", "log_available_mean")
         panels = ("external", *OUTLIERS, "external_clock_times_3")
+        changed_conditions = OUTLIERS
         assert a.manifest is None and all(run.get("external_base_units", 1) == 1 for run in runs.values())
         provenance = {"source_fixture_sha256": next(iter(runs.values()))["archive_sha256"]["external"]}
     else:
@@ -111,10 +114,18 @@ def main():
         assert all(run["archive_sha256"]["external"] == meta["fixture_sha256"] and run["external_base_units"] == 30
                    for run in runs.values())
         provenance = meta
+        if a.mode == "phase":
+            archives += UNIT_PANELS
+            panels += PHASE_PANELS
+            changed_conditions = PHASE_PANELS
+            for raw in runs.values():
+                a_, b_ = [raw["intervened_rows"][k] for k in PHASE_PANELS]
+                assert a_ == b_
+                assert all(all(type(g) is int and 0 <= g <= 31 for g in arr) and len(arr) == 576 for arr in a_)
     exact = uniform_replay(runs, old, archives)
     expected = {x["archive_sha256"]["external"] for x in runs.values()}
     assert len(expected) == 1
-    values = summary(runs, variants, panels, months=a.mode == "monthly", perturbation=a.mode == "outliers")
+    values = summary(runs, variants, panels, months=a.mode != "outliers", changed_conditions=changed_conditions)
     result = {"domain": a.domain, "provenance": provenance, "archived_fit_matches": exact, "results": values}
     a.output.write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
 

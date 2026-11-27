@@ -46,6 +46,8 @@ TIMELINE_VARIANTS = {
     "oracle_ascending": ("oracle_marked", True, "ascending"),
     "oracle_descending": ("oracle_marked", True, "descending"),
 }
+RELATIVE_CLOCKS = ("calendar", "offset", "calendar_and_offset")
+CLOCK_EVIDENCE = {"dense": "dense", "oracle": "oracle_marked"}
 
 
 def read(path):
@@ -135,7 +137,7 @@ def prompt_order(item, positions, method):
 
 
 def token_prompt(tokenizer, item, positions, bank, dated, context_limit=MAX_INPUT, window=False,
-                 *, ordering="rank", audit=None):
+                 *, ordering="rank", audit=None, relative_clock=None):
     def ids(text):
         return tokenizer(text, add_special_tokens=False).input_ids
 
@@ -145,7 +147,15 @@ def token_prompt(tokenizer, item, positions, bank, dated, context_limit=MAX_INPU
     labels, details = [], []
     for slot, turn in positions:
         role, content = bank[item["slots"][slot]][turn]
-        labels.append((ids(role + ":"), ids(date(item["dates"][slot]) + " " + role + ":")))
+        day = date(item["dates"][slot])
+        if relative_clock:
+            assert dated and relative_clock in RELATIVE_CLOCKS
+            offset = item["time"] // 1440 - item["dates"][slot] // 1440
+            relative = ("Conversation on question day" if offset == 0 else
+                        f"Conversation {abs(offset)} days {'before' if offset > 0 else 'after'} question day")
+            labels.append(tuple(ids(f"{text} {role}:") for text in (day, relative, f"{day} ({relative})")))
+        else:
+            labels.append((ids(role + ":"), ids(day + " " + role + ":")))
         details.append(ids(content))
     available = context_limit - 1 - len(question) - len(clock) - len(ids("History:"))
     available -= sum(max(map(len, pair)) for pair in labels)
@@ -172,12 +182,15 @@ def token_prompt(tokenizer, item, positions, bank, dated, context_limit=MAX_INPU
         shifted += bool(start)
         retained.append(body[start:start + length])
     order = prompt_order(item, positions, ordering)
+    style = RELATIVE_CLOCKS.index(relative_clock) if relative_clock else int(dated)
     for i in order:
-        tokens += labels[i][int(dated)] + retained[i]
+        tokens += labels[i][style] + retained[i]
     if audit is not None:
         audit["body_sha256"] = sha256(json.dumps(retained, separators=(",", ":")).encode()).hexdigest()
         audit["prompt_order"] = [list(positions[i]) for i in order]
         audit["dated"] = dated
+        if relative_clock:
+            audit["clock_encoding"] = relative_clock
     tokens.append(tokenizer.eos_token_id)
     assert len(tokens) <= context_limit
     return tokens, [sum(quotas), sum(map(len, details)), sum(n < len(s) for n, s in zip(quotas, details, strict=True)), shifted]
@@ -220,7 +233,7 @@ def run(a):
     reader = Reader(model_path)
     readers = {"base": reader}
     weights = {"base": {"revision": BASE_REVISION, "sha256": BASE_WEIGHT}}
-    compares_readers = a.compare_reader_size or a.compare_timeline_order
+    compares_readers = a.compare_reader_size or a.compare_timeline_order or a.compare_relative_clock
     if compares_readers:
         from kam_flan_reader_assets import LARGE_REVISION, LARGE_WEIGHT
 
@@ -237,6 +250,9 @@ def run(a):
         variants = SCALE_VARIANTS
     if a.compare_timeline_order:
         variants = {arm: (rules[0], 1024, rules[0] == "dense", 20) for arm, rules in TIMELINE_VARIANTS.items()}
+    if a.compare_relative_clock:
+        variants = {f"{prefix}/{format_}": (evidence, 1024, evidence == "dense", 20)
+                    for prefix, evidence in CLOCK_EVIDENCE.items() for format_ in RELATIVE_CLOCKS}
     for q, groups in planned:
         panel = {"id": q["id"], "arms": {}}
         for arm, (evidence, limit, window, output_length) in variants.items():
@@ -246,8 +262,12 @@ def run(a):
                 _, dated, sort_method = TIMELINE_VARIANTS[arm]
             else:
                 dated, sort_method = arm.endswith("_dated"), "rank"
+            relative_clock = arm.split("/")[1] if a.compare_relative_clock else None
+            if relative_clock:
+                dated = True
             tokens, content = token_prompt(reader.tokenizer, q, positions, bank, dated, limit, window,
-                                           ordering=sort_method, audit=prompt_info if a.compare_timeline_order else None)
+                                           ordering=sort_method, audit=prompt_info if a.compare_timeline_order or relative_clock else None,
+                                           relative_clock=relative_clock)
             key = (output_length, tuple(tokens))
             prompts.setdefault(key, [])
             marked_ids = {q["source_session_ids"][slot] for slot, turn in positions
@@ -312,6 +332,7 @@ def main():
     options.add_argument("--compare-context-budget", action="store_true")
     options.add_argument("--compare-reader-size", action="store_true")
     options.add_argument("--compare-timeline-order", action="store_true")
+    options.add_argument("--compare-relative-clock", action="store_true")
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)
     a = p.parse_args()

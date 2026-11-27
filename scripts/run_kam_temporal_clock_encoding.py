@@ -99,6 +99,28 @@ def displaced_publication(scene, seed, kind):
     return (query, aliases, changed, gold_alias, gold_fact, gold_value), permitted.any(dim=-1).tolist()
 
 
+def snap_release_phase(scene, seed, target_only):
+    del seed
+    query, aliases, facts, gold_alias, gold_fact, gold_value = scene
+    latest = facts[..., 4].gather(1, gold_fact[:, None])
+    gap = query[:, 3:4] - latest
+    assert gap.ge(0).all()
+    address = aliases[..., 2].gather(1, gold_alias[:, None])
+    same = facts[..., 1].eq(address) & facts[..., 0].eq(query[:, :1])
+    changed = facts.clone()
+    changed[..., 4] += gap * (same if target_only else 1)
+    assert (changed[..., 4].gather(1, gold_fact[:, None]) == query[:, 3:4]).all()
+    was_visible = facts[..., 4] <= query[:, 3:4]
+    now_visible = changed[..., 4] <= query[:, 3:4]
+    assert (was_visible[same] == now_visible[same]).all()
+    if target_only:
+        assert torch.equal(changed[~same], facts[~same])
+    a, b = exact(query, aliases, changed, "both")
+    assert torch.equal(a, gold_alias) and torch.equal(b, gold_fact)
+    assert scalar_oracle(query, aliases, changed) == (gold_alias.tolist(), gold_fact.tolist())
+    return (query, aliases, changed, gold_alias, gold_fact, gold_value), gap.squeeze(-1).tolist()
+
+
 class ClockDecoder(torch.nn.Module):
     def __init__(self, decoder, mode):
         super().__init__()
@@ -150,7 +172,7 @@ def exposure_order(schedule, seed, delay):
     return result
 
 
-def fit(model, panels, order):
+def fit(model, panels, order, *, transform=None):
     opt = torch.optim.AdamW(model.parameters(), lr=.002, fused=True)
     model.train()
     torch.cuda.synchronize()
@@ -168,6 +190,8 @@ def fit(model, panels, order):
             tokens, key, value = blocks[0]
         else:
             tokens, key, value = (torch.cat(parts) for parts in zip(*blocks, strict=True))
+        if transform:
+            tokens = transform(tokens, key, d, slots, len(scenes))
         opt.param_groups[0]["lr"] = .002 * min(step / 100, 1) * (.2 + .8 * (1 + cos(pi * step / STEPS)) / 2)
         opt.zero_grad(set_to_none=True)
         loss = objective(model(tokens), key, value)
@@ -243,6 +267,13 @@ def run(a):
             for kind in ("future_outlier", "old_wrong_entity_outlier"):
                 archive[kind] = archive_panels(json.loads(a.external.read_text()), a.seed,
                                                intervention=partial(displaced_publication, kind=kind))
+        if a.release_phase_probe:
+            from functools import partial
+
+            for label, target_only in (("target_release_snapped", True), ("all_releases_snapped", False)):
+                changed = archive_panels(json.loads(a.external.read_text()), a.seed,
+                                         intervention=partial(snap_release_phase, target_only=target_only))
+                archive[label] = [rescale(panel, 1 / a.external_base_units) for panel in changed]
         if a.ordinal_clock or a.relative_log:
             probes = zip(archive["external"], archive["external_clock_times_3"], strict=True)
             errors = {mode: [] for mode in variants}
@@ -279,7 +310,7 @@ def run(a):
             "archive_sha256": {k: digest(file) for k, file in sources.items()}, "results": outputs} | (
                 {"external_feature_max_delta": clock_parity} if clock_parity else {}) | (
                 {"intervened_rows": {k: [p["changed"] for p in ar] for k, ar in archive.items() if "changed" in ar[0]}}
-                if a.outlier_clock else {})
+                if a.outlier_clock or a.release_phase_probe else {})
 
 
 def main():
@@ -297,6 +328,7 @@ def main():
     coordinate.add_argument("--ordinal-clock", action="store_true")
     coordinate.add_argument("--relative-log", action="store_true")
     coordinate.add_argument("--outlier-clock", action="store_true")
+    p.add_argument("--release-phase-probe", action="store_true")
     variants = p.add_mutually_exclusive_group()
     variants.add_argument("--test-compaction", action="store_true")
     variants.add_argument("--archive-shaped", action="store_true")
@@ -308,6 +340,8 @@ def main():
         p.error("unit-normalized clock comparisons require the external rescaling panel")
     if a.external_base_units <= 0 or (a.external_base_units != 1. and (not a.external or a.outlier_clock)):
         p.error("external publication scale requires a positive conversion and an unperturbed external panel")
+    if a.release_phase_probe and not (a.external and a.relative_log):
+        p.error("release boundary probes require the relative-log comparison and an external source")
     a.output.write_text(json.dumps(run(a), separators=(",", ":"), allow_nan=False) + "\n")
 
 

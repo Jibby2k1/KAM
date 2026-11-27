@@ -6,6 +6,10 @@
 
 [Eurostat unemployment vintages](../../reports/nonlinear_retrieval_natural/EUROSTAT_VINTAGES.md) replicated unit invariance across three publication scales. Frozen strict hard lookup stayed low across the 576 monthly archive questions.
 
+[Eurostat cutoff-phase oracle](../../reports/nonlinear_retrieval_natural/EUROSTAT_VINTAGES.md#cutoff-phase-intervention) raised mixed radial exact recovery from 2.31% to 78.85% by aligning the latest visible release with the cutoff. Every lookup target and nuisance record stayed fixed in that comparison.
+
+[Terminal attention](../../reports/nonlinear_retrieval_natural/FINAL_ROW_ATTENTION.md) preserved every eager FP32 decision while nearly halving elapsed time at depth 1,024. Hard one-key selection in the final layer lost 95 of 2,017 Dallas joint outcomes net.
+
 [Physical clock compaction](../../reports/nonlinear_retrieval_natural/PACKED_CLOCK_INFERENCE.md) reduced a heterogeneous four-request eager FP32 batch from 38.72 to 5.35 ms. Balanced BF16 Flash was faster at its original shape and changed some hard choices after cropping.
 
 [Frozen BRIGHT transfer](../../reports/nonlinear_retrieval_natural/BRIGHT_FROZEN_TRANSFER.md) found hybrid BM25/E5 best on economics and earth science at the same output depth. MuSiQue-trained planning showed no clear gain over direct dense ranking and trailed the hybrid.
@@ -17,6 +21,8 @@
 [BABILong executable retrieval](../../reports/nonlinear_retrieval_natural/BABILONG_REPLAY.md) reproduced all 1,200 source answers with complete structured input. At eight windows the 64k QA3 slice reached zero joint answers with unrestricted E5 and three with event-grammar filtering.
 
 [LongMemEval chronological packing](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_TIMELINE_ORDER.md) held the retained text and source sessions fixed. For the larger reader, adding dates raised overall joint exact from 52 to 58 of 470, with eight joint answers among 127 temporal questions in both arms. Chronological order did not improve the temporal result.
+
+[Relative LongMemEval dates](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_RELATIVE_DATES.md) added numerical offsets from the question date. Dense large temporal joint exact stayed at eight of 127, while author-marked evidence reached 14 under both calendar-only and date-plus-offset prompts.
 
 [A mixed clock curriculum](../../reports/nonlinear_retrieval_natural/TEMPORAL_CLOCK_CURRICULUM.md) achieved 79.82% on synthetic corrections and 81.25% on the earlier release archive with signed-log radial addressing, both at 48 records. [Fixed-prompt LongMemEval reader scaling](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_READER_SIZE.md) raised joint exact match from 25 to 52 with 1,024-token query windows, while both readers reached 8 of 127 temporal joint matches.
 

@@ -19,7 +19,7 @@ DEPTHS = (20, 128, 512)
 SEEDS = (829114, 829128, 829162)
 
 
-def stable_forward(attention, inputs, return_weights=False, *, balanced, split_bias):
+def stable_forward(attention, inputs, return_weights=False, *, balanced, split_bias, last_only=False):
     assert not return_weights and attention.dropout.p == 0
     assert attention.relative_bias is None and attention.window is None
     score = attention.score
@@ -27,6 +27,8 @@ def stable_forward(attention, inputs, return_weights=False, *, balanced, split_b
     head = attention.head_dim
     qkv = attention.qkv(inputs).view(batch, length, 3, attention.num_heads, head)
     q, k, v = qkv.permute(2, 0, 3, 1, 4).unbind(0)
+    if last_only:
+        q = q[..., -1:, :]
     fmt = q.dtype
     if balanced:
         compute_type = torch.promote_types(fmt, torch.float32)
@@ -45,14 +47,14 @@ def stable_forward(attention, inputs, return_weights=False, *, balanced, split_b
         q = q * metric * inverse_sq
     hi = bias.to(fmt)
     bias_lanes = (hi, (bias - hi.to(bias.dtype)).to(fmt)) if split_bias else (hi,)
-    q = torch.cat((q.to(fmt), *(torch.ones_like(hi) for _ in bias_lanes)), -1)
+    q = torch.cat((q.to(fmt), *(torch.ones_like(q[..., :1], dtype=fmt) for _ in bias_lanes)), -1)
     k = torch.cat((k.to(fmt), *bias_lanes), -1)
     aligned = (head + 8) // 8 * 8
     assert aligned >= q.shape[-1]
     q, k = (F.pad(x, (0, aligned - x.shape[-1])) for x in (q, k))
     v = F.pad(v, (0, aligned - head))
-    z = F.scaled_dot_product_attention(q, k, v, is_causal=True, scale=1.0)[..., :head]
-    return attention.output(z.transpose(1, 2).contiguous().view(batch, length, attention.d_model)), None
+    z = F.scaled_dot_product_attention(q, k, v, is_causal=not last_only, scale=1.0)[..., :head]
+    return attention.output(z.transpose(1, 2).contiguous().view(batch, q.shape[-2], attention.d_model)), None
 
 
 def variants(checkpoint):

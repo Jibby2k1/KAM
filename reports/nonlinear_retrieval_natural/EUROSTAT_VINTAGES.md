@@ -17,4 +17,16 @@ The 16-record bank keeps same-address snapshots immediately before and after bot
 
 Both normalized clocks preserve all 3,456 outcome records per condition, including numerical exactness and unbound predictions. The mixed radial can produce a coincidentally correct number from another snapshot or key. The mean arm gets 35.45% numerical match versus 2.31% exact key and snapshot. The table should be read as an external failure of hard record selection under this temporal distribution, alongside successful invariance to changing the scale of a coordinate. Intervals resample calendar quarters jointly across all six countries and fit seeds. The Dallas panel uses actual archive release dates as cutoffs. Eurostat tests fixed offsets from month end. A matched cutoff-phase intervention can distinguish a learned readiness boundary from other differences in candidate topology.
 
-HPG L4 arrays 52999598–52999599. [Pinned source response, manifest, numerical outcomes and paired estimates](../../results/nonlinear_retrieval_natural/eurostat_vintages_v1/) · [Eurostat rate vintages](https://ec.europa.eu/eurostat/databrowser/view/ei_lm_m_vtg/default/table?lang=en) · [Vintage methodology](https://ec.europa.eu/eurostat/cache/metadata/en/euroind_vtg_esms.htm)
+## Cutoff-phase intervention
+
+An oracle translated all clocks for the target address so the latest visible snapshot's publication landed on the cutoff. This preserves the availability and order of all releases at that address and leaves every nuisance record unchanged. A second oracle translates all fact clocks by the same amount, which can change nuisance eligibility. Neither intervention changes any source record, payload, figure, correct address, or gold snapshot. Two independent lookup implementations verify the preserved target. This controlled intervention uses the known target to isolate a feature to which the frozen model is sensitive.
+
+| Radial clock, 48-record panel | Real cutoff | Target release moved to cutoff | All fact clocks translated |
+| --- | ---: | ---: | ---: |
+| Mixed, plain signed log | 3.59% | 55.03% | 86.08% |
+| Mixed, episode mean signed log | 2.31% | 78.85% | 88.95% |
+| Archive-shaped, episode mean signed log | 6.71% | 72.89% | 88.86% |
+
+Moving only clocks at the target address raised mixed mean radial by 76.53 percentage points [71.96, 80.73] without increasing available evidence. All six replay fits reproduced their original results under every unmodified unit convention. The observed failure depends strongly on whether the latest release falls exactly at the cutoff. [Cutoff phase artifacts](../../results/nonlinear_retrieval_natural/eurostat_release_phase_v1/)
+
+HPG L4 arrays 52999598–52999599 and 53000711–53000712. [Pinned source response, manifest, numerical outcomes and paired estimates](../../results/nonlinear_retrieval_natural/eurostat_vintages_v1/) · [Eurostat rate vintages](https://ec.europa.eu/eurostat/databrowser/view/ei_lm_m_vtg/default/table?lang=en) · [Vintage methodology](https://ec.europa.eu/eurostat/cache/metadata/en/euroind_vtg_esms.htm)
