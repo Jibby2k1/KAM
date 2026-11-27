@@ -4,7 +4,7 @@
 import argparse
 import gzip
 from functools import lru_cache
-from hashlib import file_digest, sha256
+from hashlib import sha256
 import json
 from pathlib import Path
 from time import perf_counter
@@ -128,8 +128,7 @@ def run(a, articles, fixture):
     assert analysis_labels["templates_sha256"] == digest(a.templates)
     encoder = Encoder(a.assets / "encoder", 128)
     base_path = a.assets / f"reader_base_{BASE_REVISION}"
-    with (base_path / "model.safetensors").open("rb") as weights:
-        assert file_digest(weights, "sha256").hexdigest() == BASE_WEIGHT
+    assert digest(base_path / "model.safetensors") == BASE_WEIGHT
     reader = Reader(base_path)
 
     @lru_cache(maxsize=8192)

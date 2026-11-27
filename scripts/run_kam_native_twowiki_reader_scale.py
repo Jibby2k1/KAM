@@ -3,7 +3,7 @@
 
 import argparse
 import gzip
-from hashlib import file_digest, sha256
+from hashlib import sha256
 import json
 from pathlib import Path
 import sqlite3
@@ -41,8 +41,7 @@ def run(a):
     path = small if a.model == "small" else a.assets / f"reader_base_{BASE_REVISION}"
     model_revision = revisions["google/flan-t5-small"] if a.model == "small" else BASE_REVISION
     if a.model != "small":
-        with (path / "model.safetensors").open("rb") as stream:
-            assert file_digest(stream, "sha256").hexdigest() == BASE_WEIGHT
+        assert digest(path / "model.safetensors") == BASE_WEIGHT
     reader = Reader(path)
     if a.model == "base_bf16":
         reader.model.to(dtype=torch.bfloat16)
