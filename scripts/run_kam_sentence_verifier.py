@@ -29,9 +29,17 @@ DENSE = ("weak_max_semantic", "max_semantic", "joint_top_semantic_lexical",
 COLUMNS = BASE + SENTENCE + DENSE
 
 
-def sentence_bank(context):
-    result = []
-    for title, sentences in context:
+def sentence_bank(context, *, selected=None, cached=None, counts=None):
+    result = [None] * len(context)
+    positions = range(len(context)) if selected is None else sorted(selected)
+    if counts is not None:
+        counts["candidate_documents"] += len(context)
+    for i in positions:
+        title, sentences = context[i]
+        key = None if cached is None else (title, tuple(sentences))
+        if cached is not None and key in cached:
+            result[i] = cached[key]
+            continue
         entries = []
         remaining = 120
         for raw in islice(sentences, 8):
@@ -43,7 +51,11 @@ def sentence_bank(context):
                 break
         if not entries:
             entries.append(())
-        result.append((tuple(words(title)), entries))
+        result[i] = tuple(words(title)), entries
+        if cached is not None:
+            cached[key] = result[i]
+        if counts is not None:
+            counts["normalized_documents"] += 1
     return result
 
 
@@ -131,7 +143,7 @@ def plan_case(row, split, query, supplied, donor_keys, donors, donor_words, adap
 
 
 def rank_variant(mode, variant, graph, lexical, bank, adapted, query_terms, heads, pairs, reader_context=None,
-                 *, shortlist=SHORTLIST):
+                 *, shortlist=SHORTLIST, sentence_cache=None, sentence_counts=None):
     given, no_coverage, active = heads
     base, common, affinity = prepared(adapted, bank, graph.unsqueeze(0).to(adapted.device), pairs)
     inputs = torch.cat((common[0], lexical.to(adapted.device)), -1)
@@ -148,7 +160,8 @@ def rank_variant(mode, variant, graph, lexical, bank, adapted, query_terms, head
     links = (graph | graph.T)[selected[:, 0].cpu(), selected[:, 1].cpu()].float().to(adapted.device)
     columns = torch.column_stack((scores[:, indices].T, affinity.min(-1).values, affinity.mean(-1), links))
     selected = selected.tolist()
-    texts = sentence_bank(variant["context"])
+    needed = None if sentence_cache is None else {i for pair in selected for i in pair}
+    texts = sentence_bank(variant["context"], selected=needed, cached=sentence_cache, counts=sentence_counts)
     return mode, texts, query_terms, selected, columns.tolist(), winners
 
 

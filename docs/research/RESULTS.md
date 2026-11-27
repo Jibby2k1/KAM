@@ -135,3 +135,9 @@ The [equal-token mixed long training](../../reports/nonlinear_retrieval_natural/
 The [frozen HotpotQA pair scorer on 2Wiki](../../reports/nonlinear_retrieval_natural/NATIVE_TWOWIKI_RERANK.md) gained 63 support selections and 16 joint exact matches from conditioned expansion versus equal-depth dense search. The three-policy oracle reached 172 joint against 165 for always conditioned.
 
 On a [complete MuSiQue paragraph bank](../../reports/nonlinear_retrieval_natural/NATIVE_MUSIQUE.md), unconditioned dense and two-anchor conditioned pools recovered all required paragraphs on 176 and 212 of 576 questions. The conditioned policy recovered seven of 160 four-hop chains, the same count as dense.
+
+In [warm L4 HotpotQA serving](../../reports/nonlinear_retrieval_natural/FULLWIKI_REQUEST_OPTIMIZATION.md), exact rescoring after half-precision initial search cut paired request latency by 16.13 ms with the fused second hop. All 192 retrieval and answer outcomes held. Shortlist-only text normalization separately saved 1.45 ms at the paired median with identical records.
+
+On [LongMemEval-M](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_TRANSFER.md), three MuSiQue-trained decomposers recovered all required sessions on 334–342/470 questions with predicted bindings, versus 350 with dense ranking. Temporal questions contributed most of the losses.
+
+A [separately fitted MuSiQue evidence selector](../../reports/nonlinear_retrieval_natural/MUSIQUE_EVIDENCE_SELECTOR.md) increased joint exact match from 22–25 to 26–27 of 576 with four final paragraphs. Overall intervals included zero and complete four-hop support remained zero.

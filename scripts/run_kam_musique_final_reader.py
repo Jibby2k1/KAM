@@ -76,6 +76,14 @@ def run(a, paragraphs, fixture):
                for p in (baseline, *preliminary))
     answers = json.loads(a.labels.read_text())
     assert answers["fixture_sha256"] == fx
+    fitted = None
+    if a.selector_picks:
+        sealed = json.loads(a.selector_picks.read_text())
+        assert sealed["fixture_sha256"] == fx and sealed["policy_sha256"] == digest(a.selector_policy)
+        assert sealed["provenance"]["corpus_sha256"] == cx
+        assert sealed["provenance"]["weights_sha256"] == [p["weights_sha256"] for p in preliminary]
+        assert [q["id"] for q in sealed["rows"]] == [q["id"] for q in fixture["rows"]]
+        fitted = {q["id"]: q["selections"] for q in sealed["rows"]}
     model_dir = a.assets / f"reader_base_{BASE_REVISION}"
     assert digest(model_dir / "model.safetensors") == BASE_WEIGHT
     reader = Reader(model_dir)
@@ -115,6 +123,10 @@ def run(a, paragraphs, fixture):
             raw[f"learned_path/{i}"] = chosen
             raw[f"learned_dense/{i}"] = exact_dense(query[j], item["pool"])
             raw[f"learned_oracle/{i}"] = ceiling
+            if fitted is not None:
+                chosen = fitted[id_][i]
+                assert len(chosen) == len(set(chosen)) == LIMIT and set(chosen) <= set(item["pool"])
+                raw[f"learned_selector/{i}"] = chosen
         selected = {}
         for name, ids in raw.items():
             evidence = " ".join(passage(i) for i in ids)
@@ -132,7 +144,9 @@ def run(a, paragraphs, fixture):
             "learned_sha256": [digest(p) for p in a.learned], "label_sha256": digest(a.labels),
             "reader_revision": BASE_REVISION, "device": torch.cuda.get_device_name(),
             "shard": a.shard, "shards": a.shards, "unique_prompts": len(prompts),
-            "elapsed_seconds": perf_counter() - start, "rows": rows}
+            "elapsed_seconds": perf_counter() - start, "rows": rows} | (
+                {"selector_picks_sha256": digest(a.selector_picks), "selector_policy_sha256": digest(a.selector_policy)}
+                if fitted is not None else {})
 
 
 def main():
@@ -143,10 +157,13 @@ def main():
     for name in ("source", "assets", "baseline", "labels"):
         p.add_argument("--" + name, type=Path)
     p.add_argument("--learned", nargs=3, type=Path)
+    p.add_argument("--selector-picks", type=Path)
+    p.add_argument("--selector-policy", type=Path)
     p.add_argument("--vectors", nargs=4, type=Path)
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)
     a = p.parse_args()
+    assert (a.selector_picks is None) == (a.selector_policy is None)
     articles, fixture = corpus_and_fixture(a)
     if a.mode == "freeze":
         freeze(a, fixture)

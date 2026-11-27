@@ -10,7 +10,7 @@ module purge
 module load pytorch/2.8.0
 root="${1:?runtime directory required}"
 partition_job="${2:?partition build job ID required}"
-work="$root/fullwiki_coarse_live_v1"
+work="$root/${KAM_FULLWIKI_LIVE_STAGE:-fullwiki_coarse_live_v1}"
 index="$root/fullwiki_native_v1"
 support="$index/support_link_v1"
 old="$root/conditioned_union_v1/score"

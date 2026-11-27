@@ -149,11 +149,13 @@ def run(a):
             pair_indices[n] = pairs, pairs.cuda()
         return pair_indices[n]
 
-    def plan_variant(arm, ranked, variant, vector, terms, contexts, features=None):
+    def plan_variant(arm, ranked, variant, vector, terms, contexts, features=None, *,
+                     sentence_cache=None, sentence_counts=None):
         cpu_pairs, gpu_pairs = pairs_for(len(ranked))
         graph, lexical = features if features is not None else relation_features(variant, cpu_pairs)
         bank = index.bank[torch.tensor(ranked, device="cuda")].unsqueeze(0)
-        return rank_variant(arm, variant, graph, lexical, bank, vector, terms, heads, gpu_pairs, contexts)
+        return rank_variant(arm, variant, graph, lexical, bank, vector, terms, heads, gpu_pairs, contexts,
+                            sentence_cache=sentence_cache, sentence_counts=sentence_counts)
 
     def select(stage, item, contexts):
         arm, _, _, pairs, _, _ = stage
@@ -165,7 +167,8 @@ def run(a):
         return chosen, pairs, scores, x[winner]
 
     def score_cases(chunk, offset, prompts, output, use_shared=False, *, live_anchor=False, phase=None,
-                    reuse_sentences=False, sentence_counts=None, initial_method=None, corpus_method=None):
+                    reuse_sentences=False, sentence_counts=None, initial_method=None, corpus_method=None,
+                    sparse_sentence_bank=False, normalization=None):
         encode_sentences = encoder
         if sentence_counts is not None:
             cache = {}
@@ -187,7 +190,10 @@ def run(a):
             query = encoder([case["question"]], "query")
             search_start = perf_counter()
             depth = 128 if initial_method == "dense" else 64
-            initial = index.search(initial_method, case["question"], query, depth)[:64]
+            if initial_method == "dense_rescore":
+                initial = corpus_engine.full_rescore(query, exclude=None)[0].tolist()
+            else:
+                initial = index.search(initial_method, case["question"], query, depth)[:64]
             phase["initial_search_ms"] = (perf_counter() - search_start) * 1000
             original = [initial]
             examples = [pool_text(index.db, case["question"], initial)]
@@ -273,6 +279,7 @@ def run(a):
                 else:
                     relations = shared_relations(variants, pair_indices, len(base), original_rows[expanded_size])
             prepared, contexts = [], {}
+            sentence_cache = {} if sparse_sentence_bank else None
             terms = set(words(case["question"])) - STOP
             for arm, (ranked, variant) in variants.items():
                 if live_anchor and arm == "broad":
@@ -280,7 +287,8 @@ def run(a):
                 features = relations.get(arm)
                 if live_anchor:
                     features = bitset_relation_features(variant, pairs_for(len(ranked))[0])
-                prepared.append(plan_variant(arm, ranked, variant, adapted[i:i+1], terms, contexts, features))
+                prepared.append(plan_variant(arm, ranked, variant, adapted[i:i+1], terms, contexts, features,
+                                             sentence_cache=sentence_cache, sentence_counts=normalization))
             plans.append((id_, split, (), query[i], prepared))
             details.append((case, base, variants, contexts, hits, first_ids[i], elapsed))
 
@@ -319,14 +327,15 @@ def run(a):
 
     output = []
     def request(case, i, use_shared, *, live_anchor=False, phase=None, reuse_sentences=False,
-                initial_method=None, corpus_method=None):
+                initial_method=None, corpus_method=None, sparse_sentence_bank=False):
         prompts, rows = {}, []
         sentence_counts = dict(requested=0, encoded=0) if a.sentence_reuse_profile or reuse_sentences else None
+        normalization = dict(candidate_documents=0, normalized_documents=0) if a.compare_shortlist_text else None
         torch.cuda.synchronize()
         before = perf_counter()
         score_cases([case], i, prompts, rows, use_shared=use_shared, live_anchor=live_anchor, phase=phase,
                     reuse_sentences=reuse_sentences, sentence_counts=sentence_counts, initial_method=initial_method,
-                    corpus_method=corpus_method)
+                    corpus_method=corpus_method, sparse_sentence_bank=sparse_sentence_bank, normalization=normalization)
         before_reader = perf_counter()
         read_answers(prompts)
         torch.cuda.synchronize()
@@ -335,6 +344,8 @@ def run(a):
             phase["reader_ms"] = (done - before_reader) * 1000
         if sentence_counts is not None:
             rows[0]["sentence_counts"] = sentence_counts
+        if normalization is not None:
+            rows[0]["sentence_normalization"] = normalization
         return rows[0], (done - before) * 1000
 
     index_profile = {}
@@ -345,28 +356,40 @@ def run(a):
         from benchmark_kam_article_prewarm import read_index
 
         bytes_scanned, readiness_seconds = read_index(a.inputs / "lexical" / "articles.sqlite")
-        methods = ["exact", "full_rescore", "probe_64", "probe_256"]
+        methods = {mode: ("dense", mode) for mode in ("exact", "full_rescore", "probe_64", "probe_256")}
         if a.corpus_fused:
-            methods += ["fused_64", "fused_256"]
+            methods.update({mode: ("dense", mode) for mode in ("fused_64", "fused_256")})
+        if a.compare_rescored_initial:
+            methods = {f"{first}_{second}": (initial, second)
+                       for first, initial in (("exact_initial", "dense"), ("rescore_initial", "dense_rescore"))
+                       for second in ("full_rescore", "fused_256")}
+        if a.compare_shortlist_text:
+            methods = dict(all_text=("dense_rescore", "fused_256"), shortlist_text=("dense_rescore", "fused_256"))
         for i, case in enumerate(cases[:4]):
-            for method in methods:
-                request(case, i, True, phase={}, initial_method="dense", corpus_method=method, reuse_sentences=True)
+            for method, (initial, second) in methods.items():
+                request(case, i, True, phase={}, initial_method=initial, corpus_method=second, reuse_sentences=True,
+                        sparse_sentence_bank=method == "shortlist_text")
         gc.collect(2)
         rng = Random(195823 + a.shard)
         sample = rng.sample(cases[4:], 48)
         for i, case in enumerate(sample):
-            order = rng.sample(methods, len(methods))
+            order = rng.sample(list(methods), len(methods))
             outcomes, latencies, details = {}, {}, {}
             for method in order:
                 details[method] = {}
-                outcomes[method], latencies[method] = request(case, i, True, phase=details[method], initial_method="dense",
-                                                               corpus_method=method, reuse_sentences=True)
-            assert all(item["initial_ids"] == outcomes["exact"]["initial_ids"] for item in outcomes.values())
-            assert all(item["first"] == outcomes["exact"]["first"] for item in outcomes.values())
+                initial, second = methods[method]
+                outcomes[method], latencies[method] = request(case, i, True, phase=details[method], initial_method=initial,
+                                                               corpus_method=second, reuse_sentences=True,
+                                                               sparse_sentence_bank=method == "shortlist_text")
+            for initial in {group[0] for group in methods.values()}:
+                group = [outcomes[p] for p in methods if methods[p][0] == initial]
+                assert all(q["initial_ids"] == group[0]["initial_ids"] and q["first"] == group[0]["first"] for q in group)
             output.append({"id": case["id"], "order": order, "request_ms": latencies, "phases_ms": details,
                            "records": outcomes})
         index_profile = {"corpus_profile_partition": digest(a.corpus_profile_index), "document_bytes": bytes_scanned,
                          "document_readiness_seconds": readiness_seconds}
+        if a.compare_rescored_initial or a.compare_shortlist_text:
+            index_profile["search_modes"] = methods
     elif a.index_prewarm_rank is not None:
         from os import uname
         from random import Random
@@ -549,6 +572,8 @@ def main():
     parser.add_argument("--precomputed-corpus-hits", type=Path)
     parser.add_argument("--corpus-profile-index", type=Path)
     parser.add_argument("--corpus-fused", action="store_true")
+    parser.add_argument("--compare-rescored-initial", action="store_true")
+    parser.add_argument("--compare-shortlist-text", action="store_true")
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
     live_profiles = parser.add_mutually_exclusive_group()
@@ -577,6 +602,10 @@ def main():
         parser.error("corpus timing requires the offline-configured test fixture and four live profiling shards")
     if a.corpus_fused and not a.corpus_profile_index:
         parser.error("fused corpus timing requires a coarse-partition checkpoint")
+    if a.compare_rescored_initial and not a.corpus_profile_index:
+        parser.error("rescored initial timing requires a coarse-partition checkpoint")
+    if a.compare_shortlist_text and (not a.corpus_profile_index or a.compare_rescored_initial):
+        parser.error("sentence normalization timing needs separate live coarse-search mode")
     if a.verify_shared_relation and a.guard_split != "test":
         parser.error("shared relation verification needs the two-arm test replay")
     if a.anchor_reference and a.guard_split != "test":
@@ -608,6 +637,8 @@ def main():
     ):
         parser.error("live timing uses the fixed four-shard warm-request design")
     torch.set_float32_matmul_precision("highest")
+    if a.compare_rescored_initial or a.compare_shortlist_text:
+        torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))
 

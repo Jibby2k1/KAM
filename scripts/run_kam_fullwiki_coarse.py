@@ -101,7 +101,8 @@ class Search:
 
     def full_rescore(self, q, exclude):
         scores = distance(q, self.full_half)[0].masked_fill_(~self.mask, -torch.inf)
-        scores[exclude] = -torch.inf
+        if exclude is not None:
+            scores[exclude] = -torch.inf
         return self.rescore(q, scores.topk(RESCORE).indices), len(self.full_half)
 
     def probe(self, q, exclude, probes):
