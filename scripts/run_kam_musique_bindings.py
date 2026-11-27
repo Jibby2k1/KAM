@@ -70,7 +70,7 @@ def score_case(rows, generated, source, target):
         row["gold_in_reader"].append(label in row["reader_context_ids"][-1])
 
 
-def replay(arm, current, templates, labels, initial, passage_text, bank, encoder, reader):
+def replay(arm, current, templates, labels, initial, passage_text, bank, encoder, reader, *, gold_at=None):
     pools = [initial[q["id"]].copy() for q in current]
     rows = [{"id": q["id"], "target_ranks": [], "answer_em": [], "reader_context_ids": [],
              "gold_in_reader": [], "unfilled_references": 0} for q in current]
@@ -95,8 +95,9 @@ def replay(arm, current, templates, labels, initial, passage_text, bank, encoder
                    for question, ids in zip(queries, selected, strict=True)]
         predictions = reader.answers(prompts)
         score_case(rows, predictions, [label["answers"][step] for label in labels], raw_targets)
-        for previous, answer in zip(histories, predictions, strict=True):
-            previous.append(" ".join(answer.split()) or "unknown")
+        for previous, answer, label in zip(histories, predictions, labels, strict=True):
+            binding = label["answers"][step] if step == gold_at else answer
+            previous.append(" ".join(binding.split()) or "unknown")
     for row, pool in zip(rows, pools, strict=True):
         row["pool"] = pool
         assert len(pool) == len(set(pool)) == DEPTH
@@ -148,8 +149,13 @@ def run(a, articles, fixture):
         templates = [source_templates["templates"][q["id"]] for q in cases]
         diagnostics = [analysis_labels["rows"][q["id"]] for q in cases]
         assert all(len(p) == nhops for p in templates)
-        for arm in ARMS:
-            for row in replay(arm, cases, templates, diagnostics, initial, passage_text, bank, encoder, reader):
+        policies = [(arm, None) for arm in ARMS]
+        if a.single_oracle:
+            policies = [("top1", None), *((f"gold_at_{i+1}", i) for i in range(nhops - 1))]
+        for arm, gold_at in policies:
+            reader_arm = "top1" if gold_at is not None else arm
+            for row in replay(reader_arm, cases, templates, diagnostics, initial, passage_text, bank, encoder, reader,
+                              gold_at=gold_at):
                 answers.setdefault(row["id"], {})[arm] = row
     return {"fixture_sha256": fx, "corpus_sha256": cx, "models": models | {"google/flan-t5-base": BASE_REVISION},
             "templates_sha256": digest(a.templates), "scoring_labels_sha256": digest(a.labels),
@@ -166,6 +172,7 @@ def main():
     for name in ("source", "oracle", "assets", "baseline", "templates"):
         p.add_argument("--" + name, type=Path)
     p.add_argument("--vectors", nargs=4, type=Path)
+    p.add_argument("--single-oracle", action="store_true")
     p.add_argument("--shard", default=0, type=int)
     p.add_argument("--shards", default=1, type=int)
     a = p.parse_args()

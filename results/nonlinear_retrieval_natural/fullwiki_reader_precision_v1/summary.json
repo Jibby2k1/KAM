@@ -1,0 +1,110 @@
+{
+  "counts": {
+    "bf16": {
+      "answer": 326,
+      "joint": 260,
+      "support": 400
+    },
+    "fp32": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    }
+  },
+  "device": "NVIDIA L4",
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "latency": {
+    "initial_search_ms": {
+      "p50_ms": {
+        "bf16": 23.425978608429432,
+        "fp32": 23.298844695091248
+      },
+      "p95_ms": {
+        "bf16": 25.325838522985578,
+        "fp32": 24.93697595782578
+      },
+      "paired_median_delta_95_ms": [
+        0.053205061703920364,
+        0.13344734907150269
+      ],
+      "paired_median_delta_ms": 0.0746031291782856
+    },
+    "reader_ms": {
+      "p50_ms": {
+        "bf16": 56.12484086304903,
+        "fp32": 68.86698212474585
+      },
+      "p95_ms": {
+        "bf16": 102.23260861821473,
+        "fp32": 110.72260588407516
+      },
+      "paired_median_delta_95_ms": [
+        -11.838667094707489,
+        -9.72164049744606
+      ],
+      "paired_median_delta_ms": -10.697695426642895
+    },
+    "request_ms": {
+      "p50_ms": {
+        "bf16": 297.9321414604783,
+        "fp32": 309.8470354452729
+      },
+      "p95_ms": {
+        "bf16": 365.0407864712178,
+        "fp32": 357.84701462835073
+      },
+      "paired_median_delta_95_ms": [
+        -12.315911240875721,
+        -9.857334196567535
+      ],
+      "paired_median_delta_ms": -10.80326596274972
+    }
+  },
+  "parity": {
+    "all_records": 795,
+    "arms_vs_archive": 800,
+    "both_answer_flags": 795,
+    "both_evidence_pairs": 800,
+    "conditioned_answer_flag": 795,
+    "conditioned_pairs": 800,
+    "fp32_vs_archive": 800,
+    "initial_order": 800,
+    "initial_set": 800,
+    "outside_reader": 800,
+    "second_hop": 800
+  },
+  "quality": {
+    "answer": {
+      "delta": -0.00625,
+      "losses": 5,
+      "shared_evidence_cluster_bootstrap95": [
+        -0.0125,
+        -0.00125
+      ],
+      "wins": 0
+    },
+    "joint": {
+      "delta": -0.005,
+      "losses": 4,
+      "shared_evidence_cluster_bootstrap95": [
+        -0.01,
+        -0.00125
+      ],
+      "wins": 0
+    },
+    "support": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    }
+  },
+  "requests": 800,
+  "requests_per_second": {
+    "bf16": 26.283063589238076,
+    "fp32": 25.765257711159116
+  }
+}

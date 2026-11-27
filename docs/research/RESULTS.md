@@ -8,6 +8,8 @@
 
 [Scholarly binary evidence](../../reports/nonlinear_retrieval_natural/QASPER_BINARY.md) raised answer accuracy from 34 to 51 of 74 using annotated paragraphs in place of same-paper sham evidence. [News evidence windows](../../reports/nonlinear_retrieval_natural/NEWS_ARTICLE_WINDOWS.md) raised joint exact from 16 to 31 of 384 versus word-stride windows with the same articles.
 
+[A one-binding MuSiQue intervention](../../reports/nonlinear_retrieval_natural/MUSIQUE_SINGLE_BINDING.md) raised complete four-hop candidate recovery from 52 to 75 of 160 when the first binding was corrected. Correcting the third raised joint candidate coverage and final subanswer exactness from 7 to 21. Both diagnostics use author templates.
+
 ## Multi-hop evidence selection
 
 The [held-out HotpotQA supporting-link study](../../reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) compares a question-conditioned pair scorer with one-pass and sequential retrieval on shared dense pools. It reports linked and unlinked gold evidence separately and tests the ranking of supporting links against distractor links directly.
