@@ -39,6 +39,16 @@ These are newly trained, approximately 10M-parameter models. Each saw the same 1
 
 The three seeds and five benchmarks were held fixed across all conditions within each backbone. Adapter cells list KAM / dot.
 
+**SmolLM2-1.7B-Instruct**
+
+| Benchmark | Untouched | High LR KAM / dot | High LR + KL KAM / dot | Low LR KAM / dot | Low LR + KL KAM / dot |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| HumanEval | 28.66% | 30.89% / 29.07% | 28.25% / 29.27% | 28.05% / 27.03% | 27.64% / 28.46% |
+| MBPP | 38.00% | 36.87% / 32.33% | 38.93% / 37.87% | 37.20% / 33.67% | 38.13% / 37.07% |
+| GPQA Diamond | 25.76% | 24.92% / 24.41% | 26.60% / 26.26% | 26.77% / 23.74% | 26.26% / 23.06% |
+| MMLU | 42.50% | 38.45% / 39.16% | 42.43% / 42.90% | 42.50% / 36.51% | 42.54% / 42.09% |
+| GSM8K | 31.77% | 12.31% / 6.92% | 30.33% / 28.35% | 30.00% / 3.59% | 30.50% / 27.29% |
+
 **Llama 3 8B Instruct**
 
 | Benchmark | Untouched | High LR KAM / dot | High LR + KL KAM / dot | Low LR KAM / dot | Low LR + KL KAM / dot |
