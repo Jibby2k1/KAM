@@ -2,6 +2,8 @@
 
 ## Recent controlled and cross-domain results
 
+[Extractive MuSiQue bindings](../../reports/nonlinear_retrieval_natural/MUSIQUE_SPAN_BINDINGS.md) raised monitored forced-span accuracy from 80–84 to 321–325 of 508 after tuning. In four-hop chains, a generative fallback gained three to four joint outcomes over the seven-outcome reference. The same fallback lost joint outcomes in three-hop chains.
+
 [BABILong executable retrieval](../../reports/nonlinear_retrieval_natural/BABILONG_REPLAY.md) reproduced all 1,200 source answers with complete structured input. At eight windows the 64k QA3 slice reached zero joint answers with unrestricted E5 and three with event-grammar filtering.
 
 [LongMemEval chronological packing](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_TIMELINE_ORDER.md) held the retained text and source sessions fixed. For the larger reader, adding dates raised overall joint exact from 52 to 58 of 470, with eight joint answers among 127 temporal questions in both arms. Chronological order did not improve the temporal result.

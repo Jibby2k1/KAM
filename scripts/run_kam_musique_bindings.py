@@ -3,11 +3,12 @@
 
 import argparse
 import gzip
-from functools import lru_cache
+from functools import lru_cache, partial
 from hashlib import sha256
 import json
 from pathlib import Path
 from time import perf_counter
+from types import SimpleNamespace
 from zipfile import ZipFile
 
 from audit_kam_natural_data import digest
@@ -106,6 +107,15 @@ def replay(arm, current, templates, labels, initial, passage_text, bank, encoder
     return rows
 
 
+def backup_answers(primary, fallback, prompts):
+    result = primary.answers(prompts)
+    unresolved = [i for i, answer in enumerate(result) if not answer]
+    if unresolved:
+        for i, answer in zip(unresolved, fallback.answers([prompts[i] for i in unresolved]), strict=True):
+            result[i] = answer
+    return result
+
+
 def run(a, articles, fixture):
     import torch
 
@@ -133,7 +143,13 @@ def run(a, articles, fixture):
     base_path = a.assets / f"reader_base_{BASE_REVISION}"
     assert digest(base_path / "model.safetensors") == BASE_WEIGHT
     reader = Reader(base_path)
-    larger = None
+    larger, span, span_mixed = None, None, None
+    if a.span_checkpoint:
+        from train_kam_musique_binding_spans import SpanReader
+
+        trained = SpanReader(a.assets, a.span_checkpoint, abstain=True)
+        span = SimpleNamespace(answers=partial(trained.answers, abstain=False))
+        span_mixed = SimpleNamespace(answers=partial(backup_answers, trained, reader))
     if a.reader_size:
         from kam_flan_reader_assets import LARGE_REVISION, LARGE_WEIGHT
 
@@ -160,25 +176,32 @@ def run(a, articles, fixture):
         templates = [source_templates["templates"][q["id"]] for q in cases]
         diagnostics = [analysis_labels["rows"][q["id"]] for q in cases]
         assert all(len(p) == nhops for p in templates)
-        policies = [(arm, arm, None, ()) for arm in ARMS]
+        policies = [(arm, arm, None, None, ()) for arm in ARMS]
+        baseline = ("top1", "top1", None, None, ())
         if a.single_oracle:
-            policies = [("top1", "top1", None, ()),
-                        *((f"gold_at_{i+1}", "top1", i, ()) for i in range(nhops - 1))]
+            policies = [baseline, *((f"gold_at_{i+1}", "top1", i, None, ()) for i in range(nhops - 1))]
         if a.reader_size:
-            policies = [("top1", "top1", None, ()), ("large_first", "top1", None, (0,))]
+            policies = [baseline, ("large_first", "top1", None, larger, (0,))]
             if nhops > 2:
-                policies.extend([("large_penultimate", "top1", None, (nhops - 2,)),
-                                 ("large_all_intermediate", "top1", None, tuple(range(nhops - 1)))])
-            policies.append(("large_final", "top1", None, (nhops - 1,)))
-        for arm, context_rule, gold_at, alternate_steps in policies:
+                policies.extend([("large_penultimate", "top1", None, larger, (nhops - 2,)),
+                                 ("large_all_intermediate", "top1", None, larger, tuple(range(nhops - 1)))])
+            policies.append(("large_final", "top1", None, larger, (nhops - 1,)))
+        if a.span_checkpoint:
+            policies = [baseline, ("span_first", "top1", None, span, (0,))]
+            if nhops > 2:
+                policies.extend([("span_penultimate", "top1", None, span, (nhops - 2,)),
+                                 ("span_all_intermediate", "top1", None, span, tuple(range(nhops - 1)))])
+            policies.append(("span_confident_fallback", "top1", None, span_mixed, tuple(range(nhops - 1))))
+        for arm, context_rule, gold_at, active, alternate_steps in policies:
             for row in replay(context_rule, cases, templates, diagnostics, initial, passage_text, bank, encoder, reader,
-                              gold_at=gold_at, alternate_reader=larger, alternate_steps=alternate_steps):
+                              gold_at=gold_at, alternate_reader=active, alternate_steps=alternate_steps):
                 answers.setdefault(row["id"], {})[arm] = row
     return {"fixture_sha256": fx, "corpus_sha256": cx, "models": models | {"google/flan-t5-base": BASE_REVISION},
             "templates_sha256": digest(a.templates), "scoring_labels_sha256": digest(a.labels),
             "baseline_sha256": digest(a.baseline), "elapsed_seconds": perf_counter() - start,
             "shard": a.shard, "shards": a.shards, "device": torch.cuda.get_device_name(),
-            "rows": [{"id": q["id"], "arms": answers[q["id"]]} for q in questions]}
+            "rows": [{"id": q["id"], "arms": answers[q["id"]]} for q in questions]} | (
+                {"span_checkpoint_sha256": digest(a.span_checkpoint)} if a.span_checkpoint else {})
 
 
 def main():
@@ -192,6 +215,7 @@ def main():
     diagnostics = p.add_mutually_exclusive_group()
     diagnostics.add_argument("--single-oracle", action="store_true")
     diagnostics.add_argument("--reader-size", action="store_true")
+    diagnostics.add_argument("--span-checkpoint", type=Path)
     p.add_argument("--shard", default=0, type=int)
     p.add_argument("--shards", default=1, type=int)
     a = p.parse_args()

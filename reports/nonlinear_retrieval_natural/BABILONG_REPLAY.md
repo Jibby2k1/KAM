@@ -17,4 +17,17 @@ Joint requires an exact denotation and recovery of a nonempty witness. Selective
 
 HPG arrays 52991336 and 52995611 measured both context lengths on L4. The additional B200 QA2 replay, 52991337 shard four, reproduced every numerical ranking record on all 100 questions. A task-specific grammar is a high-information control on this benchmark. Retrieval on arbitrary prose needs evidence linking and source interpretation beyond the recognized event templates.
 
+## Valid event language in untrusted filler
+
+A second audit inserted an independently sampled, quote-like block of well-formed event sentences around each authoritative trace. It used eight random snippets per episode and placed the identical snippet before or after the true trace. The target and provenance stayed fixed. Treating every well-formed sentence as an update produced the following exact counts.
+
+| Task | Trials | Snippet before trace | Snippet after trace | Paired change, percentage points |
+| --- | ---: | ---: | ---: | ---: |
+| QA2 | 800 | 800 | 527 | −34.13 [−37.63, −30.75] |
+| QA3 | 688 | 688 | 636 | −7.56 [−9.74, −5.52] |
+| QA7 | 800 | 713 | 524 | −23.63 [−27.50, −19.75] |
+| QA8 | 800 | 698 | 507 | −23.88 [−27.13, −20.88] |
+
+Clearing state updates with a trusted source flag restored all 3,088 exact outcomes at each placement. Resampling clustered the eight draws from each original episode. This is a simulated case where quoted content and executable memory writes share a grammar. The original official retrieval comparison above uses natural book filler. [Paired provenance replay](../../results/nonlinear_retrieval_natural/babilong_replay_v1/provenance/)
+
 [Audited manifests, ranks and comparisons](../../results/nonlinear_retrieval_natural/babilong_replay_v1/) · [Official benchmark](https://proceedings.neurips.cc/paper_files/paper/2024/hash/c0d62e70dbc659cc9bd44cbcf1cb652f-Abstract.html) · [Pinned data](https://huggingface.co/datasets/RMT-team/babilong/tree/ee0d588794c7ac098062ee0d247c733d62e94fe2)
