@@ -512,3 +512,9 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_native_twowiki.py --search "$study"/search-*.json.gz --reading "$study"/read-*.json.gz --prompt-audit "$study/prompt-52969359.json.gz" --manifest "$study/manifest.json.gz" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit depth-selective radial precision and throughput
+        run: |
+          study=results/nonlinear_retrieval_natural/radial_dispatch_v1
+          output=$(mktemp)
+          python scripts/analyze_kam_radial_dispatch.py --b200 "$study"/result-b200-52969191-*.json.gz --l4 "$study"/result-l4-52969192-*.json.gz --output "$output"
+          diff -u "$study/summary.json" "$output"

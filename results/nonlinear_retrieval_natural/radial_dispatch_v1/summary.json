@@ -1,0 +1,3310 @@
+{
+  "b200": {
+    "mean": {
+      "augmented_flash_bf16": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98307292,
+            "record": 0.98307292
+          },
+          "20": {
+            "address": 0.99934896,
+            "joint": 0.99283854,
+            "record": 0.99348958
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96809896,
+            "record": 0.96809896
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98242188,
+            "record": 0.98242188
+          },
+          "20": {
+            "address": 0.99934896,
+            "joint": 0.99348958,
+            "record": 0.99414062
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.97005208,
+            "record": 0.97005208
+          }
+        },
+        "peak_extra_bytes": 54261589,
+        "training_seconds": 6.68489
+      },
+      "balanced_split_flash_bf16": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98242188,
+            "record": 0.98242188
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99414062,
+            "record": 0.99414062
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.97265625,
+            "record": 0.97265625
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98177083,
+            "record": 0.98177083
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99414062,
+            "record": 0.99414062
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.97200521,
+            "record": 0.97200521
+          }
+        },
+        "peak_extra_bytes": 50764800,
+        "training_seconds": 6.579776
+      },
+      "eager_bf16": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98632812,
+            "record": 0.98632812
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99544271,
+            "record": 0.99544271
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.97200521,
+            "record": 0.97200521
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98372396,
+            "record": 0.98372396
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99544271,
+            "record": 0.99544271
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.97135417,
+            "record": 0.97135417
+          }
+        },
+        "peak_extra_bytes": 611075243,
+        "training_seconds": 7.107463
+      },
+      "eager_fp32": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98763021,
+            "record": 0.98763021
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99348958,
+            "record": 0.99348958
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96809896,
+            "record": 0.96809896
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98763021,
+            "record": 0.98763021
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99348958,
+            "record": 0.99348958
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96809896,
+            "record": 0.96809896
+          }
+        },
+        "peak_extra_bytes": 587667797,
+        "training_seconds": 6.374607
+      },
+      "fp32_short_flash_long": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98111979,
+            "record": 0.98111979
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99348958,
+            "record": 0.99348958
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96940104,
+            "record": 0.96940104
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98111979,
+            "record": 0.98111979
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99348958,
+            "record": 0.99348958
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96875,
+            "record": 0.96875
+          }
+        },
+        "peak_extra_bytes": 182431232,
+        "training_seconds": 6.477541
+      }
+    },
+    "per_seed": {
+      "638982": {
+        "initial_correct_of_512": {
+          "128": {
+            "address": 512,
+            "joint": 496,
+            "record": 496
+          },
+          "20": {
+            "address": 512,
+            "joint": 511,
+            "record": 511
+          },
+          "512": {
+            "address": 512,
+            "joint": 471,
+            "record": 471
+          }
+        },
+        "modes": {
+          "augmented_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 500,
+                "record": 500
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 501,
+                "record": 501
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.01757812,
+                  0.0
+                ],
+                "delta": -0.0078125,
+                "losses": 5,
+                "wins": 1
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.00585938
+                ],
+                "delta": 0.0,
+                "losses": 1,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.015625,
+                  0.00390625
+                ],
+                "delta": -0.00585938,
+                "losses": 5,
+                "wins": 2
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.007232599426060915,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.015969544649124146,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.002492091851308942,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0007856799056753516,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 51421696,
+              "seconds": 6.7960162719246,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "balanced_split_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.01953125,
+                  -0.00195312
+                ],
+                "delta": -0.00976562,
+                "losses": 5,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.00976562
+                ],
+                "delta": 0.00195312,
+                "losses": 1,
+                "wins": 2
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.00585938
+                ],
+                "delta": 0.0,
+                "losses": 1,
+                "wins": 1
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.00806137453764677,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.011415915563702583,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.003953772131353617,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0007168232696130872,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 50764800,
+              "seconds": 6.561034327023663,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 505,
+                "record": 505
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 500,
+                "record": 500
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 500,
+                "record": 500
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.01367188,
+                  0.0
+                ],
+                "delta": -0.00585938,
+                "losses": 3,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00585938
+                ],
+                "delta": 0.00195312,
+                "losses": 0,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.015625,
+                  0.00390625
+                ],
+                "delta": -0.00585938,
+                "losses": 5,
+                "wins": 2
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.007569678593426943,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.0036106135230511427,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0024560524616390467,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0008573998929932714,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 608585216,
+              "seconds": 7.126268115942366,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_fp32": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.007003847975283861,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.0052678752690553665,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.004685380961745977,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0007246000459417701,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 593347584,
+              "seconds": 6.3757280190475285,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "fp32_short_flash_long": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 505,
+                "record": 505
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.02148438,
+                  -0.00390625
+                ],
+                "delta": -0.01171875,
+                "losses": 6,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.00976562
+                ],
+                "delta": 0.00195312,
+                "losses": 1,
+                "wins": 2
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.007148359436541796,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.012972258031368256,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0050056092441082,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0009366254089400172,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 182430208,
+              "seconds": 6.792075591045432,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          }
+        }
+      },
+      "639003": {
+        "initial_correct_of_512": {
+          "128": {
+            "address": 512,
+            "joint": 501,
+            "record": 501
+          },
+          "20": {
+            "address": 512,
+            "joint": 509,
+            "record": 509
+          },
+          "512": {
+            "address": 512,
+            "joint": 468,
+            "record": 468
+          }
+        },
+        "modes": {
+          "augmented_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "20": {
+                "address": 511,
+                "joint": 508,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 491,
+                "record": 491
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "20": {
+                "address": 511,
+                "joint": 508,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 494,
+                "record": 494
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.00976562
+                ],
+                "delta": 0.00195312,
+                "losses": 2,
+                "wins": 3
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00976562,
+                  0.0
+                ],
+                "delta": -0.00390625,
+                "losses": 2,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.01953125,
+                  0.0078125
+                ],
+                "delta": -0.00585938,
+                "losses": 8,
+                "wins": 5
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.1770661473274231,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.007125391159206629,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.002161345910280943,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0008756055030971766,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 51421696,
+              "seconds": 6.559347463073209,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "balanced_split_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 497,
+                "record": 497
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 498,
+                "record": 498
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.00976562
+                ],
+                "delta": 0.00195312,
+                "losses": 1,
+                "wins": 2
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.00976562,
+                  0.02148438
+                ],
+                "delta": 0.00585938,
+                "losses": 6,
+                "wins": 9
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.08439157903194427,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.002490011742338538,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0038115340285003185,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0009644977399148047,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 50764800,
+              "seconds": 6.603170518996194,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 495,
+                "record": 495
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 493,
+                "record": 493
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  0.0,
+                  0.01367188
+                ],
+                "delta": 0.00585938,
+                "losses": 0,
+                "wins": 3
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.01367188,
+                  0.015625
+                ],
+                "delta": 0.00195312,
+                "losses": 7,
+                "wins": 8
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.3459579348564148,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.0037449973169714212,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0028848268557339907,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0008923613931983709,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 617104896,
+              "seconds": 7.371334218070842,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_fp32": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 494,
+                "record": 494
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 494,
+                "record": 494
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.32094570994377136,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.006261402741074562,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0015925088664516807,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0009661134681664407,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 584827904,
+              "seconds": 6.607563797966577,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "fp32_short_flash_long": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 493,
+                "record": 493
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 492,
+                "record": 492
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.0078125,
+                  0.0078125
+                ],
+                "delta": 0.0,
+                "losses": 2,
+                "wins": 2
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.0
+                ],
+                "delta": -0.00195312,
+                "losses": 1,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.01953125,
+                  0.015625
+                ],
+                "delta": -0.00195312,
+                "losses": 10,
+                "wins": 9
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.08938954770565033,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.004743560217320919,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0020461168605834246,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.000919607060495764,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 182430208,
+              "seconds": 6.327462782035582,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          }
+        }
+      },
+      "639051": {
+        "initial_correct_of_512": {
+          "128": {
+            "address": 512,
+            "joint": 500,
+            "record": 500
+          },
+          "20": {
+            "address": 512,
+            "joint": 510,
+            "record": 510
+          },
+          "512": {
+            "address": 512,
+            "joint": 459,
+            "record": 459
+          }
+        },
+        "modes": {
+          "augmented_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 496,
+                "record": 496
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 495,
+                "record": 495
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.015625,
+                  -0.00195312
+                ],
+                "delta": -0.0078125,
+                "losses": 4,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00585938
+                ],
+                "delta": 0.00195312,
+                "losses": 0,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.0234375
+                ],
+                "delta": 0.01171875,
+                "losses": 2,
+                "wins": 8
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.2159765213727951,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.0019906144589185715,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0013764580944553018,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.01922842673957348,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 59941376,
+              "seconds": 6.699305435991846,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "balanced_split_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 494,
+                "record": 494
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 493,
+                "record": 493
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.01757812,
+                  0.0
+                ],
+                "delta": -0.0078125,
+                "losses": 5,
+                "wins": 1
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.00585938
+                ],
+                "delta": 0.0,
+                "losses": 1,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.01953125
+                ],
+                "delta": 0.0078125,
+                "losses": 3,
+                "wins": 7
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.025142919272184372,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.006716724019497633,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0022559845820069313,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.018728982657194138,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 50764800,
+              "seconds": 6.575121804024093,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 501,
+                "record": 501
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 498,
+                "record": 498
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.01367188,
+                  0.00390625
+                ],
+                "delta": -0.00390625,
+                "losses": 4,
+                "wins": 2
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00976562
+                ],
+                "delta": 0.00390625,
+                "losses": 0,
+                "wins": 2
+              },
+              "512": {
+                "bootstrap95": [
+                  0.00390625,
+                  0.02929688
+                ],
+                "delta": 0.015625,
+                "losses": 1,
+                "wins": 9
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.039187002927064896,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.0024057000409811735,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0038363137282431126,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.00942598469555378,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 607535616,
+              "seconds": 6.8247879080008715,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_fp32": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 490,
+                "record": 490
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 490,
+                "record": 490
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.09769570082426071,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.008614959195256233,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.002444990910589695,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.021872440353035927,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 584827904,
+              "seconds": 6.140528628020547,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "fp32_short_flash_long": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 492,
+                "record": 492
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 491,
+                "record": 491
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.015625,
+                  -0.00195312
+                ],
+                "delta": -0.0078125,
+                "losses": 4,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00585938
+                ],
+                "delta": 0.00195312,
+                "losses": 0,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.0078125,
+                  0.015625
+                ],
+                "delta": 0.00390625,
+                "losses": 4,
+                "wins": 6
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.06398831307888031,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.004232938401401043,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0019185103010386229,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.014906422235071659,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 182433280,
+              "seconds": 6.313085010042414,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          }
+        }
+      }
+    }
+  },
+  "l4": {
+    "mean": {
+      "augmented_flash_bf16": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98307292,
+            "record": 0.98307292
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99414062,
+            "record": 0.99414062
+          },
+          "512": {
+            "address": 0.99934896,
+            "joint": 0.97005208,
+            "record": 0.97005208
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98177083,
+            "record": 0.98177083
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99414062,
+            "record": 0.99414062
+          },
+          "512": {
+            "address": 0.99934896,
+            "joint": 0.96875,
+            "record": 0.96875
+          }
+        },
+        "peak_extra_bytes": 54261589,
+        "training_seconds": 5.261342
+      },
+      "balanced_split_flash_bf16": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98111979,
+            "record": 0.98111979
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99348958,
+            "record": 0.99348958
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96354167,
+            "record": 0.96354167
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98242188,
+            "record": 0.98242188
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.99348958,
+            "record": 0.99348958
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96484375,
+            "record": 0.96484375
+          }
+        },
+        "peak_extra_bytes": 50764800,
+        "training_seconds": 5.328359
+      },
+      "eager_bf16": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98242188,
+            "record": 0.98242188
+          },
+          "20": {
+            "address": 0.99934896,
+            "joint": 0.9921875,
+            "record": 0.99283854
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96744792,
+            "record": 0.96744792
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98242188,
+            "record": 0.98242188
+          },
+          "20": {
+            "address": 0.99934896,
+            "joint": 0.9921875,
+            "record": 0.99283854
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96875,
+            "record": 0.96875
+          }
+        },
+        "peak_extra_bytes": 611075243,
+        "training_seconds": 14.718189
+      },
+      "eager_fp32": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.984375,
+            "record": 0.984375
+          },
+          "20": {
+            "address": 0.99934896,
+            "joint": 0.99088542,
+            "record": 0.99153646
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96940104,
+            "record": 0.96940104
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.984375,
+            "record": 0.984375
+          },
+          "20": {
+            "address": 0.99934896,
+            "joint": 0.99088542,
+            "record": 0.99153646
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96940104,
+            "record": 0.96940104
+          }
+        },
+        "peak_extra_bytes": 587667797,
+        "training_seconds": 16.034003
+      },
+      "fp32_short_flash_long": {
+        "common_fp32": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98111979,
+            "record": 0.98111979
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.9921875,
+            "record": 0.9921875
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96679688,
+            "record": 0.96679688
+          }
+        },
+        "native": {
+          "128": {
+            "address": 1.0,
+            "joint": 0.98111979,
+            "record": 0.98111979
+          },
+          "20": {
+            "address": 1.0,
+            "joint": 0.9921875,
+            "record": 0.9921875
+          },
+          "512": {
+            "address": 1.0,
+            "joint": 0.96679688,
+            "record": 0.96679688
+          }
+        },
+        "peak_extra_bytes": 182431232,
+        "training_seconds": 5.025888
+      }
+    },
+    "per_seed": {
+      "638982": {
+        "initial_correct_of_512": {
+          "128": {
+            "address": 512,
+            "joint": 496,
+            "record": 496
+          },
+          "20": {
+            "address": 512,
+            "joint": 511,
+            "record": 511
+          },
+          "512": {
+            "address": 512,
+            "joint": 471,
+            "record": 471
+          }
+        },
+        "modes": {
+          "augmented_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.01171875
+                ],
+                "delta": 0.00390625,
+                "losses": 1,
+                "wins": 3
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00976562
+                ],
+                "delta": 0.00390625,
+                "losses": 0,
+                "wins": 2
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.01953125
+                ],
+                "delta": 0.00976562,
+                "losses": 1,
+                "wins": 6
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.010297120548784733,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.01708120107650757,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.004823506344109774,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0007704366580583155,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 51421696,
+              "seconds": 5.034797170199454,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "balanced_split_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.00585938
+                ],
+                "delta": 0.0,
+                "losses": 1,
+                "wins": 1
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00585938
+                ],
+                "delta": 0.00195312,
+                "losses": 0,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.01757812
+                ],
+                "delta": 0.0078125,
+                "losses": 1,
+                "wins": 5
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.008849000558257103,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.004880326334387064,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.003928403370082378,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0010882153874263167,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 50764800,
+              "seconds": 5.0990058640018106,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 501,
+                "record": 501
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.01171875,
+                  0.00390625
+                ],
+                "delta": -0.00390625,
+                "losses": 3,
+                "wins": 1
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.00585938
+                ],
+                "delta": 0.0,
+                "losses": 1,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.01953125
+                ],
+                "delta": 0.0078125,
+                "losses": 3,
+                "wins": 7
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.007523647043853998,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.008382649160921574,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.002238081768155098,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0009238433558493853,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 608585216,
+              "seconds": 14.764579822309315,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_fp32": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 498,
+                "record": 498
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 504,
+                "record": 504
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 498,
+                "record": 498
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.007893368601799011,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.004903758876025677,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0048579685389995575,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0007303974707610905,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 593347584,
+              "seconds": 16.062158834189177,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "fp32_short_flash_long": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 501,
+                "record": 501
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 502,
+                "record": 502
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.0
+                ],
+                "delta": -0.00195312,
+                "losses": 1,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.01757812
+                ],
+                "delta": 0.00585938,
+                "losses": 3,
+                "wins": 6
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.007045661564916372,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.021640976890921593,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0022725139278918505,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0008093242649920285,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 182430208,
+              "seconds": 4.7866253443062305,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          }
+        }
+      },
+      "639003": {
+        "initial_correct_of_512": {
+          "128": {
+            "address": 512,
+            "joint": 501,
+            "record": 501
+          },
+          "20": {
+            "address": 512,
+            "joint": 509,
+            "record": 509
+          },
+          "512": {
+            "address": 512,
+            "joint": 468,
+            "record": 468
+          }
+        },
+        "modes": {
+          "augmented_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 497,
+                "record": 497
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 496,
+                "record": 496
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.01367188
+                ],
+                "delta": 0.00390625,
+                "losses": 2,
+                "wins": 4
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00976562
+                ],
+                "delta": 0.00390625,
+                "losses": 0,
+                "wins": 2
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.015625,
+                  0.00390625
+                ],
+                "delta": -0.00585938,
+                "losses": 5,
+                "wins": 2
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.09124591946601868,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.003770413575693965,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0024283151142299175,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0010250890627503395,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 51421696,
+              "seconds": 5.413127391831949,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "balanced_split_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 487,
+                "record": 487
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 506,
+                "record": 506
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 488,
+                "record": 488
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00976562,
+                  0.01367188
+                ],
+                "delta": 0.00195312,
+                "losses": 4,
+                "wins": 5
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00976562
+                ],
+                "delta": 0.00390625,
+                "losses": 0,
+                "wins": 2
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.04101562,
+                  -0.00976562
+                ],
+                "delta": -0.02539062,
+                "losses": 15,
+                "wins": 2
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.14126849174499512,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.003422135952860117,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.002479689661413431,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0009025272447615862,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 50764800,
+              "seconds": 5.532299076905474,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "20": {
+                "address": 511,
+                "joint": 507,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 489,
+                "record": 489
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "20": {
+                "address": 511,
+                "joint": 507,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 488,
+                "record": 488
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.01367188
+                ],
+                "delta": 0.00390625,
+                "losses": 2,
+                "wins": 4
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00585938,
+                  0.0
+                ],
+                "delta": -0.00195312,
+                "losses": 1,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.03710938,
+                  -0.0078125
+                ],
+                "delta": -0.02148438,
+                "losses": 13,
+                "wins": 2
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.3583236634731293,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.003724220208823681,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0026158096734434366,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0010543918469920754,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 617104896,
+              "seconds": 14.712426908081397,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_fp32": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 505,
+                "record": 505
+              },
+              "20": {
+                "address": 511,
+                "joint": 508,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 500,
+                "record": 500
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 505,
+                "record": 505
+              },
+              "20": {
+                "address": 511,
+                "joint": 508,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 500,
+                "record": 500
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.3258940279483795,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.0034084627404809,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.001746985362842679,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0008764069061726332,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 584827904,
+              "seconds": 15.942199357785285,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "fp32_short_flash_long": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 505,
+                "record": 505
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 492,
+                "record": 492
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 505,
+                "record": 505
+              },
+              "20": {
+                "address": 512,
+                "joint": 509,
+                "record": 509
+              },
+              "512": {
+                "address": 512,
+                "joint": 492,
+                "record": 492
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.00976562,
+                  0.00976562
+                ],
+                "delta": 0.0,
+                "losses": 3,
+                "wins": 3
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00585938
+                ],
+                "delta": 0.00195312,
+                "losses": 0,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.02929688,
+                  -0.00195312
+                ],
+                "delta": -0.015625,
+                "losses": 10,
+                "wins": 2
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.23688887059688568,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.005818087607622147,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0017579416744410992,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.0009904582984745502,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 182430208,
+              "seconds": 5.247991170035675,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          }
+        }
+      },
+      "639051": {
+        "initial_correct_of_512": {
+          "128": {
+            "address": 512,
+            "joint": 500,
+            "record": 500
+          },
+          "20": {
+            "address": 512,
+            "joint": 510,
+            "record": 510
+          },
+          "512": {
+            "address": 512,
+            "joint": 459,
+            "record": 459
+          }
+        },
+        "modes": {
+          "augmented_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 497,
+                "record": 497
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 511,
+                "joint": 490,
+                "record": 490
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 496,
+                "record": 496
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 511,
+                "joint": 488,
+                "record": 488
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.0234375,
+                  -0.00195312
+                ],
+                "delta": -0.01171875,
+                "losses": 7,
+                "wins": 1
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.00976562
+                ],
+                "delta": 0.00195312,
+                "losses": 1,
+                "wins": 2
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.01367188,
+                  0.01171875
+                ],
+                "delta": -0.00195312,
+                "losses": 6,
+                "wins": 5
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.06087424233555794,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.0027672280557453632,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.002231681253761053,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.014724045060575008,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 59941376,
+              "seconds": 5.336101637221873,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "balanced_split_flash_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 497,
+                "record": 497
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 491,
+                "record": 491
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 491,
+                "record": 491
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.0234375,
+                  0.0
+                ],
+                "delta": -0.01171875,
+                "losses": 8,
+                "wins": 2
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.00585938
+                ],
+                "delta": 0.00195312,
+                "losses": 0,
+                "wins": 1
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.01171875,
+                  0.01171875
+                ],
+                "delta": 0.0,
+                "losses": 5,
+                "wins": 5
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.015719763934612274,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.007336074020713568,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0019990536384284496,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.04911210387945175,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 50764800,
+              "seconds": 5.353770976886153,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_bf16": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 500,
+                "record": 500
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 495,
+                "record": 495
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 501,
+                "record": 501
+              },
+              "20": {
+                "address": 512,
+                "joint": 510,
+                "record": 510
+              },
+              "512": {
+                "address": 512,
+                "joint": 498,
+                "record": 498
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.015625,
+                  0.00390625
+                ],
+                "delta": -0.00585938,
+                "losses": 5,
+                "wins": 2
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.01367188
+                ],
+                "delta": 0.00585938,
+                "losses": 0,
+                "wins": 3
+              },
+              "512": {
+                "bootstrap95": [
+                  0.00195312,
+                  0.015625
+                ],
+                "delta": 0.0078125,
+                "losses": 0,
+                "wins": 4
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.0438573844730854,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.01255329791456461,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0030120285227894783,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.013963272795081139,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 607535616,
+              "seconds": 14.677558772265911,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "eager_fp32": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 491,
+                "record": 491
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 503,
+                "record": 503
+              },
+              "20": {
+                "address": 512,
+                "joint": 507,
+                "record": 507
+              },
+              "512": {
+                "address": 512,
+                "joint": 491,
+                "record": 491
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              },
+              "512": {
+                "bootstrap95": [
+                  0.0,
+                  0.0
+                ],
+                "delta": 0.0,
+                "losses": 0,
+                "wins": 0
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.09763262420892715,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.011452920734882355,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.004325861111283302,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.020568888634443283,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 584827904,
+              "seconds": 16.097651913762093,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          },
+          "fp32_short_flash_long": {
+            "common_fp32": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 492,
+                "record": 492
+              }
+            },
+            "native": {
+              "128": {
+                "address": 512,
+                "joint": 499,
+                "record": 499
+              },
+              "20": {
+                "address": 512,
+                "joint": 508,
+                "record": 508
+              },
+              "512": {
+                "address": 512,
+                "joint": 491,
+                "record": 491
+              }
+            },
+            "paired_joint_vs_eager_fp32": {
+              "128": {
+                "bootstrap95": [
+                  -0.015625,
+                  -0.00195312
+                ],
+                "delta": -0.0078125,
+                "losses": 4,
+                "wins": 0
+              },
+              "20": {
+                "bootstrap95": [
+                  -0.00390625,
+                  0.00976562
+                ],
+                "delta": 0.00195312,
+                "losses": 1,
+                "wins": 2
+              },
+              "512": {
+                "bootstrap95": [
+                  -0.00976562,
+                  0.01367188
+                ],
+                "delta": 0.00195312,
+                "losses": 4,
+                "wins": 5
+              }
+            },
+            "training": {
+              "losses": [
+                {
+                  "loss": 0.0426754355430603,
+                  "step": 300,
+                  "tokens": 1231200
+                },
+                {
+                  "loss": 0.012648849748075008,
+                  "step": 600,
+                  "tokens": 2462400
+                },
+                {
+                  "loss": 0.0027458472177386284,
+                  "step": 900,
+                  "tokens": 3693600
+                },
+                {
+                  "loss": 0.021907741203904152,
+                  "step": 1200,
+                  "tokens": 4924800
+                }
+              ],
+              "peak_extra_allocated_bytes": 182433280,
+              "seconds": 5.043048546649516,
+              "steps": 1200,
+              "tokens": 4924800
+            }
+          }
+        }
+      }
+    }
+  }
+}
