@@ -64,7 +64,7 @@ def run(a):
         assert [r["id"] for r in part["rows"]] == [r["id"] for r in fixture["rows"][part["shard"]::4]]
     cases = fixture["rows"][a.shard::a.shards]
     rankings = {r["id"]: r for item in searches for r in item["rows"]}
-    refs = reference_rows(a.source, {q["id"] for q in cases})
+    refs = {} if a.features_only else reference_rows(a.source, {q["id"] for q in cases})
     wanted = sorted({d for q in cases for column in ("dense", "conditioned") for d in rankings[q["id"]][column]})
     embeddings, offsets = selected_vectors(a.inputs, manifest, config["encoding_parts_per_row_group"], wanted, "cuda")
     adapter, _ = restore_checkpoint(a.baseline, a.config, config, None, None, weights_sha256=a.baseline_sha256)
@@ -72,7 +72,7 @@ def run(a):
     locked = json.loads(a.fitted.read_text())["native_semantic"]
     assert locked["columns"] == list(range(len(COLUMNS)))
     encoder = Encoder(a.assets / "encoder", 128)
-    reader = Reader(a.assets / "reader")
+    reader = None if a.features_only else Reader(a.assets / "reader")
     pair_ids = {n: torch.triu_indices(n, n, 1) for n in (64, 128)}
     gpu_pairs = {n: p.cuda() for n, p in pair_ids.items()}
     base_pairs = pair_ids[128][1] < 64
@@ -103,10 +103,18 @@ def run(a):
                 arms = {}
                 gold = {u["corpus_id"] for u in case["units"]}
                 for name, _, _, pairs, _, _ in plan[4]:
+                    if a.features_only and name != "conditioned128":
+                        continue
                     rank, example = pools[name]
-                    x = np.asarray(features["variants"][name]["features"], dtype=np.float64)
-                    scores = ((x - locked["mean"]) / locked["scale"]) @ locked["coefficients"]
+                    values = features["variants"][name]["features"]
                     order = contexts[name][1]
+                    if a.features_only:
+                        proposals = [[rank[j] for j in sorted(pair, key=lambda k: (-order[k], k))] for pair in pairs]
+                        gold_index = next((i for i, proposal in enumerate(proposals) if set(proposal) == gold), -1)
+                        arms[name] = {"gold": gold_index, "pairs": proposals, "features": values}
+                        continue
+                    x = np.asarray(values, dtype=np.float64)
+                    scores = ((x - locked["mean"]) / locked["scale"]) @ locked["coefficients"]
                     chosen = sorted(pairs[int(scores.argmax())], key=lambda j: (-order[j], j))
                     pair = [rank[j] for j in chosen]
                     shortlisted = any({rank[j], rank[k]} == gold for j, k in pairs)
@@ -114,14 +122,18 @@ def run(a):
                     arms[name] = arm
                     reader_requests.append((reader.prompt(example, chosen), refs[case["id"]]["answer"], arm))
                 rows.append({"id": case["id"], "arms": arms})
-    prompts = list(dict.fromkeys(p for p, _, _ in reader_requests))
-    answers = dict(zip(prompts, reader.answers(prompts), strict=True))
-    for prompt, answer, arm in reader_requests:
-        arm.update(measure_answer(answers[prompt], answer))
-    return {"fixture_sha256": digest(a.fixture), "fitted_sha256": digest(a.fitted), "source_sha256": digest(a.source),
-            "corpus": fixture["corpus"], "models": revisions, "search_hashes": sorted(map(digest, a.search)),
-            "device": torch.cuda.get_device_name(), "shard": a.shard, "shards": a.shards,
-            "elapsed_seconds": perf_counter() - start, "rows": rows}
+    if reader_requests:
+        prompts = list(dict.fromkeys(p for p, _, _ in reader_requests))
+        answers = dict(zip(prompts, reader.answers(prompts), strict=True))
+        for prompt, answer, arm in reader_requests:
+            arm.update(measure_answer(answers[prompt], answer))
+    outputs = {"fixture_sha256": digest(a.fixture), "fitted_sha256": digest(a.fitted), "source_sha256": digest(a.source),
+               "corpus": fixture["corpus"], "models": revisions, "search_hashes": sorted(map(digest, a.search)),
+               "device": torch.cuda.get_device_name(), "shard": a.shard, "shards": a.shards,
+               "elapsed_seconds": perf_counter() - start, "rows": rows}
+    if a.features_only:
+        outputs["columns"] = list(COLUMNS)
+    return outputs
 
 
 def main():
@@ -133,6 +145,7 @@ def main():
     p.add_argument("--search", nargs=4, required=True, type=Path)
     p.add_argument("--shard", type=int, required=True)
     p.add_argument("--shards", type=int, required=True)
+    p.add_argument("--features-only", action="store_true")
     a = p.parse_args()
     assert 0 <= a.shard < a.shards
     torch.set_float32_matmul_precision("highest")

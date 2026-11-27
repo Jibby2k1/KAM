@@ -20,7 +20,7 @@ from run_kam_natural_feasibility import Encoder, candidate_texts
 def run(a):
     start = perf_counter()
     cfg, fixture, manifest = (read(p) for p in (a.config, a.fixture, a.inputs / "manifest.json"))
-    assert len(fixture["rows"]) == 1024 and manifest["source_sha256"] == fixture["corpus"]["source_sha256"]
+    assert fixture["rows"] and manifest["source_sha256"] == fixture["corpus"]["source_sha256"]
     index = FullWikiIndex(a.inputs, manifest, cfg)
     assert all(index.meta[k] == v for k, v in fixture["corpus"].items())
     encoder = Encoder(a.assets / "encoder", 96)

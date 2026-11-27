@@ -1,0 +1,406 @@
+{
+  "fixture_sha256": "74c74aa221f6ff9d6fb9a2e6c63c75daa20baea987ac6dab18dd6d1f7d6c4a06",
+  "picks_sha256": "37f97209aaa09f3ef76201124cdb22c53d72c8ae70153d6dd810329949275dc8",
+  "policy_sha256": "158a7f9616d12e23369f17203c1030e9fa20443e0d62c10943c1e4f491000e81",
+  "reader_replay": {
+    "frozen_scores": 3072,
+    "new_prompts": 293
+  },
+  "scopes": {
+    "all": {
+      "changed_pairs": 325,
+      "counts": {
+        "frozen": {
+          "answer_em": 238,
+          "joint": 165,
+          "pool": 826,
+          "shortlist": 711,
+          "support": 383
+        },
+        "refit": {
+          "answer_em": 242,
+          "joint": 162,
+          "pool": 826,
+          "shortlist": 711,
+          "support": 425
+        }
+      },
+      "oracle_policy_choice": {
+        "joint": 180,
+        "support": 469
+      },
+      "paired_refit_vs_frozen": {
+        "answer_em": {
+          "bootstrap95": [
+            -0.00683594,
+            0.01464844
+          ],
+          "delta": 0.00390625,
+          "losses": 13,
+          "wins": 17
+        },
+        "joint": {
+          "bootstrap95": [
+            -0.01464844,
+            0.0078125
+          ],
+          "delta": -0.00292969,
+          "losses": 18,
+          "wins": 15
+        },
+        "support": {
+          "bootstrap95": [
+            0.01953125,
+            0.06347656
+          ],
+          "delta": 0.04101562,
+          "losses": 44,
+          "wins": 86
+        }
+      },
+      "questions": 1024,
+      "recovered_reader_controls": {
+        "both": {
+          "annotated_sentences": 169,
+          "frozen_joint": 147,
+          "native_leads": 149,
+          "questions": 339,
+          "refit_joint": 147,
+          "supplied_context": 147
+        },
+        "frozen_only": {
+          "annotated_sentences": 19,
+          "frozen_joint": 18,
+          "native_leads": 19,
+          "questions": 44,
+          "refit_joint": 0,
+          "supplied_context": 19
+        },
+        "refit_only": {
+          "annotated_sentences": 28,
+          "frozen_joint": 0,
+          "native_leads": 15,
+          "questions": 86,
+          "refit_joint": 15,
+          "supplied_context": 17
+        }
+      }
+    },
+    "dense64_complete": {
+      "changed_pairs": 159,
+      "counts": {
+        "frozen": {
+          "answer_em": 213,
+          "joint": 145,
+          "pool": 590,
+          "shortlist": 508,
+          "support": 311
+        },
+        "refit": {
+          "answer_em": 210,
+          "joint": 138,
+          "pool": 590,
+          "shortlist": 508,
+          "support": 313
+        }
+      },
+      "oracle_policy_choice": {
+        "joint": 156,
+        "support": 354
+      },
+      "paired_refit_vs_frozen": {
+        "answer_em": {
+          "bootstrap95": [
+            -0.02033898,
+            0.01016949
+          ],
+          "delta": -0.00508475,
+          "losses": 12,
+          "wins": 9
+        },
+        "joint": {
+          "bootstrap95": [
+            -0.03050847,
+            0.00508475
+          ],
+          "delta": -0.01186441,
+          "losses": 18,
+          "wins": 11
+        },
+        "support": {
+          "bootstrap95": [
+            -0.02711864,
+            0.03389831
+          ],
+          "delta": 0.00338983,
+          "losses": 41,
+          "wins": 43
+        }
+      },
+      "questions": 590,
+      "recovered_reader_controls": {
+        "both": {
+          "annotated_sentences": 137,
+          "frozen_joint": 127,
+          "native_leads": 129,
+          "questions": 270,
+          "refit_joint": 127,
+          "supplied_context": 121
+        },
+        "frozen_only": {
+          "annotated_sentences": 18,
+          "frozen_joint": 18,
+          "native_leads": 19,
+          "questions": 41,
+          "refit_joint": 0,
+          "supplied_context": 19
+        },
+        "refit_only": {
+          "annotated_sentences": 14,
+          "frozen_joint": 0,
+          "native_leads": 11,
+          "questions": 43,
+          "refit_joint": 11,
+          "supplied_context": 11
+        }
+      }
+    },
+    "dense64_incomplete": {
+      "changed_pairs": 166,
+      "counts": {
+        "frozen": {
+          "answer_em": 25,
+          "joint": 20,
+          "pool": 236,
+          "shortlist": 203,
+          "support": 72
+        },
+        "refit": {
+          "answer_em": 32,
+          "joint": 24,
+          "pool": 236,
+          "shortlist": 203,
+          "support": 112
+        }
+      },
+      "oracle_policy_choice": {
+        "joint": 24,
+        "support": 115
+      },
+      "paired_refit_vs_frozen": {
+        "answer_em": {
+          "bootstrap95": [
+            0.00460829,
+            0.02995392
+          ],
+          "delta": 0.01612903,
+          "losses": 1,
+          "wins": 8
+        },
+        "joint": {
+          "bootstrap95": [
+            0.00230415,
+            0.01843318
+          ],
+          "delta": 0.00921659,
+          "losses": 0,
+          "wins": 4
+        },
+        "support": {
+          "bootstrap95": [
+            0.06451613,
+            0.12211982
+          ],
+          "delta": 0.0921659,
+          "losses": 3,
+          "wins": 43
+        }
+      },
+      "questions": 434,
+      "recovered_reader_controls": {
+        "both": {
+          "annotated_sentences": 32,
+          "frozen_joint": 20,
+          "native_leads": 20,
+          "questions": 69,
+          "refit_joint": 20,
+          "supplied_context": 26
+        },
+        "frozen_only": {
+          "annotated_sentences": 1,
+          "frozen_joint": 0,
+          "native_leads": 0,
+          "questions": 3,
+          "refit_joint": 0,
+          "supplied_context": 0
+        },
+        "refit_only": {
+          "annotated_sentences": 14,
+          "frozen_joint": 0,
+          "native_leads": 4,
+          "questions": 43,
+          "refit_joint": 4,
+          "supplied_context": 6
+        }
+      }
+    },
+    "exact": {
+      "changed_pairs": 154,
+      "counts": {
+        "frozen": {
+          "answer_em": 143,
+          "joint": 106,
+          "pool": 441,
+          "shortlist": 407,
+          "support": 222
+        },
+        "refit": {
+          "answer_em": 145,
+          "joint": 103,
+          "pool": 441,
+          "shortlist": 407,
+          "support": 239
+        }
+      },
+      "oracle_policy_choice": {
+        "joint": 114,
+        "support": 265
+      },
+      "paired_refit_vs_frozen": {
+        "answer_em": {
+          "bootstrap95": [
+            -0.01171875,
+            0.01953125
+          ],
+          "delta": 0.00390625,
+          "losses": 7,
+          "wins": 9
+        },
+        "joint": {
+          "bootstrap95": [
+            -0.0234375,
+            0.01171875
+          ],
+          "delta": -0.00585938,
+          "losses": 11,
+          "wins": 8
+        },
+        "support": {
+          "bootstrap95": [
+            0.0,
+            0.06445312
+          ],
+          "delta": 0.03320312,
+          "losses": 26,
+          "wins": 43
+        }
+      },
+      "questions": 512,
+      "recovered_reader_controls": {
+        "both": {
+          "annotated_sentences": 104,
+          "frozen_joint": 95,
+          "native_leads": 96,
+          "questions": 196,
+          "refit_joint": 95,
+          "supplied_context": 89
+        },
+        "frozen_only": {
+          "annotated_sentences": 10,
+          "frozen_joint": 11,
+          "native_leads": 11,
+          "questions": 26,
+          "refit_joint": 0,
+          "supplied_context": 11
+        },
+        "refit_only": {
+          "annotated_sentences": 14,
+          "frozen_joint": 0,
+          "native_leads": 8,
+          "questions": 43,
+          "refit_joint": 8,
+          "supplied_context": 9
+        }
+      }
+    },
+    "partial": {
+      "changed_pairs": 171,
+      "counts": {
+        "frozen": {
+          "answer_em": 95,
+          "joint": 59,
+          "pool": 385,
+          "shortlist": 304,
+          "support": 161
+        },
+        "refit": {
+          "answer_em": 97,
+          "joint": 59,
+          "pool": 385,
+          "shortlist": 304,
+          "support": 186
+        }
+      },
+      "oracle_policy_choice": {
+        "joint": 66,
+        "support": 204
+      },
+      "paired_refit_vs_frozen": {
+        "answer_em": {
+          "bootstrap95": [
+            -0.00976562,
+            0.01757812
+          ],
+          "delta": 0.00390625,
+          "losses": 6,
+          "wins": 8
+        },
+        "joint": {
+          "bootstrap95": [
+            -0.01367188,
+            0.01367188
+          ],
+          "delta": 0.0,
+          "losses": 7,
+          "wins": 7
+        },
+        "support": {
+          "bootstrap95": [
+            0.01953125,
+            0.078125
+          ],
+          "delta": 0.04882812,
+          "losses": 18,
+          "wins": 43
+        }
+      },
+      "questions": 512,
+      "recovered_reader_controls": {
+        "both": {
+          "annotated_sentences": 65,
+          "frozen_joint": 52,
+          "native_leads": 53,
+          "questions": 143,
+          "refit_joint": 52,
+          "supplied_context": 58
+        },
+        "frozen_only": {
+          "annotated_sentences": 9,
+          "frozen_joint": 7,
+          "native_leads": 8,
+          "questions": 18,
+          "refit_joint": 0,
+          "supplied_context": 8
+        },
+        "refit_only": {
+          "annotated_sentences": 14,
+          "frozen_joint": 0,
+          "native_leads": 7,
+          "questions": 43,
+          "refit_joint": 7,
+          "supplied_context": 8
+        }
+      }
+    }
+  }
+}
