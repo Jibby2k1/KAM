@@ -6,17 +6,20 @@ The archive contains direct evaluations of small KAM checkpoints, retrieval pipe
 
 ## General model benchmarks
 
-| Capability | Benchmark | Primary metric | KAM checkpoint result |
-| --- | --- | --- | --- |
-| Language modeling | Tiny Shakespeare, character level | Validation NLL, bits per character, character perplexity | Development result below. The reported sweep reserved the test split. |
-| Language modeling | [WikiText-103](https://arxiv.org/abs/1609.07843) | Held-out NLL and perplexity at fixed tokenization | No archived score found |
-| Broad knowledge | [MMLU](https://arxiv.org/abs/2009.03300) | Multiple-choice accuracy | No archived score found |
-| Graduate science | [GPQA Diamond](https://arxiv.org/abs/2311.12022) | Multiple-choice accuracy | No archived score found |
-| Mathematical reasoning | [GSM8K](https://arxiv.org/abs/2110.14168) | Final-answer exact match | No archived score found |
-| Code generation | [HumanEval](https://arxiv.org/abs/2107.03374), [MBPP](https://arxiv.org/abs/2108.07732) | Unit-test pass@1, plus pass@k for multiple samples | No archived score found |
-| Repository software engineering | [SWE-bench Verified](https://openai.com/index/introducing-swe-bench-verified/) | Percentage of issues resolved with a specified agent harness | No archived score found |
+| Capability | Benchmark | Metric | KAM (T-KAM-F) | Dot (T-WIDE) | Full prompt, n |
+| --- | --- | --- | ---: | ---: | ---: |
+| Language modeling | Tiny Shakespeare | Validation NLL and character perplexity | Development score below | Development score below | — |
+| Language modeling | [WikiText-103](https://arxiv.org/abs/1609.07843) | Held-out NLL and perplexity | Unscored | Unscored | — |
+| Broad knowledge | [MMLU](https://arxiv.org/abs/2009.03300) | Multiple-choice accuracy | 24.20% (3,398/14,042) | 24.60% (3,454/14,042) | 1,233 |
+| Graduate science | [GPQA Diamond](https://arxiv.org/abs/2311.12022) | Multiple-choice accuracy | 26.26% (52/198) | 23.74% (47/198) | 1 |
+| Mathematical reasoning | [GSM8K](https://arxiv.org/abs/2110.14168) | Strict final-answer exact match | 0.00% (0/1,319) | 0.00% (0/1,319) | 3 |
+| Code generation | [HumanEval](https://arxiv.org/abs/2107.03374) | Unit-test pass@1 | 0.00% (0/164) | 0.00% (0/164) | 1 |
+| Code generation | [MBPP](https://arxiv.org/abs/2108.07732) | Unit-test pass@1 | 0.00% (0/500) | 0.00% (0/500) | 432 |
+| Repository software engineering | [SWE-bench Verified](https://openai.com/index/introducing-swe-bench-verified/) | Issues resolved with a specified agent harness | Unscored | Unscored | — |
 
-QASPER measures answers grounded in scientific papers. BRIGHT includes earth science document retrieval. Both are scored below. A general capability comparison requires a pinned text-capable KAM checkpoint and matched dot-attention control, plus fixed benchmark revisions, prompts, and decoding or option-scoring settings.
+The five general benchmarks use the first preregistered pair of TinyStories V2 checkpoints, with about 10M parameters and 50M training bytes each. Both models used the same zero-shot prompts on HPG L4 GPUs. Each forward keeps the most recent 128 UTF-8 bytes. The last column counts initial prompts that fit in full. Read these as scores for the specified checkpoint pair and prompt protocol. [Evaluation protocol and results](GENERAL_BENCHMARKS_PROTOCOL.md) · [Numerical summary](../../results/general_benchmarks/summary.json)
+
+QASPER measures answers grounded in scientific papers. BRIGHT includes earth science document retrieval. Both are scored below.
 
 ## Natural QA and conversational memory
 
