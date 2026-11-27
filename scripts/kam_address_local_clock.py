@@ -34,7 +34,10 @@ def local_rank(tokens, alias=False):
     breaks = torch.cat((torch.ones_like(cut[:, :1]), cut[:, 1:] | by_time[:, 1:].ne(by_time[:, :-1]).any(-1)), dim=1)
     # Equal date pairs share the earliest ordinal for their group.
     ties = torch.where(breaks, ordinal, 0).cummax(dim=1).values
-    return torch.empty_like(order).scatter_(1, order, ties - blocks), available
+    # The sort order is a permutation. Gathering its inverse has the same
+    # result as scattering and avoids deterministic CUDA scatter in a graph.
+    inverse = order.argsort(dim=1)
+    return (ties - blocks).gather(1, inverse), available
 
 
 def shuffled_ranks(ranks, available):

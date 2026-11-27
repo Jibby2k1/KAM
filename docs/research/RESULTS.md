@@ -52,6 +52,8 @@
 
 [Early MuSiQue branching](../../reports/nonlinear_retrieval_natural/MUSIQUE_FIRST_BINDING_BRANCH.md) raised four-hop full candidate coverage from 52 to 57–58 but kept joint exactness at four to five across three fits. The same-reader gold-paragraph ceiling inside these pools stayed at 15–16.
 
+[Temporal Q/K projections](../../reports/nonlinear_retrieval_natural/TEMPORAL_QK_PROJECTION.md) found a gain from nonlinear over equal-capacity linear spherical projection on two Eurostat indicators, alongside much worse deep correction outcomes than dot. [Rank caching and CUDA Graphs](../../reports/nonlinear_retrieval_natural/RANK_FEATURE_CACHE.md) preserved complete trajectories and reduced 3,200-update B200 dot time from 19.41 to 3.03 seconds including setup.
+
 ## Multi-hop evidence selection
 
 The [held-out HotpotQA supporting-link study](../../reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) compares a question-conditioned pair scorer with one-pass and sequential retrieval on shared dense pools. It reports linked and unlinked gold evidence separately and tests the ranking of supporting links against distractor links directly.

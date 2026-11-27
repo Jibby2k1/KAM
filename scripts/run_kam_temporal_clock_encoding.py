@@ -172,7 +172,7 @@ def exposure_order(schedule, seed, delay):
     return result
 
 
-def fit(model, panels, order, *, transform=None):
+def fit(model, panels, order, *, transform=None, audit_optimizer=False):
     opt = torch.optim.AdamW(model.parameters(), lr=.002, fused=True)
     model.train()
     torch.cuda.synchronize()
@@ -203,7 +203,17 @@ def fit(model, panels, order, *, transform=None):
             losses.append(float(loss.detach()))
     torch.cuda.synchronize()
     assert all(cursors[d] == len(v[2]) for d, v in panels.items())
-    return {"seconds": perf_counter() - started, "losses": losses}
+    measured = {"seconds": perf_counter() - started, "losses": losses}
+    if audit_optimizer:
+        hashed = sha256()
+        for group in opt.param_groups:
+            for parameter in group["params"]:
+                for field in ("step", "exp_avg", "exp_avg_sq"):
+                    if field in opt.state[parameter]:
+                        value = opt.state[parameter][field].detach().cpu().contiguous()
+                        hashed.update(value.numpy().tobytes())
+        measured["optimizer_sha256"] = hashed.hexdigest()
+    return measured
 
 
 @torch.inference_mode()

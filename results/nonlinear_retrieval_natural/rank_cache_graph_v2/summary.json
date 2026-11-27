@@ -1,0 +1,528 @@
+{
+  "eager": {
+    "NVIDIA B200": {
+      "cache_build_seconds": [
+        0.14306779764592648,
+        0.37214703811332583,
+        0.3970662308856845
+      ],
+      "cache_size_bytes": 1064960,
+      "geometries": {
+        "dot": {
+          "alternative_s": 18.495882348157465,
+          "alternative_total_s": 18.89294857904315,
+          "paired_changes_s": [
+            -2.1719492729753256,
+            -1.230016098357737,
+            -2.948332760017365
+          ],
+          "reference_s": 20.546665608882904
+        },
+        "radial": {
+          "alternative_s": 24.573066015262157,
+          "alternative_total_s": 24.800959777086973,
+          "paired_changes_s": [
+            -2.019490698352456,
+            -1.5178477368317544,
+            -2.7426814595237374
+          ],
+          "reference_s": 26.677382677793503
+        }
+      },
+      "measurements": 3
+    },
+    "NVIDIA L4": {
+      "cache_build_seconds": [
+        0.09584068320691586,
+        0.0911381458863616,
+        0.10499168746173382
+      ],
+      "cache_size_bytes": 1064960,
+      "geometries": {
+        "dot": {
+          "alternative_s": 14.661089709959924,
+          "alternative_total_s": 14.766081397421658,
+          "paired_changes_s": [
+            -2.1174859618768096,
+            -1.56342130061239,
+            -1.8684916207566857
+          ],
+          "reference_s": 16.52958133071661
+        },
+        "radial": {
+          "alternative_s": 20.498649585060775,
+          "alternative_total_s": 20.589787730947137,
+          "paired_changes_s": [
+            -2.280644486658275,
+            -2.0903191063553095,
+            -2.2561547458171844
+          ],
+          "reference_s": 22.612689474597573
+        }
+      },
+      "measurements": 3
+    },
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition": {
+      "cache_build_seconds": [
+        0.08257190510630608,
+        0.07977240532636642,
+        0.08427049219608307
+      ],
+      "cache_size_bytes": 1064960,
+      "geometries": {
+        "dot": {
+          "alternative_s": 10.647946119308472,
+          "alternative_total_s": 10.730518024414778,
+          "paired_changes_s": [
+            -1.6788415852934122,
+            -1.566622605547309,
+            -1.4414786286652088
+          ],
+          "reference_s": 12.290641471743584
+        },
+        "radial": {
+          "alternative_s": 15.041050802916288,
+          "alternative_total_s": 15.123622708022594,
+          "paired_changes_s": [
+            -1.5085701905190945,
+            -1.4763891976326704,
+            -1.6324066799134016
+          ],
+          "reference_s": 16.549620993435383
+        }
+      },
+      "measurements": 3
+    }
+  },
+  "graph": {
+    "NVIDIA B200": {
+      "cache_build_seconds": [
+        0.061547499150037766,
+        0.07803807407617569,
+        0.0655344920232892
+      ],
+      "cache_size_bytes": 1064960,
+      "geometries": {
+        "dot": {
+          "against_eager_online": {
+            "eager/cached_uint8": {
+              "alternative_s": 17.4252787604928,
+              "paired_changes_s": [
+                -1.9455128647387028,
+                -1.2513957358896732,
+                -1.2919917749240994
+              ],
+              "reference_s": 19.370791625231504
+            },
+            "eager/on_the_fly": {
+              "alternative_s": 19.370791625231504,
+              "paired_changes_s": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "reference_s": 19.370791625231504
+            },
+            "shape_graph/cached_uint8": {
+              "alternative_s": 2.7874946780502796,
+              "paired_changes_s": [
+                -16.583771355450153,
+                -17.381498150527477,
+                -15.416294678114355
+              ],
+              "reference_s": 19.370791625231504
+            },
+            "shape_graph/on_the_fly": {
+              "alternative_s": 3.367403157055378,
+              "paired_changes_s": [
+                -16.00612562894821,
+                -16.80158967152238,
+                -14.82305658608675
+              ],
+              "reference_s": 19.370791625231504
+            }
+          },
+          "timing": {
+            "eager/cached_uint8": {
+              "median_including_all_setup_s": 17.72911963239312,
+              "median_including_graph_setup_s": 17.667572133243084,
+              "median_peak_bytes": 183227392,
+              "median_update_s": 17.4252787604928
+            },
+            "eager/on_the_fly": {
+              "median_including_all_setup_s": 19.414820039644837,
+              "median_including_graph_setup_s": 19.414820039644837,
+              "median_peak_bytes": 116118528,
+              "median_update_s": 19.370791625231504
+            },
+            "shape_graph/cached_uint8": {
+              "median_including_all_setup_s": 3.0343911135569215,
+              "median_including_graph_setup_s": 2.9688566215336323,
+              "median_peak_bytes": 182773248,
+              "median_update_s": 2.7874946780502796
+            },
+            "shape_graph/on_the_fly": {
+              "median_including_all_setup_s": 3.5376219879835844,
+              "median_including_graph_setup_s": 3.5376219879835844,
+              "median_peak_bytes": 115664384,
+              "median_update_s": 3.367403157055378
+            }
+          }
+        },
+        "radial": {
+          "against_eager_online": {
+            "eager/cached_uint8": {
+              "alternative_s": 24.181270202621818,
+              "paired_changes_s": [
+                -1.3372783455997705,
+                -2.169376978650689,
+                -1.4862853530794382
+              ],
+              "reference_s": 26.350647181272507
+            },
+            "eager/on_the_fly": {
+              "alternative_s": 26.350647181272507,
+              "paired_changes_s": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "reference_s": 26.350647181272507
+            },
+            "shape_graph/cached_uint8": {
+              "alternative_s": 4.581269068643451,
+              "paired_changes_s": [
+                -23.074917001649737,
+                -21.782731352373958,
+                -19.631611165590584
+              ],
+              "reference_s": 26.350647181272507
+            },
+            "shape_graph/on_the_fly": {
+              "alternative_s": 5.160559581592679,
+              "paired_changes_s": [
+                -22.495913539081812,
+                -21.190087599679828,
+                -19.038889055140316
+              ],
+              "reference_s": 26.350647181272507
+            }
+          },
+          "timing": {
+            "eager/cached_uint8": {
+              "median_including_all_setup_s": 24.309758871793747,
+              "median_including_graph_setup_s": 24.23172079771757,
+              "median_peak_bytes": 147183616,
+              "median_update_s": 24.181270202621818
+            },
+            "eager/on_the_fly": {
+              "median_including_all_setup_s": 26.41197781637311,
+              "median_including_graph_setup_s": 26.41197781637311,
+              "median_peak_bytes": 147183616,
+              "median_update_s": 26.350647181272507
+            },
+            "shape_graph/cached_uint8": {
+              "median_including_all_setup_s": 4.857084311544895,
+              "median_including_graph_setup_s": 4.795536812394857,
+              "median_peak_bytes": 145943040,
+              "median_update_s": 4.581269068643451
+            },
+            "shape_graph/on_the_fly": {
+              "median_including_all_setup_s": 5.385747161693871,
+              "median_including_graph_setup_s": 5.385747161693871,
+              "median_peak_bytes": 145943040,
+              "median_update_s": 5.160559581592679
+            }
+          }
+        }
+      },
+      "measurements": 3
+    },
+    "NVIDIA L4": {
+      "cache_build_seconds": [
+        0.059993237257003784,
+        0.06212436780333519,
+        0.06579355336725712
+      ],
+      "cache_size_bytes": 1064960,
+      "geometries": {
+        "dot": {
+          "against_eager_online": {
+            "eager/cached_uint8": {
+              "alternative_s": 13.610067911446095,
+              "paired_changes_s": [
+                -1.4305197410285473,
+                -1.4997478425502777,
+                -1.262669125571847
+              ],
+              "reference_s": 14.92895377241075
+            },
+            "eager/on_the_fly": {
+              "alternative_s": 14.92895377241075,
+              "paired_changes_s": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "reference_s": 14.92895377241075
+            },
+            "shape_graph/cached_uint8": {
+              "alternative_s": 5.209270165301859,
+              "paired_changes_s": [
+                -9.831317487172782,
+                -9.580272383987904,
+                -9.573240585625172
+              ],
+              "reference_s": 14.92895377241075
+            },
+            "shape_graph/on_the_fly": {
+              "alternative_s": 5.600595463067293,
+              "paired_changes_s": [
+                -9.447925482876599,
+                -9.12843512184918,
+                -9.192086189985275
+              ],
+              "reference_s": 14.92895377241075
+            }
+          },
+          "timing": {
+            "eager/cached_uint8": {
+              "median_including_all_setup_s": 13.78362844325602,
+              "median_including_graph_setup_s": 13.723635205999017,
+              "median_peak_bytes": 183227392,
+              "median_update_s": 13.610067911446095
+            },
+            "eager/on_the_fly": {
+              "median_including_all_setup_s": 14.964199177920818,
+              "median_including_graph_setup_s": 14.964199177920818,
+              "median_peak_bytes": 116118528,
+              "median_update_s": 14.92895377241075
+            },
+            "shape_graph/cached_uint8": {
+              "median_including_all_setup_s": 5.532841295935214,
+              "median_including_graph_setup_s": 5.47284805867821,
+              "median_peak_bytes": 182773248,
+              "median_update_s": 5.209270165301859
+            },
+            "shape_graph/on_the_fly": {
+              "median_including_all_setup_s": 5.813149875961244,
+              "median_including_graph_setup_s": 5.813149875961244,
+              "median_peak_bytes": 115664384,
+              "median_update_s": 5.600595463067293
+            }
+          }
+        },
+        "radial": {
+          "against_eager_online": {
+            "eager/cached_uint8": {
+              "alternative_s": 19.190798196941614,
+              "paired_changes_s": [
+                -1.5225632097572088,
+                -1.5890002753585577,
+                -1.7356566302478313
+              ],
+              "reference_s": 20.926454827189445
+            },
+            "eager/on_the_fly": {
+              "alternative_s": 20.926454827189445,
+              "paired_changes_s": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "reference_s": 20.926454827189445
+            },
+            "shape_graph/cached_uint8": {
+              "alternative_s": 7.811093805357814,
+              "paired_changes_s": [
+                -13.39698245190084,
+                -12.683765986934304,
+                -13.02479206211865
+              ],
+              "reference_s": 20.926454827189445
+            },
+            "shape_graph/on_the_fly": {
+              "alternative_s": 8.17026319541037,
+              "paired_changes_s": [
+                -12.994111655279994,
+                -12.324596596881747,
+                -12.629388947039843
+              ],
+              "reference_s": 20.926454827189445
+            }
+          },
+          "timing": {
+            "eager/cached_uint8": {
+              "median_including_all_setup_s": 19.29922627657652,
+              "median_including_graph_setup_s": 19.233432723209262,
+              "median_peak_bytes": 147183616,
+              "median_update_s": 19.190798196941614
+            },
+            "eager/on_the_fly": {
+              "median_including_all_setup_s": 20.973784271627665,
+              "median_including_graph_setup_s": 20.973784271627665,
+              "median_peak_bytes": 147183616,
+              "median_update_s": 20.926454827189445
+            },
+            "shape_graph/cached_uint8": {
+              "median_including_all_setup_s": 8.10128625202924,
+              "median_including_graph_setup_s": 8.041293014772236,
+              "median_peak_bytes": 145943040,
+              "median_update_s": 7.811093805357814
+            },
+            "shape_graph/on_the_fly": {
+              "median_including_all_setup_s": 8.423791449517012,
+              "median_including_graph_setup_s": 8.423791449517012,
+              "median_peak_bytes": 145943040,
+              "median_update_s": 8.17026319541037
+            }
+          }
+        }
+      },
+      "measurements": 3
+    },
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition": {
+      "cache_build_seconds": [
+        0.04898974485695362,
+        0.049388572573661804,
+        0.05023994483053684
+      ],
+      "cache_size_bytes": 1064960,
+      "geometries": {
+        "dot": {
+          "against_eager_online": {
+            "eager/cached_uint8": {
+              "alternative_s": 10.117481552064419,
+              "paired_changes_s": [
+                -1.1533667612820864,
+                -1.1693219151347876,
+                -0.4346933960914612
+              ],
+              "reference_s": 11.270848313346505
+            },
+            "eager/on_the_fly": {
+              "alternative_s": 11.270848313346505,
+              "paired_changes_s": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "reference_s": 11.270848313346505
+            },
+            "shape_graph/cached_uint8": {
+              "alternative_s": 3.0095308534801006,
+              "paired_changes_s": [
+                -8.261317459866405,
+                -8.133095636963844,
+                -8.311814840883017
+              ],
+              "reference_s": 11.270848313346505
+            },
+            "shape_graph/on_the_fly": {
+              "alternative_s": 3.529249595478177,
+              "paired_changes_s": [
+                -7.741598717868328,
+                -7.626656204462051,
+                -7.806198358535767
+              ],
+              "reference_s": 11.270848313346505
+            }
+          },
+          "timing": {
+            "eager/cached_uint8": {
+              "median_including_all_setup_s": 10.291186833754182,
+              "median_including_graph_setup_s": 10.242197088897228,
+              "median_peak_bytes": 183227392,
+              "median_update_s": 10.117481552064419
+            },
+            "eager/on_the_fly": {
+              "median_including_all_setup_s": 11.295463116839528,
+              "median_including_graph_setup_s": 11.295463116839528,
+              "median_peak_bytes": 116118528,
+              "median_update_s": 11.270848313346505
+            },
+            "shape_graph/cached_uint8": {
+              "median_including_all_setup_s": 3.2018567360937595,
+              "median_including_graph_setup_s": 3.152866991236806,
+              "median_peak_bytes": 182773248,
+              "median_update_s": 3.0095308534801006
+            },
+            "shape_graph/on_the_fly": {
+              "median_including_all_setup_s": 3.680846154689789,
+              "median_including_graph_setup_s": 3.680846154689789,
+              "median_peak_bytes": 115664384,
+              "median_update_s": 3.529249595478177
+            }
+          }
+        },
+        "radial": {
+          "against_eager_online": {
+            "eager/cached_uint8": {
+              "alternative_s": 14.404119610786438,
+              "paired_changes_s": [
+                -1.2995948400348425,
+                -1.1945719998329878,
+                -1.2268512956798077
+              ],
+              "reference_s": 15.655639983713627
+            },
+            "eager/on_the_fly": {
+              "alternative_s": 15.655639983713627,
+              "paired_changes_s": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "reference_s": 15.655639983713627
+            },
+            "shape_graph/cached_uint8": {
+              "alternative_s": 4.501828800886869,
+              "paired_changes_s": [
+                -11.171229278668761,
+                -11.0189389269799,
+                -11.168422117829323
+              ],
+              "reference_s": 15.655639983713627
+            },
+            "shape_graph/on_the_fly": {
+              "alternative_s": 5.0087735168635845,
+              "paired_changes_s": [
+                -10.664284562692046,
+                -10.498617187142372,
+                -10.665070885792375
+              ],
+              "reference_s": 15.655639983713627
+            }
+          },
+          "timing": {
+            "eager/cached_uint8": {
+              "median_including_all_setup_s": 14.48458943143487,
+              "median_including_graph_setup_s": 14.435200858861208,
+              "median_peak_bytes": 147183616,
+              "median_update_s": 14.404119610786438
+            },
+            "eager/on_the_fly": {
+              "median_including_all_setup_s": 15.689415663480759,
+              "median_including_graph_setup_s": 15.689415663480759,
+              "median_peak_bytes": 147183616,
+              "median_update_s": 15.655639983713627
+            },
+            "shape_graph/cached_uint8": {
+              "median_including_all_setup_s": 4.772801995277405,
+              "median_including_graph_setup_s": 4.723812250420451,
+              "median_peak_bytes": 145943040,
+              "median_update_s": 4.501828800886869
+            },
+            "shape_graph/on_the_fly": {
+              "median_including_all_setup_s": 5.175050653517246,
+              "median_including_graph_setup_s": 5.175050653517246,
+              "median_peak_bytes": 145943040,
+              "median_update_s": 5.0087735168635845
+            }
+          }
+        }
+      },
+      "measurements": 3
+    }
+  }
+}

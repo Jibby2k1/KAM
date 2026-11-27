@@ -29,7 +29,8 @@ def sequence(cycles, seed):
     return order
 
 
-def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=None, checkpoint_callback=None):
+def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=None, checkpoint_callback=None,
+          prepare_batch=None):
     reset(model, checkpoint)
     torch.cuda.empty_cache()
     if rates is None:
@@ -50,6 +51,8 @@ def train(model, checkpoint, banks, order, mode, *, rates=None, kernel_selector=
     def step(depth, index, rate):
         scene, perm, _, _ = banks[depth]
         tokens, key, payload = encode(pack(scene, index), perm[index], hide_query_clock=True)
+        if prepare_batch is not None:
+            tokens = prepare_batch(tokens, depth, index)
         kernel = choose(model, DISPATCH, depth) if kernel_selector is None else kernel_selector(model, depth)
         learning_rate.copy_(rate)
         optimizer.zero_grad(set_to_none=True)
