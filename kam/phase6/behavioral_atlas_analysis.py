@@ -450,14 +450,14 @@ def analyze_behavioral_atlas(run_root: str | Path, report_root: str | Path, mani
         "|---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ])
     for item in descriptive:
-        validation = f"{fmt(item["initial_validation_loss"])} → {fmt(item["final_validation_loss"])}"
+        validation = f"{fmt(item['initial_validation_loss'])} → {fmt(item['final_validation_loss'])}"
         lines.append(
-            f"| {item["arm"]} | {item["seed"]} | {item["profile_kind"] or "—"} | {validation} | "
-            f"{fmt(item["test_loss"])} | {fmt(item["relative_key_drift"])} | "
-            f"{fmt(item["postfreeze_relative_key_drift"])} | {fmt(item["routing_jaccard_to_initial"])} | "
-            f"{fmt(item["support_entropy"])} | {fmt(item["dead_support_fraction"])} | "
-            f"{fmt(item["memory_contribution_ratio"])} | {fmt(item["memory_output_stable_rank"])} | "
-            f"{fmt(item["tokens_per_second"])} | {fmt(item["peak_vram_mib"])} |"
+            f"| {item['arm']} | {item['seed']} | {item['profile_kind'] or '—'} | {validation} | "
+            f"{fmt(item['test_loss'])} | {fmt(item['relative_key_drift'])} | "
+            f"{fmt(item['postfreeze_relative_key_drift'])} | {fmt(item['routing_jaccard_to_initial'])} | "
+            f"{fmt(item['support_entropy'])} | {fmt(item['dead_support_fraction'])} | "
+            f"{fmt(item['memory_contribution_ratio'])} | {fmt(item['memory_output_stable_rank'])} | "
+            f"{fmt(item['tokens_per_second'])} | {fmt(item['peak_vram_mib'])} |"
         )
     if descriptive:
         lines.extend(["", "### Permutation precision diagnostics", "", "```json", json.dumps([{key: value for key, value in item.items() if "permutation" in key} for item in descriptive], indent=2, sort_keys=True), "```"])

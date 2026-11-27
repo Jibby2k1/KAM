@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "pyarrow"]
 
 [project.scripts]
 kam-train = "kam.train:main"
@@ -35,3 +35,6 @@ include = ["kam*"]
 
 [tool.setuptools.package-data]
 kam = ["data/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
