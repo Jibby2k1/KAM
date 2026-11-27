@@ -94,7 +94,7 @@ def score(model, inputs, anchor):
     return model(inputs).masked_fill(unallowed, -torch.inf)
 
 
-def fit(model, banks, steps):
+def fit(model, banks, steps, *, encoder=encode):
     optimizer = torch.optim.AdamW(model.parameters(), lr=0.0015, fused=True)
     model.train()
     torch.cuda.synchronize()
@@ -104,7 +104,7 @@ def fit(model, banks, steps):
         data, choices = banks[(step - 1) % len(banks)]
         index = choices[(step - 1) // len(banks)]
         duration, anchor, offset, gold = (a[index] for a in data)
-        inputs = encode(duration, anchor, offset)
+        inputs = encoder(duration, anchor, offset)
         optimizer.param_groups[0]["lr"] = 0.0015 * min(step / 80, 1.0) * (
             0.2 + 0.8 * (1 + math.cos(math.pi * step / steps)) / 2)
         optimizer.zero_grad(set_to_none=True)
@@ -121,7 +121,7 @@ def fit(model, banks, steps):
 
 
 @torch.inference_mode()
-def predict(models, data):
+def predict(models, data, *, encoder=encode):
     duration, anchor, offset, gold = data
     assert torch.equal(clock(duration, anchor, offset), gold)
     means = (anchor + torch.floor(offset / duration.float().mean(-1))).long().clamp(max=duration.shape[1] - 1)
@@ -129,7 +129,7 @@ def predict(models, data):
     for name, model in models.items():
         model.eval()
         blocks = zip(duration.split(32), anchor.split(32), offset.split(32), strict=True)
-        chosen = torch.cat([score(model, encode(d, a, o), a).argmax(-1) for d, a, o in blocks])
+        chosen = torch.cat([score(model, encoder(d, a, o), a).argmax(-1) for d, a, o in blocks])
         outputs[name] = chosen.tolist()
     return outputs
 

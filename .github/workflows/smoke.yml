@@ -486,3 +486,10 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_radial_archive_training.py --b200 "$study"/train-b200-52962403-*.json.gz --l4 "$study"/train-l4-52962404-*.json.gz --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit coupled coordinate scaling and token-matched lengths
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/duration_coordinates_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_duration_coordinates.py "$study"/coordinates-52965583-*.json.gz --manifest "$base/unseentimeqa_duration_swaps_v1/manifest.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"

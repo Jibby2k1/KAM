@@ -121,3 +121,5 @@ An [exact serial duration index](../../reports/nonlinear_retrieval_natural/SERIA
 With a typed anchor and elapsed time, [learned dot and radial event pointers](../../reports/nonlinear_retrieval_natural/DURATION_POINTER.md) recovered both sides of 52.77% and 49.53% of authored schedule edits. The local pointer recovered 1.08%. Both context pointers fell below the mean-duration rule at held-out lengths of 64 and 128.
 
 In [matched from-scratch radial precision training](../../reports/nonlinear_retrieval_natural/RADIAL_ARCHIVE_TRAINING.md), the combined BF16 Flash encoding stayed within 0.47 points of eager FP32 on the earlier 48-record archive cohort and within 2.08 on the later one. Eager FP32 finished the full short-sequence training schedule fastest on both GPUs.
+
+Coupled [clock and position scaling](../../reports/nonlinear_retrieval_natural/DURATION_COORDINATES.md) raised exact paired duration-swap recovery from 51.27% to 62.92%. The wide normalized curriculum recovered 23.63% at 256 events, compared with 20.12% for a suffix-mean control.

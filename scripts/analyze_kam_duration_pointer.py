@@ -14,12 +14,12 @@ SEEDS = (452671, 452701, 452731)
 CONDITIONS = ("16/90", "32/90", "64/90", "128/90", "64/45", "128/22")
 
 
-def compare_archive(cases, records):
+def compare_archive(cases, records, *, modes=MODES):
     counts = {m: dict.fromkeys((*SCENARIOS, "correct_before_and_after_intervention", "correct_before_and_after_sham",
-                               "changed_on_intervention", "changed_on_sham"), 0) for m in MODES}
+                               "changed_on_intervention", "changed_on_sham"), 0) for m in modes}
     for expected, result in zip(cases, records, strict=True):
         outcomes = result["scenarios"]
-        assert set(outcomes) == set(SCENARIOS) and all(set(x) == set(MODES) for x in outcomes.values())
+        assert set(outcomes) == set(SCENARIOS) and all(set(x) == set(modes) for x in outcomes.values())
         gold = {s: expected["variants"][s]["gold"] for s in SCENARIOS}
         assert len({outcomes[s]["mean_duration"] for s in SCENARIOS}) == 1
         for m, stats in counts.items():
