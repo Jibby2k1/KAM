@@ -119,6 +119,19 @@ For Llama with high-rate KL, KAM and dot were within 1.34 points of each other o
 
 High-rate KL increased MMLU and strict GSM8K in all four architecture–backbone combinations. The magnitude depended on the backbone, and the coding response depended on both task and backbone. At the lower rate, KAM's GSM8K response to KL was +0.51 points on SmolLM2 and −11.60 on Llama. The paired observations at the tested rates and KL weight support choosing a recipe by backbone and target metric. [Format and decoding checks, held-out perplexity, and GPU efficiency](GENERAL_BENCHMARKS_DIAGNOSTICS.md)
 
+### Which answers KL preserves
+
+At the higher learning rate, KL increased the mean number of correct answers on items the untouched model already got right in all 20 backbone–adapter–benchmark comparisons. The number of correct answers on items missed by the untouched model fell in 18 of 20 comparisons. SmolLM2 GSM8K was the exception for both adapters. The table shows the mean count change per seed for MMLU and strict GSM8K.
+
+| Backbone and task | KAM, already correct | KAM, previously missed | Dot, already correct | Dot, previously missed |
+| --- | ---: | ---: | ---: | ---: |
+| SmolLM2 MMLU | +1,042.7 | −485.0 | +1,505.7 | −980.3 |
+| Llama 3 MMLU | +702.3 | −587.3 | +587.7 | −439.3 |
+| SmolLM2 GSM8K | +215.0 | +22.7 | +252.0 | +30.7 |
+| Llama 3 GSM8K | +294.7 | −91.0 | +209.7 | −135.7 |
+
+For Llama MMLU, the high-rate KL arms scored within 0.11 percentage points of the untouched model, while still missing an average of 143.3 previously correct items for KAM and 148.0 for dot. Report item-level retention alongside aggregate accuracy when testing whether a training recipe preserves pretrained behavior. [SmolLM2 per-seed retention](../../results/general_benchmarks_factorial/smollm2-summary.json) · [Llama per-seed retention](../../results/general_benchmarks_factorial/llama3-summary.json)
+
 ## Reproduce
 
 Use the [registered models and task indices](../../scripts/kam_adapter_preservation.py), the [training](../../slurm/kam_adapter_preservation_train.sbatch), [evaluation](../../slurm/kam_adapter_preservation_eval.sbatch), and [code-grading](../../slurm/kam_adapter_preservation_grade.sbatch) arrays with KAM_FACTORIAL=1. Indices 0–17 reproduce the original three recipes. Indices 18–23 run high-rate + KL. Index 24 evaluates the untouched checkpoint. The [Llama preparation job](../../slurm/kam_adapter_llama_prepare.sbatch) fingerprints its hosted weights and retokenizes the frozen source. Use the [summarizer](../../scripts/summarize_kam_adapter_preservation.py) with the factorial flag and the model identifier to regenerate either complete result.
