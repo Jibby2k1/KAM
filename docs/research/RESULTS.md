@@ -52,6 +52,8 @@
 
 [Early MuSiQue branching](../../reports/nonlinear_retrieval_natural/MUSIQUE_FIRST_BINDING_BRANCH.md) raised four-hop full candidate coverage from 52 to 57–58 but kept joint exactness at four to five across three fits. The same-reader gold-paragraph ceiling inside these pools stayed at 15–16. [Bound final questions](../../reports/nonlinear_retrieval_natural/MUSIQUE_FIXED_COMPOSITION.md) remained below the original question at fixed four-passage content, even with true earlier values supplied.
 
+[Hard clock admission with address-local rank](../../reports/nonlinear_retrieval_natural/TYPED_CLOCK_GUARD.md) improved on rank alone by 34.29 and 30.87 points on the two original Eurostat indicators in a matched dot fit. The guard-only fit lost deep correction accuracy.
+
 [Temporal Q/K projections](../../reports/nonlinear_retrieval_natural/TEMPORAL_QK_PROJECTION.md) found a gain from nonlinear over equal-capacity linear spherical projection on two Eurostat indicators, alongside much worse deep correction outcomes than dot. [Rank caching and CUDA Graphs](../../reports/nonlinear_retrieval_natural/RANK_FEATURE_CACHE.md) preserved complete trajectories and reduced 3,200-update B200 dot time from 19.41 to 3.03 seconds including setup.
 
 ## Multi-hop evidence selection
