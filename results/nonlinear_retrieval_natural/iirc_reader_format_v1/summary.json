@@ -1,0 +1,522 @@
+{
+  "provenance": {
+    "fixture_sha256": "11322430c9644a59370bd686b9c2515c76a6c8486e1d09b4f7537324d6a51b16",
+    "span_counts_sha256": "863e0989956b51d3361a87ac1197e3b88a1baaf90221c227b8dd826b3de29139",
+    "source_sha256": {
+      "dev": "49a109c43c902e52f9a8b150f6b9d383261c308384f614ccd2b9990735cb12b1",
+      "articles": "d239390a27ed3f4aa868afe126187e6d108990a7bcc2a3efb6cae5de917264c7"
+    },
+    "excluded_multispan": [
+      "q_10965",
+      "q_11564",
+      "q_11580",
+      "q_11687",
+      "q_11775"
+    ],
+    "assets": {
+      "intfloat/e5-small-v2": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+      "google/flan-t5-small": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    },
+    "gpu": "NVIDIA L4"
+  },
+  "reference_sha256": "a2429b2e43ddba6ee24d78ee017c25c0ea34bc42ffad56bf6fdb180f238485a9",
+  "generic_parity": {
+    "article_leads": {
+      "prompt_tokens": 133,
+      "exact": 134,
+      "output_sha256": 133
+    },
+    "annotated_spans": {
+      "prompt_tokens": 134,
+      "exact": 134,
+      "output_sha256": 134
+    }
+  },
+  "shared_budget_trims": {
+    "article_leads": 1,
+    "annotated_spans": 0
+  },
+  "inferred_type_confusion": {
+    "span": {
+      "span": 85,
+      "binary": 5,
+      "value": 0
+    },
+    "binary": {
+      "span": 0,
+      "binary": 25,
+      "value": 0
+    },
+    "value": {
+      "span": 3,
+      "binary": 1,
+      "value": 15
+    }
+  },
+  "results": {
+    "article_leads": {
+      "all": {
+        "questions": 134,
+        "source_articles": 107,
+        "exact": {
+          "generic": 25,
+          "universal": 35,
+          "question_type": 42,
+          "oracle_type": 43
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 17,
+            "losses": 7,
+            "delta": 0.07462687,
+            "bootstrap95": [
+              0.0,
+              0.15267176
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 20,
+            "losses": 3,
+            "delta": 0.12686567,
+            "bootstrap95": [
+              0.05925926,
+              0.19852941
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 20,
+            "losses": 2,
+            "delta": 0.13432836,
+            "bootstrap95": [
+              0.06848537,
+              0.20437956
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "binary": 2,
+            "other": 120,
+            "value": 12
+          },
+          "universal": {
+            "binary": 40,
+            "other": 86,
+            "value": 8
+          },
+          "question_type": {
+            "binary": 31,
+            "other": 87,
+            "value": 16
+          },
+          "oracle_type": {
+            "binary": 25,
+            "other": 92,
+            "value": 17
+          }
+        }
+      },
+      "span": {
+        "questions": 90,
+        "source_articles": 76,
+        "exact": {
+          "generic": 24,
+          "universal": 20,
+          "question_type": 24,
+          "oracle_type": 25
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 3,
+            "losses": 7,
+            "delta": -0.04444444,
+            "bootstrap95": [
+              -0.11235955,
+              0.02298851
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 3,
+            "losses": 3,
+            "delta": 0.0,
+            "bootstrap95": [
+              -0.05494505,
+              0.05617978
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 3,
+            "losses": 2,
+            "delta": 0.01111111,
+            "bootstrap95": [
+              -0.03488372,
+              0.06330461
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "other": 90
+          },
+          "universal": {
+            "binary": 13,
+            "other": 77
+          },
+          "question_type": {
+            "binary": 5,
+            "other": 85
+          },
+          "oracle_type": {
+            "other": 90
+          }
+        }
+      },
+      "binary": {
+        "questions": 25,
+        "source_articles": 21,
+        "exact": {
+          "generic": 1,
+          "universal": 15,
+          "question_type": 17,
+          "oracle_type": 17
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 14,
+            "losses": 0,
+            "delta": 0.56,
+            "bootstrap95": [
+              0.34615385,
+              0.76
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 16,
+            "losses": 0,
+            "delta": 0.64,
+            "bootstrap95": [
+              0.44444444,
+              0.81481481
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 16,
+            "losses": 0,
+            "delta": 0.64,
+            "bootstrap95": [
+              0.44444444,
+              0.81481481
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "binary": 2,
+            "other": 23
+          },
+          "universal": {
+            "binary": 24,
+            "other": 1
+          },
+          "question_type": {
+            "binary": 25
+          },
+          "oracle_type": {
+            "binary": 25
+          }
+        }
+      },
+      "value": {
+        "questions": 19,
+        "source_articles": 19,
+        "exact": {
+          "generic": 0,
+          "universal": 0,
+          "question_type": 1,
+          "oracle_type": 1
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 1,
+            "losses": 0,
+            "delta": 0.05263158,
+            "bootstrap95": [
+              0.0,
+              0.15789474
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 1,
+            "losses": 0,
+            "delta": 0.05263158,
+            "bootstrap95": [
+              0.0,
+              0.15789474
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "other": 7,
+            "value": 12
+          },
+          "universal": {
+            "binary": 3,
+            "other": 8,
+            "value": 8
+          },
+          "question_type": {
+            "binary": 1,
+            "other": 2,
+            "value": 16
+          },
+          "oracle_type": {
+            "other": 2,
+            "value": 17
+          }
+        }
+      }
+    },
+    "annotated_spans": {
+      "all": {
+        "questions": 134,
+        "source_articles": 107,
+        "exact": {
+          "generic": 38,
+          "universal": 45,
+          "question_type": 47,
+          "oracle_type": 48
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 14,
+            "losses": 7,
+            "delta": 0.05223881,
+            "bootstrap95": [
+              -0.02238806,
+              0.12686567
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 17,
+            "losses": 8,
+            "delta": 0.06716418,
+            "bootstrap95": [
+              -0.0072477,
+              0.14402069
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 17,
+            "losses": 7,
+            "delta": 0.07462687,
+            "bootstrap95": [
+              0.0,
+              0.14960764
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "binary": 6,
+            "other": 114,
+            "value": 14
+          },
+          "universal": {
+            "binary": 31,
+            "other": 89,
+            "value": 14
+          },
+          "question_type": {
+            "binary": 31,
+            "other": 87,
+            "value": 16
+          },
+          "oracle_type": {
+            "binary": 26,
+            "other": 90,
+            "value": 18
+          }
+        }
+      },
+      "span": {
+        "questions": 90,
+        "source_articles": 76,
+        "exact": {
+          "generic": 35,
+          "universal": 30,
+          "question_type": 30,
+          "oracle_type": 31
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 2,
+            "losses": 7,
+            "delta": -0.05555556,
+            "bootstrap95": [
+              -0.12941176,
+              0.01111111
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 3,
+            "losses": 8,
+            "delta": -0.05555556,
+            "bootstrap95": [
+              -0.12765957,
+              0.01162791
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 3,
+            "losses": 7,
+            "delta": -0.04444444,
+            "bootstrap95": [
+              -0.11363636,
+              0.02272727
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "other": 90
+          },
+          "universal": {
+            "binary": 5,
+            "other": 85
+          },
+          "question_type": {
+            "binary": 5,
+            "other": 85
+          },
+          "oracle_type": {
+            "binary": 1,
+            "other": 89
+          }
+        }
+      },
+      "binary": {
+        "questions": 25,
+        "source_articles": 21,
+        "exact": {
+          "generic": 3,
+          "universal": 15,
+          "question_type": 16,
+          "oracle_type": 16
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 12,
+            "losses": 0,
+            "delta": 0.48,
+            "bootstrap95": [
+              0.26923077,
+              0.70833333
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 13,
+            "losses": 0,
+            "delta": 0.52,
+            "bootstrap95": [
+              0.33333333,
+              0.72727273
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 13,
+            "losses": 0,
+            "delta": 0.52,
+            "bootstrap95": [
+              0.33333333,
+              0.72727273
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "binary": 6,
+            "other": 19
+          },
+          "universal": {
+            "binary": 25
+          },
+          "question_type": {
+            "binary": 25
+          },
+          "oracle_type": {
+            "binary": 25
+          }
+        }
+      },
+      "value": {
+        "questions": 19,
+        "source_articles": 19,
+        "exact": {
+          "generic": 0,
+          "universal": 0,
+          "question_type": 1,
+          "oracle_type": 1
+        },
+        "paired": {
+          "universal_vs_generic": {
+            "wins": 0,
+            "losses": 0,
+            "delta": 0.0,
+            "bootstrap95": [
+              0.0,
+              0.0
+            ]
+          },
+          "question_type_vs_generic": {
+            "wins": 1,
+            "losses": 0,
+            "delta": 0.05263158,
+            "bootstrap95": [
+              0.0,
+              0.15789474
+            ]
+          },
+          "oracle_type_vs_generic": {
+            "wins": 1,
+            "losses": 0,
+            "delta": 0.05263158,
+            "bootstrap95": [
+              0.0,
+              0.15789474
+            ]
+          }
+        },
+        "output_forms": {
+          "generic": {
+            "other": 5,
+            "value": 14
+          },
+          "universal": {
+            "binary": 1,
+            "other": 4,
+            "value": 14
+          },
+          "question_type": {
+            "binary": 1,
+            "other": 2,
+            "value": 16
+          },
+          "oracle_type": {
+            "other": 1,
+            "value": 18
+          }
+        }
+      }
+    }
+  }
+}

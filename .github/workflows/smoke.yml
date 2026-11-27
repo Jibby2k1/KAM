@@ -329,3 +329,10 @@ jobs:
           output=$(mktemp)
           OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_hotpot_shortlist_depth.py "$study"/replay-52957284-*.json.gz --study "$base/dense_hybrid_anchor_v1" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit fixed-evidence IIRC answer formatting
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/iirc_reader_format_v1"
+          output=$(mktemp)
+          OPENBLAS_NUM_THREADS=1 python scripts/analyze_kam_iirc_reader_format.py --replay "$study/replay.json.gz" --reference "$base/iirc_reader_v1/replay.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"

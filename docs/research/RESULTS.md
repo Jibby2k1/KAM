@@ -85,3 +85,5 @@ On 134 aligned IIRC cases with the two gold linked articles fixed, the [frozen r
 Training on separate IIRC articles raised pair recovery to 56/153 with a [hyperlink-context independent ranker](../../reports/nonlinear_retrieval_natural/IIRC_IN_DOMAIN_PAIR.md), 66 with a link-neutral pair head, and 73 with title features. The matched primary pair gain over independent ranking was 6.54 points, with a paired interval reaching zero.
 
 On the frozen hybrid HotpotQA unions, [widening the shortlist](../../reports/nonlinear_retrieval_natural/HOTPOT_SHORTLIST_DEPTH.md) from 16 to 64 proposals per head admitted 42 more gold pairs and added three joint exact matches. The mean distinct sentence count rose from 72.78 to 185.84.
+
+With the same gold articles and frozen reader, a [question-derived IIRC answer format](../../reports/nonlinear_retrieval_natural/IIRC_READER_FORMAT.md) increased exact answers from 25 to 42 of 134. Binary exactness rose from 1/25 to 17/25, and numeric exactness reached 1/19.
