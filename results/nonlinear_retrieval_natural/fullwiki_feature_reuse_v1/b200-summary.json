@@ -1,0 +1,230 @@
+{
+  "counts": {
+    "baseline": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    },
+    "shared_features": {
+      "answer": 331,
+      "joint": 264,
+      "support": 400
+    }
+  },
+  "device": "NVIDIA B200",
+  "fixture_sha256": "5f6a8404ecfcb6caa3eef993abd7842ca9491e6583853c299c38f10e2591aac2",
+  "latency": {
+    "anchor_ms": {
+      "p50_ms": {
+        "baseline": 0.19814446568489075,
+        "shared_features": 0.19748322665691376
+      },
+      "p95_ms": {
+        "baseline": 0.24949200451374054,
+        "shared_features": 0.24581262841820717
+      },
+      "paired_median_delta_95_ms": [
+        -0.002457760274410248,
+        0.0018049031496047974
+      ],
+      "paired_median_delta_ms": -0.0004637986421585083
+    },
+    "conditioned_search_ms": {
+      "p50_ms": {
+        "baseline": 10.992158204317093,
+        "shared_features": 10.865485295653343
+      },
+      "p95_ms": {
+        "baseline": 12.259550765156746,
+        "shared_features": 12.443624716252089
+      },
+      "paired_median_delta_95_ms": [
+        -0.04278961569070816,
+        0.059682875871658325
+      ],
+      "paired_median_delta_ms": 0.0007497146725654602
+    },
+    "initial_articles_ms": {
+      "p50_ms": {
+        "baseline": 4.100533202290535,
+        "shared_features": 3.9791399613022804
+      },
+      "p95_ms": {
+        "baseline": 5.35747529938817,
+        "shared_features": 5.097268242388964
+      },
+      "paired_median_delta_95_ms": [
+        -0.9001735597848892,
+        0.4805270582437515
+      ],
+      "paired_median_delta_ms": -0.5408739671111107
+    },
+    "initial_encode_ms": {
+      "p50_ms": {
+        "baseline": 4.3182373046875,
+        "shared_features": 4.288571886718273
+      },
+      "p95_ms": {
+        "baseline": 5.302261654287577,
+        "shared_features": 5.31615037471056
+      },
+      "paired_median_delta_95_ms": [
+        -0.05295313894748688,
+        0.023429282009601593
+      ],
+      "paired_median_delta_ms": -0.021221116185188293
+    },
+    "initial_search_ms": {
+      "p50_ms": {
+        "baseline": 3.4561343491077423,
+        "shared_features": 3.4549757838249207
+      },
+      "p95_ms": {
+        "baseline": 3.478357568383217,
+        "shared_features": 3.482405561953783
+      },
+      "paired_median_delta_95_ms": [
+        -0.0024084001779556274,
+        0.001560896635055542
+      ],
+      "paired_median_delta_ms": -0.0006994232535362244
+    },
+    "prompt_build_ms": {
+      "p50_ms": {
+        "baseline": 6.827984936535358,
+        "shared_features": 6.734155118465424
+      },
+      "p95_ms": {
+        "baseline": 9.201282355934381,
+        "shared_features": 8.809001464396715
+      },
+      "paired_median_delta_95_ms": [
+        -1.1332817375659943,
+        0.3769329283386471
+      ],
+      "paired_median_delta_ms": -0.23568421602249146
+    },
+    "reader_ms": {
+      "p50_ms": {
+        "baseline": 53.45887877047062,
+        "shared_features": 53.28887328505516
+      },
+      "p95_ms": {
+        "baseline": 107.72359296679495,
+        "shared_features": 102.01353905722497
+      },
+      "paired_median_delta_95_ms": [
+        -0.4112236201763153,
+        0.5089882761240005
+      ],
+      "paired_median_delta_ms": 0.158628448843956
+    },
+    "remaining_rerank_ms": {
+      "p50_ms": {
+        "baseline": 187.11638823151588,
+        "shared_features": 156.14912007004023
+      },
+      "p95_ms": {
+        "baseline": 232.23997419700027,
+        "shared_features": 195.80067303031683
+      },
+      "paired_median_delta_95_ms": [
+        -36.76773048937321,
+        -20.934609696269035
+      ],
+      "paired_median_delta_ms": -29.45679984986782
+    },
+    "request_ms": {
+      "p50_ms": {
+        "baseline": 273.7668985500932,
+        "shared_features": 243.74081660062075
+      },
+      "p95_ms": {
+        "baseline": 347.2438904456794,
+        "shared_features": 315.1132541708648
+      },
+      "paired_median_delta_95_ms": [
+        -37.75993920862675,
+        -22.793974727392197
+      ],
+      "paired_median_delta_ms": -29.289450496435165
+    },
+    "rerank_prepare_ms": {
+      "p50_ms": {
+        "baseline": 74.30911250412464,
+        "shared_features": 48.290520906448364
+      },
+      "p95_ms": {
+        "baseline": 89.97331624850631,
+        "shared_features": 59.944074135273695
+      },
+      "paired_median_delta_95_ms": [
+        -26.4628566801548,
+        -23.998849093914032
+      ],
+      "paired_median_delta_ms": -25.186634622514248
+    },
+    "rerank_score_ms": {
+      "p50_ms": {
+        "baseline": 102.15789172798395,
+        "shared_features": 97.8209599852562
+      },
+      "p95_ms": {
+        "baseline": 133.9709890075028,
+        "shared_features": 128.5485909320414
+      },
+      "paired_median_delta_95_ms": [
+        -9.146800264716148,
+        2.1946290507912636
+      ],
+      "paired_median_delta_ms": -4.358856938779354
+    }
+  },
+  "parity": {
+    "all_records": 800,
+    "arms_vs_archive": 800,
+    "baseline_vs_archive": 800,
+    "conditioned_pairs": 800,
+    "full_rerank_feature_batches": 100,
+    "initial_complete_pool": 800,
+    "initial_order": 800,
+    "initial_set": 800,
+    "initial_top_one": 800,
+    "prompt_batches": 100,
+    "second_hop": 800
+  },
+  "quality": {
+    "answer": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    },
+    "joint": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    },
+    "support": {
+      "delta": 0.0,
+      "losses": 0,
+      "shared_evidence_cluster_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "wins": 0
+    }
+  },
+  "requests": 800,
+  "requests_per_second": {
+    "baseline": 28.946100526083,
+    "shared_features": 32.60316243339865
+  }
+}

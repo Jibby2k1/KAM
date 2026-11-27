@@ -8,6 +8,8 @@
 
 [Eurostat cutoff-phase oracle](../../reports/nonlinear_retrieval_natural/EUROSTAT_VINTAGES.md#cutoff-phase-intervention) raised mixed radial exact recovery from 2.31% to 78.85% by aligning the latest visible release with the cutoff. Every lookup target and nuisance record stayed fixed in that comparison.
 
+[Off-release cutoff training](../../reports/nonlinear_retrieval_natural/RELEASE_PHASE_TRAINING.md) restored archive-shaped dot lookup from 9.64% to 61.69% on Eurostat unemployment and 5.41% to 93.06% on held-out industrial production at depth 48. Its release-day Dallas accuracy moved from 54.88% to 50.20%.
+
 [Terminal attention](../../reports/nonlinear_retrieval_natural/FINAL_ROW_ATTENTION.md) preserved every eager FP32 decision while nearly halving elapsed time at depth 1,024. Hard one-key selection in the final layer lost 95 of 2,017 Dallas joint outcomes net.
 
 [Physical clock compaction](../../reports/nonlinear_retrieval_natural/PACKED_CLOCK_INFERENCE.md) reduced a heterogeneous four-request eager FP32 batch from 38.72 to 5.35 ms. Balanced BF16 Flash was faster at its original shape and changed some hard choices after cropping.
@@ -90,7 +92,7 @@ The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_
 
 [L4 queue-inclusive timing](../../reports/nonlinear_retrieval_natural/FULLWIKI_QUEUE_WIDTH.md) reduced median shard p95 from 1,345 to 1,128 ms at about 29.49 offered requests per second when increasing the FP16 cap from eight to sixteen. The width-eight arm had lower p95 at the intermediate offered rate.
 
-[Exact reranker feature reuse](../../reports/nonlinear_retrieval_natural/FULLWIKI_FEATURE_REUSE.md) improved L4 throughput from 25.27 to 27.67 requests per second with every feature, prompt and decision record unchanged. A batched posting-score launch preserved the conditioned rankings with little effect on request time.
+[Exact reranker feature reuse](../../reports/nonlinear_retrieval_natural/FULLWIKI_FEATURE_REUSE.md) improved L4 throughput from 25.27 to 27.67 requests per second and B200 throughput from 28.95 to 32.60 with every feature, prompt and decision record unchanged. A batched posting-score launch preserved the conditioned rankings with little effect on L4 request time.
 
 At matched isolated latency on two independent HotpotQA cohorts (512 questions total), exact dense retrieval put both gold documents in the candidate pool for 349 questions, compared with 302 for hybrid and 266 for BM25. Joint exact match was 85, 89, and 91 respectively. Paired intervals covered zero. The change in rank from pool coverage to downstream joint exact match identifies pair selection as a separate bottleneck. [L4 aggregate](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_threads_l4/summary.json) · [Independent replication](../../results/nonlinear_retrieval_natural/fullwiki_native_v1/exact_replicate_l4/summary.json)
 

@@ -30,4 +30,12 @@ A second audit inserted an independently sampled, quote-like block of well-forme
 
 Clearing state updates with a trusted source flag restored all 3,088 exact outcomes at each placement. Resampling clustered the eight draws from each original episode. This is a simulated case where quoted content and executable memory writes share a grammar. The original official retrieval comparison above uses natural book filler. [Paired provenance replay](../../results/nonlinear_retrieval_natural/babilong_replay_v1/provenance/)
 
+## Typed object and actor postings
+
+A second executable policy builds postings for every recognized event, then uses object transitions and actor move times to produce a query-specific proof. QA2 uses the last location transition. QA3 follows ownership intervals, finds the last entry into the named destination, and reads its preceding distinct location. Inventory questions read the latest disposition of every observed object. The policy queries the indexed corpus with the question and grammar alone. Its separate chronological verification uses the official targets and archived proof spans.
+
+At 64k, typed postings select at most two source windows for QA2 and four for QA3. Chronological replay of just those windows answers all 100 QA2 and all 86 matched QA3 cases exactly. Each recovers its complete archived witness. Inventory replay answers all 100 cases in both tasks. The joint nonempty-witness metric applies to 94 QA7 and 99 QA8 episodes. The typed policy has access to all recognized events at index time. This tests how much evidence a typed event index can compress, compared with ranking text windows with an encoder. Its reliance on the closed event grammar and trustworthy source remains important.
+
+On the local CPU, the median index build on 64k episodes took 1.74–1.76 ms, and the typed lookup took 1.3–4.7 microseconds across these four tasks. The index timer includes scanning and parsing the source. The lookup timer excludes materializing and reading the selected windows. [Typed index and fixed-window checks](../../results/nonlinear_retrieval_natural/babilong_replay_v1/event_index/)
+
 [Audited manifests, ranks and comparisons](../../results/nonlinear_retrieval_natural/babilong_replay_v1/) · [Official benchmark](https://proceedings.neurips.cc/paper_files/paper/2024/hash/c0d62e70dbc659cc9bd44cbcf1cb652f-Abstract.html) · [Pinned data](https://huggingface.co/datasets/RMT-team/babilong/tree/ee0d588794c7ac098062ee0d247c733d62e94fe2)

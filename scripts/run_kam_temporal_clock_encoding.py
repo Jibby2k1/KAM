@@ -225,6 +225,17 @@ def evaluate(model, panels):
     return results
 
 
+def holdout_panels(seed, lengths, device="cuda"):
+    holdout = {"original": [], "corrections": []}
+    for d in lengths:
+        raw = generate(seed + 761419 + d, 512, d, "mixed", device)
+        order = record_order(len(raw[0]), d, seed + 64013 + d, device)
+        changed, _ = intervention(raw)
+        for name, scene in zip(holdout, (raw, changed), strict=True):
+            holdout[name].append((d, scene, order, fingerprint(scene, order)))
+    return holdout
+
+
 def run(a):
     torch.set_float32_matmul_precision("highest")
     torch.use_deterministic_algorithms(True)
@@ -233,14 +244,8 @@ def run(a):
     schedule = LONG_SCHEDULE if a.long_exposure else SCHEDULE
     training = banks(a.seed, domain, schedule)
     update_order = exposure_order(schedule, a.seed, a.short_delay)
-    holdout = {"original": [], "corrections": []}
     lengths = (16, 48, 128, 512, 1024) if a.long_exposure or a.long_probe else (16, 48, 128, 512)
-    for d in lengths:
-        raw = generate(a.seed + 761419 + d, 512, d, "mixed", "cuda")
-        order = record_order(len(raw[0]), d, a.seed + 64013 + d, "cuda")
-        changed, _ = intervention(raw)
-        for name, scene in zip(holdout, (raw, changed), strict=True):
-            holdout[name].append((d, scene, order, fingerprint(scene, order)))
+    holdout = holdout_panels(a.seed, lengths)
     sources = {k: getattr(a, k) for k in ("earlier", "later")}
     if a.external:
         sources["external"] = a.external

@@ -13,4 +13,8 @@ Both replays use the same 100 batches of eight recent held-out requests and the 
 
 In the feature study, batch p95 fell from 363.51 to 336.47 ms. All 100 digests of the rerank matrices after existing rounding and all 100 exact reader prompt digests matched. Each second-hop arm keeps the same individual centroid selection and FP32 shortlist rescoring, and the batched arm uses one shared Triton posting-score launch. All 800 ordered second-hop lists matched. The timed phases use the same CUDA synchronization points within each experiment. Each reports an independently repeated reference rather than combining timing effects across different allocations.
 
-HPG arrays 52992772 and 52993386. [Feature reuse results](../../results/nonlinear_retrieval_natural/fullwiki_feature_reuse_v1/) · [Second-hop batching results](../../results/nonlinear_retrieval_natural/fullwiki_second_batch_v1/) · [Shared initial corpus scans](FULLWIKI_SENTENCE_THROUGHPUT.md#sharing-the-initial-scan)
+## B200 feature reuse replication
+
+On the same 800 requests, the B200 runs also matched all 100 feature and prompt digests and every recorded selection and decision. Both arms matched the previously archived B200 decisions. Throughput rose from 28.95 to 32.60 requests per second. Median request time fell from 273.77 to 243.74 ms, with a paired difference of −29.29 ms [−37.76, −22.79]. Reranker preparation moved from 74.31 to 48.29 ms. The measured p95 fell from 347.24 to 315.11 ms. These figures compare two arms on the same GPU. Host and GPU phases can both influence the measured crossover.
+
+HPG arrays 52992772, 52992773 and 52993386. [Feature reuse results](../../results/nonlinear_retrieval_natural/fullwiki_feature_reuse_v1/) · [Second-hop batching results](../../results/nonlinear_retrieval_natural/fullwiki_second_batch_v1/) · [Shared initial corpus scans](FULLWIKI_SENTENCE_THROUGHPUT.md#sharing-the-initial-scan)
