@@ -32,6 +32,8 @@ Using the same partition, candidate membership matched between L4 and B200 for e
 
 The full-scan rescore was slightly faster than gathered probe 256 on B200 and kept the extra complete pool. This reverses their search-only latency ordering on L4. B200 results in this table are for the gathered implementation and resident index. HPG array 52976442 ran the B200 replay. The downstream request profiles below used L4.
 
+The B200 fused replay used the same frozen ranks and partition. At 256 probes, fusion lowered median search time from 1.74 to 0.68 ms within the randomized replay. At 64 probes, it moved from 0.60 to 0.50 ms. Both fused policies matched their gathered ordered results on all 1,024 requests. Array 52986550 ran the matched fused comparison.
+
 ## Fixed downstream quality
 
 | Conditioned additions | Support / joint EM, all 1,024 | Originally complete, 640 | Originally incomplete, 384 |

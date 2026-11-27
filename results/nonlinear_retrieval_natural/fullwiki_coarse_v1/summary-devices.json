@@ -431,6 +431,39 @@
       }
     }
   },
+  "b200_fused": {
+    "device": "NVIDIA B200",
+    "partition_sha256": "725fd66994e63220b9d70560653871f5dca332b326d889d2c23560a162415d87",
+    "probes": {
+      "256": {
+        "fused": {
+          "p50_ms": 0.68476,
+          "p95_ms": 0.71301
+        },
+        "gathered": {
+          "p50_ms": 1.74187,
+          "p95_ms": 1.82862
+        },
+        "n_identical_orders": 1024,
+        "n_identical_sets": 1024,
+        "p50_paired_fused_minus_gathered_ms": -1.0386551730334759
+      },
+      "64": {
+        "fused": {
+          "p50_ms": 0.49784,
+          "p95_ms": 0.52284
+        },
+        "gathered": {
+          "p50_ms": 0.5981,
+          "p95_ms": 0.76493
+        },
+        "n_identical_orders": 1024,
+        "n_identical_sets": 1024,
+        "p50_paired_fused_minus_gathered_ms": -0.09757466614246368
+      }
+    },
+    "queries": 1024
+  },
   "cross_device_rank": {
     "exact": {
       "identical_order": 1021,

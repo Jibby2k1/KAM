@@ -159,3 +159,9 @@ At [equal continuation updates](../../reports/nonlinear_retrieval_natural/RADIAL
 Under [same-effective revision stress](../../reports/nonlinear_retrieval_natural/TEMPORAL_CORRECTION_CURRICULUM.md), both geometries stayed near one percent joint accuracy on corrected 1,024-record histories even after matched training on that distribution.
 
 Across [800 additional warm HotpotQA requests](../../reports/nonlinear_retrieval_natural/FULLWIKI_SENTENCE_THROUGHPUT.md#confirmation-on-800-different-requests), FP16 sentence encoding and batches of eight raised L4 throughput from 10.61 to 19.83 requests per second. Every support, answer EM, and joint flag agreed with single-request FP32.
+
+[Per-shape graphs](../../reports/nonlinear_retrieval_natural/RADIAL_SHAPE_GRAPHS.md) preserved exact training state under shuffled lengths and cosine rates. The 768-update loop took 4.12 versus 2.78 seconds on L4 and 5.47 versus 1.22 seconds on B200.
+
+In the matched [B200 fused Wikipedia replay](../../reports/nonlinear_retrieval_natural/FULLWIKI_COARSE.md#b200-search-only-replay), probe 256 reduced search p50 from 1.74 to 0.68 ms and reproduced all 1,024 gathered rank lists exactly.
+
+On [140 independent two-hop MuSiQue questions](../../reports/nonlinear_retrieval_natural/MUSIQUE_ASSIGNMENT_REPLICATION.md), distinct assignment raised joint exact match from 12–14 to 21–24 across three seeds. Greedy and global assignment gave identical joint decisions.

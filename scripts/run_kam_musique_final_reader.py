@@ -77,6 +77,9 @@ def run(a, paragraphs, fixture):
     answers = json.loads(a.labels.read_text())
     assert answers["fixture_sha256"] == fx
     fitted = None
+    if a.joint_assignment:
+        from analyze_kam_musique_assignment import evidence as assignment
+
     if a.selector_picks:
         sealed = json.loads(a.selector_picks.read_text())
         assert sealed["fixture_sha256"] == fx and sealed["policy_sha256"] == digest(a.selector_policy)
@@ -123,6 +126,10 @@ def run(a, paragraphs, fixture):
             raw[f"learned_path/{i}"] = chosen
             raw[f"learned_dense/{i}"] = exact_dense(query[j], item["pool"])
             raw[f"learned_oracle/{i}"] = ceiling
+            if a.joint_assignment:
+                paired, _ = assignment(item, chosen)
+                raw[f"learned_assignment/{i}"] = paired["joint_assignment"]
+                raw[f"learned_greedy/{i}"] = paired["greedy_subquery"]
             if fitted is not None:
                 chosen = fitted[id_][i]
                 assert len(chosen) == len(set(chosen)) == LIMIT and set(chosen) <= set(item["pool"])
@@ -159,11 +166,13 @@ def main():
     p.add_argument("--learned", nargs=3, type=Path)
     p.add_argument("--selector-picks", type=Path)
     p.add_argument("--selector-policy", type=Path)
+    p.add_argument("--joint-assignment", action="store_true")
     p.add_argument("--vectors", nargs=4, type=Path)
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)
     a = p.parse_args()
     assert (a.selector_picks is None) == (a.selector_policy is None)
+    assert not (a.joint_assignment and a.selector_picks is not None)
     articles, fixture = corpus_and_fixture(a)
     if a.mode == "freeze":
         freeze(a, fixture)
