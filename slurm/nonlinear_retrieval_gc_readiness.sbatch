@@ -9,7 +9,13 @@ set -euo pipefail
 module purge
 module load pytorch/2.8.0
 root="${1:?runtime directory required}"
-work="$root/live_anchor_gc_readiness_v1"
+profile="${2:-readiness}"
+extra=()
+case "$profile" in
+  readiness) work="$root/live_anchor_gc_readiness_v1";;
+  sustained) work="$root/live_anchor_gc_sustained_v1"; extra=(--gc-sustained);;
+  *) exit 2;;
+esac
 index="$root/fullwiki_native_v1"
 support="$index/support_link_v1"
 export PYTHONPATH="$work:$root/coverage_gate_v1:$index/python" HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=6 OPENBLAS_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false
@@ -29,5 +35,6 @@ for mode in "${order[@]}"; do
         --fixture "$work/fixture.json" --pools "$work/pools.json.gz" --fitted "$work/fitted.json" \
         --guard-split test --shard "$SLURM_ARRAY_TASK_ID" --shards "$SLURM_ARRAY_TASK_COUNT" \
         --live-anchor-profile --sentence-reuse-profile --trace-gc --gc-readiness "$mode" \
+        "${extra[@]}" \
         --output "$work/profile-$SLURM_ARRAY_JOB_ID-$SLURM_ARRAY_TASK_ID-$mode.json.gz"
 done

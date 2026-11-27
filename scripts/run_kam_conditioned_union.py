@@ -354,7 +354,7 @@ def run(a):
         elif a.live_initial_profile:
             policies = ["dense", "hybrid"]
         elif a.sentence_reuse_profile:
-            policies = ["live_broad", "live_reuse"]
+            policies = ["live_reuse"] if a.gc_sustained else ["live_broad", "live_reuse"]
         else:
             policies = ["affinity", "live_broad"]
 
@@ -384,7 +384,19 @@ def run(a):
                                   "gc_readiness_collected": freed, "gc_frozen_objects": gc.get_freeze_count(),
                                   "rss_before_requests_kib": getrusage(RUSAGE_SELF).ru_maxrss}
         rng = Random(23847 + a.shard)
-        for i, case in enumerate(cases[4:132:4]):
+        sample = cases[4:] if a.gc_sustained else cases[4:132:4]
+        if a.gc_sustained:
+            from os import uname
+
+            def resident_kib():
+                lines = Path("/proc/self/status").read_text().splitlines()
+                return int(next(line.split()[1] for line in lines if line.startswith("VmRSS:")))
+
+            assert len(sample) == 252
+            collection_profile["sustained_gc"] = True
+            collection_profile["node_sha256"] = sha256(uname().nodename.encode()).hexdigest()
+            collection_profile["resident_kib_by_request"] = [[0, resident_kib()]]
+        for i, case in enumerate(sample):
             arms = policies.copy()
             rng.shuffle(arms)
             timings, records, phases = {}, {}, {}
@@ -408,11 +420,28 @@ def run(a):
                         records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
                     finally:
                         gc.callbacks.remove(observe_gc)
-                    records[arm]["gc_events"] = events
+                    if a.gc_sustained:
+                        record = records.pop(arm)
+                        compact = {
+                            "exact_sha256": sha256(json.dumps(record, sort_keys=True).encode()).hexdigest(),
+                            "decision_sha256": sha256(json.dumps({
+                                "pool_hash": record["pool_hash"],
+                                "first": record["first"],
+                                "corpus_hits": {k: sorted(v) for k, v in record["corpus_hits"].items()},
+                                "arms": record["arms"],
+                            }, sort_keys=True).encode()).hexdigest(),
+                            "gc_events": events,
+                        }
+                        records[arm] = compact
+                        del record
+                    else:
+                        records[arm]["gc_events"] = events
                 else:
                     records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
             output.append({"id": case["id"], "order": arms, "timing_ms": timings,
                            "phase_ms": phases, "records": records})
+            if a.gc_sustained and ((i + 1) % 16 == 0 or i + 1 == len(sample)):
+                collection_profile["resident_kib_by_request"].append([i + 1, resident_kib()])
         if collection_profile:
             collection_profile["rss_after_requests_kib"] = getrusage(RUSAGE_SELF).ru_maxrss
         index_profile = ({"prewarm_seconds": seconds, "database_bytes": database_bytes}
@@ -463,6 +492,7 @@ def main():
     parser.add_argument("--warm-lexical-profile", action="store_true")
     parser.add_argument("--trace-gc", action="store_true")
     parser.add_argument("--gc-readiness", choices=("normal", "collect", "freeze"))
+    parser.add_argument("--gc-sustained", action="store_true")
     parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
     parser.add_argument("--index-prewarm-jobdir", type=Path)
     parser.add_argument("--shard", type=int, required=True)
@@ -488,6 +518,8 @@ def main():
         parser.error("warmed lexical timing requires the full initial-search profile")
     if a.gc_readiness is not None and not a.trace_gc:
         parser.error("collection readiness timing requires garbage collection tracing")
+    if a.gc_sustained and not a.gc_readiness:
+        parser.error("sustained collection timing requires a readiness mode")
     if a.trace_gc and not a.sentence_reuse_profile:
         parser.error("garbage collector tracing requires the sentence reuse profile")
     if a.sentence_reuse_profile and not a.live_anchor_profile:

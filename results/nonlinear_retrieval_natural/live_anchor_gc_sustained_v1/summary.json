@@ -1,0 +1,366 @@
+{
+  "archive_mismatch": {
+    "id": "5abd955c55429933744ab800",
+    "membership_differences": [
+      {
+        "archive_only": [
+          101232
+        ],
+        "arm": "conditioned_union",
+        "live_only": [
+          279227
+        ]
+      }
+    ],
+    "same_original_pool_anchor_and_final_outputs": true
+  },
+  "comparisons": {
+    "collect_vs_normal": {
+      "equal_full_decisions": 1008,
+      "worker_p99_saving_ms": [
+        7.182767,
+        -0.346245,
+        26.792152,
+        1.495427
+      ],
+      "worker_peak_rss_change_kib": [
+        452,
+        3756,
+        -4524,
+        -3608
+      ]
+    },
+    "freeze_vs_collect": {
+      "equal_full_decisions": 1008,
+      "worker_p99_saving_ms": [
+        4.224903,
+        -2.25755,
+        -11.405056,
+        -0.337618
+      ],
+      "worker_peak_rss_change_kib": [
+        -2460,
+        -1472,
+        3728,
+        7372
+      ]
+    }
+  },
+  "modes": {
+    "collect": {
+      "archive_matches": 1007,
+      "generation_2_count": 0,
+      "latency": {
+        "p50_ms": 78.379948,
+        "p95_ms": 111.530183,
+        "p99_ms": 153.752572
+      },
+      "workers": [
+        {
+          "archive_matches": 251,
+          "frozen_objects": 0,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 496,
+            "1": 45
+          },
+          "latency": {
+            "p50_ms": 80.023276,
+            "p95_ms": 114.980303,
+            "p99_ms": 154.943208
+          },
+          "node_sha256": "aa0680d6f7795ce5bd77e5515cff50beb5deb3fcb560f61c92604a426ae03318",
+          "peak_rss_kib": 2172068,
+          "readiness_ms": 92.959143,
+          "resident_end_kib": 2177196,
+          "resident_peak_sampled_kib": 2177196,
+          "resident_start_kib": 2094600,
+          "shard": 0
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 0,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 484,
+            "1": 44
+          },
+          "latency": {
+            "p50_ms": 78.425232,
+            "p95_ms": 107.957489,
+            "p99_ms": 161.49256
+          },
+          "node_sha256": "aa0680d6f7795ce5bd77e5515cff50beb5deb3fcb560f61c92604a426ae03318",
+          "peak_rss_kib": 2168760,
+          "readiness_ms": 87.067206,
+          "resident_end_kib": 2174708,
+          "resident_peak_sampled_kib": 2174708,
+          "resident_start_kib": 2095392,
+          "shard": 1
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 0,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 495,
+            "1": 45
+          },
+          "latency": {
+            "p50_ms": 71.764827,
+            "p95_ms": 102.899976,
+            "p99_ms": 126.723064
+          },
+          "node_sha256": "5445f3d07eeeda2ca161bb35c665e1e63a21ad7ac061df749a6d5b5f324af7f0",
+          "peak_rss_kib": 2165004,
+          "readiness_ms": 95.98725,
+          "resident_end_kib": 2170160,
+          "resident_peak_sampled_kib": 2170160,
+          "resident_start_kib": 2083040,
+          "shard": 2
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 0,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 509,
+            "1": 46
+          },
+          "latency": {
+            "p50_ms": 83.400978,
+            "p95_ms": 119.995817,
+            "p99_ms": 166.300579
+          },
+          "node_sha256": "ca3f61aa0120b45335032bcd919376d97b2c1b3720c475d08f38d0cbe0bafd08",
+          "peak_rss_kib": 2168784,
+          "readiness_ms": 92.709003,
+          "resident_end_kib": 2175576,
+          "resident_peak_sampled_kib": 2175576,
+          "resident_start_kib": 2092892,
+          "shard": 3
+        }
+      ]
+    },
+    "freeze": {
+      "archive_matches": 1007,
+      "generation_2_count": 0,
+      "latency": {
+        "p50_ms": 79.707694,
+        "p95_ms": 113.612396,
+        "p99_ms": 153.362648
+      },
+      "workers": [
+        {
+          "archive_matches": 251,
+          "frozen_objects": 369448,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 496,
+            "1": 45
+          },
+          "latency": {
+            "p50_ms": 79.027223,
+            "p95_ms": 114.829313,
+            "p99_ms": 150.718305
+          },
+          "node_sha256": "aa0680d6f7795ce5bd77e5515cff50beb5deb3fcb560f61c92604a426ae03318",
+          "peak_rss_kib": 2169608,
+          "readiness_ms": 91.377387,
+          "resident_end_kib": 2174556,
+          "resident_peak_sampled_kib": 2174556,
+          "resident_start_kib": 2091760,
+          "shard": 0
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 369452,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 484,
+            "1": 44
+          },
+          "latency": {
+            "p50_ms": 78.260217,
+            "p95_ms": 107.885373,
+            "p99_ms": 163.75011
+          },
+          "node_sha256": "aa0680d6f7795ce5bd77e5515cff50beb5deb3fcb560f61c92604a426ae03318",
+          "peak_rss_kib": 2167288,
+          "readiness_ms": 96.075463,
+          "resident_end_kib": 2170448,
+          "resident_peak_sampled_kib": 2170448,
+          "resident_start_kib": 2090852,
+          "shard": 1
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 369452,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 495,
+            "1": 45
+          },
+          "latency": {
+            "p50_ms": 77.652517,
+            "p95_ms": 112.668769,
+            "p99_ms": 138.12812
+          },
+          "node_sha256": "5445f3d07eeeda2ca161bb35c665e1e63a21ad7ac061df749a6d5b5f324af7f0",
+          "peak_rss_kib": 2168732,
+          "readiness_ms": 89.097226,
+          "resident_end_kib": 2174072,
+          "resident_peak_sampled_kib": 2174072,
+          "resident_start_kib": 2087124,
+          "shard": 2
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 369454,
+          "generation_2": [],
+          "generation_counts": {
+            "0": 509,
+            "1": 46
+          },
+          "latency": {
+            "p50_ms": 83.970181,
+            "p95_ms": 120.27199,
+            "p99_ms": 166.638197
+          },
+          "node_sha256": "ca3f61aa0120b45335032bcd919376d97b2c1b3720c475d08f38d0cbe0bafd08",
+          "peak_rss_kib": 2176156,
+          "readiness_ms": 92.985403,
+          "resident_end_kib": 2180692,
+          "resident_peak_sampled_kib": 2180692,
+          "resident_start_kib": 2098240,
+          "shard": 3
+        }
+      ]
+    },
+    "normal": {
+      "archive_matches": 1007,
+      "generation_2_count": 4,
+      "latency": {
+        "p50_ms": 79.059657,
+        "p95_ms": 114.042173,
+        "p99_ms": 159.913811
+      },
+      "workers": [
+        {
+          "archive_matches": 251,
+          "frozen_objects": 0,
+          "generation_2": [
+            {
+              "pause_ms": 93.802954,
+              "request": 17,
+              "request_ms": 181.115949
+            }
+          ],
+          "generation_counts": {
+            "0": 494,
+            "1": 45,
+            "2": 1
+          },
+          "latency": {
+            "p50_ms": 78.601772,
+            "p95_ms": 115.731718,
+            "p99_ms": 162.125975
+          },
+          "node_sha256": "aa0680d6f7795ce5bd77e5515cff50beb5deb3fcb560f61c92604a426ae03318",
+          "peak_rss_kib": 2171616,
+          "readiness_ms": 0.000783,
+          "resident_end_kib": 2177336,
+          "resident_peak_sampled_kib": 2177336,
+          "resident_start_kib": 2094780,
+          "shard": 0
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 0,
+          "generation_2": [
+            {
+              "pause_ms": 95.634596,
+              "request": 22,
+              "request_ms": 176.888842
+            }
+          ],
+          "generation_counts": {
+            "0": 484,
+            "1": 44,
+            "2": 1
+          },
+          "latency": {
+            "p50_ms": 77.469548,
+            "p95_ms": 112.196909,
+            "p99_ms": 161.146315
+          },
+          "node_sha256": "aa0680d6f7795ce5bd77e5515cff50beb5deb3fcb560f61c92604a426ae03318",
+          "peak_rss_kib": 2165004,
+          "readiness_ms": 0.000901,
+          "resident_end_kib": 2170720,
+          "resident_peak_sampled_kib": 2170720,
+          "resident_start_kib": 2091080,
+          "shard": 1
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 0,
+          "generation_2": [
+            {
+              "pause_ms": 93.247868,
+              "request": 21,
+              "request_ms": 176.0139
+            }
+          ],
+          "generation_counts": {
+            "0": 494,
+            "1": 45,
+            "2": 1
+          },
+          "latency": {
+            "p50_ms": 76.570428,
+            "p95_ms": 108.666726,
+            "p99_ms": 153.515216
+          },
+          "node_sha256": "5445f3d07eeeda2ca161bb35c665e1e63a21ad7ac061df749a6d5b5f324af7f0",
+          "peak_rss_kib": 2169528,
+          "readiness_ms": 0.000557,
+          "resident_end_kib": 2174560,
+          "resident_peak_sampled_kib": 2174560,
+          "resident_start_kib": 2087508,
+          "shard": 2
+        },
+        {
+          "archive_matches": 252,
+          "frozen_objects": 0,
+          "generation_2": [
+            {
+              "pause_ms": 92.517497,
+              "request": 20,
+              "request_ms": 192.644194
+            }
+          ],
+          "generation_counts": {
+            "0": 509,
+            "1": 46,
+            "2": 1
+          },
+          "latency": {
+            "p50_ms": 83.16794,
+            "p95_ms": 121.038413,
+            "p99_ms": 167.796006
+          },
+          "node_sha256": "ca3f61aa0120b45335032bcd919376d97b2c1b3720c475d08f38d0cbe0bafd08",
+          "peak_rss_kib": 2172392,
+          "readiness_ms": 0.000905,
+          "resident_end_kib": 2176744,
+          "resident_peak_sampled_kib": 2176744,
+          "resident_start_kib": 2094376,
+          "shard": 3
+        }
+      ]
+    }
+  },
+  "reference_sha256": "d0e6eb54d353702d0c198ed700fbcdb0714481794c28a45e8c22c6ada62b8ac2",
+  "requests_per_mode": 1008
+}

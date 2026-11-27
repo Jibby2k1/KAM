@@ -109,3 +109,5 @@ A [B200 collector readiness trial](../../reports/nonlinear_retrieval_natural/LIV
 A [duration-only serial schedule audit](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#executable-labels-for-fictional-event-schedules) reproduced the published answer sets for 2,693 of 2,700 hard UnSeenTimeQA records. The remaining seven had repeated event descriptions in hypothetical queries.
 
 [BF16 radial feature precision](../../reports/nonlinear_retrieval_natural/RADIAL_BF16_PRECISION.md) reduced gradient relative error at depth 512 across three seeds on both GPUs. The combined encoding retained 3.08× B200 and 19.11× L4 speedups over eager BF16. Relative to original Flash, its mean depth-512 accuracy changed −0.26 points on B200 and +1.50 on L4.
+
+In the [sustained B200 collector replay](../../reports/nonlinear_retrieval_natural/LIVE_GC_SUSTAINED.md), readiness collection shifted all four observed full pauses out of 1,008 cached requests per policy. All policy outcomes matched. Pooled p99 went from 159.91 to 153.75 ms. Adding freezing did not improve p99 consistently across workers.
