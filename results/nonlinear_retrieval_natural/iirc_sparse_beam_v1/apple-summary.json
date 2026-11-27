@@ -1,0 +1,93 @@
+{
+  "host": {
+    "platform": "Darwin",
+    "machine": "arm64",
+    "python": "3.11.18",
+    "numpy": "2.4.6"
+  },
+  "questions": 1200,
+  "repeats": 8,
+  "mean_pairs": {
+    "dense": 101.180833,
+    "unique": 47.216667,
+    "mask": 47.216667
+  },
+  "comparisons": {
+    "neutral": {
+      "unique": {
+        "dense": {
+          "p50_ms": 0.018292,
+          "p95_ms": 0.02481
+        },
+        "unique": {
+          "p50_ms": 0.02102,
+          "p95_ms": 0.023998
+        },
+        "questions": 1200,
+        "median_speedup": 0.870219,
+        "paired_median_saving_ms": -0.002791,
+        "paired_median_saving_ci95_ms": [
+          -0.002874,
+          -0.002698
+        ],
+        "shared_faster": 99
+      },
+      "mask": {
+        "dense": {
+          "p50_ms": 0.018292,
+          "p95_ms": 0.02481
+        },
+        "mask": {
+          "p50_ms": 0.019145,
+          "p95_ms": 0.021834
+        },
+        "questions": 1200,
+        "median_speedup": 0.955445,
+        "paired_median_saving_ms": -0.000875,
+        "paired_median_saving_ci95_ms": [
+          -0.001,
+          -0.000791
+        ],
+        "shared_faster": 293
+      }
+    },
+    "title": {
+      "unique": {
+        "dense": {
+          "p50_ms": 0.018375,
+          "p95_ms": 0.024977
+        },
+        "unique": {
+          "p50_ms": 0.020999,
+          "p95_ms": 0.023874
+        },
+        "questions": 1200,
+        "median_speedup": 0.875042,
+        "paired_median_saving_ms": -0.002667,
+        "paired_median_saving_ci95_ms": [
+          -0.002749,
+          -0.002605
+        ],
+        "shared_faster": 119
+      },
+      "mask": {
+        "dense": {
+          "p50_ms": 0.018375,
+          "p95_ms": 0.024977
+        },
+        "mask": {
+          "p50_ms": 0.019166,
+          "p95_ms": 0.021854
+        },
+        "questions": 1200,
+        "median_speedup": 0.958729,
+        "paired_median_saving_ms": -0.000812,
+        "paired_median_saving_ci95_ms": [
+          -0.000916,
+          -0.000729
+        ],
+        "shared_faster": 324
+      }
+    }
+  }
+}

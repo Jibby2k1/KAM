@@ -424,3 +424,12 @@ jobs:
           OPENBLAS_NUM_THREADS=1 python scripts/fit_kam_iirc_anchor_beam.py --static "$base/iirc_pair_fit_v1/train-features.json.gz" --output "$output/summary.json" --replay "$output/replay.json.gz"
           diff -u "$study/summary.json" "$output/summary.json"
           diff -u <(gzip -cd "$study/replay.json.gz") <(gzip -cd "$output/replay.json.gz")
+      - name: Audit sparse IIRC beam CPU timings and pair counts
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/iirc_sparse_beam_v1"
+          output=$(mktemp)
+          for host in apple hpg; do
+            python scripts/analyze_kam_iirc_sparse_beam.py --profile "$study/$host-profile.json.gz" --reference "$base/iirc_anchor_beam_v1/replay.json.gz" --static "$base/iirc_pair_fit_v1/train-features.json.gz" --output "$output"
+            diff -u "$study/$host-summary.json" "$output"
+          done
