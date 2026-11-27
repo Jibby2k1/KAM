@@ -126,7 +126,7 @@ def run(a):
     reader = Reader(a.assets / "reader")
     index = FullWikiIndex(a.inputs, manifest, cfg)
     pair_indices, original_rows = {}, {}
-    if a.live_anchor_profile:
+    if a.live_anchor_profile or a.live_initial_profile:
         from kam_union_relation_features import bitset_relation_features
 
     def pairs_for(n):
@@ -151,7 +151,7 @@ def run(a):
         return chosen, pairs, scores, x[winner]
 
     def score_cases(chunk, offset, prompts, output, use_shared=False, *, live_anchor=False, phase=None,
-                    reuse_sentences=False, sentence_counts=None):
+                    reuse_sentences=False, sentence_counts=None, initial_method=None):
         encode_sentences = encoder
         if sentence_counts is not None:
             cache = {}
@@ -168,9 +168,19 @@ def run(a):
                     cache.update(zip(missing, vectors, strict=True))
                 return torch.stack([cache[text] for text in texts])
 
-        original = [sealed["rows"][c["id"]] for c in chunk]
-        examples = [pool_text(index.db, q["question"], ids) for q, ids in zip(chunk, original, strict=True)]
-        query = encoder([c["question"] for c in chunk], "query")
+        if initial_method is not None:
+            case, = chunk
+            query = encoder([case["question"]], "query")
+            search_start = perf_counter()
+            depth = 128 if initial_method == "dense" else 64
+            initial = index.search(initial_method, case["question"], query, depth)[:64]
+            phase["initial_search_ms"] = (perf_counter() - search_start) * 1000
+            original = [initial]
+            examples = [pool_text(index.db, case["question"], initial)]
+        else:
+            original = [sealed["rows"][c["id"]] for c in chunk]
+            examples = [pool_text(index.db, q["question"], ids) for q, ids in zip(chunk, original, strict=True)]
+            query = encoder([c["question"] for c in chunk], "query")
         adapted = adapter(query)
         if phase is not None:
             original_ready = perf_counter()
@@ -257,6 +267,8 @@ def run(a):
                 prompts.setdefault(reader.prompt(example, chosen), []).append((arms[arm], case["answer"]))
             row = {"id": case["id"], "first": first, "corpus_hits": hits, "arms": arms,
                    "pool_hash": sha256(json.dumps(base, separators=(",", ":")).encode()).hexdigest()}
+            if initial_method is not None:
+                row["initial_ids"] = base
             if a.guard_split:
                 row["features"] = guard_vector(arms, winners, first, len(base), hits["conditioned_union"],
                                                len(variants["conditioned_union"][0]))
@@ -274,13 +286,14 @@ def run(a):
                 arm["exact"] = bool(measure_answer(predicted, truth)["em"])
 
     output = []
-    def request(case, i, use_shared, *, live_anchor=False, phase=None, reuse_sentences=False):
+    def request(case, i, use_shared, *, live_anchor=False, phase=None, reuse_sentences=False,
+                initial_method=None):
         prompts, rows = {}, []
-        sentence_counts = dict(requested=0, encoded=0) if a.sentence_reuse_profile else None
+        sentence_counts = dict(requested=0, encoded=0) if a.sentence_reuse_profile or reuse_sentences else None
         torch.cuda.synchronize()
         before = perf_counter()
         score_cases([case], i, prompts, rows, use_shared=use_shared, live_anchor=live_anchor, phase=phase,
-                    reuse_sentences=reuse_sentences, sentence_counts=sentence_counts)
+                    reuse_sentences=reuse_sentences, sentence_counts=sentence_counts, initial_method=initial_method)
         before_reader = perf_counter()
         read_answers(prompts)
         torch.cuda.synchronize()
@@ -317,16 +330,27 @@ def run(a):
             output.append(row | {"index_warmed": True, "request_ms": latency})
         index_profile = {"index_profile_rank": rank, "database_bytes": database_bytes, "prewarm_seconds": seconds,
                          "node_sha256": sha256(uname().nodename.encode()).hexdigest()}
-    elif a.live_anchor_profile:
+    elif a.live_anchor_profile or a.live_initial_profile:
         from random import Random
 
         from benchmark_kam_article_prewarm import read_index
 
         database_bytes, seconds = read_index(a.inputs / "lexical" / "articles.sqlite")
-        policies = ["live_broad", "live_reuse"] if a.sentence_reuse_profile else ["affinity", "live_broad"]
+        if a.live_initial_profile:
+            policies = ["dense", "hybrid"]
+        elif a.sentence_reuse_profile:
+            policies = ["live_broad", "live_reuse"]
+        else:
+            policies = ["affinity", "live_broad"]
+
+        def profile_request(case, i, arm, phase):
+            return request(case, i, True, live_anchor=arm != "affinity", phase=phase,
+                           reuse_sentences=a.live_initial_profile or arm == "live_reuse",
+                           initial_method=arm if a.live_initial_profile else None)
+
         for i, case in enumerate(cases[:4]):
             for arm in policies:
-                request(case, i, True, live_anchor=arm != "affinity", reuse_sentences=arm == "live_reuse")
+                profile_request(case, i, arm, {})
         rng = Random(23847 + a.shard)
         for i, case in enumerate(cases[4:132:4]):
             arms = policies.copy()
@@ -334,8 +358,7 @@ def run(a):
             timings, records, phases = {}, {}, {}
             for arm in arms:
                 phases[arm] = {}
-                records[arm], timings[arm] = request(case, i, True, live_anchor=arm != "affinity",
-                                                     phase=phases[arm], reuse_sentences=arm == "live_reuse")
+                records[arm], timings[arm] = profile_request(case, i, arm, phases[arm])
             output.append({"id": case["id"], "order": arms, "timing_ms": timings,
                            "phase_ms": phases, "records": records})
         index_profile = {"prewarm_seconds": seconds, "database_bytes": database_bytes}
@@ -378,7 +401,9 @@ def main():
     parser.add_argument("--anchor-reference", type=Path)
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
-    parser.add_argument("--live-anchor-profile", action="store_true")
+    live_profiles = parser.add_mutually_exclusive_group()
+    live_profiles.add_argument("--live-anchor-profile", action="store_true")
+    live_profiles.add_argument("--live-initial-profile", action="store_true")
     parser.add_argument("--sentence-reuse-profile", action="store_true")
     parser.add_argument("--index-prewarm-rank", type=int, choices=(0, 1))
     parser.add_argument("--index-prewarm-jobdir", type=Path)
@@ -403,11 +428,11 @@ def main():
         parser.error("the shared-index crossover needs two independent full-cohort affinity workers")
     if a.sentence_reuse_profile and not a.live_anchor_profile:
         parser.error("sentence reuse timing requires the live anchor profile")
-    if a.live_anchor_profile and (
+    if (a.live_anchor_profile or a.live_initial_profile) and (
         a.guard_split != "test" or a.anchor_reference or a.serving_profile or a.index_prewarm_rank is not None
         or a.verify_shared_relation or a.shards != 4
     ):
-        parser.error("live anchor timing uses the fixed four-shard warm-request design")
+        parser.error("live timing uses the fixed four-shard warm-request design")
     torch.set_float32_matmul_precision("highest")
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

@@ -89,3 +89,5 @@ On the frozen hybrid HotpotQA unions, [widening the shortlist](../../reports/non
 With the same gold articles and frozen reader, a [question-derived IIRC answer format](../../reports/nonlinear_retrieval_natural/IIRC_READER_FORMAT.md) increased exact answers from 25 to 42 of 134. Binary exactness rose from 1/25 to 17/25, and numeric exactness reached 1/19.
 
 With the same supervision and fixed IIRC representations, the [matched neutral joint and conditional heads](../../reports/nonlinear_retrieval_natural/IIRC_MATCHED_SEQUENTIAL.md) recovered 66 and 62 of 153 pairs. Title-aware joint and conditional heads recovered 73 and 65. The first hop selected a gold article on 91 questions.
+
+The [live first-search benchmark](../../reports/nonlinear_retrieval_natural/LIVE_DENSE_HYBRID_TIMING.md) timed the complete expanded request on B200 at equal depth 64. Dense and hybrid medians were 83.65 and 229.05 ms, with a +142.32 ms paired hybrid overhead. All 128 archived decisions matched per arm.

@@ -361,3 +361,10 @@ jobs:
           for key in ("cohorts", "rows"):
               assert expected[key] == refit[key], key
           PY
+      - name: Audit live B200 first-search and expansion timing
+        run: |
+          base=results/nonlinear_retrieval_natural
+          study="$base/live_initial_profile_v1"
+          output=$(mktemp)
+          python scripts/analyze_kam_live_initial_profile.py "$study"/profile-52955747-*.json.gz --study "$base/dense_hybrid_anchor_v1" --output "$output"
+          diff -u "$study/summary.json" "$output"
