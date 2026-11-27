@@ -114,6 +114,20 @@ Doubling the Llama GSM8K budget from 384 to 768 tokens preserved the original sc
 
 [Decoding budget summary](../../results/general_benchmarks_factorial/diagnostics/llama3-gsm8k-budget-summary.json) · [Per-item flags and stop conditions](../../results/general_benchmarks_factorial/diagnostics/llama3-gsm8k-budget-outcomes.json.gz) · [Probe](../../scripts/probe_kam_gsm8k_budget.py)
 
+### Where the strict score gains occurred
+
+The table partitions the net change in correct Llama GSM8K outcomes by whether each compared completion contained a parseable marker. Counts are mean changes per seed.
+
+| Comparison | Both marked | First method only marked | Second method only marked | Total change |
+| --- | ---: | ---: | ---: | ---: |
+| Low-rate KAM vs untouched | −22.0 | +181.0 | −3.3 | +155.7 |
+| Low-rate dot with KL 0.5 vs dot without KL | +254.0 | +2.3 | −10.0 | +246.3 |
+| Shrunk low-rate dot vs native low-rate KAM | +16.0 | +8.7 | −71.3 | −46.7 |
+
+Low-rate KAM's strict gain came from items marked only by KAM. Most of dot's intermediate-KL improvement occurred where both dot recipes already produced marked numbers. The decomposition describes observed output and scoring behavior. Strict verification requires a parseable marker.
+
+The Llama KAM gain appeared in the two-, three-, and four-or-more-calculation reference groups. On the 515 items with at least four calculator annotations, strict exact match rose from 52.62% to 66.08%. Reference calculator annotations describe the released solutions, and the groups reflect those annotations. [Llama structure and marker analysis](../../results/general_benchmarks_factorial/diagnostics/llama3-gsm8k-reference-structure.json) · [SmolLM2 analysis](../../results/general_benchmarks_factorial/diagnostics/smollm2-gsm8k-reference-structure.json) · [Numeric descriptors](../../results/general_benchmarks_factorial/diagnostics/gsm8k-reference-descriptors.json) · [Extraction](../../scripts/audit_kam_gsm8k_reference_structure.py) · [Analysis](../../scripts/summarize_kam_gsm8k_reference_structure.py)
+
 ## Cached inference by input length
 
 Both backbones processed the same held-out token spans per arm, with 32 incremental teacher-forced tokens after prefill. The high-rate KL adapters came from seed 731221. Each shape used one RTX PRO 6000 and nine timed rotations after warming all arms. The reported median includes prefill, incremental decoding and Python dispatch. Tokenization and serving queue time sit outside this measurement.
