@@ -4,6 +4,8 @@
 
 [Relative signed-log clocks](../../reports/nonlinear_retrieval_natural/TEMPORAL_RELATIVE_CLOCK.md) raised independent Dallas revision accuracy from 42.44% to 57.56% and preserved all 3,504 outcomes when publication units were tripled. [Token-matched deeper training](../../reports/nonlinear_retrieval_natural/TEMPORAL_LONG_EXPOSURE.md) reduced deep correction accuracy, with partial recovery by delaying long examples.
 
+[Eurostat unemployment vintages](../../reports/nonlinear_retrieval_natural/EUROSTAT_VINTAGES.md) replicated unit invariance across three publication scales. Frozen strict hard lookup stayed low across the 576 monthly archive questions.
+
 [Physical clock compaction](../../reports/nonlinear_retrieval_natural/PACKED_CLOCK_INFERENCE.md) reduced a heterogeneous four-request eager FP32 batch from 38.72 to 5.35 ms. Balanced BF16 Flash was faster at its original shape and changed some hard choices after cropping.
 
 [Frozen BRIGHT transfer](../../reports/nonlinear_retrieval_natural/BRIGHT_FROZEN_TRANSFER.md) found hybrid BM25/E5 best on economics and earth science at the same output depth. MuSiQue-trained planning showed no clear gain over direct dense ranking and trailed the hybrid.
@@ -77,6 +79,8 @@ The [dataset breadth handoff](../../reports/nonlinear_retrieval_natural/DATASET_
 ## Corpus retrieval and serving
 
 [L4 width and integer search](../../reports/nonlinear_retrieval_natural/FULLWIKI_L4_THROUGHPUT.md) measured 28.74, 30.08 and 30.38 requests per second at widths eight, sixteen and thirty-two with identical support and answer flags. At width eight, a separate INT8 shortlist crossover halved the first-pass bank size and saved 4.32 ms at the paired median while preserving all 800 evidence pairs and answer flags.
+
+[L4 queue-inclusive timing](../../reports/nonlinear_retrieval_natural/FULLWIKI_QUEUE_WIDTH.md) reduced median shard p95 from 1,345 to 1,128 ms at about 29.49 offered requests per second when increasing the FP16 cap from eight to sixteen. The width-eight arm had lower p95 at the intermediate offered rate.
 
 [Exact reranker feature reuse](../../reports/nonlinear_retrieval_natural/FULLWIKI_FEATURE_REUSE.md) improved L4 throughput from 25.27 to 27.67 requests per second with every feature, prompt and decision record unchanged. A batched posting-score launch preserved the conditioned rankings with little effect on request time.
 

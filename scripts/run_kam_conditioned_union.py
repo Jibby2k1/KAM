@@ -142,7 +142,7 @@ def run(a):
     sustained_batch = (a.confirm_fp16_throughput or a.compare_batched_initial or a.compare_reader_precision
                        or detailed_profile or a.sweep_optimized_widths)
     low_precision = {"bf16": torch.bfloat16, "fp16": torch.float16} if a.compare_sentence_precision else (
-        {"fp16": torch.float16} if sustained_batch else {})
+        {"fp16": torch.float16} if sustained_batch or a.compare_live_queue else {})
     for label, dtype in low_precision.items():
         resident = Encoder(a.assets / "encoder", 128)
         resident.model.to(dtype=dtype)
@@ -155,7 +155,7 @@ def run(a):
         partition = torch.load(a.corpus_profile_index, weights_only=True, map_location="cpu")
         assert partition["index_sha256"] == index_sha and partition["source_sha256"] == manifest["source_sha256"]
         corpus_engine = Search(index, partition)
-        if a.compare_int8_initial:
+        if a.compare_int8_initial or a.compare_live_queue:
             int8_bytes = corpus_engine.initialize_int8()
     pair_indices, original_rows = {}, {}
     if a.live_anchor_profile or a.live_initial_profile:
@@ -484,7 +484,33 @@ def run(a):
                            sentence_precision=method if a.compare_sentence_precision else "fp32")
 
         rng = Random(195823 + a.shard)
-        if a.compare_request_throughput or sustained_batch:
+        if a.compare_live_queue:
+            from kam_serving_arrivals import exercise
+
+            policies = {"fp16_width8": (8, "batched_rescore"), "fp16_width16": (16, "batched_rescore"),
+                        "int8_width16": (16, "batched_int8")}
+            calibration = {c["id"] for c in cases[:4] + rng.sample(cases[4:], 48)}
+            sample = rng.sample([q for q in cases if q["id"] not in calibration], 200)
+            sampled_ids = {x["id"] for x in sample}
+            warm = [q for q in cases if q["id"] not in sampled_ids][:16]
+
+            def process(batch, initial):
+                result = throughput_block(batch, len(batch), "fp16", initial, "fp32", True, True)
+                timing, = result["timing"]
+                return {"seconds": timing["request_ms"] / 1000}, result["rows"]
+
+            def decision(row):
+                result = row["arms"]["conditioned_union"]
+                return {"selected_ids": result["pair"], "answer_exact": result["exact"]}
+
+            scenarios = [(rate, mode) for rate in (12, 24, 30) for mode in policies]
+            for rate, mode in rng.sample(scenarios, len(scenarios)):
+                width, strategy = policies[mode]
+                process(warm[:width], strategy)
+                trial = exercise(lambda batch: process(batch, strategy), sample, rate, width, 5, 829559 + a.shard,
+                                 widths=(1, 2, 4, 8, 16), pack=decision)
+                output.append({"policy": mode, **trial})
+        elif a.compare_request_throughput or sustained_batch:
             sample = rng.sample(cases[4:], 48)
             trial = {str(w): (w, "fp32") for w in (1, 2, 4, 8)}
             if sustained_batch:
@@ -744,6 +770,7 @@ def main():
     coarse_comparison.add_argument("--compare-second-batch", action="store_true")
     coarse_comparison.add_argument("--sweep-optimized-widths", action="store_true")
     coarse_comparison.add_argument("--compare-int8-initial", action="store_true")
+    coarse_comparison.add_argument("--compare-live-queue", action="store_true")
     parser.add_argument("--serving-profile", action="store_true")
     parser.add_argument("--serving-prime", action="store_true")
     live_profiles = parser.add_mutually_exclusive_group()
@@ -783,7 +810,7 @@ def main():
     if not a.corpus_profile_index and (
         a.compare_request_throughput or a.confirm_fp16_throughput or a.compare_batched_initial
         or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse
-        or a.compare_second_batch or a.sweep_optimized_widths or a.compare_int8_initial
+        or a.compare_second_batch or a.sweep_optimized_widths or a.compare_int8_initial or a.compare_live_queue
     ):
         parser.error("batched request timing requires a coarse-partition checkpoint")
     if a.verify_shared_relation and a.guard_split != "test":
@@ -819,7 +846,7 @@ def main():
     torch.set_float32_matmul_precision("highest")
     if (a.compare_rescored_initial or a.compare_shortlist_text or a.compare_sentence_bucketing
             or a.compare_sentence_precision or a.compare_request_throughput or a.confirm_fp16_throughput
-            or a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch or a.sweep_optimized_widths or a.compare_int8_initial):
+            or a.compare_batched_initial or a.compare_reader_precision or a.compare_prompt_cache or a.compare_feature_reuse or a.compare_second_batch or a.sweep_optimized_widths or a.compare_int8_initial or a.compare_live_queue):
         torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
     payload = json.dumps(run(a), separators=(",", ":"), allow_nan=False).encode()
     a.output.write_bytes(gzip.compress(payload, mtime=0))

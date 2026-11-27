@@ -77,7 +77,7 @@ def snippet(tokenizer, text, max_length, tail=False):
     return tokenizer.decode(block)
 
 
-def learned_plan(a, weights, questions, cases, baseline, enc, bank, docs, reader):
+def learned_plan(a, weights, questions, cases, baseline, enc, bank, docs, reader, lexical):
     fit = torch.load(weights, map_location="cpu", weights_only=True)
     assert fit["fixture_sha256"] == TRAINING_FIXTURE_SHA256 and not fit["binding_tokens"]
     size = fit["model_size"]
@@ -111,15 +111,20 @@ def learned_plan(a, weights, questions, cases, baseline, enc, bank, docs, reader
         for i, answer in zip(needed, reader.answers(prompts), strict=True):
             bindings[i].append(" ".join(answer.split()) or "unknown")
     found = []
-    for actual, old in zip(choices, baseline, strict=True):
+    combined = []
+    for actual, old, lex in zip(choices, baseline, lexical, strict=True):
         ranks = [old, *actual]
         weights_for_fusion = [1.] + [1/len(actual) for _ in actual]
         found.append(rrf(ranks, weights_for_fusion))
+        if a.hybrid_augmentation:
+            combined.append(rrf([lex, old, *actual], [1., .5, *[.5 / len(actual) for _ in actual]]) if actual
+                            else rrf([lex, old], [1., 1.]))
     torch.cuda.synchronize()
     return {"weights_sha256": digest(weights), "training_fixture_sha256": fit["fixture_sha256"],
             "size": size, "seed": fit["seed"], "plan_seconds": plan_seconds,
             "retrieval_and_binding_seconds": perf_counter()-started,
-            "valid": [valid for _, valid in predicted], "steps": [len(paths) for paths in choices], "rank": found}
+            "valid": [valid for _, valid in predicted], "steps": [len(paths) for paths in choices], "rank": found,
+            "augmented": combined}
 
 
 def search(a, fixture, revisions):
@@ -150,24 +155,31 @@ def search(a, fixture, revisions):
     reader_dir = a.assets / f"reader_base_{BASE_REVISION}"
     assert digest(reader_dir/"model.safetensors") == BASE_WEIGHT
     reader = Reader(reader_dir)
-    by_model = [learned_plan(a, w, queries, cases, dense, enc, bank, docs, reader) for w in a.weights]
+    bm25 = [r["ids"] for r in lexical["rows"]]
+    by_model = [learned_plan(a, w, queries, cases, dense, enc, bank, docs, reader, bm25) for w in a.weights]
     assert len({(r["size"], r["seed"]) for r in by_model}) == len(by_model)
     rows = []
     for i, q in enumerate(cases):
         lex = lexical["rows"][i]["ids"]
         options = {"bm25": lex[:LIMIT], "dense": dense[i][:LIMIT], "one_pass_windows": two[i][:LIMIT],
                    "conditioned": conditioned[i][:LIMIT], "hybrid": rrf((dense[i], lex), (1., 1.))}
+        if a.hybrid_augmentation:
+            options |= {"hybrid_windows": rrf([lex, dense[i], two[i]], [1., .5, .5]),
+                        "hybrid_anchor": rrf([lex, dense[i], conditioned[i]], [1., .5, .5])}
         for model in by_model:
-            options[f"{model['size']}/{model['seed']}"] = model["rank"][i]
+            name = f"{model['size']}/{model['seed']}"
+            options[name] = model["rank"][i]
+            if a.hybrid_augmentation:
+                options["hybrid_plan/" + name] = model["augmented"][i]
         assert all(len(v) == len(set(v)) == LIMIT and not set(v).intersection(q["excluded"]) for v in options.values())
         rows.append({"id": q["id"], "ranks": options,
                      "valid_plans": {f"{m['size']}/{m['seed']}": m["valid"][i] for m in by_model},
                      "plan_searches": {f"{m['size']}/{m['seed']}": m["steps"][i] for m in by_model}})
     output = {"fixture_sha256": fx, "task": fixture["task"], "device": torch.cuda.get_device_name(),
               "revisions": revisions | {"google/flan-t5-base": BASE_REVISION},
-              "weight_records": [{k: v for k, v in m.items() if k not in ("rank", "steps", "valid")} for m in by_model],
+              "weight_records": [{k: v for k, v in m.items() if k not in ("rank", "steps", "valid", "augmented")} for m in by_model],
               "index_gpu_seconds": [q["index_seconds"] for q in records], "bm25_build_seconds": lexical["build_seconds"],
-              "documents": fixture["documents"], "rows": rows}
+              "documents": fixture["documents"], "rows": rows, "hybrid_augmentation": a.hybrid_augmentation}
     a.output.write_bytes(gzip.compress(json.dumps(output, separators=(",", ":")).encode(), mtime=0))
 
 
@@ -180,6 +192,7 @@ def main():
     p.add_argument("--parts", type=Path, nargs=4)
     p.add_argument("--weights", type=Path, nargs="+")
     p.add_argument("--shard", type=int)
+    p.add_argument("--hybrid-augmentation", action="store_true")
     a = p.parse_args()
     torch.set_float32_matmul_precision("highest")
     fixture = json.loads((a.inputs/"fixture.json").read_text())

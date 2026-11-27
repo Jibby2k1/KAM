@@ -61,7 +61,9 @@ def analyze(manifest, ranked):
         assert total > 0 and len(gold) + label["unindexed_gold"] == total
         labels = set(evaluated["valid_plans"])
         assert labels == set(evaluated["plan_searches"])
-        assert set(evaluated["ranks"]) == labels | {"bm25", "dense", "one_pass_windows", "conditioned", "hybrid"}
+        alternatives = {"hybrid_windows", "hybrid_anchor", *("hybrid_plan/" + k for k in labels)} if ranked.get(
+            "hybrid_augmentation") else set()
+        assert set(evaluated["ranks"]) == labels | {"bm25", "dense", "one_pass_windows", "conditioned", "hybrid"} | alternatives
         for label, accepted in evaluated["valid_plans"].items():
             steps = evaluated["plan_searches"][label]
             assert steps in ((2, 3, 4) if accepted else (0,))
@@ -72,6 +74,8 @@ def analyze(manifest, ranked):
             assert all(0 <= i < ranked["documents"] for i in rank)
             if name in labels and not evaluated["valid_plans"][name]:
                 assert rank == evaluated["ranks"]["dense"]
+                if alternatives:
+                    assert evaluated["ranks"]["hybrid_plan/" + name] == evaluated["ranks"]["hybrid"]
             by_policy.setdefault(name, []).append(metrics(rank, gold, total))
     sample = resample(groups)
     fields = ("ndcg10", "recall64", "complete64")
@@ -88,6 +92,9 @@ def analyze(manifest, ranked):
                 for k, v in zip(fields, delta.T, strict=True)}
         if method in valid:
             record.update(valid_plans=valid[method], additional_searches=searches[method])
+        if method.startswith("hybrid_plan/"):
+            source = method.removeprefix("hybrid_plan/")
+            record.update(valid_plans=valid[source], additional_searches=searches[source])
         result[method] = record
     return {"fixture_sha256": ranked["fixture_sha256"], "task": ranked["task"],
             "documents": ranked["documents"], "queries": n, "shared_gold_clusters": len(groups),
@@ -101,11 +108,20 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--manifest", type=Path, required=True)
     p.add_argument("--ranks", type=Path, required=True)
+    p.add_argument("--reference", type=Path)
     p.add_argument("--output", type=Path, required=True)
     args = p.parse_args()
     manifest = json.loads(args.manifest.read_bytes())
     ranked = json.loads(gzip.decompress(args.ranks.read_bytes()))
-    args.output.write_text(json.dumps(analyze(manifest, ranked), sort_keys=True, indent=2) + "\n")
+    result = analyze(manifest, ranked)
+    if args.reference:
+        prior = json.loads(gzip.decompress(args.reference.read_bytes()))
+        assert all(prior[k] == ranked[k] for k in ("fixture_sha256", "task", "revisions", "documents"))
+        for old, new in zip(prior["rows"], ranked["rows"], strict=True):
+            assert all(new[k] == old[k] for k in ("id", "valid_plans", "plan_searches"))
+            assert all(new["ranks"][k] == value for k, value in old["ranks"].items())
+        result["exact_reference_records"] = len(prior["rows"])
+    args.output.write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
 
 
 if __name__ == "__main__":
