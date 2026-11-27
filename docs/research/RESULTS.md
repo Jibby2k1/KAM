@@ -87,3 +87,5 @@ Training on separate IIRC articles raised pair recovery to 56/153 with a [hyperl
 On the frozen hybrid HotpotQA unions, [widening the shortlist](../../reports/nonlinear_retrieval_natural/HOTPOT_SHORTLIST_DEPTH.md) from 16 to 64 proposals per head admitted 42 more gold pairs and added three joint exact matches. The mean distinct sentence count rose from 72.78 to 185.84.
 
 With the same gold articles and frozen reader, a [question-derived IIRC answer format](../../reports/nonlinear_retrieval_natural/IIRC_READER_FORMAT.md) increased exact answers from 25 to 42 of 134. Binary exactness rose from 1/25 to 17/25, and numeric exactness reached 1/19.
+
+With the same supervision and fixed IIRC representations, the [matched neutral joint and conditional heads](../../reports/nonlinear_retrieval_natural/IIRC_MATCHED_SEQUENTIAL.md) recovered 66 and 62 of 153 pairs. Title-aware joint and conditional heads recovered 73 and 65. The first hop selected a gold article on 91 questions.
