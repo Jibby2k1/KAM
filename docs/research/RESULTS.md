@@ -145,3 +145,5 @@ A [separately fitted MuSiQue evidence selector](../../reports/nonlinear_retrieva
 [Distinct subquery assignment](../../reports/nonlinear_retrieval_natural/MUSIQUE_SUBQUERY_ASSIGNMENT.md) increased final evidence recovery from 61–68 to 84–87 on 576 MuSiQue questions, and joint EM increased from 22–25 to 38–42. Four-hop joint EM remained zero.
 
 On [LongMemEval-M with a fixed reader](../../reports/nonlinear_retrieval_natural/LONGMEMEVAL_READER.md), dense turns gave 28/470 normalized exact matches and a full-history marked-turn oracle gave 121. Adding conversation dates at fixed retained text changed overall counts to 31 and 122 respectively.
+
+At a [matched L4 update-time budget](../../reports/nonlinear_retrieval_natural/RADIAL_CURRICULUM_WALLCLOCK.md), optimized dot led at 25 seconds and selective radial led at 60 seconds, reaching 56.64% versus 40.63% at a held-out depth of 1,024.
