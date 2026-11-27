@@ -1,5 +1,7 @@
 # KAM research results
 
+[November 27 research handoff](../../reports/nonlinear_retrieval_natural/OVERNIGHT_2026-11-27.md) consolidates the frozen 1,024-question HotpotQA comparison, cross-domain evidence and temporal controls, and HPG hardware measurements.
+
 ## Recent controlled and cross-domain results
 
 [Relative signed-log clocks](../../reports/nonlinear_retrieval_natural/TEMPORAL_RELATIVE_CLOCK.md) raised independent Dallas revision accuracy from 42.44% to 57.56% and preserved all 3,504 outcomes when publication units were tripled. [Token-matched deeper training](../../reports/nonlinear_retrieval_natural/TEMPORAL_LONG_EXPOSURE.md) reduced deep correction accuracy, with partial recovery by delaying long examples.
@@ -56,7 +58,13 @@
 
 [Temporal Q/K projections](../../reports/nonlinear_retrieval_natural/TEMPORAL_QK_PROJECTION.md) found a gain from nonlinear over equal-capacity linear spherical projection on two Eurostat indicators, alongside much worse deep correction outcomes than dot. [Rank caching and CUDA Graphs](../../reports/nonlinear_retrieval_natural/RANK_FEATURE_CACHE.md) preserved complete trajectories and reduced 3,200-update B200 dot time from 19.41 to 3.03 seconds including setup.
 
+[Guarded FP32 inference](../../reports/nonlinear_retrieval_natural/GUARDED_FP32_SDPA.md) matched every tested eager decision on L4, RTX PRO 6000 and B200. Fused radial attention and batch-max crop cut the measured L4 depth-1,024 batch from 39.28 to 1.79 ms. [Guarded curriculum order](../../reports/nonlinear_retrieval_natural/GUARDED_CURRICULUM_ORDER.md) restored fresh radial deep correction recovery from 11 to 1,535 of 1,536 using 800 early shallow updates at the same token count.
+
+[Coarsened clock output validation](../../reports/nonlinear_retrieval_natural/COARSENED_CLOCK_READOUT.md) removed future record codes under daily and conservative week-end admission. [Calendar accuracy](../../reports/nonlinear_retrieval_natural/REVISION_CALENDAR_PRIOR.md) varied under daily cutoff perturbations, and [request scope](../../reports/nonlinear_retrieval_natural/EUROSTAT_SCOPE_CALIBRATION.md) showed a refusal and coverage trade-off across held-out wording.
+
 ## Multi-hop evidence selection
+
+[Matched MuSiQue endpoints](../../reports/nonlinear_retrieval_natural/MUSIQUE_ENDPOINT_ROUTING.md) improved large-reader joint exact match from 181 to 224 of 336 presentations with the first passage supplied and both endpoints fixed. Opening both retrieval stages on the same 168 questions at 128 candidates yielded 43 joint matches from conditioned corpus search, 17 from same-pool sequential retrieval, and six from direct dense top two with the same second-passage reader.
 
 The [held-out HotpotQA supporting-link study](../../reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) compares a question-conditioned pair scorer with one-pass and sequential retrieval on shared dense pools. It reports linked and unlinked gold evidence separately and tests the ranking of supporting links against distractor links directly.
 

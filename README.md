@@ -25,6 +25,8 @@ Move the query, narrow the bandwidth, or change the learned metric in the [atten
 
 The [dataset breadth and temporal memory report](reports/nonlinear_retrieval_natural/DATASET_BREADTH_2026-11-26.md) compares frozen transfer across domains, archived revisions, controlled noise, and the KAM decoder’s length generalization.
 
+The [November 27 research handoff](reports/nonlinear_retrieval_natural/OVERNIGHT_2026-11-27.md) covers conditioned HotpotQA search, natural MuSiQue routing, temporal cutoff reliability, and matched training and inference benchmarks on three HPG GPU types.
+
 The HotpotQA and MuSiQue experiments use frozen pretrained encoders and readers with separate routing heads. Their results concern retrieval and evidence selection. The KAM decoder has its own controlled experiments.
 
 [![Across longer synthetic histories, radial attention retains more exact joint accuracy when the model omits absolute positions.](reports/nonlinear_retrieval_natural/figures/bitemporal_length_scaling.svg)](reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md#position-and-scoring-geometry)
