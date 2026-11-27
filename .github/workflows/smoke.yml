@@ -506,3 +506,9 @@ jobs:
           output=$(mktemp)
           python scripts/analyze_kam_radial_mixed_long_training.py --b200 "$study"/train-b200-52966868-*.json.gz --l4 "$study"/train-l4-52966869-*.json.gz --short-root "$base/radial_archive_training_v1" --output "$output"
           diff -u "$study/summary.json" "$output"
+      - name: Audit native 2Wiki retrieval and fixed-article answer controls
+        run: |
+          study=results/nonlinear_retrieval_natural/native_twowiki_v1
+          output=$(mktemp)
+          python scripts/analyze_kam_native_twowiki.py --search "$study"/search-*.json.gz --reading "$study"/read-*.json.gz --prompt-audit "$study/prompt-52969359.json.gz" --manifest "$study/manifest.json.gz" --output "$output"
+          diff -u "$study/summary.json" "$output"

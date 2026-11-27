@@ -127,3 +127,5 @@ Coupled [clock and position scaling](../../reports/nonlinear_retrieval_natural/D
 A [cross-dataset index audit](../../reports/nonlinear_retrieval_natural/CROSS_DATASET_WIKIPEDIA.md) found every supporting title for 10,096/12,576 2Wiki and 2,046/2,417 MuSiQue questions. Complete exact annotation coverage was 2,488 and 150 respectively, with sentence and paragraph units as released by each dataset.
 
 The [equal-token mixed long training](../../reports/nonlinear_retrieval_natural/RADIAL_MIXED_LONG_TRAINING.md) used 1,025-token updates and reduced L4 wall time from 31.69 to 13.89 seconds versus eager BF16, with a smaller B200 gain. All arms had low generated long-depth joint accuracy, and archive accuracy fell versus their shorter curricula.
+
+[Native 2Wiki conditioned search](../../reports/nonlinear_retrieval_natural/NATIVE_TWOWIKI.md) recovered both article titles on 826/1,024 questions versus 625 for unconditioned dense search at 128 candidates. On the annotation-incomplete cohort, giving the frozen reader annotated sentences instead of the same article leads raised EM from 135 to 199/512.
