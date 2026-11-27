@@ -1,0 +1,3659 @@
+{
+  "device_results": {
+    "NVIDIA B200": {
+      "dot": {
+        "1024/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6348960399627686,
+              "tested": 192,
+              "wall_ms": 1.6514069866389036,
+              "worst_absolute_logit_error": 0.31439438462257385
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5604479908943176,
+              "tested": 192,
+              "wall_ms": 1.5772636979818344,
+              "worst_absolute_logit_error": 0.31439438462257385
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.352576017379761,
+              "tested": 192,
+              "wall_ms": 4.368615569546819,
+              "worst_absolute_logit_error": 0.2549692690372467
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7957279682159424,
+              "tested": 192,
+              "wall_ms": 1.812817994505167,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564669952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.8761121034622192,
+              "tested": 192,
+              "wall_ms": 2.894056960940361,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 41245184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.8686559200286865,
+              "tested": 192,
+              "wall_ms": 4.8849082086235285,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7501440048217773,
+              "tested": 192,
+              "wall_ms": 1.766464440152049,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564667392,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.921455979347229,
+              "tested": 192,
+              "wall_ms": 1.9388752989470959,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 41245184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.714688062667847,
+              "tested": 192,
+              "wall_ms": 4.731213906779885,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4831520318984985,
+              "tested": 192,
+              "wall_ms": 1.499831210821867,
+              "worst_absolute_logit_error": 1.800060272216797e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 25170432,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5414719581604004,
+              "tested": 192,
+              "wall_ms": 1.5586975496262312,
+              "worst_absolute_logit_error": 1.800060272216797e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.686816096305847,
+              "tested": 192,
+              "wall_ms": 3.703285939991474,
+              "worst_absolute_logit_error": 1.7881393432617188e-05
+            }
+          },
+          "batch": 4
+        },
+        "1024/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6231840252876282,
+              "tested": 192,
+              "wall_ms": 1.6394245903939009,
+              "worst_absolute_logit_error": 0.3277489244937897
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5663679838180542,
+              "tested": 192,
+              "wall_ms": 1.5840006526559591,
+              "worst_absolute_logit_error": 0.3277489244937897
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 16557056,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7203999757766724,
+              "tested": 192,
+              "wall_ms": 1.7365149687975645,
+              "worst_absolute_logit_error": 0.3277489244937897
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7870559692382812,
+              "tested": 192,
+              "wall_ms": 1.8040661234408617,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564669952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.877359986305237,
+              "tested": 192,
+              "wall_ms": 2.895199926570058,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 137179648,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8949440121650696,
+              "tested": 192,
+              "wall_ms": 1.9108473788946867,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.749392032623291,
+              "tested": 192,
+              "wall_ms": 1.766630681231618,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564667392,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9308480024337769,
+              "tested": 192,
+              "wall_ms": 1.9483219366520643,
+              "worst_absolute_logit_error": 4.291534423828125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 137179648,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8369439840316772,
+              "tested": 192,
+              "wall_ms": 1.853463239967823,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4713279604911804,
+              "tested": 192,
+              "wall_ms": 1.48781668394804,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 25170432,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5317440032958984,
+              "tested": 192,
+              "wall_ms": 1.5488199423998594,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 19341824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5616320371627808,
+              "tested": 192,
+              "wall_ms": 1.577363582327962,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            }
+          },
+          "batch": 4
+        },
+        "128/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.644256055355072,
+              "tested": 192,
+              "wall_ms": 1.663661329075694,
+              "worst_absolute_logit_error": 0.2572784423828125
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 9437184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.575984001159668,
+              "tested": 192,
+              "wall_ms": 1.5932435635477304,
+              "worst_absolute_logit_error": 0.2572784423828125
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 8141824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.6057920455932617,
+              "tested": 192,
+              "wall_ms": 2.621398074552417,
+              "worst_absolute_logit_error": 0.2572784423828125
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 15187456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7989280223846436,
+              "tested": 192,
+              "wall_ms": 1.815894152969122,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 46936576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.743888020515442,
+              "tested": 192,
+              "wall_ms": 1.7613254021853209,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 14420992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.9306560754776,
+              "tested": 192,
+              "wall_ms": 2.9490250162780285,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 15187456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1708959341049194,
+              "tested": 192,
+              "wall_ms": 2.1916027180850506,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 46196224,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6927679777145386,
+              "tested": 192,
+              "wall_ms": 1.7115101218223572,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 14420992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.877120018005371,
+              "tested": 192,
+              "wall_ms": 2.894272096455097,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 8474112,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8533759713172913,
+              "tested": 192,
+              "wall_ms": 1.8728780560195446,
+              "worst_absolute_logit_error": 1.0967254638671875e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 13192192,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4265919923782349,
+              "tested": 192,
+              "wall_ms": 1.444298541173339,
+              "worst_absolute_logit_error": 1.0967254638671875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 9157120,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.322624087333679,
+              "tested": 192,
+              "wall_ms": 2.339007332921028,
+              "worst_absolute_logit_error": 1.0967254638671875e-05
+            }
+          },
+          "batch": 16
+        },
+        "128/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.634768009185791,
+              "tested": 192,
+              "wall_ms": 1.6516384202986956,
+              "worst_absolute_logit_error": 0.20093250274658203
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 9437184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.993328034877777,
+              "tested": 192,
+              "wall_ms": 2.012663520872593,
+              "worst_absolute_logit_error": 0.20093250274658203
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 9151488,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7380160093307495,
+              "tested": 192,
+              "wall_ms": 1.7542941495776176,
+              "worst_absolute_logit_error": 0.20093250274658203
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 15656448,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7900639772415161,
+              "tested": 192,
+              "wall_ms": 1.8069681245833635,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 46936576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2114880084991455,
+              "tested": 192,
+              "wall_ms": 2.232965547591448,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 18300416,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8951039910316467,
+              "tested": 192,
+              "wall_ms": 1.9115419127047062,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 15656448,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7437919974327087,
+              "tested": 192,
+              "wall_ms": 1.7608630005270243,
+              "worst_absolute_logit_error": 4.76837158203125e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 46196224,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1541759967803955,
+              "tested": 192,
+              "wall_ms": 2.1751720923930407,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 18300416,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8520959615707397,
+              "tested": 192,
+              "wall_ms": 1.8684593960642815,
+              "worst_absolute_logit_error": 4.76837158203125e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 8560128,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8622400164604187,
+              "tested": 192,
+              "wall_ms": 1.8832748755812645,
+              "worst_absolute_logit_error": 8.106231689453125e-06
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 13192192,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4217280149459839,
+              "tested": 192,
+              "wall_ms": 1.439207000657916,
+              "worst_absolute_logit_error": 8.106231689453125e-06
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 10560000,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5619040131568909,
+              "tested": 192,
+              "wall_ms": 1.5782725531607866,
+              "worst_absolute_logit_error": 8.106231689453125e-06
+            }
+          },
+          "batch": 16
+        },
+        "512/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 2.0447840690612793,
+              "tested": 192,
+              "wall_ms": 2.064347267150879,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.5815839767456055,
+              "tested": 192,
+              "wall_ms": 1.598714618012309,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 5.216399908065796,
+              "tested": 192,
+              "wall_ms": 5.232274299487472,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 72054272,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8055360317230225,
+              "tested": 192,
+              "wall_ms": 1.8240958452224731,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.938207983970642,
+              "tested": 192,
+              "wall_ms": 1.956034917384386,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 27620352,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.9462080001831055,
+              "tested": 192,
+              "wall_ms": 5.96278440207243,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 72054272,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7403039932250977,
+              "tested": 192,
+              "wall_ms": 1.7572795040905476,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6935040354728699,
+              "tested": 192,
+              "wall_ms": 1.7118756659328938,
+              "worst_absolute_logit_error": 4.76837158203125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 27620352,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.382864236831665,
+              "tested": 192,
+              "wall_ms": 7.405568612739444,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4905920028686523,
+              "tested": 192,
+              "wall_ms": 1.5077413991093636,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 24567808,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4347200393676758,
+              "tested": 192,
+              "wall_ms": 1.4522974379360676,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.3829920291900635,
+              "tested": 192,
+              "wall_ms": 4.399420460686088,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            }
+          },
+          "batch": 8
+        },
+        "512/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.630079984664917,
+              "tested": 192,
+              "wall_ms": 1.6498025506734848,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.5842559933662415,
+              "tested": 192,
+              "wall_ms": 1.6010289546102285,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 17065472,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.7320160269737244,
+              "tested": 192,
+              "wall_ms": 1.7482119146734476,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 72570368,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8008639812469482,
+              "tested": 192,
+              "wall_ms": 1.818284159526229,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.213935971260071,
+              "tested": 192,
+              "wall_ms": 2.2353925742208958,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 87114240,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.404031991958618,
+              "tested": 192,
+              "wall_ms": 2.4234529118984938,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 72570368,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.762943983078003,
+              "tested": 192,
+              "wall_ms": 1.780531369149685,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1528799533843994,
+              "tested": 192,
+              "wall_ms": 2.17327568680048,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 87114240,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8660640120506287,
+              "tested": 192,
+              "wall_ms": 1.8826716113835573,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15632384,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4930400252342224,
+              "tested": 192,
+              "wall_ms": 1.5096571296453476,
+              "worst_absolute_logit_error": 1.8835067749023438e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 24567808,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4323359727859497,
+              "tested": 192,
+              "wall_ms": 1.4499630779027939,
+              "worst_absolute_logit_error": 1.8835067749023438e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 20046848,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5747680068016052,
+              "tested": 192,
+              "wall_ms": 1.5905839391052723,
+              "worst_absolute_logit_error": 1.8835067749023438e-05
+            }
+          },
+          "batch": 8
+        }
+      },
+      "radial": {
+        "1024/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2631360292434692,
+              "tested": 192,
+              "wall_ms": 2.2796504199504852,
+              "worst_absolute_logit_error": 0.23220515251159668
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24975360,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1998080015182495,
+              "tested": 192,
+              "wall_ms": 2.2189123556017876,
+              "worst_absolute_logit_error": 0.23220515251159668
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.937023878097534,
+              "tested": 192,
+              "wall_ms": 6.9530673790723085,
+              "worst_absolute_logit_error": 0.22825241088867188
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.8077759742736816,
+              "tested": 192,
+              "wall_ms": 2.829841570928693,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.059855937957764,
+              "tested": 192,
+              "wall_ms": 4.078519297763705,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 69907968,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.488255977630615,
+              "tested": 192,
+              "wall_ms": 6.5070209093391895,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1669600009918213,
+              "tested": 192,
+              "wall_ms": 2.1845814771950245,
+              "worst_absolute_logit_error": 6.9141387939453125e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.6290080547332764,
+              "tested": 192,
+              "wall_ms": 2.647411311045289,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 69907968,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.282032012939453,
+              "tested": 192,
+              "wall_ms": 6.301396526396275,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19732992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0087519884109497,
+              "tested": 192,
+              "wall_ms": 2.025965601205826,
+              "worst_absolute_logit_error": 2.5272369384765625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34153472,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9573760032653809,
+              "tested": 192,
+              "wall_ms": 1.9752399530261755,
+              "worst_absolute_logit_error": 2.5272369384765625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.80950403213501,
+              "tested": 192,
+              "wall_ms": 5.826575914397836,
+              "worst_absolute_logit_error": 2.574920654296875e-05
+            }
+          },
+          "batch": 4
+        },
+        "1024/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 190,
+              "stream_ms": 2.268447995185852,
+              "tested": 192,
+              "wall_ms": 2.285612281411886,
+              "worst_absolute_logit_error": 0.3127433657646179
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24975360,
+              "paired_exact_decisions": 190,
+              "stream_ms": 2.2017760276794434,
+              "tested": 192,
+              "wall_ms": 2.2191780153661966,
+              "worst_absolute_logit_error": 0.3127433657646179
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 18548224,
+              "paired_exact_decisions": 190,
+              "stream_ms": 2.36353600025177,
+              "tested": 192,
+              "wall_ms": 2.3786425590515137,
+              "worst_absolute_logit_error": 0.3127433657646179
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.207263946533203,
+              "tested": 192,
+              "wall_ms": 2.224197145551443,
+              "worst_absolute_logit_error": 8.58306884765625e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.055744171142578,
+              "tested": 192,
+              "wall_ms": 4.073744872584939,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 256312832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.307423949241638,
+              "tested": 192,
+              "wall_ms": 2.3238661233335733,
+              "worst_absolute_logit_error": 8.58306884765625e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.147984027862549,
+              "tested": 192,
+              "wall_ms": 2.1655529271811247,
+              "worst_absolute_logit_error": 1.0251998901367188e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.6359039545059204,
+              "tested": 192,
+              "wall_ms": 2.6544753927737474,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 256312832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2403520345687866,
+              "tested": 192,
+              "wall_ms": 2.2590686567127705,
+              "worst_absolute_logit_error": 1.0251998901367188e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19732992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.010464072227478,
+              "tested": 192,
+              "wall_ms": 2.027682028710842,
+              "worst_absolute_logit_error": 2.5272369384765625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34153472,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.972320020198822,
+              "tested": 192,
+              "wall_ms": 1.9901064224541187,
+              "worst_absolute_logit_error": 2.5272369384765625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 24214016,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.109071969985962,
+              "tested": 192,
+              "wall_ms": 2.125729573890567,
+              "worst_absolute_logit_error": 2.5272369384765625e-05
+            }
+          },
+          "batch": 4
+        },
+        "128/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.247391939163208,
+              "tested": 192,
+              "wall_ms": 2.264437498524785,
+              "worst_absolute_logit_error": 0.45470333099365234
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 11801600,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2009119987487793,
+              "tested": 192,
+              "wall_ms": 2.2188066504895687,
+              "worst_absolute_logit_error": 0.45470333099365234
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 8289792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.8632960319519043,
+              "tested": 192,
+              "wall_ms": 3.879736177623272,
+              "worst_absolute_logit_error": 0.37323617935180664
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 23990784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.178783893585205,
+              "tested": 192,
+              "wall_ms": 2.1953205578029156,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1309280395507812,
+              "tested": 192,
+              "wall_ms": 2.148417057469487,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 21532672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.7295039892196655,
+              "tested": 192,
+              "wall_ms": 3.7463183980435133,
+              "worst_absolute_logit_error": 4.76837158203125e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 23990784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1213760375976562,
+              "tested": 192,
+              "wall_ms": 2.138566691428423,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0643839836120605,
+              "tested": 192,
+              "wall_ms": 2.0833059679716825,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 21532672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.6189279556274414,
+              "tested": 192,
+              "wall_ms": 3.6352225579321384,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 9977344,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9945119619369507,
+              "tested": 192,
+              "wall_ms": 2.0120569970458746,
+              "worst_absolute_logit_error": 1.3828277587890625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 16943616,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9362879991531372,
+              "tested": 192,
+              "wall_ms": 1.9537888001650572,
+              "worst_absolute_logit_error": 1.3828277587890625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 10104832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.351151943206787,
+              "tested": 192,
+              "wall_ms": 3.3677376341074705,
+              "worst_absolute_logit_error": 1.4781951904296875e-05
+            }
+          },
+          "batch": 16
+        },
+        "128/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.240000009536743,
+              "tested": 192,
+              "wall_ms": 2.256955485790968,
+              "worst_absolute_logit_error": 0.4753904342651367
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 11801600,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.207632064819336,
+              "tested": 192,
+              "wall_ms": 2.225303091108799,
+              "worst_absolute_logit_error": 0.4753904342651367
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 9709056,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.342192053794861,
+              "tested": 192,
+              "wall_ms": 2.357951132580638,
+              "worst_absolute_logit_error": 0.4753904342651367
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 24866304,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.174512028694153,
+              "tested": 192,
+              "wall_ms": 2.191959647461772,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1325759887695312,
+              "tested": 192,
+              "wall_ms": 2.149698091670871,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 27787776,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2747039794921875,
+              "tested": 192,
+              "wall_ms": 2.29084980674088,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 24866304,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1154720783233643,
+              "tested": 192,
+              "wall_ms": 2.1329885348677635,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.067855954170227,
+              "tested": 192,
+              "wall_ms": 2.085459418594837,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 27787776,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.214143991470337,
+              "tested": 192,
+              "wall_ms": 2.23054108209908,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 10125312,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9810400009155273,
+              "tested": 192,
+              "wall_ms": 1.998275052756071,
+              "worst_absolute_logit_error": 2.2411346435546875e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 16943616,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.936735987663269,
+              "tested": 192,
+              "wall_ms": 1.953636296093464,
+              "worst_absolute_logit_error": 2.2411346435546875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 12550656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0745279788970947,
+              "tested": 192,
+              "wall_ms": 2.09249765612185,
+              "worst_absolute_logit_error": 2.2411346435546875e-05
+            }
+          },
+          "batch": 16
+        },
+        "512/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2622560262680054,
+              "tested": 192,
+              "wall_ms": 2.279286738485098,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24978944,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2056000232696533,
+              "tested": 192,
+              "wall_ms": 2.224307507276535,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 8.462496280670166,
+              "tested": 192,
+              "wall_ms": 8.479089476168156,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 131166208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.203935980796814,
+              "tested": 192,
+              "wall_ms": 2.2220646496862173,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.654944062232971,
+              "tested": 192,
+              "wall_ms": 2.672382164746523,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 44693504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 8.042272090911865,
+              "tested": 192,
+              "wall_ms": 8.058792445808649,
+              "worst_absolute_logit_error": 5.245208740234375e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 131166208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.154688000679016,
+              "tested": 192,
+              "wall_ms": 2.172306180000305,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.083296060562134,
+              "tested": 192,
+              "wall_ms": 2.1005768794566393,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 44693504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.727727890014648,
+              "tested": 192,
+              "wall_ms": 7.743744645267725,
+              "worst_absolute_logit_error": 4.76837158203125e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19969024,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.010432004928589,
+              "tested": 192,
+              "wall_ms": 2.0274310372769833,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34554880,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.950543999671936,
+              "tested": 192,
+              "wall_ms": 1.967571908608079,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.058799982070923,
+              "tested": 192,
+              "wall_ms": 7.074710447341204,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            }
+          },
+          "batch": 8
+        },
+        "512/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 191,
+              "stream_ms": 2.2540160417556763,
+              "tested": 192,
+              "wall_ms": 2.271138597279787,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24978944,
+              "paired_exact_decisions": 191,
+              "stream_ms": 2.1987040042877197,
+              "tested": 192,
+              "wall_ms": 2.2161900997161865,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 19261440,
+              "paired_exact_decisions": 191,
+              "stream_ms": 2.355247974395752,
+              "tested": 192,
+              "wall_ms": 2.3711510002613068,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 132173824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2113760709762573,
+              "tested": 192,
+              "wall_ms": 2.229177625849843,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.6529600620269775,
+              "tested": 192,
+              "wall_ms": 2.670892747119069,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 156190208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.3159040212631226,
+              "tested": 192,
+              "wall_ms": 2.332107163965702,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 132173824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.141871929168701,
+              "tested": 192,
+              "wall_ms": 2.1624991204589605,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0767520666122437,
+              "tested": 192,
+              "wall_ms": 2.093977527692914,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 156190208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.246079921722412,
+              "tested": 192,
+              "wall_ms": 2.262662397697568,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19987456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0066399574279785,
+              "tested": 192,
+              "wall_ms": 2.0241544116288424,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34554880,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9391840100288391,
+              "tested": 192,
+              "wall_ms": 1.9596144556999207,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 25052672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1084799766540527,
+              "tested": 192,
+              "wall_ms": 2.125031081959605,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            }
+          },
+          "batch": 8
+        }
+      }
+    },
+    "NVIDIA L4": {
+      "dot": {
+        "1024/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4463840126991272,
+              "tested": 192,
+              "wall_ms": 1.458007376641035,
+              "worst_absolute_logit_error": 0.31439438462257385
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3583359718322754,
+              "tested": 192,
+              "wall_ms": 1.370319165289402,
+              "worst_absolute_logit_error": 0.31439438462257385
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.8645598888397217,
+              "tested": 192,
+              "wall_ms": 3.8764760829508305,
+              "worst_absolute_logit_error": 0.31830063462257385
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.22324800491333,
+              "tested": 192,
+              "wall_ms": 6.236123852431774,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564669952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 25.074624061584473,
+              "tested": 192,
+              "wall_ms": 25.093544740229845,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 41245184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.325216054916382,
+              "tested": 192,
+              "wall_ms": 4.3364460580050945,
+              "worst_absolute_logit_error": 2.0503997802734375e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.590143918991089,
+              "tested": 192,
+              "wall_ms": 3.603975288569927,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564667392,
+              "paired_exact_decisions": 192,
+              "stream_ms": 13.00823974609375,
+              "tested": 192,
+              "wall_ms": 13.022991828620434,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 41245184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.2870399951934814,
+              "tested": 192,
+              "wall_ms": 4.301433451473713,
+              "worst_absolute_logit_error": 2.09808349609375e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4699519872665405,
+              "tested": 192,
+              "wall_ms": 1.483634114265442,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 25170432,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.065343976020813,
+              "tested": 192,
+              "wall_ms": 3.077993169426918,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.246608018875122,
+              "tested": 192,
+              "wall_ms": 3.259191755205393,
+              "worst_absolute_logit_error": 2.193450927734375e-05
+            }
+          },
+          "batch": 4
+        },
+        "1024/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4173280000686646,
+              "tested": 192,
+              "wall_ms": 1.428642775863409,
+              "worst_absolute_logit_error": 0.3297020494937897
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3685920238494873,
+              "tested": 192,
+              "wall_ms": 1.38039980083704,
+              "worst_absolute_logit_error": 0.3297020494937897
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 16557056,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5179200172424316,
+              "tested": 192,
+              "wall_ms": 1.5291203744709492,
+              "worst_absolute_logit_error": 0.3297020494937897
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.218111991882324,
+              "tested": 192,
+              "wall_ms": 6.231476552784443,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564669952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 25.197455406188965,
+              "tested": 192,
+              "wall_ms": 25.222621858119965,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 137179648,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.48089599609375,
+              "tested": 192,
+              "wall_ms": 6.492609158158302,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.5660799741744995,
+              "tested": 192,
+              "wall_ms": 3.5788575187325478,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564667392,
+              "paired_exact_decisions": 192,
+              "stream_ms": 13.000191688537598,
+              "tested": 192,
+              "wall_ms": 13.01430445164442,
+              "worst_absolute_logit_error": 4.291534423828125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 137179648,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.8072320222854614,
+              "tested": 192,
+              "wall_ms": 3.819781355559826,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4551039934158325,
+              "tested": 192,
+              "wall_ms": 1.4670295640826225,
+              "worst_absolute_logit_error": 1.7642974853515625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 25170432,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.11244797706604,
+              "tested": 192,
+              "wall_ms": 3.127523697912693,
+              "worst_absolute_logit_error": 1.7642974853515625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 19341824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5482879877090454,
+              "tested": 192,
+              "wall_ms": 1.5636812895536423,
+              "worst_absolute_logit_error": 2.002716064453125e-05
+            }
+          },
+          "batch": 4
+        },
+        "128/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.449840009212494,
+              "tested": 192,
+              "wall_ms": 1.4614332467317581,
+              "worst_absolute_logit_error": 0.2572803497314453
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 9437184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4960159659385681,
+              "tested": 192,
+              "wall_ms": 1.5087970532476902,
+              "worst_absolute_logit_error": 0.2572803497314453
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 8141824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.3391839265823364,
+              "tested": 192,
+              "wall_ms": 2.350750844925642,
+              "worst_absolute_logit_error": 0.2572803497314453
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 15187456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.629696011543274,
+              "tested": 192,
+              "wall_ms": 1.6427002847194672,
+              "worst_absolute_logit_error": 1.621246337890625e-05
+            },
+            "eager/full": {
+              "extra_peak_bytes": 46936576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6209759712219238,
+              "tested": 192,
+              "wall_ms": 1.634799875319004,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 14420992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.616719961166382,
+              "tested": 192,
+              "wall_ms": 2.628377638757229,
+              "worst_absolute_logit_error": 7.152557373046875e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 15187456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5599200129508972,
+              "tested": 192,
+              "wall_ms": 1.572136301547289,
+              "worst_absolute_logit_error": 1.5735626220703125e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 46196224,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4913280010223389,
+              "tested": 192,
+              "wall_ms": 1.5033269301056862,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 14420992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.6030880212783813,
+              "tested": 192,
+              "wall_ms": 2.6150932535529137,
+              "worst_absolute_logit_error": 7.152557373046875e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 8474112,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.292191982269287,
+              "tested": 192,
+              "wall_ms": 1.30403321236372,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 13192192,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2481440305709839,
+              "tested": 192,
+              "wall_ms": 1.2598508037626743,
+              "worst_absolute_logit_error": 1.4781951904296875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 9157120,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.077328085899353,
+              "tested": 192,
+              "wall_ms": 2.0901947282254696,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            }
+          },
+          "batch": 16
+        },
+        "128/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4314560294151306,
+              "tested": 192,
+              "wall_ms": 1.443005632609129,
+              "worst_absolute_logit_error": 0.20091819763183594
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 9437184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4238719940185547,
+              "tested": 192,
+              "wall_ms": 1.4372016303241253,
+              "worst_absolute_logit_error": 0.20091819763183594
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 9151488,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5298559665679932,
+              "tested": 192,
+              "wall_ms": 1.5416992828249931,
+              "worst_absolute_logit_error": 0.20091819763183594
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 15656448,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5718400478363037,
+              "tested": 192,
+              "wall_ms": 1.5833438374102116,
+              "worst_absolute_logit_error": 1.621246337890625e-05
+            },
+            "eager/full": {
+              "extra_peak_bytes": 46936576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.625984013080597,
+              "tested": 192,
+              "wall_ms": 1.639914233237505,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 18300416,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6449919939041138,
+              "tested": 192,
+              "wall_ms": 1.6565253026783466,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 15656448,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5754080414772034,
+              "tested": 192,
+              "wall_ms": 1.5876595862209797,
+              "worst_absolute_logit_error": 1.5735626220703125e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 46196224,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4785600304603577,
+              "tested": 192,
+              "wall_ms": 1.4906772412359715,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 18300416,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6954880356788635,
+              "tested": 192,
+              "wall_ms": 1.7086490988731384,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 8560128,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.317743957042694,
+              "tested": 192,
+              "wall_ms": 1.3297926634550095,
+              "worst_absolute_logit_error": 1.621246337890625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 13192192,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2211039662361145,
+              "tested": 192,
+              "wall_ms": 1.2326701544225216,
+              "worst_absolute_logit_error": 1.2636184692382812e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 10560000,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4226880073547363,
+              "tested": 192,
+              "wall_ms": 1.4349203556776047,
+              "worst_absolute_logit_error": 1.2695789337158203e-05
+            }
+          },
+          "batch": 16
+        },
+        "512/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.4382879734039307,
+              "tested": 192,
+              "wall_ms": 1.4511928893625736,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.3603839874267578,
+              "tested": 192,
+              "wall_ms": 1.3719568960368633,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 4.661808013916016,
+              "tested": 192,
+              "wall_ms": 4.674254916608334,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 72054272,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.7013120651245117,
+              "tested": 192,
+              "wall_ms": 2.715036738663912,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 13.421599864959717,
+              "tested": 192,
+              "wall_ms": 13.435401022434235,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 27620352,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.344192028045654,
+              "tested": 192,
+              "wall_ms": 5.3558568470180035,
+              "worst_absolute_logit_error": 2.002716064453125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 72054272,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7949439883232117,
+              "tested": 192,
+              "wall_ms": 1.8076244741678238,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.166991949081421,
+              "tested": 192,
+              "wall_ms": 7.180565036833286,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 27620352,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.254143953323364,
+              "tested": 192,
+              "wall_ms": 5.267611239105463,
+              "worst_absolute_logit_error": 2.193450927734375e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.293280005455017,
+              "tested": 192,
+              "wall_ms": 1.3065128587186337,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 24567808,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0750720500946045,
+              "tested": 192,
+              "wall_ms": 2.0875222980976105,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.9154239892959595,
+              "tested": 192,
+              "wall_ms": 3.929180558770895,
+              "worst_absolute_logit_error": 2.956390380859375e-05
+            }
+          },
+          "batch": 8
+        },
+        "512/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.4496639966964722,
+              "tested": 192,
+              "wall_ms": 1.461623702198267,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.3707039952278137,
+              "tested": 192,
+              "wall_ms": 1.382448710501194,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 17065472,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.5079200267791748,
+              "tested": 192,
+              "wall_ms": 1.5191659331321716,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 72570368,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.66484797000885,
+              "tested": 192,
+              "wall_ms": 2.676811534911394,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 13.488639831542969,
+              "tested": 192,
+              "wall_ms": 13.502177782356739,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 87114240,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.199504017829895,
+              "tested": 192,
+              "wall_ms": 3.2120877876877785,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 72570368,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7810879945755005,
+              "tested": 192,
+              "wall_ms": 1.7927270382642746,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.2524800300598145,
+              "tested": 192,
+              "wall_ms": 7.266107480973005,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 87114240,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.1851680278778076,
+              "tested": 192,
+              "wall_ms": 2.1976567804813385,
+              "worst_absolute_logit_error": 1.6689300537109375e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15632384,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2942399978637695,
+              "tested": 192,
+              "wall_ms": 1.3061161153018475,
+              "worst_absolute_logit_error": 2.1219253540039062e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 24567808,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0879359245300293,
+              "tested": 192,
+              "wall_ms": 2.100501209497452,
+              "worst_absolute_logit_error": 2.1219253540039062e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 20046848,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3803520202636719,
+              "tested": 192,
+              "wall_ms": 1.3918718323111534,
+              "worst_absolute_logit_error": 2.6702880859375e-05
+            }
+          },
+          "batch": 8
+        }
+      },
+      "radial": {
+        "1024/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9968000054359436,
+              "tested": 192,
+              "wall_ms": 2.009628340601921,
+              "worst_absolute_logit_error": 0.23220515251159668
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24885248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9627040028572083,
+              "tested": 192,
+              "wall_ms": 1.975760329514742,
+              "worst_absolute_logit_error": 0.23220515251159668
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.019567966461182,
+              "tested": 192,
+              "wall_ms": 6.03174464777112,
+              "worst_absolute_logit_error": 0.22255849838256836
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 9.487391948699951,
+              "tested": 192,
+              "wall_ms": 9.50257945805788,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 39.26772689819336,
+              "tested": 192,
+              "wall_ms": 39.282717276364565,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 69907968,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.779040098190308,
+              "tested": 192,
+              "wall_ms": 5.791379138827324,
+              "worst_absolute_logit_error": 1.239776611328125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.278720140457153,
+              "tested": 192,
+              "wall_ms": 5.292343907058239,
+              "worst_absolute_logit_error": 6.9141387939453125e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 20.288000106811523,
+              "tested": 192,
+              "wall_ms": 20.312177017331123,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 69907968,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.8127360343933105,
+              "tested": 192,
+              "wall_ms": 5.827449262142181,
+              "worst_absolute_logit_error": 1.1444091796875e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19732992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7816959619522095,
+              "tested": 192,
+              "wall_ms": 1.7939331009984016,
+              "worst_absolute_logit_error": 2.4318695068359375e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34153472,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.6485120058059692,
+              "tested": 192,
+              "wall_ms": 3.662147093564272,
+              "worst_absolute_logit_error": 2.4318695068359375e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.968016147613525,
+              "tested": 192,
+              "wall_ms": 4.983455408364534,
+              "worst_absolute_logit_error": 2.574920654296875e-05
+            }
+          },
+          "batch": 4
+        },
+        "1024/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.9977439641952515,
+              "tested": 192,
+              "wall_ms": 2.0102430135011673,
+              "worst_absolute_logit_error": 0.3127433657646179
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24885248,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.9337920546531677,
+              "tested": 192,
+              "wall_ms": 1.9458546303212643,
+              "worst_absolute_logit_error": 0.3127433657646179
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 18548224,
+              "paired_exact_decisions": 190,
+              "stream_ms": 2.1765120029449463,
+              "tested": 192,
+              "wall_ms": 2.1886643953621387,
+              "worst_absolute_logit_error": 0.3127433657646179
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 9.41312026977539,
+              "tested": 192,
+              "wall_ms": 9.425623342394829,
+              "worst_absolute_logit_error": 8.58306884765625e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 39.3441276550293,
+              "tested": 192,
+              "wall_ms": 39.36015767976642,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 256312832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 9.905663967132568,
+              "tested": 192,
+              "wall_ms": 9.918688796460629,
+              "worst_absolute_logit_error": 1.3947486877441406e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.271039962768555,
+              "tested": 192,
+              "wall_ms": 5.284206010401249,
+              "worst_absolute_logit_error": 1.0251998901367188e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 20.29308795928955,
+              "tested": 192,
+              "wall_ms": 20.3077201731503,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 256312832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.646896123886108,
+              "tested": 192,
+              "wall_ms": 5.660186521708965,
+              "worst_absolute_logit_error": 1.621246337890625e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19732992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8389919996261597,
+              "tested": 192,
+              "wall_ms": 1.851827371865511,
+              "worst_absolute_logit_error": 2.4318695068359375e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34153472,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.527519941329956,
+              "tested": 192,
+              "wall_ms": 3.539874218404293,
+              "worst_absolute_logit_error": 2.4318695068359375e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 24214016,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8769760131835938,
+              "tested": 192,
+              "wall_ms": 1.8885727040469646,
+              "worst_absolute_logit_error": 3.0040740966796875e-05
+            }
+          },
+          "batch": 4
+        },
+        "128/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9416159987449646,
+              "tested": 192,
+              "wall_ms": 1.954137347638607,
+              "worst_absolute_logit_error": 0.45470333099365234
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 11801600,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9153120517730713,
+              "tested": 192,
+              "wall_ms": 1.9277273677289486,
+              "worst_absolute_logit_error": 0.45470333099365234
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 8289792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.336608052253723,
+              "tested": 192,
+              "wall_ms": 3.3483379520475864,
+              "worst_absolute_logit_error": 0.45470333099365234
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 23990784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8939039707183838,
+              "tested": 192,
+              "wall_ms": 1.9066543318331242,
+              "worst_absolute_logit_error": 9.775161743164062e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.259376049041748,
+              "tested": 192,
+              "wall_ms": 2.2722044959664345,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 21532672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.2674880027770996,
+              "tested": 192,
+              "wall_ms": 3.279713448137045,
+              "worst_absolute_logit_error": 9.059906005859375e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 23990784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8717599511146545,
+              "tested": 192,
+              "wall_ms": 1.883525401353836,
+              "worst_absolute_logit_error": 1.049041748046875e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.817296028137207,
+              "tested": 192,
+              "wall_ms": 1.8305242992937565,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 21532672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.2021759748458862,
+              "tested": 192,
+              "wall_ms": 3.2140985131263733,
+              "worst_absolute_logit_error": 9.059906005859375e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 9977344,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7162079811096191,
+              "tested": 192,
+              "wall_ms": 1.7285593785345554,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 16943616,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6470880508422852,
+              "tested": 192,
+              "wall_ms": 1.6595888882875443,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 10104832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.884992003440857,
+              "tested": 192,
+              "wall_ms": 2.897426951676607,
+              "worst_absolute_logit_error": 1.621246337890625e-05
+            }
+          },
+          "batch": 16
+        },
+        "128/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9578880071640015,
+              "tested": 192,
+              "wall_ms": 1.9709733314812183,
+              "worst_absolute_logit_error": 0.4753866195678711
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 11801600,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9081279635429382,
+              "tested": 192,
+              "wall_ms": 1.920325681567192,
+              "worst_absolute_logit_error": 0.4753866195678711
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 9709056,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.0553280115127563,
+              "tested": 192,
+              "wall_ms": 2.0673838444054127,
+              "worst_absolute_logit_error": 0.4753866195678711
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 24866304,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8779839873313904,
+              "tested": 192,
+              "wall_ms": 1.8897801637649536,
+              "worst_absolute_logit_error": 1.1205673217773438e-05
+            },
+            "eager/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.257408022880554,
+              "tested": 192,
+              "wall_ms": 2.2705616429448128,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 27787776,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9853439927101135,
+              "tested": 192,
+              "wall_ms": 1.9968426786363125,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 24866304,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8807200193405151,
+              "tested": 192,
+              "wall_ms": 1.893395557999611,
+              "worst_absolute_logit_error": 1.1444091796875e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8119840025901794,
+              "tested": 192,
+              "wall_ms": 1.8259882926940918,
+              "worst_absolute_logit_error": 4.76837158203125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 27787776,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.943183958530426,
+              "tested": 192,
+              "wall_ms": 1.955518964678049,
+              "worst_absolute_logit_error": 8.225440979003906e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 10125312,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.729583978652954,
+              "tested": 192,
+              "wall_ms": 1.7431513406336308,
+              "worst_absolute_logit_error": 2.384185791015625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 16943616,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6368639469146729,
+              "tested": 192,
+              "wall_ms": 1.6488078981637955,
+              "worst_absolute_logit_error": 2.09808349609375e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 12550656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.797760009765625,
+              "tested": 192,
+              "wall_ms": 1.8096673302352428,
+              "worst_absolute_logit_error": 2.002716064453125e-05
+            }
+          },
+          "batch": 16
+        },
+        "512/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9666080474853516,
+              "tested": 192,
+              "wall_ms": 1.9787694327533245,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 25045504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8974720239639282,
+              "tested": 192,
+              "wall_ms": 1.9111670553684235,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.348495960235596,
+              "tested": 192,
+              "wall_ms": 7.3608714155852795,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 131166208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.784559965133667,
+              "tested": 192,
+              "wall_ms": 3.799385391175747,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 20.734975814819336,
+              "tested": 192,
+              "wall_ms": 20.7484383136034,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 44693504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.999552011489868,
+              "tested": 192,
+              "wall_ms": 7.01261218637228,
+              "worst_absolute_logit_error": 1.1801719665527344e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 131166208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.444800019264221,
+              "tested": 192,
+              "wall_ms": 2.4582771584391594,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 10.952192306518555,
+              "tested": 192,
+              "wall_ms": 10.966564528644085,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 44693504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.771199941635132,
+              "tested": 192,
+              "wall_ms": 6.786863319575787,
+              "worst_absolute_logit_error": 1.2516975402832031e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19969024,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7049599885940552,
+              "tested": 192,
+              "wall_ms": 1.7169713973999023,
+              "worst_absolute_logit_error": 1.430511474609375e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34554880,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.5707520246505737,
+              "tested": 192,
+              "wall_ms": 2.583271823823452,
+              "worst_absolute_logit_error": 1.430511474609375e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 6.0794878005981445,
+              "tested": 192,
+              "wall_ms": 6.091776303946972,
+              "worst_absolute_logit_error": 1.9550323486328125e-05
+            }
+          },
+          "batch": 8
+        },
+        "512/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 191,
+              "stream_ms": 1.9788800477981567,
+              "tested": 192,
+              "wall_ms": 1.9914587028324604,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 25045504,
+              "paired_exact_decisions": 191,
+              "stream_ms": 1.897599995136261,
+              "tested": 192,
+              "wall_ms": 1.909960526973009,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 19261440,
+              "paired_exact_decisions": 191,
+              "stream_ms": 2.043376088142395,
+              "tested": 192,
+              "wall_ms": 2.0551257766783237,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 132173824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.791632056236267,
+              "tested": 192,
+              "wall_ms": 3.803946077823639,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 20.702207565307617,
+              "tested": 192,
+              "wall_ms": 20.715493708848953,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 156190208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.569040060043335,
+              "tested": 192,
+              "wall_ms": 4.581152927130461,
+              "worst_absolute_logit_error": 1.0251998901367188e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 132173824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.4421119689941406,
+              "tested": 192,
+              "wall_ms": 2.455539535731077,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 10.976703643798828,
+              "tested": 192,
+              "wall_ms": 10.989528149366379,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 156190208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.861056089401245,
+              "tested": 192,
+              "wall_ms": 2.8730053454637527,
+              "worst_absolute_logit_error": 1.239776611328125e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19987456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.714735984802246,
+              "tested": 192,
+              "wall_ms": 1.7275377176702023,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34554880,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.528767943382263,
+              "tested": 192,
+              "wall_ms": 2.5418344885110855,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 25052672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.8095199465751648,
+              "tested": 192,
+              "wall_ms": 1.8214560113847256,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            }
+          },
+          "batch": 8
+        }
+      }
+    },
+    "NVIDIA RTX PRO 6000 Blackwell Server Edition": {
+      "dot": {
+        "1024/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 19288576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1374239921569824,
+              "tested": 192,
+              "wall_ms": 1.1480720713734627,
+              "worst_absolute_logit_error": 0.3183007538318634
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0677599906921387,
+              "tested": 192,
+              "wall_ms": 1.0785963386297226,
+              "worst_absolute_logit_error": 0.3143945038318634
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.9324159622192383,
+              "tested": 192,
+              "wall_ms": 2.9439013451337814,
+              "worst_absolute_logit_error": 0.3183007538318634
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2825760245323181,
+              "tested": 192,
+              "wall_ms": 1.2942254543304443,
+              "worst_absolute_logit_error": 4.76837158203125e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564669952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.998080015182495,
+              "tested": 192,
+              "wall_ms": 5.011876113712788,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 41245184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.2534080743789673,
+              "tested": 192,
+              "wall_ms": 3.2656947150826454,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2170719504356384,
+              "tested": 192,
+              "wall_ms": 1.2284955009818077,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564667392,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.8526240587234497,
+              "tested": 192,
+              "wall_ms": 2.8648534789681435,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 41245184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.1705600023269653,
+              "tested": 192,
+              "wall_ms": 3.182019107043743,
+              "worst_absolute_logit_error": 1.71661376953125e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.031104028224945,
+              "tested": 192,
+              "wall_ms": 1.0418286547064781,
+              "worst_absolute_logit_error": 1.823902130126953e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 25170432,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2309280037879944,
+              "tested": 192,
+              "wall_ms": 1.2421980500221252,
+              "worst_absolute_logit_error": 1.823902130126953e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.4489599466323853,
+              "tested": 192,
+              "wall_ms": 2.460087649524212,
+              "worst_absolute_logit_error": 2.002716064453125e-05
+            }
+          },
+          "batch": 4
+        },
+        "1024/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 19288576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1362079977989197,
+              "tested": 192,
+              "wall_ms": 1.1473353952169418,
+              "worst_absolute_logit_error": 0.32579565048217773
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0633599758148193,
+              "tested": 192,
+              "wall_ms": 1.0750917717814445,
+              "worst_absolute_logit_error": 0.32774877548217773
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 23147520,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.21043199300766,
+              "tested": 192,
+              "wall_ms": 1.2212404981255531,
+              "worst_absolute_logit_error": 0.32579565048217773
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2829760313034058,
+              "tested": 192,
+              "wall_ms": 1.2944871559739113,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564669952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.9978718757629395,
+              "tested": 192,
+              "wall_ms": 5.010142922401428,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 137179648,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.368511974811554,
+              "tested": 192,
+              "wall_ms": 1.3794684782624245,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 128993792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2177119851112366,
+              "tested": 192,
+              "wall_ms": 1.2289425358176231,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564667392,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.8556320667266846,
+              "tested": 192,
+              "wall_ms": 2.867806702852249,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 137179648,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2915039658546448,
+              "tested": 192,
+              "wall_ms": 1.3024723157286644,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0317919850349426,
+              "tested": 192,
+              "wall_ms": 1.0430989786982536,
+              "worst_absolute_logit_error": 2.002716064453125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 25170432,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2298240065574646,
+              "tested": 192,
+              "wall_ms": 1.2412210926413536,
+              "worst_absolute_logit_error": 2.002716064453125e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 19341824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0874399542808533,
+              "tested": 192,
+              "wall_ms": 1.0981159284710884,
+              "worst_absolute_logit_error": 2.1219253540039062e-05
+            }
+          },
+          "batch": 4
+        },
+        "128/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1141279935836792,
+              "tested": 192,
+              "wall_ms": 1.1250320822000504,
+              "worst_absolute_logit_error": 0.25728321075439453
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 9437184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.075760006904602,
+              "tested": 192,
+              "wall_ms": 1.086709089577198,
+              "worst_absolute_logit_error": 0.25728321075439453
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 8141824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7721920013427734,
+              "tested": 192,
+              "wall_ms": 1.782720908522606,
+              "worst_absolute_logit_error": 0.25728321075439453
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 15187456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2154880166053772,
+              "tested": 192,
+              "wall_ms": 1.2268004938960075,
+              "worst_absolute_logit_error": 1.6927719116210938e-05
+            },
+            "eager/full": {
+              "extra_peak_bytes": 46936576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1713919639587402,
+              "tested": 192,
+              "wall_ms": 1.182633452117443,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 14420992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.999072015285492,
+              "tested": 192,
+              "wall_ms": 2.009897492825985,
+              "worst_absolute_logit_error": 1.5735626220703125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 15187456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1868000030517578,
+              "tested": 192,
+              "wall_ms": 1.19770597666502,
+              "worst_absolute_logit_error": 1.728534698486328e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 46196224,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1513760089874268,
+              "tested": 192,
+              "wall_ms": 1.162482425570488,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 14420992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.9398399591445923,
+              "tested": 192,
+              "wall_ms": 1.950673758983612,
+              "worst_absolute_logit_error": 1.5735626220703125e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 8474112,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0046719908714294,
+              "tested": 192,
+              "wall_ms": 1.0153865441679955,
+              "worst_absolute_logit_error": 1.6808509826660156e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 13192192,
+              "paired_exact_decisions": 192,
+              "stream_ms": 0.9604800045490265,
+              "tested": 192,
+              "wall_ms": 0.9713508188724518,
+              "worst_absolute_logit_error": 1.6689300537109375e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 9157120,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5592320561408997,
+              "tested": 192,
+              "wall_ms": 1.5699155628681183,
+              "worst_absolute_logit_error": 2.193450927734375e-05
+            }
+          },
+          "batch": 16
+        },
+        "128/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.113856017589569,
+              "tested": 192,
+              "wall_ms": 1.124875620007515,
+              "worst_absolute_logit_error": 0.20093154907226562
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 9437184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0832160115242004,
+              "tested": 192,
+              "wall_ms": 1.0941000655293465,
+              "worst_absolute_logit_error": 0.20093154907226562
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 9151488,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1947200298309326,
+              "tested": 192,
+              "wall_ms": 1.20528694242239,
+              "worst_absolute_logit_error": 0.20093154907226562
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 15656448,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2144320011138916,
+              "tested": 192,
+              "wall_ms": 1.2253429740667343,
+              "worst_absolute_logit_error": 1.1444091796875e-05
+            },
+            "eager/full": {
+              "extra_peak_bytes": 46936576,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1761599779129028,
+              "tested": 192,
+              "wall_ms": 1.1873412877321243,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 18300416,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.290448009967804,
+              "tested": 192,
+              "wall_ms": 1.3014376163482666,
+              "worst_absolute_logit_error": 1.1444091796875e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 15656448,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.191264033317566,
+              "tested": 192,
+              "wall_ms": 1.2022480368614197,
+              "worst_absolute_logit_error": 1.239776611328125e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 46196224,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1563040018081665,
+              "tested": 192,
+              "wall_ms": 1.1671502143144608,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 18300416,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2717599868774414,
+              "tested": 192,
+              "wall_ms": 1.2826938182115555,
+              "worst_absolute_logit_error": 1.049041748046875e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 8560128,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0095840096473694,
+              "tested": 192,
+              "wall_ms": 1.0202033445239067,
+              "worst_absolute_logit_error": 1.430511474609375e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 13192192,
+              "paired_exact_decisions": 192,
+              "stream_ms": 0.9580959975719452,
+              "tested": 192,
+              "wall_ms": 0.9692264720797539,
+              "worst_absolute_logit_error": 1.33514404296875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 10560000,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0680480003356934,
+              "tested": 192,
+              "wall_ms": 1.0786717757582664,
+              "worst_absolute_logit_error": 2.193450927734375e-05
+            }
+          },
+          "batch": 16
+        },
+        "512/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.115343987941742,
+              "tested": 192,
+              "wall_ms": 1.1257771402597427,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.069871962070465,
+              "tested": 192,
+              "wall_ms": 1.0804450139403343,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 3.5158400535583496,
+              "tested": 192,
+              "wall_ms": 3.5270117223262787,
+              "worst_absolute_logit_error": 0.36441946029663086
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 72054272,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2160159945487976,
+              "tested": 192,
+              "wall_ms": 1.2272242456674576,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.75,
+              "tested": 192,
+              "wall_ms": 2.7619516476988792,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 27620352,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.9932159185409546,
+              "tested": 192,
+              "wall_ms": 4.004254937171936,
+              "worst_absolute_logit_error": 1.9550323486328125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 72054272,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1976320147514343,
+              "tested": 192,
+              "wall_ms": 1.2090438976883888,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7323839664459229,
+              "tested": 192,
+              "wall_ms": 1.7446232959628105,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 27620352,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.8730239868164062,
+              "tested": 192,
+              "wall_ms": 3.8849804550409317,
+              "worst_absolute_logit_error": 1.9550323486328125e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0126720070838928,
+              "tested": 192,
+              "wall_ms": 1.0236799716949463,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 24567808,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0165600180625916,
+              "tested": 192,
+              "wall_ms": 1.0282611474394798,
+              "worst_absolute_logit_error": 1.811981201171875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.93231999874115,
+              "tested": 192,
+              "wall_ms": 2.943255938589573,
+              "worst_absolute_logit_error": 1.6689300537109375e-05
+            }
+          },
+          "batch": 8
+        },
+        "512/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.1175040006637573,
+              "tested": 192,
+              "wall_ms": 1.1279955506324768,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 17990656,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.0731520056724548,
+              "tested": 192,
+              "wall_ms": 1.0840538889169693,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 17065472,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.1891520023345947,
+              "tested": 192,
+              "wall_ms": 1.1997334659099579,
+              "worst_absolute_logit_error": 0.3939976692199707
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 72570368,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2154080271720886,
+              "tested": 192,
+              "wall_ms": 1.2269550934433937,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.7531200647354126,
+              "tested": 192,
+              "wall_ms": 2.7657831087708473,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 87114240,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.290992021560669,
+              "tested": 192,
+              "wall_ms": 1.3016816228628159,
+              "worst_absolute_logit_error": 2.193450927734375e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 72570368,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.1999200582504272,
+              "tested": 192,
+              "wall_ms": 1.210920512676239,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 292659200,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7317919731140137,
+              "tested": 192,
+              "wall_ms": 1.7438773065805435,
+              "worst_absolute_logit_error": 3.814697265625e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 87114240,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.2706720232963562,
+              "tested": 192,
+              "wall_ms": 1.2812614440917969,
+              "worst_absolute_logit_error": 2.193450927734375e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 15632384,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0119839906692505,
+              "tested": 192,
+              "wall_ms": 1.0226881131529808,
+              "worst_absolute_logit_error": 1.9550323486328125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 24567808,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0121279954910278,
+              "tested": 192,
+              "wall_ms": 1.0239146649837494,
+              "worst_absolute_logit_error": 1.9550323486328125e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 20046848,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.0712960362434387,
+              "tested": 192,
+              "wall_ms": 1.0816100984811783,
+              "worst_absolute_logit_error": 2.384185791015625e-05
+            }
+          },
+          "batch": 8
+        }
+      },
+      "radial": {
+        "1024/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 21822464,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5836640000343323,
+              "tested": 192,
+              "wall_ms": 1.5952140092849731,
+              "worst_absolute_logit_error": 0.23220491409301758
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24885248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5232320427894592,
+              "tested": 192,
+              "wall_ms": 1.5345970168709755,
+              "worst_absolute_logit_error": 0.23220491409301758
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.7526397705078125,
+              "tested": 192,
+              "wall_ms": 4.763745702803135,
+              "worst_absolute_logit_error": 0.23220491409301758
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6654399633407593,
+              "tested": 192,
+              "wall_ms": 1.6778232529759407,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.354511976242065,
+              "tested": 192,
+              "wall_ms": 7.367344573140144,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 69907968,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.378911972045898,
+              "tested": 192,
+              "wall_ms": 4.390711896121502,
+              "worst_absolute_logit_error": 2.09808349609375e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4930239915847778,
+              "tested": 192,
+              "wall_ms": 1.5040775761008263,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.115279912948608,
+              "tested": 192,
+              "wall_ms": 4.127625375986099,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 69907968,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.30022406578064,
+              "tested": 192,
+              "wall_ms": 4.311894066631794,
+              "worst_absolute_logit_error": 2.09808349609375e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19732992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3926559686660767,
+              "tested": 192,
+              "wall_ms": 1.403970643877983,
+              "worst_absolute_logit_error": 2.574920654296875e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34153472,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4958720207214355,
+              "tested": 192,
+              "wall_ms": 1.5073930844664574,
+              "worst_absolute_logit_error": 2.574920654296875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15606784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 3.9292800426483154,
+              "tested": 192,
+              "wall_ms": 3.9404937997460365,
+              "worst_absolute_logit_error": 2.002716064453125e-05
+            }
+          },
+          "batch": 4
+        },
+        "1024/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 21822464,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.588367998600006,
+              "tested": 192,
+              "wall_ms": 1.6006724908947945,
+              "worst_absolute_logit_error": 0.3361855149269104
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 24885248,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.520031988620758,
+              "tested": 192,
+              "wall_ms": 1.5324195846915245,
+              "worst_absolute_logit_error": 0.3127480149269104
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 25729536,
+              "paired_exact_decisions": 190,
+              "stream_ms": 1.6675999760627747,
+              "tested": 192,
+              "wall_ms": 1.6789864748716354,
+              "worst_absolute_logit_error": 0.3361855149269104
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.6665759682655334,
+              "tested": 192,
+              "wall_ms": 1.6785357147455215,
+              "worst_absolute_logit_error": 6.67572021484375e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 7.353055953979492,
+              "tested": 192,
+              "wall_ms": 7.365557365119457,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 256312832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.7612160444259644,
+              "tested": 192,
+              "wall_ms": 1.7721913754940033,
+              "worst_absolute_logit_error": 2.09808349609375e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 243740160,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4913600087165833,
+              "tested": 192,
+              "wall_ms": 1.5029199421405792,
+              "worst_absolute_logit_error": 9.5367431640625e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 1102325248,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.1124961376190186,
+              "tested": 192,
+              "wall_ms": 4.124335013329983,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 256312832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.571839988231659,
+              "tested": 192,
+              "wall_ms": 1.583276316523552,
+              "worst_absolute_logit_error": 2.384185791015625e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19732992,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3910720348358154,
+              "tested": 192,
+              "wall_ms": 1.4026649296283722,
+              "worst_absolute_logit_error": 2.574920654296875e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34153472,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4916799664497375,
+              "tested": 192,
+              "wall_ms": 1.5034712851047516,
+              "worst_absolute_logit_error": 2.574920654296875e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 24214016,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4610559940338135,
+              "tested": 192,
+              "wall_ms": 1.4719385653734207,
+              "worst_absolute_logit_error": 2.6285648345947266e-05
+            }
+          },
+          "batch": 4
+        },
+        "128/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5646399855613708,
+              "tested": 192,
+              "wall_ms": 1.575845293700695,
+              "worst_absolute_logit_error": 0.45470619201660156
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 11801600,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5297600030899048,
+              "tested": 192,
+              "wall_ms": 1.5411078929901123,
+              "worst_absolute_logit_error": 0.45470619201660156
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 8289792,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.6713919639587402,
+              "tested": 192,
+              "wall_ms": 2.682388760149479,
+              "worst_absolute_logit_error": 0.45470619201660156
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 23990784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.492576003074646,
+              "tested": 192,
+              "wall_ms": 1.5028947964310646,
+              "worst_absolute_logit_error": 9.5367431640625e-06
+            },
+            "eager/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4534399509429932,
+              "tested": 192,
+              "wall_ms": 1.465093344449997,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 21532672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.5498239994049072,
+              "tested": 192,
+              "wall_ms": 2.560960128903389,
+              "worst_absolute_logit_error": 1.049041748046875e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 23990784,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.475600004196167,
+              "tested": 192,
+              "wall_ms": 1.4868266880512238,
+              "worst_absolute_logit_error": 8.58306884765625e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4378400444984436,
+              "tested": 192,
+              "wall_ms": 1.4496101066470146,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 21532672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.5036799907684326,
+              "tested": 192,
+              "wall_ms": 2.5144200772047043,
+              "worst_absolute_logit_error": 1.049041748046875e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 9977344,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3780479431152344,
+              "tested": 192,
+              "wall_ms": 1.3889176771044731,
+              "worst_absolute_logit_error": 1.9550323486328125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 16943616,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3292480111122131,
+              "tested": 192,
+              "wall_ms": 1.3406407088041306,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 10104832,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.2949440479278564,
+              "tested": 192,
+              "wall_ms": 2.3063812404870987,
+              "worst_absolute_logit_error": 1.7762184143066406e-05
+            }
+          },
+          "batch": 16
+        },
+        "128/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 7830528,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.566159963607788,
+              "tested": 192,
+              "wall_ms": 1.5776334330439568,
+              "worst_absolute_logit_error": 0.47538185119628906
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 11801600,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5277279615402222,
+              "tested": 192,
+              "wall_ms": 1.5391996130347252,
+              "worst_absolute_logit_error": 0.47538185119628906
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 9709056,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.65038400888443,
+              "tested": 192,
+              "wall_ms": 1.6613397747278214,
+              "worst_absolute_logit_error": 0.47538185119628906
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 24866304,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4897920489311218,
+              "tested": 192,
+              "wall_ms": 1.5010572969913483,
+              "worst_absolute_logit_error": 1.1444091796875e-05
+            },
+            "eager/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4627999663352966,
+              "tested": 192,
+              "wall_ms": 1.474086195230484,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 27787776,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5762239694595337,
+              "tested": 192,
+              "wall_ms": 1.5868758782744408,
+              "worst_absolute_logit_error": 1.239776611328125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 24866304,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4721760153770447,
+              "tested": 192,
+              "wall_ms": 1.483735628426075,
+              "worst_absolute_logit_error": 1.430511474609375e-05
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 82013184,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.431327998638153,
+              "tested": 192,
+              "wall_ms": 1.4427946880459785,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 27787776,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5564640164375305,
+              "tested": 192,
+              "wall_ms": 1.567997969686985,
+              "worst_absolute_logit_error": 1.33514404296875e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 10125312,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.374239981174469,
+              "tested": 192,
+              "wall_ms": 1.3853330165147781,
+              "worst_absolute_logit_error": 2.3365020751953125e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 16943616,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3275840282440186,
+              "tested": 192,
+              "wall_ms": 1.3386039063334465,
+              "worst_absolute_logit_error": 3.0994415283203125e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 12550656,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4480479955673218,
+              "tested": 192,
+              "wall_ms": 1.458924263715744,
+              "worst_absolute_logit_error": 3.24249267578125e-05
+            }
+          },
+          "batch": 16
+        },
+        "512/future_distractors": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5703039765357971,
+              "tested": 192,
+              "wall_ms": 1.5817591920495033,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 25045504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5174880027770996,
+              "tested": 192,
+              "wall_ms": 1.5285033732652664,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.7762720584869385,
+              "tested": 192,
+              "wall_ms": 5.789961665868759,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 131166208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5039039850234985,
+              "tested": 192,
+              "wall_ms": 1.5154536813497543,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.033120155334473,
+              "tested": 192,
+              "wall_ms": 4.045947454869747,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 44693504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.410928010940552,
+              "tested": 192,
+              "wall_ms": 5.422202870249748,
+              "worst_absolute_logit_error": 1.0013580322265625e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 131166208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.482479989528656,
+              "tested": 192,
+              "wall_ms": 1.4940164983272552,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.4591360092163086,
+              "tested": 192,
+              "wall_ms": 2.4713855236768723,
+              "worst_absolute_logit_error": 7.62939453125e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 44693504,
+              "paired_exact_decisions": 192,
+              "stream_ms": 5.302495956420898,
+              "tested": 192,
+              "wall_ms": 5.314198322594166,
+              "worst_absolute_logit_error": 9.119510650634766e-06
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19969024,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3830719590187073,
+              "tested": 192,
+              "wall_ms": 1.394771970808506,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34554880,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.335648000240326,
+              "tested": 192,
+              "wall_ms": 1.3472707942128181,
+              "worst_absolute_logit_error": 1.52587890625e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.797791957855225,
+              "tested": 192,
+              "wall_ms": 4.809048026800156,
+              "worst_absolute_logit_error": 2.574920654296875e-05
+            }
+          },
+          "batch": 8
+        },
+        "512/standard": {
+          "arms": {
+            "bf16_flash/batch_max": {
+              "extra_peak_bytes": 15613952,
+              "paired_exact_decisions": 191,
+              "stream_ms": 1.5672320127487183,
+              "tested": 192,
+              "wall_ms": 1.5784390270709991,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/full": {
+              "extra_peak_bytes": 25045504,
+              "paired_exact_decisions": 191,
+              "stream_ms": 1.523472011089325,
+              "tested": 192,
+              "wall_ms": 1.5343530103564262,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "bf16_flash/length_buckets": {
+              "extra_peak_bytes": 19261440,
+              "paired_exact_decisions": 191,
+              "stream_ms": 1.6545279622077942,
+              "tested": 192,
+              "wall_ms": 1.6657309606671333,
+              "worst_absolute_logit_error": 0.39003944396972656
+            },
+            "eager/batch_max": {
+              "extra_peak_bytes": 132173824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5142719745635986,
+              "tested": 192,
+              "wall_ms": 1.5259142965078354,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 4.0360798835754395,
+              "tested": 192,
+              "wall_ms": 4.04861755669117,
+              "worst_absolute_logit_error": 0.0
+            },
+            "eager/length_buckets": {
+              "extra_peak_bytes": 156190208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5870559811592102,
+              "tested": 192,
+              "wall_ms": 1.5980536118149757,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            },
+            "eager_terminal/batch_max": {
+              "extra_peak_bytes": 132173824,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.481760025024414,
+              "tested": 192,
+              "wall_ms": 1.4933114871382713,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/full": {
+              "extra_peak_bytes": 564852736,
+              "paired_exact_decisions": 192,
+              "stream_ms": 2.453871965408325,
+              "tested": 192,
+              "wall_ms": 2.4664681404829025,
+              "worst_absolute_logit_error": 5.7220458984375e-06
+            },
+            "eager_terminal/length_buckets": {
+              "extra_peak_bytes": 156190208,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.5674239993095398,
+              "tested": 192,
+              "wall_ms": 1.5781894326210022,
+              "worst_absolute_logit_error": 1.9073486328125e-05
+            },
+            "fp32_efficient/batch_max": {
+              "extra_peak_bytes": 19987456,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3906559944152832,
+              "tested": 192,
+              "wall_ms": 1.402188092470169,
+              "worst_absolute_logit_error": 1.9311904907226562e-05
+            },
+            "fp32_efficient/full": {
+              "extra_peak_bytes": 34554880,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.3317599892616272,
+              "tested": 192,
+              "wall_ms": 1.3427725061774254,
+              "worst_absolute_logit_error": 1.9311904907226562e-05
+            },
+            "fp32_efficient/length_buckets": {
+              "extra_peak_bytes": 25052672,
+              "paired_exact_decisions": 192,
+              "stream_ms": 1.4526399970054626,
+              "tested": 192,
+              "wall_ms": 1.463165506720543,
+              "worst_absolute_logit_error": 2.4080276489257812e-05
+            }
+          },
+          "batch": 8
+        }
+      }
+    }
+  },
+  "identical_eager_across_device_pairs": 4608
+}
