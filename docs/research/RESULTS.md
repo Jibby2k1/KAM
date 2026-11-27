@@ -2,6 +2,8 @@
 
 ## Recent controlled and cross-domain results
 
+[Frozen BRIGHT transfer](../../reports/nonlinear_retrieval_natural/BRIGHT_FROZEN_TRANSFER.md) found hybrid BM25/E5 best on economics and earth science at the same output depth. MuSiQue-trained planning showed no clear gain over direct dense ranking and trailed the hybrid.
+
 [Extractive MuSiQue bindings](../../reports/nonlinear_retrieval_natural/MUSIQUE_SPAN_BINDINGS.md) raised monitored forced-span accuracy from 80–84 to 321–325 of 508 after tuning. In four-hop chains, a generative fallback gained three to four joint outcomes over the seven-outcome reference. The same fallback lost joint outcomes in three-hop chains.
 
 [BABILong executable retrieval](../../reports/nonlinear_retrieval_natural/BABILONG_REPLAY.md) reproduced all 1,200 source answers with complete structured input. At eight windows the 64k QA3 slice reached zero joint answers with unrestricted E5 and three with event-grammar filtering.
