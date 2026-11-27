@@ -17,8 +17,11 @@ export OMP_NUM_THREADS=5 OPENBLAS_NUM_THREADS=1 CUBLAS_WORKSPACE_CONFIG=:4096:8
 seeds=(791513 791543 791553)
 i="$SLURM_ARRAY_TASK_ID"
 mode=()
-if [[ "${KAM_SDPA_CURRICULUM:-0}" == 1 ]]; then
+if [[ "${KAM_SDPA_CURRICULUM:-0}" != 0 ]]; then
     mode+=(--curriculum-reference "$root/typed_guarded_sdpa_train_v1/train-53015476-$i.json")
+fi
+if [[ "${KAM_SDPA_CURRICULUM:-0}" == 2 ]]; then
+    mode+=(--curriculum-sweep)
 fi
 python -u "$work/run_kam_guarded_sdpa_training.py" --seed "${seeds[$i]}" \
   --unemployment "$root/eurostat_vintages_v1/fixture.json" --dallas "$root/oecd_revisions_l4_v1/oecd-observed.json" \

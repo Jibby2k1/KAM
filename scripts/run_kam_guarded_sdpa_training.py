@@ -2,7 +2,9 @@
 """Cross eager/fused FP32 attention with exact per-shape graph capture."""
 
 import argparse
+from collections import Counter
 from contextlib import nullcontext
+from fractions import Fraction
 from hashlib import sha256
 import json
 from math import cos, pi
@@ -25,6 +27,17 @@ from run_kam_temporal_clock_encoding import LONG_SCHEDULE, STEPS, banks, evaluat
 from run_kam_typed_clock_guard import GuardDecoder
 
 
+def evenly_spaced_remainder(order, head_pairs, tail_pairs=0):
+    head, tail = [16, 48]*head_pairs, [16, 48]*tail_pairs
+    remaining = Counter(order)
+    remaining.subtract(head + tail)
+    assert all(k > 0 for k in remaining.values())
+    slots = sorted((Fraction(j, n), d) for d, n in remaining.items() for j in range(1, n+1))
+    proposed = head + [d for _, d in slots] + tail
+    assert Counter(proposed) == Counter(order)
+    return proposed
+
+
 def run(a):
     torch.set_float32_matmul_precision("highest")
     torch.use_deterministic_algorithms(True)
@@ -34,14 +47,23 @@ def run(a):
     assert len(order) == STEPS
     curriculum = {"interleaved": order}
     if a.curriculum_reference:
-        curriculum.update(shallow_half=exposure_order(LONG_SCHEDULE, a.seed, True),
-                          shallow_all=sorted(order, key=lambda d: d > 48))
+        if a.curriculum_sweep:
+            shuffled = order.copy()
+            Random(a.seed+711295).shuffle(shuffled)
+            curriculum.update(shuffled_no_warmup=shuffled,
+                              evenly_warmed_400=evenly_spaced_remainder(order, 200),
+                              evenly_warmed_800=evenly_spaced_remainder(order, 400),
+                              bookends_400=evenly_spaced_remainder(order, 200, 200))
+        else:
+            curriculum.update(shallow_half=exposure_order(LONG_SCHEDULE, a.seed, True),
+                              shallow_all=sorted(order, key=lambda d: d > 48))
         assert all(sorted(plan) == sorted(order) for plan in curriculum.values())
         prior = json.loads(a.curriculum_reference.read_bytes())
         assert prior["seed"] == a.seed and prior["device"] == torch.cuda.get_device_name() == "NVIDIA L4"
         assert prior["training_sha256"] == {str(k): v[-1] for k, v in bank.items()}
     rates = torch.tensor([.002*min(i/100, 1)*(.2 + .8*(1+cos(pi*i/STEPS))/2) for i in range(1, STEPS+1)], device="cuda")
     held = holdout_panels(a.seed, (48, 128, 512, 1024))
+    replication = holdout_panels(a.seed+412315, (512, 1024)) if a.curriculum_sweep else None
     files, archives = source_panels(a)
 
     def reference_kernel(model, depth):
@@ -74,6 +96,8 @@ def run(a):
                 block.context.forward = forward
             metrics[label] = measured | {"heldout": evaluate(model, held),
                                         "archives": {name: assess(model, "eager_fp32", records) for name, records in archives.items()}}
+            if replication:
+                metrics[label]["extra_fresh_synthetic"] = evaluate(model, replication)
             print(geometry, label, measured["wall_seconds"], flush=True)
         if a.curriculum_reference:
             expected = prior["results"][geometry]["arms"]["fused_fp32/shape_graph"]
@@ -102,6 +126,7 @@ def main():
     for key in ("dallas", "unemployment", "industry", "later-unemployment", "later-industry", "output"):
         p.add_argument("--" + key, required=True, type=Path)
     p.add_argument("--curriculum-reference", type=Path)
+    p.add_argument("--curriculum-sweep", action="store_true")
     a = p.parse_args()
     a.output.write_text(json.dumps(run(a), separators=(",", ":"), allow_nan=False) + "\n")
 

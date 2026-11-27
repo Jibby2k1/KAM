@@ -21,15 +21,16 @@ def outcomes(rows, label, reference):
     varied = [r["arms"][label] for r in rows]
     rr = rows[0]["arms"][reference]
     synthetic, archives = {}, {}
-    for kind, panels in rr["heldout"].items():
-        for d in panels:
+    for block in (k for k in ("heldout", "extra_fresh_synthetic") if k in rr):
+        for kind, d in ((k, d) for k, v in rr[block].items() for d in v):
             actual, baseline = [], []
             for a, b in zip(known, varied, strict=True):
-                p, q = (data["heldout"][kind][d] for data in (a, b))
+                p, q = (data[block][kind][d] for data in (a, b))
                 assert p["fixture_sha256"] == q["fixture_sha256"]
                 baseline.extend(p["outcomes"])
                 actual.extend(q["outcomes"])
-            synthetic[f"{kind}/{d}"] = paired(list(map(all, baseline)), list(map(all, actual))) | {
+            key = f"{kind}/{d}" if block == "heldout" else f"fresh/{kind}/{d}"
+            synthetic[key] = paired(list(map(all, baseline)), list(map(all, actual))) | {
                 "alias_correct": sum(x[0] for x in actual), "snapshot_correct": sum(x[1] for x in actual)}
     for topic in rr["archives"]:
         records = defaultdict(list)
@@ -65,7 +66,7 @@ def audit(records, order_only):
             values = [x["results"][g] for x in rows]
             if order_only:
                 assert all(x["interleaved_archive_replay"] for x in values)
-                assert all(len(set(r["sequence_sha256"].values())) == 3 for r in rows)
+                assert all(len(set(r["sequence_sha256"].values())) == len(values[0]["arms"]) for r in rows)
                 flags = {"archived_interleaved_replay": True}
             else:
                 flags = {}
