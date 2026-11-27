@@ -28,8 +28,8 @@ def split_scope(message):
     return (marked[0] if len(marked) == 1 else None), [text for _, text in parts]
 
 
-def pair_groups(fixture):
-    q = fixture["questions"]["test"]
+def matched_queries(fixture, split):
+    q = fixture["questions"][split]
     matches = [r for r in q if r["kind"] == "answerable" and r["style"] in ("canonical", "paraphrase")]
     corpus = fixture["corpus"]
     change = defaultdict(dict)
@@ -48,6 +48,11 @@ def pair_groups(fixture):
         if a["gold"] == b["gold"]:
             continue
         paired[sha256(f"{a['id']}/{b['id']}".encode()).hexdigest()] = (key[0], (a, b))
+    return paired
+
+
+def pair_groups(fixture):
+    paired = matched_queries(fixture, "test")
     # Each pair populates four marked rows. The truth changes independently of
     # the content order while the multiset of words remains fixed.
     rows = []
