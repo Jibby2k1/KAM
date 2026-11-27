@@ -10,7 +10,7 @@ import re
 from time import perf_counter
 
 import torch
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, LogitsProcessor, LogitsProcessorList
 
 from audit_kam_natural_data import digest, words
 
@@ -59,14 +59,38 @@ def structure(tokens, tokenizer):
     return steps, bool(valid)
 
 
+class RequiredBoundaries(LogitsProcessor):
+    """Decode precisely the requested number of segments for the depth oracle."""
+
+    def __init__(self, tokenizer, depths, device):
+        self.separator = tokenizer.convert_tokens_to_ids(SEPARATOR)
+        self.eos = tokenizer.eos_token_id
+        self.boundaries = torch.tensor(depths, device=device) - 1
+
+    def __call__(self, input_ids, scores):
+        delimiter = input_ids == self.separator
+        outstanding = self.boundaries - delimiter.sum(1)
+        scores[:, self.separator].masked_fill_(outstanding <= 0, -torch.inf)
+        scores[:, self.eos].masked_fill_(outstanding > 0, -torch.inf)
+        positions = torch.arange(input_ids.shape[-1], device=input_ids.device)
+        last_boundary = (delimiter * positions).amax(1)
+        length = input_ids.shape[-1] - 1 - last_boundary
+        force = (length >= 36) & (outstanding > 0)
+        scores.masked_fill_(force[:, None], -torch.inf)
+        scores[:, self.separator].masked_fill_(force, 0)
+        return scores
+
+
 @torch.inference_mode()
-def predict(model, tokenizer, questions, batch=32):
+def predict(model, tokenizer, questions, batch=32, depths=None):
     model.eval()
     outputs = []
     for start in range(0, len(questions), batch):
         text = list(map(instruction, questions[start:start+batch]))
         value = tokenizer(text, padding=True, truncation=True, max_length=TOKEN_CAP, return_tensors="pt").to("cuda")
-        sample = model.generate(**value, max_new_tokens=TOKEN_CAP, do_sample=False)
+        constraint = (LogitsProcessorList([RequiredBoundaries(tokenizer, depths[start:start+batch], "cuda")])
+                      if depths is not None else None)
+        sample = model.generate(**value, max_new_tokens=TOKEN_CAP, do_sample=False, logits_processor=constraint)
         outputs.extend(structure(t, tokenizer) for t in sample.tolist())
     return outputs
 
@@ -147,21 +171,29 @@ def fit(a):
 
 
 def inference(a):
-    cases = json.loads(a.fixture.read_text())["rows"]
+    fixture = json.loads(a.fixture.read_text())
+    cases = fixture["rows"]
     tokenizer, model = interfaces(a.assets)
     weights_hash = None
     if a.weights:
         weights_hash = digest(a.weights)
         trained = torch.load(a.weights, map_location="cpu", weights_only=True)
-        assert trained["fixture_sha256"] == digest(a.fixture) and trained["revision"] == MODEL_REVISION
+        source_fixture = a.trained_for or digest(a.fixture)
+        assert trained["fixture_sha256"] == source_fixture and trained["revision"] == MODEL_REVISION
+        if a.trained_for:
+            assert fixture["base_fixture_sha256"] == a.trained_for
+            assert fixture["decomposer_data_sha256"] == trained["data_sha256"]
         model.load_state_dict(trained["weights"])
     cases = cases[a.shard::a.shards]
     prompts = [q["question"] for q in cases]
-    results = predict(model, tokenizer, prompts)
+    depths = [q["hops"] for q in cases] if a.oracle_depth else None
+    results = predict(model, tokenizer, prompts, depths=depths)
     output = {"weights_sha256": weights_hash, "fixture_sha256": digest(a.fixture), "revision": MODEL_REVISION,
               "shard": a.shard, "shards": a.shards, "device": torch.cuda.get_device_name(),
               "rows": [{"id": q["id"], "steps": s, "valid": v}
                        for q, (s, v) in zip(cases, results, strict=True)]}
+    if a.oracle_depth:
+        output["oracle_depth"] = True
     a.output.write_bytes(gzip.compress(json.dumps(output, separators=(",", ":")).encode(), mtime=0))
 
 
@@ -174,6 +206,8 @@ def main():
         p.add_argument("--" + name, type=Path)
     p.add_argument("--seed", type=int, default=106331)
     p.add_argument("--steps", type=int, default=480)
+    p.add_argument("--oracle-depth", action="store_true")
+    p.add_argument("--trained-for")
     p.add_argument("--per-hop", type=int, default=6)
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)

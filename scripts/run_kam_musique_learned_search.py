@@ -88,7 +88,7 @@ def search(a, paragraphs, fixture):
             "weights_sha256": learned["weights_sha256"], "baseline_sha256": digest(a.baseline),
             "models": revisions | {"google/flan-t5-base": BASE_REVISION}, "device": torch.cuda.get_device_name(),
             "shard": a.shard, "shards": a.shards, "elapsed_seconds": perf_counter() - started,
-            "rows": [output[r["id"]] for r in rows]}
+            "rows": [output[r["id"]] for r in rows]} | ({"oracle_depth": True} if learned.get("oracle_depth") else {})
 
 
 def main():
