@@ -54,7 +54,7 @@ def summarize(seed, modes, pairs):
                 assert all([check(q) for q in r] == [check(q) for q in all_rows[modes[0]]] for r in all_rows.values())
                 groups = defaultdict(list)
                 for j, r in enumerate(all_rows[modes[0]]):
-                    groups[r["period"]].append(j)
+                    groups[int(r["id"].rsplit("-", 1)[1])].append(j)
                 archive[era][str(depth)] = {k: panel({m: [r[k] for r in rows] for m, rows in all_rows.items()},
                                                     list(groups.values()), pairs) for k in ("joint", "numeric_exact")}
         result[geometry] = {"procedures": procedures, "archive": archive,

@@ -68,6 +68,8 @@ On an RTX GPU, FP32 lexical pruning in the hybrid pipeline reduced p95 latency f
 
 ## Revision memory
 
+[Independent clock transfer](../../reports/nonlinear_retrieval_natural/TEMPORAL_EXTERNAL_TRANSFER.md) reached 42.44% on 48-record Dallas Fed histories with mixed signed-log radial training, compared with 43.95% under archive-shaped signed-log radial training. Tripling publication offsets raised the mixed arm to 48.46% with the same answers.
+
 A frozen conservative gate rejected all 576 prompts for 96 unseen registry identities while answering 48 of 192 supported-alias prompts. Supplying a verified identity raised supported coverage to 192 of 192. These figures measure coverage and abstention on that fixture. [Registry holdout results](../../results/nonlinear_retrieval_natural/release_registry_sample_v1/summary.json)
 
 The [archived revision study](../../reports/nonlinear_retrieval_natural/TEMPORAL_DATASETS.md#real-revision-and-abstention) measures the distinct effects of identity, observation date, publication cutoff, and simulated local ingestion delays.
