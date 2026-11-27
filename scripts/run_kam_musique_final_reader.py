@@ -69,7 +69,8 @@ def run(a, paragraphs, fixture):
     baseline = packed(a.baseline)
     preliminary = list(map(packed, a.learned))
     revisions = json.loads((a.assets / "revisions.json").read_text())
-    assert baseline["models"] == revisions and len(preliminary) == 3
+    assert baseline["models"] == revisions and preliminary
+    assert len(preliminary) == 3 or (a.joint_assignment and len(preliminary) == 6)
     assert all(p["models"] == revisions | {"google/flan-t5-base": BASE_REVISION} for p in preliminary)
     assert all(p["baseline_sha256"] == digest(a.baseline) for p in preliminary)
     assert all(p["fixture_sha256"] == fx and p["corpus_sha256"] == cx and (p["shard"], p["shards"]) == (a.shard, a.shards)
@@ -163,7 +164,7 @@ def main():
         p.add_argument("--" + name, required=True, type=Path)
     for name in ("source", "assets", "baseline", "labels"):
         p.add_argument("--" + name, type=Path)
-    p.add_argument("--learned", nargs=3, type=Path)
+    p.add_argument("--learned", nargs="+", type=Path)
     p.add_argument("--selector-picks", type=Path)
     p.add_argument("--selector-policy", type=Path)
     p.add_argument("--joint-assignment", action="store_true")
