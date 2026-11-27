@@ -23,11 +23,18 @@ from run_kam_temporal_correction_curriculum import intervention
 MODES = ("full_fp32", "readout_fp32", "top1", "top4", "top16", "top64", "full_flash", "readout_flash")
 
 
-def hard_read(attention, inputs, k):
+def hard_read(attention, inputs, k, positions=None):
     n, length, _ = inputs.shape
     projected = attention.qkv(inputs).view(n, length, 3, attention.num_heads, attention.head_dim)
     q, keys, values = projected.permute(2, 0, 3, 1, 4).unbind(0)
-    scores = attention.score(q[..., -1:, :], keys)
+    if positions is None:
+        query = q[..., -1:, :]
+    else:
+        query = q.gather(2, positions.view(n, 1, 1, 1).expand(-1, attention.num_heads, 1, attention.head_dim))
+    scores = attention.score(query, keys)
+    if positions is not None:
+        suffix = torch.arange(length, device=inputs.device)[None, :] > positions[:, None]
+        scores = scores.masked_fill(suffix[:, None, None, :], -torch.inf)
     if k is None:
         update = scores.softmax(-1) @ values
         retained = None
@@ -48,16 +55,21 @@ def prefix(model, tokens):
     return hidden
 
 
-def terminal_output(model, hidden, mode):
+def terminal_output(model, hidden, mode, positions=None):
     tail = model.blocks[-1]
     assert tail.context.window is None and tail.context.relative_bias is None and tail.context.dropout.p == 0
     encoded = tail.context_norm(hidden)
     if mode == "readout_flash":
+        assert positions is None
         mixed, _ = stable_forward(tail.context, encoded, balanced=True, split_bias=True, last_only=True)
         mass = None
     else:
-        mixed, mass = hard_read(tail.context, encoded, int(mode[3:]) if mode.startswith("top") else None)
-    hidden = hidden[:, -1:, :] + mixed
+        mixed, mass = hard_read(tail.context, encoded, int(mode[3:]) if mode.startswith("top") else None, positions)
+    if positions is None:
+        query = hidden[:, -1:, :]
+    else:
+        query = hidden[torch.arange(len(hidden), device=hidden.device), positions].unsqueeze(1)
+    hidden = query + mixed
     hidden = hidden + tail.ffn(tail.ffn_norm(hidden))
     return model.readout(model.final_norm(hidden[:, 0])), mass
 

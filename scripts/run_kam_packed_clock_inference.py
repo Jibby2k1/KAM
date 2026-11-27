@@ -51,13 +51,13 @@ def read(model, kernel, data, positions):
         return model.readout(hidden[row, positions])
 
 
-def evaluate(model, kernel, tokens, method, *, preprocess=compact_tokens):
+def evaluate(model, kernel, tokens, method, *, preprocess=compact_tokens, readout=read):
     data, query = preprocess(tokens)
     if method == "full":
-        return read(model, kernel, data, query)
+        return readout(model, kernel, data, query)
     if method == "batch_max":
         stop = int(query.max()) + 1
-        return read(model, kernel, data[:, :stop], query)
+        return readout(model, kernel, data[:, :stop], query)
     assert method == "length_buckets"
     groups = {}
     for i, idx in enumerate(query.tolist()):
@@ -66,7 +66,7 @@ def evaluate(model, kernel, tokens, method, *, preprocess=compact_tokens):
     found, order = [], []
     for limit, group in groups.items():
         indices = torch.tensor(group, dtype=torch.long, device=data.device)
-        found.append(read(model, kernel, data[:, :limit].index_select(0, indices), query[indices]))
+        found.append(readout(model, kernel, data[:, :limit].index_select(0, indices), query[indices]))
         order.extend(group)
     reverse = torch.tensor(sorted(range(len(order)), key=order.__getitem__), device=data.device)
     return torch.cat(found).index_select(0, reverse)
