@@ -70,7 +70,8 @@ def cache_check(model, stack, tokenizer):
             "same_argmax": int((full.argmax(-1) == last.argmax(-1)).sum()), "cases": len(rows)}
 
 
-def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=None, numeric_stop_pattern=None):
+def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=None, numeric_stop_pattern=None,
+             stop_on_content=True):
     x, mask = pad(rows, tokenizer.pad_token_id)
     outputs = [[] for _ in rows]
     done = [False] * len(rows)
@@ -92,7 +93,7 @@ def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=
                     finished[j] = "eos"
             else:
                 outputs[j].append(token)
-        if (step + 1) % 16 == 0:
+        if stop_on_content and (step + 1) % 16 == 0:
             for j, out in enumerate(outputs):
                 if not done[j]:
                     decoded = tokenizer.decode(out, skip_special_tokens=True)

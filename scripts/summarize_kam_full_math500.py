@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Verify checkpoint lineage and summarize the marker-free MATH-500 comparison."""
+import argparse
+from collections import Counter
+import json
+from pathlib import Path
+
+import numpy as np
+
+from kam_adapter_preservation import ARMS, LLAMA_ID, MODEL_ID, SEEDS, digest, key
+from kam_math_kl_protocol import BATCH_SIZE, SOURCES, test_runs, write_json
+from summarize_kam_adapter_preservation import difference, read_archive
+
+MODES = ("full", "prefix", "terminal")
+PROMPT_SUFFIX = "\n\nSolve the problem. Explain your reasoning and state your final answer clearly."
+
+
+def truth(rows, mode, name="correct"):
+    return np.asarray([row[mode][name] for row in rows], dtype=bool)
+
+
+def split_metrics(mask, flags, baseline):
+    result = {"n": int(mask.sum()), "untouched": {}, "mean_exact": {}, "contrasts": {}}
+    for mode in MODES:
+        base = baseline[mode][None, mask]
+        result["untouched"][mode] = float(base.mean())
+        arms = {arm: flags[arm][mode][:, mask] for arm in ARMS}
+        result["mean_exact"][mode] = {arm: float(results.mean()) for arm, results in arms.items()}
+        result["contrasts"][mode] = difference(arms["kam"], arms["dot"])
+        if mask.all():
+            result["contrasts"][f"{mode}:kam-minus-untouched"] = difference(arms["kam"], base)
+            result["contrasts"][f"{mode}:dot-minus-untouched"] = difference(arms["dot"], base)
+    return result
+
+
+def summarize(work, model, old_dir, gold_audit):
+    selection = old_dir / f"{model}-selection.json"
+    selected = json.loads(selection.read_text())
+    recipe = selected["selected_recipe"]
+    runs = test_runs(recipe)
+    old = read_archive(old_dir / f"{model}-outcomes.json.gz")
+    fixture = json.loads((old_dir / "fixture-manifest.json").read_text())
+    integer_set = set(fixture["fixtures"]["test"]["ids"])
+    grader = json.loads(gold_audit.read_text())
+    expected_model = MODEL_ID if model == "smollm2" else LLAMA_ID
+    payloads = {}
+    hashes = {}
+    signatures = None
+    for run in runs:
+        ident = key(*run)
+        path = work / f"graded-{ident}.json"
+        payload = json.loads(path.read_text())
+        assert set(payload) == {"metadata", "records"}
+        meta, rows = payload["metadata"], payload["records"]
+        original = old(f"test-{ident}")["metadata"]
+        assert meta["protocol"] == "kam-math500-neutral-v1"
+        assert meta["model"] == expected_model and (meta["seed"], meta["recipe"], meta["arm"]) == run
+        assert meta["batch_size"] == BATCH_SIZE and (meta["prefix_budget"], meta["budget"]) == (384, 1024)
+        assert meta["prompt_suffix"] == PROMPT_SUFFIX
+        assert meta["source_sha256"] == SOURCES["math500-test.jsonl"] == grader["source_sha256"]
+        assert meta["selection_sha256"] == original["selection_sha256"] == digest(selection)
+        assert meta["grader_protocol"] == grader["protocol"] and meta["grader_versions"] == grader["versions"]
+        for field in ("revision", "adapter_sha256", "model_fingerprints", "new_trainable_parameters", "training", "gpu"):
+            assert meta[field] == original[field], (ident, field)
+        assert len(rows) == len({r["id"] for r in rows}) == grader["self_verifying_answers"] == 500
+        signature = [(r["id"], r["subject"], r["level"], r["prompt_tokens"]) for r in rows]
+        signatures = signature if signatures is None else signatures
+        assert signature == signatures, ident
+        for r in rows:
+            assert set(r) == {"id", "subject", "level", "prompt_tokens", "output_tokens", "stop", *MODES}
+            assert (r["stop"], r["output_tokens"] == 1024) in (("budget", True), ("eos", False))
+            assert 0 <= r["output_tokens"] <= 1024 and r["prompt_tokens"] > 0
+            assert r["output_tokens"] > 384 or r["full"] == r["prefix"]
+            for mode in MODES:
+                assert set(r[mode]) == {"correct", "parsed"} and r[mode]["correct"] <= r[mode]["parsed"]
+        hashes[ident] = digest(path)
+        payloads[ident] = payload
+
+    base_id = key(*runs[-1])
+    baseline = {mode: truth(payloads[base_id]["records"], mode) for mode in MODES}
+    by_arm = {arm: [payloads[key(seed, recipe, arm)]["records"] for seed in SEEDS] for arm in ARMS}
+    flags = {arm: {mode: np.stack([truth(rows, mode) for rows in arm_rows]) for mode in MODES}
+             for arm, arm_rows in by_arm.items()}
+    subjects = np.array([subject for _, subject, _, _ in signatures])
+    levels = np.array([level for _, _, level, _ in signatures])
+    integer = np.array([ident in integer_set for ident, _, _, _ in signatures])
+    assert int(integer.sum()) == 311
+    groups = {"full": np.ones(500, dtype=bool), "integer": integer, "noninteger": ~integer}
+    groups.update({f"subject:{subject}": subjects == subject for subject in sorted(set(subjects))})
+    groups.update({f"level:{level}": levels == level for level in sorted(set(levels))})
+    checkpoints = {}
+    for ident, payload in payloads.items():
+        rows = payload["records"]
+        full = truth(rows, "full")
+        prefix = truth(rows, "prefix")
+        checkpoints[ident] = {
+            "correct": {mode: int(truth(rows, mode).sum()) for mode in MODES},
+            "parsed": {mode: int(truth(rows, mode, "parsed").sum()) for mode in MODES},
+            "full_vs_prefix": {"gained": int((full & ~prefix).sum()), "lost": int((prefix & ~full).sum())},
+            "full_vs_base": {"gained": int((full & ~baseline["full"]).sum()),
+                             "lost": int((baseline["full"] & ~full).sum())},
+            "stops": dict(Counter(row["stop"] for row in rows)),
+            "output_tokens": sum(row["output_tokens"] for row in rows),
+            "seconds": payload["metadata"]["seconds"],
+        }
+    return {"model": expected_model, "recipe": recipe, "kl_weight": selected["selected_kl_weight"],
+            "groups": {label: split_metrics(mask, flags, baseline) for label, mask in groups.items()},
+            "checkpoints": checkpoints, "seeds": SEEDS, "outcome_sha256": hashes,
+            "source_sha256": grader["source_sha256"], "selection_sha256": digest(selection)}
+
+
+if __name__ == "__main__":
+    cli = argparse.ArgumentParser(description=__doc__)
+    cli.add_argument("work", type=Path)
+    cli.add_argument("model", choices=("smollm2", "llama3"))
+    cli.add_argument("old_results", type=Path)
+    cli.add_argument("gold_audit", type=Path)
+    cli.add_argument("output", type=Path)
+    args = cli.parse_args()
+    write_json(args.output, summarize(args.work, args.model, args.old_results, args.gold_audit))
