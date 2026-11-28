@@ -227,6 +227,10 @@ On the same 4,096-token holdout and three top-four checkpoints, eight blocks sco
 
 On the same holdout with frozen weights, full-model 4K prefill fell from 196.59 ms with Flash to 194.29, 192.14 and 187.90 ms with 8, 16 and 32 layers shortlisting eight blocks. Peak allocation was 469.14 MiB throughout. PG-19 perplexity rose from 10.21 to 33.76, 174.35 and 337.74. Mirrored MuSiQue fell from 68.44% to 48.23%, 52.50% and 50.31%. At 8K, all-layer replacement cut median prefill by 9.20%. [Paired quality, kernel validation and latency](BACKBONE_BLOCK_ATTENTION.md)
 
+### Protecting the first block
+
+Reserving the first block inside the eight-slot shortlist raised retained dense mass from 53.19% to 93.92% on prunable queries. On the same holdout, protected depths of 8, 16 and 32 gave PG-19 perplexity of 10.49, 10.80 and 11.20, compared with Flash at 10.21. Mirrored MuSiQue was 65.31%, 59.58% and 53.33%, compared with Flash at 68.44%. In the interleaved 4K profile, protected prefill cut p50 by 1.20%, 2.23% and 4.38%, with 469.14 MiB of incremental peak allocation throughout. [Layerwise mass, paired estimates and full timing](FIRST_BLOCK_ATTENTION.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)

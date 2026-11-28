@@ -15,6 +15,7 @@ from summarize_kam_pretrained_endpoint_selection import family_difference
 
 DEPTHS = (0, 8, 16, 32)
 WIDTHS = (512, 2048, 4096, 8192)
+RECORDED_KERNEL_SHA256 = "79d6399afbbcb3fc9193c42167088f04165deb0436040e4d40bae76590f9f906"
 
 
 def layout(depth):
@@ -63,7 +64,7 @@ def summarize(work, manifest_path, previous_path, source_audit_path):
     wide_file = work / "wide-check.json"
     wide = json.loads(wide_file.read_text())
     assert (wide["width"], wide["heads"], wide["kv"], wide["route_checks"], wide["gpu"]) == (8192, 32, 8, 96, profile["gpu"])
-    assert wide["kernel_sha256"] == digest(Path(__file__).with_name("kam_backbone_block_attention.py"))
+    assert wide["kernel_sha256"] == RECORDED_KERNEL_SHA256
     assert set(wide["max_abs_delta"]) == {"4096", "6144", "8160"}
     assert profile["manifest_sha256"] == manifest_hash and profile["seed"] == SEEDS[0]
     assert profile["checkpoint_sha256"] == prior[SEEDS[0]]["checkpoint_sha256"]

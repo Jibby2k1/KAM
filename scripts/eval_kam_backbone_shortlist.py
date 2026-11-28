@@ -30,6 +30,7 @@ class BackboneAttention:
         assert model.config.num_attention_heads == 32 and model.config.num_key_value_heads == 8
         self.original = ALL_ATTENTION_FUNCTIONS["sdpa"]
         self.selected = frozenset()
+        self.keep_first = False
 
     def layers(self, depth):
         self.selected = frozenset(range(32 // depth - 1, 32, 32 // depth)) if depth else frozenset()
@@ -39,7 +40,7 @@ class BackboneAttention:
             return self.original(module, q, k, v, mask, dropout=dropout, scaling=scaling, **kwargs)
         if mask is not None or dropout != 0.0 or not module.is_causal or q.size(-2) != k.size(-2):
             raise ValueError("Shortlisted backbone attention requires unpadded, uncached causal prefill")
-        return block_attention(q, k, v, scaling), None
+        return block_attention(q, k, v, scaling, keep_first=self.keep_first), None
 
     @contextmanager
     def installed(self):
@@ -162,10 +163,10 @@ def model_check(model, stack, proj, attention, data):
             "max_abs_label_logit_delta": float((outputs[0][1]-outputs[32][1]).abs().max())}
 
 
-def load(root, source, work, seed):
+def load(root, source, work, seed, attention_type=BackboneAttention):
     model, stack, proj, data, check = prepare_run(root, source, work, seed, ARM)
     stack.backend("sparse")
-    return model, stack, proj, data, check, BackboneAttention(model)
+    return model, stack, proj, data, check, attention_type(model)
 
 
 def benchmark(root, source, work):
