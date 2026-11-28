@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from math_verify import ExprExtractionConfig, LatexExtractionConfig, parse, verify
+from math_verify.errors import TimeoutException
 
 from kam_adapter_preservation import digest
 from kam_math_kl_protocol import SOURCES, write_json
@@ -35,9 +36,17 @@ def parse_gold(answer):
     return parse(f"${answer}$", extraction_config=(LATEX,), **PARSE)
 
 
-def grade_prediction(gold, completion):
-    answer = parse(completion, extraction_config=PREDICTION, **PARSE)
-    return {"parsed": bool(answer), "correct": bool(answer and verify(gold, answer, **VERIFY))}
+def grade_prediction(gold, completion, issues=None):
+    answer = []
+    operation = "parse"
+    try:
+        answer = parse(completion, extraction_config=PREDICTION, raise_on_error=True, **PARSE)
+        operation = "verify"
+        return {"parsed": bool(answer), "correct": bool(answer and verify(gold, answer, raise_on_error=True, **VERIFY))}
+    except (TimeoutException, Exception) as error:
+        if issues is not None:
+            issues.append(f"{operation}:{type(error).__name__}")
+        return {"parsed": bool(answer), "correct": False}
 
 
 def terminal_lines(completion):
@@ -96,21 +105,25 @@ def grade_file(source, input_path, output_path):
     rows = payload["records"]
     assert [row["unique_id"] for row in data] == [r["id"] for r in rows]
     graded = []
+    diagnostics = []
     for item, record in zip(data, rows, strict=True):
         answer = parse_gold(item["answer"])
         assert len(answer) == 1
         completion = record["completion"]
         prefix = record["prefix"]
-        full = grade_prediction(answer, completion)
+        outputs = {}
+        for mode, candidate in (("full", completion), ("prefix", prefix), ("terminal", terminal_lines(completion))):
+            problems = []
+            outputs[mode] = outputs["full"] if candidate is None else grade_prediction(answer, candidate, problems)
+            diagnostics.extend({"id": record["id"], "mode": mode, "error": problem} for problem in problems)
         graded.append({
             "id": record["id"], "subject": item["subject"], "level": item["level"],
             "prompt_tokens": record["prompt_tokens"], "output_tokens": record["output_tokens"],
-            "stop": record["stop"], "full": full,
-            "prefix": full if prefix is None else grade_prediction(answer, prefix),
-            "terminal": grade_prediction(answer, terminal_lines(completion)),
+            "stop": record["stop"], **outputs,
         })
     write_json(output_path, {"metadata": {**payload["metadata"], "generation_sha256": digest(input_path),
-                                          "grader_protocol": GRADER_PROTOCOL, "grader_versions": GRADER_VERSIONS},
+                                          "grader_protocol": GRADER_PROTOCOL, "grader_versions": GRADER_VERSIONS,
+                                          "grader_diagnostics": diagnostics},
                             "records": graded})
 
 

@@ -100,12 +100,22 @@ def summarize(work, model, old_dir, gold_audit):
             "full_vs_base": {"gained": int((full & ~baseline["full"]).sum()),
                              "lost": int((baseline["full"] & ~full).sum())},
             "stops": dict(Counter(row["stop"] for row in rows)),
+            "credited_at_cap": sum(row["stop"] == "budget" and row["full"]["correct"] for row in rows),
+            "terminal_changed": int((full != truth(rows, "terminal")).sum()),
+            "grader_diagnostics": dict(Counter(f"{x['mode']}:{x['error']}" for x in payload["metadata"]["grader_diagnostics"])),
             "output_tokens": sum(row["output_tokens"] for row in rows),
             "seconds": payload["metadata"]["seconds"],
         }
+    eos_only = {
+        arm: np.stack([truth(rows, "full") & np.array([row["stop"] == "eos" for row in rows])
+                       for rows in arm_rows])
+        for arm, arm_rows in by_arm.items()
+    }
     return {"model": expected_model, "recipe": recipe, "kl_weight": selected["selected_kl_weight"],
             "groups": {label: split_metrics(mask, flags, baseline) for label, mask in groups.items()},
             "checkpoints": checkpoints, "seeds": SEEDS, "outcome_sha256": hashes,
+            "cap_zero_sensitivity": {"mean_exact": {arm: float(rows.mean()) for arm, rows in eos_only.items()},
+                                     "kam_minus_dot": difference(eos_only["kam"], eos_only["dot"])},
             "source_sha256": grader["source_sha256"], "selection_sha256": digest(selection)}
 
 

@@ -76,6 +76,20 @@
         <p>With the same pool it cannot. Increasing coverage requires changing the candidate retrieval step. Better coverage then gives the selector more opportunities, while conditional selection accuracy can still change.</p>
       </details>
     </section>
+    <section id="math-evaluation">
+      <h2>Grade the mathematics across answer forms</h2>
+      <p>Equivalent answers can look different. For example, squaring both nonnegative expressions shows that √8 and 2√2 represent the same number. A symbolic grader can accept either form without requiring the model to write a special marker.</p>
+      <table class="score-table">
+        <caption>Full MATH-500 accuracy with a neutral prompt</caption>
+        <thead><tr><th scope="col">Backbone</th><th scope="col">Untouched</th><th scope="col">KAM</th><th scope="col">Dot</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">SmolLM2</th><td>22.80%</td><td>23.53%</td><td>22.80%</td></tr>
+          <tr><th scope="row">Llama 3</th><td>29.40%</td><td>27.67%</td><td>28.13%</td></tr>
+        </tbody>
+      </table>
+      <p>The six fitted adapters per backbone shared the development-selected KL weight and used three matched seeds. Both full-set KAM–dot intervals span zero. On Llama, dot led on integer-answer questions and KAM led on noninteger-answer questions across the three seeds. The next experiment tests whether that pattern repeats on new questions.</p>
+      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/FULL_MATH500.md">Full MATH-500 study</a> · <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/BENCHMARKS.md">Benchmark scorecard</a></p>
+    </section>
     <section id="research">
       <h2>Read the studies</h2>
       <dl class="terms evidence">
@@ -94,6 +108,7 @@
       <strong>On this page</strong>
       <a href="#derive">Derive the coverage bound</a>
       <a href="#cohort-lab">Compare by cohort</a>
+      <a href="#math-evaluation">Grade equivalent answers</a>
       <a href="#research">Read the studies</a>
     </nav>
   </aside>

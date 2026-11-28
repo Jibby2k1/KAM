@@ -100,6 +100,17 @@ The KL weight was selected separately for each backbone on 512 held-out GSM8K de
 
 [Development selection, paired intervals, and test receipts](MATH_KL_TRANSFER.md)
 
+### Full MATH-500 with a neutral answer prompt
+
+All 500 problems use one prompt, no required answer marker, a 1,024-token cap, and the same Math-Verify grader. The KL weights were locked on development before this evaluation. Adapter scores are means across the same three seeds.
+
+| Backbone and selected KL | Untouched | KAM | Dot | KAM minus dot (95% paired item interval) |
+| --- | ---: | ---: | ---: | ---: |
+| SmolLM2, KL 4 | 22.80% | 23.53% | 22.80% | +0.73 [−1.40, +2.87] pp |
+| Llama 3, KL 0.5 | 29.40% | 27.67% | 28.13% | −0.47 [−3.20, +2.27] pp |
+
+[Full MATH-500 report and numeric outcomes](FULL_MATH500.md) · [Research plan](RESEARCH_PLAN.md)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.
