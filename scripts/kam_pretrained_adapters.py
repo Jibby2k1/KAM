@@ -23,6 +23,24 @@ ARMS = ("kam", "dot", "pretrained")
 SEED = 731201
 
 
+def explicit_causal_attention(q, k, v, mask, limit=None):
+    """Diagnostic causal prefill with identical scores for soft and top-k reads."""
+    steps = torch.arange(q.size(-2), device=q.device)
+    allowed = steps[:, None] >= steps[None, :]
+    if mask is not None:
+        allowed = allowed & mask[:, None, None, :]
+    with torch.autocast(q.device.type, enabled=False):
+        scores = (q.float() @ k.float().transpose(-1, -2)) * (q.size(-1) ** -0.5)
+        scores = scores.masked_fill(~allowed, -torch.inf)
+        if limit is not None and limit < scores.size(-1):
+            selected, indices = scores.topk(limit, dim=-1)
+            scores = torch.full_like(scores, -torch.inf).scatter_(-1, indices, selected)
+        # Padded queries with no eligible keys contribute zero.
+        scores = scores.masked_fill(~allowed.any(-1, keepdim=True), 0.)
+        weights = scores.softmax(-1).masked_fill(~allowed, 0.)
+        return (weights @ v.float()).to(q.dtype)
+
+
 class ResidualAdapter(nn.Module):
     def __init__(self, hidden, arm, seed):
         super().__init__()
@@ -42,6 +60,7 @@ class ResidualAdapter(nn.Module):
         self.mask = None
         self.cache_enabled = False
         self.cache = None
+        self.diagnostic_attention = None
 
     def append_dot_cache(self, k, v):
         old = self.cache[0].size(-2) if self.cache is not None else 0
@@ -60,6 +79,13 @@ class ResidualAdapter(nn.Module):
         else:
             q, k, v = (r.unflatten(-1, (HEADS, WIDTH // HEADS)).transpose(1, 2)
                        for r in self.qkv(z).chunk(3, dim=-1))
+            if self.diagnostic_attention is not None:
+                if self.cache_enabled or self.cache is not None:
+                    raise ValueError("Explicit attention diagnostic requires an uncached prefill")
+                limit = self.diagnostic_attention or None
+                value = explicit_causal_attention(q, k, v, self.mask, limit)
+                value = self.out(value.transpose(1, 2).reshape_as(z))
+                return x + self.up(value).to(x.dtype)
             old, k, v = self.append_dot_cache(k, v)
             mask = None
             if self.mask is not None:
