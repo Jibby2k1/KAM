@@ -11,6 +11,7 @@ from kam_math_kl_protocol import test_runs, write_json
 from kam_tabmwp_archive_noise import BUDGET, encode_case, load_panel
 
 PROTOCOL = "kam-tabmwp-retirement-v1"
+AUDIT_PROTOCOL = "kam-tabmwp-retirement-grade-audit-v1"
 WIDTHS = (8, 32)
 
 
@@ -59,7 +60,7 @@ def retire(model, stack, tokenizer, rows, compact):
     return (text, ended), {"token_slots": slots, "active_steps": active, "compactions": retired}
 
 
-def evaluate(root, work, index):
+def evaluate(root, work, index, audit=False):
     import torch
     from eval_kam_adapter_preservation import load_checkpoint
 
@@ -75,11 +76,19 @@ def evaluate(root, work, index):
     cohort = [(row["id"], encode_case(tokenizer, row)["current_only"]) for row in rows]
     cohort.sort(key=lambda item: len(item[1]))
     metrics = {}
+    baseline_path = work / "baseline" / f"retire-{key(*run)}.json"
+    baseline = json.loads(baseline_path.read_text()) if audit else None
+    if audit:
+        assert baseline["metadata"]["manifest_sha256"] == source
+        assert baseline["metadata"]["adapter_sha256"] == metadata["adapter_sha256"]
     for width in WIDTHS:
         times = {"fixed": [], "physical_retirement": []}
         outcomes, counters = {}, {}
         retire(model, stack, tokenizer, [x[1] for x in cohort[:width]], False)
-        for mode in ("fixed", "physical_retirement", "physical_retirement", "fixed"):
+        schedule = ("fixed", "physical_retirement") if audit else (
+            "fixed", "physical_retirement", "physical_retirement", "fixed",
+        )
+        for mode in schedule:
             observed = []
             counts = {"compactions": 0, "token_slots": 0, "active_steps": 0}
             torch.cuda.synchronize()
@@ -100,9 +109,16 @@ def evaluate(root, work, index):
              "retired_tokens": len(candidate[0]), "fixed_eos": original[1], "retired_eos": candidate[1]}
             for (ident, _), original, candidate in zip(cohort, left, right, strict=True)
         ]}
+        if audit:
+            assert baseline["widths"][str(width)]["records"] == metrics[width]["records"]
+            for row, original, candidate in zip(metrics[width]["records"], left, right, strict=True):
+                if not row["exact"]:
+                    row["fixed_completion"] = tokenizer.decode(original[0], skip_special_tokens=True)
+                    row["retired_completion"] = tokenizer.decode(candidate[0], skip_special_tokens=True)
     write_json(work / f"retire-{key(*run)}.json", {"metadata": {
-        **metadata, "gpu": gpu, "protocol": PROTOCOL, "manifest_sha256": source,
-        "selection_sha256": digest(selection)}, "widths": metrics})
+        **metadata, "gpu": gpu, "protocol": AUDIT_PROTOCOL if audit else PROTOCOL, "manifest_sha256": source,
+        "selection_sha256": digest(selection),
+        **({"baseline_sha256": digest(baseline_path)} if audit else {})}, "widths": metrics})
 
 
 if __name__ == "__main__":
@@ -111,5 +127,6 @@ if __name__ == "__main__":
     parser.add_argument("root", type=Path)
     parser.add_argument("work", type=Path)
     parser.add_argument("index", type=int)
+    parser.add_argument("--audit", action="store_true")
     args = parser.parse_args()
-    evaluate(args.root, args.work, args.index)
+    evaluate(args.root, args.work, args.index, args.audit)

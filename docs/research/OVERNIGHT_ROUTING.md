@@ -52,6 +52,8 @@ Use the 32 hash-first questions from the fresh TabMWP split and the verified cur
 
 The probe failed the all-token parity requirement at both widths. The untouched backbone also had differences, matching 25 of 32 traces at width 32 and 28 of 32 at width eight. Treat these as timing and fidelity results for an experimental path. Keep fixed batches as the reference. [Retirement summary](../../results/general_benchmarks_overnight/retirement-summary.json) · [Numeric traces](../../results/general_benchmarks_overnight/retirement-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/retirement-scheduler.tsv)
 
+Replay the same batches once per mode and verify the previously measured token-change and EOS flags. Grade the changed completions with the shared mathematical equivalence protocol. Count gains and losses separately by width and seed. This determines whether observed text changes affect verified answers in the probe; the exact-output gate remains in force. [Grade audit](../../scripts/grade_kam_retirement_audit.py)
+
 ## Public release clocks
 
 Join stable releases from six public projects on the exact version string. Use the GitHub release publication timestamp and the earliest currently archived non-yanked PyPI file upload. Restrict both timestamps to 2019–2025. These are two recorded publication channels. The study uses a pinned snapshot of versions present in both sources, including historical times at which the two views differed.
