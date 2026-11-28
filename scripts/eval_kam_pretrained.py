@@ -83,7 +83,8 @@ def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=
     stack.reset()
     logits, past = next_logits(model, stack, x, mask, use_cache=True)
     for step in range(limit):
-        tokens = logits.argmax(-1).tolist()
+        next_tokens = logits.argmax(-1)
+        tokens = next_tokens.tolist()
         for j, token in enumerate(tokens):
             if done[j]:
                 continue
@@ -113,7 +114,7 @@ def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=
                         finished[j] = "pattern"
         if all(done) or step + 1 == limit:
             break
-        token = torch.tensor(tokens, device=x.device).unsqueeze(1)
+        token = next_tokens.unsqueeze(1)
         mask = torch.cat((mask, torch.ones_like(token, dtype=torch.bool)), dim=1)
         logits, past = next_logits(model, stack, token, mask, past, use_cache=True)
     stack.reset()

@@ -30,6 +30,8 @@ SmolLM2's KAM–dot differences by seed were +0.20, −0.60, and +2.60 points. L
 
 Gain and loss are measured against the untouched model on the same questions. Llama lost 21 answers in every fitted checkpoint. The grader extracted answers for all 21 in every fit, and 11 reached EOS in every fit. This identifies shared regressions even on outputs that finished and supplied an extractable expression. [SmolLM2 retention](../../results/general_benchmarks_full_math500/smollm2-retention.json) · [Llama retention](../../results/general_benchmarks_full_math500/llama3-retention.json) · [Analysis source](../../scripts/analyze_kam_math_retention.py)
 
+A masked review compared one hash-selected fitted answer with the untouched answer for each of those 11 completed cases. All 11 fitted final answers differed from the gold. The same review on the balanced cohort found three additional extractor failures among nine reviewed cases, including a premature numeric match and complex syntax. [Balanced audit and study limits](MATH_ANSWER_TYPES.md#retention-on-the-balanced-cohort)
+
 ### Integer and noninteger answers
 
 | Backbone and subset | Untouched | KAM | Dot | KAM minus dot (95% interval) |

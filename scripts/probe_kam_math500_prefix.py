@@ -15,7 +15,7 @@ from kam_adapter_preservation import digest, key, model_identity
 from kam_math_kl_protocol import BATCH_SIZE, SOURCES, write_json
 
 
-def probe(root, work, arm):
+def load_panel(root, work, arm):
     model_id = model_identity(root)[0]
     recipe, _ = SELECTIONS[model_id]
     name = key(731221, recipe, arm)
@@ -41,6 +41,18 @@ def probe(root, work, arm):
     assert [len(row) for row in encoded] == [records[i]["prompt_tokens"] for i in group]
     reference = [(records[i]["prefix"] if records[i]["prefix"] is not None else records[i]["completion"],
                   min(PREFIX_BUDGET, records[i]["output_tokens"])) for i in group]
+    provenance = {
+        "model": model_id, "arm": arm, "seed": 731221, "gpu": torch.cuda.get_device_name(),
+        "source_sha256": digest(source), "adapter_sha256": metadata["adapter_sha256"],
+        "generation_sha256": digest(raw_path), "n": len(group),
+        "rows": [{"id": records[i]["id"], "prefix_tokens": min(PREFIX_BUDGET, records[i]["output_tokens"])}
+                 for i in group],
+    }
+    return name, model, tokenizer, stack, encoded, reference, provenance
+
+
+def probe(root, work, arm):
+    name, model, tokenizer, stack, encoded, reference, provenance = load_panel(root, work, arm)
     timings = {"bypass": [], "never-match": []}
     impossible = re.compile(r"(?!)")
     torch.cuda.synchronize()
@@ -53,13 +65,7 @@ def probe(root, work, arm):
         timings[mode].append(monotonic() - start_time)
         measured = [(text, len(tokens)) for text, (tokens, _) in zip(outputs, trace, strict=True)]
         assert measured == reference, mode
-    write_json(work / f"prefix-parity-{name}.json", {
-        "model": model_id, "arm": arm, "seed": 731221, "gpu": torch.cuda.get_device_name(),
-        "source_sha256": digest(source), "adapter_sha256": metadata["adapter_sha256"],
-        "generation_sha256": digest(raw_path), "n": len(group), "timings_s": timings,
-        "rows": [{"id": records[i]["id"], "prefix_tokens": min(PREFIX_BUDGET, records[i]["output_tokens"])}
-                 for i in group],
-    })
+    write_json(work / f"prefix-parity-{name}.json", {**provenance, "timings_s": timings})
 
 
 if __name__ == "__main__":
