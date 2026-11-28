@@ -239,6 +239,8 @@ At the final choice query, protecting the first block kept 14.98% of dense atten
 
 On the same holdout, Flash on the final 256 queries per layer reached 61.67% mirrored retrieval versus 54.27% when Flash was applied to the preceding 256 queries. The paired difference was +7.40 points [+2.50, +12.17]. Perplexity was 11.00 versus 10.98. The final window took 189.05 ms at 4K and 411.56 ms at 8K, versus 194.99 and 447.59 ms for Flash. [Matched query placement and latency](QUERY_WINDOW_FLASH.md)
 
+On 128 fresh questions, final-256 gave 66.41% mirrored retrieval at 4K and 44.53% at 8K, compared with 59.64% and 50.78% for protected shortlisting and 74.48% and 55.47% for Flash. On the paired 23-book PG-19 panel, final-256 perplexity was 11.93 at 4K and 11.97 at 8K. It saved 3.10% and 8.08% of measured prefill time relative to Flash. [Independent transfer and paired length effects](QUERY_WINDOW_TRANSFER.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)

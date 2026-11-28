@@ -99,7 +99,7 @@ def retrieval_segments(tokenizer, row, earlier, endpoints):
     return prompt.split(MARKER)
 
 
-def tokenize_retrieval(tokenizer, raw, count=CASES):
+def tokenize_retrieval(tokenizer, raw, count=CASES, *, context=CONTEXT):
     def encode(text, limit=None):
         return tokenizer.encode(text, add_special_tokens=False, **({"truncation": True, "max_length": limit} if limit else {}))
 
@@ -122,13 +122,13 @@ def tokenize_retrieval(tokenizer, raw, count=CASES):
             ids.append(doc["id"])
             length += len(tokens)
             banned.add(title_key(doc["title"]))
-            if length >= CONTEXT:
+            if length >= context:
                 break
-        assert len(fillers) >= CONTEXT
+        assert len(fillers) >= context
         for expected, endpoints in enumerate(((gold, foil), (foil, gold))):
             a, b = map(encode, retrieval_segments(tokenizer, row, earlier, endpoints))
-            inputs = a + fillers[:CONTEXT-len(a)-len(b)] + b
-            assert len(inputs) == CONTEXT
+            inputs = a + fillers[:context-len(a)-len(b)] + b
+            assert len(inputs) == context
             retrieval.append({"id": row["id"], "family": row["family"], "expected": expected, "ids": inputs})
         cases.append({"id": row["id"], "split": row["split"], "family": row["family"], "anchored_foil": row["anchored_foil"],
                       "support_ids": [row[k]["id"] for k in ("earlier", "gold")], "foil_id": row["foil"]["id"],

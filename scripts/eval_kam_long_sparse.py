@@ -81,14 +81,14 @@ def prepare_run(root, source, work, seed, arm, stack_factory=InferenceStack):
 
 
 @torch.inference_mode()
-def language_score(model, stack, data, limit=None):
+def language_score(model, stack, data, limit=None, *, context=CONTEXT):
     stack.context(None, False)
     books = []
     for book in data["pg19"][:limit]:
         nll = []
         for row in book["windows"]:
             ids = torch.tensor([row], device="cuda")
-            assert ids.size(-1) == CONTEXT + 1
+            assert ids.size(-1) == context + 1
             with mixed_precision():
                 hidden = model.model(input_ids=ids[:, :-1], use_cache=False).last_hidden_state
                 output = model.lm_head(hidden[:, -TARGETS:]).float()
@@ -99,13 +99,13 @@ def language_score(model, stack, data, limit=None):
 
 
 @torch.inference_mode()
-def retrieval_score(model, stack, projection, data, limit=None):
+def retrieval_score(model, stack, projection, data, limit=None, *, context=CONTEXT):
     rows = data["retrieval"][:2*limit if limit else None]
     records = []
     for i in range(0, len(rows), 2):
         pair = rows[i:i+2]
         x = torch.tensor([r["ids"] for r in pair], device="cuda")
-        assert x.size(-1) == CONTEXT
+        assert x.size(-1) == context
         logits, _ = next_logits(model, stack, x, torch.ones_like(x, dtype=torch.bool), projection=projection)
         for row, (a, b) in zip(pair, logits.tolist(), strict=True):
             d = b-a

@@ -46,8 +46,8 @@ def recovery_table(counts):
             "key_recall": hits / keys, "all_four": complete / rows}
 
 
-def score_matrix(panel, book_ids, labels):
-    losses, margins, consistent = read_panel(panel, book_ids, labels)
+def score_matrix(panel, book_ids, labels, *, windows=3):
+    losses, margins, consistent = read_panel(panel, book_ids, labels, windows=windows)
     margin = margins.reshape(-1, 2)
     return losses.mean(axis=1), margin[:, 1] > margin[:, 0], consistent
 

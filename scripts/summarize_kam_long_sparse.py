@@ -31,11 +31,11 @@ def summarize_profile(payload):
     return result
 
 
-def read_panel(result, book_ids, labels):
+def read_panel(result, book_ids, labels, *, windows=3):
     books, records = result["pg19"], result["retrieval"]
     assert [r["id"] for r in books] == book_ids
     values = np.array([r["nll"] for r in books])
-    assert values.shape == (len(book_ids), 3) and np.isfinite(values).all() and (values > 0).all()
+    assert values.shape == (len(book_ids), windows) and np.isfinite(values).all() and (values > 0).all()
     assert [(r["id"], r["family"], r["expected"]) for r in records] == labels
     margins = np.array([r["margin"] for r in records])
     flags = np.array([r["correct"] for r in records], dtype=bool)
