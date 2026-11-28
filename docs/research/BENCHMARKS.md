@@ -143,7 +143,7 @@ For each of 168 questions with two fixed candidates, a question counts as correc
 | SmolLM2, KL 4 | 5.36% | 4.96% | 3.97% | +0.99 [−0.25, +3.06] pp |
 | Llama 3, KL 0.5 | 55.95% | 73.41% | 83.53% | −10.12 [−16.31, −3.65] pp |
 
-A two-pass symmetric logit rule gave Llama 95.83% KAM and 95.44% dot on the same questions. [Evidence swaps, label-order analysis and numeric records](PRETRAINED_ENDPOINT_CHOICE.md)
+A two-pass symmetric logit rule gave Llama 95.83% KAM and 95.44% dot on the same questions. With both possible earlier passages visible, Llama's four-order consistency was 8.93% untouched, 12.90% KAM and 17.86% dot. Combining the two endpoint margins at each early order gave 70.24%, 71.63% and 73.61% respectively. [Evidence swaps, label-order analysis and numeric records](PRETRAINED_ENDPOINT_CHOICE.md)
 
 ### Held-out next-token perplexity
 

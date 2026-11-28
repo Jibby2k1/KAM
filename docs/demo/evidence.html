@@ -76,6 +76,21 @@
         <p>With the same pool it cannot. Increasing coverage requires changing the candidate retrieval step. Better coverage then gives the selector more opportunities, while conditional selection accuracy can still change.</p>
       </details>
     </section>
+    <section id="passage-order">
+      <h2>Does the choice follow the evidence?</h2>
+      <p>Put two plausible endpoints in slots A and B. A position-consistent reader should choose the same passage after the slots swap. Put two earlier passages above them and the reader must also decide which chain starts at the question.</p>
+      <table class="score-table">
+        <caption>Correct in both endpoint orders on 168 MuSiQue questions</caption>
+        <thead><tr><th scope="col">Verified earlier passage</th><th scope="col">Llama KAM</th><th scope="col">Llama dot</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">First</th><td>17.86%</td><td>29.17%</td></tr>
+          <tr><th scope="row">Second</th><td>48.02%</td><td>39.68%</td></tr>
+          <tr><th scope="row">Correct in all four orders</th><td>12.90%</td><td>17.86%</td></tr>
+        </tbody>
+      </table>
+      <p>Suppose the logit margin B − A is +2.0 with the endpoints in their original order and +0.4 after swapping them. B wins both single choices. Subtracting the two margins gives +1.6, which favors the passage originally in B. The subtraction removes an additive preference shared by both prompts.</p>
+      <p>Using that two-pass rule at each earlier order, KAM was correct in both orders on 71.63% of questions and dot on 73.61%. The paired interval for their difference spans zero. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/PRETRAINED_ENDPOINT_CHOICE.md#both-earlier-passages-visible">Matched evidence experiment</a></p>
+    </section>
     <section id="math-evaluation">
       <h2>Grade the mathematics across answer forms</h2>
       <p>Equivalent answers can look different. For example, squaring both nonnegative expressions shows that √8 and 2√2 represent the same number. A symbolic grader can accept either form without requiring the model to write a special marker.</p>
