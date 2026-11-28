@@ -253,6 +253,10 @@ Four prefix pins covered every audited MuSiQue bridge mention. Relative to four 
 
 On disjoint PG-19 development books, the best small proxy correction retained 91.570% of dense mass versus 91.436% for the existing protected shortlist. An exact ranking at the same fixed eight-block budget reached 92.190%. [Mass retention ceiling and per-head results](BLOCK_ROUTER_DISTILLATION.md)
 
+Computing only causally reachable proxy tiles preserved tested routes and outputs bitwise. Multiple launches almost doubled isolated batch-one route construction at 4K, and full-model prefill changed by less than 0.17% at all tested shapes. [Kernel and full-model timings](CAUSAL_PROXY_TILES.md)
+
+Forcing the marked earlier passage into the same shortlist budget raised 4K gold-endpoint margins over matched background pins on MuSiQue by 0.139 logits and HotpotQA by 0.354. Unlinked mirrored accuracy improved by 10.97 and 10.42 points. Linked and 8K accuracy differences included zero. [Matched evidence-block intervention](ANNOTATED_BLOCK_ROUTING.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
