@@ -20,8 +20,8 @@ Move the query, narrow the bandwidth, or change the learned metric in the [atten
 | --- | --- | --- |
 | Attention and memory | How do radial context attention and persistent learned supports behave under matched controls? | [Implementation](kam/) and [experimental guide](EXPERIMENTS.md) |
 | Pretrained adapters | How do KAM and dot retain benchmark scores under matched training and KL? | [SmolLM2 and Llama 3](docs/research/GENERAL_BENCHMARKS_FACTORIAL.md) · [Timing and fidelity checks](docs/research/GENERAL_BENCHMARKS_DIAGNOSTICS.md) |
-| Mathematical evaluation | How do answer requirements change the measured KAM–dot gap? | [Full MATH-500](docs/research/FULL_MATH500.md) · [GSM8K grading intervention](docs/research/GSM8K_FORMAT_EFFECTS.md) |
-| Multi-hop retrieval | Can a one-pass pair scorer distinguish useful title mentions from linked distractors? | [HotpotQA study](reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) |
+| Mathematical evaluation | How do answer requirements and competing context change the measured scores? | [Full MATH-500](docs/research/FULL_MATH500.md) · [GSM8K grading intervention](docs/research/GSM8K_FORMAT_EFFECTS.md) · [TabMWP table noise](docs/research/TABMWP_ARCHIVE_NOISE.md) |
+| Multi-hop retrieval | Can a one-pass pair scorer distinguish useful title mentions from linked distractors? | [HotpotQA study](reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) · [Matched MuSiQue adapter study](docs/research/PRETRAINED_ENDPOINT_CHOICE.md) |
 | Retrieval systems | How do corpus retrieval and serving choices affect latency and evidence recall? | [Corpus and serving findings](docs/research/RESULTS.md#corpus-retrieval-and-serving) |
 | Revision memory | Can a router resolve ambiguous aliases and abstain on unseen identities? | [Revision-memory findings](docs/research/RESULTS.md#revision-memory) |
 
@@ -29,7 +29,7 @@ The [dataset breadth and temporal memory report](reports/nonlinear_retrieval_nat
 
 The [November 27 research handoff](reports/nonlinear_retrieval_natural/OVERNIGHT_2026-11-27.md) covers conditioned HotpotQA search, natural MuSiQue routing, temporal cutoff reliability, and matched training and inference benchmarks on three HPG GPU types.
 
-The HotpotQA and MuSiQue experiments use frozen pretrained encoders and readers with separate routing heads. Their results concern retrieval and evidence selection. The KAM decoder has its own controlled experiments.
+The open-corpus HotpotQA and MuSiQue studies use frozen encoders and readers with separate retrieval heads. The matched MuSiQue adapter study runs the KAM and dot Llama checkpoints directly on supplied candidate passages. [Decoding efficiency on HPG](docs/research/MATH_DECODING_DIAGNOSTICS.md)
 
 [![Across longer synthetic histories, radial attention retains more exact joint accuracy when the model omits absolute positions.](reports/nonlinear_retrieval_natural/figures/bitemporal_length_scaling.svg)](reports/nonlinear_retrieval_natural/BITEMPORAL_MODEL.md#position-and-scoring-geometry)
 

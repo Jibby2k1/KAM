@@ -145,6 +145,20 @@ For each of 168 questions with two fixed candidates, a question counts as correc
 
 A two-pass symmetric logit rule gave Llama 95.83% KAM and 95.44% dot on the same questions. With both possible earlier passages visible, Llama's four-order consistency was 8.93% untouched, 12.90% KAM and 17.86% dot. Combining the two endpoint margins at each early order gave 70.24%, 71.63% and 73.61% respectively. [Evidence swaps, label-order analysis and numeric records](PRETRAINED_ENDPOINT_CHOICE.md)
 
+An explicit first-hop decision followed by endpoint choice gave all-four consistency of 51.79% untouched, 66.87% KAM and 72.82% dot. The architecture gap changed by −0.99 points [−10.98, +10.81] between direct and sequential choice. [Sequential composition and prompt work](PRETRAINED_ENDPOINT_CHOICE.md#separate-the-two-hops)
+
+### TabMWP with a labeled archive table
+
+On 128 grade-five-through-eight numerical questions, add a same-topic table from a different exercise and label it archival. The same three Llama seeds, KL 0.5, and neutral equivalence scorer apply in all conditions.
+
+| Context | Untouched | KAM | Dot |
+| --- | ---: | ---: | ---: |
+| Current table only | 62.50% | 64.06% | 65.10% |
+| Archive before current | 48.44% | 45.83% | 43.49% |
+| Archive after current | 38.28% | 38.02% | 36.46% |
+
+The archive-last condition changed the KAM–dot gap by +2.60 points [−4.80, +10.57] relative to current-only. [TabMWP archive noise, rates and paired intervals](TABMWP_ARCHIVE_NOISE.md)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.

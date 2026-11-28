@@ -90,6 +90,8 @@
       </table>
       <p>Suppose the logit margin B − A is +2.0 with the endpoints in their original order and +0.4 after swapping them. B wins both single choices. Subtracting the two margins gives +1.6, which favors the passage originally in B. The subtraction removes an additive preference shared by both prompts.</p>
       <p>Using that two-pass rule at each earlier order, KAM was correct in both orders on 71.63% of questions and dot on 73.61%. The paired interval for their difference spans zero. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/PRETRAINED_ENDPOINT_CHOICE.md#both-earlier-passages-visible">Matched evidence experiment</a></p>
+      <h3>Choose the earlier passage first</h3>
+      <p>The sequential path first chooses one earlier passage and then shows just that passage with the two endpoints. Across all four orders, it raised KAM from 12.90% to 66.87% and dot from 17.86% to 72.82%. It sent about 519 input tokens through two calls per decision, compared with 397 through the original direct call. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/PRETRAINED_ENDPOINT_CHOICE.md#separate-the-two-hops">Two-hop comparison</a></p>
     </section>
     <section id="math-evaluation">
       <h2>Grade the mathematics across answer forms</h2>
@@ -128,6 +130,20 @@
         <figcaption>Three responses stopped early in each adapter. That shortened one KAM batch and two dot batches because other long responses determined the remaining batch lengths.</figcaption>
       </figure>
       <p>In this 48-request panel on an HPG RTX PRO 6000, the repetition gate reduced elapsed generation time by 12.95% for KAM and 24.10% for dot. Every unaffected token trace matched. On the separate full-cohort replay, the gate preserved previously verified answers. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/MATH_DECODING_DIAGNOSTICS.md#measured-latency-at-small-batch-widths">Timing protocol and results</a></p>
+    </section>
+    <section id="table-archive">
+      <h2>Can a reader stay with the current table?</h2>
+      <p>TabMWP asks questions about data in a table. Keep that current table and the question fixed, then add a different table with the same topic and shape. Label the second table archival and move it before or after the current table.</p>
+      <table class="score-table">
+        <caption>Verified accuracy on 128 numerical questions</caption>
+        <thead><tr><th scope="col">Supplied tables</th><th scope="col">Llama KAM</th><th scope="col">Llama dot</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Current only</th><td>64.06%</td><td>65.10%</td></tr>
+          <tr><th scope="row">Archive before current</th><td>45.83%</td><td>43.49%</td></tr>
+          <tr><th scope="row">Archive after current</th><td>38.02%</td><td>36.46%</td></tr>
+        </tbody>
+      </table>
+      <p>The two archive orders have the same input length. Both adapters scored lower with the archive nearest the question. The result motivates checking which source a reader uses before measuring its arithmetic. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/TABMWP_ARCHIVE_NOISE.md">Matched table analysis</a></p>
     </section>
     <section id="research">
       <h2>Read the studies</h2>

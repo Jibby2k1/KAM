@@ -47,6 +47,20 @@ The same seven Llama checkpoints saw both early passages, with the verified one 
 
 Moving the verified early passage from first to second shifted the raw KAM–dot gap by +19.64 points [14.74, 27.24]. The symmetric comparison shows that the model still responds to passage order after a common A/B margin is canceled. Comparisons on this panel depend on how choices are produced and how evidence is ordered. Run controlled order changes on independent relations before making a one-pass claim about open search. [Frozen manifest](../../results/general_benchmarks_pretrained_endpoints/both-earlier-manifest.json) · [Paired summary](../../results/general_benchmarks_pretrained_endpoints/llama3-both-earlier-summary.json) · [Numeric choices](../../results/general_benchmarks_pretrained_endpoints/llama3-both-earlier-outcomes.json.gz) · [HPG scheduler receipt](../../results/general_benchmarks_pretrained_endpoints/llama3-both-earlier-scheduler.tsv)
 
+## Separate the two hops
+
+First ask the same Llama checkpoint to choose one of the two earlier passages with the endpoints withheld. Use the frozen endpoint logits for that exact choice from the verified-or-crossed experiment. Each sequential decision therefore uses two model choices. The direct comparison reads all four passages and uses one model choice. Evaluate a question over both earlier orders and both endpoint orders.
+
+| Stage and requirement | Untouched | KAM | Dot | KAM minus dot (95% interval) |
+| --- | ---: | ---: | ---: | ---: |
+| First hop, both earlier orders correct | 90.48% | 90.67% | 84.52% | +6.15 [+2.65, +10.61] pp |
+| Endpoint given a verified first hop, both endpoint orders correct | 55.95% | 73.41% | 83.53% | −10.12 [−16.31, −3.65] pp |
+| Direct endpoint, all four orders correct | 8.93% | 12.90% | 17.86% | −4.96 [−10.10, −1.58] pp |
+| Sequential endpoint, all four orders correct | 51.79% | 66.87% | 72.82% | −5.95 [−13.11, +1.94] pp |
+| Endpoint path oracle, either fixed path works in both endpoint orders | 61.31% | 76.19% | 85.32% | −9.13 [−14.50, −3.27] pp |
+
+Compared with direct choice, sequential improved all-four accuracy by 53.97 points for KAM and 54.96 for dot. The registered change in the KAM–dot gap was −0.99 points [−10.98, +10.81]. KAM had stronger first-hop consistency in this test, and dot had the stronger endpoint choice with verified evidence. The two-stage path used about 519 input tokens per decision across both calls, versus 397 for the direct path. It reused frozen logits for composition, so the study measures prompt work and choice quality. A fixed-work or measured end-to-end serving comparison needs new execution. [First-hop manifest](../../results/general_benchmarks_pretrained_endpoints/earlier-choice-manifest.json) · [Sequential summary](../../results/general_benchmarks_pretrained_endpoints/llama3-sequential-summary.json) · [Numeric first-hop choices](../../results/general_benchmarks_pretrained_endpoints/llama3-earlier-choice-outcomes.json.gz) · [HPG receipt](../../results/general_benchmarks_pretrained_endpoints/llama3-earlier-choice-scheduler.tsv) · [Composition code](../../scripts/summarize_kam_musique_sequential.py)
+
 ## Reproduce
 
 The [evaluator](../../scripts/eval_kam_pretrained_endpoint_selection.py) prepares the pinned pairs, maintains matched token widths, and runs the frozen adapters using the [HPG driver](../../slurm/kam_pretrained_endpoint_selection.sbatch). The [summarizer](../../scripts/summarize_kam_pretrained_endpoint_selection.py) checks the checkpoint lineage, preserves mirrored presentation records, and replays the relation-family contrasts. [SmolLM2 numeric choices](../../results/general_benchmarks_pretrained_endpoints/smollm2-outcomes.json.gz) · [Llama numeric choices](../../results/general_benchmarks_pretrained_endpoints/llama3-outcomes.json.gz) · [SmolLM2 scheduler receipt](../../results/general_benchmarks_pretrained_endpoints/smollm2-scheduler.tsv) · [Llama scheduler receipt](../../results/general_benchmarks_pretrained_endpoints/llama3-scheduler.tsv)
