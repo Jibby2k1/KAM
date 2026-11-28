@@ -169,6 +169,8 @@ An exact-length replication on 83 of those questions raised KAM from 38.55% with
 
 On 128 fresh questions from the publisher's MuSiQue training stratum, online sequential selection reached 65.36% KAM and 72.92% dot across all four placements. Batched mirrored selection reached 76.56% and 74.48%, with median isolated latency of 56.25 ms and 55.99 ms. The fitted adapters and their KL weights remained fixed. [Scope and deadline sweep](OVERNIGHT_ROUTING.md#live-musique-results)
 
+On the same questions, BM25 first-hop selection followed by one endpoint call solved 68.23% KAM and 75.78% dot across all four placements at 60 ms per decision. In that paired rerun, direct solved 15.10% and 19.01% at 60 ms. The lexical route's measured median latency was 31.23 and 30.48 ms, including CPU first-hop ranking over the two supplied candidates. [Lexical routing](OVERNIGHT_ROUTING.md#one-pass-lexical-routing-follow-up)
+
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
 
 ### Held-out next-token perplexity

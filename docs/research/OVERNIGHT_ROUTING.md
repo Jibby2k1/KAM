@@ -31,6 +31,8 @@ The length follow-up reserves the earlier control donor IDs and substitutes a di
 
 Across 63 source groups, changing the archive improved accuracy by 15.26 points for KAM [4.39, 25.93] and 20.88 for dot [9.96, 31.82]. The paired change in the KAM–dot gap was −5.62 points [−13.18, +2.22]. The current table, question, archive position and token length were fixed. Each checkpoint reproduced the 45 unchanged outputs exactly. Archive-content interference replicated in both arms. [Paired summary](../../results/general_benchmarks_overnight/length-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/length-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/length-scheduler.tsv)
 
+The exact normalized-text check found none of the 83 new donor title-and-table strings in the frozen adapter training sources. This audit covers the adapter data and the specified exact-match procedure. [Donor overlap audit](../../results/general_benchmarks_overnight/length-source-overlap.json)
+
 ## Live MuSiQue results
 
 After the tokenizer visibility check, 128 questions in 48 relation families remained in the publisher's training stratum. The held-out development stratum retained six questions and is reported separately as a small check. The earlier study's question IDs, normalized wordings, relation families and supporting titles were reserved in both strata.
@@ -49,9 +51,20 @@ As a follow-up, a single offset fitted only on the prior panel adjusted the A/B 
 
 Rerun direct with the same frozen panel, then compare a CPU BM25 choice between the two equally truncated earlier passages followed by one GPU endpoint call. BM25 uses the question and the actual display-order texts, breaking ties by the supplied order. Confirm first-hop accuracy across both earlier positions, assess all-four endpoint success, and include the CPU rank operation in the same warmed elapsed-time scope. This is a fixed-pool test of a cheap first-stage selector. [Frozen comparison](../../results/general_benchmarks_overnight/lexical-manifest.json)
 
+| Route on the 128-question stratum | All four correct, KAM / dot | p50, KAM / dot | p95, KAM / dot | All four correct within 40 ms, KAM / dot | Within 60 ms, KAM / dot |
+| --- | --- | --- | --- | --- | --- |
+| Direct | 15.10% / 19.01% | 34.16 / 33.87 ms | 54.90 / 54.82 ms | 10.94% / 12.50% | 15.10% / 19.01% |
+| BM25 then one endpoint call | 68.23% / 75.78% | 31.23 / 30.48 ms | 41.32 / 41.09 ms | 54.17% / 61.20% | 68.23% / 75.78% |
+
+BM25 found the verified earlier passage in both orders on 121 of 128 questions. The endpoint calls processed about 405 prompt tokens instead of 490. Untouched Llama rose from 7.81% to 52.34% on all-four accuracy. For the lexical route, KAM minus dot was −7.55 points [−11.44, −3.95] across question families conditional on the three measured training seeds. These were paired in-process timings on fixed candidate pools. The earlier sequential and mirrored routes were timed in a separate batch of Slurm jobs. [Paired summary](../../results/general_benchmarks_overnight/lexical-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/lexical-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/lexical-scheduler.tsv)
+
 ### Mirroring with a shorter context
 
 Time three routes on the same GPU for each matched checkpoint. Compare BM25 followed by one endpoint view, mirroring with both earlier passages, and BM25 followed by two mirrored endpoint views in one launch. The first two routes control for the extra endpoint view and for dropping an earlier passage. Keep the four-presentation accuracy and 40/60 ms deadlines. Check first-hop agreement across the two lexical routes. This is a mechanism and latency comparison on the same frozen panel. [Frozen comparison](../../results/general_benchmarks_overnight/short-mirror-manifest.json)
+
+### First-hop recall with native distractors
+
+Keep the same visibility-checked questions and paired earlier candidates. Add up to six or 18 distinct nonsupporting paragraphs from each question’s original MuSiQue candidate pool, selected by a frozen hash of the question and paragraph identities. Exclude both endpoints and the paired earlier candidates from the additions. Compare BM25 recall at one, two and four in the forward and reverse order, using published full paragraphs throughout this CPU study. Report the count recovered in both orders and describe the effective pool sizes. This isolates first-hop retrieval before spending GPU time on the larger pools. [Audit script](../../scripts/audit_kam_musique_native_lexical.py)
 
 ## Physical batch retirement probe
 
