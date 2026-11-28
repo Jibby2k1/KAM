@@ -6,11 +6,6 @@ import json
 from pathlib import Path
 from time import monotonic
 
-import torch
-
-from eval_kam_adapter_preservation import load_checkpoint
-from eval_kam_full_math500 import BUDGET, PREFIX_BUDGET, PROMPT_SUFFIX
-from eval_kam_pretrained import generate
 from kam_adapter_preservation import LLAMA_ID, digest, key
 from kam_math_answer_type_replication import load_replication
 from kam_math_kl_protocol import write_json
@@ -21,6 +16,11 @@ SHAPES = (("kam", 1, 8), ("dot", 1, 8), ("kam", 8, 24), ("dot", 8, 24))
 
 
 def profile(root, work, index):
+    import torch
+    from eval_kam_adapter_preservation import load_checkpoint
+    from eval_kam_full_math500 import BUDGET, PREFIX_BUDGET, PROMPT_SUFFIX
+    from eval_kam_pretrained import generate
+
     arm, batch, n_pairs = SHAPES[index]
     source = work / "math-replication.json"
     manifest = work / "manifest.json"

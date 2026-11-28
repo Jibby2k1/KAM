@@ -74,6 +74,8 @@ Flag a completion at token 384 when at least 75% of six-token lexical windows re
 
 Then time matched seed-731221 Llama KAM and dot with the gate enabled and disabled on fixed, hash-ranked pairs from the balanced cohort. Use 16 requests at batch one and 48 at batch eight. Alternate the variants on the same GPU, retain the normal EOS and 1,024-token ceiling and verify exact unchanged outputs on every item outside the gate. Label the timing as a small serving profile. Keep the scorer and benchmark scores from the original study.
 
+The held-out replay preserved verified answers. On the 48-request batch-eight panel, elapsed time decreased by 12.95% for KAM and 24.10% for dot. Both shortened three requests. At batch one, the KAM panel had no shortened requests. The next serving comparison should estimate the gate's effects across more request mixes and include queue-aware p95. [Measured latency](MATH_DECODING_DIAGNOSTICS.md#measured-latency-at-small-batch-widths)
+
 ## 3. Test routing on evidence with genuine alternatives
 
 | Question | Next controlled comparison | Primary measurement |
@@ -101,6 +103,8 @@ On each track, keep a small diagnostic cohort for model selection and a sealed e
 Reuse the previous two-hop MuSiQue endpoint challenge's 84 accepted pairs across 35 relation families. Each question has two plausible endpoint passages. Test the same SmolLM2 and Llama KAM, dot, and untouched checkpoints using the initial question with both candidates, the verified earlier passage with both candidates, and the competing question's earlier passage with both candidates. Reverse the candidate order for each question. The true and crossed prompts have exactly matched earlier token counts within each backbone and identical remaining token IDs.
 
 Use the model's next-token choices for A and B. The primary outcome is the fraction of questions correctly resolved in both endpoint orders when the verified earlier passage is present. Also report the corresponding endpoints-only accuracy, order sensitivity, and how often reversing earlier evidence moves the selected passage to the competing endpoint. Keep the pretrained benchmark comparison paired across seeds and group intervals by relation family. This diagnostic measures conditioning given a fixed foil pair and supplied evidence. [Prior matched endpoint study](../../reports/nonlinear_retrieval_natural/MUSIQUE_ENDPOINT_ROUTING.md)
+
+The source audit finds an exclusive link in every single-earlier condition. The true earlier passage mentions the true endpoint's bridging name, and the crossed passage mentions the foil's. A name-intersection selector with access to the annotated names can therefore resolve all such cases. If the models respond to that cue, the next comparison makes both earlier passages available and independently mirrors the earlier and endpoint orders. Keep the question and all passage tokens constant across the four orders. Require the same correct endpoint in all four presentations. This tests whether a model can route from the question to the relevant earlier evidence when simply finding a name anywhere in the earlier material leaves two choices. [Anchor audit](../../results/general_benchmarks_pretrained_endpoints/anchor-audit.json)
 
 ## 4. Make efficiency a matched measurement
 

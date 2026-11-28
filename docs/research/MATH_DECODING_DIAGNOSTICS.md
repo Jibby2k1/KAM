@@ -32,6 +32,19 @@ Each group contributes its size times its longest required decoding length. The 
 
 The same cutoff flagged 76 Llama KAM continuations and 51 dot continuations across the three seeds on the [balanced 478-item cohort](MATH_ANSWER_TYPES.md). Neither fitted arm lost a previously verified answer and the shorter KAM prefixes received one additional credit across all three seeds. Llama KAM's estimated token-slot saving was 9.95%, 7.04%, and 0.00% at batch widths one, eight, and 64. Dot's was 7.81%, 12.34%, and 1.41%. The small-batch estimates remain a trace-based work proxy. [Balanced Llama replay](../../results/general_benchmarks_math_types/llama3-budget-policy.json) · [Balanced SmolLM2 replay](../../results/general_benchmarks_math_types/smollm2-budget-policy.json)
 
+### Measured latency at small batch widths
+
+Each seed-731221 Llama adapter timed the normal and repetition-gated decoder twice in ABBA order on the same HPG RTX PRO 6000. The fixed hash panels included 16 requests at batch one and 48 at batch eight. Every unaffected token trace was identical, and each shortened trace matched the original exactly through token 384.
+
+| Adapter | Batch | Shortened requests | Original median, s | Gate median, s | Elapsed reduction |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| KAM | 1 | 0 of 16 | 87.73 | 87.23 | 0.57% |
+| Dot | 1 | 1 of 16 | 84.47 | 75.49 | 10.63% |
+| KAM | 8 | 3 of 48 | 112.01 | 97.51 | 12.95% |
+| Dot | 8 | 3 of 48 | 90.15 | 68.42 | 24.10% |
+
+At batch eight, the gate removed 11.81% of KAM token slots and 20.28% of dot token slots on these panels. Position within a batch and the remaining lengths determined the elapsed benefit. The timings include prefill and decode and exclude checkpoint load, CPU grading and queue time. The accuracy finding comes from the archived full-cohort replay above. These are single-seed panels with two elapsed measurements per variant and distinct cohorts across batch widths. [Summary](../../results/general_benchmarks_math_types/llama3-repeat-timing-summary.json) · [Numeric traces](../../results/general_benchmarks_math_types/llama3-repeat-timing-records.json.gz) · [Scheduler receipts](../../results/general_benchmarks_math_types/llama3-repeat-timing-scheduler.tsv) · [Replay source](../../scripts/summarize_kam_math_repetition_stopping.py)
+
 ## Half residual amplitude
 
 The Llama amplitude diagnostic multiplies all four fitted adapter output projections by 0.5 during inference. It uses the original KL-0.5 checkpoint pairs, three seeds, 500 prompts, and shared symbolic grader. It measures an intervention on the output of the existing adapters.

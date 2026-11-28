@@ -32,6 +32,8 @@ Gain and loss are measured against the untouched model on the same questions. Ll
 
 A masked review compared one hash-selected fitted answer with the untouched answer for each of those 11 completed cases. All 11 fitted final answers differed from the gold. The same review on the balanced cohort found three additional extractor failures among nine reviewed cases, including a premature numeric match and complex syntax. [Balanced audit and study limits](MATH_ANSWER_TYPES.md#retention-on-the-balanced-cohort)
 
+An authored stress test found errors on equivalent bare expressions and on wrong bare conclusions after a correct delimited intermediate. Both patterns matter when designing a follow-up extraction rule. [Grader stress test](MATH_GRADER_AUDIT.md)
+
 ### Integer and noninteger answers
 
 | Backbone and subset | Untouched | KAM | Dot | KAM minus dot (95% interval) |

@@ -20,6 +20,26 @@ def literal(term, text):
     return bool(re.search(r"(?<!\w)" + re.escape(term) + r"(?!\w)", text, re.IGNORECASE))
 
 
+def audit_anchors(panel_path, manifest_path):
+    manifest = json.loads(manifest_path.read_text())
+    assert manifest["protocol"] == PROTOCOL and manifest["panel_sha256"] == digest(panel_path)
+    pairs = json.loads(panel_path.read_text())
+    counts = {"questions": 0, "own_anchor_in_earlier": 0, "foil_anchor_in_earlier": 0,
+              "own_anchor_in_endpoint": 0, "foil_anchor_in_endpoint": 0, "either_anchor_in_question": 0}
+    for pair in pairs:
+        for i, question in enumerate(pair["questions"]):
+            own = question["anchor"]
+            foil = pair["questions"][1 - i]["anchor"]
+            earlier, endpoint = (p["title"] + ". " + p["body"] for p in question["evidence"])
+            counts["questions"] += 1
+            counts["own_anchor_in_earlier"] += literal(own, earlier)
+            counts["foil_anchor_in_earlier"] += literal(foil, earlier)
+            counts["own_anchor_in_endpoint"] += literal(own, endpoint)
+            counts["foil_anchor_in_endpoint"] += literal(foil, endpoint)
+            counts["either_anchor_in_question"] += literal(own, question["question"]) or literal(foil, question["question"])
+    return {"protocol": PROTOCOL, "panel_sha256": digest(panel_path), "counts": counts}
+
+
 def prepare(source, original, output):
     registered = json.loads((original / "manifest.json").read_text())
     assert digest(source) == registered["fixture_sha256"]
@@ -147,6 +167,10 @@ if __name__ == "__main__":
     prep.add_argument("fixture", type=Path)
     prep.add_argument("original", type=Path)
     prep.add_argument("output", type=Path)
+    anchor_cli = command.add_parser("audit-anchors")
+    anchor_cli.add_argument("panel", type=Path)
+    anchor_cli.add_argument("manifest", type=Path)
+    anchor_cli.add_argument("output", type=Path)
     evaluate_cli = command.add_parser("evaluate")
     evaluate_cli.add_argument("root", type=Path)
     evaluate_cli.add_argument("work", type=Path)
@@ -154,5 +178,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.operation == "prepare":
         prepare(args.fixture, args.original, args.output)
+    elif args.operation == "audit-anchors":
+        write_json(args.output, audit_anchors(args.panel, args.manifest))
     else:
         evaluate(args.root, args.work, args.index)
