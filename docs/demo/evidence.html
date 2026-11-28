@@ -101,6 +101,20 @@
         <figcaption>Each curve counts questions answered correctly in all four placements, with each placement meeting the indicated deadline. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/OVERNIGHT_ROUTING.md#mirroring-with-a-shorter-context">Matched results and timing scope</a></figcaption>
       </figure>
     </section>
+    <section id="sparse-prefill">
+      <h2>What does reading four values save?</h2>
+      <p>To select the four highest-scoring keys exactly, a query at position <var>t</var> scores all <var>t</var> eligible keys. At 4,096 tokens, causal prefill therefore computes 4,096 × 4,097 ÷ 2 = 8,390,656 eligible scores per head. Gathering four values per query brings the number of value slots read down to at most 16,384. The score scan remains quadratic in context length.</p>
+      <table class="score-table">
+        <caption>Batch-one prefill at 4,096 tokens on an HPG RTX PRO 6000</caption>
+        <thead><tr><th scope="col">Metric</th><th scope="col">Fused dense</th><th scope="col">Exact top-four</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Adapter kernel median CUDA time</th><td>47.82 µs</td><td>119.60 µs</td></tr>
+          <tr><th scope="row">Full-reader median wall time</th><td>193.32 ms</td><td>193.58 ms</td></tr>
+          <tr><th scope="row">Full-reader incremental allocated peak</th><td>469.14 MiB</td><td>469.14 MiB</td></tr>
+        </tbody>
+      </table>
+      <p>The exact top-four kernel keeps four candidates per key tile and merges them before reading values. That extra work outweighed the sparse value reads in this implementation. Top-four lowered perplexity by 0.44% on 48 independent PG-19 test books. On 320 long MuSiQue questions, the top-four retrieval lead shrank to 0.42 percentage points after subtracting swapped-order margins, with a paired interval that included zero. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/LONG_SPARSE_CONFIRMATION.md">Long-context study and measurement scope</a></p>
+    </section>
     <section id="math-evaluation">
       <h2>Grade the mathematics across answer forms</h2>
       <p>Equivalent answers can look different. For example, squaring both nonnegative expressions shows that √8 and 2√2 represent the same number. A symbolic grader can accept either form without requiring the model to write a special marker.</p>

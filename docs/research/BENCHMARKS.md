@@ -207,6 +207,18 @@ At 1.05 million tokens per run, the four live-token Llama adapters were evaluate
 
 Top-four selection reduced PG-19 NLL by 0.00262 nats/token [−0.00339, −0.00187] and changed retrieval by +0.61 percentage points [−1.48, +2.86], averaging over activations. SiLU supplied no material gain at this budget. All arms used a dense equal-work diagnostic implementation. [Protocol, paired effects and ICML decision](LIVE_TOKEN_FACTORIAL.md)
 
+### Long-context top-four confirmation
+
+Reuse the three matched linear checkpoints at 4,096-token context on 48 new PG-19 books (147,456 scored targets) and a 320-question fixed-pool MuSiQue holdout.
+
+| Variant | PG-19 perplexity ↓ | MuSiQue endpoint correct in both orders ↑ | Mirrored-margin accuracy ↑ |
+| --- | ---: | ---: | ---: |
+| Untouched Llama | 11.1776 | 1.25% | 65.94% |
+| Soft linear | 10.2550 | 4.90% | 68.02% |
+| Top-four linear | 10.2098 | 8.54% | 68.44% |
+
+The perplexity difference was −0.44% under both parity-gated and common-reference scoring. The exploratory mirrored-margin retrieval gap was +0.42 points [−1.22, +2.05] under parity-gated scoring and +1.25 [−0.20, +2.76] under the common scorer. At 4,096 tokens, full-reader p50 was 193.32 ms with Flash and 193.58 ms with exact sparse value reads, with 469.14 MiB of incremental peak allocation in both cases. [Backend parity, common-scorer control and ICML decision](LONG_SPARSE_CONFIRMATION.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
