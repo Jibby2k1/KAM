@@ -163,6 +163,12 @@ On the 94-question matched subset at exact input length, replacing the same-topi
 
 On 128 fresh questions from previously unused title/header groups, typed current-table selection scored 50.78% KAM and 49.48% dot. Direct reading with the archive last scored 27.86% and 24.48%. The typed route used the correct caller-supplied record ID. [Overnight TabMWP follow-up](OVERNIGHT_ROUTING.md#fresh-tabmwp-results)
 
+### Live MuSiQue and release-clock routing
+
+On 128 fresh questions from the publisher's MuSiQue training stratum, online sequential selection reached 65.36% KAM and 72.92% dot across all four placements. Batched mirrored selection reached 76.56% and 74.48%, with median isolated latency of 56.25 ms and 55.99 ms. The fitted adapters and their KL weights remained fixed. [Scope and deadline sweep](OVERNIGHT_ROUTING.md#live-musique-results)
+
+On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.

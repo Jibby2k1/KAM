@@ -8,7 +8,7 @@ from statistics import median
 from time import perf_counter_ns
 from zipfile import ZipFile
 
-from audit_kam_natural_data import stable, words
+from audit_kam_natural_data import rank, stable, words
 from eval_kam_pretrained_endpoint_selection import earlier_choice_prompts, prompts
 from kam_adapter_preservation import digest, key
 from kam_math_kl_protocol import test_runs, write_json
@@ -18,6 +18,8 @@ from prepare_kam_natural_router import title_key
 
 PROTOCOL = "kam-musique-live-routes-v1"
 ROUTES = ("direct", "sequential", "mirrored")
+LEXICAL_PROTOCOL = "kam-musique-lexical-route-v1"
+LEXICAL_ROUTES = ("direct", "lexical")
 
 
 def prepare(source, prior, output):
@@ -81,7 +83,7 @@ def prepare(source, prior, output):
     })
 
 
-def evaluate(root, work, index):
+def evaluate(root, work, index, lexical=False):
     import torch
     from eval_kam_adapter_preservation import load_checkpoint
     from eval_kam_pretrained import CONTEXT, next_logits, pad
@@ -93,7 +95,9 @@ def evaluate(root, work, index):
     frozen = work / "manifest.json"
     manifest = json.loads(frozen.read_text())
     panel = work / "panel.json"
-    assert manifest["protocol"] == PROTOCOL and manifest["panel_sha256"] == digest(panel)
+    protocol, routes = (LEXICAL_PROTOCOL, LEXICAL_ROUTES) if lexical else (PROTOCOL, ROUTES)
+    assert manifest["protocol"] == protocol and tuple(manifest["routes"]) == routes
+    assert manifest["panel_sha256"] == digest(panel)
     pairs = json.loads(panel.read_text())
     model, tokenizer, stack, metadata = load_checkpoint(root, *run)
     gpu = torch.cuda.get_device_name()
@@ -119,6 +123,15 @@ def evaluate(root, work, index):
     letter = [tokenizer.encode(x, add_special_tokens=False) for x in ("A", "B")]
     assert all(len(x) == 1 for x in letter) and letter[0] != letter[1]
     labels = [x[0] for x in letter]
+    lexical_inputs = {}
+    if lexical:
+        for pair in eligible:
+            snippets = [q["evidence"][0]["title"] + ". " + q["evidence"][0]["body"] for q in pair["questions"]]
+            ids = [tokenizer.encode(s, add_special_tokens=False)[:512] for s in snippets]
+            width = min(map(len, ids))
+            texts = [tokenizer.decode(row[:width], skip_special_tokens=True) for row in ids]
+            for i, q in enumerate(pair["questions"]):
+                lexical_inputs[q["id"]] = (q["question"], texts, i)
 
     def margins(requests):
         x, mask = pad(requests, tokenizer.pad_token_id)
@@ -130,26 +143,33 @@ def evaluate(root, work, index):
         inputs = direct["true_first" if slot == 0 else "true_second"]
         if name == "direct":
             score, = margins([inputs[j]])
-            return score, len(inputs[j])
+            return score, len(inputs[j]), None
         if name == "mirrored":
             score, swapped = margins([inputs[j], inputs[j ^ 1]])
-            return score - swapped, len(inputs[j]) + len(inputs[j ^ 1])
+            return score - swapped, len(inputs[j]) + len(inputs[j ^ 1]), None
+        if name == "lexical":
+            question, texts, original = lexical_inputs[rows[j]["question"]]
+            candidates = texts if original == slot else texts[::-1]
+            first, = rank(question, candidates, limit=1)
+            mode = "true_prefix" if first == slot else "cross_prefix"
+            score, = margins([endpoint[mode][j]])
+            return score, len(endpoint[mode][j]), first == slot
         first_index = j if rows[j]["expected"] == slot else j ^ 1
         first_score, = margins([early[first_index]])
         mode = "true_prefix" if int(first_score > 0) == slot else "cross_prefix"
         score, = margins([endpoint[mode][j]])
-        return score, len(early[first_index]) + len(endpoint[mode][j])
+        return score, len(early[first_index]) + len(endpoint[mode][j]), None
 
     warm = (0, len(rows) // 2, len(rows) - 1)
     for j in warm:
-        for name in ROUTES:
+        for name in routes:
             route(j, 0, name)
     records = []
     for j, row in enumerate(rows):
         for slot in (0, 1):
             result = {**row, "earlier_slot": slot}
-            order = (j * 2 + slot) % len(ROUTES)
-            for name in ROUTES[order:] + ROUTES[:order]:
+            order = (j * 2 + slot) % len(routes)
+            for name in routes[order:] + routes[:order]:
                 duration = []
                 observations = []
                 for _ in range(3):
@@ -159,12 +179,13 @@ def evaluate(root, work, index):
                     torch.cuda.synchronize()
                     duration.append((perf_counter_ns() - start) / 1e6)
                 assert all(value == observations[0] for value in observations)
-                margin, width = observations[0]
+                margin, width, first = observations[0]
                 result[name] = {"correct": margin != 0 and int(margin > 0) == row["expected"],
-                                "margin": margin, "tokens": width, "median_ms": median(duration)}
+                                "margin": margin, "tokens": width, "median_ms": median(duration),
+                                **({"first_correct": first} if first is not None else {})}
             records.append(result)
     write_json(work / f"routes-{key(*run)}.json", {"metadata": {**metadata, "gpu": gpu,
-               "protocol": PROTOCOL, "selection_sha256": digest(selection), "manifest_sha256": digest(frozen),
+               "protocol": protocol, "selection_sha256": digest(selection), "manifest_sha256": digest(frozen),
                "excluded_pairs": excluded}, "records": records})
 
 
@@ -178,8 +199,9 @@ if __name__ == "__main__":
     gpu.add_argument("root", type=Path)
     gpu.add_argument("work", type=Path)
     gpu.add_argument("index", type=int)
+    gpu.add_argument("--lexical", action="store_true")
     args = parser.parse_args()
     if args.command == "prepare":
         prepare(args.source, args.prior, args.output)
     else:
-        evaluate(args.root, args.work, args.index)
+        evaluate(args.root, args.work, args.index, args.lexical)
