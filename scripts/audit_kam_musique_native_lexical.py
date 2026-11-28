@@ -14,7 +14,7 @@ PROTOCOL = "kam-musique-native-lexical-v1"
 WIDTHS = (2, 8, 20)
 
 
-def audit(source, panel, manifest_path, live_summary):
+def audit(source, panel, manifest_path, live_summary, gpu_fixture=None):
     manifest = json.loads(manifest_path.read_text())
     summary = json.loads(live_summary.read_text())
     assert manifest["source_sha256"] == digest(source) and manifest["panel_sha256"] == digest(panel)
@@ -23,7 +23,7 @@ def audit(source, panel, manifest_path, live_summary):
     pairs = [row for row in json.loads(panel.read_text()) if row["id"] not in omitted]
     targets = {q["id"]: (i, pair) for pair in pairs for i, q in enumerate(pair["questions"])}
     assert len(targets) == sum(len(pair["questions"]) for pair in pairs)
-    records = {}
+    records, full_pools = {}, {}
     with ZipFile(source) as archive:
         for split, member in MEMBERS.items():
             with archive.open(member) as stream:
@@ -42,6 +42,8 @@ def audit(source, panel, manifest_path, live_summary):
                         if not paragraph["is_supporting"] and identity not in excluded:
                             added[identity] = paragraph["title"] + ". " + paragraph["paragraph_text"]
                     order = sorted(added, key=lambda ident: stable(PROTOCOL + row["id"] + ident))
+                    if gpu_fixture:
+                        full_pools[row["id"]] = [p["title"] + ". " + p["body"] for p in support] + [added[k] for k in order]
                     ranks = {}
                     for width in WIDTHS:
                         extras = order[:width - 2]
@@ -52,6 +54,8 @@ def audit(source, panel, manifest_path, live_summary):
                     records[row["id"]] = {"id": row["id"], "family": pair["family"], "split": split,
                                            "distractors": order, "first_hop_ranks": ranks}
     assert records.keys() == targets.keys()
+    if gpu_fixture:
+        write_json(gpu_fixture, {"pairs": pairs, "first_hop_pools": full_pools})
     aggregate = {}
     for split in MEMBERS:
         cohort = [r for r in records.values() if r["split"] == split]
@@ -68,5 +72,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for item in ("source", "panel", "manifest", "live_summary", "output"):
         parser.add_argument(item, type=Path)
+    parser.add_argument("--gpu-fixture", type=Path)
     args = parser.parse_args()
-    write_json(args.output, audit(args.source, args.panel, args.manifest, args.live_summary))
+    write_json(args.output, audit(args.source, args.panel, args.manifest, args.live_summary, args.gpu_fixture))

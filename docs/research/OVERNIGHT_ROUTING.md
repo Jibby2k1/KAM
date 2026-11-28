@@ -66,6 +66,16 @@ Time three routes on the same GPU for each matched checkpoint. Compare BM25 foll
 
 Keep the same visibility-checked questions and paired earlier candidates. Add up to six or 18 distinct nonsupporting paragraphs from each question’s original MuSiQue candidate pool, selected by a frozen hash of the question and paragraph identities. Exclude both endpoints and the paired earlier candidates from the additions. Compare BM25 recall at one, two and four in the forward and reverse order, using published full paragraphs throughout this CPU study. Report the count recovered in both orders and describe the effective pool sizes. This isolates first-hop retrieval before spending GPU time on the larger pools. [Audit script](../../scripts/audit_kam_musique_native_lexical.py)
 
+| Candidate pool | Verified first hop at rank 1 | Within rank 2 | Within rank 4 |
+| --- | ---: | ---: | ---: |
+| Two paired candidates | 121 / 128 | 128 / 128 | — |
+| Eight with native distractors | 91 / 128 | 112 / 128 | 122 / 128 |
+| Up to 20 with native distractors | 77 / 128 | 94 / 128 | 114 / 128 |
+
+The widest pool held 20 candidates in 121 cases, 19 in six and 18 in one. Every count requires recovery in both orders. Top two leaves room for a reranker to recover another 17 first hops over top one on this panel, provided it keeps the first hops BM25 already gets right. [Rank outcomes](../../results/general_benchmarks_overnight/native-lexical.json)
+
+The GPU follow-up uses the widest pools. Compare BM25 top one against the same BM25 top two reranked by each frozen Llama checkpoint. Both routes then show the selected premise with the same two endpoints. Measure all-four endpoint accuracy, first-hop accuracy, and joint verified-first-hop and endpoint success at 40, 60, 100 and 150 ms. Compute BM25, prompt tokenization for model calls, launch and selection inside the timed region, and clip displayed documents to 512 tokens ahead of the timer. This compares two serving paths from fixed native pools. It uses the same questions as the CPU study and treats the published development stratum separately. [Locked GPU fixture](../../results/general_benchmarks_overnight/native-rerank-manifest.json)
+
 ## Physical batch retirement probe
 
 Use the 32 hash-first questions from the fresh TabMWP split and the verified current-table prompt. Compare batch widths eight and 32. The fixed run keeps all cache rows until the last request stops. The retirement run checks every 16 steps and selects the still-active cache rows once at least one quarter have stopped. Keep both the backbone and residual dot caches aligned. Time each mode twice in ABBA order on the same GPU after a fixed-width warmup. Count scheduled token slots, active decode steps and complete token/EOS parity. Treat a speed change as usable at a measured width only if every token trace agrees. [Probe](../../scripts/probe_kam_batch_retirement.py)
