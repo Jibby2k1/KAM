@@ -247,6 +247,12 @@ All 18 CUDA graph captures reproduced eager output exactly, including on changed
 
 On 128 fresh HotpotQA questions, final-256 reached 49.48% mirrored retrieval at 4K versus 62.24% for Flash, a −12.76-point paired gap [−20.05, −5.47]. At 8K the paired gap was +4.43 points [−4.69, +13.54]. Prefill was 3.02% and 8.11% faster at 4K and 8K. [Linked and unlinked cross-corpus results](LONG_HOTPOT_TRANSFER.md)
 
+### Fixed block budget and routing coverage
+
+Four prefix pins covered every audited MuSiQue bridge mention. Relative to four matched control pins, mirrored retrieval improved by 0.78 points at 4K [−5.78, +7.49] and 0.52 at 8K [−4.23, +5.43]. Both four-pin policies increased perplexity over ordinary first-block protection. [Prefix coverage and matched scores](FIXED_PREFIX_TRANSFER.md)
+
+On disjoint PG-19 development books, the best small proxy correction retained 91.570% of dense mass versus 91.436% for the existing protected shortlist. An exact ranking at the same fixed eight-block budget reached 92.190%. [Mass retention ceiling and per-head results](BLOCK_ROUTER_DISTILLATION.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)

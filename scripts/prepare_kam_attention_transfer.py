@@ -25,18 +25,12 @@ def read(path):
     return json.loads(path.read_text())
 
 
-def acquire_books(index, work, prior):
-    raw = read(index)
-    assert len(raw["items"]) == 100 and "nextPageToken" not in raw
-    used = {b["id"] for path in prior for b in read(path)["pg19"]}
-    candidates = [row for row in raw["items"] if Path(row["name"]).stem not in used]
-    assert len(used) == 72 and len(candidates) == 28
-    pg = work / "pg19"
+def download_books(rows, pg, partition):
     pg.mkdir(parents=True, exist_ok=True)
 
     def download(row):
         name = row["name"]
-        assert name.startswith("test/") and Path(name).suffix == ".txt"
+        assert name.startswith(partition+"/") and Path(name).suffix == ".txt"
         path = pg / Path(name).name
         valid = lambda b: len(b) == int(row["size"]) and base64.b64encode(hashlib.md5(b).digest()).decode() == row["md5Hash"]
         if path.exists() and valid(path.read_bytes()):
@@ -46,9 +40,19 @@ def acquire_books(index, work, prior):
         assert valid(content), name
         path.write_bytes(content)
 
-    candidates.sort(key=lambda row: stable(PROTOCOL + row["name"]))
     with ThreadPoolExecutor(max_workers=8) as pool:
-        list(pool.map(download, candidates))
+        list(pool.map(download, rows))
+
+
+def acquire_books(index, work, prior):
+    raw = read(index)
+    assert len(raw["items"]) == 100 and "nextPageToken" not in raw
+    used = {b["id"] for path in prior for b in read(path)["pg19"]}
+    candidates = [row for row in raw["items"] if Path(row["name"]).stem not in used]
+    assert len(used) == 72 and len(candidates) == 28
+    pg = work / "pg19"
+    candidates.sort(key=lambda row: stable(PROTOCOL + row["name"]))
+    download_books(candidates, pg, "test")
     write_json(pg / "sample.json", candidates)
 
 
