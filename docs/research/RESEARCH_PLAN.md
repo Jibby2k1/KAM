@@ -104,6 +104,8 @@ Keep evaluation questions and linked distractors separate from fitting and calib
 
 On each track, keep a small diagnostic cohort for model selection and a sealed evaluation cohort for publication. When a result changes the next comparison, state which mechanism remains plausible, freeze the one control that can distinguish it, and preserve the earlier report. Keep the dataset, grader, seed and hardware identifiers in the same result record so the scorecard can compare like-for-like runs. [Dataset portfolio](DATASET_PORTFOLIO.md)
 
+The first cross-source noise pilot uses 128 TabMWP numerical questions with labeled current tables. Add a separate table with the same title, header, grade and row count as a realistic archive distractor. Keep the question and answer fixed and independently compare archive presence and whether the archive is before or after the current table. This tests a position effect on generated mathematical answers outside MuSiQue. [Frozen TabMWP protocol](TABMWP_ARCHIVE_NOISE.md)
+
 ### Frozen adapter choice on matched MuSiQue endpoints
 
 Reuse the previous two-hop MuSiQue endpoint challenge's 84 accepted pairs across 35 relation families. Each question has two plausible endpoint passages. Test the same SmolLM2 and Llama KAM, dot, and untouched checkpoints using the initial question with both candidates, the verified earlier passage with both candidates, and the competing question's earlier passage with both candidates. Reverse the candidate order for each question. The true and crossed prompts have exactly matched earlier token counts within each backbone and identical remaining token IDs.
