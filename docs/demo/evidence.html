@@ -103,7 +103,16 @@
         <p id="math-grader-gap" aria-live="polite"></p>
       </div>
       <p id="math-grader-fallback">Shared equivalence scored KAM 87.37% and dot 84.64%. Equivalence on the marked line scored KAM 86.20% and dot 84.18%. Strict grading scored KAM 53.45% and dot 58.92% on the same outputs.</p>
-      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/GSM8K_FORMAT_EFFECTS.md">Prompt and grading experiment</a></p>
+      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/GSM8K_FORMAT_EFFECTS.md">Prompt and grading experiment</a> · <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/MATH_GRADER_AUDIT.md">Equivalence grader stress test</a></p>
+    </section>
+    <section id="decoder-work">
+      <h2>Why stopping one answer may leave batch time unchanged</h2>
+      <p>In the fixed-batch decoder, the longest response determines how many steps the batch runs. If the longest response would take 1,024 steps and the next-longest would take 546, stopping the longest can save at most 478 batch steps.</p>
+      <figure>
+        <a href="media/math-batch-work.png"><img src="media/math-batch-work.png" width="1530" height="782" loading="lazy" alt="On six batches of eight requests per adapter, KAM saves 640 decoder steps in batch four. Dot saves 478 in batch four and 422 in batch six."></a>
+        <figcaption>Three responses stopped early in each adapter. That shortened one KAM batch and two dot batches because other long responses determined the remaining batch lengths.</figcaption>
+      </figure>
+      <p>In this 48-request panel on an HPG RTX PRO 6000, the repetition gate reduced elapsed generation time by 12.95% for KAM and 24.10% for dot. Every unaffected token trace matched. On the separate full-cohort replay, the gate preserved previously verified answers. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/MATH_DECODING_DIAGNOSTICS.md#measured-latency-at-small-batch-widths">Timing protocol and results</a></p>
     </section>
     <section id="research">
       <h2>Read the studies</h2>

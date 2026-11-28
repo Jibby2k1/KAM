@@ -45,6 +45,10 @@ Each seed-731221 Llama adapter timed the normal and repetition-gated decoder twi
 
 At batch eight, the gate removed 11.81% of KAM token slots and 20.28% of dot token slots on these panels. Position within a batch and the remaining lengths determined the elapsed benefit. The timings include prefill and decode and exclude checkpoint load, CPU grading and queue time. The accuracy finding comes from the archived full-cohort replay above. These are single-seed panels with two elapsed measurements per variant and distinct cohorts across batch widths. [Summary](../../results/general_benchmarks_math_types/llama3-repeat-timing-summary.json) · [Numeric traces](../../results/general_benchmarks_math_types/llama3-repeat-timing-records.json.gz) · [Scheduler receipts](../../results/general_benchmarks_math_types/llama3-repeat-timing-scheduler.tsv) · [Replay source](../../scripts/summarize_kam_math_repetition_stopping.py)
 
+![Steps saved in matched batches of eight. The gate shortened KAM batch four by 640 steps, dot batch four by 478, and dot batch six by 422.](../demo/media/math-batch-work.png)
+
+Batch five in each arm contained a shortened request and an unaffected request that still reached the cap. [Figure source](../../scripts/plot_kam_math_batch_work.py)
+
 ## Half residual amplitude
 
 The Llama amplitude diagnostic multiplies all four fitted adapter output projections by 0.5 during inference. It uses the original KL-0.5 checkpoint pairs, three seeds, 500 prompts, and shared symbolic grader. It measures an intervention on the output of the existing adapters.
