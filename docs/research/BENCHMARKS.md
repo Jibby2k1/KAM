@@ -175,6 +175,8 @@ With BM25 first-hop selection and mirrored endpoint scoring, all-four accuracy r
 
 With up to 20 native first-hop candidates, BM25 top one scored 40.36% KAM and 47.40% dot on verified first-hop and endpoint recovery across all four presentations within 60 ms each. A model call reranking the BM25 top two reduced deadline-constrained joint scores to 19.79% and 25.78%. [Native pool comparison](OVERNIGHT_ROUTING.md#first-hop-recall-with-native-distractors)
 
+For these fixed A/B decisions, slicing the vocabulary projection preserved all 5,376 tested results across L4 and RTX PRO 6000 within device. The two-view median saving was 6.77–10.04 ms on L4 and 1.34–1.39 ms on RTX PRO 6000. [Hardware and parity comparison](OVERNIGHT_ROUTING.md#vocabulary-projection-for-fixed-choice-routing)
+
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
 
 ### Held-out next-token perplexity
