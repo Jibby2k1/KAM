@@ -12,7 +12,8 @@ set -euo pipefail
 module load pytorch/2.8.0
 root=$1
 work=$2
+shift 2
 test -r "$work/eval_kam_pretrained.py"
 export PYTHONPATH="$work:$root/runtime:$root/repo:$root"
 export OMP_NUM_THREADS=4
-python "$work/eval_kam_full_math500.py" "$root" "$work" "$SLURM_ARRAY_TASK_ID"
+python "$work/eval_kam_full_math500.py" "$root" "$work" "$SLURM_ARRAY_TASK_ID" "$@"

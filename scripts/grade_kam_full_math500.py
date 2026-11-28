@@ -10,6 +10,7 @@ from math_verify import ExprExtractionConfig, LatexExtractionConfig, parse, veri
 from math_verify.errors import TimeoutException
 
 from kam_adapter_preservation import digest
+from kam_math_answer_type_replication import load_replication
 from kam_math_kl_protocol import SOURCES, write_json
 
 GRADER_VERSIONS = {
@@ -76,7 +77,9 @@ def audit_examples():
     return outputs
 
 
-def reference_data(source):
+def reference_data(source, manifest=None):
+    if manifest is not None:
+        return load_replication(source, manifest)
     source_sha = digest(source)
     assert source_sha == SOURCES["math500-test.jsonl"]
     data = [json.loads(line) for line in source.read_text().splitlines()]
@@ -84,9 +87,9 @@ def reference_data(source):
     return data
 
 
-def audit_gold(source):
+def audit_gold(source, manifest=None):
     check_environment()
-    data = reference_data(source)
+    data = reference_data(source, manifest)
     kinds = Counter()
     for row in data:
         gold = parse_gold(row["answer"])
@@ -97,11 +100,13 @@ def audit_gold(source):
             "protocol": GRADER_PROTOCOL, "authored_examples": audit_examples()}
 
 
-def grade_file(source, input_path, output_path):
+def grade_file(source, input_path, output_path, manifest=None):
     check_environment()
-    data = reference_data(source)
+    data = reference_data(source, manifest)
     payload = json.loads(input_path.read_text())
     assert payload["metadata"]["source_sha256"] == digest(source)
+    if manifest is not None:
+        assert payload["metadata"]["manifest_sha256"] == digest(manifest)
     rows = payload["records"]
     assert [row["unique_id"] for row in data] == [r["id"] for r in rows]
     graded = []
@@ -133,12 +138,14 @@ if __name__ == "__main__":
     audit = sub.add_parser("audit-gold")
     audit.add_argument("source", type=Path)
     audit.add_argument("output", type=Path)
+    audit.add_argument("--manifest", type=Path)
     grade = sub.add_parser("grade")
     grade.add_argument("source", type=Path)
     grade.add_argument("input", type=Path)
     grade.add_argument("output", type=Path)
+    grade.add_argument("--manifest", type=Path)
     args = cli.parse_args()
     if args.command == "audit-gold":
-        write_json(args.output, audit_gold(args.source))
+        write_json(args.output, audit_gold(args.source, args.manifest))
     else:
-        grade_file(args.source, args.input, args.output)
+        grade_file(args.source, args.input, args.output, args.manifest)

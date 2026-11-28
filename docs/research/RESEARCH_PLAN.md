@@ -42,6 +42,14 @@ Use 512 unused GSM8K source-training questions, selected by SHA-256 rank after e
 
 First score all three generation conditions with the same pinned equivalence grader. This tests the effect of the prompt request. Then rescore the two marked conditions with the corresponding strict marker and exact number rule on the same generated text. This tests the effect of the grading rule. Report paired changes in the KAM–dot contrast for each operation and compare both with the neutral accuracy on this independent set of questions. Freeze settings before the GPU jobs and retain both mechanisms in the report even if one effect is small.
 
+### Locked replication of answer-type differences
+
+On the full MATH-500 test, Llama dot led on integer answers and KAM led on noninteger answers in each seed. A descriptive reweighting to common subject-by-level cells gave KAM–dot differences of −4.11 points on integers and +2.71 points on nonintegers. This motivates replication on disjoint questions from the same original MATH source. [Full benchmark](FULL_MATH500.md)
+
+Use the 4,500 original MATH test IDs that the PRM800K release assigns outside its MATH-500 test. The pinned file has one duplicate test ID with the same question and answer, which is counted once. Exclude exact normalized duplicate or previously evaluated prompts and answers that fail the frozen gold check. Hash-rank IDs within each subject, difficulty and answer-type cell. Take up to seven equal-count integer and noninteger pairs per cell, yielding 239 pairs across 35 cells. Reuse the matched frozen checkpoints and neutral prompt.
+
+The primary replication endpoint is Llama's KAM–dot difference on noninteger answers minus that difference on integer answers. Positive values are the direction observed in MATH-500. Bootstrap the 239 matched item pairs conditional on the same three seeds. Report SmolLM2 as a backbone comparison. Preserve the 1,024-token neutral prompt, grader and untouched references. Interpret the study as replication on disjoint items from the same benchmark family. [Pinned source](https://github.com/openai/prm800k/blob/7ecc794703b2877f63226f2477a49b34f9b25163/prm800k/math_splits/train.jsonl)
+
 ## 3. Test routing on evidence with genuine alternatives
 
 | Question | Next controlled comparison | Primary measurement |
