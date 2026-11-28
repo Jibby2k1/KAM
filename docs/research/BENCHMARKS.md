@@ -261,6 +261,12 @@ With a fixed four/twelve block-budget histogram, selecting layers by dense outpu
 
 Bitwise-gated launch tuning reduced isolated protected attention CUDA time by 12.70–18.02% on the RTX PRO 6000. Full-reader prefill saved 0.49–0.63% over the same protected policy across 4K/8K and batches one/four. [Tuned kernel and full-reader cost](SPARSE_KERNEL_TUNING.md)
 
+### Native long-document comprehension
+
+On 452 QuALITY questions, final-window Flash reached 61.43% original-order accuracy and 66.59% after balancing four option positions, compared with 60.91% and 69.10% for Flash. Protected shortlisting and the reconstruction-selected layer schedule reached 58.04% and 58.78% rotation-balanced accuracy. At 8,189 tokens the final window used 415.91 ms versus 453.37 ms with Flash. [Intact articles, answer calibration and timing](NATIVE_LONG_DOCUMENT_QA.md)
+
+On held-out QuALITY articles, the fitted two-pass margin gate deferred 1.34% of final-window predictions and recovered 0.45 points over its first pass, at 286.31 ms modeled prefill versus 301.19 ms for Flash. The other confidence gates retained a larger accuracy gap. [Predicted two-pass costs and oracle ceiling](CONFIDENCE_FLASH_DEFERRAL.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
