@@ -89,6 +89,20 @@
       </table>
       <p>The six fitted adapters per backbone shared the development-selected KL weight and used three matched seeds. Both full-set KAM–dot intervals span zero. On Llama, dot led on integer-answer questions and KAM led on noninteger-answer questions across the three seeds. The next experiment tests whether that pattern repeats on new questions.</p>
       <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/FULL_MATH500.md">Full MATH-500 study</a> · <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/BENCHMARKS.md">Benchmark scorecard</a></p>
+      <h3>Change the grader on the same answers</h3>
+      <p>These Llama adapters saw the same 512 GSM8K questions and the same <code>####</code> prompt. The two graders read the exact same generated text. For example, <code>#### $42</code> can express a mathematically correct amount while failing the strict bare-number grammar.</p>
+      <div class="lab" id="math-grader-lab" hidden>
+        <label for="math-grader">Grading rule</label>
+        <select id="math-grader">
+          <option value="shared">Shared mathematical equivalence</option>
+          <option value="strict">Strict marker and bare number</option>
+        </select>
+        <div class="cohort-row"><p id="math-kam-score"></p><div class="track" aria-hidden="true"><div class="fill" id="math-kam-bar"></div></div></div>
+        <div class="cohort-row"><p id="math-dot-score"></p><div class="track" aria-hidden="true"><div class="fill" id="math-dot-bar"></div></div></div>
+        <p id="math-grader-gap" aria-live="polite"></p>
+      </div>
+      <p id="math-grader-fallback">Shared equivalence scored KAM 87.37% and dot 84.64%. Strict grading scored KAM 53.45% and dot 58.92% on the same outputs.</p>
+      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/GSM8K_FORMAT_EFFECTS.md">Prompt and grading experiment</a></p>
     </section>
     <section id="research">
       <h2>Read the studies</h2>

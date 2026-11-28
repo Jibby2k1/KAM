@@ -6,7 +6,7 @@
 
 Kernel Adaptive Memory (KAM) studies how attention reads from the current context and from persistent learned supports. The research repository also contains separate experiments on one-pass evidence retrieval and temporal revision memory.
 
-[Research specification](Kernel_Adaptive_Memory_Research_Specification.pdf) · [Dataset portfolio](docs/research/DATASET_PORTFOLIO.md) · [Citation](CITATION.cff)
+[Research specification](Kernel_Adaptive_Memory_Research_Specification.pdf) · [Active research plan](docs/research/RESEARCH_PLAN.md) · [Dataset portfolio](docs/research/DATASET_PORTFOLIO.md) · [Citation](CITATION.cff)
 
 ## See how the method works
 
@@ -20,6 +20,7 @@ Move the query, narrow the bandwidth, or change the learned metric in the [atten
 | --- | --- | --- |
 | Attention and memory | How do radial context attention and persistent learned supports behave under matched controls? | [Implementation](kam/) and [experimental guide](EXPERIMENTS.md) |
 | Pretrained adapters | How do KAM and dot retain benchmark scores under matched training and KL? | [SmolLM2 and Llama 3](docs/research/GENERAL_BENCHMARKS_FACTORIAL.md) · [Timing and fidelity checks](docs/research/GENERAL_BENCHMARKS_DIAGNOSTICS.md) |
+| Mathematical evaluation | How do answer requirements change the measured KAM–dot gap? | [Full MATH-500](docs/research/FULL_MATH500.md) · [GSM8K grading intervention](docs/research/GSM8K_FORMAT_EFFECTS.md) |
 | Multi-hop retrieval | Can a one-pass pair scorer distinguish useful title mentions from linked distractors? | [HotpotQA study](reports/nonlinear_retrieval_natural/SUPPORT_LINKS.md) |
 | Retrieval systems | How do corpus retrieval and serving choices affect latency and evidence recall? | [Corpus and serving findings](docs/research/RESULTS.md#corpus-retrieval-and-serving) |
 | Revision memory | Can a router resolve ambiguous aliases and abstain on unseen identities? | [Revision-memory findings](docs/research/RESULTS.md#revision-memory) |

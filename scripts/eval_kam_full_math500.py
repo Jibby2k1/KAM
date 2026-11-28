@@ -20,7 +20,7 @@ PROMPT_SUFFIX = "\n\nSolve the problem. Explain your reasoning and state your fi
 SELECTIONS = {MODEL_ID: ("lower_lr_kl", 4.0), LLAMA_ID: ("lower_lr_kl05", 0.5)}
 
 
-def generate_checkpoint(root, work, index, replication=False):
+def generate_checkpoint(root, work, index, replication=False, half_scale=False):
     fixture_metadata = {}
     if replication:
         source = work / "math-replication.json"
@@ -45,6 +45,13 @@ def generate_checkpoint(root, work, index, replication=False):
     ident = key(*task)
     target = work / f"neutral-{ident}.json"
     model, tokenizer, stack, metadata = load_checkpoint(root, *task)
+    if half_scale:
+        assert not replication and model_id == LLAMA_ID and task[2] in ("kam", "dot")
+        with torch.no_grad():
+            for module in stack.modules:
+                module.up.weight.mul_(0.5)
+        protocol = "kam-math500-neutral-half-scale-v1"
+        fixture_metadata = {"residual_projection_scale": 0.5}
     gpu = torch.cuda.get_device_name()
     assert gpu == "NVIDIA RTX PRO 6000 Blackwell Server Edition"
     texts = [
@@ -86,5 +93,6 @@ if __name__ == "__main__":
     cli.add_argument("work", type=Path)
     cli.add_argument("index", type=int)
     cli.add_argument("--replication", action="store_true")
+    cli.add_argument("--half-scale", action="store_true")
     args = cli.parse_args()
-    generate_checkpoint(args.root, args.work, args.index, args.replication)
+    generate_checkpoint(args.root, args.work, args.index, args.replication, args.half_scale)

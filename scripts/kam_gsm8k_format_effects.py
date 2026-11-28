@@ -117,6 +117,7 @@ def grade(work, generation, output):
     assert [r["id"] for r in payload["records"]] == manifest["ids"]
     strict = {mode: patterns(marker)[0] for mode, marker in MARKERS.items()}
     rows = []
+    diagnostics = []
     for item, original in zip(data, payload["records"], strict=True):
         gold = parse_gold(item["answer"])
         assert len(gold) == 1
@@ -125,14 +126,18 @@ def grade(work, generation, output):
             fields = original[mode]
             completion = fields["completion"]
             result = {field: fields[field] for field in ("prompt_tokens", "output_tokens", "stop")}
-            result["symbolic"] = grade_prediction(gold, completion)
+            issues = []
+            result["symbolic"] = grade_prediction(gold, completion, issues)
+            diagnostics.extend({"id": item["id"], "mode": mode, "error": error} for error in issues)
             if mode in strict:
                 parsed, correct = score(completion, item["answer"], strict[mode])
                 result["strict"] = {"parsed": parsed, "correct": correct}
+                result["marker_present"] = MARKERS[mode].casefold() in completion.casefold()
             row[mode] = result
         rows.append(row)
     write_json(output, {"metadata": {**payload["metadata"], "generation_sha256": digest(generation),
-                                     "grader_protocol": GRADER_PROTOCOL, "grader_versions": GRADER_VERSIONS},
+                                     "grader_protocol": GRADER_PROTOCOL, "grader_versions": GRADER_VERSIONS,
+                                     "grader_diagnostics": diagnostics},
                         "records": rows})
 
 

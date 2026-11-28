@@ -111,6 +111,18 @@ All 500 problems use one prompt, no required answer marker, a 1,024-token cap, a
 
 [Full MATH-500 report and numeric outcomes](FULL_MATH500.md) · [Research plan](RESEARCH_PLAN.md)
 
+### GSM8K prompt and grader intervention
+
+On 512 unused GSM8K questions, both Llama adapters answered the same marked prompts at KL 0.5. Changing only the grader on the resulting text reversed the ranking.
+
+| Prompt | Shared equivalence KAM / dot | Strict marker KAM / dot |
+| --- | ---: | ---: |
+| Neutral | 80.27% / 79.23% | — |
+| `####` | 87.37% / 84.64% | 53.45% / 58.92% |
+| `Answer:` | 86.59% / 84.11% | 46.48% / 51.89% |
+
+[Both backbones, paired effects, and per-item records](GSM8K_FORMAT_EFFECTS.md)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.

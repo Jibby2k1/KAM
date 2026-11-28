@@ -50,6 +50,12 @@ Use the 4,500 original MATH test IDs that the PRM800K release assigns outside it
 
 The primary replication endpoint is Llama's KAM–dot difference on noninteger answers minus that difference on integer answers. Positive values are the direction observed in MATH-500. Bootstrap the 239 matched item pairs conditional on the same three seeds. Report SmolLM2 as a backbone comparison. Preserve the 1,024-token neutral prompt, grader and untouched references. Interpret the study as replication on disjoint items from the same benchmark family. [Pinned source](https://github.com/openai/prm800k/blob/7ecc794703b2877f63226f2477a49b34f9b25163/prm800k/math_splits/train.jsonl)
 
+### Llama residual amplitude and termination
+
+The original Llama comparison found 23.93% of KAM completions and 14.07% of dot completions reached the token cap. A fixed lexical repetition measure flagged about half of the excess KAM cap hits. To test whether residual output amplitude contributes to this difference, multiply all four adapter output projections by 0.5 during inference for both matched arms and all three seeds. Reuse the same KL-0.5 checkpoints, full MATH-500 prompt, generation cap, batch grouping and equivalence grader. Check original checkpoint hashes and use a separate output directory and protocol identifier.
+
+The primary diagnostic is the change in the paired KAM–dot cap-hit gap between the original and half-scaled runs. Also report absolute cap rates, mean generated tokens, repeated suffixes, correctness and matched generation time. Treat the fixed half-scale intervention as a diagnostic on the same fixture. A smaller cap gap accompanied by lower accuracy would motivate a separate development-only choice of stopping policy or residual strength.
+
 ## 3. Test routing on evidence with genuine alternatives
 
 | Question | Next controlled comparison | Primary measurement |

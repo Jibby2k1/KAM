@@ -179,6 +179,29 @@ function initCohorts(select) {
   render();
 }
 
+function initMathGrader(select) {
+  // GSM8K_FORMAT_EFFECTS.md, Llama hash prompt. Each denominator is 512 items × 3 seeds.
+  const counts = { shared: { kam: 1342, dot: 1300 }, strict: { kam: 821, dot: 905 } };
+  const n = 1536;
+  function render() {
+    const scores = counts[select.value];
+    for (const arm of ['kam', 'dot']) {
+      const label = arm === 'kam' ? 'KAM' : 'Dot';
+      const score = (100 * scores[arm] / n).toFixed(2);
+      document.getElementById(`math-${arm}-score`).textContent = `${label} ${score}%`;
+      document.getElementById(`math-${arm}-bar`).style.width = `${score}%`;
+    }
+    const delta = (scores.kam - scores.dot) * 100 / n;
+    const leader = delta > 0 ? 'KAM' : 'Dot';
+    document.getElementById('math-grader-gap').textContent =
+      `${leader} leads by ${Math.abs(delta).toFixed(2)} percentage points.`;
+  }
+  select.addEventListener('change', render);
+  render();
+  document.getElementById('math-grader-lab').hidden = false;
+  document.getElementById('math-grader-fallback').hidden = true;
+}
+
 if (document.getElementById('geometry')) initGeometry();
 if (document.getElementById('cutoff')) initRevision();
 const gap = document.getElementById('score-gap');
@@ -187,6 +210,8 @@ const context = document.getElementById('context-delta');
 if (context) initSupports(context);
 const cohort = document.getElementById('cohort');
 if (cohort) initCohorts(cohort);
+const mathGrader = document.getElementById('math-grader');
+if (mathGrader) initMathGrader(mathGrader);
 
 if (document.getElementById('outline')) {
   const oldLinks = {
