@@ -134,6 +134,17 @@ The neutral protocol was repeated on 478 disjoint items from the original MATH t
 
 The registered Llama difference in the KAM–dot gap between noninteger and integer questions was −1.53 points [−6.83, +3.91]. [Balanced cohort, figure, and paired results](MATH_ANSWER_TYPES.md)
 
+### MuSiQue endpoint choice with earlier evidence
+
+For each of 168 questions with two fixed candidates, a question counts as correct only if the model chooses the gold endpoint in both A/B orders. The given earlier passage determines the bridging entity. These results measure evidence-conditioned selection with supplied passages.
+
+| Backbone and selected KL | Untouched | KAM | Dot | KAM minus dot (95% paired family interval) |
+| --- | ---: | ---: | ---: | ---: |
+| SmolLM2, KL 4 | 5.36% | 4.96% | 3.97% | +0.99 [−0.25, +3.06] pp |
+| Llama 3, KL 0.5 | 55.95% | 73.41% | 83.53% | −10.12 [−16.31, −3.65] pp |
+
+A two-pass symmetric logit rule gave Llama 95.83% KAM and 95.44% dot on the same questions. [Evidence swaps, label-order analysis and numeric records](PRETRAINED_ENDPOINT_CHOICE.md)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.
