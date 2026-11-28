@@ -15,4 +15,12 @@ work=$2
 arms=(kam dot)
 export PYTHONPATH="$work:$root/runtime:$root/repo:$root"
 export OMP_NUM_THREADS=4
-python "$work/probe_kam_decoder_token_reuse.py" "$root" "$work" "${arms[SLURM_ARRAY_TASK_ID]}" "$work/host_upload_reference.py"
+case "${3:-transport}" in
+  transport)
+    python "$work/probe_kam_decoder_token_reuse.py" "$root" "$work" "${arms[SLURM_ARRAY_TASK_ID]}" "$work/host_upload_reference.py"
+    ;;
+  grouped-eos)
+    python "$work/probe_kam_decoder_eos_poll.py" "$root" "$work" "${arms[SLURM_ARRAY_TASK_ID]}"
+    ;;
+  *) exit 2 ;;
+esac

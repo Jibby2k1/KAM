@@ -19,3 +19,12 @@ A plain scalar is a signed or unsigned integer or decimal with a successful gold
 ## Locked untouched-backbone pilot
 
 Use the 12 hash-first unseen scalar prompts in each of the four difficulty bands, excluding them from any later evaluation. Measure the untouched SmolLM2 and Llama backbones with the same neutral prompt, 1,024-token maximum, greedy native chat templates and shared grader on HPG RTX PRO 6000. Record counts of correct, parsed and capped responses by band. This small check measures feasibility and informs the priority of a larger study. The full remaining pool has 1,891 candidate scalar prompts before near-duplicate or coverage review. Weight future precision calculations by difficulty and source, and preserve the development-selected KL weights for the fitted arms. [Locked pilot manifest](../../results/general_benchmarks_omni_math/untouched-pilot-manifest.json) · [Pilot evaluator](../../scripts/kam_omni_math_untouched_pilot.py)
+
+| Difficulty band | SmolLM2 correct / 12 | Llama correct / 12 | SmolLM2 / Llama cap hits |
+| --- | ---: | ---: | ---: |
+| At most 2 | 5 | 5 | 1 / 0 |
+| Above 2 through 4 | 1 | 1 | 1 / 3 |
+| Above 4 through 6 | 0 | 1 | 5 / 3 |
+| Above 6 | 0 | 0 | 2 / 3 |
+
+The same two backbones scored five of 12 in the easiest band, then one and two correct, respectively, across the 36 harder prompts. SmolLM2 had 48 parseable answers and Llama had 46, with zero grader errors. The small stratified pilot suggests that the full competition mix would spend much of the compute at a score floor. For a primary paired comparison, prioritize independent sources with more solvable items and retain higher difficulty as a labeled stress slice. The four strata were equally represented by design. [SmolLM2 results](../../results/general_benchmarks_omni_math/smollm2-untouched-pilot.json) · [Llama results](../../results/general_benchmarks_omni_math/llama3-untouched-pilot.json) · [HPG receipt](../../results/general_benchmarks_omni_math/untouched-pilot-scheduler.tsv)

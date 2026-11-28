@@ -14,17 +14,14 @@ from kam_math_kl_protocol import write_json
 from probe_kam_math500_prefix import load_panel
 
 
-def probe(root, work, arm, reference_decoder):
-    spec = importlib.util.spec_from_file_location("kam_reference_decoder", reference_decoder)
-    reference_module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(reference_module)
-    modes = {"host_upload": reference_module.generate, "device_reuse": generate}
+def measure_panels(root, work, arm, modes):
     name, model, tokenizer, stack, encoded, reference, provenance = load_panel(root, work, arm)
+    first, second = modes
     panels = {}
     for size, panel in ((64, encoded), (1, encoded[:8])):
         timings = {mode: [] for mode in modes}
         expected = None
-        for mode in ("host_upload", "device_reuse", "device_reuse", "host_upload"):
+        for mode in (first, second, second, first):
             combined = []
             torch.cuda.synchronize()
             started = monotonic()
@@ -43,6 +40,15 @@ def probe(root, work, arm, reference_decoder):
             print(arm, size, mode, timings[mode][-1], flush=True)
         panels[str(size)] = {"n": len(panel), "seconds": timings,
                              "generated_tokens": sum(len(tokens) for _, (tokens, _) in expected)}
+    return name, provenance, panels
+
+
+def probe(root, work, arm, reference_decoder):
+    spec = importlib.util.spec_from_file_location("kam_reference_decoder", reference_decoder)
+    reference_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(reference_module)
+    modes = {"host_upload": reference_module.generate, "device_reuse": generate}
+    name, provenance, panels = measure_panels(root, work, arm, modes)
     write_json(work / f"token-transport-{name}.json", {**provenance, "panels": panels,
                 "protocol": "kam-decoder-token-reuse-v1",
                 "reference_decoder_sha256": digest(reference_decoder),

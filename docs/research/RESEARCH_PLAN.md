@@ -56,6 +56,8 @@ For a future confirmation, set the smallest useful effect before choosing the co
 
 The pinned Omni-MATH source has 1,939 plain-scalar questions after exact deduplication against audited math sources. The easiest two difficulty bands contain 878. Run a 48-question, difficulty-balanced development check with both untouched backbones to assess the score floor before committing to a full paired study. If useful scores are concentrated in the easy bands, combine independently screened source cohorts to obtain the required item count. Keep difficulty and source strata explicit. For a temporal challenge, use dated competition questions from a later window and report source dates separately from release dates. [Omni-MATH source audit and pilot](MATH_FRESH_SOURCE.md) · [Dated MathArena competitions](https://matharena.ai/competitions)
 
+The Omni-MATH pilot returned five of 12 correct on the easiest band for each backbone, and just one SmolLM2 and two Llama successes on the other 36 prompts. Use its easier band for cross-source math checks and its harder bands for stress tests. Add a moderate-difficulty natural word-problem source and measure the difference there with the shared neutral protocol before expanding to harder requests. [Development results](MATH_FRESH_SOURCE.md#locked-untouched-backbone-pilot)
+
 ### Protecting baseline capability
 
 Both fitted arms in all three seeds lost 21 answers the untouched Llama got right on MATH-500 and 14 on the disjoint balanced cohort. Eleven and nine of those shared losses reached EOS with extractable expressions in all six fits. Count these alongside recoveries whenever changing the training exposure or insertion point. To diagnose a shared loss, use separately held development items to compare a matched neutral teacher trajectory with early-layer and late-layer residual activation. Include zero residual as an identity check, match the number of added parameters, and preserve the fixed-KL adapters as the benchmark reference. Evaluate any selected design only on fresh held-out problems. [Full-set retention](FULL_MATH500.md#retention-of-untouched-answers) · [Balanced retention](MATH_ANSWER_TYPES.md#retention-on-the-balanced-cohort)
@@ -126,6 +128,10 @@ Run the untouched Llama and six fixed-KL-0.5 checkpoints on the same 168 questio
 ### Exact reuse of the next token on the device
 
 The greedy decoder already has the selected token as a GPU tensor. Keep that tensor for the next model step while copying its value for host stop checks. Compare this path with the previous device-to-host-to-device transfer under the identical 384-token neutral budget. Use the fixed MATH-500 parity bucket of 64 requests and eight requests from its start at batch one. Time two passes per path in ABBA order on the same RTX PRO 6000, once with each seed-731221 Llama adapter. Require identical token sequences and termination states within each shape and exact replay of the stored benchmark prefix at batch 64. Report elapsed time by shape. The change leaves the stop check and its device-to-host synchronization in place. [GPU probe](../../scripts/probe_kam_decoder_token_reuse.py)
+
+### Group host EOS checks
+
+On the same two checkpoints and panels, compare polling for EOS each step with checking a block of eight selected token tensors together. Keep the first EOS as each request's cutoff and require exact equality of the visible token and EOS-or-cap traces. The grouped path can perform up to seven surplus steps after a batch's last visible token. Record those steps and paired elapsed time, and scope the comparison to generation with EOS or a fixed cap. Use the same within-GPU ABBA order. [Grouped EOS probe](../../scripts/probe_kam_decoder_eos_poll.py)
 
 ## Publication checkpoints
 
