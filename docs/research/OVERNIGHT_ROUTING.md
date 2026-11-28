@@ -64,6 +64,14 @@ BM25 found the verified earlier passage in both orders on 121 of 128 questions. 
 
 Time three routes on the same GPU for each matched checkpoint. Compare BM25 followed by one endpoint view, mirroring with both earlier passages, and BM25 followed by two mirrored endpoint views in one launch. The first two routes control for the extra endpoint view and for dropping an earlier passage. Keep the four-presentation accuracy and 40/60 ms deadlines. Check first-hop agreement across the two lexical routes. This is a mechanism and latency comparison on the same frozen panel. [Frozen comparison](../../results/general_benchmarks_overnight/short-mirror-manifest.json)
 
+| Route on the 128-question stratum | All four correct, KAM / dot | p50, KAM / dot | p95, KAM / dot | Within 40 ms, KAM / dot | Within 60 ms, KAM / dot |
+| --- | --- | --- | --- | --- | --- |
+| BM25, one endpoint view | 68.23% / 75.78% | 30.49 / 29.82 ms | 41.62 / 41.09 ms | 54.17% / 61.20% | 68.23% / 75.78% |
+| Mirror with both earlier passages | 76.56% / 74.48% | 56.38 / 56.09 ms | 86.07 / 85.68 ms | 1.56% / 1.56% | 60.42% / 60.68% |
+| BM25, two mirrored endpoint views | 93.75% / 94.53% | 42.87 / 42.57 ms | 61.26 / 60.61 ms | 9.38% / 9.38% | 78.39% / 82.55% |
+
+Both lexical routes picked the same first passage in aggregate. Shorter mirroring gained 17.19 points for KAM [10.81, 23.28] and 20.05 for dot [13.11, 26.52] against mirroring with both earlier passages. Untouched Llama using BM25 and mirroring scored 95.31% without a deadline and 89.84% at 60 ms. The strongest route depends on the deadline. Both adapted arms favored one view at 40 ms and two at 60 ms. These results use the two-candidate pools. [Paired summary](../../results/general_benchmarks_overnight/short-mirror-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/short-mirror-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/short-mirror-scheduler.tsv)
+
 ### First-hop recall with native distractors
 
 Keep the same visibility-checked questions and paired earlier candidates. Add up to six or 18 distinct nonsupporting paragraphs from each question’s original MuSiQue candidate pool, selected by a frozen hash of the question and paragraph identities. Exclude both endpoints and the paired earlier candidates from the additions. Compare BM25 recall at one, two and four in the forward and reverse order, using published full paragraphs throughout this CPU study. Report the count recovered in both orders and describe the effective pool sizes. This isolates first-hop retrieval before spending GPU time on the larger pools. [Audit script](../../scripts/audit_kam_musique_native_lexical.py)

@@ -94,6 +94,12 @@
       <p>The sequential path first chooses one earlier passage and then shows just that passage with the two endpoints. Across all four orders, it raised KAM from 12.90% to 66.87% and dot from 17.86% to 72.82%. It sent about 519 input tokens through two calls per decision, compared with 397 through the original direct call. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/PRETRAINED_ENDPOINT_CHOICE.md#separate-the-two-hops">Two-hop comparison</a></p>
       <h3>Give each decision a deadline</h3>
       <p>On 128 fresh MuSiQue questions from the publisher’s training split, a question counted as solved only if all four placements were correct and each decision took at most 60 ms. Mirrored scoring solved 61.20% for KAM and 61.72% for dot. The live sequential route solved 44.01% and 49.74%. These GPU timings start with fixed candidates and include the model calls and choice. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/OVERNIGHT_ROUTING.md#live-musique-results">Live routing experiment</a></p>
+      <h3>Pick the first passage before mirroring</h3>
+      <p>BM25 chooses one earlier passage in the two-candidate pool. Both endpoint views then reuse that shorter context. At 60 ms per presentation, the combined route solved 78.39% for KAM, 82.55% for dot and 89.84% for untouched Llama. At 40 ms, the single-view route solved more questions.</p>
+      <figure>
+        <a href="media/routing-deadlines.png"><img src="media/routing-deadlines.png" width="1530" height="782" loading="lazy" alt="On both KAM and dot, BM25 with one endpoint view leads at 40 milliseconds. BM25 with mirrored views leads at 60 milliseconds and above."></a>
+        <figcaption>Each curve counts questions answered correctly in all four placements, with each placement meeting the indicated deadline. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/OVERNIGHT_ROUTING.md#mirroring-with-a-shorter-context">Matched results and timing scope</a></figcaption>
+      </figure>
     </section>
     <section id="math-evaluation">
       <h2>Grade the mathematics across answer forms</h2>

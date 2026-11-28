@@ -171,6 +171,8 @@ On 128 fresh questions from the publisher's MuSiQue training stratum, online seq
 
 On the same questions, BM25 first-hop selection followed by one endpoint call solved 68.23% KAM and 75.78% dot across all four placements at 60 ms per decision. In that paired rerun, direct solved 15.10% and 19.01% at 60 ms. The lexical route's measured median latency was 31.23 and 30.48 ms, including CPU first-hop ranking over the two supplied candidates. [Lexical routing](OVERNIGHT_ROUTING.md#one-pass-lexical-routing-follow-up)
 
+With BM25 first-hop selection and mirrored endpoint scoring, all-four accuracy reached 93.75% KAM, 94.53% dot and 95.31% untouched. The same routes gave 78.39%, 82.55% and 89.84% within 60 ms per presentation. The BM25 single-view route was strongest at 40 ms. [Same-device deadline comparison](OVERNIGHT_ROUTING.md#mirroring-with-a-shorter-context)
+
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
 
 ### Held-out next-token perplexity
