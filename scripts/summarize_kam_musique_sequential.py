@@ -44,6 +44,10 @@ def observations(single, both, earlier):
         "sequential_earlier_second": sequential[:, 1].all(axis=1),
     }
     first_broadcast = np.broadcast_to(first_correct[:, :, None], sequential.shape)
+    first_width = first_tokens[:, 0, None, None]
+    endpoint_width = true_tokens[:, None, :]
+    direct_pairs = direct_tokens * (direct_tokens + 1) // 2
+    staged_pairs = first_width * (first_width + 1) // 2 + endpoint_width * (endpoint_width + 1) // 2
     mechanics = {
         "first_hop_correct_by_position": first_correct.sum(axis=0).tolist(),
         "first_hop_correct": int(first_broadcast.sum()),
@@ -51,7 +55,9 @@ def observations(single, both, earlier):
         "first_incorrect_endpoint_correct": int((~first_broadcast & sequential).sum()),
         "presentation_count": int(sequential.size),
         "mean_direct_prompt_tokens": float(direct_tokens.mean()),
-        "mean_sequential_prompt_tokens": float((first_tokens[:, 0, None, None] + true_tokens[:, None, :]).mean()),
+        "mean_sequential_prompt_tokens": float((first_width + endpoint_width).mean()),
+        "mean_direct_unpadded_causal_pairs_per_head": float(direct_pairs.mean()),
+        "mean_sequential_unpadded_causal_pairs_per_head": float(staged_pairs.mean()),
     }
     return collect, mechanics
 

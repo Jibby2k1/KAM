@@ -31,3 +31,13 @@ Applying the same grader to the final three nonempty lines of all 2,688 completi
 ### Exact-length different-topic control
 
 Choose a different development table with a disjoint set of title words, a different normalized header, and the same grade, row count, column count, and frozen Llama token count as the same-topic archive. Rank donors by a fixed digest, exclude used table contents, and keep the current record and question fixed. This yielded 94 matched questions. Replay the two original batches with the original rows in every unmatched position, and check their token lengths, stop reasons and completion text against the prior runs. Measure changed-source accuracy on the matched rows only. The primary comparison is different-topic minus same-topic accuracy for each arm. The KAM–dot interaction is secondary. [Frozen control manifest](../../results/general_benchmarks_tabmwp/unrelated-manifest.json) · [Tokenizer and selection audit](../../scripts/prepare_kam_tabmwp_length_control.py)
+
+| Context on the same 94 questions | Untouched | KAM | Dot |
+| --- | ---: | ---: | ---: |
+| Current table only | 74.47% | 74.82% | 75.53% |
+| Current and same-topic archive | 47.87% | 46.10% | 43.62% |
+| Current and different-topic archive, same length | 71.28% | 74.11% | 66.31% |
+
+At exact input length, using a different-topic archive improved KAM by **28.01 points** [17.35, 38.51] and dot by **22.70 points** [12.73, 32.29]. Untouched improved 23.40 points. The contrast between the improvements was +5.32 points [−5.19, +15.97]. This comparison points to the content of the competing table as a major contributor to the loss in this matched subset. The matched subset had a higher current-only score than the original 128-question panel. The intervals resample its 69 title-and-header groups conditional on the original seeds.
+
+All 34 unreplaced rows per checkpoint reproduced exactly in decoded text, token count and stop reason. The 94 new archive tables gave zero exact normalized training-source matches across the checked corpora. [Paired outcome summary](../../results/general_benchmarks_tabmwp/llama3-unrelated-summary.json) · [Numeric outcomes](../../results/general_benchmarks_tabmwp/llama3-unrelated-outcomes.json.gz) · [Scheduler receipt](../../results/general_benchmarks_tabmwp/llama3-unrelated-scheduler.tsv) · [Source audit](../../results/general_benchmarks_tabmwp/unrelated-source-overlap.json)

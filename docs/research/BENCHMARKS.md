@@ -159,6 +159,8 @@ On 128 grade-five-through-eight numerical questions, add a same-topic table from
 
 The archive-last condition changed the KAM–dot gap by +2.60 points [−4.80, +10.57] relative to current-only. [TabMWP archive noise, rates and paired intervals](TABMWP_ARCHIVE_NOISE.md)
 
+On the 94-question matched subset at exact input length, replacing the same-topic archive with a different-topic archive raised KAM from 46.10% to 74.11% and dot from 43.62% to 66.31%. The paired difference between these two gains spans zero. [Exact-length control](TABMWP_ARCHIVE_NOISE.md#exact-length-different-topic-control)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.
