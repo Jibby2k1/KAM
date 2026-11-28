@@ -1,6 +1,6 @@
 # KAM benchmark scorecard
 
-November 27, 2026 · [Experiment index](RESULTS.md) · [Dataset sources and splits](DATASET_PORTFOLIO.md)
+November 28, 2026 · [Experiment index](RESULTS.md) · [Dataset sources and splits](DATASET_PORTFOLIO.md)
 
 The archive contains direct evaluations of small KAM checkpoints, retrieval pipelines with frozen pretrained encoders and readers, and deterministic controls. Each row identifies the comparison and evaluation slice. Scores are paired within rows and cover different systems and splits across rows.
 
@@ -176,6 +176,20 @@ With BM25 first-hop selection and mirrored endpoint scoring, all-four accuracy r
 With up to 20 native first-hop candidates, BM25 top one scored 40.36% KAM and 47.40% dot on verified first-hop and endpoint recovery across all four presentations within 60 ms each. A model call reranking the BM25 top two reduced deadline-constrained joint scores to 19.79% and 25.78%. [Native pool comparison](OVERNIGHT_ROUTING.md#first-hop-recall-with-native-distractors)
 
 For these fixed A/B decisions, slicing the vocabulary projection preserved all 5,376 tested results across L4 and RTX PRO 6000 within device. The two-view median saving was 6.77–10.04 ms on L4 and 1.34–1.39 ms on RTX PRO 6000. [Hardware and parity comparison](OVERNIGHT_ROUTING.md#vocabulary-projection-for-fixed-choice-routing)
+
+### Cached retrieval on fresh native MuSiQue pools
+
+On 88 new questions from the publisher's training split, every first-hop pool contained 20 candidates. First-hop R@1 requires both pool orders. Joint recovery requires both verified passages across all four presentations within 60 ms each. Passage embeddings were cached, and query encoding was measured live on HPG.
+
+| First-hop retriever | R@1 | KAM joint ≤60 ms | Dot joint ≤60 ms | Untouched Llama joint ≤60 ms |
+| --- | ---: | ---: | ---: | ---: |
+| BM25 | 69.32% | 44.70% | 52.65% | 30.68% |
+| Cached dense | 88.64% | 52.27% | 64.02% | 36.36% |
+| Hybrid | 81.82% | 50.00% | 60.61% | 34.09% |
+
+The same cached dense retriever gave KAM a gap of −11.74 percentage points versus dot [−18.38, −4.58] and +15.91 versus untouched [+9.52, +23.40] on this stratum. Hybrid led at R@3, 97.73% versus 95.45% for dense. The 12-question development split is reported separately. [Full comparison, timings and paired results](MUSIQUE_CACHED_RETRIEVAL.md)
+
+### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
 

@@ -83,6 +83,13 @@ def summarize(work, manifest, study):
                     np.stack([joint_by_arm[arm, seed, method, split] for seed in seeds]),
                     np.stack([joint_by_arm[arm, seed, "bm25", split] for seed in seeds]), families)
                 metrics[method]["arms"][arm] = measured
+            paired = {arm: np.stack([joint_by_arm[arm, seed, method, split] for seed in SEEDS]) for arm in ARMS}
+            untouched = np.broadcast_to(joint_by_arm["pretrained", 0, method, split], paired["kam"].shape)
+            metrics[method]["between_arms_at_60ms"] = {
+                "kam_minus_dot": family_difference(paired["kam"], paired["dot"], families),
+                "kam_minus_untouched": family_difference(paired["kam"], untouched, families),
+                "dot_minus_untouched": family_difference(paired["dot"], untouched, families),
+            }
         strata[split] = {"questions": total, "families": len(set(families)),
                          "questions_in_prior_paired_families": sum(len(c["questions"]) for c in cohort if c["prior_family"]),
                          "pool_sizes": Counter(len(fixture["pool_ids"][q]) for c in cohort for q in c["questions"]),
