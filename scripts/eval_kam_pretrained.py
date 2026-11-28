@@ -71,7 +71,7 @@ def cache_check(model, stack, tokenizer):
 
 
 def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=None, numeric_stop_pattern=None,
-             stop_on_content=True):
+             stop_on_content=True, stop_on_repetition=False):
     x, mask = pad(rows, tokenizer.pad_token_id)
     outputs = [[] for _ in rows]
     done = [False] * len(rows)
@@ -93,6 +93,14 @@ def generate(model, stack, tokenizer, rows, task, *, max_new_tokens=None, trace=
                     finished[j] = "eos"
             else:
                 outputs[j].append(token)
+        if stop_on_repetition and step + 1 == 384:
+            from kam_math_repetition import repetitive
+
+            for j, out in enumerate(outputs):
+                if not done[j] and repetitive(tokenizer.decode(out, skip_special_tokens=True)):
+                    done[j] = True
+                    if finished is not None:
+                        finished[j] = "repetition"
         if stop_on_content and (step + 1) % 16 == 0:
             for j, out in enumerate(outputs):
                 if not done[j]:

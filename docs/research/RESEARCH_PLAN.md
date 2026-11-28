@@ -56,6 +56,12 @@ The original Llama comparison found 23.93% of KAM completions and 14.07% of dot 
 
 The primary diagnostic is the change in the paired KAM–dot cap-hit gap between the original and half-scaled runs. Also report absolute cap rates, mean generated tokens, repeated suffixes, correctness and matched generation time. Treat the fixed half-scale intervention as a diagnostic on the same fixture. A smaller cap gap accompanied by lower accuracy would motivate a separate development-only choice of stopping policy or residual strength.
 
+### Decode-time repetition gate
+
+Flag a completion at token 384 when at least 75% of six-token lexical windows repeat within its last 144 lexical tokens. Freeze this rule before examining its scores on the balanced MATH cohort. Replay the rule on the original token trajectories first. Report which continuations were stopped, any loss of verified answers, and work measured as live decoder steps or batch token slots. These counts predict different effects at individual and batched request sizes.
+
+Then time matched seed-731221 Llama KAM and dot with the gate enabled and disabled on fixed, hash-ranked pairs from the balanced cohort. Use 16 requests at batch one and 48 at batch eight. Alternate the variants on the same GPU, retain the normal EOS and 1,024-token ceiling and verify exact unchanged outputs on every item outside the gate. Label the timing as a small serving profile. Keep the scorer and benchmark scores from the original study.
+
 ## 3. Test routing on evidence with genuine alternatives
 
 | Question | Next controlled comparison | Primary measurement |

@@ -181,7 +181,7 @@ function initCohorts(select) {
 
 function initMathGrader(select) {
   // GSM8K_FORMAT_EFFECTS.md, Llama hash prompt. Each denominator is 512 items × 3 seeds.
-  const counts = { shared: { kam: 1342, dot: 1300 }, strict: { kam: 821, dot: 905 } };
+  const counts = { shared: { kam: 1342, dot: 1300 }, marked: { kam: 1324, dot: 1293 }, strict: { kam: 821, dot: 905 } };
   const n = 1536;
   function render() {
     const scores = counts[select.value];

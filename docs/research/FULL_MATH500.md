@@ -38,7 +38,7 @@ Grading only the final three nonempty lines changed three correctness flags acro
 
 A masked review checked ten hash-selected excerpts whose status changed with the budget or whose capped outputs got credit. The four sampled gains contained an explicit final answer in the longer output. In the four sampled losses, the short prefix lacked a clear final answer. The two capped successes also lacked a clear final answer. In a conservative sensitivity check that gives all cap hits zero credit, the KAM–dot gaps are +0.80 points on SmolLM2 and −0.33 on Llama. This keeps the full denominator and treats any unfinished response as incorrect.
 
-On the same generated trajectories, scoring only the first 384 tokens gave KAM/dot **21.73% / 20.27%** on SmolLM2 and **27.33% / 27.07%** on Llama. The long cap helped both dot adapters more than their matched KAM counterparts. On Llama, 23.93% of KAM and 14.07% of dot completions hit 1,024 tokens. Full generation averaged 501.77 and 499.65 seconds per checkpoint, including prompt prefill and decoding in fixed batches and excluding queue time, model load, and CPU grading.
+On the same generated trajectories, scoring only the first 384 tokens gave KAM/dot **21.73% / 20.27%** on SmolLM2 and **27.33% / 27.07%** on Llama. The long cap helped both dot adapters more than their matched KAM counterparts. On Llama, 23.93% of KAM and 14.07% of dot completions hit 1,024 tokens. Full generation averaged 501.77 and 499.65 seconds per checkpoint, including prompt prefill and decoding in fixed batches and excluding queue time, model load, and CPU grading. [Independent prefix replay and decoding work](MATH_DECODING_DIAGNOSTICS.md)
 
 ## Reproduce
 

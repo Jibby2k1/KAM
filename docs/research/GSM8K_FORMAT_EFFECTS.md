@@ -39,6 +39,17 @@ For Llama, changing the grader alone reversed the KAM–dot ordering with either
 
 The prompt request itself also mattered. On SmolLM2, adding `Answer:` reduced shared-grader accuracy by 18.88 points for KAM and 24.93 for dot. On Llama, both marker requests improved shared-grader accuracy on the tested prompts. The neutral prompt remains a separate evaluation condition. [SmolLM2 numeric summary](../../results/general_benchmarks_gsm8k_formats/smollm2-summary.json) · [Llama numeric summary](../../results/general_benchmarks_gsm8k_formats/llama3-summary.json)
 
+### Require a marker and allow equivalent expressions
+
+An additional audit isolates the bare-number grammar. It takes the last line that begins with the requested marker and passes everything after the marker to the shared grader. This still requires a marker at the start of an answer line and allows mathematically appropriate notation such as currency or units in the answer.
+
+| Llama prompt | Shared on entire output KAM / dot | Shared after marked line KAM / dot | Strict marker and bare number KAM / dot |
+| --- | ---: | ---: | ---: |
+| `####` | 87.37% / 84.64% | 86.20% / 84.18% | 53.45% / 58.92% |
+| `Answer:` | 86.59% / 84.11% | 85.42% / 83.20% | 46.48% / 51.89% |
+
+Requiring a marked line reduced the KAM–dot gap by 0.72 points for the hash prompt (95% paired item interval −1.69 to +0.20) and 0.26 for the answer prompt (−1.24 to +0.72). The strict bare-number parser shifted the gap a further 7.49 and 7.62 points toward dot, respectively. Both fitted arms used the same generated outputs throughout this audit. [SmolLM2 detail](../../results/general_benchmarks_gsm8k_formats/smollm2-marked-equivalence.json) · [Llama detail](../../results/general_benchmarks_gsm8k_formats/llama3-marked-equivalence.json) · [Audit code](../../scripts/analyze_kam_gsm8k_marked_equivalence.py)
+
 ## Reproduce
 
 Use the [fixture prep, evaluator and grader](../../scripts/kam_gsm8k_format_effects.py) with the pinned source files and previous [selection manifest](../../results/general_benchmarks_math_kl/fixture-manifest.json). The [Slurm driver](../../slurm/kam_gsm8k_format_effects.sbatch) runs each checkpoint once for all three prompts using the shared generation routine. The [summarizer](../../scripts/summarize_kam_gsm8k_format_effects.py) verifies checkpoint and fixture identity and checks that the prompt and grading changes sum to the total change. [SmolLM2 outcomes](../../results/general_benchmarks_gsm8k_formats/smollm2-outcomes.json.gz) · [Llama outcomes](../../results/general_benchmarks_gsm8k_formats/llama3-outcomes.json.gz) · [SmolLM2 receipt](../../results/general_benchmarks_gsm8k_formats/smollm2-scheduler.tsv) · [Llama receipt](../../results/general_benchmarks_gsm8k_formats/llama3-scheduler.tsv)
