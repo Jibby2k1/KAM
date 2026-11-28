@@ -36,12 +36,14 @@ class InferenceAdapter(LiveTokenAdapter):
 
 
 class InferenceStack(LiveTokenStack):
+    adapter_type = InferenceAdapter
+
     def __init__(self, model, seed, arm):
         super().__init__(model, seed, "pretrained")
         if arm == "pretrained":
             return
         for i in layers_for(model):
-            a = InferenceAdapter(model.config.hidden_size, arm, seed + i)
+            a = self.adapter_type(model.config.hidden_size, arm, seed + i)
             self.modules.append(a)
             self.handles.append(model.model.layers[i].register_forward_hook(self.hook(a)))
         self.modules.cuda()
@@ -52,7 +54,7 @@ class InferenceStack(LiveTokenStack):
             a.backend = name
 
 
-def prepare_run(root, source, work, seed, arm):
+def prepare_run(root, source, work, seed, arm, stack_factory=InferenceStack):
     manifest_path = work / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
     inputs = work / "inputs.json"
@@ -61,7 +63,7 @@ def prepare_run(root, source, work, seed, arm):
     assert manifest["protocol"] == PROTOCOL and manifest["inputs_sha256"] == digest(inputs)
     assert torch.cuda.get_device_name() == GPU
     model, tokenizer = load_registered_model(root)
-    stack = InferenceStack(model, seed, arm)
+    stack = stack_factory(model, seed, arm)
     adapter_hash = None
     if arm != "pretrained":
         name = f"{seed}-{arm}"

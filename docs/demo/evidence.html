@@ -114,6 +114,7 @@
         </tbody>
       </table>
       <p>The exact top-four kernel keeps four candidates per key tile and merges them before reading values. That extra work outweighed the sparse value reads in this implementation. Top-four lowered perplexity by 0.44% on 48 independent PG-19 test books. On 320 long MuSiQue questions, the top-four retrieval lead shrank to 0.42 percentage points after subtracting swapped-order margins, with a paired interval that included zero. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/LONG_SPARSE_CONFIRMATION.md">Long-context study and measurement scope</a></p>
+      <p>We then ranked blocks using four representative means and scored the original keys in eight selected blocks. This recovered the exact set on 41% of audited head queries while keeping perplexity and mirrored retrieval close to exact top-four. At 8,192 tokens the adapter kernel ran 18% faster than Flash, including shortlist construction. Full-reader latency and peak memory showed no gain. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/BLOCK_SHORTLIST.md">Block shortlist experiment</a></p>
     </section>
     <section id="math-evaluation">
       <h2>Grade the mathematics across answer forms</h2>

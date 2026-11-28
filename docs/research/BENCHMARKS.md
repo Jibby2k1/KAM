@@ -219,6 +219,10 @@ Reuse the three matched linear checkpoints at 4,096-token context on 48 new PG-1
 
 The perplexity difference was −0.44% under both parity-gated and common-reference scoring. The exploratory mirrored-margin retrieval gap was +0.42 points [−1.22, +2.05] under parity-gated scoring and +1.25 [−0.20, +2.76] under the common scorer. At 4,096 tokens, full-reader p50 was 193.32 ms with Flash and 193.58 ms with exact sparse value reads, with 469.14 MiB of incremental peak allocation in both cases. [Backend parity, common-scorer control and ICML decision](LONG_SPARSE_CONFIRMATION.md)
 
+### Shortlisting the top-four read
+
+On the same 4,096-token holdout and three top-four checkpoints, eight blocks scored 22.09% of eligible token keys. Exact-key recall was 72.25%, and 40.97% of sampled head queries recovered all four. Perplexity was 10.2083 versus 10.2098 for exact top-four. Mirrored MuSiQue was 68.33% versus 68.44%. Including proxy construction and lookup, the eight-block kernel took 87.50 µs versus 49.63 µs for Flash at 4,096 tokens. It beat Flash in isolation at 8,192 tokens. Batch-one full-reader latency and allocation offered no improvement. [All three budgets, peak memory and paired comparisons](BLOCK_SHORTLIST.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
