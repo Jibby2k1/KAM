@@ -271,6 +271,8 @@ On held-out QuALITY articles, the fitted two-pass margin gate deferred 1.34% of 
 
 On 13 leave-one-book-out calibration folds, a four/eight/twelve layer allocation reduced relative squared output error from 4.755% to 4.444% at the same nominal block budget. Mass gain and output-error reduction had layerwise Pearson correlation −0.01. These are frozen-activation reconstruction metrics. [Derivation, counterexample and calibration replay](ATTENTION_MASS_AND_RECONSTRUCTION.md)
 
+The fraction of MuSiQue predictions where Flash led by at most half a logit rose from 44.79% at 4K to 86.46% at 8K. The final window changed 20.05% and 51.04% of decisions at those widths, even as its median centered logit error fell. On intact QuALITY it changed 3 of 689 decisions with a Flash lead above two logits. [Decision stability across corpora](DECISION_MARGIN_STABILITY.md)
+
 Six matched adapter continuation jobs completed at 9,068–9,079 input tokens/s for Flash and 7,387–7,615 tokens/s for differentiable sparse attention. HPG canceled the quality evaluation array. [Training fidelity and receipts](SPARSE_ADAPTER_RECOVERY.md)
 
 ### Release-clock follow-up
