@@ -38,13 +38,15 @@ def question(task, case, index):
 
 
 @torch.inference_mode()
-def next_logits(model, stack, tokens, mask, cached=None, use_cache=False):
+def next_logits(model, stack, tokens, mask, cached=None, use_cache=False, *, projection=None):
     positions = (mask.long().cumsum(-1) - 1).clamp_min(0)[:, -tokens.size(1):]
     stack.context(mask, use_cache)
     with mixed_precision():
         result = model.model(input_ids=tokens, attention_mask=mask, position_ids=positions,
                              past_key_values=cached, use_cache=use_cache)
-        top = model.lm_head(result.last_hidden_state[:, -1:, :])[:, 0, :]
+        hidden = result.last_hidden_state[:, -1:, :]
+        logits = model.lm_head(hidden) if projection is None else torch.nn.functional.linear(hidden, projection)
+        top = logits[:, 0, :]
     return top.float(), result.past_key_values
 
 

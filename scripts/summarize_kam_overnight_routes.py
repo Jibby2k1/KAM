@@ -11,6 +11,7 @@ from kam_math_kl_protocol import test_runs, write_json
 from kam_musique_live_routes import ROUTE_SETS, SHORT_MIRROR_PROTOCOL
 from kam_musique_native_routes import PROTOCOL as NATIVE_PROTOCOL, ROUTES as NATIVE_ROUTES
 from probe_kam_batch_retirement import PROTOCOL as RETIREMENT_PROTOCOL
+from probe_kam_restricted_readout import PROTOCOL as READOUT_PROTOCOL
 from summarize_kam_adapter_preservation import read_archive
 from summarize_kam_pretrained_endpoint_selection import family_difference
 
@@ -167,15 +168,41 @@ def retirement(work, manifest_path, study):
             "outcome_sha256": hashes}
 
 
+def readout(work, manifest_path, study):
+    manifest = json.loads(manifest_path.read_text())
+    checkpoints, hashes = {}, {}
+    for name, _, data, fingerprint in verified(work, manifest_path, study, "readout", READOUT_PROTOCOL):
+        rows = data["records"]
+        assert len(rows) == 8 * len(manifest["pairs"]) and {r["pair"] for r in rows} == set(manifest["pairs"])
+        checkpoints[name], hashes[name] = {}, fingerprint
+        for width in (1, 2):
+            group = [r[f"width_{width}"] for r in rows]
+            scores = {mode: np.array([r[mode]["logits"] for r in group]) for mode in ("full", "sliced")}
+            margins = {mode: logit[..., 1] - logit[..., 0] for mode, logit in scores.items()}
+            if width == 2:
+                margins = {mode: matrix[:, :1] - matrix[:, 1:] for mode, matrix in margins.items()}
+            absolute = np.abs(scores["full"] - scores["sliced"])
+            assert absolute.shape == (len(rows), width, 2) and np.isfinite(absolute).all()
+            checkpoints[name][width] = {
+                "requests": len(rows), "exact_logits": int((absolute == 0).all(axis=(1, 2)).sum()),
+                "exact_decisions_with_ties": int((np.sign(margins["full"]) == np.sign(margins["sliced"])).sum()),
+                "max_abs_logit_delta": float(absolute.max()),
+                "elapsed_ms": {mode: timing([r[mode]["median_ms"] for r in group]) for mode in scores},
+            }
+    return {"manifest_sha256": digest(manifest_path), "checkpoints": checkpoints, "outcome_sha256": hashes}
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("kind", choices=("live", "retirement"))
+    parser.add_argument("kind", choices=("live", "retirement", "readout"))
     for name in ("work", "manifest", "study", "output"):
         parser.add_argument(name, type=Path)
     parser.add_argument("--calibration", type=Path)
     args = parser.parse_args()
     if args.kind == "live":
         result = live(args.work, args.manifest, args.study, args.calibration)
-    else:
+    elif args.kind == "retirement":
         result = retirement(args.work, args.manifest, args.study)
+    else:
+        result = readout(args.work, args.manifest, args.study)
     write_json(args.output, result)
