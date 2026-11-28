@@ -52,6 +52,12 @@ The primary replication endpoint is Llama's KAM–dot difference on noninteger a
 
 The balanced replication returned a Llama interaction of −1.53 points [−6.83, +3.91]. The evidence favors reporting the small overall differences and treating answer-type effects as fixture dependent. For general-purpose evaluations, lock a shared equivalence grader, use several independent datasets and track answer syntax as its own outcome. The next architecture claims should test tasks where access to specific evidence is required by construction. [Replication and figure](MATH_ANSWER_TYPES.md)
 
+For a future confirmation, set the smallest useful effect before choosing the cohort size. As a planning calculation, average the paired binary differences across the three measured seeds for each item. With observed item variance `s²` and target gap `d`, a two-sided normal approximation at 5% size and 80% power gives `n ≈ 7.85 s² / d²`. At a two-point target, the observed Llama variances imply about 1,800–1,900 matched items. The SmolLM2 estimates give about 1,200–1,500. These estimates condition on the present seeds and use independent items. Register more training seeds and account for source, template or relation clustering when the intended inference extends to those populations. [Original numeric outcomes](FULL_MATH500.md#reproduce) · [Balanced numeric outcomes](MATH_ANSWER_TYPES.md#reproduce)
+
+### Protecting baseline capability
+
+Both fitted arms in all three seeds lost 21 answers the untouched Llama got right on MATH-500 and 14 on the disjoint balanced cohort. Eleven and nine of those shared losses reached EOS with extractable expressions in all six fits. Count these alongside recoveries whenever changing the training exposure or insertion point. To diagnose a shared loss, use separately held development items to compare a matched neutral teacher trajectory with early-layer and late-layer residual activation. Include zero residual as an identity check, match the number of added parameters, and preserve the fixed-KL adapters as the benchmark reference. Evaluate any selected design only on fresh held-out problems. [Full-set retention](FULL_MATH500.md#retention-of-untouched-answers) · [Balanced retention](MATH_ANSWER_TYPES.md#retention-on-the-balanced-cohort)
+
 ### Llama residual amplitude and termination
 
 The original Llama comparison found 23.93% of KAM completions and 14.07% of dot completions reached the token cap. A fixed lexical repetition measure flagged about half of the excess KAM cap hits. To test whether residual output amplitude contributes to this difference, multiply all four adapter output projections by 0.5 during inference for both matched arms and all three seeds. Reuse the same KL-0.5 checkpoints, full MATH-500 prompt, generation cap, batch grouping and equivalence grader. Check original checkpoint hashes and use a separate output directory and protocol identifier.
@@ -76,6 +82,17 @@ Then time matched seed-731221 Llama KAM and dot with the gate enabled and disabl
 | Can updating memory help across revision releases? | Replay actual release histories with causal cutoff admission. Hold alias resolution and answer feedback constant while varying retrieval and memory update. | Current-version match, stale-return rate, expected calibration error and coverage at a fixed precision threshold |
 
 Keep evaluation questions and linked distractors separate from fitting and calibration. Report corpus coverage, selection conditional on coverage, and final answer performance separately. Verify that normalized title aliases and temporal facts existed at the recorded cutoff. Evaluate alias abstention, ambiguous collision resolution, and output validity as separate mechanisms. These comparisons use the previously published routing and revision fixtures as references. [Evidence and reproducibility index](RESULTS.md)
+
+### Benchmark transfer and natural noise
+
+| Track | Held-out unit and controls | What would justify expansion |
+| --- | --- | --- |
+| Quantitative reasoning | Freeze source revisions and exact-match deduplication across training, development and test. Size the primary paired comparison before generating. Use untouched references, a shared scorer and a single answer prompt per backbone. Keep generation quality and syntax compliance as separate outcomes. | A useful paired gain or a reproducible change in baseline retention at matched decode work. |
+| Multi-hop evidence | Hold out whole relation families or source questions. Keep candidate order mirrored and use natural distractors that have the right answer type. Report evidence absent from the candidate pool separately. | A gain on both-order selection and end-to-end joint exact match that remains on a new source. |
+| Revision memory | Hold out an entire new archive and release window. Construct answerable queries from observable release records, including same-effective-date corrections and publication/ingestion disagreements. Use matched verified aliases and noisy distractors. Freeze abstention and disambiguation under distinct development objectives. | Improved current-version accuracy and stale-return rate at fixed calibrated coverage, with similar performance on unseen names and date renderings. |
+| Compute under load | Replay identical prompts and output budgets across a warmed singleton and at least two arrival rates. Use architecture-matched controls before comparing GPU types. Record p50/p95 request latency, samples per second, memory and actual batch occupancy. | A measured change in the latency–quality trade-off on the paired outputs. |
+
+On each track, keep a small diagnostic cohort for model selection and a sealed evaluation cohort for publication. When a result changes the next comparison, state which mechanism remains plausible, freeze the one control that can distinguish it, and preserve the earlier report. Keep the dataset, grader, seed and hardware identifiers in the same result record so the scorecard can compare like-for-like runs. [Dataset portfolio](DATASET_PORTFOLIO.md)
 
 ### Frozen adapter choice on matched MuSiQue endpoints
 

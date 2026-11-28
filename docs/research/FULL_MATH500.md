@@ -21,6 +21,15 @@ Scores are means across the three seeds and use the full 1,024-token cap. The 95
 
 SmolLM2's KAM–dot differences by seed were +0.20, −0.60, and +2.60 points. Llama's were −1.40, −0.60, and +0.60. Both full-set intervals span zero. [SmolLM2 summary](../../results/general_benchmarks_full_math500/smollm2-summary.json) · [Llama summary](../../results/general_benchmarks_full_math500/llama3-summary.json)
 
+### Retention of untouched answers
+
+| Backbone | KAM gains / losses, mean counts | Dot gains / losses, mean counts | Correct answers lost in all six fits | New answers gained in all six fits |
+| --- | ---: | ---: | ---: | ---: |
+| SmolLM2 | 24.7 / 21.0 | 34.0 / 34.0 | 5 of 114 | 7 |
+| Llama 3 | 51.0 / 59.7 | 51.0 / 57.3 | 21 of 147 | 12 |
+
+Gain and loss are measured against the untouched model on the same questions. Llama lost 21 answers in every fitted checkpoint. The grader extracted answers for all 21 in every fit, and 11 reached EOS in every fit. This identifies shared regressions even on outputs that finished and supplied an extractable expression. [SmolLM2 retention](../../results/general_benchmarks_full_math500/smollm2-retention.json) · [Llama retention](../../results/general_benchmarks_full_math500/llama3-retention.json) · [Analysis source](../../scripts/analyze_kam_math_retention.py)
+
 ### Integer and noninteger answers
 
 | Backbone and subset | Untouched | KAM | Dot | KAM minus dot (95% interval) |
