@@ -25,11 +25,11 @@ SHORT_MIRROR_ROUTES = ("lexical", "mirrored", "lexical_mirrored")
 ROUTE_SETS = {PROTOCOL: ROUTES, LEXICAL_PROTOCOL: LEXICAL_ROUTES, SHORT_MIRROR_PROTOCOL: SHORT_MIRROR_ROUTES}
 
 
-def prepare(source, prior, output):
+def prepare(source, prior, output, *, protocol=PROTOCOL, reserved_ids=(), pair_cap=96, hold_families=True):
     old = json.loads(prior.read_text())
-    reserved_family = {r["family"] for r in old}
+    reserved_family = {r["family"] for r in old} if hold_families else set()
     reserved = [q for pair in old for q in pair["questions"]]
-    ids = {q["id"] for q in reserved}
+    ids = {q["id"] for q in reserved} | set(reserved_ids)
     wordings = {tuple(words(q["question"])) for q in reserved}
     used_titles = {title_key(p["title"]) for q in reserved for p in q["evidence"]}
     buckets = defaultdict(list)
@@ -45,13 +45,13 @@ def prepare(source, prior, output):
                         buckets[split, item["family"]].append(item)
     pairs = []
     split_counts = defaultdict(int)
-    for (split, family), options in sorted(buckets.items(), key=lambda kv: (kv[0][0], stable(PROTOCOL + kv[0][1]))):
-        if split_counts[split] >= 96:
+    for (split, family), options in sorted(buckets.items(), key=lambda kv: (kv[0][0], stable(protocol + kv[0][1]))):
+        if split_counts[split] >= pair_cap:
             continue
-        ordered = sorted(options, key=lambda r: stable(PROTOCOL + r["id"]))
+        ordered = sorted(options, key=lambda r: stable(protocol + r["id"]))
         accepted = 0
         for i, left in enumerate(ordered):
-            if accepted >= 3 or split_counts[split] >= 96:
+            if accepted >= 3 or split_counts[split] >= pair_cap:
                 break
             if left["id"] in ids:
                 continue
@@ -65,7 +65,7 @@ def prepare(source, prior, output):
                 if right["id"] in ids or right_words in wordings or right_words == left_words or right_titles & used_titles:
                     continue
                 if compatible(left, right):
-                    pairs.append({"id": stable(PROTOCOL + left["id"] + "|" + right["id"]),
+                    pairs.append({"id": stable(protocol + left["id"] + "|" + right["id"]),
                                   "family": stable(family), "split": split, "hops": 2, "questions": [left, right]})
                     used_titles.update(left_titles | right_titles)
                     wordings.update((left_words, right_words))
@@ -78,7 +78,7 @@ def prepare(source, prior, output):
     panel = output / "panel.json"
     write_json(panel, pairs)
     write_json(output / "manifest.json", {
-        "protocol": PROTOCOL, "source_sha256": digest(source), "members": MEMBERS,
+        "protocol": protocol, "source_sha256": digest(source), "members": MEMBERS,
         "prior_panel_sha256": digest(prior), "panel_sha256": digest(panel), "routes": ROUTES,
         "cases": [{"pair": p["id"], "family": p["family"], "split": p["split"],
                    "questions": [q["id"] for q in p["questions"]]}
