@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Grade changed retirement completions and strip the raw texts."""
 import argparse
+from collections import Counter
 import json
 from pathlib import Path
 
@@ -30,9 +31,42 @@ def grade(raw_path, work, output):
     write_json(output, raw)
 
 
+def summarize(graded, baseline, published_summary):
+    registered = json.loads(published_summary.read_text())
+    result, fingerprints = {}, {}
+    for name, frozen_sha in registered["outcome_sha256"].items():
+        prior, current = (folder / f"retire-{name}.json" for folder in (baseline, graded))
+        assert frozen_sha == digest(prior)
+        reference, observed = [json.loads(path.read_text()) for path in (prior, current)]
+        before, after = reference["metadata"], observed["metadata"]
+        assert all(after[key] == value for key, value in before.items() if key != "protocol")
+        assert after["baseline_sha256"] == frozen_sha and after["protocol"] == AUDIT_PROTOCOL
+        assert after["grading"] == GRADER_VERSIONS
+        result[name], fingerprints[name] = {}, digest(current)
+        for width, old in reference["widths"].items():
+            table = Counter({"gained": 0, "lost": 0, "both_correct": 0, "both_incorrect": 0})
+            rows = observed["widths"][width]["records"]
+            for a, b in zip(old["records"], rows, strict=True):
+                assert a == {k: v for k, v in b.items() if k not in ("fixed", "retired")}
+                if not b["exact"]:
+                    answer = b["fixed"]["correct"], b["retired"]["correct"]
+                    labels = {(False, True): "gained", (True, False): "lost", (True, True): "both_correct",
+                              (False, False): "both_incorrect"}
+                    table[labels[answer]] += 1
+            result[name][width] = {"outcomes": len(rows), "changed": sum(table.values()), **table}
+    return {"prior_summary_sha256": digest(published_summary), "checkpoints": result, "outcome_sha256": fingerprints}
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    for name in ("raw", "work", "output"):
-        parser.add_argument(name, type=Path)
+    commands = parser.add_subparsers(dest="command", required=True)
+    for operation, arguments in (("grade", ("raw", "work", "output")),
+                                 ("summarize", ("graded", "baseline", "prior_summary", "output"))):
+        command = commands.add_parser(operation)
+        for name in arguments:
+            command.add_argument(name, type=Path)
     args = parser.parse_args()
-    grade(args.raw, args.work, args.output)
+    if args.command == "grade":
+        grade(args.raw, args.work, args.output)
+    else:
+        write_json(args.output, summarize(args.graded, args.baseline, args.prior_summary))

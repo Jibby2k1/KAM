@@ -91,6 +91,8 @@ The probe failed the all-token parity requirement at both widths. The untouched 
 
 Replay the same batches once per mode and verify the previously measured token-change and EOS flags. Grade the changed completions with the shared mathematical equivalence protocol. Count gains and losses separately by width and seed. This determines whether observed text changes affect verified answers in the probe; the exact-output gate remains in force. [Grade audit](../../scripts/grade_kam_retirement_audit.py)
 
+The replay reproduced the registered mismatch flags, output lengths and EOS outcomes across all seven checkpoints. At width eight, every mathematical grade agreed despite 23 changed traces across the checkpoints. At width 32, KAM lost one verified answer across 96 outcomes. Dot gained one and lost one across 96. Untouched Llama gained two across 32. The width-32 timing gain came with both token differences and task-level changes. Keep fixed-batch generation as the reference. [Paired grade audit](../../results/general_benchmarks_overnight/retirement-audit-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/retirement-audit-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/retirement-audit-scheduler.tsv)
+
 ## Public release clocks
 
 Join stable releases from six public projects on the exact version string. Use the GitHub release publication timestamp and the earliest currently archived non-yanked PyPI file upload. Restrict both timestamps to 2019–2025. These are two recorded publication channels. The study uses a pinned snapshot of versions present in both sources, including historical times at which the two views differed.
