@@ -275,6 +275,10 @@ On 13 leave-one-book-out calibration folds, a four/eight/twelve layer allocation
 
 On a separate 16-book SmolLM2 panel, omitted eight-token mean summaries reduced frozen projected error by 10.71%. Live 4K perplexity was 13.58 for dense, 15.14 for protected shortlisting, and 15.07 with the mean summaries. The paired mean-summary NLL interval included zero. [Pretrained SmolLM2 reconstruction and live replay](OMITTED_BLOCK_SUMMARIES.md)
 
+The same pretrained model assigned at least 95% of dense attention mass to the protected shortlist on 39.40% of sampled rows. The compact mathematical bound certified zero of 967,680 samples even when evaluated separately per query. [Certificate on real attention states](PRETRAINED_MASS_CERTIFICATE.md)
+
+On eight calibration-held-out PG-19 books, the restricted dense head-group selection lowered projected error by 23.00% and live perplexity to 13.91 from 13.99 for the same-budget calibrated whole layers. Unrestricted head groups reached 13.82 and full dense reached 13.46. The prototype used Apple M5, with a separate per-presentation latency control. [Head scope, perplexity and prefill](HEAD_SELECTIVE_FLASH.md)
+
 The fraction of MuSiQue predictions where Flash led by at most half a logit rose from 44.79% at 4K to 86.46% at 8K. The final window changed 20.05% and 51.04% of decisions at those widths, even as its median centered logit error fell. On intact QuALITY it changed 3 of 689 decisions with a Flash lead above two logits. [Decision stability across corpora](DECISION_MARGIN_STABILITY.md)
 
 Six matched adapter continuation jobs completed at 9,068–9,079 input tokens/s for Flash and 7,387–7,615 tokens/s for differentiable sparse attention. HPG canceled the quality evaluation array. [Training fidelity and receipts](SPARSE_ADAPTER_RECOVERY.md)

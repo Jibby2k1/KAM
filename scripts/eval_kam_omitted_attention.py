@@ -100,6 +100,10 @@ def scored(model, tokens, policy):
 
     AttentionInterface.register(PROTOCOL, model_attention)
     model.config._attn_implementation = PROTOCOL
+    return token_loss(model, tokens)
+
+
+def token_loss(model, tokens):
     states = model.model(tokens, use_cache=False).last_hidden_state[0, -SCORE-1:-1]
     target = tokens[0, -SCORE:]
     total = sum(F.cross_entropy(model.lm_head(x), labels, reduction="sum")
