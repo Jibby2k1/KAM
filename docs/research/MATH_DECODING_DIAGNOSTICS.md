@@ -72,3 +72,16 @@ The excess KAM cap-hit rate decreased from 9.87 to 2.73 points. The paired chang
 | Dot, half | 28.87% | 9.97% | 3.28% | 302.85 | 482.53 |
 
 The registered cap-hit gap changed from 6.21 to 1.12 points, a paired reduction of **5.09 points** [2.09, 8.16]. The cap-hit gap fell in all three seeds on both math cohorts. The accuracy-gap change was +1.39 points [−2.02, +4.81]. Mean batch-64 time stayed within one second per arm. This replication establishes an effect on how often the model reaches the cap on these cohorts. [Replication summary](../../results/general_benchmarks_math_types/llama3-half-scale-summary.json) · [Numeric outcomes](../../results/general_benchmarks_math_types/llama3-half-scale-outcomes.json.gz) · [Repetition flags](../../results/general_benchmarks_math_types/llama3-half-scale-repetition.json) · [Scheduler receipt](../../results/general_benchmarks_math_types/llama3-half-scale-scheduler.tsv) · [Summarizer](../../scripts/summarize_kam_math500_half_scale.py)
+
+## Exact changes to the decoder loop
+
+The old greedy decoder copied the argmax token to the host for EOS handling and uploaded it again for the next model step. Reusing the original GPU tensor removes that upload. A separate probe kept the GPU tensor reuse and polled for EOS every eight steps. Both probes matched every token and stop reason across variants on the seed-731221 Llama checkpoints. The batch-64 output also matched the archived MATH-500 prefix exactly.
+
+| Probe and adapter | Batch-one elapsed, before → after | Batch-64 elapsed, before → after |
+| --- | ---: | ---: |
+| Reuse token tensor, KAM | 18.84 → 18.79 s | 13.63 → 13.54 s |
+| Reuse token tensor, dot | 15.91 → 15.90 s | 13.64 → 13.46 s |
+| Poll EOS every eight, KAM | 18.80 → 18.87 s | 13.62 → 13.38 s |
+| Poll EOS every eight, dot | 15.87 → 16.04 s | 13.66 → 13.30 s |
+
+Each cell is the median of two passes per path in ABBA order. The faster-looking grouped-EOS batch-64 medians include a slower first control pass. Comparing grouped medians with the final control changes the estimates to about 0.2% slower for KAM and 0.6% faster for dot. Grouped polling executed up to seven surplus steps after the first EOS on singleton requests. This supports keeping the simpler token reuse and evaluating grouped polling across warmed request mixes before treating it as an optimization. [Numeric timings and parity lineage](../../results/general_benchmarks_full_math500/llama3-decoder-loop-timings.json.gz) · [Transport receipts](../../results/general_benchmarks_full_math500/llama3-token-transport-scheduler.tsv) · [Grouped EOS receipts](../../results/general_benchmarks_full_math500/llama3-eos-poll-scheduler.tsv)

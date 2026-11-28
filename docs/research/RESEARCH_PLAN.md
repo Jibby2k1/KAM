@@ -137,6 +137,8 @@ The greedy decoder already has the selected token as a GPU tensor. Keep that ten
 
 On the same two checkpoints and panels, compare polling for EOS each step with checking a block of eight selected token tensors together. Keep the first EOS as each request's cutoff and require exact equality of the visible token and EOS-or-cap traces. The grouped path can perform up to seven surplus steps after a batch's last visible token. Record those steps and paired elapsed time, and scope the comparison to generation with EOS or a fixed cap. Use the same within-GPU ABBA order. [Grouped EOS probe](../../scripts/probe_kam_decoder_eos_poll.py)
 
+Both loop changes passed token and EOS parity. Reusing the token tensor simplifies transfer with sub-two-percent differences in the measured panels. Grouped polling added work at batch one, and its batch-64 timing advantage largely disappeared when compared with the final control pass. Prioritize measured batch retirement and workload-aware profiling before more host-polling changes. [Decoder loop timings](MATH_DECODING_DIAGNOSTICS.md#exact-changes-to-the-decoder-loop)
+
 ## Publication checkpoints
 
 | Checkpoint | Evidence required | Publish |
