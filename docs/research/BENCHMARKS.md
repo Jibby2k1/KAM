@@ -161,6 +161,8 @@ The archive-last condition changed the KAM–dot gap by +2.60 points [−4.80, +
 
 On the 94-question matched subset at exact input length, replacing the same-topic archive with a different-topic archive raised KAM from 46.10% to 74.11% and dot from 43.62% to 66.31%. The paired difference between these two gains spans zero. [Exact-length control](TABMWP_ARCHIVE_NOISE.md#exact-length-different-topic-control)
 
+On 128 fresh questions from previously unused title/header groups, typed current-table selection scored 50.78% KAM and 49.48% dot. Direct reading with the archive last scored 27.86% and 24.48%. The typed route used the correct caller-supplied record ID. [Overnight TabMWP follow-up](OVERNIGHT_ROUTING.md#fresh-tabmwp-results)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.

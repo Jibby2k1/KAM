@@ -9,6 +9,16 @@ The prior MuSiQue study composed the two sequential decisions from separately st
 
 Report all matched seeds and untouched runs. Keep success rates paired by source family and timing summaries paired by request. Use the results to choose the next control, including a sharper latency comparison when routes have overlapping latency distributions.
 
+## Fresh TabMWP results
+
+| Supplied context | Untouched Llama | KAM | Dot |
+| --- | ---: | ---: | ---: |
+| Typed selection of the current table | 47.66% | 50.78% | 49.48% |
+| Archive before current | 30.47% | 29.95% | 21.88% |
+| Archive after current | 28.12% | 27.86% | 24.48% |
+
+The archive-last drop from the typed route was 22.92 points for KAM and 25.00 for dot. The change in the KAM–dot gap was +2.08 points with a 95% family-bootstrap interval of −4.72 to +8.85. All seven checkpoints reproduced the current-only input tokens on all 128 queries, and the router rejected the missing-ID and duplicate-ID controls. The exact training-source audit found zero normalized overlaps across both fresh fixture sets. [Paired summary](../../results/general_benchmarks_overnight/tabmwp-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/tabmwp-outcomes.json.gz) · [Scheduler receipt](../../results/general_benchmarks_overnight/tabmwp-scheduler.tsv) · [Source audit](../../results/general_benchmarks_overnight/source-overlap.json)
+
 ## Physical batch retirement probe
 
 Use the 32 hash-first questions from the fresh TabMWP split and the verified current-table prompt. Compare batch widths eight and 32. The fixed run keeps all cache rows until the last request stops. The retirement run checks every 16 steps and selects the still-active cache rows once at least one quarter have stopped. Keep both the backbone and residual dot caches aligned. Time each mode twice in ABBA order on the same GPU after a fixed-width warmup. Count scheduled token slots, active decode steps and complete token/EOS parity. Treat a speed change as usable at a measured width only if every token trace agrees. [Probe](../../scripts/probe_kam_batch_retirement.py)

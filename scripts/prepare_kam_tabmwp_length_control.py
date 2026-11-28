@@ -25,7 +25,7 @@ def archive_width(tokenizer, title, table):
     return len(tokenizer.encode(f"Archived table: {title}\n{table}\n\n", add_special_tokens=False))
 
 
-def prepare(root, original, dev, output):
+def prepare(root, original, dev, output, reserve=None):
     from transformers import AutoTokenizer
 
     assert model_identity(root)[0] == LLAMA_ID
@@ -39,9 +39,11 @@ def prepare(root, original, dev, output):
     rows, manifest_sha = load_panel(original)
     assert digest(dev) == SOURCE_HASHES["dev"]
     used = {table_key(row["title"], row[field]) for row in rows for field in ("current", "archived")}
+    reserved = json.loads(reserve.read_text())["cases"] if reserve else []
+    heldout_donors = {r[field] for r in reserved for field in ("donor", "control_donor")}
     donors = defaultdict(list)
     for ident, donor in json.loads(dev.read_text()).items():
-        if not eligible_table(donor):
+        if ident in heldout_donors or not eligible_table(donor):
             continue
         title, text = donor["table_title"], donor["table"]
         identity = table_key(title, text)
@@ -75,6 +77,7 @@ def prepare(root, original, dev, output):
         "tokenizer_sha256": tokenizer_sha, "panel_sha256": digest(fixture), "n": len(controls),
         "n_by_grade": grade_counts, "eligible_original_n": len(rows),
         "cases": [{k: r[k] for k in ("id", "donor", "control_donor", "grade", "family")} for r in controls],
+        **({"reserved_manifest_sha256": digest(reserve)} if reserve else {}),
     })
 
 
@@ -82,5 +85,6 @@ if __name__ == "__main__":
     cli = argparse.ArgumentParser(description=__doc__)
     for name in ("root", "original", "dev", "output"):
         cli.add_argument(name, type=Path)
+    cli.add_argument("--reserve", type=Path)
     args = cli.parse_args()
-    prepare(args.root, args.original, args.dev, args.output)
+    prepare(args.root, args.original, args.dev, args.output, args.reserve)

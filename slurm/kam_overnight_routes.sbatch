@@ -13,6 +13,7 @@ module load pytorch/2.8.0
 root=$1
 work=$2
 script=$3
+shift 3
 export PYTHONPATH="$work:$root/runtime:$root/repo:$root"
 export OMP_NUM_THREADS=4
-python "$work/$script" evaluate "$root" "$work" "$SLURM_ARRAY_TASK_ID"
+python "$work/$script" evaluate "$root" "$work" "$SLURM_ARRAY_TASK_ID" "$@"
