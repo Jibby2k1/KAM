@@ -75,6 +75,12 @@ Then time matched seed-731221 Llama KAM and dot with the gate enabled and disabl
 
 Keep evaluation questions and linked distractors separate from fitting and calibration. Report corpus coverage, selection conditional on coverage, and final answer performance separately. Verify that normalized title aliases and temporal facts existed at the recorded cutoff. Evaluate alias abstention, ambiguous collision resolution, and output validity as separate mechanisms. These comparisons use the previously published routing and revision fixtures as references. [Evidence and reproducibility index](RESULTS.md)
 
+### Frozen adapter choice on matched MuSiQue endpoints
+
+Reuse the previous two-hop MuSiQue endpoint challenge's 84 accepted pairs across 35 relation families. Each question has two plausible endpoint passages. Test the same SmolLM2 and Llama KAM, dot, and untouched checkpoints using the initial question with both candidates, the verified earlier passage with both candidates, and the competing question's earlier passage with both candidates. Reverse the candidate order for each question. The true and crossed prompts have exactly matched earlier token counts within each backbone and identical remaining token IDs.
+
+Use the model's next-token choices for A and B. The primary outcome is the fraction of questions correctly resolved in both endpoint orders when the verified earlier passage is present. Also report the corresponding endpoints-only accuracy, order sensitivity, and how often reversing earlier evidence moves the selected passage to the competing endpoint. Keep the pretrained benchmark comparison paired across seeds and group intervals by relation family. This diagnostic measures conditioning given a fixed foil pair and supplied evidence. [Prior matched endpoint study](../../reports/nonlinear_retrieval_natural/MUSIQUE_ENDPOINT_ROUTING.md)
+
 ## 4. Make efficiency a matched measurement
 
 - **Model architecture.** Record active parameters, trainable parameters, residual cache bytes, decode length, and measured load, prefill and decode time. Compare at fixed output budget and record throughput conditional on equivalent outputs. Add input-length and batch-size buckets where they can change the result.
