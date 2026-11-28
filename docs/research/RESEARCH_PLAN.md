@@ -58,6 +58,8 @@ The original Llama comparison found 23.93% of KAM completions and 14.07% of dot 
 
 The primary diagnostic is the change in the paired KAM–dot cap-hit gap between the original and half-scaled runs. Also report absolute cap rates, mean generated tokens, repeated suffixes, correctness and matched generation time. Treat the fixed half-scale intervention as a diagnostic on the same fixture. A smaller cap gap accompanied by lower accuracy would motivate a separate development-only choice of stopping policy or residual strength.
 
+On MATH-500, half-scale reduced the cap-hit gap by 7.13 points, while the interval for its accuracy-gap change spans zero. Replay the same intervention with the three seed-matched Llama pairs on the balanced 478-item cohort. Use cap-hit gap change as the primary diagnostic and report accuracy and throughput in the same table. Freeze the scale at one half before this replication. [Decoding diagnostics](MATH_DECODING_DIAGNOSTICS.md#half-residual-amplitude)
+
 ### Decode-time repetition gate
 
 Flag a completion at token 384 when at least 75% of six-token lexical windows repeat within its last 144 lexical tokens. Freeze this rule before examining its scores on the balanced MATH cohort. Replay the rule on the original token trajectories first. Report which continuations were stopped, any loss of verified answers, and work measured as live decoder steps or batch token slots. These counts predict different effects at individual and batched request sizes.

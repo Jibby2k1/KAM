@@ -46,12 +46,12 @@ def generate_checkpoint(root, work, index, replication=False, half_scale=False):
     target = work / f"neutral-{ident}.json"
     model, tokenizer, stack, metadata = load_checkpoint(root, *task)
     if half_scale:
-        assert not replication and model_id == LLAMA_ID and task[2] in ("kam", "dot")
+        assert model_id == LLAMA_ID and task[2] in ("kam", "dot")
         with torch.no_grad():
             for module in stack.modules:
                 module.up.weight.mul_(0.5)
-        protocol = "kam-math500-neutral-half-scale-v1"
-        fixture_metadata = {"residual_projection_scale": 0.5}
+        protocol = protocol.removesuffix("-v1") + "-half-scale-v1"
+        fixture_metadata["residual_projection_scale"] = 0.5
     gpu = torch.cuda.get_device_name()
     assert gpu == "NVIDIA RTX PRO 6000 Blackwell Server Edition"
     texts = [
