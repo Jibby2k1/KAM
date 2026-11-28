@@ -45,10 +45,10 @@ def correct(logits, answer):
     return np.where(matched,logits,-np.inf).max(-1)>np.where(matched,-np.inf,logits).max(-1)
 
 
-def choose(score, fast_ok, full_ok, cost, end):
+def choose(score, fast_ok, full_ok, cost, end, *, budget_fraction=1.0):
     cap=np.broadcast_to(end,score.shape)
     initial_cost=float(cost.mean())
-    budget=float(cap.mean())
+    budget=float(budget_fraction * cap.mean())
     if initial_cost>budget+1e-9:
         raise ValueError("The first pass already exceeds the calibrated Flash cost")
     # Sorting and accumulating by tied confidence group avoids order artifacts at the threshold.
@@ -58,14 +58,15 @@ def choose(score, fast_ok, full_ok, cost, end):
     bill=np.cumsum(cap.flatten()[index])[exact]/score.size + initial_cost
     base_delta=(full_ok.astype(np.int8)-fast_ok.astype(np.int8)).flatten()[index]
     performance=np.cumsum(base_delta)[exact]
-    feasible=[(int(performance[i]),-float(bill[i]),float(margins[j])) for i,j in enumerate(exact) if bill[i]<=budget]
+    feasible=[(int(performance[i]),-float(bill[i]),float(margins[j])) for i,j in enumerate(exact)
+              if bill[i]<=budget and np.isfinite(margins[j])]
     win,cost,cut=max([(0,-initial_cost,None),*feasible],key=lambda x:x[:2])
     return cut, {"accuracy_gain_on_calibration":win/score.size,"mean_predicted_ms_on_calibration":-cost,
                   "calibration_flash_budget_ms":budget}
 
 
-def oracle(fast_ok,full_ok,first_ms,flash_ms):
-    budget=flash_ms.sum()-first_ms.sum()
+def oracle(fast_ok,full_ok,first_ms,flash_ms, *, budget_fraction=1.0):
+    budget=budget_fraction*flash_ms.sum()-first_ms.sum()
     changes=full_ok & ~fast_ok
     picks=np.zeros_like(changes)
     counts,min_cost=[],[]
