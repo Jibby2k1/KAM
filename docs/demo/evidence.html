@@ -125,6 +125,24 @@
       <p>Giving twelve blocks to layers where they best reconstructed Flash outputs improved 8K HotpotQA from 42.71% to 59.64% at 9.21% lower prefill latency. The same allocation increased 8K PG-19 perplexity from 10.81 to 12.60 and lost accuracy on 4K MuSiQue. Measure both tasks and both lengths before interpreting the speedup. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/LAYER_BLOCK_BUDGET.md">Matched layer-budget experiments</a></p>
       <p>On 452 QuALITY questions with intact articles, the final Flash window reached 66.59% after balancing four answer orders, versus 69.10% for full Flash and 58.04% for the protected shortlist. The reconstruction-selected allocation reached 58.78%. The final window saved 8.26% prefill time at 8,189 tokens. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/NATIVE_LONG_DOCUMENT_QA.md">Native long-document comprehension</a></p>
     </section>
+    <section id="retained-mass">
+      <h2>Why keeping more mass can move the output</h2>
+      <p>Each key has an attention weight and a scalar value. The full weighted average is zero. A shortlist divides the weighted sum of its retained values by the mass it keeps.</p>
+      <div class="equation"><span>0.50 × 0 + 0.30 × (2⁄3) + 0.20 × (−1) = 0</span></div>
+      <div class="lab" id="mass-lab" hidden>
+        <fieldset class="mass-options">
+          <legend>Retained keys</legend>
+          <label><input type="checkbox" data-mass="50" data-value-thirds="0" checked><span><strong>Key A</strong><small>50% weight · value 0</small></span></label>
+          <label><input type="checkbox" data-mass="30" data-value-thirds="2" checked><span><strong>Key B</strong><small>30% weight · value 2⁄3</small></span></label>
+          <label><input type="checkbox" data-mass="20" data-value-thirds="-3"><span><strong>Key C</strong><small>20% weight · value −1</small></span></label>
+        </fieldset>
+        <div class="number-line mass-line" aria-hidden="true"><i></i><span id="mass-marker"></span></div>
+        <div class="axis-labels" aria-hidden="true"><span>−1</span><span>−0.5</span><span>0</span><span>0.5</span><span>1</span></div>
+        <p class="mass-caption">The dashed mark is the full output. The dot is the shortlist output.</p>
+        <p class="choice" id="mass-reading" role="status"></p>
+      </div>
+      <p>Keep A alone to get output 0 with 50% of the mass. Add B to keep 80% and get (0.30 × 2⁄3) ÷ 0.80 = 0.25. Key C supplied the negative contribution that balanced B. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/ATTENTION_MASS_AND_RECONSTRUCTION.md">Derivation and measured reconstruction</a></p>
+    </section>
     <section id="math-evaluation">
       <h2>Grade the mathematics across answer forms</h2>
       <p>Equivalent answers can look different. For example, squaring both nonnegative expressions shows that √8 and 2√2 represent the same number. A symbolic grader can accept either form without requiring the model to write a special marker.</p>
@@ -198,6 +216,7 @@
       <strong>On this page</strong>
       <a href="#derive">Derive the coverage bound</a>
       <a href="#cohort-lab">Compare by cohort</a>
+      <a href="#retained-mass">Explore retained mass</a>
       <a href="#math-evaluation">Grade equivalent answers</a>
       <a href="#research">Read the studies</a>
     </nav>

@@ -202,6 +202,27 @@ function initMathGrader(select) {
   document.getElementById('math-grader-fallback').hidden = true;
 }
 
+function initRetainedMass(lab) {
+  const inputs = Array.from(lab.querySelectorAll('input[type="checkbox"]'));
+  const marker = document.getElementById('mass-marker');
+  const reading = document.getElementById('mass-reading');
+
+  function render() {
+    const kept = inputs.filter(input => input.checked);
+    const mass = kept.reduce((sum, input) => sum + Number(input.dataset.mass), 0);
+    const weightedThirds = kept.reduce((sum, input) =>
+      sum + Number(input.dataset.mass) * Number(input.dataset.valueThirds), 0);
+    const output = weightedThirds / (3 * mass);
+    for (const input of inputs) input.disabled = input.checked && kept.length === 1;
+    marker.style.left = percent((output + 1) / 2);
+    reading.textContent = `Retained mass ${mass}%. Shortlist output ${output.toFixed(2)}. Absolute error ${Math.abs(output).toFixed(2)}.`;
+  }
+
+  for (const input of inputs) input.addEventListener('change', render);
+  render();
+  lab.hidden = false;
+}
+
 if (document.getElementById('geometry')) initGeometry();
 if (document.getElementById('cutoff')) initRevision();
 const gap = document.getElementById('score-gap');
@@ -212,6 +233,8 @@ const cohort = document.getElementById('cohort');
 if (cohort) initCohorts(cohort);
 const mathGrader = document.getElementById('math-grader');
 if (mathGrader) initMathGrader(mathGrader);
+const massLab = document.getElementById('mass-lab');
+if (massLab) initRetainedMass(massLab);
 
 if (document.getElementById('outline')) {
   const oldLinks = {
