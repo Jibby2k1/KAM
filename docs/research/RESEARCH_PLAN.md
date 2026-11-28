@@ -36,6 +36,12 @@ Gold answers are parsed separately from completions and must all pass a self-equ
 4. **Transfer.** Use an independent natural math source with separately documented provenance, overlap, answer types and difficulty. Freeze it before benchmarking. Prefer an evaluation with enough items for a paired effect and coverage across answer types. Match generation budgets and use the same grader. Keep the initial MATH-500 results fixed as the first measurement. Do not retune KL from test outcomes.
 5. **Retention.** For every adapted run, publish the net number of previously correct items lost and previously missed items gained. Compare the KL/accuracy frontier on raw text, answer-cue distributions and marker-free mathematical assessment.
 
+### Locked prompt and grading intervention
+
+Use 512 unused GSM8K source-training questions, selected by SHA-256 rank after excluding the prior development set, duplicate prompts, and exact matches to earlier benchmark prompts. Check exact overlap against the frozen adapter-training corpora before analysis. Apply the previously selected KL weights to both arms and include the untouched references. Each checkpoint receives the neutral prompt and two versions with one added sentence requesting either `####` or `Answer:`. Keep batch membership, greedy decoding, the 384-token cap and EOS stopping common across prompts.
+
+First score all three generation conditions with the same pinned equivalence grader. This tests the effect of the prompt request. Then rescore the two marked conditions with the corresponding strict marker and exact number rule on the same generated text. This tests the effect of the grading rule. Report paired changes in the KAM–dot contrast for each operation and compare both with the neutral accuracy on this independent set of questions. Freeze settings before the GPU jobs and retain both mechanisms in the report even if one effect is small.
+
 ## 3. Test routing on evidence with genuine alternatives
 
 | Question | Next controlled comparison | Primary measurement |
