@@ -6,4 +6,28 @@ Each arm trains across 256 updates and 1,048,576 tokens per seed. Save and evalu
 
 Evaluate new held-out language modeling on 24 PG-19 test books and eight 512-target windows per book. Report token-weighted NLL and its exponential using the pinned Llama tokenizer. Treat books as the resampling unit. Evaluate conditional endpoint retrieval on a hash-selected fresh slice of HotpotQA. Use gold earlier passages and native linked or unlinked distractor endpoints. A question succeeds only when both A/B orders pick the annotated endpoint. Reserve previous evaluation IDs and hold the cases and visible evidence fixed across all checkpoints. This is fixed-pool evidence selection on an independent corpus. [PG-19](https://github.com/google-deepmind/pg19) · [HotpotQA](https://aclanthology.org/D18-1259/)
 
+Report descriptive retrieval results separately for questions whose longer A/B prompt is within or beyond the 512-token training window, and for linked versus unlinked foils. The aggregate retrieval score remains the primary measure.
+
 The primary checkpoint is step 256. Report seed-level results and paired book or question intervals conditional on the three fitted seeds. Compare the selection and activation main effects and their interaction. Use untouched Llama and the trained soft-linear arm as references. For a positive ICML direction, look for at least a three-point transfer gain with a paired interval excluding zero and a PG-19 loss increase bounded below 0.02 nats/token, or a clear reduction in held-out loss with preserved retrieval. These are project decision thresholds. Confirm any promising result on another held-out sample before treating it as a submission claim. A negative interpretation should separate estimates that rule out a meaningful effect from those that remain too imprecise.
+
+## Results at the matched final checkpoint
+
+We verified identical initialization and batch exposure within seed. Each fit had 2,170,880 trainable parameters and used 141.77–145.02 seconds of synchronized training time on an RTX PRO 6000. Peak allocated memory rounded to 38.02 GB in every arm. The first HPG submission stopped on a missing import before any fit began. The corrected array completed all 12 fits, all 12 checkpoint evaluations and the untouched evaluation. The evaluation retained 24 PG-19 test books and 192 previously unused HotpotQA bridge questions from the publisher’s training split. The exact normalized-text audit found no selected HotpotQA question or passage in the frozen adapter-training corpora. [Input manifest](../../results/general_benchmarks_live_token/input-manifest.json) · [Source audit](../../results/general_benchmarks_live_token/source-audit.json) · [Completed jobs](../../results/general_benchmarks_live_token/scheduler.tsv)
+
+| Adapter | PG-19 perplexity ↓ | HotpotQA endpoint in both orders ↑ | Linked | Unlinked |
+| --- | ---: | ---: | ---: | ---: |
+| Untouched Llama | 15.3979 | 42.71% | 37.50% | 47.92% |
+| Soft linear | 13.6623 | 66.84% | 60.76% | 72.92% |
+| Soft SiLU | 13.6628 | 67.71% | 62.15% | 73.26% |
+| Top-four linear | **13.6267** | 67.71% | **62.85%** | 72.57% |
+| Top-four SiLU | 13.6269 | **68.06%** | 62.50% | **73.61%** |
+
+Top-four selection reduced PG-19 NLL by 0.00262 nats/token [−0.00339, −0.00187], averaging across activations. The three seed-level changes were −0.00054, −0.00191 and −0.00541. The implied perplexity reduction was about 0.26%. The corresponding retrieval effect was +0.61 points [−1.48, +2.86]. SiLU changed NLL by +0.00003 [−0.00005, +0.00011] and retrieval by +0.61 points [0.00, +1.30]. The top-four SiLU arm had the highest retrieval mean and led soft linear by +1.22 points [−0.69, +3.30]. All intervals resample evaluation units with training seeds held fixed. The 36 questions that exceeded the 512-token fit length in either order had the same 75.93% mean retrieval score with soft linear, top-four linear and top-four SiLU. [All checkpoints, strata, paired estimates and training times](../../results/general_benchmarks_live_token/summary.json) · [Numeric outcomes](../../results/general_benchmarks_live_token/outcomes.json.gz)
+
+All four arms scored better on both held-out measures at step 64 than at their own step 256. Treat that observation as a diagnostic for validation-based stopping on a new run. Preserve step 256 as the primary result.
+
+## ICML decision
+
+The results support a bounded finding about this live-token adapter and training recipe. Four-token selection preserved most of the retrieval performance and produced a small, consistent PG-19 loss reduction. The SiLU query map supplied no material additional benefit in this comparison. The study supports neither a broad superiority claim nor an efficiency claim. Its equal-work implementation scores all keys for every arm. The large changes versus untouched Llama measure the combined adaptation and live-token method. A matched trained fixed-bank arm would be needed to attribute that gain to value access alone.
+
+Use top-four linear as the candidate for an independent confirmation. Keep the learned parameters and comparison protocol fixed where possible. Compare a practical sparse implementation with fused dense attention at the same retrieval and loss targets, along with a larger predeclared long-context holdout. Select any early stopping rule on validation before opening that holdout. A positive ICML methods claim depends on a meaningful out-of-sample gain or a measured quality–cost improvement. A negative-results claim would need independent evidence that the SiLU effect stays small across meaningful data and exposure regimes. [ICML 2027 contribution types](https://icml.cc/Conferences/2027/ContributionTypes)

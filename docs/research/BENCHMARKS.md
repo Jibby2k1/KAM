@@ -193,6 +193,20 @@ The same cached dense retriever gave KAM a gap of −11.74 percentage points ver
 
 With the verified first passage supplied on 96 new MuSiQue relation families, native KAM recovered the endpoint in both orders on 68.40%, and reading the full KAM bank also gave 68.40%. Explicit dense dot reached 74.31%, and limiting dot to four live keys gave 71.88%. Their paired difference was −2.43 points [−6.94, +2.08]. Untouched Llama reached 55.21%. In a separate fixed-E5 first-hop probe, frozen E5, an added linear query map and a matched SiLU map gave 76.04%, 70.49% and 70.83% R@1 on 96 unseen families at the largest fit budget. [Controlled probes and learning curves](ROUTING_BOTTLENECKS.md)
 
+### Matched live-token training
+
+At 1.05 million tokens per run, the four live-token Llama adapters were evaluated on 98,304 PG-19 target tokens and 192 fresh HotpotQA questions. Endpoint retrieval requires correctness in both A/B orders.
+
+| Variant | PG-19 perplexity ↓ | HotpotQA endpoint accuracy ↑ |
+| --- | ---: | ---: |
+| Untouched Llama | 15.3979 | 42.71% |
+| Soft linear | 13.6623 | 66.84% |
+| Soft SiLU | 13.6628 | 67.71% |
+| Top-four linear | 13.6267 | 67.71% |
+| Top-four SiLU | 13.6269 | 68.06% |
+
+Top-four selection reduced PG-19 NLL by 0.00262 nats/token [−0.00339, −0.00187] and changed retrieval by +0.61 percentage points [−1.48, +2.86], averaging over activations. SiLU supplied no material gain at this budget. All arms used a dense equal-work diagnostic implementation. [Protocol, paired effects and ICML decision](LIVE_TOKEN_FACTORIAL.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)

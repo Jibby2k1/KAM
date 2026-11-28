@@ -10,6 +10,8 @@ import numpy as np
 from kam_adapter_preservation import digest
 from kam_math_kl_protocol import write_json
 
+METRICS = ("nll", "retrieval", "linked", "unlinked", "within_train_length", "beyond_train_length")
+
 
 def estimate(delta):
     n = delta.shape[1]
@@ -27,6 +29,9 @@ def read_eval(path, manifest_path, manifest, gpu):
     order = [(r["id"], r["cohort"], r["expected"]) for r in manifest["retrieval"]]
     assert all(order[i][0:2] == order[i+1][0:2] and (order[i][2], order[i+1][2]) == (0, 1) for i in range(0, len(order), 2))
     cohorts = np.array([row[1] for row in order[::2]])
+    lengths = np.array([r["tokens"] for r in manifest["retrieval"]]).reshape(-1, 2).max(axis=1)
+    subsets = {cohort: cohorts == cohort for cohort in ("linked", "unlinked")}
+    subsets.update(within_train_length=lengths <= 512, beyond_train_length=lengths > 512)
     for step, data in spec["checkpoints"].items():
         books = data["pg19"]
         assert [r["id"] for r in books] == [r["id"] for r in manifest["pg19"]]
@@ -38,7 +43,7 @@ def read_eval(path, manifest_path, manifest, gpu):
             assert np.isfinite(row["margin"]) and row["correct"] == (row["margin"] != 0 and int(row["margin"] > 0) == row["expected"])
         correct = np.array([r["correct"] for r in rows]).reshape(-1, 2).all(axis=1)
         results[int(step)] = {"nll": p.mean(axis=1), "retrieval": correct.astype(float),
-                              **{cohort: correct[cohorts == cohort].astype(float) for cohort in ("linked", "unlinked")}}
+                              **{label: correct[mask].astype(float) for label, mask in subsets.items()}}
     return spec, results
 
 
@@ -83,10 +88,10 @@ def summarize(work, protocol_path, manifest_path):
     summary = {}
     for step in steps:
         result = {}
-        for metric in ("nll", "retrieval", "linked", "unlinked"):
+        for metric in METRICS:
             grouped = {arm: np.stack([metrics[step][seed, arm][metric] for seed in seeds]) for arm in arms}
             sl, ss, kl, ks = (grouped[a] for a in arms)
-            result[metric] = {"untouched": float(baseline[0][metric].mean()),
+            result[metric] = {"n": len(baseline[0][metric]), "untouched": float(baseline[0][metric].mean()),
                               "arms": {arm: {"mean": float(a.mean()), "by_seed": a.mean(axis=1).tolist(),
                                               "vs_soft_linear": estimate(a-sl)} for arm, a in grouped.items()},
                               "silu_effect": estimate(((ss-sl)+(ks-kl))*.5), "top4_effect": estimate(((kl-sl)+(ks-ss))*.5),
