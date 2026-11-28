@@ -12,6 +12,8 @@ from kam_math_kl_protocol import test_runs, write_json
 
 PROTOCOL = "kam-pretrained-endpoint-choice-v1"
 MODES = ("endpoints", "true_prefix", "cross_prefix")
+BOTH_PROTOCOL = "kam-pretrained-endpoint-both-earlier-v1"
+BOTH_MODES = ("true_first", "true_second")
 BATCH = 16
 PLACEHOLDER = "KAM_PRIOR_PASSAGE_PLACEHOLDER"
 
@@ -68,7 +70,7 @@ def prepare(source, original, output):
     write_json(output / "manifest.json", manifest)
 
 
-def prompts(tokenizer, pairs):
+def prompts(tokenizer, pairs, both_earlier=False):
     def tokenize(text, limit=None):
         return tokenizer.encode(text, add_special_tokens=False, **(
             {"truncation": True, "max_length": limit} if limit is not None else {}
@@ -86,10 +88,13 @@ def prompts(tokenizer, pairs):
                 "Use earlier evidence to identify the right entity when it is available. "
                 "Reply with A or B.\n\nQuestion: " + question)
         if earlier is not None:
-            task += "\n\nEarlier passage:\n" + earlier
+            heading = "Earlier passage 1" if both_earlier else "Earlier passage"
+            task += f"\n\n{heading}:\n" + earlier
         return task + "\n\nPassage A:\n" + ends[0] + "\n\nPassage B:\n" + ends[1] + "\n\nChoice:"
 
-    all_cases, encoded = [], {mode: [] for mode in MODES}
+    modes = BOTH_MODES if both_earlier else MODES
+    separator = tokenize("\n\nEarlier passage 2:\n") if both_earlier else None
+    all_cases, encoded = [], {mode: [] for mode in modes}
     for pair in pairs:
         questions = pair["questions"]
         assert all(len(q["evidence"]) == 2 for q in questions)
@@ -105,15 +110,19 @@ def prompts(tokenizer, pairs):
                 record = {"pair": pair["id"], "family": pair["family"], "question": q["id"],
                           "reverse": reverse, "expected": i ^ int(reverse)}
                 all_cases.append(record)
-                encoded["endpoints"].append(tokenize(chat(instruction(q["question"], ends))))
                 head, tail = chat(instruction(q["question"], ends, PLACEHOLDER)).split(PLACEHOLDER)
                 start, end = tokenize(head), tokenize(tail)
-                encoded["true_prefix"].append([*start, *early[i], *end])
-                encoded["cross_prefix"].append([*start, *early[1 - i], *end])
+                if both_earlier:
+                    encoded["true_first"].append([*start, *early[i], *separator, *early[1 - i], *end])
+                    encoded["true_second"].append([*start, *early[1 - i], *separator, *early[i], *end])
+                else:
+                    encoded["endpoints"].append(tokenize(chat(instruction(q["question"], ends))))
+                    encoded["true_prefix"].append([*start, *early[i], *end])
+                    encoded["cross_prefix"].append([*start, *early[1 - i], *end])
     return all_cases, encoded
 
 
-def evaluate(root, work, index):
+def evaluate(root, work, index, both_earlier=False):
     import torch
     from eval_kam_adapter_preservation import load_checkpoint
     from eval_kam_pretrained import CONTEXT, next_logits, pad
@@ -121,7 +130,9 @@ def evaluate(root, work, index):
     source = work / "panel.json"
     manifest_path = work / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
-    assert manifest["protocol"] == PROTOCOL and manifest["panel_sha256"] == digest(source)
+    protocol, modes = (BOTH_PROTOCOL, BOTH_MODES) if both_earlier else (PROTOCOL, MODES)
+    assert manifest["protocol"] == protocol and tuple(manifest["modes"]) == modes
+    assert manifest["panel_sha256"] == digest(source)
     selection_path = work / "selection.json"
     selection = json.loads(selection_path.read_text())
     assert selection["model"] == model_identity(root)[0]
@@ -130,13 +141,13 @@ def evaluate(root, work, index):
     model, tokenizer, stack, metadata = load_checkpoint(root, *run)
     gpu = torch.cuda.get_device_name()
     assert gpu == "NVIDIA RTX PRO 6000 Blackwell Server Edition"
-    rows, encoded = prompts(tokenizer, json.loads(source.read_text()))
+    rows, encoded = prompts(tokenizer, json.loads(source.read_text()), both_earlier)
     assert len(rows) == 336 and max(len(v) for family in encoded.values() for v in family) <= CONTEXT
-    assert list(map(len, encoded["true_prefix"])) == list(map(len, encoded["cross_prefix"]))
+    assert list(map(len, encoded[modes[-2]])) == list(map(len, encoded[modes[-1]]))
     letters = [tokenizer.encode(letter, add_special_tokens=False) for letter in ("A", "B")]
     assert all(len(v) == 1 for v in letters) and letters[0] != letters[1]
     ids = [v[0] for v in letters]
-    order = sorted(range(len(rows)), key=lambda i: (len(encoded["true_prefix"][i]), i))
+    order = sorted(range(len(rows)), key=lambda i: (len(encoded[modes[-2]][i]), i))
     timings = {}
     for mode, family in encoded.items():
         torch.cuda.synchronize()
@@ -154,7 +165,7 @@ def evaluate(root, work, index):
         timings[mode] = monotonic() - started
         print(name, mode, timings[mode], flush=True)
     write_json(work / f"endpoint-{name}.json", {
-        "metadata": {**metadata, "gpu": gpu, "protocol": PROTOCOL, "manifest_sha256": digest(manifest_path),
+        "metadata": {**metadata, "gpu": gpu, "protocol": protocol, "manifest_sha256": digest(manifest_path),
                      "selection_sha256": digest(selection_path), "seconds": timings},
         "records": rows,
     })
@@ -175,10 +186,11 @@ if __name__ == "__main__":
     evaluate_cli.add_argument("root", type=Path)
     evaluate_cli.add_argument("work", type=Path)
     evaluate_cli.add_argument("index", type=int)
+    evaluate_cli.add_argument("--both-earlier", action="store_true")
     args = parser.parse_args()
     if args.operation == "prepare":
         prepare(args.fixture, args.original, args.output)
     elif args.operation == "audit-anchors":
         write_json(args.output, audit_anchors(args.panel, args.manifest))
     else:
-        evaluate(args.root, args.work, args.index)
+        evaluate(args.root, args.work, args.index, args.both_earlier)

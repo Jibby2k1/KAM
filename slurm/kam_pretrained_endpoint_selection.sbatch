@@ -12,6 +12,7 @@ set -euo pipefail
 module load pytorch/2.8.0
 root=$1
 work=$2
+shift 2
 export PYTHONPATH="$work:$root/runtime:$root/repo:$root"
 export OMP_NUM_THREADS=4
-python "$work/eval_kam_pretrained_endpoint_selection.py" evaluate "$root" "$work" "$SLURM_ARRAY_TASK_ID"
+python "$work/eval_kam_pretrained_endpoint_selection.py" evaluate "$root" "$work" "$SLURM_ARRAY_TASK_ID" "$@"

@@ -110,6 +110,10 @@ Use the model's next-token choices for A and B. The primary outcome is the fract
 
 The source audit finds an exclusive link in every single-earlier condition. The true earlier passage mentions the true endpoint's bridging name, and the crossed passage mentions the foil's. A name-intersection selector with access to the annotated names can therefore resolve all such cases. If the models respond to that cue, the next comparison makes both earlier passages available and independently mirrors the earlier and endpoint orders. Keep the question and all passage tokens constant across the four orders. Require the same correct endpoint in all four presentations. This tests whether a model can route from the question to the relevant earlier evidence when simply finding a name anywhere in the earlier material leaves two choices. [Anchor audit](../../results/general_benchmarks_pretrained_endpoints/anchor-audit.json)
 
+### Locked Llama control with two earlier passages
+
+Run the untouched Llama and six fixed-KL-0.5 checkpoints on the same 168 questions. For each endpoint order, present both earlier passages once with the verified passage first and once with it second. The primary measure counts questions correct in all four presentations. Report the paired KAM–dot difference with relation-family resampling. Also report the two earlier-order scores separately and a symmetric diagnostic that subtracts mirrored A/B logit margins before scoring. The symmetric diagnostic requires two endpoint orders at inference and cancels additive label preference. Neither presentation-independent labels nor annotated bridge names enter the model input as answer keys. [Frozen two-passage manifest](../../results/general_benchmarks_pretrained_endpoints/both-earlier-manifest.json)
+
 ## 4. Make efficiency a matched measurement
 
 - **Model architecture.** Record active parameters, trainable parameters, residual cache bytes, decode length, and measured load, prefill and decode time. Compare at fixed output budget and record throughput conditional on equivalent outputs. Add input-length and batch-size buckets where they can change the result.
