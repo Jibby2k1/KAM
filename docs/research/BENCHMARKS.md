@@ -241,6 +241,10 @@ On the same holdout, Flash on the final 256 queries per layer reached 61.67% mir
 
 On 128 fresh questions, final-256 gave 66.41% mirrored retrieval at 4K and 44.53% at 8K, compared with 59.64% and 50.78% for protected shortlisting and 74.48% and 55.47% for Flash. On the paired 23-book PG-19 panel, final-256 perplexity was 11.93 at 4K and 11.97 at 8K. It saved 3.10% and 8.08% of measured prefill time relative to Flash. [Independent transfer and paired length effects](QUERY_WINDOW_TRANSFER.md)
 
+On 269 questions, replacing the annotated earlier text reduced signed mirrored margin by 0.442 logits for Flash, 0.127 for the final window, and 0.016 for protected shortlisting, relative to the same replacement in nearby background. The final-window improvement in this sensitivity over protected shortlisting was 0.111 logits [+0.054, +0.167]. [Controlled evidence use](DISTANT_EVIDENCE_ABLATION.md)
+
+All 18 CUDA graph captures reproduced eager output exactly, including on changed input. The largest measured capture speedup was 0.88% across matched batches of one, two and four at 4K and 8K. [Matched graph timing and allocated memory](QUERY_WINDOW_GRAPHS.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
