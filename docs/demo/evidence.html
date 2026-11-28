@@ -87,8 +87,8 @@
           <tr><th scope="row">Llama 3</th><td>29.40%</td><td>27.67%</td><td>28.13%</td></tr>
         </tbody>
       </table>
-      <p>The six fitted adapters per backbone shared the development-selected KL weight and used three matched seeds. Both full-set KAM–dot intervals span zero. On Llama, dot led on integer-answer questions and KAM led on noninteger-answer questions across the three seeds. The next experiment tests whether that pattern repeats on new questions.</p>
-      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/FULL_MATH500.md">Full MATH-500 study</a> · <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/BENCHMARKS.md">Benchmark scorecard</a></p>
+      <p>The six fitted adapters per backbone shared the development-selected KL weight and used three matched seeds. Both full-set KAM–dot intervals span zero. The Llama ranking differed by answer type on MATH-500. On 478 disjoint questions matched by subject and difficulty, the Llama KAM–dot gap was +1.67 points on integers and +0.14 on other answers.</p>
+      <p><a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/FULL_MATH500.md">Full MATH-500 study</a> · <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/MATH_ANSWER_TYPES.md">Balanced replication and figure</a> · <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/BENCHMARKS.md">Benchmark scorecard</a></p>
       <h3>Change the grader on the same answers</h3>
       <p>These Llama adapters saw the same 512 GSM8K questions and the same <code>####</code> prompt. The two graders read the exact same generated text. For example, <code>#### $42</code> can express a mathematically correct amount while failing the strict bare-number grammar.</p>
       <div class="lab" id="math-grader-lab" hidden>

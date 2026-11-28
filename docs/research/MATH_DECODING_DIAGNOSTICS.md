@@ -27,3 +27,7 @@ A second rule flags a prefix if at least 75% of the six-token windows in the las
 | Dot | 6.99% | 9.32% | 1.76% |
 
 Each group contributes its size times its longest required decoding length. The batch-one and batch-eight rows regroup recorded trajectories as a work proxy. The table measures model token slots and leaves measured runtime to the independent serving profile. [Llama repetition flags](../../results/general_benchmarks_full_math500/llama3-repetition.json) · [SmolLM2 repetition flags](../../results/general_benchmarks_full_math500/smollm2-repetition.json) · [Llama cost replay](../../results/general_benchmarks_full_math500/llama3-budget-policy.json) · [SmolLM2 cost replay](../../results/general_benchmarks_full_math500/smollm2-budget-policy.json)
+
+## Replay the repetition rule on disjoint items
+
+The same cutoff flagged 76 Llama KAM continuations and 51 dot continuations across the three seeds on the [balanced 478-item cohort](MATH_ANSWER_TYPES.md). Neither fitted arm lost a previously verified answer and the shorter KAM prefixes received one additional credit across all three seeds. Llama KAM's estimated token-slot saving was 9.95%, 7.04%, and 0.00% at batch widths one, eight, and 64. Dot's was 7.81%, 12.34%, and 1.41%. The small-batch estimates remain a trace-based work proxy. [Balanced Llama replay](../../results/general_benchmarks_math_types/llama3-budget-policy.json) · [Balanced SmolLM2 replay](../../results/general_benchmarks_math_types/smollm2-budget-policy.json)

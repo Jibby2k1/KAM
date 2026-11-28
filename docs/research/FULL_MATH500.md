@@ -30,7 +30,7 @@ SmolLM2's KAM–dot differences by seed were +0.20, −0.60, and +2.60 points. L
 | Llama 3, 311 integer | 33.76% | 30.01% | 32.69% | −2.68 [−6.32, +0.96] |
 | Llama 3, 189 noninteger | 22.22% | 23.81% | 20.63% | +3.17 [−0.71, +7.06] |
 
-On Llama, dot led on the integer subset in all three seeds and KAM led on the noninteger subset in all three. Answer type is correlated with the kinds of problems in each subset. Treat this pattern as a replication target.
+On Llama, dot led on the integer subset in all three seeds and KAM led on the noninteger subset in all three. Answer type is correlated with the kinds of problems in each subset. A matched follow-up on 478 disjoint items produced an answer-type interaction of −1.53 points with an interval spanning zero. [Balanced replication](MATH_ANSWER_TYPES.md)
 
 ### Parser and budget sensitivity
 

@@ -123,6 +123,17 @@ On 512 unused GSM8K questions, both Llama adapters answered the same marked prom
 
 [Both backbones, paired effects, and per-item records](GSM8K_FORMAT_EFFECTS.md)
 
+### Balanced MATH answer-type replication
+
+The neutral protocol was repeated on 478 disjoint items from the original MATH test collection, in 239 integer/noninteger pairs matched on subject and difficulty.
+
+| Backbone and selected KL | Untouched | KAM | Dot | KAM minus dot (95% paired item interval) |
+| --- | ---: | ---: | ---: | ---: |
+| SmolLM2, KL 4 | 26.57% | 25.73% | 25.45% | +0.28 [−2.23, +2.72] pp |
+| Llama 3, KL 0.5 | 32.43% | 29.08% | 28.17% | +0.91 [−1.88, +3.63] pp |
+
+The registered Llama difference in the KAM–dot gap between noninteger and integer questions was −1.53 points [−6.83, +3.91]. [Balanced cohort, figure, and paired results](MATH_ANSWER_TYPES.md)
+
 ### Held-out next-token perplexity
 
 Each cell covers 32,768 held-out tokens from a fixed source stream. KAM and dot use the high-rate KL recipe and the same three seeds. The Wikipedia and Python rows use bounded samples of the released WikiText-103 and CodeSearchNet test splits. Arithmetic uses the fixed synthetic templates with an independent test seed. Tokenizers differ across backbones.
