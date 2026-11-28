@@ -173,6 +173,8 @@ On the same questions, BM25 first-hop selection followed by one endpoint call so
 
 With BM25 first-hop selection and mirrored endpoint scoring, all-four accuracy reached 93.75% KAM, 94.53% dot and 95.31% untouched. The same routes gave 78.39%, 82.55% and 89.84% within 60 ms per presentation. The BM25 single-view route was strongest at 40 ms. [Same-device deadline comparison](OVERNIGHT_ROUTING.md#mirroring-with-a-shorter-context)
 
+With up to 20 native first-hop candidates, BM25 top one scored 40.36% KAM and 47.40% dot on verified first-hop and endpoint recovery across all four presentations within 60 ms each. A model call reranking the BM25 top two reduced deadline-constrained joint scores to 19.79% and 25.78%. [Native pool comparison](OVERNIGHT_ROUTING.md#first-hop-recall-with-native-distractors)
+
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
 
 ### Held-out next-token perplexity

@@ -86,6 +86,13 @@ The widest pool held 20 candidates in 121 cases, 19 in six and 18 in one. Every 
 
 The GPU follow-up uses the widest pools. Compare BM25 top one against the same BM25 top two reranked by each frozen Llama checkpoint. Both routes then show the selected premise with the same two endpoints. Measure all-four endpoint accuracy, first-hop accuracy, and joint verified-first-hop and endpoint success at 40, 60, 100 and 150 ms. Compute BM25, prompt tokenization for model calls, launch and selection inside the timed region, and clip displayed documents to 512 tokens ahead of the timer. This compares two serving paths from fixed native pools. It uses the same questions as the CPU study and treats the published development stratum separately. [Locked GPU fixture](../../results/general_benchmarks_overnight/native-rerank-manifest.json)
 
+| Route with up to 20 candidates | Verified first hop, KAM / dot | Correct endpoint, KAM / dot | Verified first hop and endpoint, KAM / dot | Joint within 60 ms, KAM / dot | p50, KAM / dot |
+| --- | --- | --- | --- | --- | --- |
+| BM25 top one | 60.16% / 60.16% | 58.85% / 66.15% | 40.36% / 47.40% | 40.36% / 47.40% | 34.65 / 34.40 ms |
+| Model reranks BM25 top two | 62.24% / 62.50% | 58.85% / 67.19% | 40.89% / 47.66% | 19.79% / 25.78% | 57.87 / 57.35 ms |
+
+All rates require correctness across the four placements. The second model call gained about two points of first-hop recovery and under one point on unbudgeted joint success for either fitted arm. It lost about 21 points on joint success at 60 ms. Median latency rose by about 23 ms. The paired endpoint-only change was 0.00 points [−2.96, +2.92] for KAM and +1.04 [−3.87, +6.43] for dot. Prioritize a better inexpensive first-hop ranker before another sequential Llama call. [Paired summary](../../results/general_benchmarks_overnight/native-rerank-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/native-rerank-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/native-rerank-scheduler.tsv)
+
 ## Physical batch retirement probe
 
 Use the 32 hash-first questions from the fresh TabMWP split and the verified current-table prompt. Compare batch widths eight and 32. The fixed run keeps all cache rows until the last request stops. The retirement run checks every 16 steps and selects the still-active cache rows once at least one quarter have stopped. Keep both the backbone and residual dot caches aligned. Time each mode twice in ABBA order on the same GPU after a fixed-width warmup. Count scheduled token slots, active decode steps and complete token/EOS parity. Treat a speed change as usable at a measured width only if every token trace agrees. [Probe](../../scripts/probe_kam_batch_retirement.py)
@@ -106,6 +113,15 @@ The replay reproduced the registered mismatch flags, output lengths and EOS outc
 ### Vocabulary projection for fixed-choice routing
 
 Compute the same final hidden states and compare the full vocabulary projection plus an A/B gather against a linear projection with those two weight rows. Freeze a hash-selected sample of 24 MuSiQue pairs that passed the token-visibility checks, including the three published development pairs. Compare every placement for singleton and two-view mirrored requests. Time warmed full and sliced passes in counterbalanced ABBA order. Preallocate input and label tensors and slice the weights before timing. Report p50 and p95 timing, both selected logits and agreement on the final decision including ties. Promote the optimization for this particular route only if all decisions match and the latency reduction is consistent across matched devices and checkpoints. [Probe](../../scripts/probe_kam_restricted_readout.py) · [Frozen panel](../../results/general_benchmarks_overnight/readout-manifest.json)
+
+| Request | Arm | Full p50 / p95 | Sliced p50 / p95 | Exact logits and decisions |
+| --- | --- | --- | --- | ---: |
+| One view | KAM | 33.33 / 41.99 ms | 32.65 / 41.32 ms | 576 / 576 |
+| One view | Dot | 33.21 / 41.81 ms | 32.49 / 41.17 ms | 576 / 576 |
+| Two views | KAM | 55.62 / 78.83 ms | 54.26 / 77.48 ms | 576 / 576 |
+| Two views | Dot | 55.28 / 78.51 ms | 53.90 / 77.15 ms | 576 / 576 |
+
+Untouched Llama also matched 192 of 192 at each width. Across the seven RTX PRO 6000 runs, median gains ranged from 0.68 to 0.74 ms for one view and 1.34 to 1.39 ms for two. The fixed-choice opt-in path preserved the logits exactly on all 2,688 measured requests. Use this projection when the model only needs to compare known single-token labels with a bias-free linear head. Preserve the full head for open generation. [Paired summary](../../results/general_benchmarks_overnight/readout-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/readout-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/readout-scheduler.tsv)
 
 ## Public release clocks
 
