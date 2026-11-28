@@ -75,6 +75,27 @@ def _routes(Q, Means, Route, Span, N: tl.constexpr, M: tl.constexpr, T: tl.const
 
 
 @triton.jit
+def _causal_routes(Q, Means, Route, Span, N: tl.constexpr, M: tl.constexpr, T: tl.constexpr, H: tl.constexpr,
+                   KV: tl.constexpr, QB: tl.constexpr, QH: tl.constexpr, QT: tl.constexpr, R: tl.constexpr,
+                   B: tl.constexpr, SR: tl.constexpr, TS: tl.constexpr, SB: tl.constexpr, D: tl.constexpr,
+                   DOT_DIM: tl.constexpr, SLOTS: tl.constexpr, KEEP_FIRST: tl.constexpr,
+                   PINNED: tl.constexpr, USE_SPAN: tl.constexpr, SPAN_FROM: tl.constexpr, GROUP_OFFSET: tl.constexpr):
+    # The branch is uniform inside each program. Specializing the dot width saves future work
+    # without issuing a separate CUDA kernel launch for each range of query programs.
+    group = tl.program_id(0)
+    mean_stride: tl.constexpr = R * TS // B * SR
+    if group < SB // (4 * mean_stride):
+        _routes(Q, Means, Route, Span, N, M, T, H, KV, QB, QH, QT, R, B, SR, TS, SB // 4, D,
+                DOT_DIM, SLOTS, KEEP_FIRST, PINNED, USE_SPAN, SPAN_FROM, GROUP_OFFSET)
+    elif group < SB // (2 * mean_stride):
+        _routes(Q, Means, Route, Span, N, M, T, H, KV, QB, QH, QT, R, B, SR, TS, SB // 2, D,
+                DOT_DIM, SLOTS, KEEP_FIRST, PINNED, USE_SPAN, SPAN_FROM, GROUP_OFFSET)
+    else:
+        _routes(Q, Means, Route, Span, N, M, T, H, KV, QB, QH, QT, R, B, SR, TS, SB, D,
+                DOT_DIM, SLOTS, KEEP_FIRST, PINNED, USE_SPAN, SPAN_FROM, GROUP_OFFSET)
+
+
+@triton.jit
 def _prefill(Q, K, V, Route, Out, N: tl.constexpr, T: tl.constexpr, H: tl.constexpr, KV: tl.constexpr,
              QB: tl.constexpr, QH: tl.constexpr, QT: tl.constexpr,
              KB: tl.constexpr, KH: tl.constexpr, KT: tl.constexpr,
@@ -124,7 +145,7 @@ def _proxy_tiles(nmeans, groups, bucket):
 
 
 def block_routes(q, k, *, keep_first=False, pinned=(), block_span=None, span_from=0, budget=BUDGET,
-                 bucket_routes=False, local_proxy_tile=False):
+                 bucket_routes=False, local_proxy_tile=False, dispatch_proxy=False):
     """Find the fixed-budget shortlist for every query tile and head."""
     assert q.is_cuda and q.dtype == k.dtype == torch.bfloat16
     assert q.size(0) == k.size(0) and q.shape[-2:] == k.shape[-2:]
@@ -133,6 +154,7 @@ def block_routes(q, k, *, keep_first=False, pinned=(), block_span=None, span_fro
     assert dim == HEAD_DIM and heads % kv == 0 and q.stride(-1) == k.stride(-1) == 1
     assert isinstance(budget, int) and 4 <= budget <= 16
     assert not local_proxy_tile or bucket_routes
+    assert not dispatch_proxy or not bucket_routes
     assert len(pinned) <= budget-2 and tuple(sorted(set(pinned))) == pinned
     assert not pinned or (pinned[0] >= 0 and not keep_first)
     if block_span is not None:
@@ -149,7 +171,8 @@ def block_routes(q, k, *, keep_first=False, pinned=(), block_span=None, span_fro
         # Split wide proxy dots along the head dimension to fit on-chip memory.
         proxy_width = tile_size if local_proxy_tile else nmeans
         dot_dim, stages = (32, 1) if proxy_width > 256 else (dim, 3)
-        _routes[(stop-start, heads, batch)](
+        build = _causal_routes if dispatch_proxy and tile_size >= 128 else _routes
+        build[(stop-start, heads, batch)](
             q, means, route, route if block_span is None else block_span, tokens, nmeans, ntiles, heads, kv, *q.stride()[:3],
             16, BLOCK, BLOCK // GROUP, QUERY_TILE, tile_size, dim, dot_dim, budget, keep_first, pinned,
             block_span is not None, span_from, start, num_warps=4, num_stages=stages,
@@ -158,11 +181,13 @@ def block_routes(q, k, *, keep_first=False, pinned=(), block_span=None, span_fro
 
 
 def block_attention(q, k, v, scaling=None, *, record_routes=False, keep_first=False, flash_queries=None, pinned=(),
-                    block_span=None, span_from=0, budget=BUDGET, bucket_routes=False, local_proxy_tile=False):
+                    block_span=None, span_from=0, budget=BUDGET, bucket_routes=False, local_proxy_tile=False,
+                    dispatch_proxy=False, prefill_launch=None):
     """Construct proxies, shortlist blocks, and softmax over the retained token keys."""
     assert k.shape == v.shape and v.dtype == k.dtype and v.stride(-1) == 1
     route = block_routes(q, k, keep_first=keep_first, pinned=pinned, block_span=block_span, span_from=span_from,
-                         budget=budget, bucket_routes=bucket_routes, local_proxy_tile=local_proxy_tile)
+                         budget=budget, bucket_routes=bucket_routes, local_proxy_tile=local_proxy_tile,
+                         dispatch_proxy=dispatch_proxy)
     batch, heads, tokens, dim = q.shape
     kv, ntiles = k.size(1), route.size(-2)
     scale = 1 / math.sqrt(dim) if scaling is None else scaling
@@ -170,11 +195,18 @@ def block_attention(q, k, v, scaling=None, *, record_routes=False, keep_first=Fa
     skip_at, skip_tiles = ntiles, 0
     if flash_queries is not None:
         start, stop = flash_queries
-        assert 0 <= start < stop <= tokens and (stop-start) < tokens and start % QUERY_TILE == stop % QUERY_TILE == 0
-        skip_at, skip_tiles = start // QUERY_TILE, (stop-start) // QUERY_TILE
+        assert 0 <= start < stop <= tokens and (stop-start) < tokens
+        assert start % QUERY_TILE == 0 and (stop == tokens or stop % QUERY_TILE == 0)
+        skip_at = start // QUERY_TILE
+        skip_tiles = triton.cdiv(stop, QUERY_TILE) - skip_at
+    launch = {"num_warps": 4}
+    if prefill_launch is not None:
+        warps, stages = prefill_launch
+        assert warps in (2,4,8) and stages in (1,2,3)
+        launch.update(num_warps=warps, num_stages=stages)
     _prefill[(ntiles-skip_tiles, heads, batch)](
         q, k, v, route, out, tokens, ntiles, heads, kv, *q.stride()[:3], *k.stride()[:3], *v.stride()[:3],
-        BLOCK, QUERY_TILE, dim, budget, scale * math.log2(math.e), skip_at, skip_tiles, num_warps=4,
+        BLOCK, QUERY_TILE, dim, budget, scale * math.log2(math.e), skip_at, skip_tiles, **launch,
     )
     if flash_queries is not None:
         from torch.nn.attention.bias import causal_lower_right

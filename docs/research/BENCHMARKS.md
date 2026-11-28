@@ -257,6 +257,10 @@ Computing only causally reachable proxy tiles preserved tested routes and output
 
 Forcing the marked earlier passage into the same shortlist budget raised 4K gold-endpoint margins over matched background pins on MuSiQue by 0.139 logits and HotpotQA by 0.354. Unlinked mirrored accuracy improved by 10.97 and 10.42 points. Linked and 8K accuracy differences included zero. [Matched evidence-block intervention](ANNOTATED_BLOCK_ROUTING.md)
 
+With a fixed four/twelve block-budget histogram, selecting layers by dense output reconstruction reached 59.64% on 8K HotpotQA and 55.21% on 8K MuSiQue, compared with 42.71% and 55.47% for Flash. Prefill was 9.21% faster at 8K, and PG-19 perplexity rose from 10.81 to 12.60. At 4K, the same schedule reduced MuSiQue accuracy versus uniform eight by 10.94 points. [Layer budgets, latency and paired quality](LAYER_BLOCK_BUDGET.md)
+
+Bitwise-gated launch tuning reduced isolated protected attention CUDA time by 12.70–18.02% on the RTX PRO 6000. Full-reader prefill saved 0.49–0.63% over the same protected policy across 4K/8K and batches one/four. [Tuned kernel and full-reader cost](SPARSE_KERNEL_TUNING.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
