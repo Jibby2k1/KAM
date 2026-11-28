@@ -108,6 +108,8 @@ The first cross-source noise pilot uses 128 TabMWP numerical questions with labe
 
 The linked archive table substantially reduced both Llama adapter scores, even when its role was explicit. Moving it next to the question lowered both arms further on this sample, with similar paired changes. A follow-up should resolve the relevant table before generating the answer, using either a typed source identifier or an inference-visible routing step. Compare with a direct reader given both tables and include an equally long unrelated-table control. This separates added context from plausible wrong evidence. [TabMWP results](TABMWP_ARCHIVE_NOISE.md#results-on-hpg)
 
+The frozen tokenizer found 94 different-topic archive tables that match the original archive's exact input length and shape. Keep all 128 original batch positions in the rerun and score the 94 substitutions. All other outputs must match the baseline. Measure the same-topic penalty against this control before attributing the drop to interference from plausible values. [Matched control](TABMWP_ARCHIVE_NOISE.md#exact-length-different-topic-control)
+
 ### Frozen adapter choice on matched MuSiQue endpoints
 
 Reuse the previous two-hop MuSiQue endpoint challenge's 84 accepted pairs across 35 relation families. Each question has two plausible endpoint passages. Test the same SmolLM2 and Llama KAM, dot, and untouched checkpoints using the initial question with both candidates, the verified earlier passage with both candidates, and the competing question's earlier passage with both candidates. Reverse the candidate order for each question. The true and crossed prompts have exactly matched earlier token counts within each backbone and identical remaining token IDs.

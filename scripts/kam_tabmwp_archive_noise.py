@@ -12,6 +12,7 @@ from kam_adapter_preservation import LLAMA_ID, digest, key
 from kam_math_kl_protocol import BATCH_SIZE, normalized, test_runs, write_json
 
 PROTOCOL = "kam-tabmwp-archive-noise-v1"
+UNRELATED_PROTOCOL = "kam-tabmwp-unrelated-length-control-v1"
 REVISION = "869bae8ffb8288ccc3102293b3090ec2aa17f618"
 SOURCE_HASHES = {
     "test": "c47607dad36477725087cb4e5317fe1e89a69dfed404eca430673bda36fda45c",
@@ -107,14 +108,20 @@ def prepare(source, prior, prm_source, output):
     })
 
 
-def load_panel(work):
-    manifest = work / "manifest.json"
+def load_panel(work, unrelated=False):
+    manifest = work / ("unrelated-manifest.json" if unrelated else "manifest.json")
     registered = json.loads(manifest.read_text())
-    source = work / "panel.json"
-    assert registered["protocol"] == PROTOCOL and registered["panel_sha256"] == digest(source)
-    assert (tuple(registered["modes"]), registered["budget"], registered["batch_size"]) == (MODES, BUDGET, BATCH_SIZE)
+    source = work / ("unrelated-panel.json" if unrelated else "panel.json")
+    protocol = UNRELATED_PROTOCOL if unrelated else PROTOCOL
+    assert registered["protocol"] == protocol and registered["panel_sha256"] == digest(source)
     rows = json.loads(source.read_text())
-    assert [{k: r[k] for k in ("id", "donor", "grade", "family")} for r in rows] == registered["cases"]
+    fields = ("id", "donor", "grade", "family")
+    if unrelated:
+        fields += ("control_donor",)
+        assert registered["n"] == len(rows)
+    else:
+        assert (tuple(registered["modes"]), registered["budget"], registered["batch_size"]) == (MODES, BUDGET, BATCH_SIZE)
+    assert [{k: r[k] for k in fields} for r in rows] == registered["cases"]
     return rows, digest(manifest)
 
 
@@ -129,18 +136,27 @@ def encode_case(tokenizer, row):
                                          add_generation_prompt=True)
     before, after = map(encode, chat.split(SLOT))
     current = encode("Current table: " + row["title"] + "\n" + row["current"] + "\n\n")
-    archive = encode("Archived table: " + row["title"] + "\n" + row["archived"] + "\n\n")
+    archive_title = row.get("archived_title", row["title"])
+    archive = encode("Archived table: " + archive_title + "\n" + row["archived"] + "\n\n")
     return {"current_only": [*before, *current, *after],
             "archive_first": [*before, *archive, *current, *after],
             "archive_last": [*before, *current, *archive, *after]}
 
 
-def evaluate(root, work, index):
+def evaluate(root, work, index, unrelated=False):
     import torch
     from eval_kam_adapter_preservation import load_checkpoint
     from eval_kam_pretrained import CONTEXT, generate
 
-    data, manifest = load_panel(work)
+    data, manifest = load_panel(work, unrelated)
+    modes = ("archive_last",) if unrelated else MODES
+    controls = {}
+    if unrelated:
+        controls = {row["id"]: row for row in data}
+        original, original_manifest = load_panel(work / "baseline")
+        expected_original = json.loads((work / "unrelated-manifest.json").read_text())["original_manifest_sha256"]
+        assert original_manifest == expected_original
+        data = [controls.get(row["id"], row) for row in original]
     selection_path = work / "selection.json"
     selection = json.loads(selection_path.read_text())
     assert (selection["model"], selection["selected_recipe"], selection["selected_kl_weight"]) == (
@@ -155,7 +171,7 @@ def evaluate(root, work, index):
     order = sorted(range(len(data)), key=lambda i: (len(encoded[i]["current_only"]), i))
     records = [{k: row[k] for k in ("id", "grade", "family")} for row in data]
     seconds = {}
-    for mode in MODES:
+    for mode in modes:
         torch.cuda.synchronize()
         start = monotonic()
         for offset in range(0, len(order), BATCH_SIZE):
@@ -170,23 +186,39 @@ def evaluate(root, work, index):
         torch.cuda.synchronize()
         seconds[mode] = monotonic() - start
         print(key(*run), mode, seconds[mode], flush=True)
+    parity = {}
+    if unrelated:
+        original_path = work / "baseline" / f"tabmwp-{key(*run)}.json"
+        baseline = json.loads(original_path.read_text())
+        assert baseline["metadata"]["manifest_sha256"] == original_manifest
+        assert [r["id"] for r in records] == [r["id"] for r in baseline["records"]]
+        for new, old in zip(records, baseline["records"], strict=True):
+            assert new["archive_last"]["prompt_tokens"] == old["archive_last"]["prompt_tokens"]
+            if new["id"] not in controls:
+                assert new["archive_last"] == old["archive_last"], new["id"]
+        parity = {"unmatched_unchanged": len(records) - len(controls),
+                  "baseline_generation_sha256": digest(original_path)}
+        records = [row for row in records if row["id"] in controls]
     write_json(work / f"tabmwp-{key(*run)}.json", {
-        "metadata": {**metadata, "protocol": PROTOCOL, "manifest_sha256": manifest, "gpu": gpu,
+        "metadata": {**metadata, **parity, "protocol": UNRELATED_PROTOCOL if unrelated else PROTOCOL,
+                     "manifest_sha256": manifest, "gpu": gpu,
                      "selection_sha256": digest(selection_path), "seconds": seconds}, "records": records,
     })
 
 
-def grade(work, raw_path, output, terminal=False):
+def grade(work, raw_path, output, terminal=False, unrelated=False):
     from grade_kam_full_math500 import GRADER_VERSIONS, check_environment, grade_prediction, parse_gold, terminal_lines
 
     check_environment()
-    data, manifest = load_panel(work)
+    data, manifest = load_panel(work, unrelated)
+    protocol = UNRELATED_PROTOCOL if unrelated else PROTOCOL
+    modes = ("archive_last",) if unrelated else MODES
     raw = json.loads(raw_path.read_text())
-    assert raw["metadata"]["protocol"] == PROTOCOL and raw["metadata"]["manifest_sha256"] == manifest
+    assert raw["metadata"]["protocol"] == protocol and raw["metadata"]["manifest_sha256"] == manifest
     for row, record in zip(data, raw["records"], strict=True):
         assert row["id"] == record["id"]
         assert len(gold := parse_gold(row["answer"])) == 1
-        for mode in MODES:
+        for mode in modes:
             response = record[mode]
             issues = []
             text = response.pop("completion")
@@ -208,14 +240,16 @@ if __name__ == "__main__":
     gpu.add_argument("root", type=Path)
     gpu.add_argument("work", type=Path)
     gpu.add_argument("index", type=int, choices=range(7))
+    gpu.add_argument("--unrelated", action="store_true")
     grading = operations.add_parser("grade")
     for name in ("work", "raw", "output"):
         grading.add_argument(name, type=Path)
     grading.add_argument("--terminal", action="store_true")
+    grading.add_argument("--unrelated", action="store_true")
     args = cli.parse_args()
     if args.operation == "prepare":
         prepare(args.source, args.prior, args.prm_source, args.output)
     elif args.operation == "evaluate":
-        evaluate(args.root, args.work, args.index)
+        evaluate(args.root, args.work, args.index, args.unrelated)
     else:
-        grade(args.work, args.raw, args.output, args.terminal)
+        grade(args.work, args.raw, args.output, args.terminal, args.unrelated)
