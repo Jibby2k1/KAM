@@ -267,6 +267,12 @@ On 452 QuALITY questions, final-window Flash reached 61.43% original-order accur
 
 On held-out QuALITY articles, the fitted two-pass margin gate deferred 1.34% of final-window predictions and recovered 0.45 points over its first pass, at 286.31 ms modeled prefill versus 301.19 ms for Flash. The other confidence gates retained a larger accuracy gap. [Predicted two-pass costs and oracle ceiling](CONFIDENCE_FLASH_DEFERRAL.md)
 
+### Frozen attention reconstruction and sparse training checks
+
+On 13 leave-one-book-out calibration folds, a four/eight/twelve layer allocation reduced relative squared output error from 4.755% to 4.444% at the same nominal block budget. Mass gain and output-error reduction had layerwise Pearson correlation −0.01. These are frozen-activation reconstruction metrics. [Derivation, counterexample and calibration replay](ATTENTION_MASS_AND_RECONSTRUCTION.md)
+
+Six matched adapter continuation jobs completed at 9,068–9,079 input tokens/s for Flash and 7,387–7,615 tokens/s for differentiable sparse attention. HPG canceled the quality evaluation array. [Training fidelity and receipts](SPARSE_ADAPTER_RECOVERY.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
