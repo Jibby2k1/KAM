@@ -25,12 +25,16 @@ def summarize(work, manifest_path, selected_dir):
     expected = [tuple(row[k] for k in ("id", "grade", "family")) for row in manifest["cases"]]
     families = [row[2] for row in expected]
     phases, measures, hashes = {}, {}, {}
-    layout = None
+    layout = scoring_window = None
     for seed, trained, arm in runs:
         ident = key(seed, trained, arm)
         item = work / f"tabmwp-{ident}.json"
         doc = json.loads(item.read_text())
         meta, rows = doc["metadata"], doc["records"]
+        window = meta.get("scoring_window", "full")
+        assert window in ("full", "terminal_three_lines")
+        scoring_window = window if scoring_window is None else scoring_window
+        assert window == scoring_window
         assert (meta["seed"], meta["recipe"], meta["arm"]) == (seed, trained, arm)
         assert meta["protocol"] == PROTOCOL and meta["manifest_sha256"] == digest(manifest_path)
         reference = prior(f"test-{ident}")["metadata"]
@@ -81,7 +85,8 @@ def summarize(work, manifest_path, selected_dir):
         }
     return {"n": len(expected), "families": len(set(families)), "seeds": SEEDS, "checkpoints": measures,
             "accuracy": by_mode, "contrasts": contrasts, "manifest_sha256": digest(manifest_path),
-            "outcome_sha256": hashes}
+            "outcome_sha256": hashes,
+            **({"scoring_window": scoring_window} if scoring_window != "full" else {})}
 
 
 if __name__ == "__main__":

@@ -176,8 +176,8 @@ def evaluate(root, work, index):
     })
 
 
-def grade(work, raw_path, output):
-    from grade_kam_full_math500 import GRADER_VERSIONS, check_environment, grade_prediction, parse_gold
+def grade(work, raw_path, output, terminal=False):
+    from grade_kam_full_math500 import GRADER_VERSIONS, check_environment, grade_prediction, parse_gold, terminal_lines
 
     check_environment()
     data, manifest = load_panel(work)
@@ -189,9 +189,12 @@ def grade(work, raw_path, output):
         for mode in MODES:
             response = record[mode]
             issues = []
-            response.update(grade_prediction(gold, response.pop("completion"), issues))
+            text = response.pop("completion")
+            response.update(grade_prediction(gold, terminal_lines(text) if terminal else text, issues))
             response["issues"] = issues
     raw["metadata"].update(grader_versions=GRADER_VERSIONS, generation_sha256=digest(raw_path))
+    if terminal:
+        raw["metadata"]["scoring_window"] = "terminal_three_lines"
     write_json(output, raw)
 
 
@@ -208,10 +211,11 @@ if __name__ == "__main__":
     grading = operations.add_parser("grade")
     for name in ("work", "raw", "output"):
         grading.add_argument(name, type=Path)
+    grading.add_argument("--terminal", action="store_true")
     args = cli.parse_args()
     if args.operation == "prepare":
         prepare(args.source, args.prior, args.prm_source, args.output)
     elif args.operation == "evaluate":
         evaluate(args.root, args.work, args.index)
     else:
-        grade(args.work, args.raw, args.output)
+        grade(args.work, args.raw, args.output, args.terminal)
