@@ -14,6 +14,8 @@ PROTOCOL = "kam-pretrained-endpoint-choice-v1"
 MODES = ("endpoints", "true_prefix", "cross_prefix")
 BOTH_PROTOCOL = "kam-pretrained-endpoint-both-earlier-v1"
 BOTH_MODES = ("true_first", "true_second")
+EARLIER_PROTOCOL = "kam-pretrained-endpoint-first-hop-v1"
+EARLIER_MODES = ("earlier_choice",)
 BATCH = 16
 PLACEHOLDER = "KAM_PRIOR_PASSAGE_PLACEHOLDER"
 
@@ -122,7 +124,39 @@ def prompts(tokenizer, pairs, both_earlier=False):
     return all_cases, encoded
 
 
-def evaluate(root, work, index, both_earlier=False):
+def earlier_choice_prompts(tokenizer, pairs):
+    def encode(text, **kwargs):
+        return tokenizer.encode(text, add_special_tokens=False, **kwargs)
+
+    rows, prompts = [], []
+    for pair in pairs:
+        questions = pair["questions"]
+        passages = [q["evidence"][0] for q in questions]
+        passages = [encode(p["title"] + ". " + p["body"], truncation=True, max_length=512)
+                    for p in passages]
+        width = min(map(len, passages))
+        passages = [p[:width] for p in passages]
+        for i, question in enumerate(questions):
+            assert literal(question["anchor"], tokenizer.decode(passages[i], skip_special_tokens=True))
+            message = (
+                "Select the earlier passage that helps answer the question. The answer can require another "
+                "passage. Reply with A or B.\n\nQuestion: " + question["question"] +
+                "\n\nPassage A:\nKAM_EARLIER_SLOT_A\n\nPassage B:\nKAM_EARLIER_SLOT_B\n\nChoice:"
+            )
+            chat = tokenizer.apply_chat_template([{"role": "user", "content": message}],
+                                                 tokenize=False, add_generation_prompt=True)
+            head, rest = chat.split("KAM_EARLIER_SLOT_A")
+            middle, end = rest.split("KAM_EARLIER_SLOT_B")
+            a, b, c = map(encode, (head, middle, end))
+            for reverse in (False, True):
+                first, second = passages[::-1] if reverse else passages
+                rows.append({"pair": pair["id"], "family": pair["family"], "question": question["id"],
+                             "reverse": reverse, "expected": i ^ int(reverse)})
+                prompts.append([*a, *first, *b, *second, *c])
+    return rows, {"earlier_choice": prompts}
+
+
+def evaluate(root, work, index, both_earlier=False, earlier_choice=False):
     import torch
     from eval_kam_adapter_preservation import load_checkpoint
     from eval_kam_pretrained import CONTEXT, next_logits, pad
@@ -131,6 +165,8 @@ def evaluate(root, work, index, both_earlier=False):
     manifest_path = work / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
     protocol, modes = (BOTH_PROTOCOL, BOTH_MODES) if both_earlier else (PROTOCOL, MODES)
+    if earlier_choice:
+        protocol, modes = EARLIER_PROTOCOL, EARLIER_MODES
     assert manifest["protocol"] == protocol and tuple(manifest["modes"]) == modes
     assert manifest["panel_sha256"] == digest(source)
     selection_path = work / "selection.json"
@@ -141,13 +177,18 @@ def evaluate(root, work, index, both_earlier=False):
     model, tokenizer, stack, metadata = load_checkpoint(root, *run)
     gpu = torch.cuda.get_device_name()
     assert gpu == "NVIDIA RTX PRO 6000 Blackwell Server Edition"
-    rows, encoded = prompts(tokenizer, json.loads(source.read_text()), both_earlier)
+    data = json.loads(source.read_text())
+    rows, encoded = earlier_choice_prompts(tokenizer, data) if earlier_choice else prompts(tokenizer, data, both_earlier)
     assert len(rows) == 336 and max(len(v) for family in encoded.values() for v in family) <= CONTEXT
-    assert list(map(len, encoded[modes[-2]])) == list(map(len, encoded[modes[-1]]))
+    if earlier_choice:
+        assert list(map(len, encoded["earlier_choice"][::2])) == list(map(len, encoded["earlier_choice"][1::2]))
+    else:
+        assert list(map(len, encoded[modes[-2]])) == list(map(len, encoded[modes[-1]]))
     letters = [tokenizer.encode(letter, add_special_tokens=False) for letter in ("A", "B")]
     assert all(len(v) == 1 for v in letters) and letters[0] != letters[1]
     ids = [v[0] for v in letters]
-    order = sorted(range(len(rows)), key=lambda i: (len(encoded[modes[-2]][i]), i))
+    sort_mode = EARLIER_MODES[0] if earlier_choice else modes[-2]
+    order = sorted(range(len(rows)), key=lambda i: (len(encoded[sort_mode][i]), i))
     timings = {}
     for mode, family in encoded.items():
         torch.cuda.synchronize()
@@ -186,11 +227,13 @@ if __name__ == "__main__":
     evaluate_cli.add_argument("root", type=Path)
     evaluate_cli.add_argument("work", type=Path)
     evaluate_cli.add_argument("index", type=int)
-    evaluate_cli.add_argument("--both-earlier", action="store_true")
+    layout = evaluate_cli.add_mutually_exclusive_group()
+    layout.add_argument("--both-earlier", action="store_true")
+    layout.add_argument("--earlier-choice", action="store_true")
     args = parser.parse_args()
     if args.operation == "prepare":
         prepare(args.fixture, args.original, args.output)
     elif args.operation == "audit-anchors":
         write_json(args.output, audit_anchors(args.panel, args.manifest))
     else:
-        evaluate(args.root, args.work, args.index, args.both_earlier)
+        evaluate(args.root, args.work, args.index, args.both_earlier, args.earlier_choice)
