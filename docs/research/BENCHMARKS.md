@@ -273,6 +273,8 @@ On a five-fold article-held-out replay of the same questions, a learned final-wi
 
 On 13 leave-one-book-out calibration folds, a four/eight/twelve layer allocation reduced relative squared output error from 4.755% to 4.444% at the same nominal block budget. Mass gain and output-error reduction had layerwise Pearson correlation −0.01. These are frozen-activation reconstruction metrics. [Derivation, counterexample and calibration replay](ATTENTION_MASS_AND_RECONSTRUCTION.md)
 
+On a separate 16-book SmolLM2 panel, omitted eight-token mean summaries reduced frozen projected error by 10.71%. Live 4K perplexity was 13.58 for dense, 15.14 for protected shortlisting, and 15.07 with the mean summaries. The paired mean-summary NLL interval included zero. [Pretrained SmolLM2 reconstruction and live replay](OMITTED_BLOCK_SUMMARIES.md)
+
 The fraction of MuSiQue predictions where Flash led by at most half a logit rose from 44.79% at 4K to 86.46% at 8K. The final window changed 20.05% and 51.04% of decisions at those widths, even as its median centered logit error fell. On intact QuALITY it changed 3 of 689 decisions with a Flash lead above two logits. [Decision stability across corpora](DECISION_MARGIN_STABILITY.md)
 
 Six matched adapter continuation jobs completed at 9,068–9,079 input tokens/s for Flash and 7,387–7,615 tokens/s for differentiable sparse attention. HPG canceled the quality evaluation array. [Training fidelity and receipts](SPARSE_ADAPTER_RECOVERY.md)
