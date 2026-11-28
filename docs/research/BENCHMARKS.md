@@ -189,6 +189,10 @@ On 88 new questions from the publisher's training split, every first-hop pool co
 
 The same cached dense retriever gave KAM a gap of −11.74 percentage points versus dot [−18.38, −4.58] and +15.91 versus untouched [+9.52, +23.40] on this stratum. Hybrid led at R@3, 97.73% versus 95.45% for dense. The 12-question development split is reported separately. [Full comparison, timings and paired results](MUSIQUE_CACHED_RETRIEVAL.md)
 
+### Routing capacity and nonlinear transfer controls
+
+With the verified first passage supplied on 96 new MuSiQue relation families, native KAM recovered the endpoint in both orders on 68.40%, and reading the full KAM bank also gave 68.40%. Explicit dense dot reached 74.31%, and limiting dot to four live keys gave 71.88%. Their paired difference was −2.43 points [−6.94, +2.08]. Untouched Llama reached 55.21%. In a separate fixed-E5 first-hop probe, frozen E5, an added linear query map and a matched SiLU map gave 76.04%, 70.49% and 70.83% R@1 on 96 unseen families at the largest fit budget. [Controlled probes and learning curves](ROUTING_BOTTLENECKS.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)

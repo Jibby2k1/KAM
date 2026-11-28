@@ -61,7 +61,7 @@ def summarize(work, fixture, study, previous):
             if arm == "dot":
                 margins = [(r["scores"]["native"]["margin"], r["scores"]["explicit_dense"]["margin"]) for r in selected]
                 stats["native_explicit_parity"] = {
-                    "same_choice": sum(np.sign(a) == np.sign(b) for a, b in margins),
+                    "same_choice": int(sum(np.sign(a) == np.sign(b) for a, b in margins)),
                     "total": len(margins), "max_absolute_margin_delta": max(abs(a-b) for a, b in margins),
                 }
             checkpoints[name][cohort] = stats
