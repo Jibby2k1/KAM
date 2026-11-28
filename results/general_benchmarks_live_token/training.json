@@ -1,0 +1,33 @@
+{
+  "arms": [
+    "soft-linear",
+    "soft-silu",
+    "top4-linear",
+    "top4-silu"
+  ],
+  "checkpoints": [
+    64,
+    128,
+    192,
+    256
+  ],
+  "context": 512,
+  "kl": 0.5,
+  "microbatch": [
+    4,
+    2,
+    2
+  ],
+  "peak_lr": 8e-05,
+  "protocol": "kam-live-token-factorial-v1",
+  "query_bottleneck": 16,
+  "scoring": "same explicit FP32 scores, top-four mask construction, softmax and dense value matmul; choose causal mask per arm",
+  "seeds": [
+    731201,
+    731211,
+    731221
+  ],
+  "selection_top_k": 4,
+  "steps": 256,
+  "token_manifest_sha256": "e31886416ca479b42de9ccd30ee34d30037c2045ddde3aa2d192149badf9cd90"
+}
