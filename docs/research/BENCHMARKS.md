@@ -235,6 +235,10 @@ Reserving the first block inside the eight-slot shortlist raised retained dense 
 
 At the final choice query, protecting the first block kept 14.98% of dense attention mass on earlier evidence beyond that block. The development-selected sixteen-layer Flash mask kept 75.43%, compared with 57.49% for the periodic mask. At the same 189.27 ms 4K median prefill, selected layers improved perplexity from 10.80 to 10.48. Mirrored MuSiQue was 59.38% selected and 59.58% periodic, a −0.21-point paired gap [−4.60, +4.22]. Flash scored 10.21 and 68.44% at 193.63 ms. [Layer-head audit and matched comparison](DISTANT_EVIDENCE_FALLBACK.md)
 
+### Flash only near the end of the prompt
+
+On the same holdout, Flash on the final 256 queries per layer reached 61.67% mirrored retrieval versus 54.27% when Flash was applied to the preceding 256 queries. The paired difference was +7.40 points [+2.50, +12.17]. Perplexity was 11.00 versus 10.98. The final window took 189.05 ms at 4K and 411.56 ms at 8K, versus 194.99 and 447.59 ms for Flash. [Matched query placement and latency](QUERY_WINDOW_FLASH.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)

@@ -64,8 +64,11 @@ def _prefill(Q, K, V, Route, Out, N: tl.constexpr, T: tl.constexpr, H: tl.conste
              QB: tl.constexpr, QH: tl.constexpr, QT: tl.constexpr,
              KB: tl.constexpr, KH: tl.constexpr, KT: tl.constexpr,
              VB: tl.constexpr, VH: tl.constexpr, VT: tl.constexpr,
-             B: tl.constexpr, TS: tl.constexpr, D: tl.constexpr, SCALE: tl.constexpr):
+             B: tl.constexpr, TS: tl.constexpr, D: tl.constexpr, SCALE: tl.constexpr,
+             SKIP_AT: tl.constexpr, SKIP_TILES: tl.constexpr):
     tile, head, batch = tl.program_id(0), tl.program_id(1), tl.program_id(2)
+    if SKIP_TILES:
+        tile += tl.where(tile >= SKIP_AT, SKIP_TILES, 0)
     qrow = tile * TS + tl.arange(0, TS)
     dims = tl.arange(0, D)
     kgroup = head // (H // KV)
@@ -113,7 +116,7 @@ def block_routes(q, k, *, keep_first=False):
     return route
 
 
-def block_attention(q, k, v, scaling=None, *, record_routes=False, keep_first=False):
+def block_attention(q, k, v, scaling=None, *, record_routes=False, keep_first=False, flash_queries=None):
     """Construct proxies, shortlist blocks, and softmax over the retained token keys."""
     assert k.shape == v.shape and v.dtype == k.dtype and v.stride(-1) == 1
     route = block_routes(q, k, keep_first=keep_first)
@@ -121,8 +124,21 @@ def block_attention(q, k, v, scaling=None, *, record_routes=False, keep_first=Fa
     kv, ntiles = k.size(1), route.size(-2)
     scale = 1 / math.sqrt(dim) if scaling is None else scaling
     out = torch.empty((batch, tokens, heads, dim), device=q.device, dtype=q.dtype)
-    _prefill[(ntiles, heads, batch)](
+    skip_at, skip_tiles = ntiles, 0
+    if flash_queries is not None:
+        start, stop = flash_queries
+        assert 0 <= start < stop <= tokens and (stop-start) < tokens and start % QUERY_TILE == stop % QUERY_TILE == 0
+        skip_at, skip_tiles = start // QUERY_TILE, (stop-start) // QUERY_TILE
+    _prefill[(ntiles-skip_tiles, heads, batch)](
         q, k, v, route, out, tokens, ntiles, heads, kv, *q.stride()[:3], *k.stride()[:3], *v.stride()[:3],
-        BLOCK, QUERY_TILE, dim, scale * math.log2(math.e), num_warps=4,
+        BLOCK, QUERY_TILE, dim, scale * math.log2(math.e), skip_at, skip_tiles, num_warps=4,
     )
+    if flash_queries is not None:
+        from torch.nn.attention.bias import causal_lower_right
+
+        rows = torch.nn.functional.scaled_dot_product_attention(
+            q[:, :, start:stop], k[:, :, :stop], v[:, :, :stop],
+            attn_mask=causal_lower_right(stop-start, stop), scale=scale, enable_gqa=heads != kv,
+        )
+        out[:, start:stop].copy_(rows.transpose(1, 2))
     return (out, route) if record_routes else out
