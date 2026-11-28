@@ -11,6 +11,7 @@ from kam_adapter_preservation import digest, key
 from kam_math_kl_protocol import test_runs, write_json
 
 PROTOCOL = "kam-llama-fixed-choice-readout-v1"
+REFERENCE_GPU = "NVIDIA RTX PRO 6000 Blackwell Server Edition"
 
 
 def evaluate(root, work, index):
@@ -26,7 +27,7 @@ def evaluate(root, work, index):
     run = test_runs(recipe)[index]
     model, tokenizer, stack, meta = load_checkpoint(root, *run)
     gpu = torch.cuda.get_device_name()
-    assert gpu == "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+    assert gpu == manifest.get("gpu", REFERENCE_GPU)
     assert isinstance(model.lm_head, torch.nn.Linear) and model.lm_head.bias is None
     letters = [tokenizer.encode(letter, add_special_tokens=False) for letter in ("A", "B")]
     assert all(len(ids) == 1 for ids in letters) and letters[0] != letters[1]

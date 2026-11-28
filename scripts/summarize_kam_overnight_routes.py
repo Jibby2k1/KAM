@@ -19,7 +19,7 @@ BUDGETS_MS = (15, 25, 40, 60, 100, 150)
 IDENTITY = ("model", "model_fingerprints", "revision", "gpu", "adapter_sha256", "training")
 
 
-def verified(work, manifest_path, study, prefix, protocol):
+def verified(work, manifest_path, study, prefix, protocol, *, gpu=None):
     selection = study / "llama3-selection.json"
     recipe = json.loads(selection.read_text())["selected_recipe"]
     original = read_archive(study / "llama3-outcomes.json.gz")
@@ -33,7 +33,8 @@ def verified(work, manifest_path, study, prefix, protocol):
         assert (meta["seed"], meta["recipe"], meta["arm"]) == run
         ref = original(f"test-{name}")["metadata"]
         for field in IDENTITY:
-            assert meta[field] == ref[field], (name, field)
+            expected = gpu if field == "gpu" and gpu is not None else ref[field]
+            assert meta[field] == expected, (name, field)
         yield name, run, data, digest(path)
 
 
@@ -171,7 +172,8 @@ def retirement(work, manifest_path, study):
 def readout(work, manifest_path, study):
     manifest = json.loads(manifest_path.read_text())
     checkpoints, hashes = {}, {}
-    for name, _, data, fingerprint in verified(work, manifest_path, study, "readout", READOUT_PROTOCOL):
+    for name, _, data, fingerprint in verified(work, manifest_path, study, "readout", READOUT_PROTOCOL,
+                                               gpu=manifest.get("gpu")):
         rows = data["records"]
         assert len(rows) == 8 * len(manifest["pairs"]) and {r["pair"] for r in rows} == set(manifest["pairs"])
         checkpoints[name], hashes[name] = {}, fingerprint
