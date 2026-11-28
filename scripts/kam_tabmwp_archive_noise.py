@@ -42,7 +42,7 @@ def eligible_table(row):
     return row["table_title"] and 3 <= row["row_num"] <= 16 and len(row["table"]) <= 2000
 
 
-def prepare(source, prior, prm_source, output):
+def prepare(source, prior, prm_source, output, reserve=None):
     from audit_kam_omni_math_fixture import prior_prompts
     from grade_kam_full_math500 import VERIFY, check_environment, parse_gold, verify
 
@@ -52,9 +52,13 @@ def prepare(source, prior, prm_source, output):
     test_rows, dev_rows = json.loads(test.read_text()), json.loads(dev.read_text())
     assert len(test_rows) == 7686 and set(test_rows).isdisjoint(dev_rows)
     known = set().union(*prior_prompts(prior, prm_source).values())
+    reserved = json.loads(reserve.read_text())["cases"] if reserve else []
+    reserved_ids = {str(r["id"]) for r in reserved}
+    reserved_donors = {str(r["donor"]) for r in reserved}
+    reserved_families = {r["family"] for r in reserved}
     donors, dev_tables = defaultdict(list), {table_identity(row) for row in dev_rows.values()}
     for ident, row in dev_rows.items():
-        if eligible_table(row):
+        if eligible_table(row) and ident not in reserved_donors:
             donors[(row["grade"], row["row_num"], relation(row))].append((ident, row))
     counters = Counter()
     groups = defaultdict(list)
@@ -68,6 +72,10 @@ def prepare(source, prior, prm_source, output):
             counters["exact_existing_overlap"] += 1
             continue
         title_header = relation(row)
+        family = hash_text(repr(title_header))
+        if ident in reserved_ids or family in reserved_families:
+            counters["reserved_v1"] += 1
+            continue
         matching = donors[(row["grade"], row["row_num"], title_header)]
         if not matching:
             counters["no_shape_and_title_match"] += 1
@@ -76,7 +84,6 @@ def prepare(source, prior, prm_source, output):
         if len(parsed) != 1 or not verify(parsed, parsed, **VERIFY):
             counters["unverified_gold"] += 1
             continue
-        family = hash_text(repr(title_header))
         groups[row["grade"]].append((ident, row, matching, family))
 
     panel, used_tables, used_donors = [], set(), set()
@@ -105,6 +112,7 @@ def prepare(source, prior, prm_source, output):
         "modes": MODES, "budget": BUDGET, "batch_size": BATCH_SIZE,
         "eligible_by_grade": {grade: len(groups[grade]) for grade in GRADES}, "audit_counts": counters,
         "cases": [{k: r[k] for k in ("id", "donor", "grade", "family")} for r in panel],
+        **({"reserved_manifest_sha256": digest(reserve)} if reserve else {}),
     })
 
 
@@ -143,6 +151,14 @@ def encode_case(tokenizer, row):
             "archive_last": [*before, *current, *archive, *after]}
 
 
+def select_table(records, requested_id):
+    """Resolve a caller-supplied ID, rejecting missing or ambiguous records."""
+    matches = [record for record in records if record["id"] == requested_id]
+    if len(matches) != 1:
+        raise ValueError("Requested table ID must identify exactly one record")
+    return matches[0]
+
+
 def evaluate(root, work, index, unrelated=False):
     import torch
     from eval_kam_adapter_preservation import load_checkpoint
@@ -167,6 +183,29 @@ def evaluate(root, work, index, unrelated=False):
     gpu = torch.cuda.get_device_name()
     assert gpu == "NVIDIA RTX PRO 6000 Blackwell Server Edition"
     encoded = [encode_case(tokenizer, row) for row in data]
+    authority = json.loads((work / "manifest.json").read_text()) if not unrelated else {}
+    routing = {}
+    if "reserved_manifest_sha256" in authority:
+        started = monotonic()
+        for i, row in enumerate(data):
+            records = [
+                {"id": row["donor"], "table": row["archived"]},
+                {"id": row["id"], "table": row["current"]},
+            ]
+            requested = row["id"]
+            table = select_table(records, requested)
+            assert table == select_table(records[::-1], requested)
+            for invalid in ([records[0]], [table, table]):
+                try:
+                    select_table(invalid, requested)
+                except ValueError:
+                    continue
+                raise AssertionError("Typed route accepted a missing or duplicated ID")
+            routed = encode_case(tokenizer, {**row, "current": table["table"]})["current_only"]
+            assert routed == encoded[i]["current_only"]
+            encoded[i]["current_only"] = routed
+        routing = {"typed_exact_prompt_matches": len(data), "typed_missing_id_rejections": len(data),
+                   "typed_duplicate_id_rejections": len(data), "typed_qa_seconds": monotonic() - started}
     assert all(len(e["archive_first"]) == len(e["archive_last"]) <= CONTEXT - BUDGET for e in encoded)
     order = sorted(range(len(data)), key=lambda i: (len(encoded[i]["current_only"]), i))
     records = [{k: row[k] for k in ("id", "grade", "family")} for row in data]
@@ -200,7 +239,7 @@ def evaluate(root, work, index, unrelated=False):
                   "baseline_generation_sha256": digest(original_path)}
         records = [row for row in records if row["id"] in controls]
     write_json(work / f"tabmwp-{key(*run)}.json", {
-        "metadata": {**metadata, **parity, "protocol": UNRELATED_PROTOCOL if unrelated else PROTOCOL,
+        "metadata": {**metadata, **parity, **routing, "protocol": UNRELATED_PROTOCOL if unrelated else PROTOCOL,
                      "manifest_sha256": manifest, "gpu": gpu,
                      "selection_sha256": digest(selection_path), "seconds": seconds}, "records": records,
     })
@@ -236,6 +275,7 @@ if __name__ == "__main__":
     prep = operations.add_parser("prepare")
     for name in ("source", "prior", "prm_source", "output"):
         prep.add_argument(name, type=Path)
+    prep.add_argument("--reserve", type=Path)
     gpu = operations.add_parser("evaluate")
     gpu.add_argument("root", type=Path)
     gpu.add_argument("work", type=Path)
@@ -248,7 +288,7 @@ if __name__ == "__main__":
     grading.add_argument("--unrelated", action="store_true")
     args = cli.parse_args()
     if args.operation == "prepare":
-        prepare(args.source, args.prior, args.prm_source, args.output)
+        prepare(args.source, args.prior, args.prm_source, args.output, args.reserve)
     elif args.operation == "evaluate":
         evaluate(args.root, args.work, args.index, args.unrelated)
     else:
