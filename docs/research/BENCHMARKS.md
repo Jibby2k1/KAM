@@ -231,6 +231,10 @@ On the same holdout with frozen weights, full-model 4K prefill fell from 196.59 
 
 Reserving the first block inside the eight-slot shortlist raised retained dense mass from 53.19% to 93.92% on prunable queries. On the same holdout, protected depths of 8, 16 and 32 gave PG-19 perplexity of 10.49, 10.80 and 11.20, compared with Flash at 10.21. Mirrored MuSiQue was 65.31%, 59.58% and 53.33%, compared with Flash at 68.44%. In the interleaved 4K profile, protected prefill cut p50 by 1.20%, 2.23% and 4.38%, with 469.14 MiB of incremental peak allocation throughout. [Layerwise mass, paired estimates and full timing](FIRST_BLOCK_ATTENTION.md)
 
+### Distant evidence and selective Flash
+
+At the final choice query, protecting the first block kept 14.98% of dense attention mass on earlier evidence beyond that block. The development-selected sixteen-layer Flash mask kept 75.43%, compared with 57.49% for the periodic mask. At the same 189.27 ms 4K median prefill, selected layers improved perplexity from 10.80 to 10.48. Mirrored MuSiQue was 59.38% selected and 59.58% periodic, a −0.21-point paired gap [−4.60, +4.22]. Flash scored 10.21 and 68.44% at 193.63 ms. [Layer-head audit and matched comparison](DISTANT_EVIDENCE_FALLBACK.md)
+
 ### Release-clock follow-up
 
 On 61 public release snapshots where GitHub and PyPI timestamps changed the correct version, neither fitted arm solved both clocks in all four answer placements. Clock eligibility constraints raised this rate to 59.02% KAM and 53.55% dot. [Release-clock evaluation](OVERNIGHT_ROUTING.md#public-release-clocks)
