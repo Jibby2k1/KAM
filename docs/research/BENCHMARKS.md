@@ -163,6 +163,8 @@ On the 94-question matched subset at exact input length, replacing the same-topi
 
 On 128 fresh questions from previously unused title/header groups, typed current-table selection scored 50.78% KAM and 49.48% dot. Direct reading with the archive last scored 27.86% and 24.48%. The typed route used the correct caller-supplied record ID. [Overnight TabMWP follow-up](OVERNIGHT_ROUTING.md#fresh-tabmwp-results)
 
+An exact-length replication on 83 of those questions raised KAM from 38.55% with a same-topic archive to 53.82% with a different-topic archive. Dot rose from 34.14% to 55.02%. The paired interval for the difference between their gains spans zero. [Fresh exact-length replication](OVERNIGHT_ROUTING.md#fresh-exact-length-replication)
+
 ### Live MuSiQue and release-clock routing
 
 On 128 fresh questions from the publisher's MuSiQue training stratum, online sequential selection reached 65.36% KAM and 72.92% dot across all four placements. Batched mirrored selection reached 76.56% and 74.48%, with median isolated latency of 56.25 ms and 55.99 ms. The fitted adapters and their KL weights remained fixed. [Scope and deadline sweep](OVERNIGHT_ROUTING.md#live-musique-results)

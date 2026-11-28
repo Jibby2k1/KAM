@@ -92,6 +92,8 @@
       <p>Using that two-pass rule at each earlier order, KAM was correct in both orders on 71.63% of questions and dot on 73.61%. The paired interval for their difference spans zero. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/PRETRAINED_ENDPOINT_CHOICE.md#both-earlier-passages-visible">Matched evidence experiment</a></p>
       <h3>Choose the earlier passage first</h3>
       <p>The sequential path first chooses one earlier passage and then shows just that passage with the two endpoints. Across all four orders, it raised KAM from 12.90% to 66.87% and dot from 17.86% to 72.82%. It sent about 519 input tokens through two calls per decision, compared with 397 through the original direct call. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/PRETRAINED_ENDPOINT_CHOICE.md#separate-the-two-hops">Two-hop comparison</a></p>
+      <h3>Give each decision a deadline</h3>
+      <p>On 128 fresh MuSiQue questions from the publisher’s training split, a question counted as solved only if all four placements were correct and each decision took at most 60 ms. Mirrored scoring solved 61.20% for KAM and 61.72% for dot. The live sequential route solved 44.01% and 49.74%. These GPU timings start with fixed candidates and include the model calls and choice. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/OVERNIGHT_ROUTING.md#live-musique-results">Live routing experiment</a></p>
     </section>
     <section id="math-evaluation">
       <h2>Grade the mathematics across answer forms</h2>
@@ -145,6 +147,8 @@
       </table>
       <p>The two archive orders have the same input length. Both adapters scored lower with the archive nearest the question. The result motivates checking which source a reader uses before measuring its arithmetic. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/TABMWP_ARCHIVE_NOISE.md">Matched table analysis</a></p>
       <p>On 94 questions where we could match lengths exactly, replacing the same-topic archive with a different-topic archive raised accuracy by 28.01 points for KAM and 22.70 for dot. The current table and question stayed fixed. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/TABMWP_ARCHIVE_NOISE.md#exact-length-different-topic-control">Equal-length comparison</a></p>
+      <p>On a fresh 128-question panel, selecting the current table by its supplied record ID scored 50.78% for KAM and 49.48% for dot. Reading both tables with the archive last scored 27.86% and 24.48%. The experiment measures the benefit of a correct source ID. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/OVERNIGHT_ROUTING.md#fresh-tabmwp-results">Typed source selection</a></p>
+      <p>The equal-length result also held on 83 fresh questions. The different-topic archive raised scores by 15.26 points for KAM and 20.88 for dot. <a href="https://github.com/Jibby2k1/KAM/blob/main/docs/research/OVERNIGHT_ROUTING.md#fresh-exact-length-replication">Fresh exact-length replication</a></p>
     </section>
     <section id="research">
       <h2>Read the studies</h2>

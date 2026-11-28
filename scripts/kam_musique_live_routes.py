@@ -20,6 +20,9 @@ PROTOCOL = "kam-musique-live-routes-v1"
 ROUTES = ("direct", "sequential", "mirrored")
 LEXICAL_PROTOCOL = "kam-musique-lexical-route-v1"
 LEXICAL_ROUTES = ("direct", "lexical")
+SHORT_MIRROR_PROTOCOL = "kam-musique-short-mirror-v1"
+SHORT_MIRROR_ROUTES = ("lexical", "mirrored", "lexical_mirrored")
+ROUTE_SETS = {PROTOCOL: ROUTES, LEXICAL_PROTOCOL: LEXICAL_ROUTES, SHORT_MIRROR_PROTOCOL: SHORT_MIRROR_ROUTES}
 
 
 def prepare(source, prior, output):
@@ -83,7 +86,7 @@ def prepare(source, prior, output):
     })
 
 
-def evaluate(root, work, index, lexical=False):
+def evaluate(root, work, index, protocol=PROTOCOL):
     import torch
     from eval_kam_adapter_preservation import load_checkpoint
     from eval_kam_pretrained import CONTEXT, next_logits, pad
@@ -95,7 +98,7 @@ def evaluate(root, work, index, lexical=False):
     frozen = work / "manifest.json"
     manifest = json.loads(frozen.read_text())
     panel = work / "panel.json"
-    protocol, routes = (LEXICAL_PROTOCOL, LEXICAL_ROUTES) if lexical else (PROTOCOL, ROUTES)
+    routes = ROUTE_SETS[protocol]
     assert manifest["protocol"] == protocol and tuple(manifest["routes"]) == routes
     assert manifest["panel_sha256"] == digest(panel)
     pairs = json.loads(panel.read_text())
@@ -124,7 +127,7 @@ def evaluate(root, work, index, lexical=False):
     assert all(len(x) == 1 for x in letter) and letter[0] != letter[1]
     labels = [x[0] for x in letter]
     lexical_inputs = {}
-    if lexical:
+    if "lexical" in routes:
         for pair in eligible:
             snippets = [q["evidence"][0]["title"] + ". " + q["evidence"][0]["body"] for q in pair["questions"]]
             ids = [tokenizer.encode(s, add_special_tokens=False)[:512] for s in snippets]
@@ -147,11 +150,14 @@ def evaluate(root, work, index, lexical=False):
         if name == "mirrored":
             score, swapped = margins([inputs[j], inputs[j ^ 1]])
             return score - swapped, len(inputs[j]) + len(inputs[j ^ 1]), None
-        if name == "lexical":
+        if name in ("lexical", "lexical_mirrored"):
             question, texts, original = lexical_inputs[rows[j]["question"]]
             candidates = texts if original == slot else texts[::-1]
             first, = rank(question, candidates, limit=1)
             mode = "true_prefix" if first == slot else "cross_prefix"
+            if name == "lexical_mirrored":
+                score, swapped = margins([endpoint[mode][j], endpoint[mode][j ^ 1]])
+                return score - swapped, len(endpoint[mode][j]) + len(endpoint[mode][j ^ 1]), first == slot
             score, = margins([endpoint[mode][j]])
             return score, len(endpoint[mode][j]), first == slot
         first_index = j if rows[j]["expected"] == slot else j ^ 1
@@ -199,9 +205,12 @@ if __name__ == "__main__":
     gpu.add_argument("root", type=Path)
     gpu.add_argument("work", type=Path)
     gpu.add_argument("index", type=int)
-    gpu.add_argument("--lexical", action="store_true")
+    variant = gpu.add_mutually_exclusive_group()
+    variant.add_argument("--lexical", dest="protocol", action="store_const", const=LEXICAL_PROTOCOL)
+    variant.add_argument("--short-mirror", dest="protocol", action="store_const", const=SHORT_MIRROR_PROTOCOL)
+    gpu.set_defaults(protocol=PROTOCOL)
     args = parser.parse_args()
     if args.command == "prepare":
         prepare(args.source, args.prior, args.output)
     else:
-        evaluate(args.root, args.work, args.index, args.lexical)
+        evaluate(args.root, args.work, args.index, args.protocol)

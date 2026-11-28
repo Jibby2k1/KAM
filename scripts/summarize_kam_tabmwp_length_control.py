@@ -13,15 +13,17 @@ from summarize_kam_adapter_preservation import read_archive
 from summarize_kam_pretrained_endpoint_selection import family_difference
 
 
-def summarize(work, benchmark, selection_path):
-    manifest_path = benchmark / "unrelated-manifest.json"
+def summarize(work, benchmark, selection_path, *, manifest_path=None, original_manifest=None, original_outcomes=None):
+    manifest_path = manifest_path or benchmark / "unrelated-manifest.json"
+    original_manifest = original_manifest or benchmark / "fixture-manifest.json"
+    original_outcomes = original_outcomes or benchmark / "llama3-outcomes.json.gz"
     manifest = json.loads(manifest_path.read_text())
     assert manifest["protocol"] == UNRELATED_PROTOCOL
-    assert manifest["original_manifest_sha256"] == digest(benchmark / "fixture-manifest.json")
+    assert manifest["original_manifest_sha256"] == digest(original_manifest)
     ids = [c["id"] for c in manifest["cases"]]
     families = [c["family"] for c in manifest["cases"]]
     assert len(ids) == len(set(ids)) == manifest["n"]
-    old = read_archive(benchmark / "llama3-outcomes.json.gz")
+    old = read_archive(original_outcomes)
     recipe = json.loads(selection_path.read_text())["selected_recipe"]
     runs = test_runs(recipe)
     flags, checkpoints, hashes = {}, {}, {}
@@ -78,5 +80,9 @@ if __name__ == "__main__":
     cli = argparse.ArgumentParser(description=__doc__)
     for name in ("work", "benchmark", "selection", "output"):
         cli.add_argument(name, type=Path)
+    for name in ("manifest-path", "original-manifest", "original-outcomes"):
+        cli.add_argument("--" + name, type=Path)
     args = cli.parse_args()
-    write_json(args.output, summarize(args.work, args.benchmark, args.selection))
+    write_json(args.output, summarize(args.work, args.benchmark, args.selection,
+                                      manifest_path=args.manifest_path, original_manifest=args.original_manifest,
+                                      original_outcomes=args.original_outcomes))

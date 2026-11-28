@@ -8,7 +8,7 @@ import numpy as np
 
 from kam_adapter_preservation import ARMS, SEEDS, digest, key
 from kam_math_kl_protocol import test_runs, write_json
-from kam_musique_live_routes import LEXICAL_PROTOCOL, LEXICAL_ROUTES, PROTOCOL, ROUTES
+from kam_musique_live_routes import ROUTE_SETS, SHORT_MIRROR_PROTOCOL
 from probe_kam_batch_retirement import PROTOCOL as RETIREMENT_PROTOCOL
 from summarize_kam_adapter_preservation import read_archive
 from summarize_kam_pretrained_endpoint_selection import family_difference
@@ -62,8 +62,8 @@ def calibration_bias(path):
 def live(work, manifest_path, study, calibration=None):
     manifest = json.loads(manifest_path.read_text())
     protocol = manifest["protocol"]
-    assert protocol in (PROTOCOL, LEXICAL_PROTOCOL)
-    routes = LEXICAL_ROUTES if protocol == LEXICAL_PROTOCOL else ROUTES
+    routes = ROUTE_SETS[protocol]
+    reference = "mirrored" if protocol == SHORT_MIRROR_PROTOCOL else "direct"
     assert tuple(manifest["routes"]) == routes
     cases, hashes, checkpoint, scores = {}, {}, {}, {},
     excluded = None
@@ -111,7 +111,7 @@ def live(work, manifest_path, study, calibration=None):
                         str(budget): int((correct & (ms <= budget)).all(axis=1).sum()) for budget in BUDGETS_MS
                     },
                 }
-                if route == "lexical":
+                if route in ("lexical", "lexical_mirrored"):
                     first = np.array([o["first_correct"] for o in observed]).reshape(-1, 4)
                     checkpoint[name][split][route]["first_correct_all_placements"] = int(first.all(axis=1).sum())
     recipe = json.loads((study / "llama3-selection.json").read_text())["selected_recipe"]
@@ -125,8 +125,8 @@ def live(work, manifest_path, study, calibration=None):
             contrasts[split][route] = {
                 "kam_minus_dot": family_difference(arms["kam"], arms["dot"], families),
                 "arm_accuracy": {arm: float(matrix.mean()) for arm, matrix in arms.items()},
-                "against_direct": {arm: family_difference(matrix, values["direct"][arm], families)
-                                   for arm, matrix in arms.items()},
+                f"against_{reference}": {arm: family_difference(matrix, values[reference][arm], families)
+                                          for arm, matrix in arms.items()},
             }
     return {"manifest_sha256": digest(manifest_path), "excluded_pairs": sorted(excluded),
             "checkpoints": checkpoint, "contrasts": contrasts, "outcome_sha256": hashes,

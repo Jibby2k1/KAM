@@ -21,6 +21,16 @@ The archive-last drop from the typed route was 22.92 points for KAM and 25.00 fo
 
 The length follow-up reserves the earlier control donor IDs and substitutes a different-topic archive of identical Llama token length on 83 of these 128 questions. Use the original two batch groups and retain the unchanged rows to check output parity. The comparison measures the effect of changing the archive contents at fixed input shape. [Frozen length-control panel](../../results/general_benchmarks_overnight/length-manifest.json)
 
+### Fresh exact-length replication
+
+| Archive context on the 83 matched questions | Untouched | KAM | Dot |
+| --- | ---: | ---: | ---: |
+| Current only | 60.24% | 66.27% | 64.26% |
+| Same-topic archive last | 37.35% | 38.55% | 34.14% |
+| Different-topic archive last | 55.42% | 53.82% | 55.02% |
+
+Across 63 source groups, changing the archive improved accuracy by 15.26 points for KAM [4.39, 25.93] and 20.88 for dot [9.96, 31.82]. The paired change in the KAM–dot gap was −5.62 points [−13.18, +2.22]. The current table, question, archive position and token length were fixed. Each checkpoint reproduced the 45 unchanged outputs exactly. Archive-content interference replicated in both arms. [Paired summary](../../results/general_benchmarks_overnight/length-summary.json) · [Numeric outcomes](../../results/general_benchmarks_overnight/length-outcomes.json.gz) · [GPU receipts](../../results/general_benchmarks_overnight/length-scheduler.tsv)
+
 ## Live MuSiQue results
 
 After the tokenizer visibility check, 128 questions in 48 relation families remained in the publisher's training stratum. The held-out development stratum retained six questions and is reported separately as a small check. The earlier study's question IDs, normalized wordings, relation families and supporting titles were reserved in both strata.
@@ -38,6 +48,10 @@ As a follow-up, a single offset fitted only on the prior panel adjusted the A/B 
 ### One-pass lexical routing follow-up
 
 Rerun direct with the same frozen panel, then compare a CPU BM25 choice between the two equally truncated earlier passages followed by one GPU endpoint call. BM25 uses the question and the actual display-order texts, breaking ties by the supplied order. Confirm first-hop accuracy across both earlier positions, assess all-four endpoint success, and include the CPU rank operation in the same warmed elapsed-time scope. This is a fixed-pool test of a cheap first-stage selector. [Frozen comparison](../../results/general_benchmarks_overnight/lexical-manifest.json)
+
+### Mirroring with a shorter context
+
+Time three routes on the same GPU for each matched checkpoint. Compare BM25 followed by one endpoint view, mirroring with both earlier passages, and BM25 followed by two mirrored endpoint views in one launch. The first two routes control for the extra endpoint view and for dropping an earlier passage. Keep the four-presentation accuracy and 40/60 ms deadlines. Check first-hop agreement across the two lexical routes. This is a mechanism and latency comparison on the same frozen panel. [Frozen comparison](../../results/general_benchmarks_overnight/short-mirror-manifest.json)
 
 ## Physical batch retirement probe
 
