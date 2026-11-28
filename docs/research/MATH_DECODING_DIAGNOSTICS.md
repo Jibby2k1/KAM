@@ -61,3 +61,14 @@ The Llama amplitude diagnostic multiplies all four fitted adapter output project
 | Dot, half | 28.73% | 13.87% | 3.80% | 339.18 | 500.31 |
 
 The excess KAM cap-hit rate decreased from 9.87 to 2.73 points. The paired change was −7.13 points [−10.33, −3.93]. The corresponding change in the KAM–dot accuracy gap was +0.40 points [−3.20, +4.00]. The mean elapsed time for batch-64 generation was within one second of the original for each arm. [Matched outcome summary](../../results/general_benchmarks_full_math500/llama3-half-scale-summary.json) · [Half-scale numerical records](../../results/general_benchmarks_full_math500/llama3-half-scale-outcomes.json.gz) · [Scheduler receipts](../../results/general_benchmarks_full_math500/llama3-half-scale-scheduler.tsv)
+
+### Replication on 478 disjoint MATH questions
+
+| Adapter and residual scale | Verified accuracy | Cap-hit rate | High repetition at cap | Mean output tokens | Generation, s |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| KAM, full | 29.08% | 17.22% | 7.53% | 338.67 | 484.83 |
+| KAM, half | 31.17% | 11.09% | 4.39% | 314.41 | 484.23 |
+| Dot, full | 28.17% | 11.02% | 4.46% | 292.14 | 482.67 |
+| Dot, half | 28.87% | 9.97% | 3.28% | 302.85 | 482.53 |
+
+The registered cap-hit gap changed from 6.21 to 1.12 points, a paired reduction of **5.09 points** [2.09, 8.16]. The cap-hit gap fell in all three seeds on both math cohorts. The accuracy-gap change was +1.39 points [−2.02, +4.81]. Mean batch-64 time stayed within one second per arm. This replication establishes an effect on how often the model reaches the cap on these cohorts. [Replication summary](../../results/general_benchmarks_math_types/llama3-half-scale-summary.json) · [Numeric outcomes](../../results/general_benchmarks_math_types/llama3-half-scale-outcomes.json.gz) · [Repetition flags](../../results/general_benchmarks_math_types/llama3-half-scale-repetition.json) · [Scheduler receipt](../../results/general_benchmarks_math_types/llama3-half-scale-scheduler.tsv) · [Summarizer](../../scripts/summarize_kam_math500_half_scale.py)

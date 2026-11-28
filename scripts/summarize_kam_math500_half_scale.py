@@ -27,9 +27,11 @@ def enumerate_run(payload, tokens):
     return summary, flags
 
 
-def summarize(half, original, raw_half, repetition_full):
+def summarize(half, original, raw_or_repetition, repetition_full, export_repetition=None):
     source = read_archive(original)
     full_repetition = json.loads(repetition_full.read_text())
+    scaled_replay = json.loads(raw_or_repetition.read_text()) if raw_or_repetition.is_file() else None
+    features = {}
     observations, vectors, hashes = {}, {}, {}
     n = None
     for seed in SEEDS:
@@ -38,9 +40,6 @@ def summarize(half, original, raw_half, repetition_full):
             full = source(f"graded-{name}")
             scaled_path = half / f"graded-{name}.json"
             scaled = json.loads(scaled_path.read_text())
-            raw_path = raw_half / f"neutral-{name}.json"
-            raw = json.loads(raw_path.read_text())
-            assert digest(raw_path) == scaled["metadata"]["generation_sha256"]
             a, b = full["metadata"], scaled["metadata"]
             assert a["model"] == b["model"] == LLAMA_ID
             assert (b["seed"], b["recipe"], b["arm"]) == (seed, "lower_lr_kl05", arm)
@@ -52,13 +51,25 @@ def summarize(half, original, raw_half, repetition_full):
             if "manifest_sha256" in a:
                 assert a["manifest_sha256"] == b["manifest_sha256"]
             pairs = [r["id"] for r in full["records"]]
-            assert pairs == [r["id"] for r in scaled["records"]] == [r["id"] for r in raw["records"]]
+            assert pairs == [r["id"] for r in scaled["records"]]
             assert [r["prompt_tokens"] for r in full["records"]] == [r["prompt_tokens"] for r in scaled["records"]]
             n = len(pairs) if n is None else n
             assert len(pairs) == n
             archived = set(full_repetition["flag_ids"][name]["full"])
             full_tokens = [ident in archived for ident in pairs]
-            half_tokens = [repetitive(r["completion"]) for r in raw["records"]]
+            if scaled_replay is None:
+                raw_path = raw_or_repetition / f"neutral-{name}.json"
+                assert digest(raw_path) == b["generation_sha256"]
+                raw_rows = json.loads(raw_path.read_text())["records"]
+                assert pairs == [r["id"] for r in raw_rows]
+                repeated = [row["id"] for row in raw_rows if repetitive(row["completion"])]
+                features[name] = {"generation_sha256": b["generation_sha256"], "ids": repeated}
+            else:
+                features[name] = scaled_replay[name]
+                assert features[name]["generation_sha256"] == b["generation_sha256"]
+            marked = set(features[name]["ids"])
+            assert marked.issubset(pairs) and len(marked) == len(features[name]["ids"])
+            half_tokens = [ident in marked for ident in pairs]
             observations[name], vectors[name] = {}, {}
             for group, payload, feature in (("full", full, full_tokens), ("half", scaled, half_tokens)):
                 observations[name][group], vectors[name][group] = enumerate_run(payload, feature)
@@ -75,6 +86,8 @@ def summarize(half, original, raw_half, repetition_full):
                                                  half["dot"].astype(np.int8) + full["kam"]),
             "half_minus_full": {arm: difference(half[arm], full[arm]) for arm in ARMS},
         }
+    if export_repetition is not None:
+        write_json(export_repetition, features)
     return {"model": LLAMA_ID, "seeds": SEEDS, "n": n, "checkpoints": observations,
             "contrasts": contrasts, "scaled_outcome_sha256": hashes}
 
@@ -83,8 +96,11 @@ if __name__ == "__main__":
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument("half", type=Path)
     cli.add_argument("original", type=Path)
-    cli.add_argument("raw_half", type=Path)
+    cli.add_argument("raw_or_repetition", type=Path,
+                     help="private generation folder or exported public repetition flags")
     cli.add_argument("repetition_full", type=Path)
     cli.add_argument("output", type=Path)
+    cli.add_argument("--export-repetition", type=Path)
     args = cli.parse_args()
-    write_json(args.output, summarize(args.half, args.original, args.raw_half, args.repetition_full))
+    write_json(args.output, summarize(args.half, args.original, args.raw_or_repetition, args.repetition_full,
+                                      args.export_repetition))
